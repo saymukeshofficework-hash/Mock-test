@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>शिक्षक पात्रता परीक्षा (Mock Test)</title>
+<style>
+  :root{
+    --blue:#2b5aa7; --blue-dark:#1e3f7a; --green:#3fa142; --red:#d9534f;
+    --grey:#9e9e9e; --purple:#7b3fa0; --lightblue:#eaf1fb; --border:#d7dde5;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:Arial,Segoe UI,Helvetica,sans-serif;background:#f2f4f7;color:#222;}
+  header.topbar{background:var(--blue-dark);color:#fff;padding:8px 16px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;}
+  header.topbar h1{font-size:16px;margin:0;font-weight:600;}
+  .timer{font-weight:bold;background:#fff;color:var(--blue-dark);padding:4px 10px;border-radius:4px;}
+  #app{max-width:1300px;margin:0 auto;}
+
+  /* ---------- Instructions Screen ---------- */
+  #instructionsScreen{background:#fff;margin:16px;border:1px solid var(--border);}
+  .instr-header{background:var(--lightblue);padding:10px 16px;font-weight:bold;font-size:16px;border-bottom:1px solid var(--border);}
+  .instr-body{padding:20px;line-height:1.6;font-size:14px;max-height:420px;overflow-y:auto;}
+  .instr-body h3{margin-top:0;}
+  .instr-body li{margin-bottom:6px;}
+  .status-chip{display:inline-flex;align-items:center;gap:8px;margin:4px 0;}
+  .box{width:22px;height:22px;border-radius:3px;color:#fff;font-size:12px;display:flex;align-items:center;justify-content:center;font-weight:bold;flex-shrink:0;}
+  .box.grey{background:var(--grey);} .box.red{background:var(--red);} .box.green{background:var(--green);} .box.purple{background:var(--purple);}
+  .instr-footer{padding:14px 20px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;}
+  .agree-row{font-size:13px;display:flex;gap:8px;align-items:flex-start;}
+  select{padding:4px 8px;border:1px solid var(--border);border-radius:4px;}
+  button{cursor:pointer;font-size:14px;border-radius:4px;border:1px solid var(--border);padding:8px 16px;background:#fff;}
+  button:disabled{opacity:.5;cursor:not-allowed;}
+  .btn-primary{background:var(--blue);color:#fff;border-color:var(--blue);}
+  .btn-primary:hover{background:var(--blue-dark);}
+
+  /* ---------- Test Screen ---------- */
+  #testScreen{display:none;}
+  .section-tabs{display:flex;background:#fff;border-bottom:1px solid var(--border);overflow-x:auto;}
+  .section-tab{padding:10px 14px;font-size:12px;font-weight:600;color:#333;cursor:pointer;white-space:nowrap;border-right:1px solid var(--border);}
+  .section-tab.active{background:var(--blue);color:#fff;}
+
+  .main-layout{display:flex;gap:0;align-items:flex-start;overflow-x:auto;}
+  .question-panel{flex:1;background:#fff;margin:0;min-width:260px;border-right:1px solid var(--border);}
+  .qtype-bar{display:flex;justify-content:space-between;align-items:center;padding:8px 16px;font-size:13px;background:#fafbfc;border-bottom:1px solid var(--border);}
+  .view-lang{padding:8px 16px;background:var(--blue);color:#fff;display:flex;justify-content:flex-end;align-items:center;gap:8px;font-size:13px;}
+  .view-lang select{color:#222;}
+  .question-body{padding:20px;min-height:280px;}
+  .question-body h3{margin-top:0;font-size:14px;color:#555;}
+  .qtext{font-size:15px;margin-bottom:18px;font-weight:600;}
+  .option{display:flex;gap:10px;align-items:flex-start;margin-bottom:14px;font-size:14px;cursor:pointer;}
+  .option input{margin-top:3px;}
+  .action-bar{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-top:1px solid var(--border);flex-wrap:wrap;gap:8px;background:#fafbfc;}
+  .action-bar .left-btns, .action-bar .right-btns{display:flex;gap:8px;flex-wrap:wrap;}
+
+  .sidebar{width:280px;flex-shrink:0;background:#fff;padding:14px;border-left:1px solid var(--border);}
+  .candidate{display:flex;gap:10px;align-items:center;margin-bottom:14px;}
+  .avatar{width:56px;height:56px;border-radius:4px;background:#ccc;display:flex;align-items:center;justify-content:center;font-size:22px;color:#666;}
+  .legend{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px;font-size:11px;}
+  .legend .item{display:flex;align-items:center;gap:6px;}
+  .legend .num{width:20px;height:20px;border-radius:3px;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:11px;flex-shrink:0;}
+  .sec-select-title{background:var(--blue);color:#fff;padding:8px 10px;font-size:12px;font-weight:bold;margin-bottom:8px;}
+  .palette-title{font-size:12px;font-weight:bold;margin:8px 0;color:#555;}
+  .palette{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;}
+  .qnum{aspect-ratio:1;border-radius:3px;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:13px;cursor:pointer;border:2px solid transparent;}
+  .qnum.current{border-color:#000;}
+  .submit-row{margin-top:16px;text-align:center;}
+  .submit-row button{width:100%;}
+
+  /* ---------- Result Screen ---------- */
+  #resultScreen{display:none;background:#fff;margin:16px;padding:24px;border:1px solid var(--border);}
+  .result-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin:20px 0;}
+  .result-card{border:1px solid var(--border);border-radius:6px;padding:16px;text-align:center;}
+  .result-card .num{font-size:26px;font-weight:bold;}
+  .result-card.correct .num{color:var(--green);}
+  .result-card.incorrect .num{color:var(--red);}
+  .result-card.unattempted .num{color:var(--grey);}
+  .result-card.score .num{color:var(--blue);}
+  .sec-breakdown{width:100%;border-collapse:collapse;margin-top:10px;font-size:13px;}
+  .sec-breakdown th,.sec-breakdown td{border:1px solid var(--border);padding:8px;text-align:center;}
+  .sec-breakdown th{background:var(--lightblue);}
+
+  @media(max-width:900px){
+    .main-layout{flex-direction:column;overflow-x:visible;}
+    .sidebar{width:100%;border-left:none;border-top:1px solid var(--border);}
+  }
+
+</style>
+</head>
+<body>
+<div id="app">
+
+  <header class="topbar">
+    <h1 id="examTitle">शिक्षक पात्रता परीक्षा (Mock Test) (150 Q | 150 Marks | 2:30 Hrs)</h1>
+    <div class="timer" id="timerDisplay">Time Left : 150:00</div>
+  </header>
+
+  <!-- NAME ENTRY SCREEN -->
+  <div id="nameScreen" style="background:#fff;margin:16px;border:1px solid var(--border);padding:30px 20px;text-align:center;max-width:420px;margin-left:auto;margin-right:auto;">
+    <h2 style="margin-top:0;font-size:18px;">Enter Your Name to Begin</h2>
+    <p style="font-size:13px;color:#666;">Your name will appear on your test and result summary.</p>
+    <input type="text" id="candidateNameInput" placeholder="Your full name" style="width:100%;padding:10px;font-size:15px;border:1px solid var(--border);border-radius:4px;margin:14px 0;box-sizing:border-box;">
+    <div id="nameError" style="color:var(--red);font-size:12px;min-height:16px;"></div>
+    <button class="btn-primary" style="width:100%;padding:10px;margin-top:6px;" onclick="proceedToInstructions()">Continue</button>
+  </div>
+
+  <!-- INSTRUCTIONS SCREEN -->
+  <div id="instructionsScreen" style="display:none;">
+    <div class="instr-header">Instructions</div>
+    <div class="instr-body">
+      <h3>Please read the instructions carefully</h3>
+      <p><strong>General Instructions:</strong></p>
+      <ol>
+        <li>Total duration of examination is <strong>150 minutes (2 Hours 30 Minutes)</strong>.</li>
+        <li>The test has <strong>150 questions</strong> across 5 sections — Child Development &amp; Pedagogy, Language-1 (English), Language-2 (Hindi), Mathematics and Environmental Studies — <strong>30 questions each, 1 mark per question, no negative marking</strong>, total 150 marks.</li>
+        <li>The clock will be set at the server. The countdown timer will display the remaining time. When the timer reaches zero, the examination will end and auto-submit.</li>
+        <li>The Question Palette on the right will show the status of each question using the symbols below:</li>
+      </ol>
+      <div class="status-chip"><span class="box grey">1</span> You have not visited the question yet.</div><br>
+      <div class="status-chip"><span class="box red">2</span> You have not answered the question.</div><br>
+      <div class="status-chip"><span class="box green">3</span> You have answered the question.</div><br>
+      <div class="status-chip"><span class="box purple">4</span> You have marked the question for review.</div><br>
+      <ol start="4">
+        <li>The "Mark for Review" status simply means you would like to look at that question again. If a question is answered and marked for review, your answer for that question will still be considered in evaluation, unless changed.</li>
+        <li>To answer a question, select an option and click "Save &amp; Next".</li>
+        <li>To deselect a chosen answer, click "Clear Response".</li>
+        <li>To change your answer, select another option and click "Save &amp; Next".</li>
+        <li>Sections in this test will be displayed as tabs at the top. Questions in a section can be viewed by clicking the section name.</li>
+        <li>You can navigate between sections and questions anytime during the test, subject to the time constraint.</li>
+      </ol>
+      <p>Choose your default language:</p>
+      <select id="defaultLang">
+        <option value="en">English</option>
+        <option value="hi">हिन्दी (Hindi)</option>
+      </select>
+      <p style="color:#c0392b;font-size:13px;">Please note all questions will appear in your default language. This language can be changed for a particular question later on.</p>
+      <div class="agree-row">
+        <input type="checkbox" id="agreeBox">
+        <label for="agreeBox">I have read and understood the instructions. All computer hardware allotted to me is in proper working condition. I declare that I am not in possession of any prohibited material. I agree that in case of not adhering to the instructions, I shall be liable to disciplinary action.</label>
+      </div>
+    </div>
+    <div class="instr-footer">
+      <span style="font-size:12px;color:#777;">Candidate: <span id="candidateNameFooter">-</span></span>
+      <button class="btn-primary" id="beginBtn" disabled onclick="beginTest()">I am ready to begin</button>
+    </div>
+  </div>
+
+  <!-- TEST SCREEN -->
+  <div id="testScreen">
+    <div class="section-tabs" id="sectionTabs"></div>
+    <div class="main-layout">
+      <div class="question-panel">
+        <div class="qtype-bar">
+          <span>Question Type: MCQ</span>
+          <span id="qMeta">Marks for correct answer: 1 | Negative Marks: 0</span>
+        </div>
+        <div class="view-lang" id="langBarWrap">
+          View in:
+          <select id="qLangSelect" onchange="renderQuestion()">
+            <option value="en">English</option>
+            <option value="hi">हिन्दी</option>
+          </select>
+        </div>
+        <div class="question-body">
+          <h3 id="qNoLabel">Question No. 1</h3>
+          <div class="qtext" id="qText"></div>
+          <div id="optionsList"></div>
+        </div>
+        <div class="action-bar">
+          <div class="left-btns">
+            <button onclick="markForReviewAndNext()">Mark for Review &amp; Next</button>
+            <button onclick="clearResponse()">Clear Response</button>
+          </div>
+          <div class="right-btns">
+            <button onclick="prevQuestion()">Previous</button>
+            <button class="btn-primary" onclick="saveAndNext()">Save &amp; Next</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="sidebar">
+        <div class="candidate">
+          <div class="avatar">🧑</div>
+          <div><strong id="candidateNameSidebar">-</strong></div>
+        </div>
+        <div class="legend">
+          <div class="item"><span class="num" style="background:var(--green)" id="cntAnswered">0</span> Answered</div>
+          <div class="item"><span class="num" style="background:var(--red)" id="cntNotAnswered">0</span> Not Answered</div>
+          <div class="item"><span class="num" style="background:var(--grey)" id="cntNotVisited">0</span> Not Visited</div>
+          <div class="item"><span class="num" style="background:var(--purple)" id="cntMarked">0</span> Marked for Review</div>
+        </div>
+        <div class="sec-select-title" id="sidebarSectionName">SECTION</div>
+        <div class="palette-title">Choose a Question</div>
+        <div class="palette" id="palette"></div>
+        <div class="submit-row">
+          <button class="btn-primary" onclick="confirmSubmit()">Submit</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RESULT SCREEN -->
+  <div id="resultScreen">
+    <h2>Test Submitted</h2>
+    <p id="resultCandidateLine" style="color:#555;font-size:14px;"></p>
+    <p id="resultSummaryLine"></p>
+    <div class="result-grid">
+      <div class="result-card score"><div class="num" id="resScore">0</div><div>Score</div></div>
+      <div class="result-card correct"><div class="num" id="resCorrect">0</div><div>Correct</div></div>
+      <div class="result-card incorrect"><div class="num" id="resIncorrect">0</div><div>Incorrect</div></div>
+      <div class="result-card unattempted"><div class="num" id="resUnattempted">0</div><div>Unattempted</div></div>
+    </div>
+    <table class="sec-breakdown" id="secBreakdownTable">
+      <thead><tr><th>Section</th><th>Total</th><th>Correct</th><th>Incorrect</th><th>Unattempted</th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+</div>
+
+<script>
+/* ===================== CONFIG ===================== */
+const TOTAL_SECONDS = 150 * 60; // 2 hours 30 minutes (150 minutes)
+let timeLeft = TOTAL_SECONDS;
+let timerInterval = null;
+
+/* ===================== QUESTION DATA ===================== */
+// Pattern: Child Development & Pedagogy | Language-1 (English) | Language-2 (Hindi) | Mathematics | EVS
+// 30 questions per section x 5 sections = 150 questions total, 1 mark each, no negative marking.
+const sections = [
+  {
+    name: "Child Development & Pedagogy",
+    mode: "bilingual",
+    questions: [
+      {en:{q:"Who proposed the theory of cognitive development involving sensorimotor, preoperational, concrete operational and formal operational stages?", options:["Jean Piaget","Lev Vygotsky","B.F. Skinner","Sigmund Freud"]}, hi:{q:"संज्ञानात्मक विकास का सिद्धांत (संवेदी-गामक, पूर्व-संक्रियात्मक, मूर्त संक्रियात्मक, औपचारिक संक्रियात्मक अवस्थाएँ) किसने दिया?", options:["जीन पियाजे","लेव वाइगोत्स्की","बी.एफ. स्किनर","सिगमंड फ्रॉयड"]}, answer:0},
+      {en:{q:"According to Vygotsky, the gap between what a child can do independently and with guidance is called?", options:["Zone of Proximal Development","Schema","Conservation","Object Permanence"]}, hi:{q:"वाइगोत्स्की के अनुसार, बच्चा स्वतंत्र रूप से जो कर सकता है और मार्गदर्शन से जो कर सकता है, उसके अंतर को क्या कहते हैं?", options:["निकटस्थ विकास का क्षेत्र (ZPD)","स्कीमा","संरक्षण","वस्तु स्थायित्व"]}, answer:0},
+      {en:{q:"Multiple Intelligence theory was given by?", options:["Howard Gardner","Jean Piaget","Lawrence Kohlberg","B.F. Skinner"]}, hi:{q:"बहु-बुद्धि सिद्धांत किसने दिया?", options:["हावर्ड गार्डनर","जीन पियाजे","लॉरेंस कोहलबर्ग","बी.एफ. स्किनर"]}, answer:0},
+      {en:{q:"Which of the following is NOT one of Gardner's multiple intelligences?", options:["Linguistic Intelligence","Musical Intelligence","Naturalistic Intelligence","Common Sense Intelligence"]}, hi:{q:"निम्न में से कौन सी गार्डनर की बहु-बुद्धियों में से एक नहीं है?", options:["भाषिक बुद्धि","संगीतात्मक बुद्धि","प्रकृतिवादी बुद्धि","सामान्य ज्ञान बुद्धि"]}, answer:3},
+      {en:{q:"Kohlberg's theory deals with development of?", options:["Moral reasoning","Language","Physical growth","Motor skills"]}, hi:{q:"कोहलबर्ग का सिद्धांत किसके विकास से संबंधित है?", options:["नैतिक तर्कशक्ति","भाषा","शारीरिक वृद्धि","गामक कौशल"]}, answer:0},
+      {en:{q:"The RTE Act was passed in which year?", options:["2005","2009","2010","2012"]}, hi:{q:"शिक्षा का अधिकार अधिनियम (RTE) किस वर्ष पारित हुआ?", options:["2005","2009","2010","2012"]}, answer:1},
+      {en:{q:"As per the RTE Act, up to what age is education free and compulsory?", options:["6 years","10 years","14 years","18 years"]}, hi:{q:"RTE अधिनियम के अनुसार, किस आयु तक शिक्षा निःशुल्क और अनिवार्य है?", options:["6 वर्ष","10 वर्ष","14 वर्ष","18 वर्ष"]}, answer:2},
+      {en:{q:"Continuous and Comprehensive Evaluation (CCE) focuses on?", options:["Only scholastic areas","Only co-scholastic areas","Both scholastic and co-scholastic areas","Only final exams"]}, hi:{q:"सतत एवं व्यापक मूल्यांकन (CCE) किस पर केंद्रित है?", options:["केवल शैक्षिक क्षेत्र","केवल सह-शैक्षिक क्षेत्र","शैक्षिक और सह-शैक्षिक दोनों","केवल अंतिम परीक्षा"]}, answer:2},
+      {en:{q:"Which learning theory emphasizes reinforcement and punishment?", options:["Behaviorism","Constructivism","Humanism","Cognitivism"]}, hi:{q:"कौन सा अधिगम सिद्धांत पुनर्बलन और दंड पर बल देता है?", options:["व्यवहारवाद","रचनावाद","मानवतावाद","संज्ञानवाद"]}, answer:0},
+      {en:{q:"A child with difficulty in reading despite normal intelligence likely has?", options:["Dyscalculia","Dysgraphia","Dyslexia","ADHD"]}, hi:{q:"सामान्य बुद्धि के बावजूद पढ़ने में कठिनाई वाला बच्चा संभवतः किससे ग्रस्त है?", options:["डिस्कैल्कुलिया","डिसग्राफिया","डिस्लेक्सिया","ADHD"]}, answer:2},
+      {en:{q:"Formative assessment is conducted?", options:["During the teaching-learning process","Only at year end","Only before admission","Never"]}, hi:{q:"रचनात्मक (Formative) मूल्यांकन कब किया जाता है?", options:["शिक्षण-अधिगम प्रक्रिया के दौरान","केवल वर्ष के अंत में","केवल प्रवेश से पहले","कभी नहीं"]}, answer:0},
+      {en:{q:"Summative assessment is conducted?", options:["At the beginning of a course","During the course only","At the end of a course/term","Randomly"]}, hi:{q:"संकलनात्मक (Summative) मूल्यांकन कब किया जाता है?", options:["पाठ्यक्रम के आरंभ में","केवल पाठ्यक्रम के दौरान","पाठ्यक्रम/सत्र के अंत में","यादृच्छिक रूप से"]}, answer:2},
+      {en:{q:"NCF stands for?", options:["National Curriculum Framework","National Class Format","National Child Foundation","National Certificate Format"]}, hi:{q:"NCF का पूर्ण रूप क्या है?", options:["राष्ट्रीय पाठ्यचर्या की रूपरेखा","राष्ट्रीय कक्षा प्रारूप","राष्ट्रीय बाल फाउंडेशन","राष्ट्रीय प्रमाणपत्र प्रारूप"]}, answer:0},
+      {en:{q:"The NCF most referenced for CTET was released in?", options:["2000","2005","2009","2015"]}, hi:{q:"CTET हेतु सर्वाधिक संदर्भित NCF किस वर्ष जारी हुआ?", options:["2000","2005","2009","2015"]}, answer:1},
+      {en:{q:"Inclusive education means?", options:["Separate schools for disabled children","Educating children with and without disabilities together","Only special education","Homeschooling"]}, hi:{q:"समावेशी शिक्षा का अर्थ है?", options:["दिव्यांग बच्चों के लिए अलग विद्यालय","दिव्यांग और सामान्य बच्चों को एक साथ शिक्षा देना","केवल विशेष शिक्षा","गृह-शिक्षा"]}, answer:1},
+      {en:{q:"According to Piaget, object permanence develops during?", options:["Sensorimotor stage","Preoperational stage","Concrete operational stage","Formal operational stage"]}, hi:{q:"पियाजे के अनुसार, वस्तु स्थायित्व किस अवस्था में विकसित होता है?", options:["संवेदी-गामक अवस्था","पूर्व-संक्रियात्मक अवस्था","मूर्त संक्रियात्मक अवस्था","औपचारिक संक्रियात्मक अवस्था"]}, answer:0},
+      {en:{q:"Egocentrism is a characteristic of which Piagetian stage?", options:["Sensorimotor","Preoperational","Concrete operational","Formal operational"]}, hi:{q:"आत्मकेंद्रीयता (Egocentrism) पियाजे की किस अवस्था की विशेषता है?", options:["संवेदी-गामक","पूर्व-संक्रियात्मक","मूर्त संक्रियात्मक","औपचारिक संक्रियात्मक"]}, answer:1},
+      {en:{q:"Scaffolding refers to?", options:["Punishing wrong answers","Temporary support given by a more knowledgeable person","Ignoring the learner","Testing repeatedly"]}, hi:{q:"'स्कैफोल्डिंग' का अर्थ है?", options:["गलत उत्तर पर दंड देना","अधिक जानकार व्यक्ति द्वारा दी गई अस्थायी सहायता","शिक्षार्थी को नज़रअंदाज़ करना","बार-बार परीक्षण करना"]}, answer:1},
+      {en:{q:"Who is associated with 'operant conditioning'?", options:["B.F. Skinner","Ivan Pavlov","Jean Piaget","Carl Rogers"]}, hi:{q:"'क्रियाप्रसूत अनुबंधन' (Operant Conditioning) किससे संबंधित है?", options:["बी.एफ. स्किनर","इवान पावलोव","जीन पियाजे","कार्ल रोजर्स"]}, answer:0},
+      {en:{q:"Who is associated with 'classical conditioning'?", options:["B.F. Skinner","Ivan Pavlov","Lev Vygotsky","Howard Gardner"]}, hi:{q:"'शास्त्रीय अनुबंधन' (Classical Conditioning) किससे संबंधित है?", options:["बी.एफ. स्किनर","इवान पावलोव","लेव वाइगोत्स्की","हावर्ड गार्डनर"]}, answer:1},
+      {en:{q:"A gifted child is one who?", options:["Struggles in all subjects","Shows exceptionally high ability compared to peers","Cannot socialize","Needs no guidance"]}, hi:{q:"प्रतिभाशाली बालक वह है जो?", options:["सभी विषयों में संघर्ष करता है","साथियों की तुलना में असाधारण उच्च क्षमता दिखाता है","सामाजिकता में असमर्थ है","उसे किसी मार्गदर्शन की आवश्यकता नहीं"]}, answer:1},
+      {en:{q:"Which is an example of intrinsic motivation?", options:["Learning for a reward","Learning to avoid punishment","Learning because of interest in the subject","Learning to get praise"]}, hi:{q:"आंतरिक अभिप्रेरणा (Intrinsic Motivation) का उदाहरण कौन सा है?", options:["पुरस्कार के लिए सीखना","दंड से बचने के लिए सीखना","विषय में रुचि के कारण सीखना","प्रशंसा पाने के लिए सीखना"]}, answer:2},
+      {en:{q:"Socio-cultural theory of cognitive development was proposed by?", options:["Jean Piaget","Lev Vygotsky","Erik Erikson","B.F. Skinner"]}, hi:{q:"संज्ञानात्मक विकास का सामाजिक-सांस्कृतिक सिद्धांत किसने दिया?", options:["जीन पियाजे","लेव वाइगोत्स्की","एरिक एरिक्सन","बी.एफ. स्किनर"]}, answer:1},
+      {en:{q:"Individual differences among learners arise due to?", options:["Heredity only","Environment only","Both heredity and environment","Neither"]}, hi:{q:"शिक्षार्थियों में व्यक्तिगत विभिन्नताएँ किसके कारण होती हैं?", options:["केवल आनुवंशिकता","केवल वातावरण","आनुवंशिकता और वातावरण दोनों","दोनों में से कोई नहीं"]}, answer:2},
+      {en:{q:"The term 'pedagogy' refers to?", options:["The study of child diseases","The method and practice of teaching","A type of assessment","A school building"]}, hi:{q:"'शिक्षाशास्त्र' (Pedagogy) शब्द किसे संदर्भित करता है?", options:["बाल रोगों का अध्ययन","शिक्षण की विधि और अभ्यास","एक प्रकार का मूल्यांकन","विद्यालय भवन"]}, answer:1},
+      {en:{q:"Which best describes an 'inclusive classroom'?", options:["A classroom only for gifted children","A classroom accommodating diverse learners including those with disabilities","A classroom with no assessment","A classroom taught only in English"]}, hi:{q:"'समावेशी कक्षा' का सर्वोत्तम विवरण कौन सा है?", options:["केवल प्रतिभाशाली बच्चों के लिए कक्षा","दिव्यांग सहित विविध शिक्षार्थियों को समायोजित करने वाली कक्षा","बिना मूल्यांकन वाली कक्षा","केवल अंग्रेजी में पढ़ाई जाने वाली कक्षा"]}, answer:1},
+      {en:{q:"ADHD is characterized by?", options:["Excellent focus","Inattention, hyperactivity and impulsivity","Complete silence","Perfect memory"]}, hi:{q:"ADHD की विशेषता है?", options:["उत्कृष्ट एकाग्रता","असावधानी, अतिसक्रियता और आवेगशीलता","पूर्ण मौन","उत्तम स्मृति"]}, answer:1},
+      {en:{q:"According to Erikson, the psychosocial crisis during adolescence is?", options:["Trust vs Mistrust","Identity vs Role Confusion","Industry vs Inferiority","Intimacy vs Isolation"]}, hi:{q:"एरिक्सन के अनुसार, किशोरावस्था का मनो-सामाजिक संकट है?", options:["विश्वास बनाम अविश्वास","पहचान बनाम भूमिका-भ्रम","परिश्रम बनाम हीनता","आत्मीयता बनाम अलगाव"]}, answer:1},
+      {en:{q:"Which of the following is a co-scholastic area under CCE?", options:["Mathematics","Science","Art Education","Social Studies"]}, hi:{q:"CCE के अंतर्गत निम्न में से कौन सा सह-शैक्षिक क्षेत्र है?", options:["गणित","विज्ञान","कला शिक्षा","सामाजिक अध्ययन"]}, answer:2},
+      {en:{q:"Constructivism in education emphasizes that learners?", options:["Passively receive knowledge","Actively construct their own knowledge through experience","Memorize facts only","Depend entirely on teachers"]}, hi:{q:"शिक्षा में रचनावाद इस पर बल देता है कि शिक्षार्थी?", options:["निष्क्रिय रूप से ज्ञान प्राप्त करते हैं","अनुभव द्वारा सक्रिय रूप से अपना ज्ञान निर्मित करते हैं","केवल तथ्य याद करते हैं","पूरी तरह शिक्षक पर निर्भर रहते हैं"]}, answer:1}
+    ]
+  },
+  {
+    name: "Language-1 (English)",
+    mode: "en",
+    questions: [
+      {en:{q:"Choose the correctly spelled word:", options:["Enviroment","Environment","Envuronment","Enviroment"]}, answer:1},
+      {en:{q:"Synonym of 'Happy':", options:["Sad","Joyful","Angry","Tired"]}, answer:1},
+      {en:{q:"Antonym of 'Increase':", options:["Decrease","Grow","Expand","Rise"]}, answer:0},
+      {en:{q:"Fill in the blank: She ___ a book every week.", options:["read","reads","reading","readed"]}, answer:1},
+      {en:{q:"Identify the noun in the sentence: 'The dog barked loudly.'", options:["dog","barked","loudly","the"]}, answer:0},
+      {en:{q:"Choose the correct passive voice of: 'He wrote a letter.'", options:["A letter was written by him","A letter is written by him","A letter written by him","A letter has wrote by him"]}, answer:0},
+      {en:{q:"Which word is an adverb in: 'She sings beautifully'?", options:["She","sings","beautifully","-"]}, answer:2},
+      {en:{q:"Opposite of 'Ancient' is?", options:["Old","Modern","Historic","Aged"]}, answer:1},
+      {en:{q:"The plural of 'Child' is?", options:["Childs","Childes","Children","Childrens"]}, answer:2},
+      {en:{q:"Choose the correct article: '___ apple a day keeps the doctor away.'", options:["A","An","The","No article"]}, answer:1},
+      {en:{q:"Which of these is a compound word?", options:["Sunflower","Happy","Running","Quickly"]}, answer:0},
+      {en:{q:"Identify the tense: 'I have finished my homework.'", options:["Simple Past","Present Perfect","Future Perfect","Present Continuous"]}, answer:1},
+      {en:{q:"A word that sounds the same but has a different meaning is called?", options:["Synonym","Antonym","Homophone","Homonym only"]}, answer:2},
+      {en:{q:"Choose the correct sentence:", options:["He don't like tea","He doesn't like tea","He not like tea","He no like tea"]}, answer:1},
+      {en:{q:"The language skill that involves understanding spoken language is called?", options:["Speaking","Listening","Writing","Reading"]}, answer:1},
+      {en:{q:"Which approach to language teaching emphasizes real-life communication?", options:["Grammar-Translation Method","Communicative Approach","Rote Method","Direct Dictation"]}, answer:1},
+      {en:{q:"Reading for overall understanding of a text is called?", options:["Scanning","Skimming","Intensive reading","Loud reading"]}, answer:1},
+      {en:{q:"Reading to locate specific information quickly is called?", options:["Skimming","Scanning","Silent reading","Extensive reading"]}, answer:1},
+      {en:{q:"First language acquisition mainly happens through?", options:["Formal grammar lessons","Natural exposure and interaction","Memorizing rules","Translation exercises"]}, answer:1},
+      {en:{q:"In language teaching, an 'error' made by a learner should be viewed as?", options:["A failure to be punished","A natural part of the learning process","A sign of low intelligence","Something to be ignored completely"]}, answer:1},
+      {en:{q:"Which skill typically develops first in language acquisition?", options:["Writing","Reading","Listening","Grammar rules"]}, answer:2},
+      {en:{q:"A 'Big Book' approach in early language teaching is used to?", options:["Test spelling","Develop reading interest through shared reading","Teach only grammar","Assess handwriting"]}, answer:1},
+      {en:{q:"The four basic language skills are Listening, Speaking, Reading and?", options:["Vocabulary","Grammar","Writing","Translation"]}, answer:2},
+      {en:{q:"Choose the correctly punctuated sentence:", options:["What is your name","What is your name?","what is your name.","What is your name,"]}, answer:1},
+      {en:{q:"'Bilingualism' refers to?", options:["Speaking loudly","The ability to use two languages","Reading two books","Writing in cursive"]}, answer:1},
+      {en:{q:"A multilingual classroom is best supported by?", options:["Banning the child's home language","Using the child's home language as a resource","Ignoring language differences","Teaching only in English"]}, answer:1},
+      {en:{q:"Which of these best defines the 'grammar-translation method'?", options:["Teaching through translation of texts and explicit grammar rules","Teaching only through pictures","Teaching using songs only","Teaching without any textbook"]}, answer:0},
+      {en:{q:"Choose the correct comparative form: 'This book is ___ than that one.'", options:["good","better","best","more good"]}, answer:1},
+      {en:{q:"Identify the preposition: 'The cat is under the table.'", options:["cat","is","under","table"]}, answer:2},
+      {en:{q:"A story told without any text, using only pictures, is best used to develop?", options:["Spelling and dictation","Speaking and imagination skills","Handwriting speed","Grammar rules"]}, answer:1}
+    ]
+  },
+  {
+    name: "Language-2 (Hindi)",
+    mode: "hi",
+    questions: [
+      {hi:{q:"'सूर्य' का पर्यायवाची शब्द है?", options:["रवि","चाँद","तारा","आकाश"]}, answer:0},
+      {hi:{q:"'अंधकार' का विलोम शब्द है?", options:["रात","प्रकाश","काला","धुआँ"]}, answer:1},
+      {hi:{q:"निम्न में से संज्ञा शब्द चुनें:", options:["दौड़ना","पुस्तक","सुंदर","धीरे"]}, answer:1},
+      {hi:{q:"'राम ने पत्र लिखा' वाक्य में क्रिया है?", options:["राम","ने","पत्र","लिखा"]}, answer:3},
+      {hi:{q:"'बालक' शब्द का स्त्रीलिंग रूप है?", options:["बालिका","बालकी","बालकिन","बालिकाइन"]}, answer:0},
+      {hi:{q:"'विद्यालय' शब्द का सही संधि-विच्छेद है?", options:["विद्या + आलय","विद् + यालय","विद्या + लय","विद्य + आलय"]}, answer:0},
+      {hi:{q:"'जो कठिनाई से प्राप्त हो' के लिए एक शब्द है?", options:["सुलभ","दुर्लभ","सरल","अनुपम"]}, answer:1},
+      {hi:{q:"मुहावरा 'नाकों चने चबाना' का अर्थ है?", options:["खुश होना","बहुत परेशान होना","चना खाना","आराम करना"]}, answer:1},
+      {hi:{q:"हिंदी वर्णमाला में स्वरों की संख्या है?", options:["10","11","13","14"]}, answer:1},
+      {hi:{q:"'गुरु' शब्द का बहुवचन रूप है?", options:["गुरुजन","गुरुओं","गुरुगण दोनों सही","गुरु ही रहेगा"]}, answer:0},
+      {hi:{q:"'यह पुस्तक मेरी है' वाक्य में सर्वनाम है?", options:["यह","पुस्तक","मेरी","है"]}, answer:2},
+      {hi:{q:"भाषा शिक्षण में 'श्रवण कौशल' का अर्थ है?", options:["लिखने की क्षमता","सुनकर समझने की क्षमता","बोलने की गति","पढ़ने की गति"]}, answer:1},
+      {hi:{q:"मातृभाषा में शिक्षा देने का सबसे बड़ा लाभ है?", options:["बच्चे आसानी से समझ पाते हैं","परीक्षा आसान हो जाती है","शिक्षक को सुविधा होती है","पाठ्यपुस्तक छोटी होती है"]}, answer:0},
+      {hi:{q:"'कर्ता कारक' की विभक्ति है?", options:["को","ने","से","का"]}, answer:1},
+      {hi:{q:"'चंद्रमा' का पर्यायवाची है?", options:["चाँद","सूर्य","तारा","ग्रह"]}, answer:0},
+      {hi:{q:"वाक्य में 'प्रश्नवाचक चिह्न' कौन सा है?", options:["।","?","!",","]}, answer:1},
+      {hi:{q:"'हिमालय' शब्द किस संधि का उदाहरण है?", options:["स्वर संधि","व्यंजन संधि","विसर्ग संधि","कोई नहीं"]}, answer:0},
+      {hi:{q:"भाषा अर्जन (Acquisition) और भाषा अधिगम (Learning) में अंतर है?", options:["दोनों एक समान हैं","अर्जन स्वाभाविक रूप से होता है, अधिगम सचेत प्रयास से","अधिगम स्वाभाविक होता है","अर्जन केवल विद्यालय में होता है"]}, answer:1},
+      {hi:{q:"बहुभाषिक कक्षा में शिक्षक को क्या करना चाहिए?", options:["केवल एक भाषा का प्रयोग करना चाहिए","बच्चों की मातृभाषा को संसाधन के रूप में उपयोग करना चाहिए","स्थानीय भाषा को हतोत्साहित करना चाहिए","बच्चों को अलग-अलग कक्षा में बैठाना चाहिए"]}, answer:1},
+      {hi:{q:"'लेखन कौशल' विकसित करने का सर्वोत्तम तरीका है?", options:["केवल श्रुतलेख कराना","नियमित अभ्यास और रचनात्मक लेखन के अवसर देना","केवल व्याकरण याद कराना","लेखन कार्य न देना"]}, answer:1},
+      {hi:{q:"'तत्सम' शब्द किसे कहते हैं?", options:["संस्कृत से ज्यों का त्यों लिए गए शब्द","विदेशी भाषा के शब्द","स्थानीय बोली के शब्द","संस्कृत से बदलकर आए शब्द"]}, answer:0},
+      {hi:{q:"'देशज' शब्द किसे कहते हैं?", options:["संस्कृत के शब्द","स्थानीय बोलियों से आए शब्द","अंग्रेज़ी के शब्द","अरबी-फारसी के शब्द"]}, answer:1},
+      {hi:{q:"हिंदी में कारक कितने प्रकार के होते हैं?", options:["6","7","8","9"]}, answer:2},
+      {hi:{q:"'सुनो और बोलो' गतिविधि किस कौशल के विकास हेतु उपयोगी है?", options:["लेखन कौशल","श्रवण एवं वाचन कौशल","केवल पठन कौशल","व्याकरण कौशल"]}, answer:1},
+      {hi:{q:"भाषा शिक्षण में व्याकरण-अनुवाद विधि की विशेषता है?", options:["खेल-आधारित शिक्षण","नियमों और अनुवाद पर बल देना","केवल मौखिक अभ्यास","चित्रों का प्रयोग"]}, answer:1},
+      {hi:{q:"'रोचक कहानी सुनाना' किस कौशल के विकास में सहायक है?", options:["सुनने और समझने के कौशल में","केवल लेखन कौशल में","केवल व्याकरण में","केवल वर्तनी में"]}, answer:0},
+      {hi:{q:"हिंदी में मात्राओं का ज्ञान सबसे पहले किस स्तर पर कराया जाना चाहिए?", options:["माध्यमिक कक्षाओं में","प्रारंभिक कक्षाओं में","उच्च कक्षाओं में","कभी नहीं"]}, answer:1},
+      {hi:{q:"'स्वरचित' का अर्थ है?", options:["स्वयं द्वारा रचा गया","किसी और द्वारा रचा गया","अनुवादित","नकल किया गया"]}, answer:0},
+      {hi:{q:"भाषा शिक्षण में मूल्यांकन का उद्देश्य है?", options:["केवल अंक देना","बच्चे की भाषायी दक्षता का सतत आकलन करना","बच्चों की तुलना करना","परीक्षा पास कराना"]}, answer:1},
+      {hi:{q:"'बच्चा भाषा कैसे सीखता है' के संदर्भ में सही कथन है?", options:["केवल पाठ्यपुस्तक पढ़कर","बच्चा सुनकर, बोलकर और वातावरण से भाषा सीखता है","केवल व्याकरण रटकर","केवल परीक्षा देकर"]}, answer:1}
+    ]
+  },
+  {
+    name: "Mathematics",
+    mode: "bilingual",
+    questions: [
+      {en:{q:"What is 15% of 200?", options:["20","25","30","35"]}, hi:{q:"200 का 15% कितना होगा?", options:["20","25","30","35"]}, answer:2},
+      {en:{q:"Simplify: 7 + 3 × 2 = ?", options:["20","13","10","17"]}, hi:{q:"सरल करें: 7 + 3 × 2 = ?", options:["20","13","10","17"]}, answer:1},
+      {en:{q:"The average of 10, 20 and 30 is?", options:["15","20","25","30"]}, hi:{q:"10, 20 और 30 का औसत क्या है?", options:["15","20","25","30"]}, answer:1},
+      {en:{q:"If a train travels 60 km in 1.5 hours, its speed is?", options:["30 km/h","40 km/h","45 km/h","50 km/h"]}, hi:{q:"यदि एक रेलगाड़ी 1.5 घंटे में 60 किमी तय करती है, तो उसकी चाल क्या है?", options:["30 किमी/घं","40 किमी/घं","45 किमी/घं","50 किमी/घं"]}, answer:1},
+      {en:{q:"HCF of 12 and 18 is?", options:["4","6","8","9"]}, hi:{q:"12 और 18 का महत्तम समापवर्तक (HCF) क्या है?", options:["4","6","8","9"]}, answer:1},
+      {en:{q:"LCM of 4 and 6 is?", options:["8","10","12","24"]}, hi:{q:"4 और 6 का लघुत्तम समापवर्त्य (LCM) क्या है?", options:["8","10","12","24"]}, answer:2},
+      {en:{q:"The value of √144 is?", options:["10","11","12","14"]}, hi:{q:"√144 का मान क्या है?", options:["10","11","12","14"]}, answer:2},
+      {en:{q:"Perimeter of a square with side 5 cm is?", options:["10 cm","15 cm","20 cm","25 cm"]}, hi:{q:"5 सेमी भुजा वाले वर्ग का परिमाप क्या है?", options:["10 सेमी","15 सेमी","20 सेमी","25 सेमी"]}, answer:2},
+      {en:{q:"Area of a rectangle with length 8 cm and breadth 5 cm is?", options:["13 cm²","35 cm²","40 cm²","45 cm²"]}, hi:{q:"8 सेमी लंबाई और 5 सेमी चौड़ाई वाले आयत का क्षेत्रफल क्या है?", options:["13 सेमी²","35 सेमी²","40 सेमी²","45 सेमी²"]}, answer:2},
+      {en:{q:"Sum of angles of a triangle is?", options:["90°","180°","270°","360°"]}, hi:{q:"त्रिभुज के कोणों का योग कितना होता है?", options:["90°","180°","270°","360°"]}, answer:1},
+      {en:{q:"1/2 + 1/4 = ?", options:["1/2","2/4","3/4","1"]}, hi:{q:"1/2 + 1/4 = ?", options:["1/2","2/4","3/4","1"]}, answer:2},
+      {en:{q:"0.5 × 0.2 = ?", options:["0.01","0.1","1.0","10"]}, hi:{q:"0.5 × 0.2 = ?", options:["0.01","0.1","1.0","10"]}, answer:1},
+      {en:{q:"The smallest prime number is?", options:["0","1","2","3"]}, hi:{q:"सबसे छोटी अभाज्य संख्या कौन सी है?", options:["0","1","2","3"]}, answer:2},
+      {en:{q:"Which of the following is a composite number?", options:["2","3","5","9"]}, hi:{q:"निम्न में से भाज्य (Composite) संख्या कौन सी है?", options:["2","3","5","9"]}, answer:3},
+      {en:{q:"If x + 5 = 12, then x = ?", options:["5","6","7","8"]}, hi:{q:"यदि x + 5 = 12 है, तो x = ?", options:["5","6","7","8"]}, answer:2},
+      {en:{q:"The next number in the series 3, 6, 9, 12, ? is", options:["13","14","15","16"]}, hi:{q:"श्रृंखला 3, 6, 9, 12, ? में अगली संख्या क्या है?", options:["13","14","15","16"]}, answer:2},
+      {en:{q:"A dozen equals?", options:["10","12","14","16"]}, hi:{q:"एक दर्जन कितने के बराबर होता है?", options:["10","12","14","16"]}, answer:1},
+      {en:{q:"Convert 3/4 into a percentage.", options:["34%","50%","75%","80%"]}, hi:{q:"3/4 को प्रतिशत में बदलें।", options:["34%","50%","75%","80%"]}, answer:2},
+      {en:{q:"Which of these is an even number?", options:["47","48","53","61"]}, hi:{q:"निम्न में से सम संख्या कौन सी है?", options:["47","48","53","61"]}, answer:1},
+      {en:{q:"Simple interest on ₹1000 at 10% for 2 years is?", options:["₹100","₹150","₹200","₹250"]}, hi:{q:"₹1000 पर 10% वार्षिक दर से 2 वर्ष का साधारण ब्याज कितना होगा?", options:["₹100","₹150","₹200","₹250"]}, answer:2},
+      {en:{q:"Number of sides in a hexagon is?", options:["5","6","7","8"]}, hi:{q:"षट्भुज (Hexagon) में कितनी भुजाएँ होती हैं?", options:["5","6","7","8"]}, answer:1},
+      {en:{q:"Place value of 7 in 3729 is?", options:["7","70","700","7000"]}, hi:{q:"3729 में 7 का स्थानीय मान क्या है?", options:["7","70","700","7000"]}, answer:2},
+      {en:{q:"The Roman numeral for 50 is?", options:["L","C","D","M"]}, hi:{q:"50 के लिए रोमन अंक क्या है?", options:["L","C","D","M"]}, answer:0},
+      {en:{q:"100 cm equals?", options:["1 mm","1 metre","1 km","10 metre"]}, hi:{q:"100 सेमी किसके बराबर होता है?", options:["1 मिमी","1 मीटर","1 किमी","10 मीटर"]}, answer:1},
+      {en:{q:"A shape with all sides and angles equal is called?", options:["Irregular polygon","Regular polygon","Triangle only","Rectangle only"]}, hi:{q:"वह आकृति जिसकी सभी भुजाएँ और कोण बराबर हों, क्या कहलाती है?", options:["अनियमित बहुभुज","नियमित बहुभुज","केवल त्रिभुज","केवल आयत"]}, answer:1},
+      {en:{q:"Using concrete objects like beads and blocks to teach counting is an example of?", options:["Abstract stage","Concrete stage of learning (CRA approach)","Pictorial stage only","None of these"]}, hi:{q:"गिनती सिखाने हेतु मनकों और ब्लॉक जैसी मूर्त वस्तुओं का प्रयोग किस चरण का उदाहरण है?", options:["अमूर्त चरण","ठोस/मूर्त चरण (CRA उपागम)","केवल चित्रात्मक चरण","इनमें से कोई नहीं"]}, answer:1},
+      {en:{q:"Van Hiele's theory is related to teaching of?", options:["Algebra","Geometry","Arithmetic","Statistics"]}, hi:{q:"वान हील (Van Hiele) का सिद्धांत किसके शिक्षण से संबंधित है?", options:["बीजगणित","ज्यामिति","अंकगणित","सांख्यिकी"]}, answer:1},
+      {en:{q:"Mathematical errors made by children are best addressed through?", options:["Ignoring them","Diagnosing the misconception and providing corrective guided practice","Punishing the child","Skipping the topic"]}, hi:{q:"बच्चों की गणितीय त्रुटियों का सर्वोत्तम समाधान है?", options:["उन्हें नज़रअंदाज़ करना","भ्रांति की पहचान कर सुधारात्मक मार्गदर्शित अभ्यास कराना","बच्चे को दंडित करना","विषय छोड़ देना"]}, answer:1},
+      {en:{q:"Which teaching aid best helps develop the concept of fractions?", options:["Globe","Fraction strips/circles","Number line only","Clock"]}, hi:{q:"भिन्न (Fraction) की अवधारणा विकसित करने में कौन सी शिक्षण सामग्री सर्वाधिक सहायक है?", options:["ग्लोब","भिन्न पट्टी/वृत्त","केवल संख्या रेखा","घड़ी"]}, answer:1},
+      {en:{q:"According to NCF, mathematics teaching should focus on?", options:["Only memorizing formulas","Only speed calculation","Developing the ability to think and reason mathematically","Only competitive exams"]}, hi:{q:"NCF के अनुसार, गणित शिक्षण का ध्यान किस पर होना चाहिए?", options:["केवल सूत्र याद करने पर","केवल तीव्र गणना पर","गणितीय चिंतन एवं तर्कशक्ति विकसित करने पर","केवल प्रतियोगी परीक्षाओं पर"]}, answer:2}
+    ]
+  },
+  {
+    name: "Environmental Studies",
+    mode: "bilingual",
+    questions: [
+      {en:{q:"Which is a renewable source of energy?", options:["Coal","Solar energy","Petroleum","Natural gas"]}, hi:{q:"नवीकरणीय ऊर्जा स्रोत कौन सा है?", options:["कोयला","सौर ऊर्जा","पेट्रोलियम","प्राकृतिक गैस"]}, answer:1},
+      {en:{q:"Photosynthesis takes place in?", options:["Roots","Leaves","Stem","Flowers"]}, hi:{q:"प्रकाश संश्लेषण कहाँ होता है?", options:["जड़ों में","पत्तियों में","तने में","फूलों में"]}, answer:1},
+      {en:{q:"The process by which plants lose water through leaves is called?", options:["Respiration","Transpiration","Photosynthesis","Germination"]}, hi:{q:"वह प्रक्रिया जिसके द्वारा पौधे पत्तियों से जल त्यागते हैं, कहलाती है?", options:["श्वसन","वाष्पोत्सर्जन","प्रकाश संश्लेषण","अंकुरण"]}, answer:1},
+      {en:{q:"Which gas do plants absorb during photosynthesis?", options:["Oxygen","Nitrogen","Carbon dioxide","Hydrogen"]}, hi:{q:"प्रकाश संश्लेषण के दौरान पौधे कौन सी गैस अवशोषित करते हैं?", options:["ऑक्सीजन","नाइट्रोजन","कार्बन डाइऑक्साइड","हाइड्रोजन"]}, answer:2},
+      {en:{q:"The national bird of India is?", options:["Sparrow","Peacock","Parrot","Crow"]}, hi:{q:"भारत का राष्ट्रीय पक्षी कौन सा है?", options:["गौरैया","मोर","तोता","कौआ"]}, answer:1},
+      {en:{q:"The national animal of India is?", options:["Lion","Elephant","Tiger","Deer"]}, hi:{q:"भारत का राष्ट्रीय पशु कौन सा है?", options:["शेर","हाथी","बाघ","हिरण"]}, answer:2},
+      {en:{q:"Which is the largest state of India by area?", options:["Maharashtra","Rajasthan","Madhya Pradesh","Uttar Pradesh"]}, hi:{q:"क्षेत्रफल की दृष्टि से भारत का सबसे बड़ा राज्य कौन सा है?", options:["महाराष्ट्र","राजस्थान","मध्य प्रदेश","उत्तर प्रदेश"]}, answer:1},
+      {en:{q:"Which river is known as the 'Ganga of the South'?", options:["Krishna","Godavari","Kaveri","Narmada"]}, hi:{q:"किस नदी को 'दक्षिण की गंगा' कहा जाता है?", options:["कृष्णा","गोदावरी","कावेरी","नर्मदा"]}, answer:1},
+      {en:{q:"The main constituent of biogas is?", options:["Oxygen","Methane","Nitrogen","Hydrogen"]}, hi:{q:"बायोगैस का मुख्य घटक क्या है?", options:["ऑक्सीजन","मीथेन","नाइट्रोजन","हाइड्रोजन"]}, answer:1},
+      {en:{q:"Which vitamin is obtained from sunlight?", options:["Vitamin A","Vitamin C","Vitamin D","Vitamin K"]}, hi:{q:"सूर्य के प्रकाश से कौन सा विटामिन प्राप्त होता है?", options:["विटामिन A","विटामिन C","विटामिन D","विटामिन K"]}, answer:2},
+      {en:{q:"Diseases spread by mosquitoes include?", options:["Cholera and Typhoid","Malaria and Dengue","TB and Asthma","Measles and Mumps"]}, hi:{q:"मच्छरों से फैलने वाले रोग कौन से हैं?", options:["हैजा और टाइफाइड","मलेरिया और डेंगू","क्षयरोग और दमा","खसरा और गलसुआ"]}, answer:1},
+      {en:{q:"Water that seeps into the ground and gets stored is called?", options:["Rainwater","Groundwater","Seawater","Riverwater"]}, hi:{q:"जो जल भूमि में रिसकर संग्रहित होता है, उसे क्या कहते हैं?", options:["वर्षा जल","भूजल","समुद्री जल","नदी जल"]}, answer:1},
+      {en:{q:"The atmosphere layer that protects us from harmful UV rays is?", options:["Troposphere","Ozone layer","Stratosphere only","Ionosphere"]}, hi:{q:"हानिकारक पराबैंगनी किरणों से रक्षा करने वाली वायुमंडलीय परत कौन सी है?", options:["क्षोभमंडल","ओज़ोन परत","समतापमंडल मात्र","आयनमंडल"]}, answer:1},
+      {en:{q:"Which of these is a man-made disaster?", options:["Earthquake","Deforestation","Flood","Cyclone"]}, hi:{q:"निम्न में से मानव-निर्मित आपदा कौन सी है?", options:["भूकंप","वनों की कटाई","बाढ़","चक्रवात"]}, answer:1},
+      {en:{q:"The main source of drinking water for most Indian villages is?", options:["Bottled water","Groundwater/wells","Rivers only","Rainwater harvesting only"]}, hi:{q:"अधिकांश भारतीय गांवों में पेयजल का मुख्य स्रोत क्या है?", options:["बोतलबंद पानी","भूजल/कुएं","केवल नदियाँ","केवल वर्षा जल संचयन"]}, answer:1},
+      {en:{q:"Which of these is a good source of protein?", options:["Rice","Pulses (dal)","Sugar","Oil"]}, hi:{q:"प्रोटीन का अच्छा स्रोत कौन सा है?", options:["चावल","दालें","चीनी","तेल"]}, answer:1},
+      {en:{q:"Migratory birds visit India mainly during?", options:["Summer","Monsoon","Winter","Spring"]}, hi:{q:"प्रवासी पक्षी मुख्यतः किस मौसम में भारत आते हैं?", options:["गर्मी","मानसून","सर्दी","बसंत"]}, answer:2},
+      {en:{q:"Soil erosion can be prevented by?", options:["Cutting trees","Planting trees/afforestation","Overgrazing","Burning fields"]}, hi:{q:"मृदा अपरदन को कैसे रोका जा सकता है?", options:["पेड़ काटकर","वृक्षारोपण/वनरोपण द्वारा","अधिक चराई द्वारा","खेतों को जलाकर"]}, answer:1},
+      {en:{q:"The process of converting waste into manure is called?", options:["Composting","Distillation","Filtration","Evaporation"]}, hi:{q:"कचरे को खाद में बदलने की प्रक्रिया क्या कहलाती है?", options:["खाद बनाना (कंपोस्टिंग)","आसवन","निस्पंदन","वाष्पीकरण"]}, answer:0},
+      {en:{q:"Which of these is a non-communicable disease?", options:["Malaria","Diabetes","Chickenpox","Flu"]}, hi:{q:"असंचारी (Non-communicable) रोग कौन सा है?", options:["मलेरिया","मधुमेह","चेचक","फ्लू"]}, answer:1},
+      {en:{q:"The 'Chipko Movement' was related to?", options:["Water conservation","Protection of trees/forests","Wildlife hunting ban","Soil testing"]}, hi:{q:"चिपको आंदोलन किससे संबंधित था?", options:["जल संरक्षण","वृक्षों/वनों की सुरक्षा","वन्यजीव शिकार प्रतिबंध","मृदा परीक्षण"]}, answer:1},
+      {en:{q:"EVS as a subject at the primary level integrates?", options:["Only Science","Only Social Studies","Science and Social Studies","Only Mathematics"]}, hi:{q:"प्रारंभिक स्तर पर पर्यावरण अध्ययन (EVS) किसका एकीकरण करता है?", options:["केवल विज्ञान","केवल सामाजिक अध्ययन","विज्ञान और सामाजिक अध्ययन","केवल गणित"]}, answer:2},
+      {en:{q:"The best approach to teach EVS to young children is through?", options:["Rote memorization","Activities and observation of the immediate environment","Only textbook reading","Only lectures"]}, hi:{q:"छोटे बच्चों को EVS पढ़ाने का सर्वोत्तम तरीका क्या है?", options:["रटना","आसपास के वातावरण की गतिविधियों और अवलोकन द्वारा","केवल पाठ्यपुस्तक पढ़ना","केवल व्याख्यान"]}, answer:1},
+      {en:{q:"Field trips in EVS teaching help children to?", options:["Memorize dates","Learn through direct observation and experience","Avoid nature","Only complete syllabus"]}, hi:{q:"EVS शिक्षण में क्षेत्र भ्रमण बच्चों की किस प्रकार सहायता करते हैं?", options:["तिथियाँ याद करने में","प्रत्यक्ष अवलोकन और अनुभव से सीखने में","प्रकृति से दूर रहने में","केवल पाठ्यक्रम पूरा करने में"]}, answer:1},
+      {en:{q:"Which of these best supports EVS as 'joyful learning'?", options:["Strict testing","Encouraging children to explore and question their surroundings","Long lectures","Heavy homework"]}, hi:{q:"EVS को 'आनंददायी सीखना' बनाने में सबसे सहायक क्या है?", options:["कठोर परीक्षण","बच्चों को अपने परिवेश का अन्वेषण और प्रश्न करने हेतु प्रोत्साहित करना","लंबे व्याख्यान","अधिक गृहकार्य"]}, answer:1},
+      {en:{q:"The concept of 'sustainable development' means?", options:["Using all resources now","Meeting present needs without compromising future generations' ability to meet their own needs","Stopping all development","Only urban development"]}, hi:{q:"'सतत विकास' की अवधारणा का अर्थ है?", options:["सभी संसाधनों का अभी उपयोग करना","वर्तमान आवश्यकताओं को इस प्रकार पूरा करना कि भविष्य की पीढ़ियाँ प्रभावित न हों","सभी विकास रोक देना","केवल शहरी विकास"]}, answer:1},
+      {en:{q:"Which of these is an example of a food chain?", options:["Grass → Deer → Lion","Sun → Water → Air","Soil → Rock → Sand","Rain → Cloud → Sun"]}, hi:{q:"खाद्य श्रृंखला (Food Chain) का उदाहरण कौन सा है?", options:["घास → हिरण → शेर","सूर्य → जल → वायु","मिट्टी → चट्टान → रेत","वर्षा → बादल → सूर्य"]}, answer:0},
+      {en:{q:"According to NCF, EVS teaching should link learning to?", options:["Only textbooks","The child's own experiences and environment","National exams only","Only rote learning"]}, hi:{q:"NCF के अनुसार, EVS शिक्षण को सीखने को किससे जोड़ना चाहिए?", options:["केवल पाठ्यपुस्तकों से","बच्चे के अपने अनुभवों और परिवेश से","केवल राष्ट्रीय परीक्षाओं से","केवल रटने से"]}, answer:1},
+      {en:{q:"Which of these is NOT a good practice for conserving water?", options:["Fixing leaking taps","Rainwater harvesting","Leaving the tap running while brushing","Reusing water for plants"]}, hi:{q:"जल संरक्षण हेतु कौन सा अच्छा अभ्यास नहीं है?", options:["टपकते नल ठीक करना","वर्षा जल संचयन","ब्रश करते समय नल खुला छोड़ना","पौधों के लिए पानी पुनः उपयोग करना"]}, answer:2},
+      {en:{q:"Rainwater harvesting is done to?", options:["Increase floods","Conserve and recharge groundwater","Waste water","Pollute rivers"]}, hi:{q:"वर्षा जल संचयन किस उद्देश्य से किया जाता है?", options:["बाढ़ बढ़ाने हेतु","भूजल संरक्षण और पुनर्भरण हेतु","जल बर्बाद करने हेतु","नदियों को प्रदूषित करने हेतु"]}, answer:1}
+    ]
+  }
+];
+
+/* ===================== STATE ===================== */
+// status per question: 'notVisited' | 'notAnswered' | 'answered' | 'marked' | 'answeredMarked'
+let state = sections.map(sec => sec.questions.map(() => ({status:'notVisited', selected:null})));
+let curSection = 0, curQuestion = 0;
+let defaultLang = 'en';
+let submitted = false;
+
+/* ===================== INSTRUCTIONS ===================== */
+document.getElementById('agreeBox').addEventListener('change', function(){
+  document.getElementById('beginBtn').disabled = !this.checked;
+});
+
+let candidateName = '';
+
+function proceedToInstructions(){
+  const nameInput = document.getElementById('candidateNameInput');
+  const name = nameInput.value.trim();
+  const errorEl = document.getElementById('nameError');
+  if(!name){
+    errorEl.textContent = 'Please enter your name to continue.';
+    return;
+  }
+  errorEl.textContent = '';
+  candidateName = name;
+  document.getElementById('candidateNameFooter').textContent = candidateName;
+  document.getElementById('candidateNameSidebar').textContent = candidateName;
+  document.getElementById('nameScreen').style.display = 'none';
+  document.getElementById('instructionsScreen').style.display = 'block';
+}
+
+function beginTest(){
+  defaultLang = document.getElementById('defaultLang').value || 'en';
+  document.getElementById('qLangSelect').value = defaultLang;
+  document.getElementById('instructionsScreen').style.display = 'none';
+  document.getElementById('testScreen').style.display = 'block';
+  buildSectionTabs();
+  goToQuestion(0,0);
+  startTimer();
+}
+
+/* ===================== TIMER ===================== */
+function startTimer(){
+  updateTimerDisplay();
+  timerInterval = setInterval(() => {
+    timeLeft--;
+    updateTimerDisplay();
+    if(timeLeft <= 0){
+      clearInterval(timerInterval);
+      submitTest(true);
+    }
+  }, 1000);
+}
+function updateTimerDisplay(){
+  const m = Math.floor(timeLeft/60).toString().padStart(2,'0');
+  const s = (timeLeft%60).toString().padStart(2,'0');
+  document.getElementById('timerDisplay').textContent = `Time Left : ${m}:${s}`;
+}
+
+/* ===================== NAVIGATION / RENDER ===================== */
+function buildSectionTabs(){
+  const wrap = document.getElementById('sectionTabs');
+  wrap.innerHTML = '';
+  sections.forEach((sec, i) => {
+    const tab = document.createElement('div');
+    tab.className = 'section-tab' + (i === curSection ? ' active' : '');
+    tab.textContent = sec.name.toUpperCase();
+    tab.onclick = () => goToQuestion(i, 0);
+    wrap.appendChild(tab);
+  });
+}
+
+function goToQuestion(secIdx, qIdx){
+  curSection = secIdx;
+  curQuestion = qIdx;
+  if(state[secIdx][qIdx].status === 'notVisited'){
+    state[secIdx][qIdx].status = 'notAnswered';
+  }
+  buildSectionTabs();
+  renderQuestion();
+  renderPalette();
+  renderLegendCounts();
+}
+
+function renderQuestion(){
+  const item = sections[curSection].questions[curQuestion];
+  const mode = sections[curSection].mode || 'bilingual';
+  const langBar = document.getElementById('langBarWrap');
+  let lang;
+  if(mode === 'bilingual'){
+    langBar.style.display = 'flex';
+    lang = document.getElementById('qLangSelect').value;
+  } else {
+    langBar.style.display = 'none';
+    lang = mode;
+  }
+  const data = item[lang];
+  document.getElementById('qNoLabel').textContent = `Question No. ${curQuestion+1}`;
+  document.getElementById('qText').textContent = data.q;
+  const optWrap = document.getElementById('optionsList');
+  optWrap.innerHTML = '';
+  const saved = state[curSection][curQuestion].selected;
+  data.options.forEach((opt, i) => {
+    const id = `opt_${curSection}_${curQuestion}_${i}`;
+    const label = document.createElement('label');
+    label.className = 'option';
+    label.innerHTML = `<input type="radio" name="q_${curSection}_${curQuestion}" id="${id}" value="${i}" ${saved===i?'checked':''}> <span>${opt}</span>`;
+    label.querySelector('input').addEventListener('change', () => {
+      state[curSection][curQuestion].selected = i;
+    });
+    optWrap.appendChild(label);
+  });
+  document.getElementById('sidebarSectionName').textContent = sections[curSection].name.toUpperCase();
+}
+
+function renderPalette(){
+  const wrap = document.getElementById('palette');
+  wrap.innerHTML = '';
+  sections[curSection].questions.forEach((_, i) => {
+    const st = state[curSection][i].status;
+    const btn = document.createElement('div');
+    btn.className = 'qnum ' + (i === curQuestion ? 'current' : '');
+    btn.style.background = colorForStatus(st);
+    btn.textContent = i+1;
+    btn.onclick = () => goToQuestion(curSection, i);
+    wrap.appendChild(btn);
+  });
+}
+
+function colorForStatus(st){
+  switch(st){
+    case 'answered': return 'var(--green)';
+    case 'notAnswered': return 'var(--red)';
+    case 'marked': return 'var(--purple)';
+    case 'answeredMarked': return 'var(--purple)';
+    default: return 'var(--grey)';
+  }
+}
+
+function renderLegendCounts(){
+  let answered=0, notAnswered=0, notVisited=0, marked=0;
+  state.forEach(sec => sec.forEach(q => {
+    if(q.status === 'answered') answered++;
+    else if(q.status === 'notAnswered') notAnswered++;
+    else if(q.status === 'notVisited') notVisited++;
+    else if(q.status === 'marked' || q.status === 'answeredMarked') marked++;
+  }));
+  document.getElementById('cntAnswered').textContent = answered;
+  document.getElementById('cntNotAnswered').textContent = notAnswered;
+  document.getElementById('cntNotVisited').textContent = notVisited;
+  document.getElementById('cntMarked').textContent = marked;
+}
+
+/* ===================== ACTIONS ===================== */
+function saveAndNext(){
+  const cell = state[curSection][curQuestion];
+  cell.status = cell.selected !== null ? 'answered' : 'notAnswered';
+  advance();
+}
+function clearResponse(){
+  state[curSection][curQuestion].selected = null;
+  state[curSection][curQuestion].status = 'notAnswered';
+  renderQuestion();
+  renderPalette();
+  renderLegendCounts();
+}
+function markForReviewAndNext(){
+  const cell = state[curSection][curQuestion];
+  cell.status = cell.selected !== null ? 'answeredMarked' : 'marked';
+  advance();
+}
+function advance(){
+  const qs = sections[curSection].questions;
+  if(curQuestion < qs.length - 1){
+    goToQuestion(curSection, curQuestion+1);
+  } else if(curSection < sections.length - 1){
+    goToQuestion(curSection+1, 0);
+  } else {
+    renderPalette();
+    renderLegendCounts();
+  }
+}
+function prevQuestion(){
+  if(curQuestion > 0){
+    goToQuestion(curSection, curQuestion-1);
+  } else if(curSection > 0){
+    const prevSec = curSection - 1;
+    goToQuestion(prevSec, sections[prevSec].questions.length - 1);
+  }
+}
+
+/* ===================== SUBMIT / RESULT ===================== */
+function confirmSubmit(){
+  if(confirm('Are you sure you want to submit the test? You will not be able to make changes after submission.')){
+    submitTest(false);
+  }
+}
+
+function submitTest(autoSubmitted){
+  if(submitted) return;
+  submitted = true;
+  clearInterval(timerInterval);
+  document.getElementById('testScreen').style.display = 'none';
+  document.getElementById('resultScreen').style.display = 'block';
+
+  let totalCorrect=0, totalIncorrect=0, totalUnattempted=0, score=0;
+  const rows = [];
+  sections.forEach((sec, si) => {
+    let c=0, ic=0, un=0;
+    sec.questions.forEach((q, qi) => {
+      const sel = state[si][qi].selected;
+      if(sel === null || sel === undefined){ un++; }
+      else if(sel === q.answer){ c++; score++; }
+      else { ic++; }
+    });
+    totalCorrect += c; totalIncorrect += ic; totalUnattempted += un;
+    rows.push({name: sec.name, total: sec.questions.length, c, ic, un});
+  });
+
+  document.getElementById('resultCandidateLine').textContent = 'Candidate: ' + candidateName;
+  document.getElementById('resultSummaryLine').textContent = autoSubmitted
+    ? 'Time is up — your test was submitted automatically.'
+    : 'Your test has been submitted successfully.';
+  document.getElementById('resScore').textContent = score;
+  document.getElementById('resCorrect').textContent = totalCorrect;
+  document.getElementById('resIncorrect').textContent = totalIncorrect;
+  document.getElementById('resUnattempted').textContent = totalUnattempted;
+
+  const tbody = document.querySelector('#secBreakdownTable tbody');
+  tbody.innerHTML = '';
+  rows.forEach(r => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td>${r.name}</td><td>${r.total}</td><td>${r.c}</td><td>${r.ic}</td><td>${r.un}</td>`;
+    tbody.appendChild(tr);
+  });
+}
+</script>
+</body>
+</html>
