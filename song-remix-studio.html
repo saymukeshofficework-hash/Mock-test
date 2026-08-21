@@ -825,6 +825,25 @@
   }
 
   /* ---------------------------------------------------------------- export / render */
+  async function tryCapabilitySave(filename, blob){
+    if(typeof window.claude === 'undefined' || typeof window.claude.use !== 'function'){
+      return false; // plain browser tab (opened locally / from GitHub) — use the classic download link
+    }
+    try{
+      const downloads = await window.claude.use('downloads');
+      if(!downloads){
+        exportStatus.textContent = "This hosted preview can't save files. Download this page's HTML file and open it directly in your browser to export WAV files.";
+        return true;
+      }
+      await downloads.save({ filename, data: blob });
+      exportStatus.textContent = 'Done! Check your downloads.';
+      return true;
+    }catch(err){
+      exportStatus.textContent = "This hosted preview can't save .wav files (platform restriction). Download this page's HTML file and open it directly in your browser to export your remix.";
+      return true;
+    }
+  }
+
   exportBtn.addEventListener('click', async ()=>{
     if(!state.audioBuffer){ alert('Load a song first.'); return; }
     exportBtn.disabled = true;
@@ -854,13 +873,18 @@
 
       const rendered = await offlineCtx.startRendering();
       const wavBlob = encodeWAV(rendered);
-      const url = URL.createObjectURL(wavBlob);
-      downloadLink.href = url;
       const base = (state.fileName || 'remix').replace(/\.[^.]+$/, '');
-      downloadLink.download = base + '-remix.wav';
-      downloadLink.click();
-      setTimeout(()=> URL.revokeObjectURL(url), 30000);
-      exportStatus.textContent = 'Done! Your download should start automatically.';
+      const filename = base + '-remix.wav';
+
+      const savedViaCapability = await tryCapabilitySave(filename, wavBlob);
+      if(!savedViaCapability){
+        const url = URL.createObjectURL(wavBlob);
+        downloadLink.href = url;
+        downloadLink.download = filename;
+        downloadLink.click();
+        setTimeout(()=> URL.revokeObjectURL(url), 30000);
+        exportStatus.textContent = 'Done! Your download should start automatically.';
+      }
     }catch(err){
       console.error(err);
       exportStatus.textContent = 'Something went wrong while rendering.';
