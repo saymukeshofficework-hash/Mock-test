@@ -3,7 +3,8 @@ import { showOverlay, hideOverlay } from './overlayUtils.js';
 import { COLORS, PLAYER_COLOR_HEX } from '../game/BoardData.js';
 import { validatePlayerName, sanitizeName, MAX_NAME_LENGTH } from '../utils/helpers.js';
 
-const DEFAULT_NAMES = ['Rahul', 'Priya', 'Amit', 'Neha'];
+const DEFAULT_NAMES = ['राहुल', 'प्रिया', 'अमित', 'नेहा'];
+const COLOR_LABEL_HI = { RED: 'लाल', GREEN: 'हरा', YELLOW: 'पीला', BLUE: 'नीला' };
 
 export function initPlayerSetup({ onBack, onStart }) {
   const overlay = $('setup-overlay');
@@ -33,13 +34,13 @@ export function initPlayerSetup({ onBack, onStart }) {
 
       const label = document.createElement('label');
       label.htmlFor = `player-name-${i}`;
-      label.textContent = `Player ${i + 1} • ${color.charAt(0)}${color.slice(1).toLowerCase()}`;
+      label.textContent = `खिलाड़ी ${i + 1} • ${COLOR_LABEL_HI[color]}`;
 
       const input = document.createElement('input');
       input.type = 'text';
       input.id = `player-name-${i}`;
       input.maxLength = MAX_NAME_LENGTH;
-      input.placeholder = 'Enter player name';
+      input.placeholder = 'खिलाड़ी का नाम लिखें';
       input.value = DEFAULT_NAMES[i];
       input.autocomplete = 'off';
 
@@ -100,7 +101,7 @@ export function initPlayerSetup({ onBack, onStart }) {
     if (!validateAll()) return;
     const configs = inputs.slice(0, numPlayers).map(({ input, color }) => ({
       color,
-      name: sanitizeName(input.value, `Player ${color}`)
+      name: sanitizeName(input.value, `खिलाड़ी ${COLOR_LABEL_HI[color]}`)
     }));
     hideOverlay(overlay);
     onStart?.(configs);
