@@ -17,12 +17,12 @@ export function initGameMenu({ onResume, onRestart, onMainMenu, settings, howToP
   htpBtn.addEventListener('click', () => { hideOverlay(overlay); howToPlay.open(); });
 
   restartBtn.addEventListener('click', async () => {
-    const ok = await confirmDialog('Restart the current game?');
+    const ok = await confirmDialog('क्या मौजूदा गेम फिर से शुरू करें?');
     if (ok) { hideOverlay(overlay); onRestart?.(); }
   });
 
   mainBtn.addEventListener('click', async () => {
-    const ok = await confirmDialog('Return to the main menu? Your progress will be saved.');
+    const ok = await confirmDialog('मुख्य मेन्यू पर जाएं? आपकी प्रगति सेव हो जाएगी।');
     if (ok) { hideOverlay(overlay); onMainMenu?.(); }
   });
 

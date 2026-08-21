@@ -78,10 +78,10 @@ export const MAX_NAME_LENGTH = 14;
 /** Validates a player name; returns an error string, or '' when valid. */
 export function validatePlayerName(name, existingNames = []) {
   const trimmed = (name || '').trim();
-  if (!trimmed) return 'Enter a name';
-  if (trimmed.length > MAX_NAME_LENGTH) return `Max ${MAX_NAME_LENGTH} characters`;
+  if (!trimmed) return 'नाम दर्ज करें';
+  if (trimmed.length > MAX_NAME_LENGTH) return `अधिकतम ${MAX_NAME_LENGTH} अक्षर`;
   const dupe = existingNames.some((n) => n.trim().toLowerCase() === trimmed.toLowerCase());
-  if (dupe) return 'Name already used';
+  if (dupe) return 'यह नाम पहले से उपयोग में है';
   return '';
 }
 

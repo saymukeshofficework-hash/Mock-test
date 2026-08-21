@@ -20,7 +20,8 @@
 
 .status-bar {
   justify-self: center;
-  align-self: start;
+  align-self: end;
+  margin-bottom: 14px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -243,7 +244,7 @@
 
 .choose-hint {
   position: fixed;
-  top: max(80px, calc(var(--safe-top) + 70px));
+  bottom: max(150px, calc(var(--safe-bottom) + 150px));
   left: 50%;
   transform: translateX(-50%);
   background: rgba(242, 193, 78, 0.16);

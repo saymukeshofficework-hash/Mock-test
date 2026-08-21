@@ -125,7 +125,7 @@ async function boot() {
   sceneManager.on('tokenClicked', (tokenId) => {
     if (game.state?.phase !== 'awaiting-selection') return;
     if (!game.state.legalMoves.includes(tokenId)) {
-      toast('That token can’t move right now');
+      toast('यह टोकन अभी नहीं चल सकता');
       return;
     }
     game.selectToken(tokenId);
@@ -135,7 +135,7 @@ async function boot() {
     sceneManager.initGame(state.players);
     gameUI.renderPlayers(state.players);
     gameUI.setRollEnabled(true);
-    gameUI.setStatusMessage('Roll the dice');
+    gameUI.setStatusMessage('पासा फेंकें');
     gameUI.showChooseHint(false);
     sceneManager.clearHighlight();
     sceneManager.setClickEnabled(false);
@@ -144,8 +144,8 @@ async function boot() {
   game.on('turnChanged', ({ player }) => {
     gameUI.renderPlayers(game.state.players);
     gameUI.setActivePlayer(player.seatIndex);
-    gameUI.setTurnText(`${player.name}'s turn`, player.color);
-    gameUI.setStatusMessage('Roll the dice');
+    gameUI.setTurnText(`${player.name} की बारी`, player.color);
+    gameUI.setStatusMessage('पासा फेंकें');
     gameUI.setRollEnabled(true);
     gameUI.showChooseHint(false);
     sceneManager.clearHighlight();
@@ -156,8 +156,8 @@ async function boot() {
 
   game.on('turnContinues', ({ player }) => {
     gameUI.renderPlayers(game.state.players);
-    gameUI.setTurnText(`${player.name}'s turn`, player.color);
-    gameUI.setStatusMessage('You rolled a 6! Roll again');
+    gameUI.setTurnText(`${player.name} की बारी`, player.color);
+    gameUI.setStatusMessage('आपने 6 फेंका! फिर से फेंकें');
     gameUI.setRollEnabled(true);
     gameUI.showChooseHint(false);
     sceneManager.clearHighlight();
@@ -167,7 +167,7 @@ async function boot() {
 
   game.on('diceRolled', async ({ value }) => {
     gameUI.setRollEnabled(false);
-    gameUI.setStatusMessage('Rolling…');
+    gameUI.setStatusMessage('पासा घूम रहा है…');
     audio.playDiceRoll();
     await sceneManager.rollDice(value, settingsUI.getSettings().animationQuality);
     gameUI.setDieFace(value);
@@ -175,8 +175,8 @@ async function boot() {
   });
 
   game.on('noLegalMoves', ({ value }) => {
-    gameUI.setStatusMessage(`Rolled ${value} — no legal moves`);
-    toast('No legal moves');
+    gameUI.setStatusMessage(`${value} आया — कोई चाल संभव नहीं`);
+    toast('कोई चाल संभव नहीं');
   });
 
   game.on('legalMoves', ({ moves, autoSelect }) => {
@@ -184,7 +184,7 @@ async function boot() {
     sceneManager.highlightTokens(ids);
     sceneManager.setClickEnabled(true);
     gameUI.showChooseHint(moves.length > 1);
-    gameUI.setStatusMessage(moves.length > 1 ? 'Choose a token to move' : 'Moving…');
+    gameUI.setStatusMessage(moves.length > 1 ? 'चलाने के लिए एक टोकन चुनें' : 'टोकन चल रहा है…');
     if (autoSelect) {
       window.setTimeout(() => game.selectToken(autoSelect), 280);
     }
@@ -194,20 +194,20 @@ async function boot() {
     sceneManager.setClickEnabled(false);
     sceneManager.clearHighlight();
     gameUI.showChooseHint(false);
-    gameUI.setStatusMessage('Moving…');
+    gameUI.setStatusMessage('टोकन चल रहा है…');
     audio.playMoveStep();
 
     await sceneManager.animateMove({ tokenId, color, wasHome, fromRelStep, toRelStep });
 
     if (captures.length) {
       audio.playCapture();
-      toast(captures.length > 1 ? 'Tokens captured!' : 'Token captured!');
+      toast(captures.length > 1 ? 'टोकन पकड़े गए!' : 'टोकन पकड़ा गया!');
       await Promise.all(captures.map((c) => sceneManager.animateCapture(c.tokenId, c.color)));
     }
 
     if (enteredHome) {
       audio.playHomeEntry();
-      toast('Token reached home!');
+      toast('टोकन घर पहुंच गया!');
     }
 
     gameUI.renderPlayers(game.state.players);
@@ -236,7 +236,7 @@ async function boot() {
 
   function resumeSavedGame() {
     const saved = loadGame();
-    if (!saved) { toast('No saved game found'); return; }
+    if (!saved) { toast('कोई सेव किया गया गेम नहीं मिला'); return; }
     try {
       game.loadState(saved.state);
       lastPlayerConfigs = saved.state.players.map((p) => ({ color: p.color, name: p.name }));
@@ -246,7 +246,7 @@ async function boot() {
     } catch (err) {
       console.error('Corrupted save, starting fresh', err);
       clearSavedGame();
-      toast('Saved game could not be loaded');
+      toast('सेव किया गया गेम लोड नहीं हो सका');
     }
   }
 
