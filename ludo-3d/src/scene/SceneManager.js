@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import { buildLighting } from './Lighting.js';
+import { buildLighting, setShadowQuality } from './Lighting.js';
 import { buildEnvironment, updateParticles } from './Environment.js';
 import { buildBoard } from './BoardBuilder.js';
 import { TokenManager } from './TokenView.js';
@@ -8,9 +8,9 @@ import { CameraRig } from './Camera.js';
 import { EventEmitter, clamp } from '../utils/helpers.js';
 
 const QUALITY = {
-  high: { pixelRatio: Math.min(window.devicePixelRatio || 1, 2), shadows: true, particles: true },
-  medium: { pixelRatio: Math.min(window.devicePixelRatio || 1, 1.5), shadows: true, particles: true },
-  low: { pixelRatio: 1, shadows: false, particles: false }
+  high: { pixelRatio: Math.min(window.devicePixelRatio || 1, 2), shadows: true, shadowMapSize: 2048, particles: true },
+  medium: { pixelRatio: Math.min(window.devicePixelRatio || 1, 1.5), shadows: true, shadowMapSize: 1024, particles: true },
+  low: { pixelRatio: 1, shadows: false, shadowMapSize: 512, particles: false }
 };
 
 export class SceneManager extends EventEmitter {
@@ -70,7 +70,7 @@ export class SceneManager extends EventEmitter {
     this._quality = level;
     const q = QUALITY[level];
     this.renderer.shadowMap.enabled = q.shadows;
-    this._keyLight.castShadow = q.shadows;
+    setShadowQuality(this._keyLight, q.shadows, q.shadowMapSize);
     this._particles.visible = q.particles;
     this.tokens.qualityScale = level === 'low' ? 1.4 : level === 'medium' ? 1.15 : 1;
     this._onResize();
