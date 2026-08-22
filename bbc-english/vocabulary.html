@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Word Power — Vocabulary Builder | BBC English Coaching Classes Burhar</title>
+<meta name="description" content="Learn useful English words with meaning, pronunciation, Hindi meaning, examples and quizzes. Build your vocabulary daily.">
+<meta name="theme-color" content="#1e3a5f">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="assets/icons/icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/responsive.css">
+</head>
+<body data-page="vocabulary">
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="app-header">
+  <div class="container">
+    <a class="brand" href="index.html">
+      <span class="brand-mark">BE</span>
+      <span class="brand-text"><strong>BBC English Coaching</strong><span>Classes Burhar</span></span>
+    </a>
+    <nav class="top-nav" aria-label="Primary">
+      <a href="index.html">Home</a>
+      <a href="learn.html">Learn</a>
+      <a href="speaking.html">Speak</a>
+      <a href="grammar.html">Grammar</a>
+      <a href="vocabulary.html" class="active">Vocabulary</a>
+      <a href="progress.html">Progress</a>
+      <a href="courses.html">Courses</a>
+      <a href="about.html">About</a>
+    </nav>
+    <div class="header-stats">
+      <button class="icon-btn" data-theme-toggle aria-pressed="false" aria-label="Switch to dark mode">🌙</button>
+    </div>
+  </div>
+</header>
+
+<main id="main" class="container section">
+  <span class="eyebrow">Word Power</span>
+  <h1>Build your vocabulary</h1>
+  <p class="text-muted">Word, pronunciation, meaning, Hindi meaning, example, synonyms, antonyms and common mistakes — everything in one place.</p>
+
+  <div class="pill-tabs" data-tabs="vocab">
+    <button data-tab="browse" class="active">Browse Words</button>
+    <button data-tab="quiz">Quiz Yourself</button>
+  </div>
+
+  <div data-tab-panel="browse" data-tabs-for="vocab">
+    <div class="field" style="max-width:420px;">
+      <label for="word-search">Search words</label>
+      <input type="text" id="word-search" placeholder="Search by word or meaning...">
+    </div>
+    <div class="grid grid-2" id="word-grid"></div>
+  </div>
+
+  <div data-tab-panel="quiz" data-tabs-for="vocab" style="display:none;">
+    <div id="vocab-quiz"></div>
+  </div>
+
+  <div class="next-action">
+    <span class="msg">Use your new words 💬</span>
+    <a class="btn btn-accent" href="speaking.html">Go to Speaking Lab</a>
+  </div>
+</main>
+
+<footer class="app-footer">
+  <div class="container">
+    <div class="footer-bottom">
+      <span>© <span id="year"></span> BBC English Coaching Classes Burhar.</span>
+      <span>Not affiliated with the British Broadcasting Corporation.</span>
+    </div>
+  </div>
+</footer>
+
+<nav class="bottom-nav" aria-label="Mobile primary">
+  <a href="index.html"><span class="nav-icon">🏠</span>Home</a>
+  <a href="learn.html"><span class="nav-icon">🏋️</span>Learn</a>
+  <a href="speaking.html"><span class="nav-icon">🎤</span>Speak</a>
+  <a href="progress.html"><span class="nav-icon">📈</span>Progress</a>
+  <a href="more.html"><span class="nav-icon">⋯</span>More</a>
+</nav>
+
+<script src="js/config.js"></script>
+<script src="js/storage.js"></script>
+<script src="js/progress.js"></script>
+<script src="js/gamification.js"></script>
+<script src="data/vocabulary.js"></script>
+<script src="js/quiz.js"></script>
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+
+  function wordCard(w) {
+    return `
+    <div class="card word-card">
+      <span class="headword">${w.word}</span><span class="pron">${w.ipa}</span>
+      <p style="margin:10px 0 6px;">${w.meaning}</p>
+      <p class="text-muted" style="font-size:0.85rem;">हिंदी: ${w.hindi}</p>
+      <div class="word-meta">
+        <span class="chip">Synonyms: ${w.synonyms.join(", ")}</span>
+        <span class="chip">Antonyms: ${w.antonyms.join(", ")}</span>
+      </div>
+      <p style="font-size:0.9rem;"><strong>Example:</strong> ${w.example}</p>
+      <div class="explanation-box"><strong>Common mistake:</strong> ${w.mistake}</div>
+      <p class="text-muted" style="font-size:0.82rem;margin-bottom:0;"><strong>Real-life usage:</strong> ${w.usage}</p>
+    </div>`;
+  }
+
+  function renderWords(filter) {
+    const grid = document.getElementById("word-grid");
+    const list = VOCABULARY.filter((w) => !filter || w.word.toLowerCase().includes(filter) || w.meaning.toLowerCase().includes(filter));
+    grid.innerHTML = list.length ? list.map(wordCard).join("") : `<div class="empty-state"><div class="icon">🔍</div>No words match your search.</div>`;
+  }
+  renderWords("");
+  document.getElementById("word-search").addEventListener("input", (e) => renderWords(e.target.value.trim().toLowerCase()));
+
+  function buildVocabQuestions(count) {
+    const pool = pickRandom(VOCABULARY, count);
+    return pool.map((w) => {
+      const distractors = pickRandom(VOCABULARY.filter((x) => x.id !== w.id), 3).map((x) => x.meaning);
+      const options = shuffleArray([w.meaning, ...distractors]);
+      return {
+        id: "vq_" + w.id,
+        topic: "Word Power",
+        question: `What does "${w.word}" mean?`,
+        options,
+        answerIndex: options.indexOf(w.meaning),
+        explanation: `"${w.word}" means "${w.meaning}" — e.g. "${w.example}"`
+      };
+    });
+  }
+
+  let quizStarted = false;
+  document.querySelector('[data-tabs="vocab"] button[data-tab="quiz"]').addEventListener("click", () => {
+    if (quizStarted) return;
+    quizStarted = true;
+    createQuiz({
+      container: document.getElementById("vocab-quiz"),
+      questions: buildVocabQuestions(10),
+      quizType: "vocabulary",
+      xpPerCorrect: 10,
+      onComplete: ({ actionsEl }) => {
+        Progress.markLessonComplete("vocab_quiz");
+        Gamification.checkAchievements();
+        actionsEl.innerHTML = `
+          <a class="btn btn-primary" href="speaking.html">Use these words in Speaking Lab</a>
+          <a class="btn btn-outline" href="grammar.html">Try Grammar Arena</a>`;
+      }
+    });
+  });
+</script>
+<script src="js/app.js"></script>
+</body>
+</html>

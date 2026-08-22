@@ -1,0 +1,31 @@
+@media (min-width: 560px) {
+  .grid-2 { grid-template-columns: repeat(2, 1fr); }
+  .grid-3 { grid-template-columns: repeat(2, 1fr); }
+  .snapshot-metrics { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (min-width: 760px) {
+  .grid-3 { grid-template-columns: repeat(3, 1fr); }
+  .grid-4 { grid-template-columns: repeat(4, 1fr); }
+  .badge-grid { grid-template-columns: repeat(3, 1fr); }
+  .app-footer .footer-grid { grid-template-columns: repeat(4, 1fr); }
+  .choice-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (min-width: 900px) {
+  body { padding-bottom: 0; }
+  .bottom-nav { display: none; }
+  .top-nav { display: flex; }
+  .mobile-only { display: none !important; }
+  .grid-2 { grid-template-columns: repeat(2, 1fr); }
+  .badge-grid { grid-template-columns: repeat(4, 1fr); }
+  .hero .container { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 40px; align-items: center; }
+}
+
+@media (max-width: 899px) {
+  .desktop-only { display: none !important; }
+}
+
+@media (min-width: 1100px) {
+  .grid-4 { grid-template-columns: repeat(4, 1fr); }
+}

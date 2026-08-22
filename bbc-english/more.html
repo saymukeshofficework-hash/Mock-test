@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>More — BBC English Coaching Classes Burhar</title>
+<meta name="description" content="All learning tools, courses and institute information for BBC English Coaching Classes Burhar.">
+<meta name="theme-color" content="#1e3a5f">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="assets/icons/icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/responsive.css">
+</head>
+<body data-page="more">
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="app-header">
+  <div class="container">
+    <a class="brand" href="index.html">
+      <span class="brand-mark">BE</span>
+      <span class="brand-text"><strong>BBC English Coaching</strong><span>Classes Burhar</span></span>
+    </a>
+    <nav class="top-nav" aria-label="Primary">
+      <a href="index.html">Home</a>
+      <a href="learn.html">Learn</a>
+      <a href="speaking.html">Speak</a>
+      <a href="grammar.html">Grammar</a>
+      <a href="vocabulary.html">Vocabulary</a>
+      <a href="progress.html">Progress</a>
+      <a href="courses.html">Courses</a>
+      <a href="about.html">About</a>
+    </nav>
+    <div class="header-stats">
+      <button class="icon-btn" data-theme-toggle aria-pressed="false" aria-label="Switch to dark mode">🌙</button>
+    </div>
+  </div>
+</header>
+
+<main id="main" class="container section">
+  <span class="eyebrow">More</span>
+  <h1>Everything else</h1>
+
+  <div class="section-head"><h2 style="font-size:1.1rem;">Learning Tools</h2></div>
+  <div class="grid grid-3" style="margin-bottom:32px;">
+    <a class="card card-link feature-card" href="reading.html"><span class="feature-icon">📖</span><h3>Reading Lab</h3><p>Original passages with comprehension questions.</p></a>
+    <a class="card card-link feature-card" href="listening.html"><span class="feature-icon">🎧</span><h3>Listening Lab</h3><p>Listen, choose, complete and repeat.</p></a>
+    <a class="card card-link feature-card" href="test.html"><span class="feature-icon">🧪</span><h3>Free English Test</h3><p>Get your English Snapshot in 5 minutes.</p></a>
+  </div>
+
+  <div class="section-head"><h2 style="font-size:1.1rem;">Institute</h2></div>
+  <div class="grid grid-3" style="margin-bottom:32px;">
+    <a class="card card-link feature-card" href="courses.html"><span class="feature-icon">🎓</span><h3>Courses</h3><p>Structured, teacher-led courses at our Burhar centre.</p></a>
+    <a class="card card-link feature-card" href="about.html"><span class="feature-icon">🏫</span><h3>About Us</h3><p>Our philosophy and who we teach.</p></a>
+    <a class="card card-link feature-card" href="contact.html"><span class="feature-icon">📞</span><h3>Contact / Book Demo</h3><p>Get in touch with BBC English Coaching Classes Burhar.</p></a>
+  </div>
+
+  <div class="section-head"><h2 style="font-size:1.1rem;">Settings</h2></div>
+  <div class="card" style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+    <span>Dark mode</span>
+    <label class="switch">
+      <input type="checkbox" id="dark-toggle">
+      <span class="slider" aria-hidden="true"></span>
+    </label>
+  </div>
+  <a class="card card-link" style="display:block;margin-bottom:16px;" href="privacy.html">Privacy Policy</a>
+</main>
+
+<footer class="app-footer">
+  <div class="container">
+    <div class="footer-bottom">
+      <span>© <span id="year"></span> BBC English Coaching Classes Burhar.</span>
+      <span>Not affiliated with the British Broadcasting Corporation.</span>
+    </div>
+  </div>
+</footer>
+
+<nav class="bottom-nav" aria-label="Mobile primary">
+  <a href="index.html"><span class="nav-icon">🏠</span>Home</a>
+  <a href="learn.html"><span class="nav-icon">🏋️</span>Learn</a>
+  <a href="speaking.html"><span class="nav-icon">🎤</span>Speak</a>
+  <a href="progress.html"><span class="nav-icon">📈</span>Progress</a>
+  <a href="more.html" class="active"><span class="nav-icon">⋯</span>More</a>
+</nav>
+
+<script src="js/config.js"></script>
+<script src="js/storage.js"></script>
+<script src="js/progress.js"></script>
+<script src="js/gamification.js"></script>
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+  const darkToggle = document.getElementById("dark-toggle");
+  const savedTheme = Storage.get("theme") || (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+  darkToggle.checked = savedTheme === "dark";
+  darkToggle.addEventListener("change", () => BBCApp.toggleTheme());
+</script>
+<script src="js/app.js"></script>
+</body>
+</html>
