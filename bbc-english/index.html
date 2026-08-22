@@ -36,6 +36,8 @@
       <a href="speaking.html">Speak</a>
       <a href="grammar.html">Grammar</a>
       <a href="vocabulary.html">Vocabulary</a>
+      <a href="dictionary.html">Dictionary</a>
+      <a href="writing-tools.html">Writing</a>
       <a href="progress.html">Progress</a>
       <a href="courses.html">Courses</a>
       <a href="about.html">About</a>
@@ -128,6 +130,37 @@
         <p>Listen, answer and repeat — build your ear for natural English.</p>
         <span class="tag free">Free</span>
       </a>
+      <a class="card card-link feature-card" href="dictionary.html">
+        <span class="feature-icon">🔤</span>
+        <h3>English ⇄ Hindi Dictionary</h3>
+        <p>Quick word lookup both ways — type in English or Hindi.</p>
+        <span class="tag free">Free</span>
+      </a>
+      <a class="card card-link feature-card" href="writing-tools.html">
+        <span class="feature-icon">✍️</span>
+        <h3>Student Writing Tools</h3>
+        <p>Notice, letter, paragraph and speech writing — formats plus real examples.</p>
+        <span class="tag free">Free</span>
+      </a>
+    </div>
+  </section>
+
+  <section class="section container">
+    <div class="section-head">
+      <span class="eyebrow">Quick Lookup</span>
+      <h2>English ⇄ Hindi Dictionary</h2>
+      <p class="text-muted">Type an English or Hindi word to look it up instantly.</p>
+    </div>
+    <div class="card" style="padding:24px;">
+      <div class="field" style="max-width:420px;margin-bottom:0;">
+        <label for="home-dict-search">Search a word</label>
+        <input type="text" id="home-dict-search" placeholder="e.g. water / पानी">
+      </div>
+      <div id="home-dict-results" class="grid grid-3" style="margin-top:18px;"></div>
+      <div id="home-dict-empty" class="empty-state" style="display:none;">
+        <div class="icon">🔤</div>Start typing an English or Hindi word above.
+      </div>
+      <a class="btn btn-outline btn-sm" href="dictionary.html" style="margin-top:14px;">Open Full Dictionary</a>
     </div>
   </section>
 
@@ -203,6 +236,8 @@
           <li><a href="grammar.html">Grammar Arena</a></li>
           <li><a href="reading.html">Reading Lab</a></li>
           <li><a href="listening.html">Listening Lab</a></li>
+          <li><a href="dictionary.html">Dictionary</a></li>
+          <li><a href="writing-tools.html">Writing</a></li>
         </ul>
       </div>
       <div>
@@ -243,7 +278,36 @@
 <script src="js/storage.js"></script>
 <script src="js/progress.js"></script>
 <script src="js/gamification.js"></script>
+<script src="data/dictionary.js"></script>
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+
+  function homeDictCard(d) {
+    return `
+    <div class="card word-card">
+      <span class="headword">${d.en}</span>
+      <div class="word-meta"><span class="chip">${d.pos}</span></div>
+      <p style="font-size:1.2rem;margin:8px 0 0;">${d.hi}</p>
+    </div>`;
+  }
+  const homeDictSearch = document.getElementById("home-dict-search");
+  const homeDictResults = document.getElementById("home-dict-results");
+  const homeDictEmpty = document.getElementById("home-dict-empty");
+  homeDictSearch.addEventListener("input", () => {
+    const q = homeDictSearch.value.trim().toLowerCase();
+    if (!q) {
+      homeDictResults.innerHTML = "";
+      homeDictEmpty.style.display = "block";
+      return;
+    }
+    homeDictEmpty.style.display = "none";
+    const matches = DICTIONARY.filter((d) => d.en.toLowerCase().includes(q) || d.hi.includes(q)).slice(0, 9);
+    homeDictResults.innerHTML = matches.length
+      ? matches.map(homeDictCard).join("")
+      : `<div class="empty-state"><div class="icon">🔍</div>No matching word yet — try the <a href="dictionary.html">full dictionary</a>.</div>`;
+  });
+  homeDictEmpty.style.display = "block";
+</script>
 <script src="js/app.js"></script>
-<script>document.getElementById("year").textContent = new Date().getFullYear();</script>
 </body>
 </html>

@@ -17,12 +17,15 @@ This lives in a subfolder of a repo (`Mock-test`) that also hosts unrelated apps
 bbc-english/
   index.html, learn.html, dashboard.html, speaking.html, grammar.html,
   vocabulary.html, listening.html, reading.html, progress.html, courses.html,
-  about.html, contact.html, privacy.html, test.html, onboarding.html
+  about.html, contact.html, privacy.html, test.html, onboarding.html,
+  dictionary.html, writing-tools.html
   css/  style.css (design system + layout) · responsive.css (breakpoints) · components.css (reusable UI components)
   js/   app.js (shell: nav, theme, header stats) · config.js (SITE_CONFIG) · storage.js (localStorage wrapper)
         progress.js (progress/state helpers) · gamification.js (XP/levels/streak/achievements)
         quiz.js (quiz engine + scoring) · speaking.js (timer/recording)
-  data/ vocabulary.js · grammar.js · speaking.js · reading.js · challenges.js · phrases.js
+  data/ vocabulary.js · grammar.js · speaking.js · reading.js · challenges.js · phrases.js · listening.js
+        dictionary.js (EN-HI word list, `window.DICTIONARY`) · writing.js (notice/letter/paragraph/speech
+        content for Student Writing Tools, `window.NOTICE_EXAMPLES`/`LETTER_EXAMPLES`/`PARAGRAPH_EXAMPLES`/`SPEECH_EXAMPLES`)
   assets/icons/  PWA icons (SVG-based, no binary asset pipeline)
   manifest.json, service-worker.js, robots.txt, sitemap.xml
 ```

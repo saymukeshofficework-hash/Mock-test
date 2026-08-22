@@ -1,12 +1,14 @@
 /* Bump CACHE_VERSION whenever any cached file changes, to bust old caches. */
-const CACHE_VERSION = "bbceng-v1";
+const CACHE_VERSION = "bbceng-v2";
 const PRECACHE_URLS = [
   "index.html", "learn.html", "speaking.html", "grammar.html", "vocabulary.html",
   "listening.html", "reading.html", "progress.html", "courses.html", "about.html",
   "contact.html", "privacy.html", "test.html", "onboarding.html", "more.html",
+  "dictionary.html", "writing-tools.html",
   "css/style.css", "css/components.css", "css/responsive.css",
   "js/app.js", "js/config.js", "js/storage.js", "js/progress.js", "js/gamification.js", "js/quiz.js", "js/speaking.js",
   "data/vocabulary.js", "data/grammar.js", "data/speaking.js", "data/phrases.js", "data/reading.js", "data/listening.js", "data/challenges.js",
+  "data/dictionary.js", "data/writing.js",
   "manifest.json", "assets/icons/icon.svg", "assets/icons/icon-192.png", "assets/icons/icon-512.png"
 ];
 
