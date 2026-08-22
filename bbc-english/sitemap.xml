@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Replace https://REPLACE-WITH-YOUR-DOMAIN with the real deployed URL once known. -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://REPLACE-WITH-YOUR-DOMAIN/index.html</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
-  <url><loc>https://REPLACE-WITH-YOUR-DOMAIN/learn.html</loc><changefreq>daily</changefreq><priority>0.9</priority></url>
-  <url><loc>https://REPLACE-WITH-YOUR-DOMAIN/speaking.html</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://REPLACE-WITH-YOUR-DOMAIN/grammar.html</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://REPLACE-WITH-YOUR-DOMAIN/vocabulary.html</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://REPLACE-WITH-YOUR-DOMAIN/reading.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://REPLACE-WITH-YOUR-DOMAIN/listening.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://REPLACE-WITH-YOUR-DOMAIN/test.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://REPLACE-WITH-YOUR-DOMAIN/courses.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://REPLACE-WITH-YOUR-DOMAIN/about.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://REPLACE-WITH-YOUR-DOMAIN/contact.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://REPLACE-WITH-YOUR-DOMAIN/privacy.html</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://saymukeshofficework-hash.github.io/Mock-test/bbc-english/index.html</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://saymukeshofficework-hash.github.io/Mock-test/bbc-english/learn.html</loc><changefreq>daily</changefreq><priority>0.9</priority></url>
+  <url><loc>https://saymukeshofficework-hash.github.io/Mock-test/bbc-english/speaking.html</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://saymukeshofficework-hash.github.io/Mock-test/bbc-english/grammar.html</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://saymukeshofficework-hash.github.io/Mock-test/bbc-english/vocabulary.html</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://saymukeshofficework-hash.github.io/Mock-test/bbc-english/reading.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://saymukeshofficework-hash.github.io/Mock-test/bbc-english/listening.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://saymukeshofficework-hash.github.io/Mock-test/bbc-english/test.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://saymukeshofficework-hash.github.io/Mock-test/bbc-english/courses.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://saymukeshofficework-hash.github.io/Mock-test/bbc-english/about.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://saymukeshofficework-hash.github.io/Mock-test/bbc-english/contact.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://saymukeshofficework-hash.github.io/Mock-test/bbc-english/privacy.html</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
 </urlset>
