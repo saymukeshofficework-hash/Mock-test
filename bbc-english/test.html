@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Free English Test — English Snapshot | BBC English Coaching Classes Burhar</title>
+<meta name="description" content="Take a free 5-minute English learning snapshot covering grammar, vocabulary and practical English. No registration needed.">
+<meta name="theme-color" content="#1e3a5f">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="assets/icons/icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/responsive.css">
+</head>
+<body data-page="test">
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="app-header">
+  <div class="container">
+    <a class="brand" href="index.html">
+      <span class="brand-mark">BE</span>
+      <span class="brand-text"><strong>BBC English Coaching</strong><span>Classes Burhar</span></span>
+    </a>
+    <nav class="top-nav" aria-label="Primary">
+      <a href="index.html">Home</a>
+      <a href="learn.html">Learn</a>
+      <a href="speaking.html">Speak</a>
+      <a href="grammar.html">Grammar</a>
+      <a href="vocabulary.html">Vocabulary</a>
+      <a href="progress.html">Progress</a>
+      <a href="courses.html">Courses</a>
+      <a href="about.html">About</a>
+    </nav>
+    <div class="header-stats">
+      <button class="icon-btn" data-theme-toggle aria-pressed="false" aria-label="Switch to dark mode">🌙</button>
+    </div>
+  </div>
+</header>
+
+<main id="main" class="container section" style="max-width:720px;">
+  <div id="intro">
+    <span class="eyebrow">Free English Test</span>
+    <h1>Your English Learning Snapshot</h1>
+    <p class="text-muted">15 quick questions covering grammar, vocabulary and practical English. Takes about 5 minutes. No registration needed.</p>
+    <div class="callout" style="margin:16px 0;">This is a quick <strong>learning snapshot</strong> to guide your practice — not an official or standardised English assessment.</div>
+    <button class="btn btn-primary" id="start-test">Start the Free Test</button>
+  </div>
+
+  <div id="test-area" style="display:none;"></div>
+
+  <div id="result-area" style="display:none;"></div>
+</main>
+
+<footer class="app-footer">
+  <div class="container">
+    <div class="footer-bottom">
+      <span>© <span id="year"></span> BBC English Coaching Classes Burhar.</span>
+      <span>Not affiliated with the British Broadcasting Corporation.</span>
+    </div>
+  </div>
+</footer>
+
+<nav class="bottom-nav" aria-label="Mobile primary">
+  <a href="index.html"><span class="nav-icon">🏠</span>Home</a>
+  <a href="learn.html"><span class="nav-icon">🏋️</span>Learn</a>
+  <a href="speaking.html"><span class="nav-icon">🎤</span>Speak</a>
+  <a href="progress.html"><span class="nav-icon">📈</span>Progress</a>
+  <a href="more.html"><span class="nav-icon">⋯</span>More</a>
+</nav>
+
+<script src="js/config.js"></script>
+<script src="js/storage.js"></script>
+<script src="js/progress.js"></script>
+<script src="js/gamification.js"></script>
+<script src="data/vocabulary.js"></script>
+<script src="data/grammar.js"></script>
+<script src="data/phrases.js"></script>
+<script src="js/quiz.js"></script>
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+
+  function buildTest() {
+    const grammarQs = pickRandom(GRAMMAR_QUESTIONS.filter((q) => q.type === "mcq"), 5).map((q) => ({ ...q, bucket: "grammar" }));
+    const vocabPool = pickRandom(VOCABULARY, 5);
+    const vocabQs = vocabPool.map((w) => {
+      const distractors = pickRandom(VOCABULARY.filter((x) => x.id !== w.id), 3).map((x) => x.meaning);
+      const options = shuffleArray([w.meaning, ...distractors]);
+      return { question: `What does "${w.word}" mean?`, options, answerIndex: options.indexOf(w.meaning), explanation: `"${w.word}" means "${w.meaning}".`, bucket: "vocabulary" };
+    });
+    const realPool = pickRandom(REAL_ENGLISH, 5);
+    const practicalQs = realPool.map((r) => {
+      const options = shuffleArray([r.natural, r.basic, r.polite === r.natural ? r.professional : r.polite]);
+      return { question: `Which is the most natural way to say this in a real conversation? (${r.context})`, options, answerIndex: options.indexOf(r.natural), explanation: `In everyday conversation, "${r.natural}" sounds the most natural for: ${r.context}.`, bucket: "practical" };
+    });
+    return shuffleArray([...grammarQs, ...vocabQs, ...practicalQs]);
+  }
+
+  const testLevels = [
+    { max: 40, label: "Beginner" },
+    { max: 60, label: "Elementary" },
+    { max: 75, label: "Intermediate" },
+    { max: 90, label: "Upper Intermediate" },
+    { max: 101, label: "Advanced" }
+  ];
+  function levelForScore(pct) {
+    return testLevels.find((l) => pct < l.max).label;
+  }
+
+  document.getElementById("start-test").addEventListener("click", () => {
+    document.getElementById("intro").style.display = "none";
+    const area = document.getElementById("test-area");
+    area.style.display = "block";
+    const questions = buildTest();
+    const buckets = { grammar: { correct: 0, total: 0 }, vocabulary: { correct: 0, total: 0 }, practical: { correct: 0, total: 0 } };
+    let index = 0;
+
+    function renderQ() {
+      if (index >= questions.length) return finish();
+      const q = questions[index];
+      area.innerHTML = `
+        <div class="quiz-progress"><span>${index + 1} / ${questions.length}</span><div class="progress-bar"><span style="width:${(index / questions.length) * 100}%"></span></div></div>
+        <div class="card">
+          <h3>${q.question}</h3>
+          <div class="option-list">
+            ${q.options.map((opt, i) => `<button class="option-btn" data-i="${i}"><span class="letter">${letterFor(i)}</span><span>${opt}</span></button>`).join("")}
+          </div>
+        </div>`;
+      area.querySelectorAll(".option-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const chosen = Number(btn.dataset.i);
+          buckets[q.bucket].total += 1;
+          if (chosen === q.answerIndex) buckets[q.bucket].correct += 1;
+          index += 1;
+          renderQ();
+        });
+      });
+    }
+    renderQ();
+
+    function pct(bucket) {
+      const b = buckets[bucket];
+      return b.total ? Math.round((b.correct / b.total) * 100) : 0;
+    }
+
+    function finish() {
+      area.style.display = "none";
+      const grammar = pct("grammar"), vocabulary = pct("vocabulary"), practical = pct("practical");
+      const overall = Math.round((grammar + vocabulary + practical) / 3);
+      const level = levelForScore(overall);
+      const snapshot = { grammar, vocabulary, practical, level, date: Progress.todayKey() };
+      Progress.saveTestSnapshot(snapshot);
+      Progress.markLessonComplete("free_test");
+      Gamification.checkAchievements();
+
+      const result = document.getElementById("result-area");
+      result.style.display = "block";
+      result.innerHTML = `
+        <div class="snapshot-card">
+          <div class="snap-brand">BBC English Coaching Classes Burhar</div>
+          <div class="snap-level">Your English Snapshot</div>
+          <div class="snapshot-metrics">
+            <div class="metric"><div class="pct">${grammar}%</div><div class="label">Grammar</div></div>
+            <div class="metric"><div class="pct">${vocabulary}%</div><div class="label">Vocabulary</div></div>
+            <div class="metric"><div class="pct">${practical}%</div><div class="label">Practical English</div></div>
+          </div>
+          <p style="margin-top:14px;font-weight:700;">Level: ${level}</p>
+          <p class="snapshot-note">This is a learning snapshot to guide your practice, not an official or standardised English assessment.</p>
+        </div>
+        <div class="btn-row" style="justify-content:center;margin-top:20px;">
+          <a class="btn btn-primary" href="learn.html">Start Improving</a>
+          <a class="btn btn-outline" href="contact.html">Book a Free Demo</a>
+        </div>
+        <div class="btn-row" style="justify-content:center;margin-top:12px;">
+          <button class="btn btn-outline btn-sm" id="share-result">Share</button>
+          <button class="btn btn-outline btn-sm" id="retake-test">Retake Test</button>
+        </div>
+      `;
+      document.getElementById("share-result").addEventListener("click", async () => {
+        const text = `My BBC English Coaching Classes Burhar English Snapshot:\nGrammar: ${grammar}% · Vocabulary: ${vocabulary}% · Practical English: ${practical}%\nLevel: ${level}`;
+        if (navigator.share) { try { await navigator.share({ text }); } catch (e) {} }
+        else if (navigator.clipboard) { await navigator.clipboard.writeText(text); showToast("Copied to clipboard!"); }
+      });
+      document.getElementById("retake-test").addEventListener("click", () => {
+        result.style.display = "none";
+        document.getElementById("intro").style.display = "block";
+      });
+    }
+  });
+</script>
+<script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Listening Lab — BBC English Coaching Classes Burhar</title>
+<meta name="description" content="Listen, choose, complete and repeat with original English audio scripts generated in your browser.">
+<meta name="theme-color" content="#1e3a5f">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="assets/icons/icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/responsive.css">
+</head>
+<body data-page="listening">
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="app-header">
+  <div class="container">
+    <a class="brand" href="index.html">
+      <span class="brand-mark">BE</span>
+      <span class="brand-text"><strong>BBC English Coaching</strong><span>Classes Burhar</span></span>
+    </a>
+    <nav class="top-nav" aria-label="Primary">
+      <a href="index.html">Home</a>
+      <a href="learn.html">Learn</a>
+      <a href="speaking.html">Speak</a>
+      <a href="grammar.html">Grammar</a>
+      <a href="vocabulary.html">Vocabulary</a>
+      <a href="progress.html">Progress</a>
+      <a href="courses.html">Courses</a>
+      <a href="about.html">About</a>
+    </nav>
+    <div class="header-stats">
+      <button class="icon-btn" data-theme-toggle aria-pressed="false" aria-label="Switch to dark mode">🌙</button>
+    </div>
+  </div>
+</header>
+
+<main id="main" class="container section">
+  <span class="eyebrow">Listening Lab</span>
+  <h1>Train your ear for natural English</h1>
+  <p class="text-muted">Original scripts, read aloud by your browser. Listen and choose, listen and complete, listen and repeat.</p>
+
+  <div id="listening-detail" style="display:none;margin-bottom:24px;"></div>
+
+  <div class="pill-tabs" id="listen-cats"></div>
+  <div class="grid grid-3" id="listen-grid"></div>
+
+  <div class="next-action">
+    <span class="msg">Now try reading it yourself 📖</span>
+    <a class="btn btn-accent" href="reading.html">Go to Reading Lab</a>
+  </div>
+</main>
+
+<footer class="app-footer">
+  <div class="container">
+    <div class="footer-bottom">
+      <span>© <span id="year"></span> BBC English Coaching Classes Burhar.</span>
+      <span>Not affiliated with the British Broadcasting Corporation.</span>
+    </div>
+  </div>
+</footer>
+
+<nav class="bottom-nav" aria-label="Mobile primary">
+  <a href="index.html"><span class="nav-icon">🏠</span>Home</a>
+  <a href="learn.html"><span class="nav-icon">🏋️</span>Learn</a>
+  <a href="speaking.html"><span class="nav-icon">🎤</span>Speak</a>
+  <a href="progress.html"><span class="nav-icon">📈</span>Progress</a>
+  <a href="more.html"><span class="nav-icon">⋯</span>More</a>
+</nav>
+
+<script src="js/config.js"></script>
+<script src="js/storage.js"></script>
+<script src="js/progress.js"></script>
+<script src="js/gamification.js"></script>
+<script src="data/listening.js"></script>
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+  const ttsSupported = "speechSynthesis" in window;
+
+  function speak(text) {
+    if (!ttsSupported) return;
+    window.speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = "en-US";
+    u.rate = 0.95;
+    window.speechSynthesis.speak(u);
+  }
+
+  const cats = ["All", ...new Set(LISTENING_ITEMS.map((i) => i.category))];
+  document.getElementById("listen-cats").innerHTML = cats.map((c, i) =>
+    `<button data-cat="${c}" class="${i === 0 ? "active" : ""}">${c}</button>`).join("");
+
+  function renderGrid(cat) {
+    const list = LISTENING_ITEMS.filter((i) => cat === "All" || i.category === cat);
+    document.getElementById("listen-grid").innerHTML = list.map((i) => `
+      <div class="card feature-card">
+        <span class="tag">${i.category}</span>
+        <h3>${i.title}</h3>
+        <p>Listen, choose, complete and repeat.</p>
+        <button class="btn btn-outline btn-sm" data-open="${i.id}" style="margin-top:auto;">Open</button>
+      </div>`).join("");
+    document.querySelectorAll("[data-open]").forEach((btn) => btn.addEventListener("click", () => openItem(btn.dataset.open)));
+  }
+  renderGrid("All");
+  document.getElementById("listen-cats").addEventListener("click", (e) => {
+    const btn = e.target.closest("button[data-cat]");
+    if (!btn) return;
+    document.querySelectorAll("#listen-cats button").forEach((b) => b.classList.remove("active"));
+    btn.classList.add("active");
+    renderGrid(btn.dataset.cat);
+  });
+
+  function openItem(id) {
+    const item = LISTENING_ITEMS.find((x) => x.id === id);
+    const area = document.getElementById("listening-detail");
+    area.style.display = "block";
+    area.innerHTML = `
+      <div class="card">
+        <span class="tag">${item.category}</span>
+        <h2>${item.title}</h2>
+        <div class="btn-row" style="margin:12px 0;">
+          <button class="btn btn-primary" id="play-btn">${ttsSupported ? "▶ Listen" : "Listen (unavailable on this device)"}</button>
+          <button class="btn btn-outline btn-sm" id="show-transcript">Show Transcript</button>
+        </div>
+        <p class="text-muted" id="transcript" hidden>${item.script}</p>
+      </div>
+
+      <div class="card" style="margin-top:16px;">
+        <h3>1. Listen and Choose</h3>
+        <div class="option-list">
+          ${item.choose.options.map((opt, i) => `<button class="option-btn" data-i="${i}"><span class="letter">${letterForListen(i)}</span><span>${opt}</span></button>`).join("")}
+        </div>
+        <div class="explanation-box" id="choose-exp" hidden></div>
+      </div>
+
+      <div class="card" style="margin-top:16px;">
+        <h3>2. Listen and Complete</h3>
+        <p>${item.complete.before} ______ ${item.complete.after}</p>
+        <div class="field" style="max-width:260px;">
+          <input type="text" id="fill-input" placeholder="Type the missing word">
+        </div>
+        <button class="btn btn-primary btn-sm" id="check-fill">Check</button>
+        <div class="explanation-box" id="fill-exp" hidden></div>
+      </div>
+
+      <div class="card" style="margin-top:16px;">
+        <h3>3. Listen and Repeat</h3>
+        <p class="text-muted">Listen to this line, then say it out loud yourself.</p>
+        <p style="font-weight:700;">"${item.repeatLine}"</p>
+        <div class="btn-row">
+          <button class="btn btn-outline btn-sm" id="play-repeat">${ttsSupported ? "▶ Play line" : "Playback unavailable"}</button>
+          <button class="btn btn-primary btn-sm" id="mark-repeat">I repeated it</button>
+        </div>
+      </div>
+    `;
+    document.getElementById("play-btn").addEventListener("click", () => speak(item.script));
+    document.getElementById("show-transcript").addEventListener("click", () => {
+      document.getElementById("transcript").hidden = !document.getElementById("transcript").hidden;
+    });
+    area.querySelectorAll(".option-list .option-btn").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const chosen = Number(btn.dataset.i);
+        const correct = chosen === item.choose.answerIndex;
+        area.querySelectorAll(".option-list .option-btn").forEach((b) => {
+          b.disabled = true;
+          const i = Number(b.dataset.i);
+          if (i === item.choose.answerIndex) b.classList.add("correct");
+          else if (i === chosen) b.classList.add("incorrect");
+        });
+        const exp = document.getElementById("choose-exp");
+        exp.hidden = false;
+        exp.innerHTML = `<strong>${correct ? "Correct! " : "Not quite. "}</strong>${item.choose.explanation}`;
+        if (correct) Gamification.addXP(10, "correct_answer");
+        Progress.markLessonComplete("listening_" + item.id);
+        Gamification.checkAchievements();
+      });
+    });
+    document.getElementById("check-fill").addEventListener("click", () => {
+      const val = document.getElementById("fill-input").value.trim().toLowerCase();
+      const correct = val === item.complete.answer.toLowerCase();
+      const exp = document.getElementById("fill-exp");
+      exp.hidden = false;
+      exp.innerHTML = correct ? `<strong>Correct!</strong> The missing word is "${item.complete.answer}".` : `<strong>Not quite.</strong> The missing word is "${item.complete.answer}".`;
+      if (correct) Gamification.addXP(10, "correct_answer");
+    });
+    document.getElementById("play-repeat").addEventListener("click", () => speak(item.repeatLine));
+    document.getElementById("mark-repeat").addEventListener("click", () => {
+      Progress.markSpeakingPracticed("listen_repeat_" + item.id);
+      Gamification.addXP(10, "correct_answer");
+      Gamification.checkAchievements();
+      showToast("Nice! Keep practising.");
+    });
+    area.scrollIntoView({ behavior: "smooth" });
+  }
+  function letterForListen(i) { return String.fromCharCode(65 + i); }
+</script>
+<script src="js/app.js"></script>
+</body>
+</html>

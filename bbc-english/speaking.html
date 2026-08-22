@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Speaking Lab — BBC English Coaching Classes Burhar</title>
+<meta name="description" content="Practice real-life English speaking situations with a timer, recording and self-evaluation. Join the 7-Day Speaking Challenge.">
+<meta name="theme-color" content="#1e3a5f">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="assets/icons/icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/responsive.css">
+</head>
+<body data-page="speaking">
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="app-header">
+  <div class="container">
+    <a class="brand" href="index.html">
+      <span class="brand-mark">BE</span>
+      <span class="brand-text"><strong>BBC English Coaching</strong><span>Classes Burhar</span></span>
+    </a>
+    <nav class="top-nav" aria-label="Primary">
+      <a href="index.html">Home</a>
+      <a href="learn.html">Learn</a>
+      <a href="speaking.html" class="active">Speak</a>
+      <a href="grammar.html">Grammar</a>
+      <a href="vocabulary.html">Vocabulary</a>
+      <a href="progress.html">Progress</a>
+      <a href="courses.html">Courses</a>
+      <a href="about.html">About</a>
+    </nav>
+    <div class="header-stats">
+      <button class="icon-btn" data-theme-toggle aria-pressed="false" aria-label="Switch to dark mode">🌙</button>
+    </div>
+  </div>
+</header>
+
+<main id="main" class="container section">
+  <span class="eyebrow">Speaking Lab</span>
+  <h1>Speak out loud. Every day.</h1>
+  <p class="text-muted">Perfect English is not the goal. Confident communication is. Pick a real-life situation and speak — recording is optional.</p>
+
+  <div id="practice-area" style="display:none;margin-bottom:24px;"></div>
+
+  <div class="pill-tabs" id="speak-categories"></div>
+  <div class="grid grid-3" id="speak-grid" style="margin-bottom:40px;"></div>
+
+  <section id="seven-day" class="section" style="padding-top:0;">
+    <div class="section-head">
+      <span class="eyebrow">Signature Challenge</span>
+      <h2>7-Day Speaking Challenge</h2>
+      <p class="text-muted">One short speaking task a day for a week — build the habit of speaking English out loud.</p>
+    </div>
+    <div class="grid grid-4" id="challenge-grid"></div>
+  </section>
+
+  <div class="next-action">
+    <span class="msg">Keep your streak alive 🔥</span>
+    <a class="btn btn-accent" href="learn.html">Back to Daily English Gym</a>
+  </div>
+</main>
+
+<footer class="app-footer">
+  <div class="container">
+    <div class="footer-bottom">
+      <span>© <span id="year"></span> BBC English Coaching Classes Burhar.</span>
+      <span>Not affiliated with the British Broadcasting Corporation.</span>
+    </div>
+  </div>
+</footer>
+
+<nav class="bottom-nav" aria-label="Mobile primary">
+  <a href="index.html"><span class="nav-icon">🏠</span>Home</a>
+  <a href="learn.html"><span class="nav-icon">🏋️</span>Learn</a>
+  <a href="speaking.html" class="active"><span class="nav-icon">🎤</span>Speak</a>
+  <a href="progress.html"><span class="nav-icon">📈</span>Progress</a>
+  <a href="more.html"><span class="nav-icon">⋯</span>More</a>
+</nav>
+
+<script src="js/config.js"></script>
+<script src="js/storage.js"></script>
+<script src="js/progress.js"></script>
+<script src="js/gamification.js"></script>
+<script src="data/speaking.js"></script>
+<script src="js/quiz.js"></script>
+<script src="js/speaking.js"></script>
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+
+  const categories = ["All", ...new Set(SPEAKING_PROMPTS.map((p) => p.category))];
+  document.getElementById("speak-categories").innerHTML = categories.map((c, i) =>
+    `<button data-cat="${c}" class="${i === 0 ? "active" : ""}">${c}</button>`).join("");
+
+  function openPractice(item) {
+    const area = document.getElementById("practice-area");
+    area.style.display = "block";
+    renderSpeakingWidget(area, item, () => {
+      showToast("Nice work! Keep the streak going.");
+    });
+    area.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  function renderGrid(cat) {
+    const list = SPEAKING_PROMPTS.filter((p) => cat === "All" || p.category === cat);
+    document.getElementById("speak-grid").innerHTML = list.map((p) => `
+      <div class="card feature-card">
+        <span class="tag">${p.category}</span>
+        <h3>${p.title}</h3>
+        <p>${p.prompt}</p>
+        <button class="btn btn-outline btn-sm" data-open="${p.id}" style="margin-top:auto;">Practise (${p.seconds}s)</button>
+      </div>`).join("");
+    document.querySelectorAll("[data-open]").forEach((btn) => {
+      btn.addEventListener("click", () => openPractice(SPEAKING_PROMPTS.find((p) => p.id === btn.dataset.open)));
+    });
+  }
+  renderGrid("All");
+  document.getElementById("speak-categories").addEventListener("click", (e) => {
+    const btn = e.target.closest("button[data-cat]");
+    if (!btn) return;
+    document.querySelectorAll("#speak-categories button").forEach((b) => b.classList.remove("active"));
+    btn.classList.add("active");
+    renderGrid(btn.dataset.cat);
+  });
+
+  function renderChallenge() {
+    const state = Progress.get();
+    const done = state.challengeCompletedDays;
+    document.getElementById("challenge-grid").innerHTML = SEVEN_DAY_CHALLENGE.map((d) => {
+      const isDone = done.includes(d.day);
+      const unlocked = d.day === 1 || done.includes(d.day - 1) || isDone;
+      return `
+      <div class="card" style="text-align:center;opacity:${unlocked ? 1 : 0.55};">
+        <div style="font-weight:800;color:var(--primary);">Day ${d.day}</div>
+        <h3 style="font-size:1rem;">${d.title}</h3>
+        <p class="text-muted" style="font-size:0.82rem;">${isDone ? "Completed ✓" : unlocked ? "Ready" : "Locked"}</p>
+        <button class="btn ${isDone ? "btn-outline" : "btn-primary"} btn-sm" data-day="${d.day}" ${unlocked ? "" : "disabled"} style="margin-top:8px;">${isDone ? "Practise Again" : "Start"}</button>
+      </div>`;
+    }).join("");
+    document.querySelectorAll("[data-day]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const day = Number(btn.dataset.day);
+        const d = SEVEN_DAY_CHALLENGE.find((x) => x.day === day);
+        const area = document.getElementById("practice-area");
+        area.style.display = "block";
+        renderSpeakingWidget(area, { id: "challenge_day_" + day, category: "7-Day Challenge", title: `Day ${day}: ${d.title}`, prompt: d.prompt, seconds: d.seconds }, () => {
+          Progress.markChallengeDay(day);
+          Gamification.checkAchievements();
+          showToast(day >= 7 ? "Challenge complete! 🏆" : `Day ${day} complete!`);
+          renderChallenge();
+        });
+        area.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+    });
+  }
+  renderChallenge();
+</script>
+<script src="js/app.js"></script>
+</body>
+</html>

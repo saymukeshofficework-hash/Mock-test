@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Progress — BBC English Coaching Classes Burhar</title>
+<meta name="description" content="Your English learning dashboard: streak, XP, level, achievements and today's practice.">
+<meta name="theme-color" content="#1e3a5f">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="assets/icons/icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/responsive.css">
+</head>
+<body data-page="progress">
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="app-header">
+  <div class="container">
+    <a class="brand" href="index.html">
+      <span class="brand-mark">BE</span>
+      <span class="brand-text"><strong>BBC English Coaching</strong><span>Classes Burhar</span></span>
+    </a>
+    <nav class="top-nav" aria-label="Primary">
+      <a href="index.html">Home</a>
+      <a href="learn.html">Learn</a>
+      <a href="speaking.html">Speak</a>
+      <a href="grammar.html">Grammar</a>
+      <a href="vocabulary.html">Vocabulary</a>
+      <a href="progress.html" class="active">Progress</a>
+      <a href="courses.html">Courses</a>
+      <a href="about.html">About</a>
+    </nav>
+    <div class="header-stats">
+      <button class="icon-btn" data-theme-toggle aria-pressed="false" aria-label="Switch to dark mode">🌙</button>
+    </div>
+  </div>
+</header>
+
+<main id="main" class="container section">
+  <h1 id="greeting">Good morning 👋</h1>
+  <p class="text-muted" id="goal-line"></p>
+
+  <div class="level-card" style="margin:20px 0;">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+      <strong id="level-name">English Starter</strong>
+      <small id="level-xp-label">0 XP</small>
+    </div>
+    <div class="progress-bar"><span id="level-bar" style="width:0%"></span></div>
+    <small id="level-remaining" style="display:block;margin-top:8px;"></small>
+  </div>
+
+  <div class="stat-row" style="margin-bottom:24px;">
+    <div class="stat-box"><div class="num">🔥 <span data-stat="streak">0</span></div><div class="label">Day Streak</div></div>
+    <div class="stat-box"><div class="num">⭐ <span data-stat="xp">0</span></div><div class="label">Total XP</div></div>
+    <div class="stat-box"><div class="num" id="lessons-count">0</div><div class="label">Lessons Done</div></div>
+    <div class="stat-box"><div class="num" id="best-streak">0</div><div class="label">Best Streak</div></div>
+  </div>
+
+  <div class="card" id="gym-card" style="margin-bottom:24px;">
+    <h2 style="margin-bottom:6px;">Today's English Workout</h2>
+    <p class="text-muted" id="gym-status">Loading...</p>
+    <div id="gym-checklist" class="stat-row" style="margin:16px 0;"></div>
+    <a class="btn btn-primary" href="learn.html">Go to Daily English Gym</a>
+  </div>
+
+  <div class="section-head">
+    <span class="eyebrow">Your Badges</span>
+    <h2>Achievements</h2>
+  </div>
+  <div class="badge-grid" id="badge-grid" style="margin-bottom:24px;"></div>
+
+  <div class="card" id="snapshot-card" style="margin-bottom:24px;"></div>
+
+  <div class="card">
+    <h2 style="margin-bottom:6px;">7-Day Speaking Challenge</h2>
+    <p class="text-muted" id="challenge-status">Loading...</p>
+    <div class="progress-bar" style="margin:14px 0;"><span id="challenge-bar" style="width:0%"></span></div>
+    <a class="btn btn-outline" href="speaking.html#seven-day">Open Speaking Challenge</a>
+  </div>
+
+  <div class="next-action">
+    <span class="msg">Keep your streak alive today 🔥</span>
+    <a class="btn btn-accent" href="learn.html">Start Today's Workout</a>
+  </div>
+</main>
+
+<footer class="app-footer">
+  <div class="container">
+    <div class="footer-bottom">
+      <span>© <span id="year"></span> BBC English Coaching Classes Burhar.</span>
+      <span>Not affiliated with the British Broadcasting Corporation.</span>
+    </div>
+  </div>
+</footer>
+
+<nav class="bottom-nav" aria-label="Mobile primary">
+  <a href="index.html"><span class="nav-icon">🏠</span>Home</a>
+  <a href="learn.html"><span class="nav-icon">🏋️</span>Learn</a>
+  <a href="speaking.html"><span class="nav-icon">🎤</span>Speak</a>
+  <a href="progress.html" class="active"><span class="nav-icon">📈</span>Progress</a>
+  <a href="more.html"><span class="nav-icon">⋯</span>More</a>
+</nav>
+
+<script src="js/config.js"></script>
+<script src="js/storage.js"></script>
+<script src="js/progress.js"></script>
+<script src="js/gamification.js"></script>
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+
+  function renderDashboard() {
+    const profile = Progress.getProfile();
+    const state = Progress.get();
+    const hour = new Date().getHours();
+    const timeGreeting = hour < 12 ? "Good morning" : hour < 17 ? "Good afternoon" : "Good evening";
+    const name = profile && profile.name ? profile.name : "Student";
+    document.getElementById("greeting").textContent = `${timeGreeting}, ${name} 👋`;
+    document.getElementById("goal-line").textContent = profile && profile.goal
+      ? `Your focus: ${({spoken:"Spoken English",school:"School English",grammar:"Grammar",vocabulary:"Vocabulary",interview:"Interview English",competitive:"Competitive Exams",overall:"Overall English"})[profile.goal] || "Overall English"}`
+      : "New here? Tell us your goal to personalise your plan.";
+    if (!profile) {
+      document.getElementById("goal-line").innerHTML = `New here? <a href="onboarding.html">Set up your profile</a> to personalise your plan.`;
+    }
+
+    const level = Gamification.getLevel(state.xp);
+    const lp = Gamification.getLevelProgress(state.xp);
+    document.getElementById("level-name").textContent = level.name;
+    document.getElementById("level-xp-label").textContent = `${state.xp} XP`;
+    document.getElementById("level-bar").style.width = lp.percent + "%";
+    document.getElementById("level-remaining").textContent = lp.next ? `${lp.remaining} XP to ${lp.next.name}` : "Top level reached — you're an English Master!";
+
+    document.getElementById("lessons-count").textContent = state.completedLessons.length;
+    document.getElementById("best-streak").textContent = state.bestStreak;
+
+    const gymTasks = [
+      { key: "wordPower", label: "Word Power", icon: "📚" },
+      { key: "grammar", label: "Grammar", icon: "🧠" },
+      { key: "speaking", label: "Speaking", icon: "🎤" },
+      { key: "realEnglish", label: "Real English", icon: "💬" },
+      { key: "confidence", label: "Confidence", icon: "🌟" }
+    ];
+    const doneToday = state.dailyGym.date === Progress.todayKey();
+    const doneCount = gymTasks.filter((t) => doneToday && state.dailyGym[t.key]).length;
+    document.getElementById("gym-status").textContent = doneCount === 5
+      ? "Workout complete for today. Great job! 🎉"
+      : `${doneCount}/5 tasks done today.`;
+    document.getElementById("gym-checklist").innerHTML = gymTasks.map((t) => `
+      <div class="stat-box" style="opacity:${doneToday && state.dailyGym[t.key] ? 1 : 0.5};">
+        <div class="num">${t.icon}</div>
+        <div class="label">${t.label} ${doneToday && state.dailyGym[t.key] ? "✓" : ""}</div>
+      </div>`).join("");
+
+    document.getElementById("badge-grid").innerHTML = Gamification.getAchievements().map((a) => `
+      <div class="badge ${a.unlocked ? "unlocked" : ""}">
+        <div class="badge-icon">${a.icon}</div>
+        <div class="badge-title">${a.title}</div>
+        <div class="badge-desc">${a.desc}</div>
+      </div>`).join("");
+
+    const snap = document.getElementById("snapshot-card");
+    if (state.testSnapshot) {
+      snap.innerHTML = `
+        <h2 style="margin-bottom:6px;">Your English Snapshot</h2>
+        <div class="snapshot-metrics">
+          <div class="metric"><div class="pct">${state.testSnapshot.grammar}%</div><div class="label">Grammar</div></div>
+          <div class="metric"><div class="pct">${state.testSnapshot.vocabulary}%</div><div class="label">Vocabulary</div></div>
+          <div class="metric"><div class="pct">${state.testSnapshot.practical}%</div><div class="label">Practical</div></div>
+        </div>
+        <p class="text-muted" style="margin-top:12px;">Level: <strong>${state.testSnapshot.level}</strong> · <a href="test.html">Retake the test</a></p>`;
+    } else {
+      snap.innerHTML = `
+        <h2 style="margin-bottom:6px;">Get your English Snapshot</h2>
+        <p class="text-muted">Take the free 5-minute test to see your current level.</p>
+        <a class="btn btn-outline" href="test.html">Take the Free English Test</a>`;
+    }
+
+    const days = state.challengeCompletedDays.length;
+    document.getElementById("challenge-status").textContent = days === 0
+      ? "You haven't started the challenge yet."
+      : days >= 7 ? "Challenge complete! You earned the 7-Day Speaker badge. 🏆" : `${days}/7 days completed.`;
+    document.getElementById("challenge-bar").style.width = Math.round((days / 7) * 100) + "%";
+  }
+  renderDashboard();
+</script>
+<script src="js/app.js"></script>
+</body>
+</html>

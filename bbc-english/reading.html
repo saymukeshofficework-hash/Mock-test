@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reading Lab — BBC English Coaching Classes Burhar</title>
+<meta name="description" content="Original English reading passages with comprehension, vocabulary and inference questions.">
+<meta name="theme-color" content="#1e3a5f">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="assets/icons/icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/responsive.css">
+</head>
+<body data-page="reading">
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="app-header">
+  <div class="container">
+    <a class="brand" href="index.html">
+      <span class="brand-mark">BE</span>
+      <span class="brand-text"><strong>BBC English Coaching</strong><span>Classes Burhar</span></span>
+    </a>
+    <nav class="top-nav" aria-label="Primary">
+      <a href="index.html">Home</a>
+      <a href="learn.html">Learn</a>
+      <a href="speaking.html">Speak</a>
+      <a href="grammar.html">Grammar</a>
+      <a href="vocabulary.html">Vocabulary</a>
+      <a href="progress.html">Progress</a>
+      <a href="courses.html">Courses</a>
+      <a href="about.html">About</a>
+    </nav>
+    <div class="header-stats">
+      <button class="icon-btn" data-theme-toggle aria-pressed="false" aria-label="Switch to dark mode">🌙</button>
+    </div>
+  </div>
+</header>
+
+<main id="main" class="container section">
+  <span class="eyebrow">Reading Lab</span>
+  <h1>Read, understand, grow your vocabulary</h1>
+  <p class="text-muted">Original passages with comprehension, main-idea and inference questions.</p>
+
+  <div id="passage-detail" style="display:none;margin-bottom:24px;"></div>
+
+  <div class="pill-tabs" id="reading-cats"></div>
+  <div class="grid grid-3" id="passage-grid"></div>
+
+  <div class="next-action">
+    <span class="msg">Heard it, now say it 🎤</span>
+    <a class="btn btn-accent" href="speaking.html">Go to Speaking Lab</a>
+  </div>
+</main>
+
+<footer class="app-footer">
+  <div class="container">
+    <div class="footer-bottom">
+      <span>© <span id="year"></span> BBC English Coaching Classes Burhar.</span>
+      <span>Not affiliated with the British Broadcasting Corporation.</span>
+    </div>
+  </div>
+</footer>
+
+<nav class="bottom-nav" aria-label="Mobile primary">
+  <a href="index.html"><span class="nav-icon">🏠</span>Home</a>
+  <a href="learn.html"><span class="nav-icon">🏋️</span>Learn</a>
+  <a href="speaking.html"><span class="nav-icon">🎤</span>Speak</a>
+  <a href="progress.html"><span class="nav-icon">📈</span>Progress</a>
+  <a href="more.html"><span class="nav-icon">⋯</span>More</a>
+</nav>
+
+<script src="js/config.js"></script>
+<script src="js/storage.js"></script>
+<script src="js/progress.js"></script>
+<script src="js/gamification.js"></script>
+<script src="data/reading.js"></script>
+<script src="js/quiz.js"></script>
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+  const cats = ["All", ...new Set(READING_PASSAGES.map((p) => p.category))];
+  document.getElementById("reading-cats").innerHTML = cats.map((c, i) =>
+    `<button data-cat="${c}" class="${i === 0 ? "active" : ""}">${c}</button>`).join("");
+
+  function renderGrid(cat) {
+    const list = READING_PASSAGES.filter((p) => cat === "All" || p.category === cat);
+    document.getElementById("passage-grid").innerHTML = list.map((p) => `
+      <div class="card feature-card">
+        <span class="tag">${p.category}</span>
+        <h3>${p.title}</h3>
+        <p>${p.text.slice(0, 90)}...</p>
+        <button class="btn btn-outline btn-sm" data-open="${p.id}" style="margin-top:auto;">Read &amp; Answer</button>
+      </div>`).join("");
+    document.querySelectorAll("[data-open]").forEach((btn) => btn.addEventListener("click", () => openPassage(btn.dataset.open)));
+  }
+  renderGrid("All");
+  document.getElementById("reading-cats").addEventListener("click", (e) => {
+    const btn = e.target.closest("button[data-cat]");
+    if (!btn) return;
+    document.querySelectorAll("#reading-cats button").forEach((b) => b.classList.remove("active"));
+    btn.classList.add("active");
+    renderGrid(btn.dataset.cat);
+  });
+
+  function openPassage(id) {
+    const p = READING_PASSAGES.find((x) => x.id === id);
+    const area = document.getElementById("passage-detail");
+    area.style.display = "block";
+    area.innerHTML = `
+      <div class="card">
+        <span class="tag">${p.category}</span>
+        <h2>${p.title}</h2>
+        <p>${p.text}</p>
+      </div>
+      <h3 style="margin-top:20px;">Comprehension Questions</h3>
+      <div id="passage-quiz"></div>
+    `;
+    createQuiz({
+      container: document.getElementById("passage-quiz"),
+      questions: p.questions,
+      quizType: "reading",
+      xpPerCorrect: 10,
+      onComplete: ({ actionsEl }) => {
+        Progress.markLessonComplete("reading_" + p.id);
+        Gamification.checkAchievements();
+        actionsEl.innerHTML = `<a class="btn btn-primary" href="listening.html">Try the Listening Lab</a>`;
+      }
+    });
+    area.scrollIntoView({ behavior: "smooth" });
+  }
+</script>
+<script src="js/app.js"></script>
+</body>
+</html>

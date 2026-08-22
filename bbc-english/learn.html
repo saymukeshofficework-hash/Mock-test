@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Daily English Gym — BBC English Coaching Classes Burhar</title>
+<meta name="description" content="Your daily English workout: Word Power, Grammar, Speaking, Real English and a Confidence challenge — plus Think in English and Phrase of the Day.">
+<meta name="theme-color" content="#1e3a5f">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="assets/icons/icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/responsive.css">
+</head>
+<body data-page="learn">
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="app-header">
+  <div class="container">
+    <a class="brand" href="index.html">
+      <span class="brand-mark">BE</span>
+      <span class="brand-text"><strong>BBC English Coaching</strong><span>Classes Burhar</span></span>
+    </a>
+    <nav class="top-nav" aria-label="Primary">
+      <a href="index.html">Home</a>
+      <a href="learn.html" class="active">Learn</a>
+      <a href="speaking.html">Speak</a>
+      <a href="grammar.html">Grammar</a>
+      <a href="vocabulary.html">Vocabulary</a>
+      <a href="progress.html">Progress</a>
+      <a href="courses.html">Courses</a>
+      <a href="about.html">About</a>
+    </nav>
+    <div class="header-stats">
+      <button class="icon-btn" data-theme-toggle aria-pressed="false" aria-label="Switch to dark mode">🌙</button>
+    </div>
+  </div>
+</header>
+
+<main id="main" class="container section">
+  <span class="eyebrow">Daily English Gym</span>
+  <h1>Today's English Workout</h1>
+  <p class="text-muted" id="gym-intro">Five quick tasks. About 10 minutes. Do them all for a full workout.</p>
+  <div class="callout" id="gym-complete-banner" style="display:none;margin-bottom:20px;">
+    <strong>Workout Complete 🎉</strong> You've earned +50 XP for today. Come back tomorrow to keep your streak alive.
+  </div>
+
+  <div id="gym-tasks"></div>
+
+  <hr class="divider">
+
+  <section id="think-in-english" class="section" style="padding-top:0;">
+    <div class="section-head">
+      <span class="eyebrow">Signature Feature</span>
+      <h2>Think in English™</h2>
+      <p class="text-muted">Stop translating word-by-word — see how the same idea grows from basic, to natural, to advanced.</p>
+    </div>
+    <div id="tie-list"></div>
+  </section>
+
+  <hr class="divider">
+
+  <section id="real-english" class="section" style="padding-top:0;">
+    <div class="section-head">
+      <span class="eyebrow">Say It Naturally</span>
+      <h2>Real English</h2>
+      <p class="text-muted">Basic vs polite vs natural vs professional — the way people actually speak.</p>
+    </div>
+    <div id="re-list"></div>
+  </section>
+
+  <hr class="divider">
+
+  <section class="section" style="padding-top:0;">
+    <div class="section-head">
+      <span class="eyebrow">Daily Habit</span>
+      <h2>Phrase of the Day</h2>
+    </div>
+    <div class="snapshot-card" id="phrase-card" style="max-width:480px;"></div>
+  </section>
+
+  <div class="next-action">
+    <span class="msg">Ready to speak it out loud? 🎤</span>
+    <a class="btn btn-accent" href="speaking.html">Go to Speaking Lab</a>
+  </div>
+</main>
+
+<footer class="app-footer">
+  <div class="container">
+    <div class="footer-bottom">
+      <span>© <span id="year"></span> BBC English Coaching Classes Burhar.</span>
+      <span>Not affiliated with the British Broadcasting Corporation.</span>
+    </div>
+  </div>
+</footer>
+
+<nav class="bottom-nav" aria-label="Mobile primary">
+  <a href="index.html"><span class="nav-icon">🏠</span>Home</a>
+  <a href="learn.html" class="active"><span class="nav-icon">🏋️</span>Learn</a>
+  <a href="speaking.html"><span class="nav-icon">🎤</span>Speak</a>
+  <a href="progress.html"><span class="nav-icon">📈</span>Progress</a>
+  <a href="more.html"><span class="nav-icon">⋯</span>More</a>
+</nav>
+
+<script src="js/config.js"></script>
+<script src="js/storage.js"></script>
+<script src="js/progress.js"></script>
+<script src="js/gamification.js"></script>
+<script src="data/vocabulary.js"></script>
+<script src="data/grammar.js"></script>
+<script src="data/speaking.js"></script>
+<script src="data/phrases.js"></script>
+<script src="data/challenges.js"></script>
+<script src="js/quiz.js"></script>
+<script src="js/speaking.js"></script>
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+
+  function dayOfYear() {
+    const now = new Date();
+    const start = new Date(now.getFullYear(), 0, 0);
+    return Math.floor((now - start) / 86400000);
+  }
+
+  const today = DAILY_CHALLENGES[dayOfYear() % DAILY_CHALLENGES.length];
+  const todayWords = today.wordIds.map((id) => VOCABULARY.find((w) => w.id === id));
+  const todayGrammar = GRAMMAR_QUESTIONS.find((g) => g.id === today.grammarId);
+  const todaySpeaking = SPEAKING_PROMPTS.find((s) => s.id === today.speakingId);
+  const todayReal = REAL_ENGLISH.find((r) => r.id === today.realEnglishId);
+  const todayConfidence = CONFIDENCE_CHALLENGES.find((c) => c.id === today.confidenceId);
+
+  function checkComplete() {
+    const banner = document.getElementById("gym-complete-banner");
+    banner.style.display = Progress.isGymComplete() ? "block" : "none";
+    if (typeof BBCApp !== "undefined") BBCApp.refreshHeaderStats();
+  }
+
+  function markDone(task) {
+    const already = Progress.isGymTaskDone(task);
+    Progress.markGymTask(task);
+    document.querySelector(`[data-task-card="${task}"]`).classList.add("done-task");
+    document.querySelector(`[data-task-status="${task}"]`).textContent = "Done ✓";
+    if (!already && Progress.isGymComplete()) {
+      Gamification.addXP(50, "daily_workout");
+      Gamification.checkAchievements();
+      showToast("Workout complete! +50 XP 🎉");
+    }
+    checkComplete();
+  }
+
+  function taskCard(task, icon, title, bodyHtml) {
+    const done = Progress.isGymTaskDone(task);
+    return `
+    <div class="card" data-task-card="${task}" style="margin-bottom:16px;${done ? "border-color:var(--success);" : ""}">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+        <h3 style="margin:0;">${icon} ${title}</h3>
+        <span class="tag ${done ? "free" : ""}" data-task-status="${task}">${done ? "Done ✓" : "Not done"}</span>
+      </div>
+      ${bodyHtml}
+    </div>`;
+  }
+
+  const tasksHtml = [
+    taskCard("wordPower", "📚", "Word Power — 3 Words Today", `
+      <div class="grid grid-3">
+        ${todayWords.map((w) => `<div class="card word-card" style="box-shadow:none;">
+          <span class="headword">${w.word}</span><span class="pron">${w.ipa}</span>
+          <p style="margin:8px 0;">${w.meaning}</p>
+          <p class="text-muted" style="font-size:0.85rem;">${w.example}</p>
+        </div>`).join("")}
+      </div>
+      <button class="btn btn-primary btn-sm" style="margin-top:10px;" onclick="markDone('wordPower')">I've learned these words</button>
+    `),
+    taskCard("grammar", "🧠", "Grammar — One Practical Question", `<div id="gym-grammar"></div>`),
+    taskCard("speaking", "🎤", "Speaking — 30-Second Challenge", `<div id="gym-speaking"></div>`),
+    taskCard("realEnglish", "💬", "Real English — One Expression", `
+      <p class="text-muted"><strong>${todayReal.context}</strong></p>
+      <div class="word-meta">
+        <span class="chip">Basic: ${todayReal.basic}</span>
+        <span class="chip">Polite: ${todayReal.polite}</span>
+        <span class="chip">Natural: ${todayReal.natural}</span>
+        <span class="chip">Professional: ${todayReal.professional}</span>
+      </div>
+      <button class="btn btn-primary btn-sm" onclick="markDone('realEnglish')">Got it</button>
+    `),
+    taskCard("confidence", "🌟", "Confidence — Practical Challenge", `
+      <p>${todayConfidence.text}</p>
+      <button class="btn btn-primary btn-sm" onclick="markDone('confidence')">I did this today</button>
+    `)
+  ].join("");
+  document.getElementById("gym-tasks").innerHTML = tasksHtml;
+  checkComplete();
+
+  const gEl = document.getElementById("gym-grammar");
+  gEl.innerHTML = `
+    <div class="option-list" role="group" aria-label="Answer options">
+      ${todayGrammar.options.map((opt, i) => `<button class="option-btn" data-i="${i}"><span class="letter">${letterFor(i)}</span><span>${opt}</span></button>`).join("")}
+    </div>
+    <div class="explanation-box" id="gym-grammar-exp" hidden></div>
+  `;
+  gEl.querySelectorAll(".option-btn").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      if (gEl.dataset.answered) return;
+      gEl.dataset.answered = "1";
+      const chosen = Number(btn.dataset.i);
+      const correct = chosen === todayGrammar.answerIndex;
+      gEl.querySelectorAll(".option-btn").forEach((b) => {
+        b.disabled = true;
+        const i = Number(b.dataset.i);
+        if (i === todayGrammar.answerIndex) b.classList.add("correct");
+        else if (i === chosen) b.classList.add("incorrect");
+      });
+      const exp = document.getElementById("gym-grammar-exp");
+      exp.hidden = false;
+      exp.innerHTML = `<strong>${correct ? "Correct! " : "Not quite. "}</strong>${todayGrammar.explanation}`;
+      if (correct) Gamification.addXP(10, "correct_answer");
+      markDone("grammar");
+    });
+  });
+
+  renderSpeakingWidget(document.getElementById("gym-speaking"), todaySpeaking, () => markDone("speaking"));
+
+  function accordionList(items, renderer) {
+    return items.map((item, i) => `
+      <div class="accordion-item">
+        <button class="accordion-trigger" aria-expanded="false">
+          <span>${item._label}</span><span class="chev">▾</span>
+        </button>
+        <div class="accordion-panel">${renderer(item)}</div>
+      </div>`).join("");
+  }
+
+  THINK_IN_ENGLISH.forEach((t) => (t._label = `${t.emoji} ${t.situation}`));
+  document.getElementById("tie-list").innerHTML = accordionList(THINK_IN_ENGLISH, (t) => `
+    <div class="word-meta">
+      <span class="chip">Basic: ${t.basic}</span>
+      <span class="chip">Natural: ${t.natural}</span>
+      <span class="chip">Advanced: ${t.advanced}</span>
+    </div>`);
+
+  REAL_ENGLISH.forEach((r) => (r._label = r.context));
+  document.getElementById("re-list").innerHTML = accordionList(REAL_ENGLISH, (r) => `
+    <div class="word-meta">
+      <span class="chip">Basic: ${r.basic}</span>
+      <span class="chip">Polite: ${r.polite}</span>
+      <span class="chip">Natural: ${r.natural}</span>
+      <span class="chip">Professional: ${r.professional}</span>
+    </div>`);
+
+  document.querySelectorAll(".accordion-trigger").forEach((t) => {
+    t.addEventListener("click", () => {
+      const open = t.closest(".accordion-item").classList.contains("open");
+      t.setAttribute("aria-expanded", (!open).toString());
+    });
+  });
+
+  const phrase = PHRASE_OF_DAY[dayOfYear() % PHRASE_OF_DAY.length];
+  document.getElementById("phrase-card").innerHTML = `
+    <div class="snap-brand">Phrase of the Day</div>
+    <div class="snap-level">"${phrase.phrase}"</div>
+    <p style="color:#dce6f0;">${phrase.meaning}</p>
+    <p style="color:#cfe0f0;font-style:italic;">"${phrase.example}"</p>
+    <button class="btn btn-accent btn-sm" id="share-phrase" style="margin-top:10px;">Share</button>
+  `;
+  document.getElementById("share-phrase").addEventListener("click", async () => {
+    const text = `BBC English Coaching Classes Burhar — Phrase of the Day\n"${phrase.phrase}" — ${phrase.meaning}\n${phrase.example}`;
+    if (navigator.share) {
+      try { await navigator.share({ text }); } catch (e) { /* cancelled */ }
+    } else if (navigator.clipboard) {
+      await navigator.clipboard.writeText(text);
+      showToast("Copied to clipboard!");
+    }
+  });
+</script>
+<script src="js/app.js"></script>
+</body>
+</html>
