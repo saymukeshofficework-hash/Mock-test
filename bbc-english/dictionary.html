@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>English-Hindi Dictionary — BBC English Coaching Classes Burhar</title>
+<meta name="description" content="A quick English to Hindi and Hindi to English dictionary for everyday words, organised by topic.">
+<link rel="canonical" href="https://saymukeshofficework-hash.github.io/Mock-test/bbc-english/dictionary.html">
+<meta name="theme-color" content="#1e3a5f">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="assets/icons/icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/responsive.css">
+</head>
+<body data-page="dictionary">
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="app-header">
+  <div class="container">
+    <a class="brand" href="index.html">
+      <span class="brand-mark">BE</span>
+      <span class="brand-text"><strong>BBC English Coaching</strong><span>Classes Burhar</span></span>
+    </a>
+    <nav class="top-nav" aria-label="Primary">
+      <a href="index.html">Home</a>
+      <a href="learn.html">Learn</a>
+      <a href="speaking.html">Speak</a>
+      <a href="grammar.html">Grammar</a>
+      <a href="vocabulary.html">Vocabulary</a>
+      <a href="dictionary.html" class="active">Dictionary</a>
+      <a href="writing-tools.html">Writing</a>
+      <a href="progress.html">Progress</a>
+      <a href="courses.html">Courses</a>
+      <a href="about.html">About</a>
+    </nav>
+    <div class="header-stats">
+      <button class="icon-btn" data-theme-toggle aria-pressed="false" aria-label="Switch to dark mode">🌙</button>
+    </div>
+  </div>
+</header>
+
+<main id="main" class="container section">
+  <span class="eyebrow">English ⇄ Hindi</span>
+  <h1>Quick Dictionary</h1>
+  <p class="text-muted">Type in English or Hindi (हिंदी में भी टाइप करें) to look up a word. A growing everyday-word list — not an exhaustive dictionary.</p>
+
+  <div class="field" style="max-width:460px;">
+    <label for="dict-search">Search a word</label>
+    <input type="text" id="dict-search" placeholder="e.g. water / पानी">
+  </div>
+
+  <div class="pill-tabs" id="dict-cats"></div>
+
+  <div id="dict-results" class="grid grid-3"></div>
+
+  <div class="next-action">
+    <span class="msg">Want deeper vocabulary practice? 📚</span>
+    <a class="btn btn-accent" href="vocabulary.html">Go to Word Power</a>
+  </div>
+</main>
+
+<footer class="app-footer">
+  <div class="container">
+    <div class="footer-bottom">
+      <span>© <span id="year"></span> BBC English Coaching Classes Burhar.</span>
+      <span>Not affiliated with the British Broadcasting Corporation.</span>
+    </div>
+  </div>
+</footer>
+
+<nav class="bottom-nav" aria-label="Mobile primary">
+  <a href="index.html"><span class="nav-icon">🏠</span>Home</a>
+  <a href="learn.html"><span class="nav-icon">🏋️</span>Learn</a>
+  <a href="speaking.html"><span class="nav-icon">🎤</span>Speak</a>
+  <a href="progress.html"><span class="nav-icon">📈</span>Progress</a>
+  <a href="more.html"><span class="nav-icon">⋯</span>More</a>
+</nav>
+
+<script src="js/config.js"></script>
+<script src="js/storage.js"></script>
+<script src="js/progress.js"></script>
+<script src="js/gamification.js"></script>
+<script src="data/dictionary.js"></script>
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+
+  const cats = ["All", ...new Set(DICTIONARY.map((d) => d.category))];
+  document.getElementById("dict-cats").innerHTML = cats.map((c, i) =>
+    `<button data-cat="${c}" class="${i === 0 ? "active" : ""}">${c}</button>`).join("");
+
+  let activeCat = "All";
+
+  function wordCard(d) {
+    return `
+    <div class="card word-card">
+      <span class="headword">${d.en}</span>
+      <div class="word-meta">
+        <span class="chip">${d.pos}</span>
+        <span class="chip">${d.category}</span>
+      </div>
+      <p style="font-size:1.3rem;margin:8px 0 0;">${d.hi}</p>
+    </div>`;
+  }
+
+  function renderResults() {
+    const q = document.getElementById("dict-search").value.trim().toLowerCase();
+    let list = DICTIONARY.filter((d) => activeCat === "All" || d.category === activeCat);
+    if (q) {
+      list = list.filter((d) => d.en.toLowerCase().includes(q) || d.hi.includes(q));
+    }
+    const grid = document.getElementById("dict-results");
+    grid.innerHTML = list.length
+      ? list.slice(0, 60).map(wordCard).join("")
+      : `<div class="empty-state"><div class="icon">🔍</div>No matching word yet. Try another spelling.</div>`;
+  }
+  renderResults();
+
+  document.getElementById("dict-search").addEventListener("input", renderResults);
+  document.getElementById("dict-cats").addEventListener("click", (e) => {
+    const btn = e.target.closest("button[data-cat]");
+    if (!btn) return;
+    document.querySelectorAll("#dict-cats button").forEach((b) => b.classList.remove("active"));
+    btn.classList.add("active");
+    activeCat = btn.dataset.cat;
+    renderResults();
+  });
+</script>
+<script src="js/app.js"></script>
+</body>
+</html>

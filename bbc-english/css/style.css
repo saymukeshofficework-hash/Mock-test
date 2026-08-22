@@ -176,6 +176,7 @@ body {
   display: flex;
   align-items: center;
   gap: 8px;
+  flex-shrink: 0;
 }
 .stat-pill {
   display: flex;
@@ -207,15 +208,22 @@ body {
 
 .top-nav {
   display: none;
-  gap: 4px;
+  gap: 2px;
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
 }
+.top-nav::-webkit-scrollbar { display: none; }
 .top-nav a {
   text-decoration: none;
   color: var(--text-muted);
   font-weight: 600;
-  font-size: 0.9rem;
-  padding: 8px 12px;
+  font-size: 0.82rem;
+  padding: 8px 8px;
   border-radius: var(--radius-control);
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 .top-nav a:hover { color: var(--text); background: var(--surface-2); }
 .top-nav a.active { color: var(--primary); background: var(--primary-tint); }

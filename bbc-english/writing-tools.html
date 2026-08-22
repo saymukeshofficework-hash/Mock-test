@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Student Writing Tools — BBC English Coaching Classes Burhar</title>
+<meta name="description" content="Notice writing, letter writing, paragraph writing and speech preparation (Independence Day, Republic Day and more) for school students — formats plus real examples.">
+<link rel="canonical" href="https://saymukeshofficework-hash.github.io/Mock-test/bbc-english/writing-tools.html">
+<meta name="theme-color" content="#1e3a5f">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="assets/icons/icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/responsive.css">
+</head>
+<body data-page="writing-tools">
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="app-header">
+  <div class="container">
+    <a class="brand" href="index.html">
+      <span class="brand-mark">BE</span>
+      <span class="brand-text"><strong>BBC English Coaching</strong><span>Classes Burhar</span></span>
+    </a>
+    <nav class="top-nav" aria-label="Primary">
+      <a href="index.html">Home</a>
+      <a href="learn.html">Learn</a>
+      <a href="speaking.html">Speak</a>
+      <a href="grammar.html">Grammar</a>
+      <a href="vocabulary.html">Vocabulary</a>
+      <a href="dictionary.html">Dictionary</a>
+      <a href="writing-tools.html" class="active">Writing</a>
+      <a href="progress.html">Progress</a>
+      <a href="courses.html">Courses</a>
+    </nav>
+    <div class="header-stats">
+      <button class="icon-btn" data-theme-toggle aria-pressed="false" aria-label="Switch to dark mode">🌙</button>
+    </div>
+  </div>
+</header>
+
+<main id="main" class="container section">
+  <span class="eyebrow">For School Students</span>
+  <h1>Student Writing Tools</h1>
+  <p class="text-muted">Formats and real examples for notice writing, letter writing, paragraph writing and speech preparation — including Independence Day and Republic Day speeches.</p>
+
+  <div class="pill-tabs" data-tabs="writing">
+    <button data-tab="notice" class="active">Notice Writing</button>
+    <button data-tab="letter">Letter Writing</button>
+    <button data-tab="paragraph">Paragraph Writing</button>
+    <button data-tab="speech">Speech Writing</button>
+  </div>
+
+  <!-- NOTICE -->
+  <div data-tab-panel="notice" data-tabs-for="writing">
+    <div class="callout" style="margin-bottom:20px;">
+      <strong>Format:</strong> School name (top) · Date · Word "NOTICE" (centred) · Underlined heading naming the topic · Body in 50–80 words covering what/when/where/who · Issued by, with designation.
+    </div>
+    <div id="notice-list"></div>
+  </div>
+
+  <!-- LETTER -->
+  <div data-tab-panel="letter" data-tabs-for="writing" style="display:none;">
+    <div class="callout" style="margin-bottom:20px;">
+      <strong>Formal letter format:</strong> Receiver's designation and address · Subject line · Salutation ("Respected Sir/Madam") · Body in 3 short paragraphs · Polite closing ("Yours obediently/faithfully") · Your name.<br><br>
+      <strong>Informal letter format:</strong> Salutation ("Dear ___") · Friendly, conversational body · Warm closing ("Your friend/loving daughter") · Your name.
+    </div>
+    <div class="pill-tabs" id="letter-subtabs">
+      <button data-sub="formal" class="active">Formal Letters</button>
+      <button data-sub="informal">Informal Letters</button>
+    </div>
+    <div id="letter-list"></div>
+  </div>
+
+  <!-- PARAGRAPH -->
+  <div data-tab-panel="paragraph" data-tabs-for="writing" style="display:none;">
+    <div class="callout" style="margin-bottom:20px;">
+      <strong>Format:</strong> Start with a clear topic sentence · 3–4 supporting sentences with examples or reasons · End with a concluding thought · Keep it to one solid paragraph (100–150 words), no headings or bullet points.
+    </div>
+    <div id="paragraph-list"></div>
+  </div>
+
+  <!-- SPEECH -->
+  <div data-tab-panel="speech" data-tabs-for="writing" style="display:none;">
+    <div class="callout" style="margin-bottom:20px;">
+      <strong>Format:</strong> Greeting/address to the audience · An opening line about the occasion · 2–3 main points or a short story · A closing call-to-action or thought · "Thank you". Replace bracketed placeholders like [Your School Name] with your own details.
+    </div>
+    <div id="speech-list"></div>
+  </div>
+
+  <hr class="divider">
+
+  <section>
+    <div class="section-head">
+      <span class="eyebrow">Practice</span>
+      <h2>Write your own draft</h2>
+      <p class="text-muted">Use this space to write your own notice, letter, paragraph or speech, then run through the checklist below to self-check your format.</p>
+    </div>
+    <div class="card">
+      <div class="field" style="margin-bottom:14px;">
+        <label for="draft-text">Your draft</label>
+        <textarea id="draft-text" rows="8" placeholder="Start writing here..."></textarea>
+      </div>
+      <div id="draft-checklist"></div>
+    </div>
+  </section>
+
+  <div class="next-action">
+    <span class="msg">Practice saying it out loud too 🎤</span>
+    <a class="btn btn-accent" href="speaking.html">Go to Speaking Lab</a>
+  </div>
+</main>
+
+<footer class="app-footer">
+  <div class="container">
+    <div class="footer-bottom">
+      <span>© <span id="year"></span> BBC English Coaching Classes Burhar.</span>
+      <span>Not affiliated with the British Broadcasting Corporation.</span>
+    </div>
+  </div>
+</footer>
+
+<nav class="bottom-nav" aria-label="Mobile primary">
+  <a href="index.html"><span class="nav-icon">🏠</span>Home</a>
+  <a href="learn.html"><span class="nav-icon">🏋️</span>Learn</a>
+  <a href="speaking.html"><span class="nav-icon">🎤</span>Speak</a>
+  <a href="progress.html"><span class="nav-icon">📈</span>Progress</a>
+  <a href="more.html"><span class="nav-icon">⋯</span>More</a>
+</nav>
+
+<script src="js/config.js"></script>
+<script src="js/storage.js"></script>
+<script src="js/progress.js"></script>
+<script src="js/gamification.js"></script>
+<script src="data/writing.js"></script>
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+
+  function accordion(items, renderer) {
+    return items.map((item) => `
+      <div class="accordion-item">
+        <button class="accordion-trigger" aria-expanded="false">
+          <span>${item._label}</span><span class="chev">▾</span>
+        </button>
+        <div class="accordion-panel">${renderer(item)}</div>
+      </div>`).join("");
+  }
+  function bindAccordions(container) {
+    // app.js's global initAccordions() already toggles the "open" class on
+    // click for every .accordion-trigger; only mirror aria-expanded here.
+    container.querySelectorAll(".accordion-trigger").forEach((t) => {
+      t.addEventListener("click", () => {
+        const open = t.closest(".accordion-item").classList.contains("open");
+        t.setAttribute("aria-expanded", (!open).toString());
+      });
+    });
+  }
+  function nl2br(text) {
+    return text.split("\n").map((line) => line || "&nbsp;").join("<br>");
+  }
+
+  NOTICE_EXAMPLES.forEach((n) => (n._label = n.title));
+  const noticeList = document.getElementById("notice-list");
+  noticeList.innerHTML = accordion(NOTICE_EXAMPLES, (n) => `
+    <div class="card" style="box-shadow:none;">
+      <p class="text-muted" style="margin-bottom:2px;">${n.school}</p>
+      <p class="text-muted" style="margin-bottom:12px;">Date: ${n.date}</p>
+      <p style="text-align:center;font-weight:800;letter-spacing:0.06em;">NOTICE</p>
+      <p style="text-align:center;text-decoration:underline;font-weight:700;margin-bottom:12px;">${n.heading}</p>
+      <p>${n.body}</p>
+      <p style="margin-top:14px;">${n.issuedBy}</p>
+    </div>`);
+  bindAccordions(noticeList);
+
+  function renderLetters(type) {
+    const list = LETTER_EXAMPLES[type];
+    list.forEach((l) => (l._label = l.title));
+    const el = document.getElementById("letter-list");
+    el.innerHTML = accordion(list, (l) => `
+      <div class="card" style="box-shadow:none;">
+        ${l.to ? `<p class="text-muted">${l.to}</p>` : ""}
+        ${l.subject ? `<p style="font-weight:700;margin:8px 0;">Subject: ${l.subject}</p>` : ""}
+        <p style="margin-top:12px;">${nl2br(l.body)}</p>
+        <p style="margin-top:14px;">${nl2br(l.closing)}</p>
+      </div>`);
+    bindAccordions(el);
+  }
+  renderLetters("formal");
+  document.getElementById("letter-subtabs").addEventListener("click", (e) => {
+    const btn = e.target.closest("button[data-sub]");
+    if (!btn) return;
+    document.querySelectorAll("#letter-subtabs button").forEach((b) => b.classList.remove("active"));
+    btn.classList.add("active");
+    renderLetters(btn.dataset.sub);
+  });
+
+  PARAGRAPH_EXAMPLES.forEach((p) => (p._label = p.title));
+  const paraList = document.getElementById("paragraph-list");
+  paraList.innerHTML = accordion(PARAGRAPH_EXAMPLES, (p) => `<div class="card" style="box-shadow:none;"><p>${p.text}</p></div>`);
+  bindAccordions(paraList);
+
+  SPEECH_EXAMPLES.forEach((s) => (s._label = `${s.occasion} — ${s.title}`));
+  const speechList = document.getElementById("speech-list");
+  speechList.innerHTML = accordion(SPEECH_EXAMPLES, (s) => `
+    <div class="card" style="box-shadow:none;">
+      <p>${nl2br(s.text)}</p>
+      ${s.placeholders && s.placeholders.length ? `<p class="text-muted" style="margin-top:10px;font-size:0.82rem;">Replace before use: ${s.placeholders.join(", ")}</p>` : ""}
+    </div>`);
+  bindAccordions(speechList);
+
+  const checklists = {
+    notice: ["School name and date included", "Word 'NOTICE' and an underlined heading", "Covers what, when, where and who", "Kept within 50-80 words", "Signed off with issuer's designation"],
+    letter: ["Correct salutation for formal/informal style", "Subject line included (formal letters only)", "Body organised in short, clear paragraphs", "Polite, appropriate closing", "Your name (and class/roll no. if formal)"],
+    paragraph: ["Starts with a clear topic sentence", "3-4 supporting sentences with examples", "Stays on one topic, no headings/bullets", "Ends with a concluding thought", "Roughly 100-150 words"],
+    speech: ["Opens with a greeting to the audience", "States the occasion clearly", "Has 2-3 clear main points", "Ends with a strong closing line and 'Thank you'", "All placeholders replaced with real details"]
+  };
+  function renderChecklist(type) {
+    const items = checklists[type] || checklists.notice;
+    document.getElementById("draft-checklist").innerHTML = `
+      <p style="font-weight:700;margin-bottom:8px;">Self-check before you finish:</p>
+      ${items.map((label, i) => `
+        <label style="display:flex;align-items:flex-start;gap:8px;margin-bottom:8px;font-size:0.9rem;">
+          <input type="checkbox" id="chk-${i}" style="margin-top:3px;">
+          <span>${label}</span>
+        </label>`).join("")}
+    `;
+  }
+  renderChecklist("notice");
+  document.querySelectorAll('[data-tabs="writing"] button[data-tab]').forEach((btn) => {
+    btn.addEventListener("click", () => renderChecklist(btn.dataset.tab));
+  });
+</script>
+<script src="js/app.js"></script>
+</body>
+</html>
