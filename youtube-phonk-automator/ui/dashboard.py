@@ -25,18 +25,28 @@ class DashboardFrame(ttk.Frame):
         self._video_info = None
         self._rendering = False
 
-        self._build_scroll_container()
-        self._build_widgets()
+        # Left: scrollable input form. Right: a fixed sidebar that always
+        # shows Actions + Status without scrolling, so CREATE VIDEO / PREVIEW
+        # / UPLOAD and the progress bar are never hidden below the fold on a
+        # small laptop screen.
+        left_pane = ttk.Frame(self)
+        left_pane.pack(side="left", fill="both", expand=True)
+        right_pane = ttk.Frame(self, padding=10, width=230)
+        right_pane.pack(side="right", fill="y")
+        right_pane.pack_propagate(False)
+
+        self._build_scroll_container(left_pane)
+        self._build_form_sections()
+        self._build_sidebar(right_pane)
         ctx.register_dashboard(self)
 
     # -- scroll container -------------------------------------------------
-    def _build_scroll_container(self) -> None:
-        """The form has many sections and easily runs taller than a small
-        laptop screen (e.g. 1366x768 with taskbar/scaling) - wrap it in a
-        scrollable canvas so every control, including the action buttons at
-        the bottom, is always reachable regardless of screen size."""
-        canvas = tk.Canvas(self, borderwidth=0, highlightthickness=0)
-        scrollbar = ttk.Scrollbar(self, orient="vertical", command=canvas.yview)
+    def _build_scroll_container(self, parent: tk.Misc) -> None:
+        """The form has many sections and can still run taller than a small
+        laptop screen - wrap it in a scrollable canvas (scrollbar + mouse
+        wheel) so every field stays reachable regardless of screen size."""
+        canvas = tk.Canvas(parent, borderwidth=0, highlightthickness=0)
+        scrollbar = ttk.Scrollbar(parent, orient="vertical", command=canvas.yview)
         canvas.configure(yscrollcommand=scrollbar.set)
         canvas.pack(side="left", fill="both", expand=True)
         scrollbar.pack(side="right", fill="y")
@@ -66,7 +76,7 @@ class DashboardFrame(ttk.Frame):
         canvas.bind("<Leave>", _unbind_mousewheel)
 
     # -- layout ---------------------------------------------------------
-    def _build_widgets(self) -> None:
+    def _build_form_sections(self) -> None:
         self.body.columnconfigure(1, weight=1)
         row = 0
 
@@ -77,9 +87,21 @@ class DashboardFrame(ttk.Frame):
         row = self._section_audio(row)
         row = self._section_editing(row)
         row = self._section_output(row)
-        row = self._section_youtube(row)
-        row = self._section_actions(row)
-        self._section_status(row)
+        self._section_youtube(row)
+
+    def _build_sidebar(self, parent: tk.Misc) -> None:
+        ttk.Label(parent, text="Actions", font=("TkDefaultFont", 10, "bold")).pack(anchor="w", pady=(0, 6))
+        ttk.Button(parent, text="CREATE VIDEO", command=self._on_create_video).pack(fill="x", pady=2)
+        ttk.Button(parent, text="PREVIEW VIDEO", command=self._on_preview_video).pack(fill="x", pady=2)
+        ttk.Button(parent, text="UPLOAD TO YOUTUBE", command=self._on_upload).pack(fill="x", pady=2)
+
+        ttk.Separator(parent, orient="horizontal").pack(fill="x", pady=12)
+
+        ttk.Label(parent, text="Status", font=("TkDefaultFont", 10, "bold")).pack(anchor="w", pady=(0, 6))
+        self.status_var = tk.StringVar(value="Ready.")
+        ttk.Label(parent, textvariable=self.status_var, wraplength=200, justify="left").pack(anchor="w", fill="x")
+        self.progress = ttk.Progressbar(parent, mode="determinate", maximum=100)
+        self.progress.pack(fill="x", pady=(6, 0))
 
     def _section_markdown(self, row: int) -> int:
         frame = ttk.LabelFrame(self.body, text="Markdown Data", padding=8)
@@ -203,23 +225,6 @@ class DashboardFrame(ttk.Frame):
         self.browser_status_label = ttk.Label(frame, text="Not Connected", foreground="#a33")
         self.browser_status_label.pack(side="left", padx=8)
         return row + 1
-
-    def _section_actions(self, row: int) -> int:
-        frame = ttk.Frame(self.body)
-        frame.grid(row=row, column=0, columnspan=2, pady=8)
-        ttk.Button(frame, text="CREATE VIDEO", command=self._on_create_video).pack(side="left", padx=4)
-        ttk.Button(frame, text="PREVIEW VIDEO", command=self._on_preview_video).pack(side="left", padx=4)
-        ttk.Button(frame, text="UPLOAD TO YOUTUBE", command=self._on_upload).pack(side="left", padx=4)
-        return row + 1
-
-    def _section_status(self, row: int) -> None:
-        frame = ttk.Frame(self.body)
-        frame.grid(row=row, column=0, columnspan=2, sticky="ew", pady=(8, 0))
-        frame.columnconfigure(0, weight=1)
-        self.status_var = tk.StringVar(value="Ready.")
-        ttk.Label(frame, textvariable=self.status_var).grid(row=0, column=0, sticky="w")
-        self.progress = ttk.Progressbar(frame, mode="determinate", maximum=100)
-        self.progress.grid(row=1, column=0, sticky="ew", pady=(4, 0))
 
     # -- job loading ------------------------------------------------------
     def load_job(self, job_id: int) -> None:
