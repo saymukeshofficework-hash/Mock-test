@@ -49,6 +49,9 @@ jobs:
           # BBC English Coaching Classes Burhar platform, static, no build step
           cp -r bbc-english _site/bbc-english
 
+          # 80-Second Video Maker, static, no build step
+          cp -r video-cutter _site/video-cutter
+
           # Ludo 3D build output
           mkdir -p _site/ludo-3d
           cp -r ludo-3d/dist/. _site/ludo-3d/
