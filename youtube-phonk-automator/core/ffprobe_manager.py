@@ -6,7 +6,10 @@ import subprocess
 from dataclasses import dataclass
 from pathlib import Path
 
+from utils.logger import get_logger
 from utils.validators import ValidationError
+
+_logger = get_logger("ffprobe")
 
 
 class FFprobeError(ValidationError):
@@ -108,14 +111,24 @@ def probe_media(ffprobe_path: str, file_path: Path) -> ProbedMediaInfo:
         raise FFprobeError(f"Could not run FFprobe: {exc}") from exc
 
     if result.returncode != 0:
-        raise FFprobeError(f"Could not read media file: {file_path.name}")
+        stderr_text = (result.stderr or "").strip()
+        _logger.error("FFprobe failed on %s (exit %s): %s", file_path, result.returncode, stderr_text)
+        raise FFprobeError(f"Could not read media file: {file_path.name}") from RuntimeError(
+            stderr_text or f"ffprobe exited with code {result.returncode} and no error output"
+        )
 
     try:
         data = json.loads(result.stdout)
     except json.JSONDecodeError as exc:
+        _logger.error("FFprobe returned invalid JSON for %s: %s", file_path, result.stdout[:500])
         raise FFprobeError(f"Could not read media file: {file_path.name}") from exc
 
     info = parse_probe_json(data)
     if info.duration_seconds is None:
-        raise FFprobeError(f"Could not read media file: {file_path.name}")
+        _logger.error("FFprobe found no duration for %s. Raw output: %s", file_path, result.stdout[:1000])
+        raise FFprobeError(f"Could not read media file: {file_path.name}") from RuntimeError(
+            "FFprobe ran successfully but reported no duration for this file. "
+            "It may be corrupted, still syncing from cloud storage (OneDrive/Google "
+            f"Photos), or use a container FFprobe couldn't parse.\n\nRaw ffprobe output:\n{result.stdout[:1000]}"
+        )
     return info

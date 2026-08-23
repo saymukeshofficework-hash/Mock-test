@@ -275,7 +275,7 @@ class DashboardFrame(ttk.Frame):
         try:
             info = get_video_info(settings.ffprobe_path, path)
         except ValidationError as exc:
-            show_error(self, str(exc))
+            show_error(self, str(exc), exc)
             return
         self._video_info = info
         resolution = f"{info.width} x {info.height}" if info.width else "unknown"
