@@ -1,0 +1,14 @@
+__pycache__/
+*.pyc
+*.db
+/output/*
+!/output/.gitkeep
+/temp/*
+!/temp/.gitkeep
+/logs/*
+!/logs/.gitkeep
+/dist/
+/build/
+*.spec
+.venv/
+venv/
