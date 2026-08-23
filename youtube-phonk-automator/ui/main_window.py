@@ -128,14 +128,24 @@ class MainWindow(tk.Tk):
         dashboard = DashboardFrame(notebook, self.ctx)
         jobs = JobsFrame(notebook, self.ctx)
         history = HistoryFrame(notebook, self.ctx)
-        settings = SettingsFrame(notebook, self.ctx)
+        self.settings_frame = SettingsFrame(notebook, self.ctx)
         logs = LogsFrame(notebook, self.ctx)
 
         notebook.add(dashboard, text="Dashboard")
         notebook.add(jobs, text="Jobs")
         notebook.add(history, text="History")
-        notebook.add(settings, text="Settings")
+        notebook.add(self.settings_frame, text="Settings")
         notebook.add(logs, text="Logs")
+
+        # The Settings tab is built once at startup, before the First-Run
+        # Wizard (or any later change from another tab) can update the
+        # underlying values - refresh it every time it's actually selected
+        # so it never shows a stale snapshot.
+        def _on_tab_changed(_event=None) -> None:
+            if notebook.select() == str(self.settings_frame):
+                self.settings_frame.refresh()
+
+        notebook.bind("<<NotebookTabChanged>>", _on_tab_changed)
 
         self.resource_label = ttk.Label(self, text="")
         self.resource_label.pack(anchor="e", padx=8, pady=(0, 4))

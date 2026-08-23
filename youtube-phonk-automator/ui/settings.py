@@ -36,8 +36,67 @@ class SettingsFrame(ttk.Frame):
             "quality_preset": tk.StringVar(value=settings.quality_preset),
         }
 
-        body = ttk.Frame(self)
-        body.pack(fill="both", expand=True)
+        # Pack the footer (Save button) FIRST, pinned to the bottom, so it
+        # always reserves its space - same fix as the Dashboard needed: a
+        # tall scrollable form must never be able to push a fixed action
+        # button off-screen on a small laptop.
+        footer = ttk.Frame(self)
+        footer.pack(side="bottom", fill="x")
+        ttk.Button(footer, text="Save Settings", command=self._save).pack(anchor="w", pady=12)
+
+        self._build_scroll_container()
+        self._build_form(self.body)
+
+    def _build_scroll_container(self) -> None:
+        canvas = tk.Canvas(self, borderwidth=0, highlightthickness=0)
+        scrollbar = ttk.Scrollbar(self, orient="vertical", command=canvas.yview)
+        canvas.configure(yscrollcommand=scrollbar.set)
+        canvas.pack(side="left", fill="both", expand=True)
+        scrollbar.pack(side="right", fill="y")
+
+        self.body = ttk.Frame(canvas)
+        body_window = canvas.create_window((0, 0), window=self.body, anchor="nw")
+
+        def _on_body_configure(_event=None) -> None:
+            canvas.configure(scrollregion=canvas.bbox("all"))
+
+        def _on_canvas_configure(event) -> None:
+            canvas.itemconfigure(body_window, width=event.width)
+
+        self.body.bind("<Configure>", _on_body_configure)
+        canvas.bind("<Configure>", _on_canvas_configure)
+
+        def _on_mousewheel(event) -> None:
+            canvas.yview_scroll(int(-1 * (event.delta / 120)), "units")
+
+        canvas.bind("<Enter>", lambda _e: canvas.bind_all("<MouseWheel>", _on_mousewheel))
+        canvas.bind("<Leave>", lambda _e: canvas.unbind_all("<MouseWheel>"))
+
+    def refresh(self) -> None:
+        """Re-sync every field from AppSettings. Needed because this frame
+        is built once at startup - before the First-Run Wizard has a chance
+        to save anything - so without this the tab would keep showing blank
+        defaults even after setup completes."""
+        settings = self.ctx.settings.get()
+        string_fields = {
+            "ffmpeg_path": settings.ffmpeg_path, "ffprobe_path": settings.ffprobe_path,
+            "output_folder": settings.output_folder, "default_music_folder": settings.default_music_folder,
+            "default_duration_seconds": str(settings.default_duration_seconds),
+            "default_music_volume": str(settings.default_music_volume),
+            "default_fade_in": str(settings.default_fade_in), "default_fade_out": str(settings.default_fade_out),
+            "default_transition": settings.default_transition,
+            "default_transition_duration": str(settings.default_transition_duration),
+            "default_category": settings.default_category, "default_playlist": settings.default_playlist,
+            "default_audience": settings.default_audience, "default_visibility": settings.default_visibility,
+            "browser": settings.browser, "browser_executable": settings.browser_executable,
+            "browser_profile": settings.browser_profile, "quality_preset": settings.quality_preset,
+        }
+        for key, value in string_fields.items():
+            self.vars[key].set(value)
+        self.vars["preview_before_publish"].set(settings.preview_before_publish)
+        self.vars["auto_publish"].set(settings.auto_publish)
+
+    def _build_form(self, body: ttk.Frame) -> None:
 
         self._path_row(body, 0, "FFmpeg path", "ffmpeg_path", file=True)
         self._path_row(body, 1, "FFprobe path", "ffprobe_path", file=True)
@@ -65,8 +124,6 @@ class SettingsFrame(ttk.Frame):
             body, text="Auto Publish (off by default - publishes with no final review)",
             variable=self.vars["auto_publish"], command=self._on_auto_publish_toggle,
         ).grid(row=19, column=0, columnspan=2, sticky="w", pady=4)
-
-        ttk.Button(self, text="Save Settings", command=self._save).pack(anchor="w", pady=12)
 
     def _path_row(self, parent: ttk.Frame, row: int, label: str, key: str, file: bool) -> None:
         ttk.Label(parent, text=label, width=28).grid(row=row, column=0, sticky="w", pady=2)
