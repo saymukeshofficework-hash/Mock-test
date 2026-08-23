@@ -179,6 +179,28 @@ class TestJobManager(unittest.TestCase):
         plan_arg = mock_build_command.call_args[0][1]
         self.assertTrue(plan_arg.loop_source)
 
+    @patch("core.job_manager.run_ffmpeg_render")
+    @patch("core.job_manager.build_render_command")
+    @patch("core.job_manager.get_video_info")
+    def test_process_job_targets_specific_job_not_queue_order(self, mock_get_video_info, mock_build_command, mock_run):
+        older_job_id = self.db.create_job({
+            "title": "Older", "description": "D", "status": "pending",
+            "video_path": "C:/older.mp4", "add_music": 0, "remove_audio": 1, "length_seconds": 90.0,
+        })
+        target_job_id = self.db.create_job({
+            "title": "Target", "description": "D", "status": "pending",
+            "video_path": "C:/target.mp4", "add_music": 0, "remove_audio": 1, "length_seconds": 90.0,
+        })
+        mock_get_video_info.return_value = VideoInfo("C:/target.mp4", "target.mp4", 200.0, 1920, 1080, 30.0, "h264", True)
+        mock_build_command.return_value = (["ffmpeg", "..."], None)
+        mock_run.return_value = RenderResult(success=True, return_code=0, stderr_tail="")
+
+        result = self.jm.process_job(target_job_id, "ffmpeg", "ffprobe")
+
+        self.assertEqual(result.job_id, target_job_id)
+        self.assertEqual(self.db.get_job(target_job_id)["status"], "done")
+        self.assertEqual(self.db.get_job(older_job_id)["status"], "pending")
+
     def test_crash_recovery_detects_unfinished_jobs(self):
         job_id = self.db.create_job({"title": "T", "description": "D", "status": "processing", "add_music": 0})
         unfinished = self.jm.find_unfinished_jobs()

@@ -136,6 +136,23 @@ class JobManager:
         job_row = self.next_pending_job()
         if job_row is None:
             raise ValidationError("No pending jobs.")
+        return self.process_job(job_row["id"], ffmpeg_path, ffprobe_path, loop_confirmed, on_progress)
+
+    def process_job(
+        self,
+        job_id: int,
+        ffmpeg_path: str,
+        ffprobe_path: str,
+        loop_confirmed: bool = False,
+        on_progress: Callable[[float], None] | None = None,
+    ) -> ProcessResult:
+        """Render one specific job regardless of queue order - used by the
+        Dashboard to render whichever job is currently selected. Only one
+        FFmpeg process ever runs (the caller is expected not to call this
+        again until it returns)."""
+        job_row = self.db.get_job(job_id)
+        if job_row is None:
+            raise ValidationError("Job not found.")
         if not job_row["video_path"]:
             raise ValidationError("Please select a video.")
 
