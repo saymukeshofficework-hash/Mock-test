@@ -1,0 +1,6 @@
+# Runtime
+playwright>=1.40
+psutil>=5.9
+
+# Build (Windows executable)
+pyinstaller>=6.0
