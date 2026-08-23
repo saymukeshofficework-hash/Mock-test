@@ -19,18 +19,55 @@ from utils.validators import ValidationError, format_duration, parse_duration
 
 class DashboardFrame(ttk.Frame):
     def __init__(self, parent: tk.Misc, ctx):
-        super().__init__(parent, padding=12)
+        super().__init__(parent)
         self.ctx = ctx
         self.current_job_id: int | None = None
         self._video_info = None
         self._rendering = False
 
+        self._build_scroll_container()
         self._build_widgets()
         ctx.register_dashboard(self)
 
+    # -- scroll container -------------------------------------------------
+    def _build_scroll_container(self) -> None:
+        """The form has many sections and easily runs taller than a small
+        laptop screen (e.g. 1366x768 with taskbar/scaling) - wrap it in a
+        scrollable canvas so every control, including the action buttons at
+        the bottom, is always reachable regardless of screen size."""
+        canvas = tk.Canvas(self, borderwidth=0, highlightthickness=0)
+        scrollbar = ttk.Scrollbar(self, orient="vertical", command=canvas.yview)
+        canvas.configure(yscrollcommand=scrollbar.set)
+        canvas.pack(side="left", fill="both", expand=True)
+        scrollbar.pack(side="right", fill="y")
+
+        self.body = ttk.Frame(canvas, padding=12)
+        body_window = canvas.create_window((0, 0), window=self.body, anchor="nw")
+
+        def _on_body_configure(_event=None) -> None:
+            canvas.configure(scrollregion=canvas.bbox("all"))
+
+        def _on_canvas_configure(event) -> None:
+            canvas.itemconfigure(body_window, width=event.width)
+
+        self.body.bind("<Configure>", _on_body_configure)
+        canvas.bind("<Configure>", _on_canvas_configure)
+
+        def _on_mousewheel(event) -> None:
+            canvas.yview_scroll(int(-1 * (event.delta / 120)), "units")
+
+        def _bind_mousewheel(_event=None) -> None:
+            canvas.bind_all("<MouseWheel>", _on_mousewheel)
+
+        def _unbind_mousewheel(_event=None) -> None:
+            canvas.unbind_all("<MouseWheel>")
+
+        canvas.bind("<Enter>", _bind_mousewheel)
+        canvas.bind("<Leave>", _unbind_mousewheel)
+
     # -- layout ---------------------------------------------------------
     def _build_widgets(self) -> None:
-        self.columnconfigure(1, weight=1)
+        self.body.columnconfigure(1, weight=1)
         row = 0
 
         row = self._section_markdown(row)
@@ -45,7 +82,7 @@ class DashboardFrame(ttk.Frame):
         self._section_status(row)
 
     def _section_markdown(self, row: int) -> int:
-        frame = ttk.LabelFrame(self, text="Markdown Data", padding=8)
+        frame = ttk.LabelFrame(self.body, text="Markdown Data", padding=8)
         frame.grid(row=row, column=0, columnspan=2, sticky="ew", pady=4)
         frame.columnconfigure(1, weight=1)
         ttk.Button(frame, text="Browse .MD", command=self._browse_markdown).grid(row=0, column=0)
@@ -54,7 +91,7 @@ class DashboardFrame(ttk.Frame):
         return row + 1
 
     def _section_video(self, row: int) -> int:
-        frame = ttk.LabelFrame(self, text="Video", padding=8)
+        frame = ttk.LabelFrame(self.body, text="Video", padding=8)
         frame.grid(row=row, column=0, columnspan=2, sticky="ew", pady=4)
         button_row = ttk.Frame(frame)
         button_row.pack(anchor="w")
@@ -65,7 +102,7 @@ class DashboardFrame(ttk.Frame):
         return row + 1
 
     def _section_music(self, row: int) -> int:
-        frame = ttk.LabelFrame(self, text="Music", padding=8)
+        frame = ttk.LabelFrame(self.body, text="Music", padding=8)
         frame.grid(row=row, column=0, columnspan=2, sticky="ew", pady=4)
 
         folder_row = ttk.Frame(frame)
@@ -88,7 +125,7 @@ class DashboardFrame(ttk.Frame):
         return row + 1
 
     def _section_length(self, row: int) -> int:
-        frame = ttk.LabelFrame(self, text="Video Length", padding=8)
+        frame = ttk.LabelFrame(self.body, text="Video Length", padding=8)
         frame.grid(row=row, column=0, columnspan=2, sticky="ew", pady=4)
         ttk.Label(frame, text="Final Length (MM:SS or HH:MM:SS):").pack(side="left")
         self.length_var = tk.StringVar(value="03:30")
@@ -96,7 +133,7 @@ class DashboardFrame(ttk.Frame):
         return row + 1
 
     def _section_audio(self, row: int) -> int:
-        frame = ttk.LabelFrame(self, text="Audio", padding=8)
+        frame = ttk.LabelFrame(self.body, text="Audio", padding=8)
         frame.grid(row=row, column=0, columnspan=2, sticky="ew", pady=4)
 
         self.remove_audio_var = tk.BooleanVar(value=True)
@@ -116,7 +153,7 @@ class DashboardFrame(ttk.Frame):
         return row + 1
 
     def _section_editing(self, row: int) -> int:
-        frame = ttk.LabelFrame(self, text="Editing", padding=8)
+        frame = ttk.LabelFrame(self.body, text="Editing", padding=8)
         frame.grid(row=row, column=0, columnspan=2, sticky="ew", pady=4)
 
         self.add_cuts_var = tk.BooleanVar(value=False)
@@ -149,7 +186,7 @@ class DashboardFrame(ttk.Frame):
         return row + 1
 
     def _section_output(self, row: int) -> int:
-        frame = ttk.LabelFrame(self, text="Output", padding=8)
+        frame = ttk.LabelFrame(self.body, text="Output", padding=8)
         frame.grid(row=row, column=0, columnspan=2, sticky="ew", pady=4)
         ttk.Button(frame, text="Browse Folder", command=self._browse_output_folder).pack(side="left")
         self.output_folder_label = ttk.Label(frame, text=self.ctx.settings.get().output_folder or "(none)")
@@ -157,7 +194,7 @@ class DashboardFrame(ttk.Frame):
         return row + 1
 
     def _section_youtube(self, row: int) -> int:
-        frame = ttk.LabelFrame(self, text="YouTube", padding=8)
+        frame = ttk.LabelFrame(self.body, text="YouTube", padding=8)
         frame.grid(row=row, column=0, columnspan=2, sticky="ew", pady=4)
         self.browser_var = tk.StringVar(value=self.ctx.settings.get().browser)
         ttk.Radiobutton(frame, text="Chrome", value="Chrome", variable=self.browser_var).pack(side="left")
@@ -168,7 +205,7 @@ class DashboardFrame(ttk.Frame):
         return row + 1
 
     def _section_actions(self, row: int) -> int:
-        frame = ttk.Frame(self)
+        frame = ttk.Frame(self.body)
         frame.grid(row=row, column=0, columnspan=2, pady=8)
         ttk.Button(frame, text="CREATE VIDEO", command=self._on_create_video).pack(side="left", padx=4)
         ttk.Button(frame, text="PREVIEW VIDEO", command=self._on_preview_video).pack(side="left", padx=4)
@@ -176,7 +213,7 @@ class DashboardFrame(ttk.Frame):
         return row + 1
 
     def _section_status(self, row: int) -> None:
-        frame = ttk.Frame(self)
+        frame = ttk.Frame(self.body)
         frame.grid(row=row, column=0, columnspan=2, sticky="ew", pady=(8, 0))
         frame.columnconfigure(0, weight=1)
         self.status_var = tk.StringVar(value="Ready.")

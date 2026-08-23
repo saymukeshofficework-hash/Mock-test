@@ -110,7 +110,15 @@ class MainWindow(tk.Tk):
     def __init__(self, base_dir: Path):
         super().__init__()
         self.title("YouTube Phonk Automator")
-        self.geometry("900x760")
+        self.geometry("900x700")
+        self.minsize(640, 480)
+        try:
+            # Start maximized so the (now scrollable) Dashboard has as much
+            # room as possible on small laptop screens. Not all platforms
+            # support the "zoomed" state, so this is best-effort.
+            self.state("zoomed")
+        except tk.TclError:
+            pass
 
         self.ctx = AppContext(self, base_dir)
 
