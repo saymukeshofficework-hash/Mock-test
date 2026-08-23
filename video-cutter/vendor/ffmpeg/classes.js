@@ -56,6 +56,25 @@ export class FFmpeg {
                 delete this.#resolves[id];
                 delete this.#rejects[id];
             };
+            // PATCHED: the original wrapper only listened for onmessage, so a
+            // hard worker crash (e.g. a WASM out-of-memory abort during
+            // instantiation, seen on memory-constrained mobile browsers)
+            // never surfaced — the caller's promise just hung forever with
+            // no error and no way to recover. Surface it and fail loudly.
+            const rejectAllPending = (message) => {
+                const ids = Object.keys(this.#rejects);
+                for (const id of ids) {
+                    this.#rejects[id](message);
+                    delete this.#resolves[id];
+                    delete this.#rejects[id];
+                }
+            };
+            this.#worker.onerror = (e) => {
+                rejectAllPending(`ffmpeg worker error: ${e && e.message ? e.message : 'unknown worker crash'}`);
+            };
+            this.#worker.onmessageerror = () => {
+                rejectAllPending('ffmpeg worker error: message could not be deserialized');
+            };
         }
     };
     /**

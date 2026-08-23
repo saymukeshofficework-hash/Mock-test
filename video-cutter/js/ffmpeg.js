@@ -9,6 +9,26 @@ import { toBlobURL, fetchFile } from '../vendor/util/index.js';
 
 const CORE_BASE = new URL('../vendor/core/', import.meta.url).href;
 
+// Safety net so the UI can never hang forever: some worker failure modes
+// (WASM instantiation stalling on a memory-constrained mobile browser, a
+// deadlock inside the WASM runtime) don't reliably fire any JS-visible
+// error event at all. If a step takes far longer than it plausibly should,
+// treat it as failed rather than leaving the user staring at a spinner.
+function withTimeout(promise, ms, message) {
+  let timer;
+  const timeout = new Promise((_, reject) => {
+    timer = setTimeout(() => {
+      const err = new Error(message);
+      err.isTimeout = true;
+      reject(err);
+    }, ms);
+  });
+  return Promise.race([promise, timeout]).finally(() => clearTimeout(timer));
+}
+
+const LOAD_TIMEOUT_MS = 90_000;
+const EXEC_TIMEOUT_MS = 5 * 60_000;
+
 export class VideoEngine {
   constructor() {
     this.ffmpeg = null;
@@ -30,7 +50,16 @@ export class VideoEngine {
     });
     const coreURL = await toBlobURL(`${CORE_BASE}ffmpeg-core.js`, 'text/javascript');
     const wasmURL = await toBlobURL(`${CORE_BASE}ffmpeg-core.wasm`, 'application/wasm');
-    await this.ffmpeg.load({ coreURL, wasmURL });
+    try {
+      await withTimeout(
+        this.ffmpeg.load({ coreURL, wasmURL }),
+        LOAD_TIMEOUT_MS,
+        'The video engine took too long to start. Your device may be low on memory, or this browser may not support it — try closing other tabs/apps, or a different browser.',
+      );
+    } catch (err) {
+      this.terminate();
+      throw err;
+    }
     this.loaded = true;
   }
 
@@ -72,7 +101,11 @@ export class VideoEngine {
     const handler = (p) => onProgress && onProgress(p);
     this._progressHandlers.add(handler);
     try {
-      const ret = await this.ffmpeg.exec(args);
+      const ret = await withTimeout(
+        this.ffmpeg.exec(args),
+        EXEC_TIMEOUT_MS,
+        'Processing this clip took far longer than expected and was stopped. Your device may be low on memory — try a shorter or lower-resolution video.',
+      );
       if (ret !== 0) {
         throw new Error(`ffmpeg exited with code ${ret}`);
       }
@@ -80,6 +113,13 @@ export class VideoEngine {
       const blob = new Blob([data.buffer], { type: 'video/mp4' });
       await this.ffmpeg.deleteFile(outName);
       return blob;
+    } catch (err) {
+      // A timeout means the worker is presumed wedged (still "running" but
+      // never going to finish) — reusing it for the next clip would just
+      // hang again, so tear it down; the app-level caller reloads a fresh
+      // engine on the next export attempt.
+      if (err && err.isTimeout) this.terminate();
+      throw err;
     } finally {
       this._progressHandlers.delete(handler);
     }
