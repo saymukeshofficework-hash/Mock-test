@@ -273,6 +273,48 @@ main {
 
 .hint { font-size: 0.85rem; color: var(--text-dim); }
 
+.clip-length-row { margin-bottom: var(--space-4); }
+.clip-length-row > label {
+  display: block;
+  font-size: 0.85rem;
+  color: var(--text-dim);
+  margin-bottom: var(--space-2);
+}
+.clip-length-input-wrap {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  background: var(--bg-elevated);
+  border: 1px solid var(--card-border);
+  border-radius: 10px;
+  padding: 4px 4px 4px 14px;
+  max-width: 220px;
+}
+.clip-length-input-wrap input[type="number"] {
+  flex: 1;
+  min-width: 0;
+  background: transparent;
+  border: none;
+  color: var(--text);
+  font: inherit;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 10px 0;
+  min-height: 40px;
+  -moz-appearance: textfield;
+}
+.clip-length-input-wrap input[type="number"]:focus { outline: none; }
+.clip-length-unit {
+  font-size: 0.8rem;
+  color: var(--text-faint);
+  padding-right: 10px;
+  flex-shrink: 0;
+}
+#clipLengthPreview {
+  display: block;
+  margin-top: var(--space-2);
+}
+
 /* ---------- Music list ---------- */
 .music-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: var(--space-2); }
 .music-item {

@@ -1,11 +1,11 @@
 # 80-Second Video Maker
 
-A browser-based video cutter and music mixer that automatically splits a video into 80-second (1:20) clips and mixes in your own MP3 music — entirely client-side, no backend, no uploads.
+A browser-based video cutter and music mixer that automatically splits a video into fixed-length clips (80 seconds / 1:20 by default, adjustable) and mixes in your own MP3 music — entirely client-side, no backend, no uploads.
 
 ## Features
 
 - Load an MP4 (or any browser-playable video) and see its duration, resolution, and a live preview
-- Automatic sequential splitting into 80-second clips, with the final shorter clip always preserved
+- Automatic sequential splitting into fixed-length clips — 80 seconds by default, adjustable via a "Clip Length" field (5s to 3600s) that applies to the whole video — with the final shorter clip always preserved
 - Upload multiple MP3 files into a reorderable music library (drag-and-drop or ↑/↓ buttons), each with duration and inline preview
 - Automatic sequential music assignment (Clip 1 → Track 1, Clip 2 → Track 2, ...), fully overridable per clip
 - Configurable behavior when there are more clips than tracks: repeat from the start, leave the rest unmusicked, or assign manually

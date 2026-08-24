@@ -3,6 +3,8 @@
 // avoids loading the WASM engine just to inspect a file.
 
 export const CLIP_SECONDS = 80;
+export const MIN_CLIP_SECONDS = 5;
+export const MAX_CLIP_SECONDS = 3600;
 
 /**
  * Reads duration/resolution from a video File using a hidden <video> element.

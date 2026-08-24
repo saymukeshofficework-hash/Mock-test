@@ -64,8 +64,18 @@
         <div><dt>Resolution</dt><dd id="metaResolution">—</dd></div>
       </dl>
       <p id="largeFileWarning" class="warning-banner" hidden></p>
+
+      <div class="clip-length-row">
+        <label for="clipLengthInput">Clip Length</label>
+        <div class="clip-length-input-wrap">
+          <input type="number" id="clipLengthInput" min="5" max="3600" step="1" value="80" inputmode="numeric">
+          <span class="clip-length-unit">seconds</span>
+        </div>
+        <span id="clipLengthPreview" class="slider-value">= 01:20 per clip</span>
+      </div>
+
       <button id="generateClipsBtn" class="btn btn-primary btn-lg" type="button">
-        Generate 80-Second Clips
+        Generate Clips
       </button>
     </div>
   </section>

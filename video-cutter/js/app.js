@@ -1,4 +1,4 @@
-import { readVideoMetadata, computeClips, formatTime, formatBytes, buildClipFilename, sanitizeBaseName } from './video.js';
+import { readVideoMetadata, computeClips, formatTime, formatBytes, buildClipFilename, sanitizeBaseName, CLIP_SECONDS, MIN_CLIP_SECONDS, MAX_CLIP_SECONDS } from './video.js';
 import { readAudioMetadata, makeMusicId, moveItem, autoAssignMusic } from './audio.js';
 import { VideoEngine } from './ffmpeg.js';
 
@@ -20,6 +20,7 @@ const state = {
   exporting: false,
   cancelRequested: false,
   previewingClipIndex: null,
+  clipLengthSeconds: CLIP_SECONDS,
 };
 
 const engine = new VideoEngine();
@@ -49,6 +50,8 @@ const el = {
   metaDuration: $('metaDuration'),
   metaResolution: $('metaResolution'),
   largeFileWarning: $('largeFileWarning'),
+  clipLengthInput: $('clipLengthInput'),
+  clipLengthPreview: $('clipLengthPreview'),
   generateClipsBtn: $('generateClipsBtn'),
 
   musicInput: $('musicInput'),
@@ -167,7 +170,7 @@ async function loadVideo(file) {
     engine.videoWritten = false;
     engine.hasAudio = null;
     renderVideoInfo();
-    setStatus('Ready. Generate 80-second clips whenever you’re ready.', 'ok');
+    setStatus('Ready. Set your clip length and generate clips whenever you’re ready.', 'ok');
   } catch (err) {
     setStatus(friendlyError(err), 'error');
   }
@@ -192,16 +195,41 @@ function renderVideoInfo() {
   }
 }
 
+function clampClipLength(raw) {
+  const n = Number(raw);
+  return Math.min(MAX_CLIP_SECONDS, Math.max(MIN_CLIP_SECONDS, isFinite(n) && n > 0 ? Math.round(n) : CLIP_SECONDS));
+}
+// Live preview while typing: shows what the value WOULD clamp to, without
+// rewriting the field mid-keystroke (that would fight the user's typing —
+// e.g. snapping "1" back to the minimum before they can type "150").
+function previewClipLength() {
+  el.clipLengthPreview.textContent = `= ${formatTime(clampClipLength(el.clipLengthInput.value))} per clip`;
+}
+// Normalizes the field to the clamped value — only called once editing is
+// done (blur) or when the value is actually used.
+function commitClipLength() {
+  const clamped = clampClipLength(el.clipLengthInput.value);
+  el.clipLengthInput.value = clamped;
+  state.clipLengthSeconds = clamped;
+  previewClipLength();
+  return clamped;
+}
+commitClipLength();
+
+el.clipLengthInput.addEventListener('input', previewClipLength);
+el.clipLengthInput.addEventListener('change', commitClipLength);
+
 el.generateClipsBtn.addEventListener('click', () => {
   if (!state.video) return;
+  const clipLength = commitClipLength();
   setStatus('Creating clip list...', 'busy');
-  state.clips = computeClips(state.video.duration);
+  state.clips = computeClips(state.video.duration, clipLength);
   autoAssignMusic(state.clips, state.musicLibrary, state.settings.overflowBehavior);
   el.audioSettingsCard.hidden = false;
   el.clipsCard.hidden = false;
   el.exportCard.hidden = false;
   renderClipsList();
-  setStatus(`${state.clips.length} clip${state.clips.length === 1 ? '' : 's'} ready. Assign music, then export.`, 'ok');
+  setStatus(`${state.clips.length} clip${state.clips.length === 1 ? '' : 's'} ready (${formatTime(clipLength)} each). Assign music, then export.`, 'ok');
 });
 
 // ---------------------------------------------------------------------
