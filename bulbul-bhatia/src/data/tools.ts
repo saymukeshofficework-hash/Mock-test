@@ -72,20 +72,6 @@ export const tools: Tool[] = [
     metaTitle: { en: 'Planet Strength Calculator', hi: 'ग्रह बल कैलकुलेटर' },
     metaDescription: { en: 'Understand planetary strength in your birth chart.', hi: 'अपनी जन्म कुंडली में ग्रह बल को समझें।' },
   },
-  {
-    slug: 'ashtakavarga-calculator', category: 'kundli', status: 'architecture',
-    name: { en: 'Ashtakavarga Calculator', hi: 'अष्टकवर्ग कैलकुलेटर' },
-    description: { en: 'Generate Ashtakavarga points for deeper predictive analysis.', hi: 'गहन भविष्यसूचक विश्लेषण के लिए अष्टकवर्ग अंक तैयार करें।' },
-    metaTitle: { en: 'Ashtakavarga Calculator', hi: 'अष्टकवर्ग कैलकुलेटर' },
-    metaDescription: { en: 'Calculate Ashtakavarga bindus for your birth chart.', hi: 'अपनी कुंडली के लिए अष्टकवर्ग बिंदु तैयार करें।' },
-  },
-  {
-    slug: 'shadbala-calculator', category: 'kundli', status: 'architecture',
-    name: { en: 'Shadbala Calculator', hi: 'षड्बल कैलकुलेटर' },
-    description: { en: 'Calculate Shadbala — the sixfold strength of planets.', hi: 'षड्बल — ग्रहों का छह प्रकार का बल — जानें।' },
-    metaTitle: { en: 'Shadbala Calculator', hi: 'षड्बल कैलकुलेटर' },
-    metaDescription: { en: 'Understand the sixfold planetary strength (Shadbala) in your chart.', hi: 'अपनी कुंडली में षड्बल को समझें।' },
-  },
   // Dasha & Transit
   {
     slug: 'vimshottari-dasha-calculator', category: 'dasha', status: 'live',
@@ -107,13 +93,6 @@ export const tools: Tool[] = [
     description: { en: 'Find your current Antardasha (sub-period).', hi: 'अपनी वर्तमान अंतर्दशा जानें।' },
     metaTitle: { en: 'Antardasha Calculator', hi: 'अंतर्दशा कैलकुलेटर' },
     metaDescription: { en: 'Calculate your current Antardasha sub-period.', hi: 'अपनी वर्तमान अंतर्दशा उप-अवधि जानें।' },
-  },
-  {
-    slug: 'yogini-dasha-calculator', category: 'dasha', status: 'architecture',
-    name: { en: 'Yogini Dasha Calculator', hi: 'योगिनी दशा कैलकुलेटर' },
-    description: { en: 'View your Yogini Dasha timeline.', hi: 'अपनी योगिनी दशा की समयरेखा देखें।' },
-    metaTitle: { en: 'Yogini Dasha Calculator', hi: 'योगिनी दशा कैलकुलेटर' },
-    metaDescription: { en: 'Calculate your Yogini Dasha periods.', hi: 'अपनी योगिनी दशा अवधि जानें।' },
   },
   {
     slug: 'gochar-transit-calculator', category: 'dasha', status: 'live',
