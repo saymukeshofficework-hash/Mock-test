@@ -12,22 +12,33 @@ export interface Service {
   featured?: boolean
 }
 
-export type CourseLevel = 'Beginner' | 'Basic' | 'Intermediate' | 'Advanced' | 'Professional' | 'Mastery'
+// Only two levels are offered, across every course.
+export type CourseLevel = 'basic' | 'advanced'
+
+export type CourseCategory = 'tarot' | 'astrology' | 'handwriting'
 
 export interface Course {
   slug: string
-  category: 'tarot' | 'astrology'
-  level: CourseLevel
+  category: CourseCategory
+  // Omitted for courses that don't have levels (e.g. Handwriting & Signature Analysis).
+  level?: CourseLevel
   title: Bilingual
   description: Bilingual
   overview: Bilingual
   whatYouLearn: Bilingual[]
   whoItsFor: Bilingual
   modules: Bilingual[]
-  duration?: string
-  price?: string
-  certificate?: boolean
-  featured?: boolean
+  duration: Bilingual
+  price: string
+}
+
+export interface Consultation {
+  slug: string
+  name: Bilingual
+  price: Bilingual
+  description: Bilingual
+  icon: string
+  bookingType: string
 }
 
 export type ToolStatus = 'live' | 'architecture'

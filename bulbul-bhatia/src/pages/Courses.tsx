@@ -7,7 +7,7 @@ import { useLanguage } from '../i18n/LanguageContext'
 import { allCourses, learningLevels } from '../data/courses'
 
 export default function Courses() {
-  const { t } = useLanguage()
+  const { locale, t } = useLanguage()
 
   return (
     <>
@@ -18,12 +18,12 @@ export default function Courses() {
           <SectionHeading title={t('sections.learningLevelsTitle')} />
           <ol className="flex flex-wrap items-center justify-center gap-3">
             {learningLevels.map((level, idx) => (
-              <li key={level} id={level.toLowerCase()} className="flex scroll-mt-24 items-center gap-3">
+              <li key={level.id} id={level.id} className="flex scroll-mt-24 items-center gap-3">
                 <span className="flex flex-col items-center gap-2">
                   <span className="flex h-12 w-12 items-center justify-center rounded-full bg-cosmic-gradient text-sm font-semibold text-white">
                     {idx + 1}
                   </span>
-                  <span className="text-xs font-semibold text-navy-900">{level}</span>
+                  <span className="text-xs font-semibold text-navy-900">{level.label[locale]}</span>
                 </span>
                 {idx < learningLevels.length - 1 && (
                   <span aria-hidden="true" className="hidden h-px w-8 bg-navy-900/20 sm:block" />
@@ -37,6 +37,9 @@ export default function Courses() {
             </Link>
             <Link to="/astrology-courses" className="btn-secondary">
               {t('footer.astrologyCourses')}
+            </Link>
+            <Link to="/courses/handwriting-signature-analysis-course" className="btn-secondary">
+              {t('footer.handwritingCourse')}
             </Link>
           </div>
         </div>

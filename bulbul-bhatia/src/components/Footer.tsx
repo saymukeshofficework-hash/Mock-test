@@ -29,6 +29,7 @@ export default function Footer() {
             <li><Link to="/about" className="hover:text-white">{t('nav.about')}</Link></li>
             <li><Link to="/astrology" className="hover:text-white">{t('nav.astrology')}</Link></li>
             <li><Link to="/tarot" className="hover:text-white">{t('nav.tarot')}</Link></li>
+            <li><Link to="/#consultations" className="hover:text-white">{t('nav.consultations')}</Link></li>
             <li><Link to="/courses" className="hover:text-white">{t('nav.courses')}</Link></li>
             <li><Link to="/tools" className="hover:text-white">{t('nav.tools')}</Link></li>
             <li><Link to="/horoscope" className="hover:text-white">{t('nav.horoscope')}</Link></li>
@@ -39,10 +40,10 @@ export default function Footer() {
         <div>
           <h3 className="mb-3 text-sm font-semibold uppercase tracking-wide text-white">{t('footer.services')}</h3>
           <ul className="flex flex-col gap-2 text-sm">
+            <li><Link to="/book?type=astrology" className="hover:text-white">{t('booking.types.astrology')}</Link></li>
+            <li><Link to="/book?type=tarot" className="hover:text-white">{t('booking.types.tarot')}</Link></li>
+            <li><Link to="/book?type=handwriting" className="hover:text-white">{t('booking.types.handwriting')}</Link></li>
             <li><Link to="/astrology-services#janam-kundli-reading" className="hover:text-white">{t('findReading.kundli.title')}</Link></li>
-            <li><Link to="/astrology-services#marriage-prediction" className="hover:text-white">{t('booking.types.marriage')}</Link></li>
-            <li><Link to="/astrology-services#career-astrology" className="hover:text-white">{t('booking.types.career')}</Link></li>
-            <li><Link to="/astrology-services#love-relationship-astrology" className="hover:text-white">{t('booking.types.love')}</Link></li>
             <li><Link to="/tarot-services" className="hover:text-white">{t('nav.tarot')}</Link></li>
           </ul>
         </div>
@@ -52,17 +53,17 @@ export default function Footer() {
           <ul className="flex flex-col gap-2 text-sm">
             <li><Link to="/tarot-courses" className="hover:text-white">{t('footer.tarotCourses')}</Link></li>
             <li><Link to="/astrology-courses" className="hover:text-white">{t('footer.astrologyCourses')}</Link></li>
-            <li><Link to="/courses#beginner" className="hover:text-white">{t('footer.beginner')}</Link></li>
+            <li><Link to="/courses/handwriting-signature-analysis-course" className="hover:text-white">{t('footer.handwritingCourse')}</Link></li>
+            <li><Link to="/courses#basic" className="hover:text-white">{t('footer.basic')}</Link></li>
             <li><Link to="/courses#advanced" className="hover:text-white">{t('footer.advanced')}</Link></li>
-            <li><Link to="/courses#professional" className="hover:text-white">{t('footer.professional')}</Link></li>
           </ul>
         </div>
 
         <div>
           <h3 className="mb-3 text-sm font-semibold uppercase tracking-wide text-white">{t('footer.contact')}</h3>
           <ul className="flex flex-col gap-2 text-sm">
-            <li>{contactConfig.phone}</li>
-            <li className="break-all">{contactConfig.email}</li>
+            <li><a href={`tel:${contactConfig.phone}`} className="hover:text-white">{contactConfig.phone}</a></li>
+            <li><a href={`mailto:${contactConfig.email}`} className="break-all hover:text-white">{contactConfig.email}</a></li>
             <li>
               <a href={contactConfig.instagram} target="_blank" rel="noreferrer" className="hover:text-white">
                 Instagram

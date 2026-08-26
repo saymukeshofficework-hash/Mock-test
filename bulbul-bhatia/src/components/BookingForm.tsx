@@ -45,12 +45,7 @@ export default function BookingForm({ defaultService, defaultType }: Props) {
   const types: [string, string][] = [
     ['astrology', t('booking.types.astrology')],
     ['tarot', t('booking.types.tarot')],
-    ['kundli', t('booking.types.kundli')],
-    ['marriage', t('booking.types.marriage')],
-    ['career', t('booking.types.career')],
-    ['love', t('booking.types.love')],
-    ['business', t('booking.types.business')],
-    ['other', t('booking.types.other')],
+    ['handwriting', t('booking.types.handwriting')],
   ]
 
   function update<K extends keyof FormState>(key: K, value: FormState[K]) {

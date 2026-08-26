@@ -12,7 +12,6 @@ import { toolCategories } from '../data/tools'
 export default function Astrology() {
   const { locale, t } = useLanguage()
   const featured = astrologyServices.filter((s) => s.featured).slice(0, 6)
-  const featuredCourses = astrologyCourses.filter((c) => c.featured)
 
   return (
     <>
@@ -60,7 +59,7 @@ export default function Astrology() {
         <div className="container-page flex flex-col gap-10">
           <SectionHeading eyebrow={t('nav.courses')} title={t('footer.astrologyCourses')} align="left" />
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {featuredCourses.map((course) => (
+            {astrologyCourses.map((course) => (
               <CourseCard key={course.slug} course={course} />
             ))}
           </div>

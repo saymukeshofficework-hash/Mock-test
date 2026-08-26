@@ -249,17 +249,6 @@ export const astrologyServices: Service[] = [
     },
   },
   {
-    slug: 'gemstone-consultation',
-    category: 'astrology',
-    icon: '💎',
-    featured: true,
-    name: { en: 'Gemstone Consultation', hi: 'रत्न परामर्श' },
-    description: {
-      en: 'Guidance on gemstones suited to your chart, with sensible precautions.',
-      hi: 'आपकी कुंडली के अनुकूल रत्नों पर सावधानीपूर्ण मार्गदर्शन।',
-    },
-  },
-  {
     slug: 'rudraksha-consultation',
     category: 'astrology',
     icon: '📿',
