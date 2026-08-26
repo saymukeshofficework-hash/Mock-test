@@ -6,7 +6,7 @@ A premium, bilingual (English/Hindi) website for **Bulbul Bhatia** — Tarot rea
 
 - **Consultations** — Astrology and Tarot service listings (`/astrology-services`, `/tarot-services`) with a booking flow (`/book`).
 - **Courses** — Tarot and Astrology courses across six learning levels (Beginner → Mastery), with a reusable course-detail page (`/courses/:slug`).
-- **Free astrology tools** (`/tools`) — numerology calculators are genuinely computed client-side (deterministic digit-sum arithmetic); anything requiring real astronomical data (Kundli, Dasha, Panchang, Dosha, chart matching) presents a ready input form and is clearly labeled as awaiting a calculation engine rather than faking a result. See `src/lib/calculationEngine.ts`.
+- **Free astrology tools** (`/tools`) — the hub page is React, but each of the 45 individual calculators is a standalone static HTML page under `public/tools/*.html` (no build step, matching `bbc-english/` and `video-cutter/` elsewhere in this repo — see `public/tools/README.md`). Numerology calculators are genuinely computed client-side (deterministic digit-sum arithmetic); anything requiring real astronomical data (Kundli, Dasha, Panchang, Dosha, chart matching) presents a ready input form and is clearly labeled as awaiting a calculation engine rather than faking a result.
 - **Horoscope** (`/horoscope`) — all 12 zodiac signs with general daily/weekly/monthly/yearly guidance, clearly labeled as general guidance rather than a personalized prediction.
 - Bilingual throughout via `src/i18n` (centralized translation dictionary, no duplicated pages) and per-item bilingual fields in `src/data`.
 

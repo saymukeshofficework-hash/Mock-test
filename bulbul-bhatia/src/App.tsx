@@ -14,7 +14,6 @@ import TarotCourses from './pages/TarotCourses'
 import AstrologyCourses from './pages/AstrologyCourses'
 import CourseDetail from './pages/CourseDetail'
 import Tools from './pages/Tools'
-import ToolDetail from './pages/ToolDetail'
 import Horoscope from './pages/Horoscope'
 import Booking from './pages/Booking'
 import Testimonials from './pages/Testimonials'
@@ -43,7 +42,8 @@ export default function App() {
           <Route path="/astrology-courses" element={<AstrologyCourses />} />
           <Route path="/courses/:slug" element={<CourseDetail />} />
           <Route path="/tools" element={<Tools />} />
-          <Route path="/tools/:slug" element={<ToolDetail />} />
+          {/* /tools/:slug pages are standalone static HTML under public/tools/,
+              not React routes — see ToolCard.tsx and public/tools/README.md */}
           <Route path="/horoscope" element={<Horoscope />} />
           <Route path="/book" element={<Booking />} />
           <Route path="/testimonials" element={<Testimonials />} />

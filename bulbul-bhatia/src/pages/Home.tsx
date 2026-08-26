@@ -144,10 +144,10 @@ export default function Home() {
               { slug: 'kundli-milan', name: locale === 'hi' ? 'कुंडली मिलान' : 'Kundli Milan' },
               { slug: 'panchang', name: locale === 'hi' ? 'पंचांग' : 'Panchang' },
             ].map((tool) => (
-              <Link key={tool.slug} to={`/tools/${tool.slug}`} className="card flex items-center justify-between gap-3 p-5">
+              <a key={tool.slug} href={asset(`/tools/${tool.slug}.html`)} className="card flex items-center justify-between gap-3 p-5">
                 <span className="text-sm font-semibold text-navy-900">{tool.name}</span>
                 <span aria-hidden="true" className="text-royal-600">→</span>
-              </Link>
+              </a>
             ))}
           </div>
           <div className="text-center">
