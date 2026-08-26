@@ -17,9 +17,28 @@ and linked to from the React app's `/tools` hub page (`src/pages/Tools.tsx`
   language toggle (reads/writes the same `bulbulmam_locale` localStorage key
   as the React app, so the choice carries over between them), the real
   numerology math (Life Path, Destiny, Name, Lucky Number/Date, Personal
-  Year — deterministic digit-sum arithmetic) and the Sun Sign lookup, and
-  the generic "not connected" notice for tools that need real astronomical
-  data. See `src/lib/calculationEngine.ts` for why those aren't faked.
+  Year — deterministic digit-sum arithmetic) and the Sun Sign lookup, plus a
+  dispatcher that also checks `window.VedicCalculators` (see below) before
+  falling back to the generic "not connected" notice.
+- `assets/vendor/astronomy.min.js` + `assets/vendor/cities.js` — vendored,
+  MIT-licensed third-party data: a real astronomical ephemeris library
+  (`astronomy-engine`) and a city → lat/lng/timezone lookup (trimmed from
+  `city-timezones`). See `assets/vendor/VENDOR-LICENSES.md`.
+- `assets/vedic-engine.js` — the Vedic astrology calculation core built on
+  top of the vendored ephemeris: Lahiri ayanamsa, sidereal planetary
+  positions, Rashi/Nakshatra/Pada, Lagna, Navamsa, Panchang elements
+  (Tithi/Karana/Yoga), sunrise/sunset-based muhurtas (Rahu Kaal, Choghadiya,
+  Abhijit), Vimshottari Dasha, planetary dignity, and dosha checks
+  (Manglik, Kaal Sarp). Pure computation, no DOM access — testable in Node.
+- `assets/vedic-tools.js` — the UI layer for the calculators above:
+  reads each tool's form (birth details, or date+place, or two-person),
+  resolves place names via `assets/vendor/cities.js`, calls
+  `vedic-engine.js`, and renders bilingual result cards. Registers
+  `window.VedicCalculators`, one entry per tool slug. A handful of the most
+  complex classical techniques (full Ashtakavarga, Shadbala, Yogini Dasha)
+  are deliberately left as the "development preview" notice rather than
+  shipping a guessed implementation — see the code comments in
+  `vedic-tools.js` for which slugs those are and why.
 - `assets/tools.css` — a plain-CSS port of the main app's Tailwind theme
   (same color tokens, fonts, card/button/form styles), so these pages look
   identical to the rest of the site without a build step.

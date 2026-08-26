@@ -78,14 +78,7 @@
           <button type="submit" class="btn-primary" data-en="Calculate" data-hi="गणना करें">Calculate</button>
         </div>
       </form>
-      <div id="notice" class="card notice" style="display:none;margin-top:2rem;">
-        <span class="badge" data-en="Development preview" data-hi="डेवलपमेंट प्रीव्यू">Development preview</span>
-        <p style="margin-top:0.75rem;font-size:0.875rem;color:rgba(15,20,64,0.7);line-height:1.6;" data-en="This tool depends on precise astronomical calculation (planetary positions, panchang, dashas). To avoid showing inaccurate results, this section only collects the required inputs until a real calculation engine (an ephemeris library or astrology API) is connected." data-hi="यह टूल सटीक खगोलीय गणना (ग्रह स्थिति, पंचांग, दशा) पर निर्भर करता है। गलत परिणाम दिखाने से बचने के लिए, जब तक एक वास्तविक गणना इंजन (एफेमेरिस लाइब्रेरी या ज्योतिष API) नहीं जोड़ा जाता, यह अनुभाग केवल आवश्यक इनपुट एकत्र करता है।">This tool depends on precise astronomical calculation (planetary positions, panchang, dashas). To avoid showing inaccurate results, this section only collects the required inputs until a real calculation engine (an ephemeris library or astrology API) is connected.</p>
-        <div class="actions" style="display:flex;flex-wrap:wrap;gap:0.75rem;margin-top:1.25rem;">
-          <a href="../book" class="btn-primary btn-sm" data-en="Book Astrology Consultation" data-hi="ज्योतिष परामर्श बुक करें">Book Astrology Consultation</a>
-          <a href="../tools" class="btn-secondary btn-sm" data-en="Explore Free Tools" data-hi="निःशुल्क टूल्स देखें">Explore Free Tools</a>
-        </div>
-      </div>
+      <div id="result" style="margin-top:2rem;"></div>
       <h2 style="margin-top:3rem;margin-bottom:1rem;font-size:1.25rem;" data-en="FAQ" data-hi="सामान्य प्रश्न">FAQ</h2>
       <details class="faq-item">
         <summary data-en="Is this tool free to use?" data-hi="क्या यह टूल निःशुल्क है?">Is this tool free to use?</summary>
@@ -93,7 +86,7 @@
       </details>
       <details class="faq-item">
         <summary data-en="How accurate is this result?" data-hi="यह परिणाम कितना सटीक है?">How accurate is this result?</summary>
-        <p class="faq-answer" data-en="This tool requires precise astronomical calculation. The interface is ready — a calculation engine will be connected to produce live results." data-hi="इस टूल के लिए सटीक खगोलीय गणना आवश्यक है। इंटरफ़ेस तैयार है — वास्तविक परिणामों के लिए एक गणना इंजन जोड़ा जाएगा।">This tool requires precise astronomical calculation. The interface is ready — a calculation engine will be connected to produce live results.</p>
+        <p class="faq-answer" data-en="This result is calculated using standard astronomical formulas (Lahiri ayanamsa) and classical Vedic rules — real, deterministic math, not a guaranteed prediction. For a personalized reading, book a consultation." data-hi="यह परिणाम मानक खगोलीय सूत्रों (लाहिड़ी अयनांश) एवं शास्त्रीय वैदिक नियमों से गणना किया गया है — वास्तविक, निश्चित गणना, निश्चित भविष्यवाणी नहीं। व्यक्तिगत विश्लेषण हेतु परामर्श बुक करें।">This result is calculated using standard astronomical formulas (Lahiri ayanamsa) and classical Vedic rules — real, deterministic math, not a guaranteed prediction. For a personalized reading, book a consultation.</p>
       </details>
         </div>
       <aside style="display:flex;flex-direction:column;gap:1rem;">
@@ -125,7 +118,11 @@
         </div>
       </div>
     </footer>
+    <script src="assets/vendor/astronomy.min.js"></script>
+    <script src="assets/vendor/cities.js"></script>
+    <script src="assets/vedic-engine.js"></script>
     <script src="assets/tools-data.js"></script>
     <script src="assets/tools-shared.js"></script>
+    <script src="assets/vedic-tools.js"></script>
   </body>
 </html>

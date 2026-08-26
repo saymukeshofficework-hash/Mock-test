@@ -381,6 +381,44 @@ fieldset legend { font-size: 0.875rem; font-weight: 600; color: var(--navy-900);
 .tool-footer a:hover { color: #fff; }
 .tool-footer .links { display: flex; gap: 1rem; }
 
+/* Vedic result tables & widgets */
+.vedic-card { margin-bottom: 1.5rem; }
+.vedic-card h3 {
+  font-family: 'Manrope', 'Noto Sans Devanagari', sans-serif;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--royal-600);
+  margin-bottom: 0.75rem;
+}
+.vedic-table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
+.vedic-table th, .vedic-table td { text-align: left; padding: 0.6rem 0.75rem; border-bottom: 1px solid rgba(15, 20, 64, 0.08); }
+.vedic-table th { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.03em; color: rgba(15, 20, 64, 0.55); font-weight: 700; }
+.vedic-table tr:last-child td { border-bottom: none; }
+.vedic-table tr.current-row { background: var(--blush-50); }
+.vedic-table-scroll { overflow-x: auto; }
+
+.chip { display: inline-block; border-radius: 999px; padding: 0.15rem 0.6rem; font-size: 0.7rem; font-weight: 700; }
+.chip-good { background: #e3f7e8; color: #1a7a3a; }
+.chip-bad { background: #ffe3e8; color: var(--rose-600); }
+.chip-neutral { background: var(--lavender-200); color: var(--navy-800); }
+.chip-retro { background: var(--champagne-300); color: var(--navy-900); margin-left: 0.35rem; }
+
+.vedic-hero { background: var(--cosmic-gradient); color: #fff; border-radius: 1rem; padding: 1.75rem 1.5rem; text-align: center; margin-bottom: 1.5rem; }
+.vedic-hero .eyebrow { color: var(--champagne-300); }
+.vedic-hero .vedic-hero-value { font-family: 'Cormorant Garamond', 'Noto Serif Devanagari', serif; font-size: 2.25rem; font-weight: 600; margin-top: 0.5rem; }
+.vedic-hero .vedic-hero-sub { font-size: 0.875rem; opacity: 0.85; margin-top: 0.35rem; }
+
+.city-suggest-wrap { position: relative; }
+.city-suggest-list {
+  position: absolute; z-index: 20; left: 0; right: 0; top: calc(100% + 0.25rem);
+  background: #fff; border: 1px solid rgba(15, 20, 64, 0.12); border-radius: 0.75rem;
+  box-shadow: 0 10px 30px rgba(15, 20, 64, 0.15); max-height: 220px; overflow-y: auto; padding: 0.35rem;
+}
+.city-suggest-item { padding: 0.5rem 0.75rem; border-radius: 0.5rem; font-size: 0.85rem; cursor: pointer; }
+.city-suggest-item:hover, .city-suggest-item.active { background: var(--blush-100); }
+.vedic-caveat { font-size: 0.75rem; color: rgba(15, 20, 64, 0.6); margin-top: 0.75rem; line-height: 1.6; }
+
 .star-field {
   position: absolute;
   inset: 0;
