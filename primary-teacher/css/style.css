@@ -103,6 +103,9 @@ a { color: var(--blue-dark); }
 }
 .app-header-brand h1 { margin: 0; font-size: 1.4rem; color: var(--blue-darker); }
 .app-header-brand p { margin: 2px 0 0; font-size: 0.9rem; color: var(--ink-soft); }
+.subtitle-row { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px; }
+.app-credit { font-size: 0.78rem; color: var(--ink-soft); opacity: 0.75; }
+.app-credit::before { content: "•"; margin-right: 8px; }
 .app-header-nav { display: flex; gap: 10px; }
 
 /* ---------- Home ---------- */

@@ -10,6 +10,22 @@
   function lessons() { return window.ALL_LESSONS || []; }
   function findLesson(id) { return lessons().find(function (l) { return l.id === id; }); }
 
+  // Attaches pre-generated Piper audio paths (data/audio-manifest.js) onto the
+  // matching lessons/items, when present, before anything renders or plays.
+  function applyAudioManifest() {
+    var manifest = window.AUDIO_MANIFEST || {};
+    lessons().forEach(function (lesson) {
+      var entry = manifest[lesson.id];
+      if (!entry) return;
+      if (entry.intro) lesson.introAudio = entry.intro;
+      if (entry.items) {
+        lesson.items.forEach(function (item, i) {
+          if (entry.items[i]) item.audio = entry.items[i];
+        });
+      }
+    });
+  }
+
   function applyVoiceAndPauseSettings() {
     engine.voiceOptions = {
       rate: settings.rate,
@@ -268,6 +284,7 @@
   function init() {
     UI.cacheEls();
     UI.setUiLang(settings.uiLang);
+    applyAudioManifest();
     initSettingsForm();
     renderHomeLessons();
     bindControls();

@@ -1,0 +1,7 @@
+# Piper model files (~63.5 MB) — downloaded locally for audio generation only,
+# never needed by the deployed static site. See README.md.
+piper-models/
+
+# Local Python venv, if you set one up for Piper instead of a global pip install.
+.venv/
+venv/

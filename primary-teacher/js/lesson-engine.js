@@ -40,6 +40,26 @@
   LessonEngine.prototype._stopAll = function () {
     this._clearTimer();
     this.tts.stop();
+    if (window.AudioPlayer) window.AudioPlayer.stop();
+  };
+
+  // Plays pre-generated Piper audio when available, falling back to the Web
+  // Speech API (same text) on any playback error so a missing/broken file
+  // never stalls a lesson.
+  LessonEngine.prototype._speak = function (text, audioUrl, langTag, onend) {
+    var self = this;
+    var opts = this._speechOptionsFor(langTag);
+    opts.onend = onend;
+    opts.onerror = onend;
+
+    if (audioUrl && window.AudioPlayer) {
+      window.AudioPlayer.play(audioUrl, {
+        onend: onend,
+        onerror: function () { self.tts.speak(text, opts); }
+      });
+    } else {
+      this.tts.speak(text, opts);
+    }
   };
 
   LessonEngine.prototype.loadLesson = function (lesson, mode) {
@@ -77,10 +97,9 @@
     var self = this;
     this.phase = PHASE.INTRO;
     this._emit("phaseChange", { phase: this.phase });
-    var opts = this._speechOptionsFor(this.lesson.language);
-    opts.onend = function () { self._playItem(0); };
-    opts.onerror = function () { self._playItem(0); };
-    this.tts.speak(this.lesson.introduction, opts);
+    this._speak(this.lesson.introduction, this.lesson.introAudio, this.lesson.language, function () {
+      self._playItem(0);
+    });
   };
 
   LessonEngine.prototype._playItem = function (i) {
@@ -93,10 +112,12 @@
     this._emit("itemChange", { item: item, index: i, total: this.lesson.items.length });
     this._emit("phaseChange", { phase: this.phase });
 
-    var opts = this._speechOptionsFor(this.lesson.language);
-    opts.onend = function () { self._childrenPhase(); };
-    opts.onerror = function () { self._childrenPhase(); };
-    this.tts.speak(item.speech, opts);
+    this._speak(item.speech, item.audio, this.lesson.language, function () {
+      self._childrenPhase();
+    });
+
+    var next = this.lesson.items[i + 1];
+    if (next && next.audio && window.AudioPlayer) window.AudioPlayer.preload(next.audio);
   };
 
   LessonEngine.prototype._childrenPhase = function () {

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Audio QA — Primary Teacher</title>
+<link rel="stylesheet" href="css/style.css">
+<style>
+  body { padding: 20px; }
+  h1 { color: var(--blue-darker); }
+  .summary { font-weight: 700; margin-bottom: 18px; }
+  table { width: 100%; border-collapse: collapse; background: #fff; border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow); margin-bottom: 28px; }
+  th, td { text-align: left; padding: 8px 12px; border-bottom: 1px solid var(--sky-mid); font-size: 0.9rem; }
+  th { background: var(--sky-mid); }
+  .status-ok { color: var(--success); font-weight: 700; }
+  .status-missing { color: var(--ink-soft); }
+  .status-error { color: var(--danger); font-weight: 700; }
+  audio { height: 32px; }
+  code { font-size: 0.8rem; color: var(--ink-soft); }
+</style>
+</head>
+<body>
+<h1>🔊 Audio QA — जनरेट की गई हिंदी ऑडियो</h1>
+<p class="summary" id="summary">लोड हो रहा है…</p>
+<div id="lessons"></div>
+
+<script>window.ALL_LESSONS = [];</script>
+<script src="data/counting-hindi.js"></script>
+<script src="data/counting-english.js"></script>
+<script src="data/english.js"></script>
+<script src="data/hindi.js"></script>
+<script src="data/matras.js"></script>
+<script src="data/words.js"></script>
+<script src="data/barakhadi.js"></script>
+<script src="data/audio-manifest.js"></script>
+<script>
+(function () {
+  "use strict";
+  var manifest = window.AUDIO_MANIFEST || {};
+  var lessons = (window.ALL_LESSONS || []).filter(function (l) { return manifest[l.id]; });
+  var container = document.getElementById("lessons");
+  var total = 0, withAudio = 0;
+
+  function row(label, display, speech, url) {
+    var tr = document.createElement("tr");
+
+    var tdLabel = document.createElement("td");
+    tdLabel.textContent = label;
+    tr.appendChild(tdLabel);
+
+    var tdDisplay = document.createElement("td");
+    tdDisplay.textContent = display;
+    tr.appendChild(tdDisplay);
+
+    var tdSpeech = document.createElement("td");
+    tdSpeech.textContent = speech;
+    tr.appendChild(tdSpeech);
+
+    var tdPlayer = document.createElement("td");
+    var tdStatus = document.createElement("td");
+
+    total++;
+    if (url) {
+      withAudio++;
+      var audio = document.createElement("audio");
+      audio.controls = true;
+      audio.preload = "none";
+      audio.src = url;
+      var status = document.createElement("span");
+      status.className = "status-missing";
+      status.textContent = "जांच नहीं हुई";
+      audio.addEventListener("loadedmetadata", function () {
+        status.className = "status-ok";
+        status.textContent = "✓ चल सकता है (" + audio.duration.toFixed(2) + "s)";
+      });
+      audio.addEventListener("error", function () {
+        status.className = "status-error";
+        status.textContent = "✗ फ़ाइल नहीं मिली";
+      });
+      tdPlayer.appendChild(audio);
+      var codeEl = document.createElement("code");
+      codeEl.textContent = url;
+      tdPlayer.appendChild(document.createElement("br"));
+      tdPlayer.appendChild(codeEl);
+      tdStatus.appendChild(status);
+    } else {
+      tdPlayer.textContent = "—";
+      var fallback = document.createElement("span");
+      fallback.className = "status-missing";
+      fallback.textContent = "ऑडियो नहीं, TTS fallback";
+      tdStatus.appendChild(fallback);
+    }
+    tr.appendChild(tdPlayer);
+    tr.appendChild(tdStatus);
+    return tr;
+  }
+
+  lessons.forEach(function (lesson) {
+    var entry = manifest[lesson.id];
+    var section = document.createElement("section");
+    var h2 = document.createElement("h2");
+    h2.textContent = lesson.title + " (" + lesson.id + ")";
+    section.appendChild(h2);
+
+    var table = document.createElement("table");
+    var thead = document.createElement("thead");
+    thead.innerHTML = "<tr><th>Item</th><th>Display</th><th>Speech</th><th>Audio</th><th>Status</th></tr>";
+    table.appendChild(thead);
+    var tbody = document.createElement("tbody");
+
+    if (lesson.introduction) {
+      tbody.appendChild(row("intro", "—", lesson.introduction, entry.intro));
+    }
+    lesson.items.forEach(function (item, i) {
+      tbody.appendChild(row(String(i + 1), item.display, item.speech, entry.items && entry.items[i]));
+    });
+
+    table.appendChild(tbody);
+    section.appendChild(table);
+    container.appendChild(section);
+  });
+
+  document.getElementById("summary").textContent =
+    lessons.length + " lessons with a manifest entry, " + withAudio + " / " + total + " items have generated audio.";
+  if (!lessons.length) {
+    document.getElementById("summary").textContent =
+      "No lessons found in the audio manifest yet — run scripts/generate-hindi-audio.js first.";
+  }
+})();
+</script>
+</body>
+</html>
