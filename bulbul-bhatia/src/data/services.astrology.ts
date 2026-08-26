@@ -157,6 +157,16 @@ export const astrologyServices: Service[] = [
     },
   },
   {
+    slug: 'handwriting-signature-analysis',
+    category: 'astrology',
+    icon: '✍️',
+    name: { en: 'Handwriting & Signature Analysis', hi: 'हस्तलेख एवं हस्ताक्षर विश्लेषण' },
+    description: {
+      en: 'Understand personality traits and tendencies reflected in your handwriting and signature style.',
+      hi: 'आपके हस्तलेख एवं हस्ताक्षर की शैली में झलकने वाले व्यक्तित्व लक्षणों को समझें।',
+    },
+  },
+  {
     slug: 'lucky-number-date',
     category: 'astrology',
     icon: '🍀',
