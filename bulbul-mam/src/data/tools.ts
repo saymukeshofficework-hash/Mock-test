@@ -7,7 +7,7 @@ export const tools: Tool[] = [
     name: { en: 'Kundli / Birth Chart Calculator', hi: 'कुंडली / जन्म कुंडली कैलकुलेटर' },
     description: { en: 'Generate your Vedic birth chart from date, time and place of birth.', hi: 'जन्म तिथि, समय एवं स्थान से अपनी वैदिक जन्म कुंडली तैयार करें।' },
     metaTitle: { en: 'Free Kundli / Birth Chart Calculator', hi: 'निःशुल्क कुंडली कैलकुलेटर' },
-    metaDescription: { en: 'Generate a Vedic birth chart online with Bulbul Mam’s Kundli calculator architecture.', hi: 'बुलबुल मैम के कुंडली कैलकुलेटर से ऑनलाइन वैदिक जन्म कुंडली तैयार करें।' },
+    metaDescription: { en: 'Generate a Vedic birth chart online with Bulbul Bhatia’s Kundli calculator architecture.', hi: 'बुलबुल भाटिया के कुंडली कैलकुलेटर से ऑनलाइन वैदिक जन्म कुंडली तैयार करें।' },
   },
   {
     slug: 'lagna-calculator', category: 'kundli', status: 'architecture',

@@ -20,8 +20,8 @@ export default function Tarot() {
         title={t('nav.tarot')}
         description={
           locale === 'hi'
-            ? 'रीडिंग, निःशुल्क मार्गदर्शन और सीखने के लिए — बुलबुल मैम का संपूर्ण टैरो केंद्र।'
-            : 'Readings, guidance and learning — Bulbul Mam’s complete Tarot hub.'
+            ? 'रीडिंग, निःशुल्क मार्गदर्शन और सीखने के लिए — बुलबुल भाटिया का संपूर्ण टैरो केंद्र।'
+            : 'Readings, guidance and learning — Bulbul Bhatia’s complete Tarot hub.'
         }
       />
 

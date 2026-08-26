@@ -106,14 +106,14 @@ export default function Home() {
         </div>
       </section>
 
-      {/* About Bulbul Mam preview */}
+      {/* About Bulbul Bhatia preview */}
       <section className="bg-white py-20">
         <div className="container-page grid items-center gap-12 lg:grid-cols-2">
           <div className="relative mx-auto w-full max-w-sm">
             <div className="glass-card overflow-hidden border-navy-900/10 bg-soft-gradient p-3 shadow-card">
               <div className="flex aspect-[3/4] w-full flex-col items-center justify-center gap-3 rounded-xl bg-cosmic-gradient text-center text-white">
                 <span className="text-5xl" aria-hidden="true">✦</span>
-                <span className="font-serif text-2xl font-semibold">Bulbul Mam</span>
+                <span className="font-serif text-2xl font-semibold">Bulbul Bhatia</span>
                 <span className="px-8 text-xs text-white/70">
                   {locale === 'hi' ? 'टैरो रीडर एवं ज्योतिषी' : 'Tarot Reader & Astrologer'}
                 </span>
@@ -217,7 +217,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Why Learn With Bulbul Mam */}
+      {/* Why Learn With Bulbul Bhatia */}
       <section className="bg-white py-20">
         <div className="container-page flex flex-col gap-10">
           <SectionHeading title={t('sections.whyLearnTitle')} />

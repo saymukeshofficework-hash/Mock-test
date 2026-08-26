@@ -3,7 +3,7 @@ import { useEffect } from 'react'
 export function useMeta(title: string, description: string) {
   useEffect(() => {
     const prevTitle = document.title
-    document.title = `${title} | Bulbul Mam`
+    document.title = `${title} | Bulbul Bhatia`
 
     let meta = document.querySelector('meta[name="description"]')
     const prevContent = meta?.getAttribute('content') ?? ''

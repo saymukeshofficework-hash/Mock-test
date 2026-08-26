@@ -21,8 +21,8 @@ export default function Astrology() {
         title={t('nav.astrology')}
         description={
           locale === 'hi'
-            ? 'परामर्श, निःशुल्क टूल्स, राशिफल और सीखने के लिए — बुलबुल मैम का संपूर्ण ज्योतिष केंद्र।'
-            : 'Consultations, free tools, horoscope and learning — Bulbul Mam’s complete astrology hub.'
+            ? 'परामर्श, निःशुल्क टूल्स, राशिफल और सीखने के लिए — बुलबुल भाटिया का संपूर्ण ज्योतिष केंद्र।'
+            : 'Consultations, free tools, horoscope and learning — Bulbul Bhatia’s complete astrology hub.'
         }
       />
 

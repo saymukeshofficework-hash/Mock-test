@@ -6,10 +6,10 @@ import { useLanguage } from '../i18n/LanguageContext'
 const sections = [
   {
     key: 'who',
-    title: { en: 'Who is Bulbul Mam?', hi: 'बुलबुल मैम कौन हैं?' },
+    title: { en: 'Who is Bulbul Bhatia?', hi: 'बुलबुल भाटिया कौन हैं?' },
     body: {
-      en: 'Bulbul Mam is a Tarot reader, astrologer and online teacher who works with people seeking clarity through Tarot and Astrology — both as a practitioner offering consultations, and as a teacher guiding students who want to learn the craft themselves.',
-      hi: 'बुलबुल मैम एक टैरो रीडर, ज्योतिषी एवं ऑनलाइन शिक्षिका हैं, जो टैरो एवं ज्योतिष के माध्यम से स्पष्टता चाहने वाले लोगों के साथ काम करती हैं — परामर्श देने वाली एक अभ्यासी के रूप में, और साथ ही स्वयं यह कला सीखने वाले छात्रों का मार्गदर्शन करने वाली एक शिक्षिका के रूप में भी।',
+      en: 'Bulbul Bhatia is a Tarot reader, astrologer and online teacher who works with people seeking clarity through Tarot and Astrology — both as a practitioner offering consultations, and as a teacher guiding students who want to learn the craft themselves.',
+      hi: 'बुलबुल भाटिया एक टैरो रीडर, ज्योतिषी एवं ऑनलाइन शिक्षिका हैं, जो टैरो एवं ज्योतिष के माध्यम से स्पष्टता चाहने वाले लोगों के साथ काम करती हैं — परामर्श देने वाली एक अभ्यासी के रूप में, और साथ ही स्वयं यह कला सीखने वाले छात्रों का मार्गदर्शन करने वाली एक शिक्षिका के रूप में भी।',
     },
   },
   {
@@ -24,8 +24,8 @@ const sections = [
     key: 'tarotJourney',
     title: { en: 'Tarot Journey', hi: 'टैरो यात्रा' },
     body: {
-      en: 'Bulbul Mam’s relationship with Tarot is built on consistent, thoughtful practice — reading the cards as a tool for reflection and insight rather than fixed fortune-telling.',
-      hi: 'टैरो के साथ बुलबुल मैम का संबंध निरंतर, विचारशील अभ्यास पर आधारित है — कार्ड्स को चिंतन एवं अंतर्दृष्टि के साधन के रूप में देखना, न कि निश्चित भविष्यवाणी के रूप में।',
+      en: 'Bulbul Bhatia’s relationship with Tarot is built on consistent, thoughtful practice — reading the cards as a tool for reflection and insight rather than fixed fortune-telling.',
+      hi: 'टैरो के साथ बुलबुल भाटिया का संबंध निरंतर, विचारशील अभ्यास पर आधारित है — कार्ड्स को चिंतन एवं अंतर्दृष्टि के साधन के रूप में देखना, न कि निश्चित भविष्यवाणी के रूप में।',
     },
   },
   {
@@ -66,7 +66,7 @@ export default function About() {
             <div className="glass-card overflow-hidden border-navy-900/10 bg-soft-gradient p-3 shadow-card">
               <div className="flex aspect-[3/4] w-full flex-col items-center justify-center gap-4 rounded-xl bg-cosmic-gradient text-center text-white">
                 <span className="text-6xl" aria-hidden="true">✦</span>
-                <span className="font-serif text-3xl font-semibold">Bulbul Mam</span>
+                <span className="font-serif text-3xl font-semibold">Bulbul Bhatia</span>
                 <span className="px-8 text-sm text-white/70">
                   {locale === 'hi' ? 'टैरो रीडर, ज्योतिषी एवं शिक्षिका' : 'Tarot Reader, Astrologer & Teacher'}
                 </span>

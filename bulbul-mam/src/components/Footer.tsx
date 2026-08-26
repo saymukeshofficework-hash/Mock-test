@@ -17,7 +17,7 @@ export default function Footer() {
             >
               ✦
             </span>
-            Bulbul Mam
+            Bulbul Bhatia
           </Link>
           <p className="text-sm text-white/60">{t('footer.tagline')}</p>
         </div>
@@ -85,7 +85,7 @@ export default function Footer() {
       <div className="border-t border-white/10 py-6">
         <div className="container-page flex flex-col items-center gap-3 text-xs text-white/50 sm:flex-row sm:justify-between">
           <p>
-            © {year} Bulbul Mam. {t('footer.rights')}
+            © {year} Bulbul Bhatia. {t('footer.rights')}
           </p>
           <div className="flex gap-4">
             <Link to="/privacy-policy" className="hover:text-white">{t('footer.privacy')}</Link>

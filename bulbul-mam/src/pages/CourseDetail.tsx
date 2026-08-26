@@ -118,8 +118,8 @@ export default function CourseDetail() {
               </Link>
               <p className="text-xs text-navy-800/50">
                 {locale === 'hi'
-                  ? 'दाखिला बुकिंग फॉर्म के माध्यम से अनुरोध किया जाता है और बुलबुल मैम की टीम द्वारा पुष्टि की जाती है।'
-                  : 'Enrollment is requested via the booking form and confirmed by Bulbul Mam’s team.'}
+                  ? 'दाखिला बुकिंग फॉर्म के माध्यम से अनुरोध किया जाता है और बुलबुल भाटिया की टीम द्वारा पुष्टि की जाती है।'
+                  : 'Enrollment is requested via the booking form and confirmed by Bulbul Bhatia’s team.'}
               </p>
             </div>
 
@@ -127,7 +127,7 @@ export default function CourseDetail() {
               <h3 className="text-sm font-semibold uppercase tracking-wide text-royal-600">
                 {locale === 'hi' ? 'प्रशिक्षक' : 'Instructor'}
               </h3>
-              <p className="font-serif text-lg font-semibold text-navy-900">Bulbul Mam</p>
+              <p className="font-serif text-lg font-semibold text-navy-900">Bulbul Bhatia</p>
               <p className="text-sm text-navy-800/70">
                 {locale === 'hi' ? 'टैरो रीडर, ज्योतिषी एवं शिक्षिका' : 'Tarot Reader, Astrologer & Teacher'}
               </p>

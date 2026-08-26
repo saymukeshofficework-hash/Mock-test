@@ -63,7 +63,7 @@ export default function Navbar() {
           >
             ✦
           </span>
-          Bulbul Mam
+          Bulbul Bhatia
         </Link>
 
         <nav className="hidden items-center gap-1 lg:flex" aria-label="Primary">

@@ -1,6 +1,6 @@
-# Bulbul Mam
+# Bulbul Bhatia
 
-A premium, bilingual (English/Hindi) website for **Bulbul Mam** — Tarot reader, astrologer and online Tarot & Astrology teacher. Built with React, TypeScript, Tailwind CSS and Vite.
+A premium, bilingual (English/Hindi) website for **Bulbul Bhatia** — Tarot reader, astrologer and online Tarot & Astrology teacher. Built with React, TypeScript, Tailwind CSS and Vite.
 
 ## What's here
 
@@ -24,7 +24,7 @@ npm run preview   # preview the production build
 - `src/data/contact.ts` — phone/email/WhatsApp/social links. Currently placeholders; update before launch.
 - `src/data/testimonials.ts` — explicitly flagged placeholder testimonials. Replace with real, consented quotes before publishing.
 - `src/data/courses.ts` — course duration/price/certificate are left blank (`—`) where not supplied; never invented.
-- Images live in `public/images/{zodiac,tarot,astrology,cosmic,decorative}`. No real photographs of Bulbul Mam were available at build time, so the site uses a monogram/decorative placeholder for her portrait instead of a stock photo — swap in real photography under `public/images/bulbul-mam/` when available.
+- Images live in `public/images/{zodiac,tarot,astrology,cosmic,decorative}`. No real photographs of Bulbul Bhatia were available at build time, so the site uses a monogram/decorative placeholder for her portrait instead of a stock photo — swap in real photography under `public/images/bulbul-mam/` when available.
 
 ## Deployment note
 
