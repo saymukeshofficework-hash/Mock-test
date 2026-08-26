@@ -34,15 +34,11 @@ and linked to from the React app's `/tools` hub page (`src/pages/Tools.tsx`
   reads each tool's form (birth details, or date+place, or two-person),
   resolves place names via `assets/vendor/cities.js`, calls
   `vedic-engine.js`, and renders bilingual result cards. Registers
-  `window.VedicCalculators`, one entry per tool slug. A handful of the most
-  complex classical techniques (full Ashtakavarga, Shadbala, Yogini Dasha)
-  are deliberately left as the "development preview" notice rather than
-  shipping a guessed implementation — see the code comments in
-  `vedic-tools.js` for which slugs those are and why.
+  `window.VedicCalculators`, one entry per tool slug.
 - `assets/tools.css` — a plain-CSS port of the main app's Tailwind theme
   (same color tokens, fonts, card/button/form styles), so these pages look
   identical to the rest of the site without a build step.
-- `<slug>.html` — one per tool (45 total), each a thin shell: real `<title>`/
+- `<slug>.html` — one per tool (42 total), each a thin shell: real `<title>`/
   `<meta description>` for SEO, a small `<script>` setting
   `window.TOOL_SLUG`/`window.TOOL_TITLE`, then markup for the hero, the
   right form for that tool's category, FAQ (native `<details>`, no JS
@@ -66,7 +62,7 @@ real page navigations (not client-side routing) — see the repo-root
 `404.html` and `src/lib/publicBase.ts` for how deep links into the React
 app are resolved.
 
-## Regenerating all 45 pages
+## Regenerating all 42 pages
 
 If you need to regenerate every page at once (e.g. after a structural
 change to the shared header/footer/form markup), the authoring script used

@@ -9,12 +9,6 @@
 //   assets/tools-data.js
 //   assets/tools-shared.js
 //   assets/vedic-tools.js
-//
-// Not implemented here (left as the "development preview" notice rather
-// than shipping a guessed classical formula): ashtakavarga-calculator,
-// shadbala-calculator, yogini-dasha-calculator. Their reference tables are
-// intricate enough that a wrong transcription would look plausible but be
-// incorrect, which matters more for astrology content than most bugs.
 ;(function () {
   'use strict'
 
