@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Primary Teacher — डिजिटल कक्षा</title>
+<meta name="description" content="बच्चों के लिए हिंदी-अंग्रेज़ी डिजिटल कक्षा — गिनती, वर्णमाला, स्वर, मात्राएँ और शब्द सिखाने वाला हैंड्स-फ्री टीचर ऐप।">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/classroom.css">
+</head>
+<body>
+
+<header class="app-header">
+  <div class="app-header-brand">
+    <h1 id="appTitle">👩‍🏫 Primary Teacher</h1>
+    <p id="appSubtitle">बच्चों के लिए डिजिटल कक्षा</p>
+  </div>
+  <nav class="app-header-nav" aria-label="Main navigation">
+    <button id="navSettingsBtn" class="btn btn-ghost" type="button" aria-haspopup="dialog" aria-controls="settingsPanel">⚙️ सेटिंग्स</button>
+    <button id="navHomeBtn" class="btn btn-ghost" type="button">🏠 मुख्य पृष्ठ</button>
+  </nav>
+</header>
+
+<main id="homeScreen">
+  <section class="category" aria-labelledby="categoryCountingTitle">
+    <h2 id="categoryCountingTitle">🔢 गिनती</h2>
+    <div class="lesson-grid" id="countingGrid"></div>
+  </section>
+  <section class="category" aria-labelledby="categoryLanguageTitle">
+    <h2 id="categoryLanguageTitle">🔤 भाषा</h2>
+    <div class="lesson-grid" id="languageGrid"></div>
+  </section>
+</main>
+
+<section id="classroomScreen" class="classroom hidden" aria-label="Classroom">
+  <div class="classroom-topbar">
+    <div class="lesson-title" id="classroomTitle"></div>
+    <button id="btnFullscreenClassroom" class="btn btn-ghost" type="button">⛶ फुलस्क्रीन</button>
+  </div>
+
+  <div class="classroom-stage">
+    <p class="item-instruction hidden" id="itemInstruction"></p>
+    <div class="item-display" id="itemDisplay" aria-live="polite"></div>
+    <div class="item-speech" id="itemSpeech"></div>
+    <div class="phase-indicator hidden" id="phaseIndicator" aria-live="polite"></div>
+    <div class="repeat-block hidden" id="repeatBlock">
+      <div class="repeat-together" id="repeatTogetherLabel"></div>
+      <div class="repeat-text" id="repeatTextEl"></div>
+    </div>
+  </div>
+
+  <div class="progress-wrap">
+    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="progress-meta">
+      <span class="progress-label" id="progressLabel">0 / 0</span>
+      <span class="next-preview hidden" id="nextPreview"></span>
+    </div>
+  </div>
+
+  <div class="controls" role="group" aria-label="Lesson controls">
+    <button id="btnStart" class="btn btn-primary btn-lg" type="button">▶ शुरू करें</button>
+    <button id="btnPause" class="btn btn-lg hidden" type="button">⏸ रोकें</button>
+    <button id="btnResume" class="btn btn-primary btn-lg hidden" type="button">▶ जारी रखें</button>
+    <button id="btnRestart" class="btn btn-lg hidden" type="button">🔄 फिर से शुरू करें</button>
+    <button id="btnPrevious" class="btn btn-lg" type="button">⏮ पिछला</button>
+    <button id="btnRepeat" class="btn btn-lg" type="button">🔊 दोहराएँ</button>
+    <button id="btnNext" class="btn btn-lg" type="button">⏭ अगला</button>
+    <button id="btnStop" class="btn btn-lg btn-danger" type="button">⏹ बंद करें</button>
+    <div class="mode-switch">
+      <span id="modeToggleLabel">मोड:</span>
+      <button id="modeToggle" class="btn btn-chip" type="button" data-mode="auto">ऑटो</button>
+    </div>
+  </div>
+
+  <div id="completionOverlay" class="completion-overlay hidden" role="dialog" aria-modal="true">
+    <div class="completion-card">
+      <h2 id="completionTitle">🎉 बहुत बढ़िया!</h2>
+      <p id="completionMessage">बहुत बढ़िया बच्चों! आपने यह पाठ पूरा कर लिया।</p>
+      <div class="completion-actions">
+        <button id="btnCompletionRestart" class="btn btn-primary btn-lg" type="button">🔄 फिर से शुरू करें</button>
+        <button id="btnCompletionAnother" class="btn btn-lg" type="button">📚 दूसरा पाठ</button>
+        <button id="btnCompletionHome" class="btn btn-lg" type="button">🏠 मुख्य पृष्ठ</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div id="settingsPanel" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="settingsTitleEl">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2 id="settingsTitleEl">⚙️ सेटिंग्स</h2>
+      <button id="btnSettingsClose" class="btn btn-ghost" type="button">बंद करें</button>
+    </div>
+
+    <p id="voiceWarningEl" class="voice-warning hidden"></p>
+
+    <div class="settings-grid">
+      <label class="settings-row">
+        <span id="settingsHindiVoiceLabel">हिंदी आवाज़</span>
+        <select id="hiVoiceSelect"></select>
+      </label>
+      <label class="settings-row">
+        <span id="settingsEnglishVoiceLabel">अंग्रेज़ी आवाज़</span>
+        <select id="enVoiceSelect"></select>
+      </label>
+
+      <label class="settings-row">
+        <span id="settingsSpeedLabel">बोलने की गति</span>
+        <span class="range-row"><input id="rateRange" type="range" min="0.5" max="1.5" step="0.05"><output id="rateValue"></output></span>
+      </label>
+      <label class="settings-row">
+        <span id="settingsPitchLabel">आवाज़ की पिच</span>
+        <span class="range-row"><input id="pitchRange" type="range" min="0.5" max="2" step="0.1"><output id="pitchValue"></output></span>
+      </label>
+      <label class="settings-row">
+        <span id="settingsVolumeLabel">आवाज़ की मात्रा</span>
+        <span class="range-row"><input id="volumeRange" type="range" min="0" max="1" step="0.05"><output id="volumeValue"></output></span>
+      </label>
+
+      <label class="settings-row">
+        <span id="settingsPauseLabel">बच्चों के बोलने का समय</span>
+        <select id="pauseSelect">
+          <option value="1">1s</option>
+          <option value="2">2s</option>
+          <option value="3">3s</option>
+          <option value="4">4s</option>
+          <option value="5">5s</option>
+        </select>
+      </label>
+
+      <div class="settings-row">
+        <span id="settingsModeLabel">पाठ मोड</span>
+        <span class="chip-group">
+          <button id="modeAutoBtn" class="btn btn-chip" type="button">ऑटो</button>
+          <button id="modeManualBtn" class="btn btn-chip" type="button">मैनुअल</button>
+        </span>
+      </div>
+
+      <div class="settings-row">
+        <span id="settingsUiLangLabel">इंटरफ़ेस भाषा</span>
+        <span class="chip-group">
+          <button id="uiLangHiBtn" class="btn btn-chip" type="button">हिन्दी</button>
+          <button id="uiLangEnBtn" class="btn btn-chip" type="button">English</button>
+        </span>
+      </div>
+    </div>
+
+    <button id="btnTestVoice" class="btn btn-primary btn-lg" type="button">🔊 आवाज़ जांचें</button>
+  </div>
+</div>
+
+<script src="js/tts.js"></script>
+<script src="js/settings.js"></script>
+<script src="js/lesson-engine.js"></script>
+<script src="data/counting-hindi.js"></script>
+<script src="data/counting-english.js"></script>
+<script src="data/english.js"></script>
+<script src="data/hindi.js"></script>
+<script src="data/matras.js"></script>
+<script src="data/words.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
