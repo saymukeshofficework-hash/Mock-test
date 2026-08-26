@@ -6,11 +6,11 @@
 
   var CONSONANTS = [
     { letter: "क", roman: "Ka" }, { letter: "ख", roman: "Kha" }, { letter: "ग", roman: "Ga" },
-    { letter: "घ", roman: "Gha" }, { letter: "ङ", roman: "Nga" },
+    { letter: "घ", roman: "Gha" },
     { letter: "च", roman: "Cha" }, { letter: "छ", roman: "Chha" }, { letter: "ज", roman: "Ja" },
-    { letter: "झ", roman: "Jha" }, { letter: "ञ", roman: "Nya" },
+    { letter: "झ", roman: "Jha" },
     { letter: "ट", roman: "Ta" }, { letter: "ठ", roman: "Tha" }, { letter: "ड", roman: "Da" },
-    { letter: "ढ", roman: "Dha" }, { letter: "ण", roman: "Na" },
+    { letter: "ढ", roman: "Dha" },
     { letter: "त", roman: "Ta" }, { letter: "थ", roman: "Tha" }, { letter: "द", roman: "Da" },
     { letter: "ध", roman: "Dha" }, { letter: "न", roman: "Na" },
     { letter: "प", roman: "Pa" }, { letter: "फ", roman: "Pha" }, { letter: "ब", roman: "Ba" },

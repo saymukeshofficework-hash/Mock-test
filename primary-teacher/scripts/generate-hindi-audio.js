@@ -84,9 +84,9 @@ const LESSON_ORDER = [
   "words-three-letter"
 ];
 
-// data/barakhadi.js generates 36 lessons (barakhadi-01 .. barakhadi-36); register
+// data/barakhadi.js generates 33 lessons (barakhadi-01 .. barakhadi-33); register
 // them the same way instead of hand-listing every id.
-for (let i = 1; i <= 36; i++) {
+for (let i = 1; i <= 33; i++) {
   const id = "barakhadi-" + String(i).padStart(2, "0");
   LESSON_AUDIO[id] = { dir: id, intro: id };
   LESSON_ORDER.push(id);

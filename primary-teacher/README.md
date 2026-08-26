@@ -166,7 +166,7 @@ data/english.js          — English A–Z
 data/hindi.js             — Hindi Varnamala + Swar
 data/matras.js            — Matra (vowel-sign) example words
 data/words.js              — two/three-letter Hindi words + object counting
-data/barakhadi.js          — बारहखड़ी: all 12 matra forms for each of the 36 Hindi consonants (36 lessons)
+data/barakhadi.js          — बारहखड़ी: all 12 matra forms for each of 33 Hindi consonants (33 lessons; ङ/ञ/ण omitted)
 data/audio-manifest.js    — generated: lesson id -> { intro, items[] } audio paths
 scripts/generate-hindi-audio.js — generates the Piper audio + the manifest above
 audio/hindi/**             — generated Piper .wav files (committed; the model is not)
