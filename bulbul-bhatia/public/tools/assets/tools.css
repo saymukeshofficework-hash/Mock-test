@@ -419,6 +419,17 @@ fieldset legend { font-size: 0.875rem; font-weight: 600; color: var(--navy-900);
 .city-suggest-item:hover, .city-suggest-item.active { background: var(--blush-100); }
 .vedic-caveat { font-size: 0.75rem; color: rgba(15, 20, 64, 0.6); margin-top: 0.75rem; line-height: 1.6; }
 
+.city-manual-toggle {
+  background: none; border: none; padding: 0; margin-top: 0.4rem; cursor: pointer;
+  font-size: 0.75rem; font-weight: 600; color: var(--royal-600); text-align: left;
+}
+.city-manual-toggle:hover { color: var(--rose-600); }
+.city-manual-fields { margin-top: 0.5rem; }
+.city-manual-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; }
+.city-manual-row input { grid-column: span 1; }
+.city-manual-row input:last-child { grid-column: 1 / -1; }
+.city-manual-fields .error { margin-top: 0.35rem; }
+
 .star-field {
   position: absolute;
   inset: 0;

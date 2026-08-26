@@ -39,10 +39,31 @@
 
   // ---------- City autocomplete ----------
 
+  var COMMON_TIMEZONES = [
+    'Asia/Kolkata', 'Asia/Kathmandu', 'Asia/Dhaka', 'Asia/Karachi', 'Asia/Colombo', 'Asia/Dubai',
+    'Asia/Singapore', 'Asia/Tokyo', 'Asia/Shanghai', 'Europe/London', 'Europe/Berlin', 'Europe/Moscow',
+    'America/New_York', 'America/Chicago', 'America/Los_Angeles', 'America/Toronto', 'Australia/Sydney', 'Pacific/Auckland',
+  ]
+
+  function ensureTzDatalist() {
+    var existing = byId('vedic-tz-list')
+    if (existing) return
+    var dl = document.createElement('datalist')
+    dl.id = 'vedic-tz-list'
+    dl.innerHTML = COMMON_TIMEZONES.map(function (tz) { return '<option value="' + esc(tz) + '"></option>' }).join('')
+    document.body.appendChild(dl)
+  }
+
+  function isValidTimezone(tz) {
+    if (!tz) return false
+    try { new Intl.DateTimeFormat('en-US', { timeZone: tz }); return true } catch (e) { return false }
+  }
+
   function attachCitySearch(input) {
     if (!input || input._citySearchAttached) return
     input._citySearchAttached = true
     input.setAttribute('autocomplete', 'off')
+    ensureTzDatalist()
     var wrap = input.parentElement
     wrap.classList.add('city-suggest-wrap')
     var list = document.createElement('div')
@@ -63,6 +84,7 @@
           e.preventDefault()
           input.value = V().cityLabel(matches[i])
           input._city = matches[i]
+          input._manualCoords = null
           list.style.display = 'none'
         })
       })
@@ -70,9 +92,69 @@
     input.addEventListener('blur', function () {
       setTimeout(function () { list.style.display = 'none' }, 150)
     })
+
+    // Manual latitude/longitude fallback — the bundled city list only
+    // covers ~5,600 larger world cities, so smaller towns (most of a state
+    // like Madhya Pradesh, for example) won't be found by name. This lets
+    // anyone enter their exact coordinates instead.
+    var toggle = document.createElement('button')
+    toggle.type = 'button'
+    toggle.className = 'city-manual-toggle'
+    toggle.setAttribute('data-en', "Can't find your city? Enter coordinates manually")
+    toggle.setAttribute('data-hi', 'अपना शहर नहीं मिल रहा? निर्देशांक स्वयं दर्ज करें')
+    toggle.textContent = pick("Can't find your city? Enter coordinates manually", 'अपना शहर नहीं मिल रहा? निर्देशांक स्वयं दर्ज करें')
+
+    var panel = document.createElement('div')
+    panel.className = 'city-manual-fields'
+    panel.style.display = 'none'
+    panel.innerHTML =
+      '<div class="city-manual-row">' +
+      '<input type="number" step="any" min="-90" max="90" class="city-manual-lat" data-en-placeholder="Latitude" data-hi-placeholder="अक्षांश" placeholder="' + esc(pick('Latitude', 'अक्षांश')) + '" />' +
+      '<input type="number" step="any" min="-180" max="180" class="city-manual-lng" data-en-placeholder="Longitude" data-hi-placeholder="देशांतर" placeholder="' + esc(pick('Longitude', 'देशांतर')) + '" />' +
+      '<input type="text" class="city-manual-tz" list="vedic-tz-list" value="Asia/Kolkata" data-en-placeholder="Timezone" data-hi-placeholder="समय क्षेत्र" placeholder="' + esc(pick('Timezone', 'समय क्षेत्र')) + '" />' +
+      '</div>' +
+      '<p class="error city-manual-error" style="display:none;" data-en="Enter a valid latitude (-90 to 90), longitude (-180 to 180) and timezone." data-hi="मान्य अक्षांश (-90 से 90), देशांतर (-180 से 180) एवं समय क्षेत्र दर्ज करें।">' + esc(pick('Enter a valid latitude (-90 to 90), longitude (-180 to 180) and timezone.', 'मान्य अक्षांश (-90 से 90), देशांतर (-180 से 180) एवं समय क्षेत्र दर्ज करें।')) + '</p>'
+
+    toggle.addEventListener('click', function () {
+      var showing = panel.style.display !== 'none'
+      panel.style.display = showing ? 'none' : 'block'
+    })
+
+    wrap.appendChild(toggle)
+    wrap.appendChild(panel)
+
+    var latInput = panel.querySelector('.city-manual-lat')
+    var lngInput = panel.querySelector('.city-manual-lng')
+    var tzInput = panel.querySelector('.city-manual-tz')
+    var manualErr = panel.querySelector('.city-manual-error')
+
+    function syncManualCoords() {
+      var lat = parseFloat(latInput.value)
+      var lng = parseFloat(lngInput.value)
+      var tz = tzInput.value.trim()
+      var hasAnyInput = latInput.value !== '' || lngInput.value !== ''
+      if (!hasAnyInput) { input._manualCoords = null; manualErr.style.display = 'none'; return }
+      var valid = isFinite(lat) && lat >= -90 && lat <= 90 && isFinite(lng) && lng >= -180 && lng <= 180 && isValidTimezone(tz)
+      if (valid) {
+        input._manualCoords = { lat: lat, lng: lng, timezone: tz }
+        input._city = null
+        manualErr.style.display = 'none'
+      } else {
+        input._manualCoords = null
+        manualErr.style.display = 'block'
+      }
+    }
+    ;[latInput, lngInput, tzInput].forEach(function (el) {
+      el.addEventListener('input', syncManualCoords)
+      el.addEventListener('change', syncManualCoords)
+    })
   }
 
   function resolveCity(input) {
+    if (input._manualCoords) {
+      var m = input._manualCoords
+      return { city: input.value.trim() || pick('Custom location', 'कस्टम स्थान'), province: '', country: '', lat: m.lat, lng: m.lng, timezone: m.timezone }
+    }
     if (input._city) return input._city
     var exact = V().findCityExact(input.value)
     if (exact) { input._city = exact; return exact }
