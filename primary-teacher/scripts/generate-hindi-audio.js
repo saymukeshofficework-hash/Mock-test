@@ -51,7 +51,7 @@ function parseArgs(argv) {
 function loadLessons() {
   global.window = { ALL_LESSONS: [] };
   const dataDir = path.join(ROOT, "data");
-  ["counting-hindi.js", "counting-english.js", "english.js", "hindi.js", "matras.js", "words.js"].forEach((f) => {
+  ["counting-hindi.js", "counting-english.js", "english.js", "hindi.js", "matras.js", "words.js", "barakhadi.js"].forEach((f) => {
     require(path.join(dataDir, f));
   });
   const lessons = global.window.ALL_LESSONS;
@@ -83,6 +83,14 @@ const LESSON_ORDER = [
   "words-two-letter",
   "words-three-letter"
 ];
+
+// data/barakhadi.js generates 36 lessons (barakhadi-01 .. barakhadi-36); register
+// them the same way instead of hand-listing every id.
+for (let i = 1; i <= 36; i++) {
+  const id = "barakhadi-" + String(i).padStart(2, "0");
+  LESSON_AUDIO[id] = { dir: id, intro: id };
+  LESSON_ORDER.push(id);
+}
 
 function isNumericDisplay(display) {
   return /^\d+$/.test(display);
