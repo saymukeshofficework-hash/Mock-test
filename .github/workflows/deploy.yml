@@ -28,7 +28,7 @@ jobs:
           cache: npm
           cache-dependency-path: |
             ludo-3d/package-lock.json
-            bulbul-mam/package-lock.json
+            bulbul-bhatia/package-lock.json
 
       - name: Install Ludo 3D dependencies
         working-directory: ludo-3d
@@ -38,12 +38,12 @@ jobs:
         working-directory: ludo-3d
         run: npm run build
 
-      - name: Install Bulbul Mam dependencies
-        working-directory: bulbul-mam
+      - name: Install Bulbul Bhatia dependencies
+        working-directory: bulbul-bhatia
         run: npm ci
 
-      - name: Build Bulbul Mam
-        working-directory: bulbul-mam
+      - name: Build Bulbul Bhatia
+        working-directory: bulbul-bhatia
         run: npm run build
 
       - name: Assemble combined site
@@ -67,9 +67,9 @@ jobs:
           mkdir -p _site/ludo-3d
           cp -r ludo-3d/dist/. _site/ludo-3d/
 
-          # Bulbul Mam build output
-          mkdir -p _site/bulbul-mam
-          cp -r bulbul-mam/dist/. _site/bulbul-mam/
+          # Bulbul Bhatia build output
+          mkdir -p _site/bulbul-bhatia
+          cp -r bulbul-bhatia/dist/. _site/bulbul-bhatia/
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

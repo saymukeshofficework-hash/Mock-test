@@ -24,12 +24,12 @@ npm run preview   # preview the production build
 - `src/data/contact.ts` — phone/email/WhatsApp/social links. Currently placeholders; update before launch.
 - `src/data/testimonials.ts` — explicitly flagged placeholder testimonials. Replace with real, consented quotes before publishing.
 - `src/data/courses.ts` — course duration/price/certificate are left blank (`—`) where not supplied; never invented.
-- Images live in `public/images/{zodiac,tarot,astrology,cosmic,decorative}`. No real photographs of Bulbul Bhatia were available at build time, so the site uses a monogram/decorative placeholder for her portrait instead of a stock photo — swap in real photography under `public/images/bulbul-mam/` when available.
+- Images live in `public/images/{zodiac,tarot,astrology,cosmic,decorative}`. No real photographs of Bulbul Bhatia were available at build time, so the site uses a monogram/decorative placeholder for her portrait instead of a stock photo — swap in real photography under `public/images/bulbul-bhatia/` when available.
 
 ## Deployment note
 
-This app is one of several projects hosted on the same combined GitHub Pages site (see the repo root `.github/workflows/deploy.yml`) and is mounted under `/bulbul-mam/`. Because of that:
+This app is one of several projects hosted on the same combined GitHub Pages site (see the repo root `.github/workflows/deploy.yml`) and is mounted under `/bulbul-bhatia/`. Because of that:
 
 - `vite.config.ts` uses a relative `base: './'`.
-- The router's `basename` and all `public/` asset URLs are resolved at runtime against the current `/bulbul-mam` path segment (`src/lib/publicBase.ts`), not hard-coded, so the app works regardless of the exact owner/repo prefix in front of it.
-- The repo-root `404.html` redirects a direct/refreshed load of a deep route (e.g. `/bulbul-mam/tools/kundli-calculator`) back to this app's `index.html` with the real path encoded in a query string; `src/main.tsx` decodes it and restores the URL before the router reads it — the standard SPA-on-GitHub-Pages pattern.
+- The router's `basename` and all `public/` asset URLs are resolved at runtime against the current `/bulbul-bhatia` path segment (`src/lib/publicBase.ts`), not hard-coded, so the app works regardless of the exact owner/repo prefix in front of it.
+- The repo-root `404.html` redirects a direct/refreshed load of a deep route (e.g. `/bulbul-bhatia/tools/kundli-calculator`) back to this app's `index.html` with the real path encoded in a query string; `src/main.tsx` decodes it and restores the URL before the router reads it — the standard SPA-on-GitHub-Pages pattern.

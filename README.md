@@ -15,5 +15,5 @@ This repository also contains the **80-Second Video Maker**, a browser-based vid
 
 ## Bulbul Bhatia
 
-This repository also contains **Bulbul Bhatia**, a premium bilingual (English/Hindi) website for a Tarot reader, astrologer and online Tarot & Astrology teacher — consultations, courses, free astrology tools and horoscope. Built with React, TypeScript, Tailwind CSS and Vite. See [`bulbul-mam/README.md`](./bulbul-mam/README.md) for development and deployment details.
+This repository also contains **Bulbul Bhatia**, a premium bilingual (English/Hindi) website for a Tarot reader, astrologer and online Tarot & Astrology teacher — consultations, courses, free astrology tools and horoscope. Built with React, TypeScript, Tailwind CSS and Vite. See [`bulbul-bhatia/README.md`](./bulbul-bhatia/README.md) for development and deployment details.
 
