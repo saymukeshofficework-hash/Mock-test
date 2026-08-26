@@ -26,7 +26,9 @@ jobs:
         with:
           node-version: 20
           cache: npm
-          cache-dependency-path: ludo-3d/package-lock.json
+          cache-dependency-path: |
+            ludo-3d/package-lock.json
+            bulbul-bhatia/package-lock.json
 
       - name: Install Ludo 3D dependencies
         working-directory: ludo-3d
@@ -34,6 +36,14 @@ jobs:
 
       - name: Build Ludo 3D
         working-directory: ludo-3d
+        run: npm run build
+
+      - name: Install Bulbul Bhatia dependencies
+        working-directory: bulbul-bhatia
+        run: npm ci
+
+      - name: Build Bulbul Bhatia
+        working-directory: bulbul-bhatia
         run: npm run build
 
       - name: Assemble combined site
@@ -45,6 +55,7 @@ jobs:
           # mock-test app at the site root
           cp index.html _site/
           cp saanp-seedhi-multiplayer.html _site/
+          cp 404.html _site/
 
           # BBC English Coaching Classes Burhar platform, static, no build step
           cp -r bbc-english _site/bbc-english
@@ -55,6 +66,10 @@ jobs:
           # Ludo 3D build output
           mkdir -p _site/ludo-3d
           cp -r ludo-3d/dist/. _site/ludo-3d/
+
+          # Bulbul Bhatia build output
+          mkdir -p _site/bulbul-bhatia
+          cp -r bulbul-bhatia/dist/. _site/bulbul-bhatia/
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Page Not Found</title>
+    <script>
+      // GitHub Pages serves this single 404.html for any unresolved path
+      // across this whole combined site. The Bulbul Bhatia app is a
+      // client-routed single-page app mounted under `/bulbul-bhatia/`, so a
+      // direct load or refresh on one of its deep routes (e.g.
+      // `/bulbul-bhatia/tools/kundli-calculator`) lands here rather than in
+      // the app. If the unresolved path is one of those deep routes,
+      // redirect to the app's index.html with the real path encoded in a
+      // query string; main.tsx decodes it and restores the URL before the
+      // router reads it. Anything else just shows a plain not-found page.
+      (function () {
+        var path = window.location.pathname
+        var marker = '/bulbul-bhatia/'
+        var idx = path.indexOf(marker)
+        if (idx !== -1) {
+          var base = path.slice(0, idx + marker.length)
+          var rest = path.slice(idx + marker.length)
+          var target =
+            base +
+            'index.html?bm_redirect=' +
+            encodeURIComponent('/' + rest + window.location.search + window.location.hash)
+          window.location.replace(target)
+        }
+      })()
+    </script>
+  </head>
+  <body>
+    <p>Page not found. <a href="/">Go to the homepage</a>.</p>
+  </body>
+</html>
