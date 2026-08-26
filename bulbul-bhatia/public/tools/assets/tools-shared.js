@@ -385,8 +385,11 @@
     applyLocale()
 
     var slug = window.TOOL_SLUG
+    var vedic = window.VedicCalculators || {}
     if (slug && CALCULATORS[slug]) {
       CALCULATORS[slug]()
+    } else if (slug && vedic[slug]) {
+      vedic[slug]()
     } else {
       wireArchitectureForm()
     }
@@ -395,5 +398,10 @@
   window.ToolsShared = {
     getLocale: getLocale,
     applyLocale: applyLocale,
+    renderResultCard: renderResultCard,
+    showFieldError: showFieldError,
+    clearFieldError: clearFieldError,
+    byId: byId,
+    esc: esc,
   }
 })()
