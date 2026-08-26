@@ -41,8 +41,9 @@
   CONSONANTS.forEach(function (c, ci) {
     var items = FORMS.map(function (form) {
       var syllable = c.letter + form[0];
-      var item = { display: syllable, speech: syllable, repeatText: syllable };
-      if (form[1]) item.instruction = form[1] + " " + syllable;
+      var spoken = form[1] ? form[1] + " " + syllable : syllable;
+      var item = { display: syllable, speech: spoken, repeatText: spoken };
+      if (form[1]) item.instruction = spoken;
       return item;
     });
 
