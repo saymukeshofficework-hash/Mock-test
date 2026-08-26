@@ -63,6 +63,9 @@ jobs:
           # 80-Second Video Maker, static, no build step
           cp -r video-cutter _site/video-cutter
 
+          # Primary Teacher, static, no build step
+          cp -r primary-teacher _site/primary-teacher
+
           # Ludo 3D build output
           mkdir -p _site/ludo-3d
           cp -r ludo-3d/dist/. _site/ludo-3d/
