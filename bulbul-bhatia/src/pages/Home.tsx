@@ -3,6 +3,7 @@ import Hero from '../components/Hero'
 import SectionHeading from '../components/SectionHeading'
 import ServiceCard from '../components/ServiceCard'
 import CourseCard from '../components/CourseCard'
+import ConsultationCard from '../components/ConsultationCard'
 import ZodiacCard from '../components/ZodiacCard'
 import TestimonialCard from '../components/TestimonialCard'
 import FAQAccordion from '../components/FAQAccordion'
@@ -11,7 +12,8 @@ import { useLanguage } from '../i18n/LanguageContext'
 import { asset } from '../lib/publicBase'
 import { astrologyServices } from '../data/services.astrology'
 import { tarotServices } from '../data/services.tarot'
-import { tarotCourses, astrologyCourses, learningLevels } from '../data/courses'
+import { allCourses, learningLevels } from '../data/courses'
+import { consultations } from '../data/consultations'
 import { zodiacSigns } from '../data/zodiac'
 import { testimonials } from '../data/testimonials'
 import { faqs } from '../data/faqs'
@@ -20,7 +22,6 @@ export default function Home() {
   const { locale, t } = useLanguage()
   const featuredAstrology = astrologyServices.filter((s) => s.featured).slice(0, 8)
   const featuredTarot = tarotServices.filter((s) => s.featured).slice(0, 8)
-  const featuredCourses = [...tarotCourses, ...astrologyCourses].filter((c) => c.featured)
 
   const findReadingCards = [
     { key: 'love', to: '/tarot-services#love-tarot-reading', img: '/images/tarot/tarot-cards-in-hand-forest-light.webp' },
@@ -43,6 +44,18 @@ export default function Home() {
                 <h3 className="mb-2 text-base font-semibold text-navy-900">{t(`trust.pillars.${key}.title`)}</h3>
                 <p className="text-sm leading-relaxed text-navy-800/70">{t(`trust.pillars.${key}.desc`)}</p>
               </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Consultations */}
+      <section id="consultations" className="scroll-mt-20 bg-white py-20">
+        <div className="container-page flex flex-col gap-10">
+          <SectionHeading eyebrow={t('nav.consultations')} title={t('sections.consultationsTitle')} description={t('sections.consultationsSubtitle')} />
+          <div className="mx-auto grid max-w-4xl gap-6 sm:grid-cols-3">
+            {consultations.map((consultation) => (
+              <ConsultationCard key={consultation.slug} consultation={consultation} />
             ))}
           </div>
         </div>
@@ -179,8 +192,8 @@ export default function Home() {
       <section className="bg-white py-20">
         <div className="container-page flex flex-col gap-10">
           <SectionHeading eyebrow={t('nav.courses')} title={t('sections.coursesTitle')} description={t('sections.coursesSubtitle')} />
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {featuredCourses.map((course) => (
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {allCourses.map((course) => (
               <CourseCard key={course.slug} course={course} />
             ))}
           </div>
@@ -190,6 +203,9 @@ export default function Home() {
             </Link>
             <Link to="/astrology-courses" className="btn-secondary">
               {t('footer.astrologyCourses')}
+            </Link>
+            <Link to="/courses/handwriting-signature-analysis-course" className="btn-secondary">
+              {t('footer.handwritingCourse')}
             </Link>
           </div>
         </div>
@@ -201,12 +217,12 @@ export default function Home() {
           <SectionHeading title={t('sections.learningLevelsTitle')} />
           <ol className="flex flex-wrap items-center justify-center gap-3">
             {learningLevels.map((level, idx) => (
-              <li key={level} className="flex items-center gap-3">
+              <li key={level.id} className="flex items-center gap-3">
                 <span className="flex flex-col items-center gap-2">
                   <span className="flex h-12 w-12 items-center justify-center rounded-full bg-cosmic-gradient text-sm font-semibold text-white">
                     {idx + 1}
                   </span>
-                  <span className="text-xs font-semibold text-navy-900">{level}</span>
+                  <span className="text-xs font-semibold text-navy-900">{level.label[locale]}</span>
                 </span>
                 {idx < learningLevels.length - 1 && (
                   <span aria-hidden="true" className="hidden h-px w-8 bg-navy-900/20 sm:block" />

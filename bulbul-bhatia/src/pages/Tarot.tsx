@@ -11,7 +11,6 @@ import { tarotCourses } from '../data/courses'
 export default function Tarot() {
   const { locale, t } = useLanguage()
   const featured = tarotServices.filter((s) => s.featured).slice(0, 6)
-  const featuredCourses = tarotCourses.filter((c) => c.featured)
 
   return (
     <>
@@ -43,7 +42,7 @@ export default function Tarot() {
         <div className="container-page flex flex-col gap-10">
           <SectionHeading eyebrow={t('nav.courses')} title={t('footer.tarotCourses')} align="left" />
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {featuredCourses.map((course) => (
+            {tarotCourses.map((course) => (
               <CourseCard key={course.slug} course={course} />
             ))}
           </div>

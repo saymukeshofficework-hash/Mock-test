@@ -80,15 +80,15 @@ export const faqs: FAQCategory[] = [
       {
         question: { en: 'Which course is best for beginners?', hi: 'शुरुआती लोगों के लिए कौन सा कोर्स सबसे अच्छा है?' },
         answer: {
-          en: 'The Tarot Beginner Course or Astrology Beginner Course are the recommended starting points if you are new to either practice.',
-          hi: 'यदि आप किसी भी अभ्यास में नए हैं, तो टैरो बिगिनर कोर्स या ज्योतिष बिगिनर कोर्स शुरुआत के लिए अनुशंसित हैं।',
+          en: 'The Simple / Basic level of the Tarot or Astrology Course is the recommended starting point if you are new to either practice.',
+          hi: 'यदि आप किसी भी अभ्यास में नए हैं, तो टैरो या ज्योतिष कोर्स का सरल / बेसिक स्तर शुरुआत के लिए अनुशंसित है।',
         },
       },
       {
-        question: { en: 'Can I progress to advanced levels?', hi: 'क्या मैं उन्नत स्तरों तक आगे बढ़ सकता/सकती हूं?' },
+        question: { en: 'Can I progress to the advanced level?', hi: 'क्या मैं एडवांस्ड स्तर तक आगे बढ़ सकता/सकती हूं?' },
         answer: {
-          en: 'Yes, courses are structured in a progression from Beginner through to Professional and Mastery levels.',
-          hi: 'हां, कोर्स शुरुआती से लेकर पेशेवर एवं महारत स्तर तक क्रमबद्ध रूप से संरचित हैं।',
+          en: 'Yes — each Tarot and Astrology course has two levels, Simple / Basic and Advanced, so you can continue once you complete the basic level.',
+          hi: 'हां — प्रत्येक टैरो एवं ज्योतिष कोर्स के दो स्तर हैं, सरल / बेसिक एवं एडवांस्ड, ताकि आप बेसिक स्तर पूरा करने के बाद आगे बढ़ सकें।',
         },
       },
       {

@@ -38,6 +38,7 @@ export default function Navbar() {
       children: [
         { label: t('nav.astrology') + ' — ' + t('nav.services'), to: '/astrology-services' },
         { label: t('nav.tarot') + ' — ' + t('nav.services'), to: '/tarot-services' },
+        { label: t('nav.consultations'), to: '/#consultations' },
       ],
     },
     { label: t('nav.astrology'), to: '/astrology' },

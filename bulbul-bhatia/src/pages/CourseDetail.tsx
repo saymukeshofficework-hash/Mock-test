@@ -4,9 +4,15 @@ import FAQAccordion from '../components/FAQAccordion'
 import CTA from '../components/CTA'
 import { useLanguage } from '../i18n/LanguageContext'
 import { asset } from '../lib/publicBase'
-import { allCourses } from '../data/courses'
+import { allCourses, LEVEL_LABEL } from '../data/courses'
 import { faqs } from '../data/faqs'
 import NotFound from './NotFound'
+
+const CATEGORY_LABEL_KEY = {
+  tarot: 'nav.tarot',
+  astrology: 'nav.astrology',
+  handwriting: 'common.handwriting',
+} as const
 
 export default function CourseDetail() {
   const { slug } = useParams()
@@ -19,17 +25,30 @@ export default function CourseDetail() {
   const image =
     course.category === 'tarot'
       ? '/images/tarot/crystal-ball-candlelit-tarot-table.webp'
-      : '/images/astrology/vedic-zodiac-wheel-mandala.webp'
+      : course.category === 'astrology'
+        ? '/images/astrology/vedic-zodiac-wheel-mandala.webp'
+        : null
+  const categoryLabel = t(CATEGORY_LABEL_KEY[course.category])
 
   return (
     <>
-      <PageHero eyebrow={`${course.category === 'tarot' ? t('nav.tarot') : t('nav.astrology')} · ${course.level}`} title={course.title[locale]} description={course.overview[locale]} />
+      <PageHero
+        eyebrow={course.level ? `${categoryLabel} · ${LEVEL_LABEL[course.level][locale]}` : categoryLabel}
+        title={course.title[locale]}
+        description={course.overview[locale]}
+      />
 
       <section className="bg-white py-16">
         <div className="container-page grid gap-12 lg:grid-cols-[1.6fr,1fr]">
           <div className="flex flex-col gap-10">
             <div className="overflow-hidden rounded-2xl">
-              <img src={asset(image)} alt="" aria-hidden="true" className="h-64 w-full object-cover sm:h-80" loading="lazy" />
+              {image ? (
+                <img src={asset(image)} alt="" aria-hidden="true" className="h-64 w-full object-cover sm:h-80" loading="lazy" />
+              ) : (
+                <div className="flex h-64 w-full items-center justify-center bg-cosmic-gradient text-6xl sm:h-80" aria-hidden="true">
+                  ✍️
+                </div>
+              )}
             </div>
 
             <div>
@@ -96,21 +115,23 @@ export default function CourseDetail() {
           <aside className="flex flex-col gap-6">
             <div className="card sticky top-24 flex flex-col gap-4 p-6">
               <dl className="grid grid-cols-2 gap-4 text-sm">
-                <div>
-                  <dt className="font-semibold text-navy-900">{t('common.level')}</dt>
-                  <dd className="text-navy-800/70">{course.level}</dd>
-                </div>
+                {course.level && (
+                  <div>
+                    <dt className="font-semibold text-navy-900">{t('common.level')}</dt>
+                    <dd className="text-navy-800/70">{LEVEL_LABEL[course.level][locale]}</dd>
+                  </div>
+                )}
                 <div>
                   <dt className="font-semibold text-navy-900">{t('common.category')}</dt>
-                  <dd className="text-navy-800/70">{course.category === 'tarot' ? t('nav.tarot') : t('nav.astrology')}</dd>
+                  <dd className="text-navy-800/70">{categoryLabel}</dd>
                 </div>
                 <div>
                   <dt className="font-semibold text-navy-900">{t('common.duration')}</dt>
-                  <dd className="text-navy-800/70">{course.duration ?? '—'}</dd>
+                  <dd className="text-navy-800/70">{course.duration[locale]}</dd>
                 </div>
                 <div>
                   <dt className="font-semibold text-navy-900">{t('common.price')}</dt>
-                  <dd className="text-navy-800/70">{course.price ?? '—'}</dd>
+                  <dd className="text-base font-semibold text-rose-600">{course.price}</dd>
                 </div>
               </dl>
               <Link to="/book" className="btn-primary w-full">
