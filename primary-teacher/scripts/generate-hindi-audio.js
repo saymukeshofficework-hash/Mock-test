@@ -92,6 +92,12 @@ for (let i = 1; i <= 33; i++) {
   LESSON_ORDER.push(id);
 }
 
+// barakhadi-all is every individual lesson's items concatenated (identical text),
+// so process it last: everything it needs is already in the dedup cache and gets
+// copied instead of re-synthesized.
+LESSON_AUDIO["barakhadi-all"] = { dir: "barakhadi-all", intro: "barakhadi-all" };
+LESSON_ORDER.push("barakhadi-all");
+
 function isNumericDisplay(display) {
   return /^\d+$/.test(display);
 }

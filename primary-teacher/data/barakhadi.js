@@ -36,17 +36,32 @@
     ["ः", null]     // ः visarga
   ];
 
-  window.ALL_LESSONS = window.ALL_LESSONS || [];
-
-  CONSONANTS.forEach(function (c, ci) {
-    var items = FORMS.map(function (form) {
-      var syllable = c.letter + form[0];
+  function makeItems(letter) {
+    return FORMS.map(function (form) {
+      var syllable = letter + form[0];
       var spoken = form[1] ? form[1] + " " + syllable : syllable;
       var item = { display: syllable, speech: spoken, repeatText: spoken };
       if (form[1]) item.instruction = spoken;
       return item;
     });
+  }
 
+  window.ALL_LESSONS = window.ALL_LESSONS || [];
+
+  // Combined lesson: every consonant's full barakhadi, back to back (क से ज्ञ तक).
+  var allItems = [];
+  CONSONANTS.forEach(function (c) { allItems = allItems.concat(makeItems(c.letter)); });
+  window.ALL_LESSONS.push({
+    id: "barakhadi-all",
+    title: "बारहखड़ी: क से ज्ञ तक",
+    titleEn: "Barakhadi: Ka to Gya (All)",
+    category: "barakhadi",
+    language: "hi-IN",
+    introduction: "बच्चों, आज हम क से ज्ञ तक पूरी बारहखड़ी सीखेंगे। मेरे साथ बोलिए।",
+    items: allItems
+  });
+
+  CONSONANTS.forEach(function (c, ci) {
     window.ALL_LESSONS.push({
       id: "barakhadi-" + String(ci + 1).padStart(2, "0"),
       title: c.letter + " की बारहखड़ी",
@@ -54,7 +69,7 @@
       category: "barakhadi",
       language: "hi-IN",
       introduction: "बच्चों, आज हम " + c.letter + " की बारहखड़ी सीखेंगे। मेरे साथ बोलिए।",
-      items: items
+      items: makeItems(c.letter)
     });
   });
 })();
