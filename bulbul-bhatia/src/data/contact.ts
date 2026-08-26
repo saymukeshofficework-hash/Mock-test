@@ -6,7 +6,7 @@ export const contactConfig = {
   email: 'bhatiabulbul11@gmail.com',
   // wa.me requires the full number with country code, no leading '+'.
   whatsappNumber: '917999381926',
-  instagram: 'https://instagram.com/bulbulbhatia',
+  instagram: 'https://www.instagram.com/bulbulbhatia11/',
   youtube: 'https://youtube.com/@bulbulbhatia',
   facebook: 'https://facebook.com/bulbulbhatia',
   whatsappMessage: 'Hi Bulbul Bhatia, I would like to book a consultation.',
