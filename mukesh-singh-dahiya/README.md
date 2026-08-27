@@ -68,7 +68,6 @@ Upload actual files (PDFs, images) under `public/resources/<type>/` or
 - **Real WhatsApp number** in `src/config/contact.ts` (`whatsapp:
   'YOUR_WHATSAPP_NUMBER'`) — every purchase button is broken until this
   is set to real digits with country code (e.g. `"919876543210"`)
-- Real teacher photograph (`public/images/teacher/mukesh-singh-dahiya.jpg`)
 - Real email/phone/address (`src/config/contact.ts`, `src/data/site.ts`)
 - Real course/paid-note/bundle/online-class pricing and schedules
   (the current prices are illustrative starting suggestions, not final)
