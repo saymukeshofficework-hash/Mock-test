@@ -5,7 +5,11 @@
   var LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
 
   var items = LETTERS.map(function (letter) {
-    return { display: letter, speech: letter, repeatText: letter };
+    // Some voices announce a bare uppercase letter as "Capital A" to disambiguate
+    // from lowercase; sending the lowercase form avoids that while the display
+    // stays uppercase (the standard way to show the English alphabet).
+    var spoken = letter.toLowerCase();
+    return { display: letter, speech: spoken, repeatText: spoken };
   });
 
   window.ALL_LESSONS = window.ALL_LESSONS || [];
