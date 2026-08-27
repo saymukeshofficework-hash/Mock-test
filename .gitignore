@@ -1,0 +1,5 @@
+# Generated locally by scripts/export-supabase-seed.js. Contains the full text of
+# every test question — must never be committed to this public repository. Run the
+# script yourself and paste the output into the Supabase SQL Editor; see
+# ADMIN_INSTRUCTIONS.md.
+supabase/seed_tests.sql

@@ -17,8 +17,13 @@
     <div class="timer" id="timerDisplay">Time Left : 150:00</div>
   </header>
 
+  <!-- ACCESS CHECK / LOADING SCREEN -->
+  <div id="loadingScreen" style="background:#fff;margin:16px;border:1px solid var(--border);padding:30px 20px;text-align:center;max-width:420px;margin-left:auto;margin-right:auto;">
+    Checking your access&hellip;
+  </div>
+
   <!-- NAME ENTRY SCREEN -->
-  <div id="nameScreen" style="background:#fff;margin:16px;border:1px solid var(--border);padding:30px 20px;text-align:center;max-width:420px;margin-left:auto;margin-right:auto;">
+  <div id="nameScreen" style="display:none;background:#fff;margin:16px;border:1px solid var(--border);padding:30px 20px;text-align:center;max-width:420px;margin-left:auto;margin-right:auto;">
     <h2 style="margin-top:0;font-size:18px;">Enter Your Name to Begin</h2>
     <p style="font-size:13px;color:#666;">Your name will appear on your test and result summary.</p>
     <input type="text" id="candidateNameInput" placeholder="Your full name" style="width:100%;padding:10px;font-size:15px;border:1px solid var(--border);border-radius:4px;margin:14px 0;box-sizing:border-box;">
@@ -140,7 +145,41 @@
 
 </div>
 
-<script src="assets/data/test-9.js"></script>
+<script src="assets/vendor/supabase/supabase.js"></script>
+<script src="js/site-config.js"></script>
+<script src="js/auth.js"></script>
 <script src="assets/tet-engine.js"></script>
+<script>
+(async () => {
+  const TEST_ID = "test09";
+  const loadingEl = document.getElementById('loadingScreen');
+
+  const session = await requireAuth(); // redirects to login.html?next=... if not logged in
+  if (!session) return;
+
+  const profile = await getProfile(session.user.id);
+  if (!profile || profile.status !== 'active' || !(profile.purchased_tests || []).includes(TEST_ID)) {
+    loadingEl.innerHTML = 'You have not purchased this test. <a href="tests.html">Buy it here</a>, or <a href="dashboard.html">go to your dashboard</a>.';
+    return;
+  }
+
+  const { data, error } = await supabaseClient
+    .from('test_content')
+    .select('questions')
+    .eq('test_id', TEST_ID)
+    .single();
+
+  if (error || !data) {
+    loadingEl.textContent = 'Could not load this test right now. Please try again in a moment.';
+    return;
+  }
+
+  initExam(data.questions);
+  loadingEl.style.display = 'none';
+  const nameScreen = document.getElementById('nameScreen');
+  nameScreen.style.display = 'block';
+  document.getElementById('candidateNameInput').value = profile.full_name || '';
+})();
+</script>
 </body>
 </html>

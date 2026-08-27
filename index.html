@@ -3,216 +3,184 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TET Mock Tests</title>
-<meta name="description" content="Practice with 20 carefully prepared TET (Teacher Eligibility Test) mock tests — free, full-length, bilingual practice tests with instant results.">
-<style>
-  :root{
-    --blue:#2b5aa7; --blue-dark:#1e3f7a; --blue-light:#4f7fd1;
-    --green:#3fa142; --red:#d9534f; --grey:#9e9e9e; --purple:#7b3fa0;
-    --lightblue:#eaf1fb; --border:#dde3ec; --ink:#1c2430; --muted:#5b6472;
-    --page:#f4f6fa; --card:#ffffff;
-  }
-  *{box-sizing:border-box;}
-  html{scroll-behavior:smooth;}
-  body{margin:0;font-family:"Segoe UI",Arial,Helvetica,sans-serif;background:var(--page);color:var(--ink);-webkit-font-smoothing:antialiased;}
-  a{color:inherit;}
-  ::selection{background:var(--blue-light);color:#fff;}
-
-  /* ---------- Header ---------- */
-  header.topbar{
-    position:sticky;top:0;z-index:10;
-    background:linear-gradient(135deg,var(--blue-dark),var(--blue));
-    color:#fff;padding:12px 24px;display:flex;justify-content:space-between;
-    align-items:center;flex-wrap:wrap;gap:10px;
-    box-shadow:0 2px 10px rgba(20,40,80,.15);
-  }
-  header.topbar .brand{display:flex;align-items:center;gap:9px;font-size:18px;font-weight:800;letter-spacing:.2px;}
-  header.topbar .brand .logo{
-    width:30px;height:30px;border-radius:8px;background:rgba(255,255,255,.16);
-    display:flex;align-items:center;justify-content:center;flex-shrink:0;
-  }
-  header.topbar nav{display:flex;gap:6px;flex-wrap:wrap;}
-  header.topbar nav a{color:#fff;text-decoration:none;font-size:13px;font-weight:600;padding:7px 14px;border-radius:20px;background:rgba(255,255,255,.14);transition:background .15s;}
-  header.topbar nav a.active{background:#fff;color:var(--blue-dark);}
-  header.topbar nav a:hover:not(.active){background:rgba(255,255,255,.28);}
-
-  main{max-width:1220px;margin:0 auto;padding:0 20px;}
-
-  /* ---------- Hero ---------- */
-  .hero{
-    text-align:center;padding:56px 16px 40px;position:relative;overflow:hidden;
-  }
-  .hero::before{
-    content:"";position:absolute;inset:-40% -10% auto -10%;height:340px;
-    background:radial-gradient(60% 100% at 50% 0%, rgba(43,90,167,.14), transparent 70%);
-    pointer-events:none;
-  }
-  .hero .eyebrow{
-    display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:700;
-    color:var(--blue-dark);background:var(--lightblue);border:1px solid #cfe0f7;
-    padding:6px 14px;border-radius:20px;margin-bottom:18px;letter-spacing:.3px;
-  }
-  .hero h1{margin:0 0 12px;font-size:clamp(28px,4.5vw,42px);color:var(--ink);font-weight:800;letter-spacing:-.5px;}
-  .hero p{margin:0 auto;max-width:520px;font-size:16px;color:var(--muted);line-height:1.5;}
-
-  .stats-row{
-    display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin:28px 0 8px;
-  }
-  .stat-pill{
-    background:var(--card);border:1px solid var(--border);border-radius:12px;
-    padding:12px 20px;min-width:120px;text-align:center;box-shadow:0 1px 2px rgba(20,40,80,.04);
-  }
-  .stat-pill .num{font-size:20px;font-weight:800;color:var(--blue-dark);}
-  .stat-pill .lbl{font-size:11.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;margin-top:2px;}
-
-  /* ---------- Test grid ---------- */
-  .test-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:20px;padding:36px 0 48px;}
-
-  .test-card{
-    background:var(--card);border:1px solid var(--border);border-radius:14px;
-    padding:20px;display:flex;flex-direction:column;
-    box-shadow:0 1px 3px rgba(20,40,80,.06);
-    transition:box-shadow .18s ease,transform .18s ease,border-color .18s ease;
-  }
-  .test-card:hover{
-    box-shadow:0 12px 28px rgba(20,40,80,.14);transform:translateY(-4px);
-    border-color:#c4d6f2;
-  }
-  .test-card .badge{
-    width:42px;height:42px;border-radius:10px;flex-shrink:0;
-    background:linear-gradient(135deg,var(--blue-light),var(--blue-dark));
-    color:#fff;font-weight:800;font-size:16px;
-    display:flex;align-items:center;justify-content:center;margin-bottom:14px;
-  }
-  .test-card h2{margin:0 0 4px;font-size:16.5px;color:var(--ink);font-weight:700;}
-  .test-card .desc{font-size:13px;color:var(--muted);margin:0 0 14px;}
-  .test-card .meta{
-    display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;
-    color:var(--blue-dark);background:var(--lightblue);padding:5px 10px;border-radius:6px;
-    margin-bottom:18px;align-self:flex-start;
-  }
-  .test-card .meta svg{flex-shrink:0;}
-  .test-card .start-btn{
-    margin-top:auto;display:flex;align-items:center;justify-content:center;gap:6px;
-    background:linear-gradient(135deg,var(--blue),var(--blue-dark));
-    color:#fff;text-decoration:none;font-weight:700;font-size:14px;
-    padding:11px 14px;border-radius:8px;border:none;transition:filter .15s,transform .15s;
-  }
-  .test-card .start-btn:hover{filter:brightness(1.08);}
-  .test-card .start-btn:active{transform:scale(.98);}
-  .test-card .start-btn svg{transition:transform .15s;}
-  .test-card .start-btn:hover svg{transform:translateX(3px);}
-
-  .more-note{text-align:center;font-size:13px;color:var(--muted);padding:0 16px 40px;}
-
-  /* ---------- Footer ---------- */
-  footer{
-    text-align:center;font-size:12.5px;color:var(--muted);padding:22px 16px;
-    border-top:1px solid var(--border);background:var(--card);
-  }
-
-  @media(max-width:480px){
-    header.topbar{justify-content:center;text-align:center;}
-    .hero{padding:40px 12px 28px;}
-    .stat-pill{min-width:100px;padding:10px 14px;}
-  }
-</style>
+<title>TET Test Hub — TET Full Mock Tests</title>
+<meta name="description" content="Prepare, practice and perform for the Teacher Eligibility Test with 20 full-length bilingual mock tests. Buy a single test or the full pack.">
+<meta property="og:title" content="TET Test Hub — TET Full Mock Tests">
+<meta property="og:description" content="20 full-length bilingual TET mock tests. Prepare. Practice. Perform.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="assets/site.css">
 </head>
 <body>
 
-  <header class="topbar">
-    <div class="brand">
+  <header class="site-header">
+    <a class="brand" href="index.html">
       <span class="logo" aria-hidden="true">
         <svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </span>
-      TET Mock Tests
-    </div>
+      TET Test Hub
+    </a>
     <nav>
       <a href="index.html" class="active">Home</a>
+      <a href="tests.html">All Tests</a>
+      <a href="login.html">Student Login</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
     </nav>
   </header>
 
   <main>
     <div class="hero">
-      <span class="eyebrow">✓ 100% Free &middot; No Sign-up</span>
-      <h1>TET Mock Tests</h1>
-      <p>Practice with 20 carefully prepared mock tests</p>
-
-      <div class="stats-row">
-        <div class="stat-pill"><div class="num" id="statTests">20</div><div class="lbl">Mock Tests</div></div>
-        <div class="stat-pill"><div class="num">150</div><div class="lbl">Questions Each</div></div>
-        <div class="stat-pill"><div class="num">EN&nbsp;/&nbsp;HI</div><div class="lbl">Bilingual</div></div>
-        <div class="stat-pill"><div class="num">2:30</div><div class="lbl">Hrs Duration</div></div>
+      <span class="eyebrow">20 Full-Length Bilingual Mock Tests</span>
+      <h1>TET Test Hub</h1>
+      <p class="tagline">Prepare. Practice. Perform.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="tests.html">View Tests</a>
+        <a class="btn btn-secondary" href="login.html">Student Login</a>
       </div>
     </div>
 
-    <div class="test-grid" id="testGrid"></div>
-    <p class="more-note" id="moreNote"></p>
+    <div class="container">
+
+      <section class="section">
+        <h2>About the TET Mock Tests</h2>
+        <p class="lead">
+          TET Test Hub gives Teacher Eligibility Test aspirants 20 full-length practice
+          tests built to match the real exam pattern — 150 questions across Child
+          Development &amp; Pedagogy, Language-1 (English), Language-2 (Hindi), Mathematics
+          and Environmental Studies, in 150 minutes, with instant section-wise results.
+          Practice at home, on your own schedule, in English or Hindi.
+        </p>
+      </section>
+
+      <section class="section">
+        <h2>Why practice here</h2>
+        <div class="benefits-grid">
+          <div class="benefit">
+            <div class="icon">📝</div>
+            <h4>Real exam pattern</h4>
+            <p>5 sections, 150 questions, 150 minutes — the same structure as the actual TET.</p>
+          </div>
+          <div class="benefit">
+            <div class="icon">🌐</div>
+            <h4>Bilingual questions</h4>
+            <p>Switch between English and Hindi for any question, any time during the test.</p>
+          </div>
+          <div class="benefit">
+            <div class="icon">📊</div>
+            <h4>Instant results</h4>
+            <p>See your score and a section-wise breakdown the moment you submit.</p>
+          </div>
+          <div class="benefit">
+            <div class="icon">📱</div>
+            <h4>Works on any device</h4>
+            <p>A clean, fast, mobile-friendly test screen — no app to install.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>20 Full Mock Tests</h2>
+        <p class="lead">Every test has its own set of 150 questions across all 5 sections — practice with a fresh test each time.</p>
+        <div class="grid" id="testOverviewGrid"></div>
+        <p style="text-align:center;margin-top:24px;">
+          <a class="btn btn-primary" href="tests.html">See All 20 Tests</a>
+        </p>
+      </section>
+
+      <section class="section" id="pricing">
+        <h2>Pricing</h2>
+        <p class="lead">Simple, one-time pricing. Buy a single test, or unlock all 20 at once.</p>
+        <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(240px,1fr));max-width:640px;margin:0 auto;">
+          <div class="card pricing-card">
+            <h3>Single Test</h3>
+            <div class="price">₹<span id="priceTest">29</span></div>
+            <ul>
+              <li>Any 1 full mock test</li>
+              <li>150 questions, 150 minutes</li>
+              <li>Instant results</li>
+            </ul>
+            <a class="btn btn-primary btn-block" href="tests.html">Choose a Test</a>
+          </div>
+          <div class="card pricing-card featured">
+            <span class="ribbon">Best Value</span>
+            <h3>All 20 Tests</h3>
+            <div class="price">₹<span id="priceAll20">199</span></div>
+            <ul>
+              <li>All 20 full mock tests</li>
+              <li>3000 questions in total</li>
+              <li>Instant results, every test</li>
+            </ul>
+            <a class="btn btn-primary btn-block" href="tests.html#all20">Get All 20 Tests</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Frequently Asked Questions</h2>
+        <details class="faq-item">
+          <summary>How do I get access after paying?</summary>
+          <p>After payment, send your payment screenshot / order details to us on WhatsApp or the contact details on our <a href="contact.html">Contact page</a>. We verify the payment and send your Student ID and password so you can log in and start your test.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Is payment verified automatically?</summary>
+          <p>No — payments are verified manually by the TET Test Hub team through the Razorpay Dashboard. Your account is created and enabled shortly after we confirm your payment.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Can I take a test in Hindi?</summary>
+          <p>Yes. Every question can be viewed in English or Hindi — switch languages any time during the test.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Do I get results immediately?</summary>
+          <p>Yes, your score and a section-wise breakdown are shown the moment you submit the test.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Can I buy tests one at a time instead of all 20?</summary>
+          <p>Yes — each test can be purchased individually, or you can buy the All-20 package at a lower total price.</p>
+        </details>
+      </section>
+
+    </div>
   </main>
 
-  <footer>TET Mock Tests &mdash; free practice tests for Teacher Eligibility Test aspirants.</footer>
+  <footer class="site-footer">
+    <div class="links">
+      <a href="tests.html">All Tests</a>
+      <a href="login.html">Student Login</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    TET Test Hub &mdash; free-to-browse, paid mock tests for Teacher Eligibility Test aspirants.
+  </footer>
 
+<script src="js/site-config.js"></script>
 <script>
-  /*
-   * List every published TET mock test here. Each entry needs:
-   *   id        - test number, used for the card title
-   *   file      - the existing test page's filename (relative to this page)
-   *   questions - question count shown on the card (must match the test page)
-   *   desc      - short description shown on the card
-   *
-   * To publish a new test: create its page, then add one object below.
-   * The grid always shows exactly the tests listed here — nothing is
-   * guessed or linked until its page actually exists.
-   */
-  const TOTAL_PLANNED_TESTS = 20;
+  document.getElementById('priceTest').textContent = PRICES.test;
+  document.getElementById('priceAll20').textContent = PRICES.all20;
 
-  const tests = [
-    { id: 1, file: "tet-mock-test-1.html", questions: 150, desc: "Practice Test" },
-    { id: 2, file: "tet-mock-test-2.html", questions: 150, desc: "Practice Test" },
-    { id: 3, file: "tet-mock-test-3.html", questions: 150, desc: "Practice Test" },
-    { id: 4, file: "tet-mock-test-4.html", questions: 150, desc: "Practice Test" },
-    { id: 5, file: "tet-mock-test-5.html", questions: 150, desc: "Practice Test" },
-    { id: 6, file: "tet-mock-test-6.html", questions: 150, desc: "Practice Test" },
-    { id: 7, file: "tet-mock-test-7.html", questions: 150, desc: "Practice Test" },
-    { id: 8, file: "tet-mock-test-8.html", questions: 150, desc: "Practice Test" },
-    { id: 9, file: "tet-mock-test-9.html", questions: 150, desc: "Practice Test" },
-    { id: 10, file: "tet-mock-test-10.html", questions: 150, desc: "Practice Test" },
-    { id: 11, file: "tet-mock-test-11.html", questions: 150, desc: "Practice Test" },
-    { id: 12, file: "tet-mock-test-12.html", questions: 150, desc: "Practice Test" },
-    { id: 13, file: "tet-mock-test-13.html", questions: 150, desc: "Practice Test" },
-    { id: 14, file: "tet-mock-test-14.html", questions: 150, desc: "Practice Test" },
-    { id: 15, file: "tet-mock-test-15.html", questions: 150, desc: "Practice Test" },
-    { id: 16, file: "tet-mock-test-16.html", questions: 150, desc: "Practice Test" },
-    { id: 17, file: "tet-mock-test-17.html", questions: 150, desc: "Practice Test" },
-    { id: 18, file: "tet-mock-test-18.html", questions: 150, desc: "Practice Test" },
-    { id: 19, file: "tet-mock-test-19.html", questions: 150, desc: "Practice Test" },
-    { id: 20, file: "tet-mock-test-20.html", questions: 150, desc: "Practice Test" },
-  ];
-
-  const DOC_ICON = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M6 2h9l5 5v15H6V2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 13h6M9 17h6M9 9h2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
-  const ARROW_ICON = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
-
-  const grid = document.getElementById('testGrid');
-  tests.forEach(t => {
+  const grid = document.getElementById('testOverviewGrid');
+  TEST_CATALOG.slice(0, 6).forEach(t => {
     const card = document.createElement('div');
-    card.className = 'test-card';
+    card.className = 'card test-card';
     card.innerHTML = `
-      <div class="badge">${t.id}</div>
-      <h2>TET Mock Test ${t.id}</h2>
-      <p class="desc">${t.desc}</p>
-      <span class="meta">${DOC_ICON} ${t.questions} Questions</span>
-      <a class="start-btn" href="${t.file}">Start Test ${ARROW_ICON}</a>
+      <div class="badge">${t.number}</div>
+      <h3>${t.title}</h3>
+      <p class="desc">Full Mock Test</p>
+      <div class="meta-row">
+        <span class="meta">${t.questions} Questions</span>
+        <span class="meta">${t.minutes} Minutes</span>
+      </div>
     `;
     grid.appendChild(card);
   });
-
-  document.getElementById('statTests').textContent = tests.length;
-
-  const remaining = TOTAL_PLANNED_TESTS - tests.length;
-  if (remaining > 0) {
-    document.getElementById('moreNote').textContent =
-      `${remaining} more mock test${remaining === 1 ? '' : 's'} will be added soon.`;
-  }
+  const more = document.createElement('div');
+  more.className = 'card test-card';
+  more.style.display = 'flex';
+  more.style.alignItems = 'center';
+  more.style.justifyContent = 'center';
+  more.style.textAlign = 'center';
+  more.innerHTML = `<div><strong style="font-size:15px;">+${TEST_CATALOG.length - 6} more tests</strong><br><a href="tests.html" style="font-size:13px;">View all &rarr;</a></div>`;
+  grid.appendChild(more);
 </script>
 </body>
 </html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Student Login — TET Test Hub</title>
+<meta name="description" content="Log in with your Student ID and password to access your purchased TET mock tests.">
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <a class="brand" href="index.html">
+      <span class="logo" aria-hidden="true">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </span>
+      TET Test Hub
+    </a>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="tests.html">All Tests</a>
+      <a href="login.html" class="active">Student Login</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <div class="form-card">
+      <h1>Student Login</h1>
+      <p class="sub">Log in with the Student ID and password you received after purchase.</p>
+
+      <div id="formAlert" class="alert alert-error" style="display:none;"></div>
+
+      <form id="loginForm">
+        <div class="field">
+          <label for="studentId">Student ID</label>
+          <input type="text" id="studentId" autocomplete="username" placeholder="e.g. TET26001" required>
+        </div>
+        <div class="field">
+          <label for="password">Password</label>
+          <input type="password" id="password" autocomplete="current-password" required>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block" id="loginBtn">LOGIN</button>
+      </form>
+
+      <p class="form-note">Don't have login credentials? <a href="tests.html">Purchase a test</a> and <a href="contact.html">contact us</a> after payment.</p>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="links">
+      <a href="index.html">Home</a>
+      <a href="tests.html">All Tests</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    TET Test Hub &mdash; free-to-browse, paid mock tests for Teacher Eligibility Test aspirants.
+  </footer>
+
+<script src="assets/vendor/supabase/supabase.js"></script>
+<script src="js/site-config.js"></script>
+<script src="js/auth.js"></script>
+<script>
+  function nextUrl() {
+    const params = new URLSearchParams(location.search);
+    const next = params.get('next');
+    return next && /^[a-zA-Z0-9._-]+\.html$/.test(next) ? next : 'dashboard.html';
+  }
+
+  (async () => {
+    const session = await getSession();
+    if (session) location.replace(nextUrl());
+  })();
+
+  const form = document.getElementById('loginForm');
+  const alertBox = document.getElementById('formAlert');
+  const loginBtn = document.getElementById('loginBtn');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    alertBox.style.display = 'none';
+    loginBtn.disabled = true;
+    loginBtn.textContent = 'Logging in…';
+
+    const studentId = document.getElementById('studentId').value;
+    const password = document.getElementById('password').value;
+    const result = await loginWithStudentId(studentId, password);
+
+    if (!result.ok) {
+      alertBox.textContent = result.message;
+      alertBox.style.display = 'block';
+      loginBtn.disabled = false;
+      loginBtn.textContent = 'LOGIN';
+      return;
+    }
+    location.href = nextUrl();
+  });
+</script>
+</body>
+</html>

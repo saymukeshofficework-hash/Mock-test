@@ -5,10 +5,19 @@ let timerInterval = null;
 
 /* ===================== STATE ===================== */
 // status per question: 'notVisited' | 'notAnswered' | 'answered' | 'marked' | 'answeredMarked'
-let state = sections.map(sec => sec.questions.map(() => ({status:'notVisited', selected:null})));
+let sections = [];
+let state = [];
 let curSection = 0, curQuestion = 0;
 let defaultLang = 'en';
 let submitted = false;
+
+// Called once the test's questions have been loaded (see the inline loader script at
+// the bottom of each tet-mock-test-N.html) — before this runs, nothing below can be
+// interacted with, since nameScreen stays hidden until the loader reveals it.
+function initExam(loadedSections){
+  sections = loadedSections;
+  state = sections.map(sec => sec.questions.map(() => ({status:'notVisited', selected:null})));
+}
 
 /* ===================== INSTRUCTIONS ===================== */
 document.getElementById('agreeBox').addEventListener('change', function(){
