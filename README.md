@@ -29,3 +29,7 @@ lessons and Hindi voice setup.
 
 This repository also contains **Bulbul Bhatia**, a premium bilingual (English/Hindi) website for a Tarot reader, astrologer and online Tarot & Astrology teacher — consultations, courses, free astrology tools and horoscope. Built with React, TypeScript, Tailwind CSS and Vite. See [`bulbul-bhatia/README.md`](./bulbul-bhatia/README.md) for development and deployment details.
 
+## Mukesh Singh Dahiya
+
+This repository also contains a premium educational platform for **Mukesh Singh Dahiya** (M.Sc. Botany, M.A. English, 12 years teaching experience) — study notes, solutions, questions, previous papers, premium courses, paid notes, online classes, NEET Biology resources and educational calculators for Classes 5–12, CBSE & MP Board, English Medium. Built with React, TypeScript, Tailwind CSS and Vite on a fully data-driven architecture — new content (notes, questions, courses, etc.) is added via the files under `mukesh-singh-dahiya/src/data/` without touching page code. See [`mukesh-singh-dahiya/README.md`](./mukesh-singh-dahiya/README.md) for development details.
+

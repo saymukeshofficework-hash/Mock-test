@@ -29,6 +29,7 @@ jobs:
           cache-dependency-path: |
             ludo-3d/package-lock.json
             bulbul-bhatia/package-lock.json
+            mukesh-singh-dahiya/package-lock.json
 
       - name: Install Ludo 3D dependencies
         working-directory: ludo-3d
@@ -44,6 +45,14 @@ jobs:
 
       - name: Build Bulbul Bhatia
         working-directory: bulbul-bhatia
+        run: npm run build
+
+      - name: Install Mukesh Singh Dahiya dependencies
+        working-directory: mukesh-singh-dahiya
+        run: npm ci
+
+      - name: Build Mukesh Singh Dahiya
+        working-directory: mukesh-singh-dahiya
         run: npm run build
 
       - name: Assemble combined site
@@ -73,6 +82,10 @@ jobs:
           # Bulbul Bhatia build output
           mkdir -p _site/bulbul-bhatia
           cp -r bulbul-bhatia/dist/. _site/bulbul-bhatia/
+
+          # Mukesh Singh Dahiya build output
+          mkdir -p _site/mukesh-singh-dahiya
+          cp -r mukesh-singh-dahiya/dist/. _site/mukesh-singh-dahiya/
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
