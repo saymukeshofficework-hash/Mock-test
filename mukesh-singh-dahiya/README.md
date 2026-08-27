@@ -47,10 +47,17 @@ Upload actual files (PDFs, images) under `public/resources/<type>/` or
 - Dynamic routes (`/classes/:classSlug`, `/classes/:classSlug/:subjectSlug`,
   `/resources/:slug`, `/courses/:slug`, `/calculators/:slug`, etc.) render
   from data — there is no per-class or per-resource page file.
-- No backend, authentication or payment gateway is wired up yet. The UI
-  (`EnrollmentCTA`, access badges, locked lesson states) is built to a
-  payment-ready shape so a real checkout/auth flow can be dropped in later
-  without restructuring pages.
+- No backend, authentication or payment gateway is wired up yet.
+  Purchases go through WhatsApp: `EnrollmentCTA`/`WhatsAppButton` open
+  `wa.me` with a pre-filled, product-specific message built from
+  `src/lib/whatsapp.ts`; the teacher confirms payment and grants access
+  manually. The UI (access badges, locked lesson states) is still shaped
+  so a real checkout/auth flow can replace this later without
+  restructuring pages.
+- All pricing lives behind the shared `Pricing` fields (`price`,
+  `discountPrice`, `offerLabel`, `currency`) on `Course`, `PaidNote`,
+  `Bundle` and `OnlineClass` in `src/data/types.ts`, rendered only via
+  `PriceTag` — never hardcode a price in a component.
 - Deployed as a sibling app under `/mukesh-singh-dahiya/` on the combined
   GitHub Pages site (see the repo root `404.html` and
   `.github/workflows/deploy.yml`); `src/lib/publicBase.ts` resolves the
@@ -58,9 +65,13 @@ Upload actual files (PDFs, images) under `public/resources/<type>/` or
 
 ## Still needed before launch
 
+- **Real WhatsApp number** in `src/config/contact.ts` (`whatsapp:
+  'YOUR_WHATSAPP_NUMBER'`) — every purchase button is broken until this
+  is set to real digits with country code (e.g. `"919876543210"`)
 - Real teacher photograph (`public/images/teacher/mukesh-singh-dahiya.jpg`)
-- Real contact details (`src/data/site.ts` → `contact`)
-- Real course/paid-note pricing and schedules
+- Real email/phone/address (`src/config/contact.ts`, `src/data/site.ts`)
+- Real course/paid-note/bundle/online-class pricing and schedules
+  (the current prices are illustrative starting suggestions, not final)
 - Real previous examination papers and NEET previous-year questions
 - Payment gateway integration (Razorpay/Cashfree/Stripe) and student
-  accounts, when ready
+  accounts, if/when manual WhatsApp fulfillment is outgrown
