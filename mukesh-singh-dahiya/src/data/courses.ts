@@ -1,8 +1,9 @@
 import type { Course } from './types'
 
-// Sample/demo course to demonstrate the course catalog and detail page.
-// Prices, schedules and curricula are illustrative — update with real
-// details before launch.
+// Sample/demo courses to demonstrate the course catalog and detail page.
+// Prices below are initial suggested starting prices, not final or
+// market-standard pricing — every price is editable here and nowhere
+// else. Schedules and curricula are illustrative until confirmed.
 export const courses: Course[] = [
   {
     id: 'c1',
@@ -14,8 +15,10 @@ export const courses: Course[] = [
     subject: 'science',
     category: 'school',
     description: 'A structured, chapter-by-chapter Class 10 Science course covering Physics, Chemistry and Biology with notes, solved examples and practice questions.',
-    price: 1499,
-    discountPrice: 999,
+    whatsIncluded: ['Recorded lessons', 'Chapter-wise notes', 'Practice questions', 'Doubt support via WhatsApp'],
+    price: 1999,
+    discountPrice: 1499,
+    offerLabel: 'Launch Offer',
     currency: 'INR',
     access: 'paid',
     status: 'Coming Soon',
@@ -42,13 +45,14 @@ export const courses: Course[] = [
   {
     id: 'c2',
     slug: 'neet-botany-foundation',
-    title: 'NEET Botany — Foundation Course',
+    title: 'NEET Botany Course',
     type: 'course',
     subject: 'biology',
     category: 'neet',
     description: 'A dedicated NEET Botany course covering key chapters with concept notes, MCQ practice and revision material.',
-    price: 2999,
-    discountPrice: 1999,
+    whatsIncluded: ['Chapter-wise concept notes', 'MCQ practice sets', 'Revision material', 'Doubt support via WhatsApp'],
+    price: 2499,
+    discountPrice: 1799,
     currency: 'INR',
     access: 'paid',
     status: 'Coming Soon',
@@ -60,6 +64,40 @@ export const courses: Course[] = [
         lessons: [
           { title: 'Overview of Plant Physiology', access: 'free' },
           { title: 'Photosynthesis in Higher Plants', access: 'paid' },
+        ],
+      },
+    ],
+  },
+  {
+    id: 'c3',
+    slug: 'neet-botany-zoology-complete',
+    title: 'NEET Botany + Zoology Complete Course',
+    type: 'course',
+    subject: 'biology',
+    category: 'neet',
+    description: 'The complete NEET Biology course covering both Botany and Zoology — concept notes, MCQ practice, previous-year questions and revision.',
+    whatsIncluded: ['Complete Botany + Zoology coverage', 'Concept notes', 'MCQ & PYQ practice', 'Revision sessions', 'Doubt support via WhatsApp'],
+    price: 4999,
+    discountPrice: 3499,
+    offerLabel: 'Best Value',
+    currency: 'INR',
+    access: 'paid',
+    status: 'Coming Soon',
+    duration: 'Self-paced',
+    level: 'NEET Aspirants',
+    modules: [
+      {
+        title: 'Botany Foundation',
+        lessons: [
+          { title: 'Overview of Plant Physiology', access: 'free' },
+          { title: 'Cell Biology Essentials', access: 'paid' },
+        ],
+      },
+      {
+        title: 'Zoology Foundation',
+        lessons: [
+          { title: 'Overview of Human Physiology', access: 'free' },
+          { title: 'Genetics and Evolution', access: 'paid' },
         ],
       },
     ],

@@ -2,6 +2,7 @@ import { useParams } from 'react-router-dom'
 import SEO from '../components/SEO'
 import Breadcrumbs from '../components/Breadcrumbs'
 import Badge from '../components/Badge'
+import PriceTag from '../components/PriceTag'
 import EnrollmentCTA from '../components/EnrollmentCTA'
 import Icon from '../components/Icon'
 import NotFound from './NotFound'
@@ -19,36 +20,44 @@ export default function CourseDetail() {
       <SEO title={course.title} description={course.description} />
       <Breadcrumbs items={[{ label: 'Home', to: '/' }, { label: 'Courses', to: '/courses' }, { label: course.title }]} />
 
-      <div className="border-b border-slate-200 bg-slate-50 dark:border-navy-800 dark:bg-navy-900/40">
+      <div className="border-b border-navy-800 bg-navy-900">
         <div className="container-page grid gap-8 py-12 lg:grid-cols-3 lg:items-start">
           <div className="lg:col-span-2">
-            <div className="mb-3 flex flex-wrap gap-1.5">
-              {cls && <Badge tone="brand">{cls.label}</Badge>}
-              {course.board && <Badge>{course.board}</Badge>}
-              {course.level && <Badge>{course.level}</Badge>}
+            <div className="mb-3 flex flex-wrap items-center gap-1.5">
+              <Badge tone="gold">Premium</Badge>
+              {cls && <Badge tone="slate">{cls.label}</Badge>}
+              {course.board && <Badge tone="slate">{course.board}</Badge>}
+              {course.level && course.level !== cls?.label && <Badge tone="slate">{course.level}</Badge>}
             </div>
-            <h1 className="font-serif text-3xl font-bold text-navy-900 dark:text-white sm:text-4xl">{course.title}</h1>
-            <p className="mt-3 text-slate-600 dark:text-slate-300">{course.description}</p>
-            {course.duration && <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">Duration: {course.duration}</p>}
+            <h1 className="font-serif text-3xl font-bold text-white sm:text-4xl">{course.title}</h1>
+            <p className="mt-3 text-slate-300">{course.description}</p>
+            {course.duration && <p className="mt-2 text-sm text-slate-400">Duration: {course.duration}</p>}
           </div>
-          <div className="card p-6">
-            <div className="mb-4 flex items-baseline gap-2">
-              {course.discountPrice ? (
-                <>
-                  <span className="text-3xl font-bold text-navy-900 dark:text-white">₹{course.discountPrice}</span>
-                  <span className="text-slate-400 line-through">₹{course.price}</span>
-                </>
-              ) : (
-                <span className="text-3xl font-bold text-navy-900 dark:text-white">₹{course.price}</span>
-              )}
+          <div className="card border-gold-400/20 bg-white p-6 dark:bg-navy-800">
+            <PriceTag pricing={course} size="lg" />
+            <div className="mt-4">
+              <EnrollmentCTA kind="course" data={course} status={course.status} />
             </div>
-            <EnrollmentCTA status={course.status} price={course.price} discountPrice={course.discountPrice} />
           </div>
         </div>
       </div>
 
-      <div className="container-page py-14">
-        <h2 className="mb-6 text-2xl font-bold text-navy-900 dark:text-white">Curriculum</h2>
+      <div className="container-page py-14 pb-24 sm:pb-14">
+        {course.whatsIncluded && course.whatsIncluded.length > 0 && (
+          <section className="mb-14">
+            <h2 className="mb-5 text-xl font-bold text-navy-900 dark:text-white">What's Included</h2>
+            <ul className="grid gap-3 sm:grid-cols-2">
+              {course.whatsIncluded.map((item) => (
+                <li key={item} className="flex items-center gap-2 text-sm text-navy-700 dark:text-slate-200">
+                  <Icon name="check" className="h-4 w-4 shrink-0 text-emerald-600 dark:text-emerald-400" />
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
+
+        <h2 className="mb-6 text-2xl font-bold text-navy-900 dark:text-white">Course Curriculum</h2>
         <div className="space-y-4">
           {course.modules.map((mod) => (
             <div key={mod.title} className="card p-5">
@@ -70,6 +79,12 @@ export default function CourseDetail() {
             </div>
           ))}
         </div>
+      </div>
+
+      {/* Mobile sticky bottom CTA */}
+      <div className="fixed inset-x-0 bottom-0 z-20 flex items-center justify-between gap-3 border-t border-slate-200 bg-white/95 px-4 py-3 backdrop-blur dark:border-navy-700 dark:bg-navy-900/95 sm:hidden">
+        <PriceTag pricing={course} size="sm" />
+        <EnrollmentCTA kind="course" data={course} status={course.status} compact />
       </div>
     </>
   )

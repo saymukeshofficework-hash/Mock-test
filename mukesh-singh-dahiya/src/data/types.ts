@@ -85,7 +85,22 @@ export interface CourseModule {
   lessons: { title: string; access: 'free' | 'paid' }[]
 }
 
-export interface Course {
+// Shared pricing fields. Centralized here so no component ever hardcodes
+// a price — every price shown on the site is read from one of these
+// product records. `offerLabel` is only ever rendered when set (never
+// fabricate an offer), and `discountPrice`/`price` must both be present
+// and valid for a "Save ₹X" line to be shown (see src/lib/currency.ts).
+export interface Pricing {
+  price?: number
+  discountPrice?: number
+  currency: 'INR'
+  offerLabel?: string
+  validity?: string
+}
+
+export type EnrollmentStatus = 'Enrollment Open' | 'Coming Soon' | 'Enrollment Closed'
+
+export interface Course extends Pricing {
   id: string
   slug: string
   title: string
@@ -95,18 +110,16 @@ export interface Course {
   subject?: string
   category: 'school' | 'neet'
   description: string
+  whatsIncluded?: string[]
   thumbnail?: string
-  price?: number
-  discountPrice?: number
-  currency: 'INR'
   access: 'paid'
-  status: 'Enrollment Open' | 'Coming Soon' | 'Enrollment Closed'
+  status: EnrollmentStatus
   duration?: string
   level?: string
   modules: CourseModule[]
 }
 
-export interface PaidNote {
+export interface PaidNote extends Pricing {
   id: string
   slug: string
   title: string
@@ -115,15 +128,28 @@ export interface PaidNote {
   subject: string
   chapter?: string
   description: string
+  whatsIncluded?: string[]
+  format?: string
   previewFile?: string
   file?: string
-  price: number
-  discountPrice?: number
-  currency: 'INR'
   access: 'paid'
 }
 
-export interface OnlineClass {
+export interface Bundle extends Pricing {
+  id: string
+  slug: string
+  title: string
+  type: 'bundle'
+  classSlug?: string
+  board?: Board
+  subject?: string
+  category: 'school' | 'neet'
+  description: string
+  includes: string[]
+  access: 'paid'
+}
+
+export interface OnlineClass extends Pricing {
   id: string
   slug: string
   title: string
@@ -137,9 +163,9 @@ export interface OnlineClass {
   startDate?: string
   duration?: string
   mode: 'Online (Live)' | 'To be announced'
-  price?: number
-  currency: 'INR'
-  status: 'Enrollment Open' | 'Coming Soon' | 'Enrollment Closed'
+  priceType?: 'month' | 'course' | 'batch'
+  registrationFee?: number
+  status: EnrollmentStatus
 }
 
 export interface CalculatorField {

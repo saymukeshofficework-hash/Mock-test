@@ -2,6 +2,7 @@ import { useParams } from 'react-router-dom'
 import SEO from '../components/SEO'
 import Breadcrumbs from '../components/Breadcrumbs'
 import Badge from '../components/Badge'
+import PriceTag from '../components/PriceTag'
 import EnrollmentCTA from '../components/EnrollmentCTA'
 import NotFound from './NotFound'
 import { getOnlineClass } from '../data/onlineClasses'
@@ -26,10 +27,11 @@ export default function OnlineClassDetail() {
     <>
       <SEO title={oc.title} description={oc.description} />
       <Breadcrumbs items={[{ label: 'Home', to: '/' }, { label: 'Online Classes', to: '/online-classes' }, { label: oc.title }]} />
-      <div className="container-page py-14 sm:py-16">
+      <div className="container-page py-14 pb-24 sm:pb-16">
         <div className="grid gap-8 lg:grid-cols-3 lg:items-start">
           <div className="lg:col-span-2">
-            <div className="mb-3 flex flex-wrap gap-1.5">
+            <div className="mb-3 flex flex-wrap items-center gap-1.5">
+              <Badge tone="green">Live / Online</Badge>
               {cls && <Badge tone="brand">{cls.label}</Badge>}
               <Badge>{oc.board}</Badge>
             </div>
@@ -48,11 +50,22 @@ export default function OnlineClassDetail() {
             </dl>
           </div>
 
-          <div className="card p-6">
-            {oc.price && <p className="mb-4 text-3xl font-bold text-navy-900 dark:text-white">₹{oc.price}</p>}
-            <EnrollmentCTA status={oc.status} price={oc.price} />
+          <div className="card border-emerald-400/20 p-6">
+            <PriceTag pricing={oc} size="lg" suffix={oc.priceType ? `/${oc.priceType}` : undefined} />
+            {oc.registrationFee !== undefined && (
+              <p className="mt-2 text-xs text-slate-500 dark:text-slate-400">Plus a one-time registration fee — details shared on WhatsApp.</p>
+            )}
+            <div className="mt-4">
+              <EnrollmentCTA kind="onlineClass" data={oc} status={oc.status} />
+            </div>
           </div>
         </div>
+      </div>
+
+      {/* Mobile sticky bottom CTA */}
+      <div className="fixed inset-x-0 bottom-0 z-20 flex items-center justify-between gap-3 border-t border-slate-200 bg-white/95 px-4 py-3 backdrop-blur dark:border-navy-700 dark:bg-navy-900/95 sm:hidden">
+        <PriceTag pricing={oc} size="sm" suffix={oc.priceType ? `/${oc.priceType}` : undefined} />
+        <EnrollmentCTA kind="onlineClass" data={oc} status={oc.status} compact />
       </div>
     </>
   )

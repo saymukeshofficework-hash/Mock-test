@@ -1,3 +1,5 @@
+import { contact } from '../config/contact'
+
 export const site = {
   name: 'Mukesh Singh Dahiya',
   title: 'Teacher & Educator',
@@ -18,8 +20,9 @@ export const site = {
   // Placeholder — real photo to be supplied later.
   teacherImage: './images/teacher/mukesh-singh-dahiya.jpg',
   contact: {
-    email: '', // placeholder — to be provided
-    phone: '', // placeholder — to be provided
+    email: contact.email, // placeholder — to be provided
+    phone: contact.phone, // placeholder — to be provided
+    whatsapp: contact.whatsapp, // placeholder — to be provided
     address: '', // placeholder — to be provided
     social: [] as { label: string; url: string }[],
   },

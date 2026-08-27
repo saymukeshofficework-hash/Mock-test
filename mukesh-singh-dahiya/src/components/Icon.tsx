@@ -22,10 +22,21 @@ const paths: Record<string, string> = {
   mapPin: 'M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 1 1 16 0Z M12 13a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z',
   filter: 'M4 5h16l-6 8v6l-4-2v-4L4 5Z',
   play: 'M6 4l14 8-14 8V4Z',
+  whatsapp:
+    'M20.5 3.5A10.6 10.6 0 0 0 3 17.4L2 22l4.7-1.2A10.6 10.6 0 1 0 20.5 3.5ZM12 20.2a8.6 8.6 0 0 1-4.4-1.2l-.3-.2-2.7.7.7-2.6-.2-.3A8.6 8.6 0 1 1 12 20.2Zm4.7-6.4c-.3-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1-.2.3-.6.8-.8 1-.1.1-.3.2-.5.1-.3-.1-1.1-.4-2.1-1.3-.8-.7-1.3-1.6-1.5-1.8-.1-.3 0-.4.1-.5l.4-.5c.1-.1.2-.3.2-.4.1-.1 0-.3 0-.4-.1-.1-.6-1.5-.9-2-.2-.5-.5-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.3-.9.9-.9 2.2s1 2.5 1.1 2.7c.1.1 2 3.1 4.9 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.6-.3Z',
 }
+
+const filledIcons = new Set(['whatsapp'])
 
 export default function Icon({ name, className = 'h-5 w-5' }: { name: string; className?: string }) {
   const d = paths[name] ?? paths.check
+  if (filledIcons.has(name)) {
+    return (
+      <svg viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden="true">
+        <path d={d} />
+      </svg>
+    )
+  }
   return (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className} aria-hidden="true">
       <path d={d} />

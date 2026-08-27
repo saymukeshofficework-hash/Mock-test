@@ -3,6 +3,7 @@ import { subjects } from '../data/subjects'
 import { resources } from '../data/resources'
 import { courses } from '../data/courses'
 import { paidNotes } from '../data/paidNotes'
+import { bundles } from '../data/bundles'
 import { onlineClasses } from '../data/onlineClasses'
 import { calculators } from '../data/calculators'
 
@@ -30,6 +31,7 @@ function buildIndex(): SearchResult[] {
   )
   courses.forEach((c) => items.push({ id: `course-${c.id}`, title: c.title, type: 'Course', to: `/courses/${c.slug}` }))
   paidNotes.forEach((n) => items.push({ id: `paidnote-${n.id}`, title: n.title, type: 'Premium Note', to: `/paid-notes/${n.slug}` }))
+  bundles.forEach((b) => items.push({ id: `bundle-${b.id}`, title: b.title, type: 'Bundle', to: `/bundles/${b.slug}` }))
   onlineClasses.forEach((c) => items.push({ id: `oc-${c.id}`, title: c.title, type: 'Online Class', to: `/online-classes/${c.slug}` }))
   calculators.forEach((c) => items.push({ id: `calc-${c.slug}`, title: c.title, type: 'Calculator', to: `/calculators/${c.slug}` }))
   items.push({ id: 'neet', title: 'NEET Biology', type: 'NEET', to: '/neet' })

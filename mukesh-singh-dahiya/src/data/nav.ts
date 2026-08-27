@@ -30,6 +30,7 @@ export const navGroups: NavGroup[] = [
     links: [
       { label: 'Courses', to: '/courses' },
       { label: 'Paid Notes', to: '/paid-notes' },
+      { label: 'Study Bundles', to: '/bundles' },
       { label: 'Online Classes', to: '/online-classes' },
     ],
   },

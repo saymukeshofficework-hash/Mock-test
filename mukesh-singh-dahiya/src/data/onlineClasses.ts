@@ -1,8 +1,9 @@
 import type { OnlineClass } from './types'
 import { site } from './site'
 
-// Sample online-class listing. Real schedules, fees and enrollment status
-// to be confirmed and updated before launch.
+// Sample online-class listing. Prices below are initial suggested
+// starting prices, not final. Real schedules and enrollment status to be
+// confirmed and updated before launch.
 export const onlineClasses: OnlineClass[] = [
   {
     id: 'oc1',
@@ -14,6 +15,8 @@ export const onlineClasses: OnlineClass[] = [
     teacher: site.name,
     description: 'A live, doubt-clearing online batch for Class 10 Science covering the full CBSE syllabus.',
     mode: 'To be announced',
+    price: 1999,
+    priceType: 'month',
     currency: 'INR',
     status: 'Coming Soon',
   },

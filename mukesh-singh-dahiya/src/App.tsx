@@ -17,6 +17,8 @@ import Courses from './pages/Courses'
 import CourseDetail from './pages/CourseDetail'
 import PaidNotes from './pages/PaidNotes'
 import PaidNoteDetail from './pages/PaidNoteDetail'
+import Bundles from './pages/Bundles'
+import BundleDetail from './pages/BundleDetail'
 import OnlineClasses from './pages/OnlineClasses'
 import OnlineClassDetail from './pages/OnlineClassDetail'
 import Neet from './pages/Neet'
@@ -63,6 +65,8 @@ export default function App() {
           <Route path="/courses/:slug" element={<CourseDetail />} />
           <Route path="/paid-notes" element={<PaidNotes />} />
           <Route path="/paid-notes/:slug" element={<PaidNoteDetail />} />
+          <Route path="/bundles" element={<Bundles />} />
+          <Route path="/bundles/:slug" element={<BundleDetail />} />
           <Route path="/online-classes" element={<OnlineClasses />} />
           <Route path="/online-classes/:slug" element={<OnlineClassDetail />} />
 

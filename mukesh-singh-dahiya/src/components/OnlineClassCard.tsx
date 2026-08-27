@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import type { OnlineClass } from '../data/types'
 import Badge from './Badge'
+import PriceTag from './PriceTag'
 import { getClass } from '../data/classes'
 
 const statusTone = {
@@ -12,8 +13,9 @@ const statusTone = {
 export default function OnlineClassCard({ oc }: { oc: OnlineClass }) {
   const cls = getClass(oc.classSlug)
   return (
-    <Link to={`/online-classes/${oc.slug}`} className="card flex flex-col gap-3 p-5 transition hover:-translate-y-0.5 hover:shadow-card-lg">
+    <Link to={`/online-classes/${oc.slug}`} className="card flex flex-col gap-3 border-l-4 border-l-emerald-500 p-5 transition hover:-translate-y-0.5 hover:shadow-card-lg">
       <div className="flex flex-wrap items-center gap-1.5">
+        <Badge tone="green">Live / Online</Badge>
         {cls && <Badge>{cls.label}</Badge>}
         <Badge>{oc.board}</Badge>
         <Badge tone={statusTone[oc.status]}>{oc.status}</Badge>
@@ -23,6 +25,9 @@ export default function OnlineClassCard({ oc }: { oc: OnlineClass }) {
       <p className="text-xs font-medium text-slate-400 dark:text-slate-500">
         {oc.days && oc.time ? `${oc.days} · ${oc.time}` : 'Schedule to be announced'}
       </p>
+      <div className="mt-auto border-t border-slate-100 pt-3 dark:border-navy-700">
+        <PriceTag pricing={oc} suffix={oc.priceType ? `/${oc.priceType}` : undefined} />
+      </div>
     </Link>
   )
 }

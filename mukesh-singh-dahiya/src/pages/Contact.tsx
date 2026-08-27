@@ -2,7 +2,9 @@ import { useState } from 'react'
 import SEO from '../components/SEO'
 import Breadcrumbs from '../components/Breadcrumbs'
 import Icon from '../components/Icon'
+import WhatsAppButton from '../components/WhatsAppButton'
 import { site } from '../data/site'
+import { generalMessage } from '../lib/whatsapp'
 
 export default function Contact() {
   const [sent, setSent] = useState(false)
@@ -18,6 +20,16 @@ export default function Contact() {
 
           <div className="mt-10 grid gap-8 lg:grid-cols-2">
             <div className="space-y-4">
+              <div className="card flex flex-col gap-3 border-emerald-500/30 bg-emerald-50/60 p-5 dark:bg-emerald-500/10">
+                <div className="flex items-center gap-4">
+                  <Icon name="whatsapp" className="h-6 w-6 text-emerald-600 dark:text-emerald-400" />
+                  <div>
+                    <p className="font-semibold text-navy-900 dark:text-white">Have questions about courses, notes or online classes?</p>
+                    <p className="text-sm text-slate-500 dark:text-slate-400">Chat directly on WhatsApp for a quick response.</p>
+                  </div>
+                </div>
+                <WhatsAppButton message={generalMessage()} label="Chat on WhatsApp" className="self-start" />
+              </div>
               <div className="card flex items-center gap-4 p-5">
                 <Icon name="mail" className="h-5 w-5 text-brand-600 dark:text-cyan-300" />
                 <div>

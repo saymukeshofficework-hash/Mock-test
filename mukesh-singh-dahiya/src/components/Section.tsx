@@ -9,6 +9,7 @@ export default function Section({
   ctaTo,
   children,
   className = '',
+  tone = 'light',
 }: {
   eyebrow?: string
   title: string
@@ -17,22 +18,26 @@ export default function Section({
   ctaTo?: string
   children: ReactNode
   className?: string
+  tone?: 'light' | 'dark'
 }) {
+  const isDark = tone === 'dark'
   return (
-    <section className={`container-page py-14 sm:py-16 ${className}`}>
-      <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
-        <div className="max-w-2xl">
-          {eyebrow && <p className="section-label mb-2">{eyebrow}</p>}
-          <h2 className="text-2xl font-bold text-navy-900 dark:text-white sm:text-3xl">{title}</h2>
-          {description && <p className="mt-2 text-slate-600 dark:text-slate-300">{description}</p>}
+    <section className={`${isDark ? 'bg-navy-900' : ''} ${className}`}>
+      <div className="container-page py-14 sm:py-16">
+        <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
+          <div className="max-w-2xl">
+            {eyebrow && <p className={`section-label mb-2 ${isDark ? 'text-gold-400' : ''}`}>{eyebrow}</p>}
+            <h2 className={`text-2xl font-bold sm:text-3xl ${isDark ? 'text-white' : 'text-navy-900 dark:text-white'}`}>{title}</h2>
+            {description && <p className={`mt-2 ${isDark ? 'text-slate-300' : 'text-slate-600 dark:text-slate-300'}`}>{description}</p>}
+          </div>
+          {cta && ctaTo && (
+            <Link to={ctaTo} className={isDark ? 'btn-secondary border-white/20 bg-transparent text-white hover:border-gold-400 hover:text-gold-400' : 'btn-secondary shrink-0'}>
+              {cta}
+            </Link>
+          )}
         </div>
-        {cta && ctaTo && (
-          <Link to={ctaTo} className="btn-secondary shrink-0">
-            {cta}
-          </Link>
-        )}
+        {children}
       </div>
-      {children}
     </section>
   )
 }

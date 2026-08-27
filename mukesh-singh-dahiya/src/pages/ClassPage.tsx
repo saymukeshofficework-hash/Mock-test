@@ -5,6 +5,7 @@ import SubjectCard from '../components/SubjectCard'
 import ResourceCard from '../components/ResourceCard'
 import CourseCard from '../components/CourseCard'
 import PaidNoteCard from '../components/PaidNoteCard'
+import BundleCard from '../components/BundleCard'
 import OnlineClassCard from '../components/OnlineClassCard'
 import EmptyState from '../components/EmptyState'
 import Badge from '../components/Badge'
@@ -14,6 +15,7 @@ import { subjectsForClass } from '../data/subjects'
 import { resources } from '../data/resources'
 import { courses } from '../data/courses'
 import { paidNotes } from '../data/paidNotes'
+import { bundles } from '../data/bundles'
 import { onlineClasses } from '../data/onlineClasses'
 
 export default function ClassPage() {
@@ -25,6 +27,7 @@ export default function ClassPage() {
   const classResources = resources.filter((r) => r.classSlug === cls.slug)
   const classCourses = courses.filter((c) => c.classSlug === cls.slug)
   const classPaidNotes = paidNotes.filter((n) => n.classSlug === cls.slug)
+  const classBundles = bundles.filter((b) => b.classSlug === cls.slug)
   const classOnlineClasses = onlineClasses.filter((c) => c.classSlug === cls.slug)
 
   return (
@@ -83,7 +86,7 @@ export default function ClassPage() {
           <EmptyState title="Previous papers will be added here" message="Previous examination papers for this class will be uploaded soon." icon="book" />
         </section>
 
-        {(classCourses.length > 0 || classPaidNotes.length > 0 || classOnlineClasses.length > 0) && (
+        {(classCourses.length > 0 || classPaidNotes.length > 0 || classBundles.length > 0 || classOnlineClasses.length > 0) && (
           <section>
             <h2 className="mb-6 text-2xl font-bold text-navy-900 dark:text-white">Premium Learning</h2>
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -92,6 +95,9 @@ export default function ClassPage() {
               ))}
               {classPaidNotes.map((n) => (
                 <PaidNoteCard key={n.id} note={n} />
+              ))}
+              {classBundles.map((b) => (
+                <BundleCard key={b.id} bundle={b} />
               ))}
               {classOnlineClasses.map((c) => (
                 <OnlineClassCard key={c.id} oc={c} />
