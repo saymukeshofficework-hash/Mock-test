@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TET Mock Test 16</title>
+<link rel="stylesheet" href="assets/tet-engine.css">
+</head>
+<body>
+<div id="app">
+
+  <header class="topbar">
+    <div class="topbar-left">
+      <a class="home-link" href="index.html">&larr; Home</a>
+      <h1 id="examTitle">शिक्षक पात्रता परीक्षा (Mock Test 16) (150 Q | 150 Marks | 2:30 Hrs)</h1>
+    </div>
+    <div class="timer" id="timerDisplay">Time Left : 150:00</div>
+  </header>
+
+  <!-- NAME ENTRY SCREEN -->
+  <div id="nameScreen" style="background:#fff;margin:16px;border:1px solid var(--border);padding:30px 20px;text-align:center;max-width:420px;margin-left:auto;margin-right:auto;">
+    <h2 style="margin-top:0;font-size:18px;">Enter Your Name to Begin</h2>
+    <p style="font-size:13px;color:#666;">Your name will appear on your test and result summary.</p>
+    <input type="text" id="candidateNameInput" placeholder="Your full name" style="width:100%;padding:10px;font-size:15px;border:1px solid var(--border);border-radius:4px;margin:14px 0;box-sizing:border-box;">
+    <div id="nameError" style="color:var(--red);font-size:12px;min-height:16px;"></div>
+    <button class="btn-primary" style="width:100%;padding:10px;margin-top:6px;" onclick="proceedToInstructions()">Continue</button>
+  </div>
+
+  <!-- INSTRUCTIONS SCREEN -->
+  <div id="instructionsScreen" style="display:none;">
+    <div class="instr-header">Instructions</div>
+    <div class="instr-body">
+      <h3>Please read the instructions carefully</h3>
+      <p><strong>General Instructions:</strong></p>
+      <ol>
+        <li>Total duration of examination is <strong>150 minutes (2 Hours 30 Minutes)</strong>.</li>
+        <li>The test has <strong>150 questions</strong> across 5 sections — Child Development &amp; Pedagogy, Language-1 (English), Language-2 (Hindi), Mathematics and Environmental Studies — <strong>30 questions each, 1 mark per question, no negative marking</strong>, total 150 marks.</li>
+        <li>The clock will be set at the server. The countdown timer will display the remaining time. When the timer reaches zero, the examination will end and auto-submit.</li>
+        <li>The Question Palette on the right will show the status of each question using the symbols below:</li>
+      </ol>
+      <div class="status-chip"><span class="box grey">1</span> You have not visited the question yet.</div><br>
+      <div class="status-chip"><span class="box red">2</span> You have not answered the question.</div><br>
+      <div class="status-chip"><span class="box green">3</span> You have answered the question.</div><br>
+      <div class="status-chip"><span class="box purple">4</span> You have marked the question for review.</div><br>
+      <ol start="4">
+        <li>The "Mark for Review" status simply means you would like to look at that question again. If a question is answered and marked for review, your answer for that question will still be considered in evaluation, unless changed.</li>
+        <li>To answer a question, select an option and click "Save &amp; Next".</li>
+        <li>To deselect a chosen answer, click "Clear Response".</li>
+        <li>To change your answer, select another option and click "Save &amp; Next".</li>
+        <li>Sections in this test will be displayed as tabs at the top. Questions in a section can be viewed by clicking the section name.</li>
+        <li>You can navigate between sections and questions anytime during the test, subject to the time constraint.</li>
+      </ol>
+      <p>Choose your default language:</p>
+      <select id="defaultLang">
+        <option value="en">English</option>
+        <option value="hi">हिन्दी (Hindi)</option>
+      </select>
+      <p style="color:#c0392b;font-size:13px;">Please note all questions will appear in your default language. This language can be changed for a particular question later on.</p>
+      <div class="agree-row">
+        <input type="checkbox" id="agreeBox">
+        <label for="agreeBox">I have read and understood the instructions. All computer hardware allotted to me is in proper working condition. I declare that I am not in possession of any prohibited material. I agree that in case of not adhering to the instructions, I shall be liable to disciplinary action.</label>
+      </div>
+    </div>
+    <div class="instr-footer">
+      <span style="font-size:12px;color:#777;">Candidate: <span id="candidateNameFooter">-</span></span>
+      <button class="btn-primary" id="beginBtn" disabled onclick="beginTest()">I am ready to begin</button>
+    </div>
+  </div>
+
+  <!-- TEST SCREEN -->
+  <div id="testScreen">
+    <div class="section-tabs" id="sectionTabs"></div>
+    <div class="main-layout">
+      <div class="question-panel">
+        <div class="qtype-bar">
+          <span>Question Type: MCQ</span>
+          <span id="qMeta">Marks for correct answer: 1 | Negative Marks: 0</span>
+        </div>
+        <div class="view-lang" id="langBarWrap">
+          View in:
+          <select id="qLangSelect" onchange="renderQuestion()">
+            <option value="en">English</option>
+            <option value="hi">हिन्दी</option>
+          </select>
+        </div>
+        <div class="question-body">
+          <h3 id="qNoLabel">Question No. 1</h3>
+          <div class="qtext" id="qText"></div>
+          <div id="optionsList"></div>
+        </div>
+        <div class="action-bar">
+          <div class="left-btns">
+            <button onclick="markForReviewAndNext()">Mark for Review &amp; Next</button>
+            <button onclick="clearResponse()">Clear Response</button>
+          </div>
+          <div class="right-btns">
+            <button onclick="prevQuestion()">Previous</button>
+            <button class="btn-primary" onclick="saveAndNext()">Save &amp; Next</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="sidebar">
+        <div class="candidate">
+          <div class="avatar">🧑</div>
+          <div><strong id="candidateNameSidebar">-</strong></div>
+        </div>
+        <div class="legend">
+          <div class="item"><span class="num" style="background:var(--green)" id="cntAnswered">0</span> Answered</div>
+          <div class="item"><span class="num" style="background:var(--red)" id="cntNotAnswered">0</span> Not Answered</div>
+          <div class="item"><span class="num" style="background:var(--grey)" id="cntNotVisited">0</span> Not Visited</div>
+          <div class="item"><span class="num" style="background:var(--purple)" id="cntMarked">0</span> Marked for Review</div>
+        </div>
+        <div class="sec-select-title" id="sidebarSectionName">SECTION</div>
+        <div class="palette-title">Choose a Question</div>
+        <div class="palette" id="palette"></div>
+        <div class="submit-row">
+          <button class="btn-primary" onclick="confirmSubmit()">Submit</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RESULT SCREEN -->
+  <div id="resultScreen">
+    <h2>Test Submitted</h2>
+    <p id="resultCandidateLine" style="color:#555;font-size:14px;"></p>
+    <p id="resultSummaryLine"></p>
+    <div class="result-grid">
+      <div class="result-card score"><div class="num" id="resScore">0</div><div>Score</div></div>
+      <div class="result-card correct"><div class="num" id="resCorrect">0</div><div>Correct</div></div>
+      <div class="result-card incorrect"><div class="num" id="resIncorrect">0</div><div>Incorrect</div></div>
+      <div class="result-card unattempted"><div class="num" id="resUnattempted">0</div><div>Unattempted</div></div>
+    </div>
+    <table class="sec-breakdown" id="secBreakdownTable">
+      <thead><tr><th>Section</th><th>Total</th><th>Correct</th><th>Incorrect</th><th>Unattempted</th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+</div>
+
+<script src="assets/data/test-16.js"></script>
+<script src="assets/tet-engine.js"></script>
+</body>
+</html>

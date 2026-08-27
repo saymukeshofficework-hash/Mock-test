@@ -1,5 +1,14 @@
 # Mock-test
-Just for test mock
+
+## TET Mock Tests
+
+The site root ([`index.html`](./index.html)) is the **TET Mock Tests** home page — it lists all 20 TET (Teacher Eligibility Test) mock tests as cards with a question count and a "Start Test" button. Each test (`tet-mock-test-1.html` … `tet-mock-test-20.html`) is a 150-question, 5-section, bilingual (English/Hindi) exam with a timer, question palette and results screen, all sharing one engine:
+
+- [`assets/tet-engine.css`](./assets/tet-engine.css) and [`assets/tet-engine.js`](./assets/tet-engine.js) — the exam UI/logic, shared by every test page.
+- `assets/data/test-N.js` — that test's 150 questions (`const sections = [...]`), loaded before the shared engine.
+- `scripts/question-bank.js` — the underlying pool of questions per section (60 each), and [`scripts/generate-tests.js`](./scripts/generate-tests.js) — generates all 20 data files + HTML pages from that bank (a rotating 30-question window per test, so no test repeats a question within itself). Run `node scripts/generate-tests.js` after editing the bank to regenerate everything.
+
+To publish test 21+: add questions to `scripts/question-bank.js`, bump `TOTAL_TESTS` in `scripts/generate-tests.js`, re-run it, and add one entry to the `tests` array in `index.html`.
 
 ## BBC English Coaching Classes Burhar
 
