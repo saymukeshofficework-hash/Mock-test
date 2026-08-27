@@ -16,16 +16,25 @@
       // router reads it. Anything else just shows a plain not-found page.
       (function () {
         var path = window.location.pathname
-        var marker = '/bulbul-bhatia/'
-        var idx = path.indexOf(marker)
-        if (idx !== -1) {
-          var base = path.slice(0, idx + marker.length)
-          var rest = path.slice(idx + marker.length)
-          var target =
-            base +
-            'index.html?bm_redirect=' +
-            encodeURIComponent('/' + rest + window.location.search + window.location.hash)
-          window.location.replace(target)
+        var apps = [
+          { marker: '/bulbul-bhatia/', param: 'bm_redirect' },
+          { marker: '/mukesh-singh-dahiya/', param: 'msd_redirect' },
+        ]
+        for (var i = 0; i < apps.length; i++) {
+          var marker = apps[i].marker
+          var idx = path.indexOf(marker)
+          if (idx !== -1) {
+            var base = path.slice(0, idx + marker.length)
+            var rest = path.slice(idx + marker.length)
+            var target =
+              base +
+              'index.html?' +
+              apps[i].param +
+              '=' +
+              encodeURIComponent('/' + rest + window.location.search + window.location.hash)
+            window.location.replace(target)
+            return
+          }
         }
       })()
     </script>
