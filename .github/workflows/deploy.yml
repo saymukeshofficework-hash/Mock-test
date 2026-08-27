@@ -61,8 +61,9 @@ jobs:
           rm -rf _site
           mkdir -p _site
 
-          # mock-test app at the site root
+          # TET Mock Tests home page + test pages at the site root
           cp index.html _site/
+          cp tet-mock-test-1.html _site/
           cp saanp-seedhi-multiplayer.html _site/
           cp 404.html _site/
 

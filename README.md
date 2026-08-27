@@ -1,5 +1,8 @@
 # Mock-test
-Just for test mock
+
+## TET Mock Tests
+
+The site root ([`index.html`](./index.html)) is the **TET Mock Tests** home page — it lists every available TET (Teacher Eligibility Test) mock test as a card with a question count and a "Start Test" button. Each test is a self-contained static HTML page (e.g. [`tet-mock-test-1.html`](./tet-mock-test-1.html)) with its own questions, timer, and results screen — no backend required. To publish a new test, add its page at the repo root and add one entry to the `tests` array in `index.html`.
 
 ## BBC English Coaching Classes Burhar
 
