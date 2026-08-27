@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Dashboard — TET Test Hub</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <a class="brand" href="index.html">
+      <span class="logo" aria-hidden="true">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </span>
+      TET Test Hub
+    </a>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="tests.html">All Tests</a>
+      <a href="#" id="logoutLink">Logout</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <div id="loadingMsg" style="padding:60px 0;text-align:center;color:var(--muted);">Loading your dashboard…</div>
+
+    <div id="dashContent" style="display:none;">
+      <div class="dash-header">
+        <div class="who">
+          <h1>Welcome, <span id="whoName">Student</span></h1>
+          <p>Student ID: <strong id="whoId">-</strong></p>
+          <span class="pkg" id="whoPackage">Package</span>
+        </div>
+        <button class="btn btn-secondary" id="logoutBtn">Logout</button>
+      </div>
+
+      <div id="disabledNotice" class="alert alert-error" style="display:none;">
+        Your account is currently disabled. Please contact support — see the <a href="contact.html">Contact page</a>.
+      </div>
+
+      <h2 style="font-size:18px;margin:0 0 6px;">My Tests</h2>
+      <p style="font-size:13px;color:var(--muted);margin:0 0 20px;">Results are shown at the end of each test — they aren't saved for later viewing yet.</p>
+      <div class="grid" id="myTestsGrid"></div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="links">
+      <a href="index.html">Home</a>
+      <a href="tests.html">All Tests</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    TET Test Hub &mdash; free-to-browse, paid mock tests for Teacher Eligibility Test aspirants.
+  </footer>
+
+<script src="assets/vendor/supabase/supabase.js"></script>
+<script src="js/site-config.js"></script>
+<script src="js/auth.js"></script>
+<script>
+  const DOC_ICON = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M6 2h9l5 5v15H6V2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 13h6M9 17h6M9 9h2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
+  async function doLogout() {
+    await logout();
+    location.href = 'index.html';
+  }
+  document.getElementById('logoutLink').addEventListener('click', (e) => { e.preventDefault(); doLogout(); });
+  document.getElementById('logoutBtn').addEventListener('click', doLogout);
+
+  function renderTests(purchasedTests) {
+    const grid = document.getElementById('myTestsGrid');
+    grid.innerHTML = '';
+    TEST_CATALOG.forEach(t => {
+      const owned = purchasedTests.includes(t.id);
+      const card = document.createElement('div');
+      card.className = 'card test-card';
+      card.innerHTML = `
+        <div class="badge">${t.number}</div>
+        <h3>${t.title}</h3>
+        <p class="desc">${DOC_ICON} ${t.questions} Questions &middot; ${t.minutes} Minutes</p>
+        <div class="cta"></div>
+      `;
+      const cta = card.querySelector('.cta');
+      if (owned) {
+        const a = document.createElement('a');
+        a.className = 'btn btn-primary btn-block';
+        a.href = t.file;
+        a.textContent = '✅ START TEST';
+        cta.appendChild(a);
+      } else {
+        const a = document.createElement('a');
+        a.className = 'btn btn-locked btn-block';
+        a.href = 'tests.html';
+        a.textContent = '🔒 BUY TEST';
+        cta.appendChild(a);
+      }
+      grid.appendChild(card);
+    });
+  }
+
+  (async () => {
+    const session = await requireAuth();
+    if (!session) return; // requireAuth already redirected to login.html
+
+    const profile = await getProfile(session.user.id);
+    document.getElementById('loadingMsg').style.display = 'none';
+    document.getElementById('dashContent').style.display = 'block';
+
+    if (!profile) {
+      document.getElementById('whoName').textContent = 'Student';
+      document.getElementById('disabledNotice').style.display = 'block';
+      document.getElementById('disabledNotice').textContent =
+        'We could not load your account. Please contact support — see the Contact page.';
+      return;
+    }
+
+    document.getElementById('whoName').textContent = profile.full_name || profile.student_id;
+    document.getElementById('whoId').textContent = profile.student_id;
+    document.getElementById('whoPackage').textContent = profile.package || 'No package assigned';
+
+    if (profile.status !== 'active') {
+      document.getElementById('disabledNotice').style.display = 'block';
+      renderTests([]);
+      return;
+    }
+
+    renderTests(profile.purchased_tests || []);
+  })();
+</script>
+</body>
+</html>

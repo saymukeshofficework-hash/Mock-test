@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact — TET Test Hub</title>
+<meta name="description" content="Contact TET Test Hub for payment support and to receive your Student ID and password after purchase.">
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <a class="brand" href="index.html">
+      <span class="logo" aria-hidden="true">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </span>
+      TET Test Hub
+    </a>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="tests.html">All Tests</a>
+      <a href="login.html">Student Login</a>
+      <a href="about.html">About</a>
+      <a href="contact.html" class="active">Contact</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="section" style="max-width:640px;">
+      <h2>Contact &amp; Payment Support</h2>
+      <p class="lead">
+        After payment, contact us with your payment details (screenshot or order ID) to
+        receive your Student ID and Password. We verify each payment manually, so please
+        allow some time after sending your details.
+      </p>
+      <div class="card" id="contactCard" style="max-width:420px;">
+        <p style="margin:6px 0;"><strong>WhatsApp:</strong> <span id="cWhatsapp">-</span></p>
+        <p style="margin:6px 0;"><strong>Phone:</strong> <span id="cPhone">-</span></p>
+        <p style="margin:6px 0;"><strong>Email:</strong> <span id="cEmail">-</span></p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="links">
+      <a href="index.html">Home</a>
+      <a href="tests.html">All Tests</a>
+      <a href="login.html">Student Login</a>
+    </div>
+    TET Test Hub &mdash; free-to-browse, paid mock tests for Teacher Eligibility Test aspirants.
+  </footer>
+
+<script src="js/site-config.js"></script>
+<script>
+  function fillContact(id, value) {
+    const el = document.getElementById(id);
+    if (!value || value.indexOf('PASTE_') === 0) {
+      el.textContent = 'Coming soon';
+      el.style.color = 'var(--muted)';
+    } else {
+      el.textContent = value;
+    }
+  }
+  fillContact('cWhatsapp', SITE_CONFIG.contact.whatsapp);
+  fillContact('cPhone', SITE_CONFIG.contact.phone);
+  fillContact('cEmail', SITE_CONFIG.contact.email);
+</script>
+</body>
+</html>

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>All Tests — TET Test Hub</title>
+<meta name="description" content="Browse all 20 TET full mock tests. Buy a single test or the full 20-test package.">
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="assets/site.css">
+<style>
+  .buy-note{max-width:640px;margin:0 auto 24px;}
+</style>
+</head>
+<body>
+
+  <header class="site-header">
+    <a class="brand" href="index.html">
+      <span class="logo" aria-hidden="true">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </span>
+      TET Test Hub
+    </a>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="tests.html" class="active">All Tests</a>
+      <a href="login.html">Student Login</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="section">
+      <h2>All TET Mock Tests</h2>
+      <p class="lead">Each test has 150 questions across 5 sections, bilingual (English/Hindi), 150 minutes. Buy a single test, or the full pack below.</p>
+
+      <div id="buyNote" class="alert alert-info buy-note" style="display:none;"></div>
+
+      <div id="all20" class="card pricing-card" style="max-width:340px;margin:0 auto 36px;">
+        <span class="ribbon">Best Value</span>
+        <h3>All 20 Tests</h3>
+        <div class="price">₹<span id="priceAll20">199</span></div>
+        <ul>
+          <li>All 20 full mock tests</li>
+          <li>3000 questions in total</li>
+          <li>Instant results, every test</li>
+        </ul>
+        <button class="btn btn-primary btn-block" id="buyAll20Btn">🔒 Buy All 20 Tests</button>
+      </div>
+
+      <div class="grid" id="testGrid"></div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="links">
+      <a href="index.html">Home</a>
+      <a href="login.html">Student Login</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    TET Test Hub &mdash; free-to-browse, paid mock tests for Teacher Eligibility Test aspirants.
+  </footer>
+
+<script src="assets/vendor/supabase/supabase.js"></script>
+<script src="js/site-config.js"></script>
+<script src="js/auth.js"></script>
+<script>
+  document.getElementById('priceAll20').textContent = PRICES.all20;
+
+  function showBuyNote() {
+    const el = document.getElementById('buyNote');
+    let contactLine = '';
+    const wa = SITE_CONFIG.contact.whatsapp;
+    if (wa && /^\+?[0-9 ]{8,}$/.test(wa)) {
+      const waLink = 'https://wa.me/' + wa.replace(/[^0-9]/g, '');
+      contactLine = `Message us on WhatsApp: <a href="${waLink}" target="_blank" rel="noopener">${wa}</a>.`;
+    } else {
+      contactLine = `Contact us — see the <a href="contact.html">Contact page</a> for details.`;
+    }
+    el.innerHTML = `<strong>Payment link opened in a new tab.</strong> After successful payment, send your payment screenshot / order details to us on WhatsApp or the contact number/email below. Your Student ID and Password will be provided after we verify the payment. ${contactLine}`;
+    el.style.display = 'block';
+    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function openPaymentLink(url) {
+    if (!url || url.indexOf('PASTE_') === 0) {
+      alert('Payment link not set up yet. Please check back soon or contact us.');
+      return;
+    }
+    window.open(url, '_blank', 'noopener');
+    showBuyNote();
+  }
+
+  document.getElementById('buyAll20Btn').addEventListener('click', () => openPaymentLink(PAYMENT_LINKS.all20));
+
+  const DOC_ICON = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M6 2h9l5 5v15H6V2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 13h6M9 17h6M9 9h2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  const CLOCK_ICON = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/><path d="M12 7v5l3 3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
+
+  const grid = document.getElementById('testGrid');
+
+  function renderCards(purchasedTests) {
+    grid.innerHTML = '';
+    TEST_CATALOG.forEach(t => {
+      const owned = purchasedTests && purchasedTests.includes(t.id);
+      const card = document.createElement('div');
+      card.className = 'card test-card';
+      card.innerHTML = `
+        <div class="badge">${t.number}</div>
+        <h3>${t.title}</h3>
+        <p class="desc">Full Mock Test</p>
+        <div class="meta-row">
+          <span class="meta">${DOC_ICON} ${t.questions} Questions</span>
+          <span class="meta">${CLOCK_ICON} ${t.minutes} Minutes</span>
+        </div>
+        <div class="${owned ? 'status-owned' : 'status-locked'}">${owned ? '✅ Purchased' : '🔒 Not purchased'}</div>
+        <div class="cta"></div>
+      `;
+      const cta = card.querySelector('.cta');
+      if (owned) {
+        const a = document.createElement('a');
+        a.className = 'btn btn-primary btn-block';
+        a.href = t.file;
+        a.textContent = 'START TEST';
+        cta.appendChild(a);
+      } else {
+        const btn = document.createElement('button');
+        btn.className = 'btn btn-locked btn-block';
+        btn.textContent = '🔒 BUY TEST';
+        btn.addEventListener('click', () => openPaymentLink(PAYMENT_LINKS[t.id]));
+        cta.appendChild(btn);
+      }
+      grid.appendChild(card);
+    });
+  }
+
+  // Cards render as locked immediately (no flash of wrong state), then upgrade
+  // to "Purchased" for any test the logged-in student actually owns. This is
+  // a UX convenience only — the real access check happens server-side (Supabase
+  // Row Level Security) when a test page itself tries to fetch its questions.
+  renderCards([]);
+  (async () => {
+    const session = await getSession();
+    if (!session) return;
+    const profile = await getProfile(session.user.id);
+    if (profile && profile.status === 'active') {
+      renderCards(profile.purchased_tests || []);
+    }
+  })();
+</script>
+</body>
+</html>

@@ -1,14 +1,35 @@
 # Mock-test
 
-## TET Mock Tests
+## TET Test Hub
 
-The site root ([`index.html`](./index.html)) is the **TET Mock Tests** home page — it lists all 20 TET (Teacher Eligibility Test) mock tests as cards with a question count and a "Start Test" button. Each test (`tet-mock-test-1.html` … `tet-mock-test-20.html`) is a 150-question, 5-section, bilingual (English/Hindi) exam with a timer, question palette and results screen, all sharing one engine:
+The site root is **TET Test Hub** — a manual-payment, login-gated TET (Teacher
+Eligibility Test) mock test platform: a marketing homepage (`index.html`), a test
+catalogue (`tests.html`), student login/dashboard (`login.html` / `dashboard.html`),
+and 20 exam pages (`tet-mock-test-1.html` … `tet-mock-test-20.html`) — each a
+150-question, 5-section, bilingual (English/Hindi) exam with a timer, question palette
+and results screen, sharing one engine (`assets/tet-engine.css` / `assets/tet-engine.js`).
 
-- [`assets/tet-engine.css`](./assets/tet-engine.css) and [`assets/tet-engine.js`](./assets/tet-engine.js) — the exam UI/logic, shared by every test page.
-- `assets/data/test-N.js` — that test's 150 questions (`const sections = [...]`), loaded before the shared engine.
-- `scripts/question-bank.js` — the underlying pool of questions per section (60 each), and [`scripts/generate-tests.js`](./scripts/generate-tests.js) — generates all 20 data files + HTML pages from that bank (a rotating 30-question window per test, so no test repeats a question within itself). Run `node scripts/generate-tests.js` after editing the bank to regenerate everything.
+Payment is 100% manual (Razorpay Payment Links, verified by hand in the Razorpay
+Dashboard) and accounts are created by hand in Supabase — there is no backend server
+and no payment API integration. Test questions are stored in Supabase (Postgres +
+Row Level Security), not as public files, so only a logged-in student with that test
+in their `purchased_tests` can fetch its questions — enforced by the database, not by
+hiding buttons. See [`ADMIN_INSTRUCTIONS.md`](./ADMIN_INSTRUCTIONS.md) for the full
+setup and day-to-day workflow, and [`SECURITY.md`](./SECURITY.md) for exactly what is
+and isn't protected.
 
-To publish test 21+: add questions to `scripts/question-bank.js`, bump `TOTAL_TESTS` in `scripts/generate-tests.js`, re-run it, and add one entry to the `tests` array in `index.html`.
+- `js/site-config.js` — single source of truth for prices, Razorpay Payment Links,
+  Supabase connection details, contact info, and the 20-test catalogue.
+- `js/auth.js` — shared Supabase Auth helpers (login, logout, session/profile checks).
+- `scripts/question-bank.js` / `scripts/lib/build-sections.js` — the question pool.
+- [`scripts/export-supabase-seed.js`](./scripts/export-supabase-seed.js) — generates
+  `supabase/seed_tests.sql` (paste into the Supabase SQL Editor) from the bank.
+- [`scripts/generate-tests.js`](./scripts/generate-tests.js) — generates the 20
+  `tet-mock-test-N.html` shells from `scripts/test-page.template.html`.
+
+To publish test 21+: extend `scripts/question-bank.js`, bump `TOTAL_TESTS` in both
+generator scripts, add a row to `TEST_CATALOG`/`PAYMENT_LINKS` in `js/site-config.js`,
+re-run both scripts, and paste the new SQL into Supabase.
 
 ## BBC English Coaching Classes Burhar
 

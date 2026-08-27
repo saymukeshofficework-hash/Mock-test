@@ -61,10 +61,11 @@ jobs:
           rm -rf _site
           mkdir -p _site
 
-          # TET Mock Tests home page + test pages at the site root
-          cp index.html _site/
+          # TET Test Hub: marketing site + test pages at the site root
+          cp index.html tests.html login.html dashboard.html about.html contact.html _site/
           cp tet-mock-test-*.html _site/
           cp -r assets _site/assets
+          cp -r js _site/js
           cp saanp-seedhi-multiplayer.html _site/
           cp 404.html _site/
 
