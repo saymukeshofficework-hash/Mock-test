@@ -20,6 +20,7 @@ import { onlineClasses } from '../data/onlineClasses'
 import { calculators } from '../data/calculators'
 import { resources } from '../data/resources'
 import { generalMessage } from '../lib/whatsapp'
+import { asset } from '../lib/publicBase'
 
 export default function Home() {
   const latestResources = [...resources].sort((a, b) => (b.date ?? '').localeCompare(a.date ?? '')).slice(0, 4)
@@ -66,12 +67,16 @@ export default function Home() {
             </div>
           </div>
           <div className="relative mx-auto w-full max-w-sm">
-            <div className="rounded-3xl border border-white/10 bg-white/5 shadow-card-lg backdrop-blur flex aspect-square w-full flex-col items-center justify-center gap-3 overflow-hidden p-8 text-center">
-              <div className="flex h-24 w-24 items-center justify-center rounded-2xl bg-cyan-400 text-3xl font-bold text-navy-950">
-                MD
+            <div className="relative aspect-square w-full overflow-hidden rounded-3xl border border-white/10 shadow-card-lg">
+              <img
+                src={asset(site.teacherImage)}
+                alt={`${site.name} — ${site.title}`}
+                className="h-full w-full object-cover object-top"
+              />
+              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-navy-950/90 via-navy-950/40 to-transparent p-5">
+                <p className="font-serif text-lg font-bold text-white">{site.name}</p>
+                <p className="text-sm text-slate-300">{site.title}</p>
               </div>
-              <p className="font-serif text-lg font-bold text-white">{site.name}</p>
-              <p className="text-sm text-slate-400">Teacher photograph to be added</p>
             </div>
           </div>
         </div>

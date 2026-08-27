@@ -17,8 +17,7 @@ export const site = {
     { label: 'CBSE + MP Board', icon: 'shield' },
     { label: 'English Medium', icon: 'globe' },
   ] as { label: string; icon: string }[],
-  // Placeholder — real photo to be supplied later.
-  teacherImage: './images/teacher/mukesh-singh-dahiya.jpg',
+  teacherImage: '/images/teacher/mukesh-singh-dahiya.jpg',
   contact: {
     email: contact.email, // placeholder — to be provided
     phone: contact.phone, // placeholder — to be provided
