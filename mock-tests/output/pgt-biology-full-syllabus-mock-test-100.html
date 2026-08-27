@@ -1,0 +1,1541 @@
+<!DOCTYPE html>
+<html lang="hi">
+	<head>
+		<meta charset="UTF-8" />
+		<meta
+			name="viewport"
+			content="width=device-width,initial-scale=1.0,maximum-scale=1.0"
+		/>
+		<title>PGT Biology Mock Test</title>
+		<style>
+			:root {
+				--navy: #16204e;
+				--navy-l: #22307a;
+				--blue: #2f6fed;
+				--blue-l: #eaf1ff;
+				--green: #1ba672;
+				--red: #e2483d;
+				--purple: #8b5cf6;
+				--bg: #f4f6fb;
+				--ink: #1c2233;
+				--muted: #6b7280;
+				--border: #e1e5ee;
+			}
+			* {
+				box-sizing: border-box;
+			}
+			html,
+			body {
+				margin: 0;
+				padding: 0;
+			}
+			body {
+				font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+					Roboto, "Noto Sans Devanagari", Helvetica, Arial, sans-serif;
+				background: var(--bg);
+				color: var(--ink);
+			}
+			#app {
+				max-width: 720px;
+				margin: 0 auto;
+				min-height: 100vh;
+				background: #fff;
+				display: flex;
+				flex-direction: column;
+			}
+			.topbar {
+				background: var(--navy);
+				color: #fff;
+				padding: 14px 16px;
+				display: flex;
+				justify-content: space-between;
+				align-items: flex-start;
+				gap: 10px;
+			}
+			.topbar .ttext {
+				font-weight: 800;
+				font-size: 17px;
+			}
+			.topbar small {
+				display: block;
+				font-weight: 400;
+				opacity: 0.75;
+				font-size: 12px;
+				margin-top: 3px;
+			}
+			.langBtn {
+				flex: 0 0 auto;
+				background: rgba(255, 255, 255, 0.14);
+				border: 1px solid rgba(255, 255, 255, 0.45);
+				color: #fff;
+				padding: 7px 13px;
+				border-radius: 999px;
+				font-size: 12.5px;
+				font-weight: 700;
+				white-space: nowrap;
+				cursor: pointer;
+			}
+			.langBtn:active {
+				background: rgba(255, 255, 255, 0.28);
+			}
+			.timerbar {
+				background: var(--blue);
+				color: #fff;
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				padding: 10px 16px;
+				font-size: 14px;
+			}
+			#timer {
+				background: #0d1430;
+				padding: 5px 12px;
+				border-radius: 6px;
+				font-weight: 700;
+				font-variant-numeric: tabular-nums;
+				font-size: 15px;
+			}
+			.timerbar.warn #timer {
+				background: var(--red);
+			}
+			.sectiontabs {
+				display: flex;
+				overflow-x: auto;
+				gap: 6px;
+				padding: 10px 12px;
+				background: var(--blue-l);
+				border-bottom: 1px solid var(--border);
+			}
+			.sectiontabs button {
+				flex: 0 0 auto;
+				border: 1px solid #c7d6f7;
+				background: #fff;
+				color: var(--navy);
+				padding: 7px 10px;
+				border-radius: 999px;
+				font-size: 12.5px;
+				font-weight: 600;
+				white-space: nowrap;
+			}
+			.sectiontabs button.active {
+				background: var(--navy);
+				border-color: var(--navy);
+				color: #fff;
+			}
+			.palette {
+				display: grid;
+				grid-template-columns: repeat(8, 1fr);
+				gap: 6px;
+				padding: 12px;
+				max-height: 190px;
+				overflow-y: auto;
+				background: #fbfcfe;
+				border-bottom: 1px solid var(--border);
+			}
+			.pcell {
+				aspect-ratio: 1;
+				border-radius: 7px;
+				border: 1px solid var(--border);
+				background: #fff;
+				color: var(--ink);
+				font-size: 12px;
+				font-weight: 700;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				position: relative;
+				cursor: pointer;
+			}
+			.pcell.current {
+				outline: 2px solid var(--navy);
+				outline-offset: 1px;
+			}
+			.pcell.answered {
+				background: var(--green);
+				border-color: var(--green);
+				color: #fff;
+			}
+			.pcell.notanswered {
+				background: var(--red);
+				border-color: var(--red);
+				color: #fff;
+			}
+			.pcell.marked {
+				background: var(--purple);
+				border-color: var(--purple);
+				color: #fff;
+			}
+			.pcell.marked.answered::after {
+				content: "";
+				position: absolute;
+				bottom: 2px;
+				right: 2px;
+				width: 6px;
+				height: 6px;
+				border-radius: 50%;
+				background: var(--green);
+				border: 1px solid #fff;
+			}
+			.legend {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 10px;
+				padding: 8px 14px;
+				font-size: 11px;
+				color: var(--muted);
+				background: #fbfcfe;
+				border-bottom: 1px solid var(--border);
+			}
+			.legend span {
+				display: inline-flex;
+				align-items: center;
+				gap: 4px;
+			}
+			.dot {
+				width: 9px;
+				height: 9px;
+				border-radius: 3px;
+				display: inline-block;
+			}
+			.qpanel {
+				padding: 16px;
+				flex: 1;
+			}
+			.qmeta {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				margin-bottom: 10px;
+				gap: 8px;
+			}
+			.qno {
+				font-weight: 700;
+				font-size: 14px;
+				color: var(--navy);
+				flex: 0 0 auto;
+			}
+			.qsec {
+				font-size: 11px;
+				color: #fff;
+				background: var(--navy-l);
+				padding: 3px 9px;
+				border-radius: 999px;
+				font-weight: 600;
+				text-align: right;
+			}
+			.qtext {
+				font-size: 16px;
+				line-height: 1.65;
+				margin-bottom: 16px;
+				font-weight: 600;
+			}
+			.options {
+				display: flex;
+				flex-direction: column;
+				gap: 10px;
+			}
+			.opt {
+				display: flex;
+				align-items: flex-start;
+				gap: 10px;
+				border: 1px solid var(--border);
+				border-radius: 10px;
+				padding: 11px 12px;
+				font-size: 15px;
+				line-height: 1.55;
+				cursor: pointer;
+			}
+			.opt.selected {
+				border-color: var(--blue);
+				background: var(--blue-l);
+			}
+			.opt input {
+				margin-top: 4px;
+				flex: 0 0 auto;
+			}
+			.opt label {
+				flex: 1;
+				cursor: pointer;
+			}
+			.actions {
+				display: flex;
+				gap: 10px;
+				padding: 0 16px 10px;
+			}
+			.actions button {
+				flex: 1;
+				padding: 12px 8px;
+				border-radius: 8px;
+				border: 1px solid var(--border);
+				background: #fff;
+				font-weight: 600;
+				font-size: 13px;
+				color: var(--navy);
+			}
+			.actions2 {
+				display: flex;
+				gap: 10px;
+				padding: 0 16px 16px;
+			}
+			.actions2 button {
+				flex: 1;
+				padding: 13px 8px;
+				border-radius: 8px;
+				border: none;
+				font-weight: 700;
+				font-size: 14px;
+			}
+			#prevBtn {
+				background: #eef0f6;
+				color: var(--navy);
+			}
+			#saveBtn {
+				background: var(--green);
+				color: #fff;
+			}
+			.submitwrap {
+				padding: 0 16px 22px;
+			}
+			#submitBtn {
+				width: 100%;
+				padding: 14px;
+				border: none;
+				border-radius: 8px;
+				background: var(--blue);
+				color: #fff;
+				font-weight: 700;
+				font-size: 15px;
+			}
+			/* Name entry screen */
+			#nameScreen {
+				max-width: 720px;
+				margin: 0 auto;
+				min-height: 100vh;
+				background: #fff;
+				display: flex;
+				flex-direction: column;
+			}
+			#nameScreen .ntop {
+				background: var(--navy);
+				color: #fff;
+				padding: 14px 16px;
+				display: flex;
+				justify-content: space-between;
+				align-items: flex-start;
+				gap: 10px;
+			}
+			#nameScreen .ncard {
+				flex: 1;
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
+				padding: 28px 24px;
+				text-align: center;
+			}
+			#nameScreen .nicon {
+				width: 60px;
+				height: 60px;
+				border-radius: 50%;
+				background: var(--blue-l);
+				color: var(--navy);
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				font-size: 26px;
+				font-weight: 800;
+				margin-bottom: 18px;
+			}
+			#nameScreen .ntitle {
+				font-size: 19px;
+				font-weight: 800;
+				color: var(--navy);
+				margin-bottom: 6px;
+			}
+			#nameScreen .nsub {
+				font-size: 13.5px;
+				color: var(--muted);
+				margin-bottom: 24px;
+			}
+			#nameScreen .nfield {
+				width: 100%;
+				max-width: 340px;
+				text-align: left;
+				margin-bottom: 22px;
+			}
+			#nameScreen .nfield label {
+				display: block;
+				font-size: 12.5px;
+				font-weight: 600;
+				color: var(--navy);
+				margin-bottom: 6px;
+			}
+			#nameInput {
+				width: 100%;
+				padding: 13px 14px;
+				border: 1.5px solid var(--border);
+				border-radius: 10px;
+				font-size: 16px;
+				color: var(--ink);
+				background: #fbfcfe;
+			}
+			#nameInput:focus {
+				outline: none;
+				border-color: var(--blue);
+			}
+			#startBtn {
+				width: 100%;
+				max-width: 340px;
+				padding: 14px;
+				border: none;
+				border-radius: 8px;
+				background: var(--blue);
+				color: #fff;
+				font-weight: 700;
+				font-size: 15px;
+			}
+			/* Result screen */
+			#resultScreen {
+				display: none;
+				max-width: 720px;
+				margin: 0 auto;
+				background: #fff;
+				min-height: 100vh;
+			}
+			.rhero {
+				background: var(--navy);
+				color: #fff;
+				padding: 28px 20px 22px;
+				text-align: center;
+				position: relative;
+			}
+			.rhero .rbrand {
+				font-size: 11px;
+				font-weight: 600;
+				letter-spacing: 1px;
+				opacity: 0.6;
+				text-transform: uppercase;
+			}
+			.rhero .rname {
+				font-size: 14px;
+				font-weight: 700;
+				margin-top: 8px;
+				opacity: 0.95;
+			}
+			.rhero .score {
+				font-size: 46px;
+				font-weight: 800;
+				line-height: 1;
+				margin-top: 6px;
+			}
+			.rhero .outof {
+				font-size: 14px;
+				opacity: 0.8;
+				margin-top: 4px;
+			}
+			.rhero .pct {
+				display: inline-block;
+				margin-top: 10px;
+				background: rgba(255, 255, 255, 0.12);
+				padding: 5px 14px;
+				border-radius: 999px;
+				font-size: 13px;
+				font-weight: 600;
+			}
+			.rhero .langBtn {
+				position: absolute;
+				top: 14px;
+				right: 14px;
+			}
+			.rwrap {
+				padding: 0 18px 24px;
+			}
+			table.rtable {
+				width: 100%;
+				border-collapse: collapse;
+				margin: 18px 0;
+				font-size: 12.5px;
+			}
+			table.rtable th,
+			table.rtable td {
+				padding: 8px 6px;
+				text-align: center;
+				border-bottom: 1px solid var(--border);
+			}
+			table.rtable th {
+				background: #f4f6fb;
+				font-size: 11px;
+				color: var(--muted);
+				text-transform: uppercase;
+				letter-spacing: 0.3px;
+			}
+			table.rtable td:first-child,
+			table.rtable th:first-child {
+				text-align: left;
+			}
+			.rnote {
+				font-size: 12.5px;
+				color: var(--muted);
+				margin: 4px 0 16px;
+			}
+			details.qreview {
+				border: 1px solid var(--border);
+				border-radius: 8px;
+				margin-bottom: 8px;
+				padding: 10px 12px;
+			}
+			details.qreview summary {
+				font-size: 13px;
+				font-weight: 600;
+				cursor: pointer;
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				list-style: none;
+				gap: 8px;
+			}
+			details.qreview summary::-webkit-details-marker {
+				display: none;
+			}
+			.rtag {
+				font-size: 11px;
+				font-weight: 700;
+				padding: 2px 8px;
+				border-radius: 999px;
+				color: #fff;
+				flex-shrink: 0;
+			}
+			.rtag.ok {
+				background: var(--green);
+			}
+			.rtag.bad {
+				background: var(--red);
+			}
+			.rtag.skip {
+				background: var(--muted);
+			}
+			.rqtext {
+				font-size: 14px;
+				margin: 10px 0 8px;
+				font-weight: 600;
+			}
+			.rsol {
+				font-size: 13px;
+				background: #f4f6fb;
+				border-radius: 6px;
+				padding: 8px 10px;
+				margin-bottom: 8px;
+				color: var(--muted);
+			}
+			.ropt {
+				font-size: 13.5px;
+				padding: 6px 9px;
+				border-radius: 6px;
+				margin-bottom: 5px;
+				border: 1px solid var(--border);
+			}
+			.ropt.correctAns {
+				background: #e6f7f0;
+				border-color: var(--green);
+			}
+			.ropt.wrongChosen {
+				background: #fdecea;
+				border-color: var(--red);
+			}
+			#retakeBtn {
+				width: 100%;
+				padding: 13px;
+				border: none;
+				border-radius: 8px;
+				background: var(--blue);
+				color: #fff;
+				font-weight: 700;
+				font-size: 14px;
+				margin-top: 6px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="nameScreen">
+			<div class="ntop">
+				<div>
+					<div class="ttext">PGT Biology Mock Test</div>
+					<small id="nSubtitleText"
+						>MP Varg-1 (PGT) &nbsp;&middot;&nbsp; 100
+						Questions</small
+					>
+				</div>
+				<button class="langBtn" id="langBtnName" type="button">
+					हिंदी
+				</button>
+			</div>
+			<div class="ncard">
+				<div class="nicon">&#9878;</div>
+				<div class="ntitle" id="nCardTitle">Before you begin</div>
+				<div class="nsub" id="nCardSub">
+					Enter your name so it appears on your result.
+				</div>
+				<div class="nfield">
+					<label for="nameInput" id="nFieldLabel">Student Name</label>
+					<input
+						type="text"
+						id="nameInput"
+						placeholder="e.g. Riya Sharma"
+						maxlength="60"
+						autocomplete="off"
+					/>
+				</div>
+				<button id="startBtn" type="button">Start Test</button>
+			</div>
+		</div>
+
+		<div id="app" style="display: none">
+			<div class="topbar">
+				<div>
+					<div class="ttext">PGT Biology Mock Test</div>
+					<small id="subtitleText"
+						>MP Varg-1 (PGT) &nbsp;&middot;&nbsp; 100
+						Questions</small
+					>
+				</div>
+				<button class="langBtn" id="langBtn" type="button">
+					हिंदी
+				</button>
+			</div>
+			<div class="timerbar" id="timerbar">
+				<span id="timeLeftLabel">Time Left</span>
+				<span id="timer">120:00</span>
+			</div>
+			<div class="sectiontabs" id="sectiontabs"></div>
+			<div class="palette" id="palette"></div>
+			<div class="legend">
+				<span
+					><i class="dot" style="background: var(--green)"></i
+					><span id="legAns">Answered</span></span
+				>
+				<span
+					><i class="dot" style="background: var(--red)"></i
+					><span id="legNot">Not Answered</span></span
+				>
+				<span
+					><i class="dot" style="background: var(--purple)"></i
+					><span id="legMarked">Marked</span></span
+				>
+				<span
+					><i
+						class="dot"
+						style="
+							background: #fff;
+							border: 1px solid var(--border);
+						"
+					></i
+					><span id="legVisit">Not Visited</span></span
+				>
+			</div>
+			<div class="qpanel" id="qpanel">
+				<div class="qmeta">
+					<span class="qno" id="qno">Q 1 of 100</span>
+					<span class="qsec" id="qsec"></span>
+				</div>
+				<div class="qtext" id="qtext"></div>
+				<div class="options" id="options"></div>
+			</div>
+			<div class="actions">
+				<button id="clearBtn">Clear Response</button>
+				<button id="markBtn">Mark for Review & Next</button>
+			</div>
+			<div class="actions2">
+				<button id="prevBtn">&#8249; Previous</button>
+				<button id="saveBtn">Save & Next &#8250;</button>
+			</div>
+			<div class="submitwrap">
+				<button id="submitBtn">Submit Test</button>
+			</div>
+		</div>
+
+		<div id="resultScreen"></div>
+
+		<script>
+			const SECTIONS = [
+				{ key: "S1", label: { hi: "भाग 1 (1–10): कोशिका विज्ञान एवं कोशिका विभाजन", en: "Part 1 (1-10): Cell Biology & Cell Division" } },
+				{ key: "S2", label: { hi: "भाग 2 (11–20): आनुवंशिकी एवं आणविक जीव विज्ञान", en: "Part 2 (11-20): Genetics & Molecular Biology" } },
+				{ key: "S3", label: { hi: "भाग 3 (21–30): पादप कार्यिकी", en: "Part 3 (21-30): Plant Physiology" } },
+				{ key: "S4", label: { hi: "भाग 4 (31–40): मानव कार्यिकी–I (पाचन, परिसंचरण, श्वसन, उत्सर्जन)", en: "Part 4 (31-40): Human Physiology I (Digestion, Circulation, Respiration, Excretion)" } },
+				{ key: "S5", label: { hi: "भाग 5 (41–50): मानव कार्यिकी–II (तंत्रिका एवं अंतःस्रावी तंत्र)", en: "Part 5 (41-50): Human Physiology II (Nervous & Endocrine System)" } },
+				{ key: "S6", label: { hi: "भाग 6 (51–60): जनन (पादप एवं मानव)", en: "Part 6 (51-60): Reproduction (Plant & Human)" } },
+				{ key: "S7", label: { hi: "भाग 7 (61–70): पारिस्थितिकी एवं पर्यावरण", en: "Part 7 (61-70): Ecology & Environment" } },
+				{ key: "S8", label: { hi: "भाग 8 (71–80): जैव विकास", en: "Part 8 (71-80): Evolution" } },
+				{ key: "S9", label: { hi: "भाग 9 (81–90): जैव प्रौद्योगिकी एवं आनुवंशिक अभियांत्रिकी", en: "Part 9 (81-90): Biotechnology & Genetic Engineering" } },
+				{ key: "S10", label: { hi: "भाग 10 (91–100): जैव विविधता, सूक्ष्मजीव विज्ञान एवं मानव स्वास्थ्य", en: "Part 10 (91-100): Biodiversity, Microbiology & Human Health" } },
+			];
+
+			const Q = [
+				// ===== S1: Cell Biology & Cell Division =====
+				{ s: "S1", a: 1,
+					q: { hi: "किस कोशिकांग को 'कोशिका का पावर हाउस' कहा जाता है?", en: "Which organelle is known as the 'powerhouse of the cell'?" },
+					o: { hi: ["गॉल्जी उपकरण", "माइटोकॉन्ड्रिया", "राइबोसोम", "लाइसोसोम"], en: ["Golgi apparatus", "Mitochondria", "Ribosome", "Lysosome"] },
+					sol: { hi: "सही उत्तर: B) माइटोकॉन्ड्रिया — क्योंकि यह कोशिकीय श्वसन द्वारा ATP का उत्पादन करता है।", en: "Correct answer: B) Mitochondria — because it produces ATP through cellular respiration." } },
+				{ s: "S1", a: 2,
+					q: { hi: "पादप कोशिकाओं की कोशिका भित्ति मुख्यतः किससे बनी होती है?", en: "The cell wall in plant cells is mainly composed of?" },
+					o: { hi: ["काइटिन", "पेप्टिडोग्लाइकन", "सेल्युलोज", "क्यूटिन"], en: ["Chitin", "Peptidoglycan", "Cellulose", "Cutin"] },
+					sol: { hi: "सही उत्तर: C) सेल्युलोज — जो पादप कोशिका भित्ति का मुख्य संरचनात्मक पॉलीसैकेराइड है।", en: "Correct answer: C) Cellulose — the main structural polysaccharide of plant cell walls." } },
+				{ s: "S1", a: 1,
+					q: { hi: "जल-अपघटनी (हाइड्रोलिटिक) एंजाइमों द्वारा अंतःकोशिकीय पाचन के लिए कौन-सा कोशिकांग उत्तरदायी है?", en: "Which cell organelle is responsible for intracellular digestion via hydrolytic enzymes?" },
+					o: { hi: ["परऑक्सिसोम", "लाइसोसोम", "राइबोसोम", "सेंट्रियोल"], en: ["Peroxisome", "Lysosome", "Ribosome", "Centriole"] },
+					sol: { hi: "सही उत्तर: B) लाइसोसोम — इसमें जल-अपघटनी एंजाइम होते हैं, इसलिए इसे कोशिका की 'आत्महत्या थैली' कहा जाता है।", en: "Correct answer: B) Lysosome — it contains hydrolytic enzymes and is called the 'suicide bag' of the cell." } },
+				{ s: "S1", a: 1,
+					q: { hi: "माइटोसिस की वह अवस्था जिसमें गुणसूत्र मध्यरेखीय प्लेट पर व्यवस्थित होते हैं, कहलाती है?", en: "The stage of mitosis in which chromosomes align at the equatorial plate is called?" },
+					o: { hi: ["पूर्वावस्था (प्रोफेज)", "मध्यावस्था (मेटाफेज)", "पश्चावस्था (एनाफेज)", "अंत्यावस्था (टीलोफेज)"], en: ["Prophase", "Metaphase", "Anaphase", "Telophase"] },
+					sol: { hi: "सही उत्तर: B) मध्यावस्था (मेटाफेज) — इसमें गुणसूत्र मध्यरेखीय प्लेट पर संरेखित होते हैं।", en: "Correct answer: B) Metaphase — chromosomes align at the equatorial (metaphase) plate." } },
+				{ s: "S1", a: 2,
+					q: { hi: "क्रॉसिंग ओवर अर्धसूत्रीविभाजन (मियोसिस) की किस अवस्था में होता है?", en: "Crossing over occurs during which stage of meiosis?" },
+					o: { hi: ["लेप्टोटीन", "जाइगोटीन", "पैकाइटीन", "डिप्लोटीन"], en: ["Leptotene", "Zygotene", "Pachytene", "Diplotene"] },
+					sol: { hi: "सही उत्तर: C) पैकाइटीन — इस उपअवस्था में असहोदर क्रोमैटिडों के बीच क्रॉसिंग ओवर होता है।", en: "Correct answer: C) Pachytene — crossing over between non-sister chromatids occurs at this substage of prophase I." } },
+				{ s: "S1", a: 2,
+					q: { hi: "कोशिका झिल्ली के तरल मोज़ेक मॉडल (Fluid Mosaic Model) के बारे में निम्नलिखित में से कौन-सा कथन सही है?", en: "Which of the following statements about the cell membrane's fluid mosaic model is correct?" },
+					o: { hi: ["प्रोटीन दृढ़ता से स्थिर रहते हैं और गति नहीं कर सकते", "लिपिड एक दृढ़, अचल परत बनाते हैं", "झिल्ली एक लिपिड द्विस्तर से बनी होती है जिसमें प्रोटीन पार्श्विक रूप से गति कर सकते हैं", "जंतु कोशिका झिल्ली में कोलेस्ट्रॉल अनुपस्थित होता है"], en: ["Proteins are rigidly fixed and cannot move", "Lipids form a rigid, immovable layer", "The membrane consists of a lipid bilayer with proteins that can move laterally", "Cholesterol is absent in animal cell membranes"] },
+					sol: { hi: "सही उत्तर: C) झिल्ली एक लिपिड द्विस्तर है जिसमें प्रोटीन तैरते हैं और पार्श्विक रूप से गति कर सकते हैं, जैसा कि सिंगर और निकोल्सन ने प्रस्तावित किया था।", en: "Correct answer: C) The membrane is a lipid bilayer in which proteins float and can move laterally, as proposed by Singer and Nicolson." } },
+				{ s: "S1", a: 2,
+					q: { hi: "निम्नलिखित में से कौन-सा अंतर्द्रव्यी जालिका (एंडोप्लाज्मिक रेटिकुलम) का कार्य नहीं है?", en: "Which of these is NOT a function of the endoplasmic reticulum?" },
+					o: { hi: ["प्रोटीन संश्लेषण (RER)", "लिपिड संश्लेषण (SER)", "ATP संश्लेषण", "विषहरण (SER)"], en: ["Protein synthesis (RER)", "Lipid synthesis (SER)", "ATP synthesis", "Detoxification (SER)"] },
+					sol: { hi: "सही उत्तर: C) ATP संश्लेषण माइटोकॉन्ड्रिया द्वारा किया जाता है, अंतर्द्रव्यी जालिका द्वारा नहीं।", en: "Correct answer: C) ATP synthesis is carried out by mitochondria, not the endoplasmic reticulum." } },
+				{ s: "S1", a: 2,
+					q: { hi: "2n = 46 गुणसूत्रों वाली एक कायिक कोशिका में, S प्रावस्था में प्रतिकृति के बाद माइटोसिस के मध्यावस्था में कितने क्रोमैटिड उपस्थित होते हैं?", en: "In a somatic cell with 2n = 46 chromosomes, how many chromatids are present at metaphase of mitosis (after S phase replication)?" },
+					o: { hi: ["46", "23", "92", "69"], en: ["46", "23", "92", "69"] },
+					sol: { hi: "सही उत्तर: C) 92 — S प्रावस्था के बाद प्रत्येक 46 गुणसूत्र के दो सहोदर क्रोमैटिड होते हैं, अतः 46 × 2 = 92।", en: "Correct answer: C) 92 — after S phase, each of the 46 chromosomes has two sister chromatids, giving 46 × 2 = 92." } },
+				{ s: "S1", a: 1,
+					q: { hi: "गॉल्जी उपकरण मुख्यतः किस कार्य में शामिल होता है?", en: "The Golgi apparatus is primarily involved in?" },
+					o: { hi: ["प्रोटीन संश्लेषण", "प्रोटीन का संवेष्टन (पैकेजिंग) एवं रूपांतरण", "DNA प्रतिकृति", "ATP उत्पादन"], en: ["Protein synthesis", "Packaging and modification of proteins", "DNA replication", "ATP production"] },
+					sol: { hi: "सही उत्तर: B) गॉल्जी उपकरण अंतर्द्रव्यी जालिका से प्राप्त प्रोटीन का संवेष्टन, रूपांतरण एवं प्रेषण करता है।", en: "Correct answer: B) The Golgi apparatus packages, modifies, and dispatches proteins received from the endoplasmic reticulum." } },
+				{ s: "S1", a: 1,
+					q: { hi: "अर्धसूत्रीविभाजन (मियोसिस) मुख्यतः किसके कारण आनुवंशिक विविधता उत्पन्न करता है?", en: "Meiosis results in genetic variation mainly due to:" },
+					o: { hi: ["केवल DNA प्रतिकृति", "क्रॉसिंग ओवर और स्वतंत्र अपव्यूहन (Independent Assortment)", "माइटोकॉन्ड्रिया विभाजन", "केंद्रक झिल्ली का विघटन"], en: ["DNA replication only", "Crossing over and independent assortment", "Mitochondrial division", "Nuclear membrane breakdown"] },
+					sol: { hi: "सही उत्तर: B) मियोसिस-I के दौरान क्रॉसिंग ओवर और गुणसूत्रों का स्वतंत्र अपव्यूहन एलील के नए संयोजन उत्पन्न करते हैं।", en: "Correct answer: B) Crossing over and independent assortment of chromosomes during meiosis I generate new combinations of alleles." } },
+				// ===== S2: Genetics & Molecular Biology =====
+				{ s: "S2", a: 1,
+					q: { hi: "'आनुवंशिकी के जनक' के रूप में किसे जाना जाता है?", en: "Who is known as the 'Father of Genetics'?" },
+					o: { hi: ["चार्ल्स डार्विन", "ग्रेगर मेंडल", "जेम्स वाटसन", "ह्यूगो डी व्रीज़"], en: ["Charles Darwin", "Gregor Mendel", "James Watson", "Hugo de Vries"] },
+					sol: { hi: "सही उत्तर: B) ग्रेगर मेंडल — मटर के पौधों पर अपने प्रयोगों से उन्होंने वंशागति के मूल नियम स्थापित किए।", en: "Correct answer: B) Gregor Mendel — through his experiments on pea plants, he established the basic laws of inheritance." } },
+				{ s: "S2", a: 1,
+					q: { hi: "DNA किस प्रकार की शर्करा से बना होता है?", en: "DNA is composed of which type of sugar?" },
+					o: { hi: ["राइबोस", "डिऑक्सीराइबोस", "ग्लूकोज", "फ्रक्टोज"], en: ["Ribose", "Deoxyribose", "Glucose", "Fructose"] },
+					sol: { hi: "सही उत्तर: B) डिऑक्सीराइबोस — DNA में डिऑक्सीराइबोस शर्करा होती है, जबकि RNA में राइबोस होती है।", en: "Correct answer: B) Deoxyribose — DNA contains deoxyribose sugar, while RNA contains ribose." } },
+				{ s: "S2", a: 2,
+					q: { hi: "DNA में, एडेनिन किसके साथ युग्मित होता है?", en: "In DNA, adenine pairs with?" },
+					o: { hi: ["साइटोसीन", "ग्वानिन", "थाइमीन", "यूरेसिल"], en: ["Cytosine", "Guanine", "Thymine", "Uracil"] },
+					sol: { hi: "सही उत्तर: C) थाइमीन — DNA में एडेनिन दो हाइड्रोजन बंधों द्वारा थाइमीन से युग्मित होता है।", en: "Correct answer: C) Thymine — adenine pairs with thymine via two hydrogen bonds in DNA." } },
+				{ s: "S2", a: 1,
+					q: { hi: "एक विषमयुग्मजी लंबे मटर के पौधे (Tt) और समयुग्मजी अप्रभावी बौने पौधे (tt) के बीच संकरण से संतति किस अनुपात में प्राप्त होगी?", en: "A cross between a heterozygous tall pea plant (Tt) and a homozygous recessive dwarf plant (tt) will produce offspring in what ratio?" },
+					o: { hi: ["3:1", "1:1", "9:3:3:1", "1:2:1"], en: ["3:1", "1:1", "9:3:3:1", "1:2:1"] },
+					sol: { hi: "सही उत्तर: B) 1:1 — यह एक परीक्षार्थ संकरण (टेस्ट क्रॉस) है, जो सदैव दोनों लक्षणप्रारूपों को 1:1 अनुपात में उत्पन्न करता है।", en: "Correct answer: B) 1:1 — this is a test cross, which always produces offspring in a 1:1 ratio of the two phenotypes." } },
+				{ s: "S2", a: 2,
+					q: { hi: "प्रतिकृति के दौरान DNA द्वि-कुंडली को खोलने के लिए कौन-सा एंजाइम उत्तरदायी है?", en: "Which enzyme is responsible for unwinding the DNA double helix during replication?" },
+					o: { hi: ["DNA पॉलीमरेज़", "DNA लाइगेज़", "हेलिकेज़", "प्राइमेज़"], en: ["DNA polymerase", "DNA ligase", "Helicase", "Primase"] },
+					sol: { hi: "सही उत्तर: C) हेलिकेज़ — यह क्षार युग्मों के बीच हाइड्रोजन बंधों को तोड़कर DNA द्वि-कुंडली को खोलता है।", en: "Correct answer: C) Helicase — it unwinds the DNA double helix by breaking hydrogen bonds between base pairs." } },
+				{ s: "S2", a: 2,
+					q: { hi: "दो विषमयुग्मजी जीवों (AaBb × AaBb) के बीच द्विसंकर संकरण में, कितने अंश संतति दोनों अप्रभावी लक्षणप्रारूप प्रदर्शित करेंगी?", en: "In a dihybrid cross between two heterozygous individuals (AaBb × AaBb), what fraction of offspring will show both recessive phenotypes?" },
+					o: { hi: ["9/16", "3/16", "1/16", "1/4"], en: ["9/16", "3/16", "1/16", "1/4"] },
+					sol: { hi: "सही उत्तर: C) 1/16 — मानक 9:3:3:1 द्विसंकर अनुपात में, दोनों अप्रभावी वर्ग (aabb) 16 में से 1 भाग होता है।", en: "Correct answer: C) 1/16 — in a standard 9:3:3:1 dihybrid ratio, the double-recessive class (aabb) makes up 1 out of 16." } },
+				{ s: "S2", a: 1,
+					q: { hi: "DNA टेम्पलेट से mRNA के संश्लेषण की प्रक्रिया को क्या कहते हैं?", en: "The process by which mRNA is synthesized from a DNA template is called?" },
+					o: { hi: ["अनुवाद (ट्रांसलेशन)", "अनुलेखन (ट्रांसक्रिप्शन)", "प्रतिकृति (रेप्लिकेशन)", "पारक्रमण (ट्रांसडक्शन)"], en: ["Translation", "Transcription", "Replication", "Transduction"] },
+					sol: { hi: "सही उत्तर: B) अनुलेखन (ट्रांसक्रिप्शन) — DNA टेम्पलेट से RNA का संश्लेषण, जो RNA पॉलीमरेज़ द्वारा किया जाता है।", en: "Correct answer: B) Transcription — the synthesis of RNA from a DNA template, carried out by RNA polymerase." } },
+				{ s: "S2", a: 2,
+					q: { hi: "आनुवंशिक कोड के बारे में निम्नलिखित में से कौन-सा कथन सही है?", en: "Which of the following statements about the genetic code is correct?" },
+					o: { hi: ["यह अस्पष्ट (Ambiguous) है", "यह अतिव्यापी (Overlapping) है", "यह पतित/अनावश्यक (Degenerate) है", "यह सभी जीवों में पूर्णतः भिन्न होता है"], en: ["It is ambiguous", "It is overlapping", "It is degenerate/redundant", "It varies completely between all organisms"] },
+					sol: { hi: "सही उत्तर: C) आनुवंशिक कोड पतित (Degenerate) है — अधिकांश अमीनो अम्ल एक से अधिक कोडोन द्वारा कोडित होते हैं, फिर भी यह कोड मूलतः सार्वभौमिक और स्पष्ट है।", en: "Correct answer: C) The genetic code is degenerate — most amino acids are coded by more than one codon, though the code is largely universal and non-ambiguous." } },
+				{ s: "S2", a: 1,
+					q: { hi: "AB रक्त वर्ग वाले व्यक्ति को सार्वभौमिक (universal) क्या माना जाता है?", en: "A person with blood group AB is considered a universal?" },
+					o: { hi: ["दाता", "प्राप्तकर्ता", "दाता एवं प्राप्तकर्ता दोनों", "दोनों में से कोई नहीं"], en: ["Donor", "Recipient", "Both donor and recipient", "Neither"] },
+					sol: { hi: "सही उत्तर: B) प्राप्तकर्ता — AB रक्त वर्ग वाले व्यक्ति में A और B दोनों प्रतिजन होते हैं, इसलिए वे किसी भी ABO रक्त वर्ग को ग्रहण कर सकते हैं।", en: "Correct answer: B) Recipient — a person with AB blood group has both A and B antigens, so their plasma lacks anti-A and anti-B antibodies, letting them receive any ABO blood type." } },
+				{ s: "S2", a: 1,
+					q: { hi: "मनुष्यों में डाउन सिंड्रोम किस गुणसूत्रीय असामान्यता के कारण होता है?", en: "Down syndrome in humans is caused by which chromosomal abnormality?" },
+					o: { hi: ["गुणसूत्र 21 का एकसूत्रता (Monosomy)", "गुणसूत्र 21 का त्रिसूत्रता (Trisomy)", "गुणसूत्र 18 का त्रिसूत्रता (Trisomy)", "X गुणसूत्र का एकसूत्रता (Monosomy)"], en: ["Monosomy of chromosome 21", "Trisomy of chromosome 21", "Trisomy of chromosome 18", "Monosomy of X chromosome"] },
+					sol: { hi: "सही उत्तर: B) गुणसूत्र 21 का त्रिसूत्रता — गुणसूत्र 21 की एक अतिरिक्त प्रति की उपस्थिति डाउन सिंड्रोम का कारण बनती है।", en: "Correct answer: B) Trisomy of chromosome 21 — the presence of an extra copy of chromosome 21 causes Down syndrome." } },
+				// ===== S3: Plant Physiology =====
+				{ s: "S3", a: 1,
+					q: { hi: "प्रकाश संश्लेषण मुख्यतः किस कोशिकांग में होता है?", en: "Photosynthesis primarily occurs in which cell organelle?" },
+					o: { hi: ["माइटोकॉन्ड्रिया", "पर्णहरितलवक (क्लोरोप्लास्ट)", "केंद्रक", "राइबोसोम"], en: ["Mitochondria", "Chloroplast", "Nucleus", "Ribosome"] },
+					sol: { hi: "सही उत्तर: B) पर्णहरितलवक — इसमें क्लोरोफिल तथा प्रकाश संश्लेषण की क्रियाविधि होती है।", en: "Correct answer: B) Chloroplast — it contains chlorophyll and the machinery for photosynthesis." } },
+				{ s: "S3", a: 2,
+					q: { hi: "प्रकाश संश्लेषण के लिए उत्तरदायी हरा वर्णक कौन-सा है?", en: "The green pigment responsible for photosynthesis is?" },
+					o: { hi: ["कैरोटीन", "जैंथोफिल", "क्लोरोफिल", "एंथोसायनिन"], en: ["Carotene", "Xanthophyll", "Chlorophyll", "Anthocyanin"] },
+					sol: { hi: "सही उत्तर: C) क्लोरोफिल — यह प्रमुख वर्णक है जो प्रकाश संश्लेषण हेतु प्रकाश ऊर्जा अवशोषित करता है।", en: "Correct answer: C) Chlorophyll — the primary pigment that absorbs light energy for photosynthesis." } },
+				{ s: "S3", a: 0,
+					q: { hi: "प्रकाश संश्लेषण की प्रकाश अभिक्रियाओं में, जल का विखंडन किस प्रक्रिया के दौरान होता है?", en: "In the light reactions of photosynthesis, water is split during which process?" },
+					o: { hi: ["प्रकाश-अपघटन (फोटोलिसिस)", "प्रकाश-श्वसन", "रसाकर्षण (केमियोस्मोसिस)", "कार्बन स्थिरीकरण"], en: ["Photolysis", "Photorespiration", "Chemiosmosis", "Carbon fixation"] },
+					sol: { hi: "सही उत्तर: A) प्रकाश-अपघटन — प्रकाश द्वारा जल के विखंडन से इलेक्ट्रॉन, प्रोटॉन तथा ऑक्सीजन मुक्त होती है।", en: "Correct answer: A) Photolysis — the light-driven splitting of water releases electrons, protons, and oxygen." } },
+				{ s: "S3", a: 1,
+					q: { hi: "केल्विन चक्र (अप्रकाश अभिक्रिया) कहाँ होता है?", en: "The Calvin cycle (dark reaction) occurs in the?" },
+					o: { hi: ["थाइलेकॉइड झिल्ली", "पर्णहरितलवक का स्ट्रोमा", "कोशिकाद्रव्य", "माइटोकॉन्ड्रियल मैट्रिक्स"], en: ["Thylakoid membrane", "Stroma of chloroplast", "Cytoplasm", "Mitochondrial matrix"] },
+					sol: { hi: "सही उत्तर: B) पर्णहरितलवक का स्ट्रोमा — यहीं केल्विन चक्र द्वारा CO2 स्थिरीकरण होता है।", en: "Correct answer: B) Stroma of the chloroplast — this is where CO2 fixation via the Calvin cycle takes place." } },
+				{ s: "S3", a: 1,
+					q: { hi: "शीर्ष प्रभाविता (Apical Dominance) के लिए मुख्यतः कौन-सा पादप हार्मोन उत्तरदायी है?", en: "Which plant hormone is primarily responsible for apical dominance?" },
+					o: { hi: ["साइटोकाइनिन", "ऑक्सिन", "जिबरेलिन", "एथिलीन"], en: ["Cytokinin", "Auxin", "Gibberellin", "Ethylene"] },
+					sol: { hi: "सही उत्तर: B) ऑक्सिन — प्ररोह शीर्ष पर उत्पन्न होकर यह पार्श्व (कक्षीय) कलिकाओं की वृद्धि को दबाता है।", en: "Correct answer: B) Auxin — produced at the shoot apex, it suppresses the growth of lateral (axillary) buds." } },
+				{ s: "S3", a: 1,
+					q: { hi: "गर्म एवं शुष्क जलवायु में C4 पौधे C3 पौधों की तुलना में अधिक दक्ष होते हैं, मुख्यतः क्योंकि वे:", en: "C4 plants are more efficient than C3 plants in hot, dry climates mainly because they:" },
+					o: { hi: ["क्लोरोफिल B से रहित होते हैं", "CO2 स्थिरीकरण के स्थानिक पृथक्करण द्वारा प्रकाश-श्वसन को न्यूनतम करते हैं", "केल्विन चक्र सम्पन्न नहीं करते", "इनमें रंध्र (स्टोमेटा) नहीं होते"], en: ["Lack chlorophyll B", "Minimize photorespiration through spatial separation of CO2 fixation", "Do not perform the Calvin cycle", "Have no stomata"] },
+					sol: { hi: "सही उत्तर: B) C4 पौधे प्रारंभिक CO2 स्थिरीकरण को केल्विन चक्र से स्थानिक रूप से अलग रखते हैं, जिससे प्रकाश-श्वसन न्यूनतम होता है।", en: "Correct answer: B) C4 plants spatially separate initial CO2 fixation (mesophyll cells) from the Calvin cycle (bundle sheath cells), which minimizes photorespiration." } },
+				{ s: "S3", a: 2,
+					q: { hi: "पौधों में वाष्पोत्सर्जन मुख्यतः किसके माध्यम से होता है?", en: "Transpiration in plants occurs mainly through?" },
+					o: { hi: ["उपत्वचा (क्यूटिकल)", "वातरंध्र (लेंटिसेल)", "रंध्र (स्टोमेटा)", "मूलरोम"], en: ["Cuticle", "Lenticels", "Stomata", "Root hairs"] },
+					sol: { hi: "सही उत्तर: C) रंध्र (स्टोमेटा) — पत्तियों के रंध्रों के माध्यम से वाष्पोत्सर्जन द्वारा अधिकांश जल हानि होती है।", en: "Correct answer: C) Stomata — the majority of water loss through transpiration occurs via stomata on leaves." } },
+				{ s: "S3", a: 1,
+					q: { hi: "संसंजन-तनाव सिद्धांत (Cohesion-Tension Theory) के अनुसार ऊँचे वृक्षों में रस के आरोहण की सर्वोत्तम व्याख्या निम्नलिखित में से कौन-सी है?", en: "Which of the following best explains the ascent of sap in tall trees according to the cohesion-tension theory?" },
+					o: { hi: ["केवल मूलदाब जल को ऊपर धकेलता है", "वाष्पोत्सर्जन खिंचाव तथा जल अणुओं का संसंजन साथ मिलकर कार्य करते हैं", "जाइलम कोशिकाओं द्वारा सक्रिय पम्पिंग", "फ्लोएम का परासरण दाब"], en: ["Root pressure alone pushes water upward", "Transpirational pull combined with cohesion of water molecules", "Active pumping by xylem cells", "Osmotic pressure of phloem"] },
+					sol: { hi: "सही उत्तर: B) वाष्पोत्सर्जन खिंचाव, जल अणुओं के संसंजक गुण के साथ मिलकर, जाइलम में सतत जल स्तंभ को ऊपर खींचता है।", en: "Correct answer: B) Transpirational pull, generated by water loss at the leaf surface, combined with the cohesive property of water molecules, pulls the continuous water column up the xylem." } },
+				{ s: "S3", a: 2,
+					q: { hi: "पौधों में फल पकने को कौन-सा हार्मोन बढ़ावा देता है?", en: "Which hormone promotes fruit ripening in plants?" },
+					o: { hi: ["ऑक्सिन", "जिबरेलिन", "एथिलीन", "एब्सिसिक अम्ल"], en: ["Auxin", "Gibberellin", "Ethylene", "Abscisic acid"] },
+					sol: { hi: "सही उत्तर: C) एथिलीन — यह गैसीय हार्मोन फलों में पकने की प्रक्रिया को प्रेरित करता है।", en: "Correct answer: C) Ethylene — this gaseous hormone triggers ripening processes in fruits." } },
+				{ s: "S3", a: 2,
+					q: { hi: "प्रकाश-श्वसन की प्रक्रिया में, RuBisCO किस रूप में कार्य करता है?", en: "In the process of photorespiration, RuBisCO acts as:" },
+					o: { hi: ["केवल कार्बोक्सिलेज़ के रूप में", "केवल ऑक्सीजनेज़ के रूप में", "कार्बोक्सिलेज़ तथा ऑक्सीजनेज़ दोनों के रूप में", "केवल डीकार्बोक्सिलेज़ के रूप में"], en: ["Only a carboxylase", "Only an oxygenase", "Both a carboxylase and an oxygenase", "A decarboxylase only"] },
+					sol: { hi: "सही उत्तर: C) RuBisCO में दोहरी क्रियाशीलता होती है — यह केल्विन चक्र में CO2 स्थिर करता है परंतु O2 से भी बंध सकता है, जिससे प्रकाश-श्वसन प्रारंभ होता है।", en: "Correct answer: C) RuBisCO has dual activity — it fixes CO2 (carboxylase) in the Calvin cycle but can also bind O2 (oxygenase), initiating photorespiration." } },
+				// ===== S4: Human Physiology I =====
+				{ s: "S4", a: 1,
+					q: { hi: "पेप्सिन एंजाइम पाचन तंत्र के किस भाग द्वारा स्रावित होता है?", en: "The enzyme pepsin is secreted by which part of the digestive system?" },
+					o: { hi: ["यकृत", "आमाशय", "अग्न्याशय", "छोटी आंत"], en: ["Liver", "Stomach", "Pancreas", "Small intestine"] },
+					sol: { hi: "सही उत्तर: B) आमाशय — जठर ग्रंथियाँ पेप्सिनोजन स्रावित करती हैं, जो सक्रिय होकर पेप्सिन बनता है और प्रोटीन का पाचन करता है।", en: "Correct answer: B) Stomach — gastric glands secrete pepsinogen, activated to pepsin, which digests proteins." } },
+				{ s: "S4", a: 1,
+					q: { hi: "वृक्क (किडनी) की क्रियात्मक इकाई क्या कहलाती है?", en: "The functional unit of the kidney is called?" },
+					o: { hi: ["न्यूरॉन", "नेफ्रॉन", "कूपिका (एल्वियोलस)", "रसांकुर (विलाई)"], en: ["Neuron", "Nephron", "Alveolus", "Villus"] },
+					sol: { hi: "सही उत्तर: B) नेफ्रॉन — प्रत्येक वृक्क में लगभग दस लाख नेफ्रॉन होते हैं, जो इसकी संरचनात्मक व क्रियात्मक इकाइयाँ हैं।", en: "Correct answer: B) Nephron — each kidney contains about a million nephrons, its structural and functional units." } },
+				{ s: "S4", a: 1,
+					q: { hi: "कौन-सी रक्त वाहिका हृदय से फेफड़ों तक अऑक्सीजनित रक्त ले जाती है?", en: "Which blood vessel carries deoxygenated blood from the heart to the lungs?" },
+					o: { hi: ["फुफ्फुसीय शिरा", "फुफ्फुसीय धमनी", "महाधमनी (एओर्टा)", "महाशिरा (वेना कावा)"], en: ["Pulmonary vein", "Pulmonary artery", "Aorta", "Vena cava"] },
+					sol: { hi: "सही उत्तर: B) फुफ्फुसीय धमनी — यह एकमात्र धमनी है जो अऑक्सीजनित रक्त को दाएँ निलय से फेफड़ों तक ले जाती है।", en: "Correct answer: B) Pulmonary artery — it is the only artery that carries deoxygenated blood, from the right ventricle to the lungs." } },
+				{ s: "S4", a: 2,
+					q: { hi: "फेफड़ों में गैसों का विनिमय कहाँ होता है?", en: "The exchange of gases in the lungs occurs at the?" },
+					o: { hi: ["श्वसनी (ब्रोंकाई)", "श्वासनली (ट्रेकिया)", "कूपिका (एल्वियोली)", "स्वरयंत्र (लैरिंक्स)"], en: ["Bronchi", "Trachea", "Alveoli", "Larynx"] },
+					sol: { hi: "सही उत्तर: C) कूपिका (एल्वियोली) — इनकी पतली दीवारें व समृद्ध रक्त आपूर्ति इन्हें गैस विनिमय का स्थल बनाती हैं।", en: "Correct answer: C) Alveoli — their thin walls and rich blood supply make them the site of gas exchange." } },
+				{ s: "S4", a: 2,
+					q: { hi: "वसा के पायसीकरण में सहायक पित्त (Bile) किसके द्वारा उत्पन्न होता है?", en: "Bile, which helps in fat emulsification, is produced by the?" },
+					o: { hi: ["अग्न्याशय", "पित्ताशय", "यकृत", "आमाशय"], en: ["Pancreas", "Gallbladder", "Liver", "Stomach"] },
+					sol: { hi: "सही उत्तर: C) यकृत — पित्त यकृत द्वारा उत्पन्न होता है तथा पित्ताशय में संचित/सांद्रित होता है।", en: "Correct answer: C) Liver — bile is produced by the liver and stored/concentrated in the gallbladder." } },
+				{ s: "S4", a: 1,
+					q: { hi: "निम्नलिखित में से कौन-सा नेफ्रॉन में अतिनिस्पंदन (Ultrafiltration) की प्रक्रिया का सही वर्णन करता है?", en: "Which of the following correctly describes the process of ultrafiltration in the nephron?" },
+					o: { hi: ["यह हेनले लूप में होता है", "यह ग्लोमेरुलस में रक्तदाब द्वारा संचालित होता है", "यह ATP की आवश्यकता वाली एक सक्रिय परिवहन प्रक्रिया है", "यह संग्रहण नलिका में होता है"], en: ["It occurs in the loop of Henle", "It occurs at the glomerulus, driven by blood pressure", "It is an active transport process requiring ATP", "It occurs in the collecting duct"] },
+					sol: { hi: "सही उत्तर: B) अतिनिस्पंदन ग्लोमेरुलस में होता है, जहाँ रक्तदाब द्रव व छोटे विलेयों को बोमन संपुट में धकेलता है।", en: "Correct answer: B) Ultrafiltration occurs at the glomerulus, where blood pressure forces fluid and small solutes out into Bowman's capsule." } },
+				{ s: "S4", a: 3,
+					q: { hi: "संपूर्ण शरीर में ऑक्सीजनित रक्त पंप करने वाला हृदय कक्ष कौन-सा है?", en: "The heart chamber that pumps oxygenated blood to the entire body is the?" },
+					o: { hi: ["दायाँ अलिंद", "दायाँ निलय", "बायाँ अलिंद", "बायाँ निलय"], en: ["Right atrium", "Right ventricle", "Left atrium", "Left ventricle"] },
+					sol: { hi: "सही उत्तर: D) बायाँ निलय — इसकी मोटी पेशीय दीवार महाधमनी के माध्यम से पूरे शरीर में रक्त पंप करने हेतु आवश्यक दाब उत्पन्न करती है।", en: "Correct answer: D) Left ventricle — its thick muscular wall generates the pressure needed to pump oxygenated blood through the aorta to the whole body." } },
+				{ s: "S4", a: 1,
+					q: { hi: "रक्त pH में कमी (एसिडोसिस) मुख्यतः किस शारीरिक अनुक्रिया को प्रेरित करती है?", en: "A decrease in blood pH (acidosis) primarily stimulates which physiological response?" },
+					o: { hi: ["श्वसन दर में कमी", "CO2 बाहर निकालने हेतु श्वसन दर में वृद्धि", "हृदय दर में कमी", "वृक्क धमनियों का वासोडाइलेशन"], en: ["Decreased breathing rate", "Increased breathing rate to expel CO2", "Decreased heart rate", "Vasodilation of renal arteries"] },
+					sol: { hi: "सही उत्तर: B) रसायन ग्राही pH में गिरावट को पहचानकर अधिक CO2 बाहर निकालने व pH संतुलन बहाल करने हेतु तेज़ व गहरी श्वसन को प्रेरित करते हैं।", en: "Correct answer: B) Chemoreceptors detect the fall in pH and stimulate faster, deeper breathing to expel more CO2 and restore pH balance." } },
+				{ s: "S4", a: 2,
+					q: { hi: "निम्नलिखित में से कौन-सा यकृत का कार्य नहीं है?", en: "Which of the following is NOT a function of the liver?" },
+					o: { hi: ["विषहरण", "ग्लाइकोजन का संचयन", "इंसुलिन का उत्पादन", "पित्त का संश्लेषण"], en: ["Detoxification", "Storage of glycogen", "Production of insulin", "Synthesis of bile"] },
+					sol: { hi: "सही उत्तर: C) इंसुलिन अग्न्याशय की बीटा कोशिकाओं द्वारा उत्पन्न होता है, यकृत द्वारा नहीं।", en: "Correct answer: C) Insulin is produced by the beta cells of the pancreas, not the liver." } },
+				{ s: "S4", a: 1,
+					q: { hi: "वृक्क की प्रतिधारा क्रियाविधि (Countercurrent Mechanism) में, मूत्र सांद्रण हेतु आवश्यक सांद्रता प्रवणता बनाने के लिए मुख्यतः कौन-सी संरचना उत्तरदायी है?", en: "In the countercurrent mechanism of the kidney, which structure is primarily responsible for creating the concentration gradient necessary for urine concentration?" },
+					o: { hi: ["बोमन संपुट", "हेनले लूप", "समीपस्थ कुंडलित नलिका", "वृक्क धमनी"], en: ["Bowman's capsule", "Loop of Henle", "Proximal convoluted tubule", "Renal artery"] },
+					sol: { hi: "सही उत्तर: B) हेनले लूप अपनी प्रतिधारा व्यवस्था के माध्यम से मज्जा में परासरणी प्रवणता स्थापित करता है, जिससे वृक्क मूत्र को सांद्रित कर पाता है।", en: "Correct answer: B) The loop of Henle, through its countercurrent arrangement, establishes the osmotic gradient in the medulla that allows the kidney to concentrate urine." } },
+				// ===== S5: Human Physiology II =====
+				{ s: "S5", a: 1,
+					q: { hi: "तंत्रिका तंत्र की मूल क्रियात्मक इकाई क्या है?", en: "The basic functional unit of the nervous system is the?" },
+					o: { hi: ["नेफ्रॉन", "न्यूरॉन", "अक्षतंतु (एक्सॉन)", "सिनैप्स"], en: ["Nephron", "Neuron", "Axon", "Synapse"] },
+					sol: { hi: "सही उत्तर: B) न्यूरॉन — तंत्रिका तंत्र की मूल संरचनात्मक व क्रियात्मक इकाई।", en: "Correct answer: B) Neuron — the basic structural and functional unit of the nervous system." } },
+				{ s: "S5", a: 1,
+					q: { hi: "इंसुलिन अग्न्याशय की किन कोशिकाओं द्वारा स्रावित होता है?", en: "Insulin is secreted by which cells of the pancreas?" },
+					o: { hi: ["अल्फा कोशिकाएँ", "बीटा कोशिकाएँ", "डेल्टा कोशिकाएँ", "एसाइनार कोशिकाएँ"], en: ["Alpha cells", "Beta cells", "Delta cells", "Acinar cells"] },
+					sol: { hi: "सही उत्तर: B) लैंगरहैंस द्वीपिकाओं की बीटा कोशिकाएँ इंसुलिन स्रावित करती हैं।", en: "Correct answer: B) Beta cells of the islets of Langerhans secrete insulin." } },
+				{ s: "S5", a: 1,
+					q: { hi: "दो निकटवर्ती न्यूरॉनों के बीच का अंतराल क्या कहलाता है?", en: "The gap between two adjacent neurons is called the?" },
+					o: { hi: ["रैनवियर की पर्व-संधि", "सिनैप्स", "एक्सॉन हिलॉक", "माइलिन आवरण"], en: ["Node of Ranvier", "Synapse", "Axon hillock", "Myelin sheath"] },
+					sol: { hi: "सही उत्तर: B) सिनैप्स — वह संधि जहाँ सामान्यतः तंत्रिका-संचारकों के माध्यम से संकेत एक न्यूरॉन से दूसरे में जाते हैं।", en: "Correct answer: B) Synapse — the junction where signals pass from one neuron to the next, usually via neurotransmitters." } },
+				{ s: "S5", a: 2,
+					q: { hi: "शरीर के तापमान तथा भूख को नियंत्रित करने के लिए मस्तिष्क का कौन-सा भाग उत्तरदायी है?", en: "Which part of the brain is responsible for regulating body temperature and hunger?" },
+					o: { hi: ["प्रमस्तिष्क (सेरेब्रम)", "अनुमस्तिष्क (सेरेबेलम)", "हाइपोथैलेमस", "मेडुला ऑब्लोंगेटा"], en: ["Cerebrum", "Cerebellum", "Hypothalamus", "Medulla oblongata"] },
+					sol: { hi: "सही उत्तर: C) हाइपोथैलेमस — यह शरीर का तापमान, भूख, प्यास नियंत्रित करता है तथा तंत्रिका व अंतःस्रावी तंत्रों को जोड़ता है।", en: "Correct answer: C) Hypothalamus — it regulates body temperature, hunger, thirst, and links the nervous and endocrine systems." } },
+				{ s: "S5", a: 2,
+					q: { hi: "'फाइट या फ्लाइट' (लड़ो या भागो) हार्मोन के रूप में किसे जाना जाता है?", en: "Which hormone is known as the 'fight or flight' hormone?" },
+					o: { hi: ["इंसुलिन", "थायरॉक्सिन", "एड्रेनालिन", "वृद्धि हार्मोन"], en: ["Insulin", "Thyroxine", "Adrenaline", "Growth hormone"] },
+					sol: { hi: "सही उत्तर: C) एड्रेनल मध्यांश द्वारा स्रावित एड्रेनालिन शरीर को आपातकालीन 'फाइट या फ्लाइट' प्रतिक्रिया हेतु तैयार करता है।", en: "Correct answer: C) Adrenaline (epinephrine), secreted by the adrenal medulla, prepares the body for emergency 'fight or flight' responses." } },
+				{ s: "S5", a: 1,
+					q: { hi: "तंत्रिका आवेग के संचरण के दौरान, तंत्रिका झिल्ली का विध्रुवण (Depolarization) मुख्यतः किसके अंतर्वाह के कारण होता है?", en: "During the transmission of a nerve impulse, the depolarization of the neuronal membrane is caused mainly by the influx of?" },
+					o: { hi: ["पोटैशियम आयन", "सोडियम आयन", "क्लोराइड आयन", "केवल कैल्शियम आयन"], en: ["Potassium ions", "Sodium ions", "Chloride ions", "Calcium ions only"] },
+					sol: { hi: "सही उत्तर: B) वोल्टेज-गेटेड Na+ चैनलों के माध्यम से सोडियम आयन न्यूरॉन में तेजी से प्रवेश करते हैं, जिससे विध्रुवण होता है।", en: "Correct answer: B) Sodium ions rush into the neuron through voltage-gated Na+ channels, causing depolarization." } },
+				{ s: "S5", a: 2,
+					q: { hi: "अंतःस्रावी तंत्र की 'मास्टर ग्रंथि' किसे कहा जाता है?", en: "Which gland is referred to as the 'master gland' of the endocrine system?" },
+					o: { hi: ["थायरॉइड", "एड्रेनल", "पीयूष (पिट्यूटरी)", "अग्न्याशय"], en: ["Thyroid", "Adrenal", "Pituitary", "Pancreas"] },
+					sol: { hi: "सही उत्तर: C) पीयूष ग्रंथि अधिकांश अन्य अंतःस्रावी ग्रंथियों की क्रियाशीलता को नियंत्रित करती है, इसलिए इसे 'मास्टर ग्रंथि' कहा जाता है।", en: "Correct answer: C) The pituitary gland controls the activity of most other endocrine glands, earning it the name 'master gland'." } },
+				{ s: "S5", a: 1,
+					q: { hi: "आहार में आयोडीन की कमी मुख्यतः किस स्थिति की ओर ले जाती है?", en: "A deficiency of iodine in the diet primarily leads to which condition?" },
+					o: { hi: ["मधुमेह (डायबिटीज़ मेलिटस)", "घेंघा (गॉइटर)", "एडिसन रोग", "एक्रोमेगाली"], en: ["Diabetes mellitus", "Goitre", "Addison's disease", "Acromegaly"] },
+					sol: { hi: "सही उत्तर: B) आयोडीन की कमी थायरॉक्सिन के संश्लेषण को बाधित करती है, जिससे थायरॉइड ग्रंथि बढ़ जाती है — इस स्थिति को घेंघा कहते हैं।", en: "Correct answer: B) Iodine deficiency impairs thyroxine synthesis, causing the thyroid gland to enlarge — a condition called goitre." } },
+				{ s: "S5", a: 1,
+					q: { hi: "अनुमस्तिष्क (सेरेबेलम) मुख्यतः किसके लिए उत्तरदायी है?", en: "The cerebellum is primarily responsible for?" },
+					o: { hi: ["स्मृति एवं तर्कशक्ति", "संतुलन तथा गति का समन्वय", "हृदय गति का नियमन", "दृष्टि प्रसंस्करण"], en: ["Memory and reasoning", "Balance and coordination of movement", "Regulating heartbeat", "Vision processing"] },
+					sol: { hi: "सही उत्तर: B) अनुमस्तिष्क ऐच्छिक गतियों, मुद्रा तथा संतुलन का समन्वय करता है।", en: "Correct answer: B) The cerebellum coordinates voluntary movements, posture, and balance." } },
+				{ s: "S5", a: 1,
+					q: { hi: "निम्नलिखित में से कौन-सा एक साधारण प्रतिवर्ती चाप (Reflex Arc) के क्रम को सही रूप से दर्शाता है?", en: "Which of the following correctly represents the sequence of a simple reflex arc?" },
+					o: { hi: ["प्रभावक → ग्राही → चालक न्यूरॉन → संवेदी न्यूरॉन", "ग्राही → संवेदी न्यूरॉन → सम्बंधक न्यूरॉन (मेरुरज्जु) → चालक न्यूरॉन → प्रभावक", "ग्राही → चालक न्यूरॉन → प्रभावक", "प्रभावक → संवेदी न्यूरॉन → ग्राही → मस्तिष्क → चालक न्यूरॉन"], en: ["Effector → Receptor → Motor neuron → Sensory neuron", "Receptor → Sensory neuron → Relay neuron (spinal cord) → Motor neuron → Effector", "Receptor → Motor neuron → Effector", "Effector → Sensory neuron → Receptor → Brain → Motor neuron"] },
+					sol: { hi: "सही उत्तर: B) प्रतिवर्ती चाप का क्रम है: ग्राही → संवेदी न्यूरॉन → मेरुरज्जु में सम्बंधक न्यूरॉन → चालक न्यूरॉन → प्रभावक, जिससे मस्तिष्क की प्रतीक्षा किए बिना तीव्र अनुक्रिया संभव होती है।", en: "Correct answer: B) A reflex arc runs receptor → sensory neuron → relay neuron in the spinal cord → motor neuron → effector, allowing a fast response without waiting for the brain." } },
+				// ===== S6: Reproduction (Plant & Human) =====
+				{ s: "S6", a: 1,
+					q: { hi: "पुष्पीय पौधों में नर जनन कोशिकाएँ कहाँ उत्पन्न होती हैं?", en: "The male reproductive cells in flowering plants are produced in the?" },
+					o: { hi: ["अंडाशय", "परागकोश (एंथर)", "वर्तिकाग्र (स्टिग्मा)", "वर्तिका (स्टाइल)"], en: ["Ovary", "Anther", "Stigma", "Style"] },
+					sol: { hi: "सही उत्तर: B) परागकोश — पराग कण, जिनमें नर युग्मक होते हैं, परागकोश के अंदर विकसित होते हैं।", en: "Correct answer: B) Anther — pollen grains, which contain the male gametes, develop inside the anther." } },
+				{ s: "S6", a: 2,
+					q: { hi: "मनुष्यों में, निषेचन सामान्यतः कहाँ होता है?", en: "In humans, fertilization normally occurs in the?" },
+					o: { hi: ["गर्भाशय", "अंडाशय", "डिंबवाहिनी नलिका (फैलोपियन ट्यूब)", "योनि"], en: ["Uterus", "Ovary", "Fallopian tube (oviduct)", "Vagina"] },
+					sol: { hi: "सही उत्तर: C) डिंबवाहिनी नलिका — निषेचन सामान्यतः डिंबवाहिनी नलिका के एम्पुला क्षेत्र में होता है।", en: "Correct answer: C) Fallopian tube — fertilization normally occurs in the ampulla region of the fallopian tube." } },
+				{ s: "S6", a: 0,
+					q: { hi: "आवृतबीजियों (एंजियोस्पर्म) की विशिष्ट विशेषता, द्विनिषेचन, से युग्मनज तथा किसका निर्माण होता है?", en: "Double fertilization, a unique feature of angiosperms, results in the formation of the zygote and the?" },
+					o: { hi: ["भ्रूणपोष (एंडोस्पर्म)", "बीजपत्र (कोटिलिडन)", "फलभित्ति (पेरिकार्प)", "बीजावरण"], en: ["Endosperm", "Cotyledon", "Pericarp", "Seed coat"] },
+					sol: { hi: "सही उत्तर: A) भ्रूणपोष — एक शुक्राणु अंड कोशिका से मिलकर युग्मनज बनाता है, जबकि दूसरा शुक्राणु दो ध्रुवीय केंद्रकों से मिलकर त्रिगुणित भ्रूणपोष बनाता है।", en: "Correct answer: A) Endosperm — one sperm fertilizes the egg to form the zygote, while the second fuses with the two polar nuclei to form the triploid endosperm." } },
+				{ s: "S6", a: 1,
+					q: { hi: "मानव मासिक चक्र में डिंबोत्सर्जन (Ovulation) को प्रेरित करने के लिए मुख्यतः कौन-सा हार्मोन उत्तरदायी है?", en: "Which hormone is primarily responsible for triggering ovulation in the human menstrual cycle?" },
+					o: { hi: ["पुटिका उत्तेजक हार्मोन (FSH)", "पीतकारी हार्मोन (LH)", "प्रोजेस्टेरोन", "एस्ट्रोजन"], en: ["Follicle Stimulating Hormone (FSH)", "Luteinizing Hormone (LH)", "Progesterone", "Estrogen"] },
+					sol: { hi: "सही उत्तर: B) चक्र के मध्य में पीतकारी हार्मोन (LH) का अचानक बढ़ना डिंबोत्सर्जन को प्रेरित करता है।", en: "Correct answer: B) A mid-cycle surge in Luteinizing Hormone (LH) triggers ovulation." } },
+				{ s: "S6", a: 1,
+					q: { hi: "वायु द्वारा परागण को क्या कहते हैं?", en: "Pollination by wind is termed?" },
+					o: { hi: ["कीट-परागण (एंटोमोफिली)", "वायु-परागण (एनिमोफिली)", "जल-परागण (हाइड्रोफिली)", "पक्षी-परागण (ऑर्निथोफिली)"], en: ["Entomophily", "Anemophily", "Hydrophily", "Ornithophily"] },
+					sol: { hi: "सही उत्तर: B) वायु-परागण — वायु द्वारा किया जाने वाला परागण, जो घासों तथा कई वृक्षों में सामान्य है।", en: "Correct answer: B) Anemophily — pollination carried out by wind, common in grasses and many trees." } },
+				{ s: "S6", a: 1,
+					q: { hi: "मानव शुक्राणुजनन (Spermatogenesis) के बारे में निम्नलिखित में से कौन-सा कथन सही है?", en: "Which of the following statements about human spermatogenesis is correct?" },
+					o: { hi: ["यह अंडाशय में होता है", "यह अर्धसूत्रीविभाजन द्वारा अगुणित शुक्राणुओं का निर्माण करता है", "यह द्विगुणित युग्मक उत्पन्न करता है", "यह बिना किसी हार्मोनल नियमन के निरंतर होता है"], en: ["It occurs in the ovary", "It results in the production of haploid sperm cells through meiosis", "It produces diploid gametes", "It occurs continuously without hormonal regulation"] },
+					sol: { hi: "सही उत्तर: B) शुक्राणुजनन वृषण की शुक्रजनक नलिकाओं में होता है तथा अर्धसूत्रीविभाजन द्वारा अगुणित शुक्राणुओं का निर्माण करता है।", en: "Correct answer: B) Spermatogenesis occurs in the seminiferous tubules of the testes and, through meiosis, produces haploid sperm cells." } },
+				{ s: "S6", a: 0,
+					q: { hi: "विकासशील भ्रूण को अपरा (प्लेसेंटा) से जोड़ने वाली संरचना क्या है?", en: "The structure that connects the developing fetus to the placenta is the?" },
+					o: { hi: ["गर्भनाल (अम्बिलिकल कॉर्ड)", "एमनियन", "कोरियोन", "पीतक कोश (योक सैक)"], en: ["Umbilical cord", "Amnion", "Chorion", "Yolk sac"] },
+					sol: { hi: "सही उत्तर: A) गर्भनाल भ्रूण को अपरा से जोड़ती है और पोषक तत्व, ऑक्सीजन तथा अपशिष्ट पदार्थ ले जाती है।", en: "Correct answer: A) The umbilical cord connects the fetus to the placenta, carrying nutrients, oxygen, and waste." } },
+				{ s: "S6", a: 1,
+					q: { hi: "एक सामान्य 28-दिवसीय मानव मासिक चक्र में, डिंबोत्सर्जन सामान्यतः किस दिन के आसपास होता है?", en: "In a typical 28-day human menstrual cycle, ovulation generally occurs around which day?" },
+					o: { hi: ["दिन 5", "दिन 14", "दिन 21", "दिन 28"], en: ["Day 5", "Day 14", "Day 21", "Day 28"] },
+					sol: { hi: "सही उत्तर: B) दिन 14 — एक मानक 28-दिवसीय चक्र में डिंबोत्सर्जन सामान्यतः मध्यबिंदु के आसपास होता है।", en: "Correct answer: B) Day 14 — ovulation typically occurs around the midpoint of a standard 28-day cycle." } },
+				{ s: "S6", a: 1,
+					q: { hi: "तने की कलमों द्वारा पौधों में कायिक प्रवर्धन किसका उदाहरण है?", en: "Vegetative propagation in plants through stem cuttings is an example of?" },
+					o: { hi: ["लैंगिक जनन", "अलैंगिक जनन", "असंगजनन (एपोमिक्सिस)", "अनिषेकफलन (पार्थेनोकार्पी)"], en: ["Sexual reproduction", "Asexual reproduction", "Apomixis", "Parthenocarpy"] },
+					sol: { hi: "सही उत्तर: B) अलैंगिक जनन — कायिक प्रवर्धन युग्मकों के संलयन के बिना आनुवंशिक रूप से समान संतति उत्पन्न करता है।", en: "Correct answer: B) Asexual reproduction — vegetative propagation produces genetically identical offspring without fusion of gametes." } },
+				{ s: "S6", a: 1,
+					q: { hi: "मानव गर्भावस्था के दौरान अपरा (प्लेसेंटा) की भूमिका का सर्वोत्तम वर्णन निम्नलिखित में से कौन-सा करता है?", en: "Which of the following best describes the role of the placenta during human pregnancy?" },
+					o: { hi: ["यह शुक्राणु उत्पन्न करती है", "यह माँ और भ्रूण के बीच पोषक तत्वों, गैसों तथा अपशिष्ट के आदान-प्रदान की सुविधा देती है, तथा हार्मोन स्रावित करती है", "यह निषेचन से पहले डिंब का संचयन करती है", "इसका कोई हार्मोनल कार्य नहीं है"], en: ["It produces sperm", "It facilitates exchange of nutrients, gases, and waste between mother and fetus, and secretes hormones", "It stores the ovum before fertilization", "It has no hormonal function"] },
+					sol: { hi: "सही उत्तर: B) अपरा माँ व भ्रूण के बीच पोषक तत्वों, गैसों तथा अपशिष्ट के आदान-प्रदान का माध्यम है, और यह hCG व प्रोजेस्टेरोन जैसे हार्मोन भी स्रावित करती है।", en: "Correct answer: B) The placenta acts as the interface for nutrient, gas, and waste exchange between mother and fetus, and also secretes hormones like hCG and progesterone." } },
+				// ===== S7: Ecology & Environment =====
+				{ s: "S7", a: 1,
+					q: { hi: "जीवों तथा उनके पर्यावरण के बीच अंतःक्रियाओं के अध्ययन को क्या कहते हैं?", en: "The study of interactions between organisms and their environment is called?" },
+					o: { hi: ["वर्गिकी (टैक्सोनॉमी)", "पारिस्थितिकी (इकोलॉजी)", "आनुवंशिकी", "कार्यिकी (फिजियोलॉजी)"], en: ["Taxonomy", "Ecology", "Genetics", "Physiology"] },
+					sol: { hi: "सही उत्तर: B) पारिस्थितिकी — जीवों तथा उनके पर्यावरण के बीच अंतःक्रियाओं का वैज्ञानिक अध्ययन।", en: "Correct answer: B) Ecology — the scientific study of interactions among organisms and their environment." } },
+				{ s: "S7", a: 2,
+					q: { hi: "अपना भोजन स्वयं बनाने वाले जीवों को क्या कहते हैं?", en: "Organisms that manufacture their own food are called?" },
+					o: { hi: ["उपभोक्ता", "अपघटक", "उत्पादक", "अपरद भक्षी"], en: ["Consumers", "Decomposers", "Producers", "Detritivores"] },
+					sol: { hi: "सही उत्तर: C) उत्पादक — हरे पौधों जैसे स्वपोषी जो प्रकाश संश्लेषण द्वारा अपना भोजन स्वयं बनाते हैं।", en: "Correct answer: C) Producers — autotrophs like green plants that synthesize their own food via photosynthesis." } },
+				{ s: "S7", a: 1,
+					q: { hi: "पारिस्थितिकी तंत्र में ऊर्जा का प्रवाह कैसा होता है?", en: "The flow of energy in an ecosystem is?" },
+					o: { hi: ["चक्रीय", "एकदिशीय", "द्विदिशीय", "यादृच्छिक"], en: ["Cyclic", "Unidirectional", "Bidirectional", "Random"] },
+					sol: { hi: "सही उत्तर: B) एकदिशीय — ऊर्जा उत्पादकों से विभिन्न उपभोक्ता स्तरों तक एक ही दिशा में प्रवाहित होती है और प्रत्येक चरण में ऊष्मा के रूप में क्षय होती है, पोषक तत्वों के विपरीत जो चक्रित होते हैं।", en: "Correct answer: B) Unidirectional — energy flows one way, from producers to various levels of consumers, and is lost as heat at each step (unlike nutrients, which cycle)." } },
+				{ s: "S7", a: 2,
+					q: { hi: "कौन-सा पारिस्थितिक पिरामिड सदैव सीधा (upright) होता है, कभी उल्टा नहीं होता?", en: "Which ecological pyramid is always upright and never inverted?" },
+					o: { hi: ["संख्या का पिरामिड", "जैवभार का पिरामिड", "ऊर्जा का पिरामिड", "उत्पादकता का पिरामिड"], en: ["Pyramid of numbers", "Pyramid of biomass", "Pyramid of energy", "Pyramid of productivity"] },
+					sol: { hi: "सही उत्तर: C) ऊर्जा का पिरामिड सदैव सीधा होता है क्योंकि प्रत्येक क्रमिक पोषी स्तर पर ऊर्जा घटती जाती है, जबकि संख्या या जैवभार का पिरामिड कभी-कभी उल्टा हो सकता है।", en: "Correct answer: C) Pyramid of energy — since energy decreases at each successive trophic level, it is always upright, unlike the pyramids of numbers or biomass, which can sometimes be inverted." } },
+				{ s: "S7", a: 1,
+					q: { hi: "जैव आवर्धन (Biological Magnification) की परिघटना किसे संदर्भित करती है?", en: "The phenomenon of biological magnification refers to?" },
+					o: { hi: ["पीढ़ियों में जनसंख्या आकार में वृद्धि", "उच्च पोषी स्तरों पर विषैले पदार्थों की सांद्रता में वृद्धि", "जैव विविधता में कमी", "उच्च पोषी स्तरों पर ऊर्जा में वृद्धि"], en: ["Increase in population size over generations", "Increase in concentration of toxic substances at higher trophic levels", "Decrease in biodiversity", "Increase in energy at higher trophic levels"] },
+					sol: { hi: "सही उत्तर: B) जैव आवर्धन क्रमिक रूप से उच्च पोषी स्तरों पर अजैवनिम्नीकरणीय विषों (जैसे DDT) की बढ़ती सांद्रता है।", en: "Correct answer: B) Biological magnification is the increasing concentration of non-biodegradable toxins (e.g. pesticides like DDT) at successively higher trophic levels." } },
+				{ s: "S7", a: 1,
+					q: { hi: "समतापमंडलीय ओज़ोन परत के क्षय के लिए मुख्यतः कौन-सी गैस उत्तरदायी है?", en: "Which gas is primarily responsible for depletion of the stratospheric ozone layer?" },
+					o: { hi: ["कार्बन डाइऑक्साइड", "क्लोरोफ्लोरोकार्बन (CFCs)", "मीथेन", "नाइट्रोजन"], en: ["Carbon dioxide", "Chlorofluorocarbons (CFCs)", "Methane", "Nitrogen"] },
+					sol: { hi: "सही उत्तर: B) CFCs समतापमंडल में क्लोरीन परमाणु मुक्त करते हैं जो ओज़ोन अणुओं को उत्प्रेरकीय रूप से नष्ट करते हैं।", en: "Correct answer: B) CFCs release chlorine atoms in the stratosphere that catalytically destroy ozone molecules." } },
+				{ s: "S7", a: 2,
+					q: { hi: "एक पारिस्थितिक समुदाय अपने अजैविक पर्यावरण के साथ मिलकर क्या कहलाता है?", en: "An ecological community together with its non-living environment is called a/an?" },
+					o: { hi: ["समष्टि (जनसंख्या)", "बायोम", "पारिस्थितिकी तंत्र (इकोसिस्टम)", "आवास"], en: ["Population", "Biome", "Ecosystem", "Habitat"] },
+					sol: { hi: "सही उत्तर: C) पारिस्थितिकी तंत्र — जीवित जीवों को उनके अजैविक पर्यावरण के साथ मिलाने वाली क्रियात्मक इकाई।", en: "Correct answer: C) Ecosystem — the functional unit combining living organisms (biotic community) with their non-living (abiotic) environment." } },
+				{ s: "S7", a: 1,
+					q: { hi: "ऊर्जा स्थानांतरण के 10% नियम के अनुसार, यदि किसी पारिस्थितिकी तंत्र में उत्पादक 10,000 kcal ऊर्जा स्थिर करते हैं, तो द्वितीयक उपभोक्ताओं को लगभग कितनी ऊर्जा उपलब्ध होगी?", en: "According to the 10% law of energy transfer, if producers in an ecosystem fix 10,000 kcal of energy, approximately how much energy is available to secondary consumers?" },
+					o: { hi: ["1000 kcal", "100 kcal", "10 kcal", "5000 kcal"], en: ["1000 kcal", "100 kcal", "10 kcal", "5000 kcal"] },
+					sol: { hi: "सही उत्तर: B) 100 kcal — 10,000 → 1,000 (प्राथमिक उपभोक्ता) → 100 (द्वितीयक उपभोक्ता), प्रत्येक स्थानांतरण में 90% ऊर्जा क्षय होती है।", en: "Correct answer: B) 100 kcal — 10,000 kcal → 1,000 kcal (primary consumers) → 100 kcal (secondary consumers), losing 90% at each trophic transfer." } },
+				{ s: "S7", a: 2,
+					q: { hi: "निम्नलिखित में से कौन-सी एक ग्रीनहाउस गैस का उदाहरण है?", en: "Which of the following is an example of a greenhouse gas?" },
+					o: { hi: ["नाइट्रोजन", "ऑक्सीजन", "कार्बन डाइऑक्साइड", "आर्गन"], en: ["Nitrogen", "Oxygen", "Carbon dioxide", "Argon"] },
+					sol: { hi: "सही उत्तर: C) कार्बन डाइऑक्साइड वायुमंडल में ऊष्मा को रोकती है, जिससे ग्रीनहाउस प्रभाव व वैश्विक तापन में योगदान होता है।", en: "Correct answer: C) Carbon dioxide traps heat in the atmosphere, contributing to the greenhouse effect and global warming." } },
+				{ s: "S7", a: 1,
+					q: { hi: "मीठे पानी के जलाशयों में यूट्रोफिकेशन (सुपोषण) का मुख्य कारण क्या है?", en: "The primary cause of eutrophication in freshwater bodies is?" },
+					o: { hi: ["अत्यधिक सूर्यप्रकाश", "अत्यधिक पोषक तत्वों (विशेषतः नाइट्रोजन एवं फॉस्फोरस) का बहाव जिससे शैवाल प्रस्फुटन होता है", "घुलित ऑक्सीजन में वृद्धि", "जल तापमान में कमी"], en: ["Excessive sunlight", "Excess nutrient (especially nitrogen and phosphorus) runoff causing algal blooms", "Increase in dissolved oxygen", "Decrease in water temperature"] },
+					sol: { hi: "सही उत्तर: B) उर्वरकों के बहाव से अत्यधिक नाइट्रोजन व फॉस्फोरस शैवाल प्रस्फुटन का कारण बनते हैं, जो अपघटित होने पर घुलित ऑक्सीजन को घटा देते हैं।", en: "Correct answer: B) Excess nitrogen and phosphorus from fertilizer runoff causes algal blooms, which deplete dissolved oxygen when they decompose." } },
+				// ===== S8: Evolution =====
+				{ s: "S8", a: 1,
+					q: { hi: "प्राकृतिक चयन का सिद्धांत किसने प्रस्तावित किया?", en: "The theory of natural selection was proposed by?" },
+					o: { hi: ["ग्रेगर मेंडल", "चार्ल्स डार्विन", "ज्याँ-बैप्टिस्ट लैमार्क", "ह्यूगो डी व्रीज़"], en: ["Gregor Mendel", "Charles Darwin", "Jean-Baptiste Lamarck", "Hugo de Vries"] },
+					sol: { hi: "सही उत्तर: B) चार्ल्स डार्विन — अपनी पुस्तक 'On the Origin of Species' में उन्होंने विकास की क्रियाविधि के रूप में प्राकृतिक चयन प्रस्तावित किया।", en: "Correct answer: B) Charles Darwin — in his book 'On the Origin of Species', he proposed natural selection as the mechanism of evolution." } },
+				{ s: "S8", a: 1,
+					q: { hi: "जीवाश्म किसके अध्ययन के लिए साक्ष्य प्रदान करते हैं?", en: "Fossils provide evidence for the study of?" },
+					o: { hi: ["आनुवंशिकी", "जैव विकास", "पारिस्थितिकी", "कार्यिकी"], en: ["Genetics", "Evolution", "Ecology", "Physiology"] },
+					sol: { hi: "सही उत्तर: B) जैव विकास — भूवैज्ञानिक आयु के अनुसार व्यवस्थित जीवाश्म समय के साथ जीवों में क्रमिक परिवर्तन दर्शाते हैं।", en: "Correct answer: B) Evolution — fossils, arranged by geological age, show gradual changes in organisms over time." } },
+				{ s: "S8", a: 1,
+					q: { hi: "वे अंग जिनकी उत्पत्ति सामान्य होती है परंतु विभिन्न जीवों में भिन्न कार्य करते हैं, क्या कहलाते हैं?", en: "Organs that have a common origin but perform different functions in different organisms are called?" },
+					o: { hi: ["समरूप अंग (एनालॉगस)", "समजात अंग (होमोलॉगस)", "अवशेषी अंग", "अनुकूलनी अंग"], en: ["Analogous organs", "Homologous organs", "Vestigial organs", "Adaptive organs"] },
+					sol: { hi: "सही उत्तर: B) समजात अंग — मूल संरचना व उत्पत्ति समान होती है, परंतु विभिन्न कार्यों के लिए अनुकूलित होते हैं (जैसे कशेरुकियों के अग्रपाद)।", en: "Correct answer: B) Homologous organs — same basic structure and origin, but adapted for different functions (e.g. forelimbs of vertebrates)." } },
+				{ s: "S8", a: 1,
+					q: { hi: "पक्षी के पंख तथा तितली के पंख किसके उदाहरण हैं?", en: "Wings of a bird and wings of a butterfly are examples of?" },
+					o: { hi: ["समजात अंग", "समरूप अंग", "अवशेषी अंग", "पुनर्जनित अंग"], en: ["Homologous organs", "Analogous organs", "Vestigial organs", "Regenerated organs"] },
+					sol: { hi: "सही उत्तर: B) समरूप अंग — इनका कार्य समान (उड़ान) है परंतु उत्पत्ति/संरचना भिन्न है, जो अभिसारी विकास का परिणाम है।", en: "Correct answer: B) Analogous organs — they perform the same function (flight) but have different origins/structures, resulting from convergent evolution." } },
+				{ s: "S8", a: 1,
+					q: { hi: "डार्विन के सिद्धांत के अनुसार, जैव विकास की प्रेरक शक्ति क्या है?", en: "According to Darwin's theory, the driving force of evolution is?" },
+					o: { hi: ["अंगों का उपयोग व अनुपयोग", "वंशागत विविधता पर कार्यरत प्राकृतिक चयन", "अर्जित लक्षणों की वंशागति", "चयन के बिना केवल यादृच्छिक उत्परिवर्तन"], en: ["Use and disuse of organs", "Natural selection acting on heritable variation", "Inheritance of acquired characters", "Random mutation alone without selection"] },
+					sol: { hi: "सही उत्तर: B) डार्विन ने प्रस्तावित किया कि व्यष्टियों के बीच वंशागत विविधता पर कार्यरत प्राकृतिक चयन विकासीय परिवर्तन को संचालित करता है।", en: "Correct answer: B) Darwin proposed that natural selection acting on heritable variation among individuals drives evolutionary change." } },
+				{ s: "S8", a: 1,
+					q: { hi: "निम्नलिखित में से कौन-सा आनुवंशिक विचलन (Genetic Drift) का सर्वोत्तम वर्णन करता है?", en: "Which of the following best describes genetic drift?" },
+					o: { hi: ["पर्यावरणीय चयन दबाव के कारण एलील आवृत्ति में दिशात्मक परिवर्तन", "एलील आवृत्ति में यादृच्छिक परिवर्तन, जो विशेषतः छोटी समष्टियों में महत्वपूर्ण होता है", "समष्टियों के बीच व्यष्टियों की गति", "एक समष्टि के भीतर गैर-यादृच्छिक संगम"], en: ["Directional change in allele frequency due to environmental selection pressure", "Random change in allele frequency, especially significant in small populations", "Movement of individuals between populations", "Non-random mating within a population"] },
+					sol: { hi: "सही उत्तर: B) आनुवंशिक विचलन एलील आवृत्तियों में एक यादृच्छिक उतार-चढ़ाव है, जिसका प्रभाव छोटी समष्टियों में सबसे अधिक होता है, प्राकृतिक चयन के विपरीत जो गैर-यादृच्छिक है।", en: "Correct answer: B) Genetic drift is a random fluctuation in allele frequencies, with the strongest effect in small populations, unlike natural selection which is non-random." } },
+				{ s: "S8", a: 1,
+					q: { hi: "हार्डी-वाइनबर्ग सिद्धांत किस प्रकार की समष्टि का वर्णन करता है?", en: "The Hardy-Weinberg principle describes a population that is?" },
+					o: { hi: ["तीव्र गति से विकसित हो रही", "आनुवंशिक साम्यावस्था में (विकसित नहीं हो रही)", "तीव्र उत्परिवर्तन से गुजर रही", "प्रबल प्राकृतिक चयन का सामना कर रही"], en: ["Evolving rapidly", "In genetic equilibrium (not evolving)", "Undergoing rapid mutation", "Experiencing strong natural selection"] },
+					sol: { hi: "सही उत्तर: B) हार्डी-वाइनबर्ग की शर्तों के अंतर्गत एलील आवृत्तियाँ स्थिर रहती हैं — समष्टि आनुवंशिक साम्यावस्था में होती है।", en: "Correct answer: B) Under Hardy-Weinberg conditions (no mutation, migration, selection, drift, and random mating), allele frequencies remain constant — the population is in genetic equilibrium." } },
+				{ s: "S8", a: 0,
+					q: { hi: "निम्नलिखित में से किसे कशेरुकियों के सामान्य पूर्वज होने का सशक्त प्रमाण माना जाता है?", en: "Which of the following is considered strong evidence for the common ancestry of vertebrates?" },
+					o: { hi: ["प्रजातियों में समान अवशेषी अंगों तथा समजात संरचनाओं की उपस्थिति", "समरूप संरचनाओं की उपस्थिति", "अभिसारी विकास", "सभी प्रजातियों में समान आहार"], en: ["Presence of similar vestigial organs and homologous structures across species", "Presence of analogous structures", "Convergent evolution", "Identical diet across species"] },
+					sol: { hi: "सही उत्तर: A) कशेरुकी प्रजातियों में समान समजात संरचनाएँ व अवशेषी अंग एक सामान्य पूर्वज से वंशागति को दर्शाते हैं।", en: "Correct answer: A) Shared homologous structures and vestigial organs across vertebrate species indicate descent from a common ancestor." } },
+				{ s: "S8", a: 1,
+					q: { hi: "पैपर्ड मॉथ में औद्योगिक श्यामलता (Industrial Melanism) किसका एक क्लासिक उदाहरण है?", en: "Industrial melanism in peppered moths is a classic example of?" },
+					o: { hi: ["आनुवंशिक विचलन", "प्राकृतिक चयन", "कृत्रिम चयन", "चयन रहित उत्परिवर्तन"], en: ["Genetic drift", "Natural selection", "Artificial selection", "Mutation without selection"] },
+					sol: { hi: "सही उत्तर: B) प्रदूषण से वृक्षों की छाल गहरे रंग की हुई, जिससे गहरे रंग के पतंगे शिकारियों से बेहतर छिपकर अधिक जीवित रहे — यह प्राकृतिक चयन का एक क्लासिक उदाहरण है।", en: "Correct answer: B) As pollution darkened tree bark, dark-coloured moths were better camouflaged from predators and survived preferentially — a textbook case of natural selection." } },
+				{ s: "S8", a: 1,
+					q: { hi: "वह प्रक्रिया जिसमें दो असंबंधित प्रजातियाँ समान पर्यावरण के अनुकूलन के कारण समान लक्षण विकसित करती हैं, क्या कहलाती है?", en: "The process by which two unrelated species evolve similar traits due to adapting to similar environments is called?" },
+					o: { hi: ["अपसारी विकास", "अभिसारी विकास", "सह-विकास", "अनुकूली विकिरण"], en: ["Divergent evolution", "Convergent evolution", "Co-evolution", "Adaptive radiation"] },
+					sol: { hi: "सही उत्तर: B) अभिसारी विकास — असंबंधित प्रजातियाँ समान पर्यावरणीय दबावों के कारण स्वतंत्र रूप से समान लक्षण विकसित करती हैं (जैसे डॉल्फ़िन तथा शार्क)।", en: "Correct answer: B) Convergent evolution — unrelated species independently evolve similar traits due to similar environmental pressures (e.g. dolphins and sharks)." } },
+				// ===== S9: Biotechnology & Genetic Engineering =====
+				{ s: "S9", a: 1,
+					q: { hi: "आनुवंशिक अभियांत्रिकी में प्रतिबंधन एंजाइमों (Restriction Enzymes) का उपयोग किसके लिए किया जाता है?", en: "Restriction enzymes are used in genetic engineering to?" },
+					o: { hi: ["DNA खंडों को जोड़ने के लिए", "विशिष्ट स्थलों पर DNA को काटने के लिए", "नए DNA का संश्लेषण करने के लिए", "DNA को प्रवर्धित करने के लिए"], en: ["Join DNA fragments", "Cut DNA at specific sites", "Synthesize new DNA", "Amplify DNA"] },
+					sol: { hi: "सही उत्तर: B) प्रतिबंधन एंजाइम विशिष्ट अनुक्रमों को पहचानकर उन स्थलों पर DNA को काटते हैं, जो 'आणविक कैंची' की तरह कार्य करते हैं।", en: "Correct answer: B) Restriction enzymes recognize specific sequences and cut DNA at those sites, acting as 'molecular scissors'." } },
+				{ s: "S9", a: 1,
+					q: { hi: "किसी विशिष्ट DNA अनुक्रम को इन विट्रो (शरीर से बाहर) प्रवर्धित करने की तकनीक क्या कहलाती है?", en: "The technique used to amplify a specific DNA sequence in vitro is called?" },
+					o: { hi: ["जेल वैद्युतकणसंचलन", "पॉलीमरेज़ चेन रिएक्शन (PCR)", "सदर्न ब्लॉटिंग", "क्लोनिंग"], en: ["Gel electrophoresis", "Polymerase Chain Reaction (PCR)", "Southern blotting", "Cloning"] },
+					sol: { hi: "सही उत्तर: B) PCR किसी विशिष्ट DNA अनुक्रम को लाखों गुना प्रवर्धित करने के लिए विकृतीकरण, एनीलिंग तथा विस्तार के दोहराए गए चक्रों का उपयोग करता है।", en: "Correct answer: B) PCR uses repeated cycles of denaturation, annealing, and extension to amplify a specific DNA sequence millions of times." } },
+				{ s: "S9", a: 1,
+					q: { hi: "पौधों में बाह्य जीन प्रविष्ट कराने के लिए वाहक (वेक्टर) के रूप में सामान्यतः किस जीवाणु का उपयोग किया जाता है?", en: "Which bacterium is commonly used as a vector to introduce foreign genes into plants?" },
+					o: { hi: ["एस्चेरिचिया कोलाई", "एग्रोबैक्टीरियम ट्यूमीफेशिएंस", "बैसिलस सब्टिलिस", "साल्मोनेला टाइफी"], en: ["Escherichia coli", "Agrobacterium tumefaciens", "Bacillus subtilis", "Salmonella typhi"] },
+					sol: { hi: "सही उत्तर: B) एग्रोबैक्टीरियम ट्यूमीफेशिएंस स्वाभाविक रूप से अपने Ti प्लाज्मिड का एक भाग पादप कोशिकाओं में स्थानांतरित करता है, जिससे यह पादप आनुवंशिक अभियांत्रिकी में व्यापक रूप से उपयोग होने वाला वाहक है।", en: "Correct answer: B) Agrobacterium tumefaciens naturally transfers a portion of its Ti plasmid into plant cells, making it a widely used vector in plant genetic engineering." } },
+				{ s: "S9", a: 1,
+					q: { hi: "Bt कपास को आनुवंशिक रूप से रूपांतरित कर किससे प्राप्त विष जीन को अभिव्यक्त कराया जाता है?", en: "Bt cotton is genetically modified to express a toxin gene derived from?" },
+					o: { hi: ["एक विषाणु", "बैसिलस थुरिन्जिएंसिस", "एक कवक", "एक पादप रोगजनक"], en: ["A virus", "Bacillus thuringiensis", "A fungus", "A plant pathogen"] },
+					sol: { hi: "सही उत्तर: B) Bt कपास मृदा जीवाणु बैसिलस थुरिन्जिएंसिस के क्रिस्टल विष जीन (cry gene) को अभिव्यक्त करता है, जो कुछ कीट पीड़कों के लिए विषैला होता है।", en: "Correct answer: B) Bt cotton expresses a crystal toxin gene (cry gene) from the soil bacterium Bacillus thuringiensis, which is toxic to certain insect pests." } },
+				{ s: "S9", a: 1,
+					q: { hi: "जेल वैद्युतकणसंचलन में, DNA खंड किसके आधार पर पृथक किए जाते हैं?", en: "In gel electrophoresis, DNA fragments are separated based on their?" },
+					o: { hi: ["केवल आवेश", "आकार, क्योंकि वे जेल मैट्रिक्स से होकर गति करते हैं", "रंग", "तापमान स्थायित्व"], en: ["Charge only", "Size, as they migrate through the gel matrix", "Color", "Temperature stability"] },
+					sol: { hi: "सही उत्तर: B) विद्युत क्षेत्र में, ऋणावेशित DNA खंड जेल मैट्रिक्स से होकर गति करते हैं; छोटे खंड तेज़ी से गति करते हैं, जिससे वे आकार के अनुसार पृथक हो जाते हैं।", en: "Correct answer: B) Under an electric field, DNA fragments (negatively charged) migrate through the gel matrix; smaller fragments move faster, separating them by size." } },
+				{ s: "S9", a: 1,
+					q: { hi: "पुनर्योगज DNA प्रौद्योगिकी में DNA खंडों को जोड़ने के लिए किस एंजाइम का उपयोग किया जाता है?", en: "Which enzyme is used to join DNA fragments together during recombinant DNA technology?" },
+					o: { hi: ["DNA पॉलीमरेज़", "DNA लाइगेज़", "प्रतिबंधन एंडोन्यूक्लिएज़", "रिवर्स ट्रांसक्रिप्टेज़"], en: ["DNA polymerase", "DNA ligase", "Restriction endonuclease", "Reverse transcriptase"] },
+					sol: { hi: "सही उत्तर: B) DNA लाइगेज़ शर्करा-फॉस्फेट कंकाल को जोड़कर DNA खंडों को एक साथ मिलाता है — यह 'आणविक गोंद' की तरह कार्य करता है।", en: "Correct answer: B) DNA ligase seals the sugar-phosphate backbone, joining DNA fragments together — it acts as a 'molecular glue'." } },
+				{ s: "S9", a: 1,
+					q: { hi: "पुनर्योगज DNA प्रौद्योगिकी का उपयोग करके इंसुलिन उत्पादन में सामान्यतः किस जीव को परपोषी के रूप में उपयोग किया जाता है?", en: "Insulin production using recombinant DNA technology commonly uses which organism as a host?" },
+					o: { hi: ["केवल यीस्ट", "एस्चेरिचिया कोलाई", "मानव कोशिकाएँ", "विषाणु"], en: ["Yeast only", "Escherichia coli", "Human cells", "Virus"] },
+					sol: { hi: "सही उत्तर: B) मानव इंसुलिन जीन से अभियांत्रित एस्चेरिचिया कोलाई का उपयोग पुनर्योगज मानव इंसुलिन के उत्पादन में व्यापक रूप से किया जाता है।", en: "Correct answer: B) Escherichia coli, engineered with the human insulin gene, is widely used to produce recombinant human insulin." } },
+				{ s: "S9", a: 1,
+					q: { hi: "आनुवंशिक अभियांत्रिकी में प्लाज्मिड की भूमिका का सर्वोत्तम वर्णन निम्नलिखित में से कौन-सा करता है?", en: "Which of the following best describes the role of a plasmid in genetic engineering?" },
+					o: { hi: ["यह यूकैरियोटिक कोशिकाओं की मुख्य आनुवंशिक सामग्री के रूप में कार्य करता है", "यह परपोषी कोशिका के भीतर बाह्य DNA को वहन एवं प्रतिकृत करने वाले वाहक के रूप में कार्य करता है", "यह DNA काटने वाला एक एंजाइम है", "इसका उपयोग केवल DNA अनुक्रमण हेतु किया जाता है"], en: ["It serves as the primary genetic material of eukaryotic cells", "It acts as a vector to carry and replicate foreign DNA inside a host cell", "It is an enzyme that cuts DNA", "It is used only for DNA sequencing"] },
+					sol: { hi: "सही उत्तर: B) प्लाज्मिड छोटे, स्वतः-प्रतिकृत होने वाले वृत्ताकार DNA अणु हैं जिनका उपयोग बाह्य जीनों को परपोषी कोशिकाओं में वहन करने वाले वाहक के रूप में किया जाता है।", en: "Correct answer: B) Plasmids are small, self-replicating circular DNA molecules used as vectors to carry foreign genes into host cells." } },
+				{ s: "S9", a: 0,
+					q: { hi: "आनुवंशिक अभियांत्रिकी का पहला चरण सामान्यतः किसमें शामिल होता है?", en: "The first step in genetic engineering typically involves?" },
+					o: { hi: ["वांछित जीन का पृथक्करण", "परपोषी में जीन का प्रवेश कराना", "जीन की अभिव्यक्ति", "रूपांतरितों (Transformants) का चयन"], en: ["Isolation of the desired gene", "Introduction of gene into host", "Expression of the gene", "Selection of transformants"] },
+					sol: { hi: "सही उत्तर: A) यह प्रक्रिया वांछित जीन को पृथक करने से प्रारंभ होती है, इसके बाद ही इसे काटा, वाहक में डाला तथा परपोषी में प्रविष्ट किया जा सकता है।", en: "Correct answer: A) The process begins with isolating the gene of interest, before it can be cut, inserted into a vector, and introduced into a host." } },
+				{ s: "S9", a: 1,
+					q: { hi: "गोल्डन राइस को आनुवंशिक रूप से किस पोषक तत्व के अग्रदूत से समृद्ध किया गया है?", en: "Golden rice is genetically engineered to be enriched with which nutrient precursor?" },
+					o: { hi: ["विटामिन C", "बीटा-कैरोटीन (प्रोविटामिन A)", "विटामिन D", "केवल आयरन"], en: ["Vitamin C", "Beta-carotene (provitamin A)", "Vitamin D", "Iron only"] },
+					sol: { hi: "सही उत्तर: B) गोल्डन राइस को बीटा-कैरोटीन, जो विटामिन A का अग्रदूत है, उत्पन्न करने हेतु अभियांत्रित किया गया है, ताकि विटामिन A की कमी से निपटा जा सके।", en: "Correct answer: B) Golden rice is engineered to produce beta-carotene, a precursor of vitamin A, to help combat vitamin A deficiency." } },
+				// ===== S10: Biodiversity, Microbiology & Human Health =====
+				{ s: "S10", a: 2,
+					q: { hi: "निम्नलिखित में से कौन-सा एक विषाणुजनित रोग है?", en: "Which of the following is a viral disease?" },
+					o: { hi: ["टाइफाइड", "मलेरिया", "इन्फ्लुएंजा", "क्षय रोग (तपेदिक)"], en: ["Typhoid", "Malaria", "Influenza", "Tuberculosis"] },
+					sol: { hi: "सही उत्तर: C) इन्फ्लुएंजा इन्फ्लुएंजा विषाणु से होता है; टाइफाइड व क्षय रोग जीवाणुजनित हैं, तथा मलेरिया एक प्रोटोज़ोआ से होता है।", en: "Correct answer: C) Influenza is caused by the influenza virus; typhoid and tuberculosis are bacterial, and malaria is caused by a protozoan." } },
+				{ s: "S10", a: 1,
+					q: { hi: "जीवों के नामकरण की द्विनाम पद्धति (Binomial Nomenclature) किसने दी?", en: "The binomial nomenclature system for naming organisms was given by?" },
+					o: { hi: ["चार्ल्स डार्विन", "कैरोलस लिनियस", "ग्रेगर मेंडल", "रॉबर्ट हुक"], en: ["Charles Darwin", "Carolus Linnaeus", "Gregor Mendel", "Robert Hooke"] },
+					sol: { hi: "सही उत्तर: B) कैरोलस लिनियस ने द्विनाम पद्धति विकसित की, जिसमें प्रत्येक प्रजाति को दो-भागीय वैज्ञानिक नाम दिया जाता है।", en: "Correct answer: B) Carolus Linnaeus developed the binomial nomenclature system, giving each species a two-part scientific name." } },
+				{ s: "S10", a: 0,
+					q: { hi: "मलेरिया किस वंश (Genus) के प्रोटोज़ोआ से होता है?", en: "Malaria is caused by a protozoan of the genus?" },
+					o: { hi: ["प्लाज्मोडियम", "एंटअमीबा", "ट्रिपैनोसोमा", "लीशमैनिया"], en: ["Plasmodium", "Entamoeba", "Trypanosoma", "Leishmania"] },
+					sol: { hi: "सही उत्तर: A) प्लाज्मोडियम — मादा एनोफिलीज़ मच्छर द्वारा संचारित होकर यह मलेरिया का कारण बनता है।", en: "Correct answer: A) Plasmodium — transmitted by the female Anopheles mosquito, it causes malaria." } },
+				{ s: "S10", a: 1,
+					q: { hi: "टीकाकरण मुख्यतः किस प्रकार प्रतिरक्षा प्रदान करता है?", en: "Vaccination provides immunity primarily by?" },
+					o: { hi: ["शरीर में रोगजनकों को सीधे नष्ट करके", "किसी विशिष्ट प्रतिजन के विरुद्ध स्मृति कोशिकाएँ बनाने हेतु प्रतिरक्षा तंत्र को उत्तेजित करके", "प्रतिजैविक (एंटीबायोटिक) प्रदान करके", "प्रतिरक्षा अनुक्रिया की आवश्यकता को समाप्त करके"], en: ["Directly killing pathogens in the body", "Stimulating the immune system to produce memory cells against a specific antigen", "Providing antibiotics", "Removing the need for an immune response"] },
+					sol: { hi: "सही उत्तर: B) टीके एक निष्क्रिय/दुर्बल प्रतिजन प्रविष्ट कराते हैं, जिससे प्रतिरक्षा तंत्र भविष्य में तीव्र अनुक्रिया हेतु स्मृति कोशिकाएँ बनाता है।", en: "Correct answer: B) Vaccines introduce a weakened/inactive antigen, prompting the immune system to produce memory cells for rapid future response." } },
+				{ s: "S10", a: 0,
+					q: { hi: "वर्गिकी पदानुक्रम (Taxonomic Hierarchy) का सही अवरोही क्रम क्या है?", en: "The taxonomic hierarchy, in the correct descending order, is?" },
+					o: { hi: ["जगत, संघ, वर्ग, गण, कुल, वंश, जाति", "जाति, वंश, कुल, गण, वर्ग, संघ, जगत", "जगत, वर्ग, संघ, गण, कुल, वंश, जाति", "संघ, जगत, वर्ग, गण, कुल, वंश, जाति"], en: ["Kingdom, Phylum, Class, Order, Family, Genus, Species", "Species, Genus, Family, Order, Class, Phylum, Kingdom", "Kingdom, Class, Phylum, Order, Family, Genus, Species", "Phylum, Kingdom, Class, Order, Family, Genus, Species"] },
+					sol: { hi: "सही उत्तर: A) जगत → संघ → वर्ग → गण → कुल → वंश → जाति मानक अवरोही वर्गिकी पदानुक्रम है।", en: "Correct answer: A) Kingdom → Phylum → Class → Order → Family → Genus → Species is the standard descending taxonomic hierarchy." } },
+				{ s: "S10", a: 1,
+					q: { hi: "निम्नलिखित में से कौन-सा सहज प्रतिरक्षा (Innate Immunity) को उपार्जित (अनुकूली) प्रतिरक्षा से सर्वोत्तम रूप से अलग करता है?", en: "Which of the following best distinguishes innate immunity from acquired (adaptive) immunity?" },
+					o: { hi: ["सहज प्रतिरक्षा प्रतिजन-विशिष्ट होती है और स्मृति रखती है; उपार्जित प्रतिरक्षा अविशिष्ट होती है", "सहज प्रतिरक्षा अविशिष्ट होती है व जन्म से उपस्थित होती है; उपार्जित प्रतिरक्षा प्रतिजन-विशिष्ट होती है और स्मृति विकसित करती है", "दोनों की क्रियाविधि समान है", "उपार्जित प्रतिरक्षा में कोई स्मृति घटक नहीं होता"], en: ["Innate immunity is antigen-specific and has memory; acquired immunity is non-specific", "Innate immunity is non-specific and present from birth; acquired immunity is antigen-specific and develops memory", "Both are identical in mechanism", "Acquired immunity has no memory component"] },
+					sol: { hi: "सही उत्तर: B) सहज प्रतिरक्षा अविशिष्ट होती है व जन्म से उपस्थित होती है; उपार्जित प्रतिरक्षा प्रतिजन-विशिष्ट होती है और प्रतिरक्षात्मक स्मृति बनाती है।", en: "Correct answer: B) Innate immunity is non-specific and present from birth (e.g. skin, phagocytes); acquired immunity is antigen-specific and forms immunological memory." } },
+				{ s: "S10", a: 1,
+					q: { hi: "एड्स एक ऐसे विषाणु से होता है जो मुख्यतः किस प्रकार की कोशिका पर आक्रमण करता है?", en: "AIDS is caused by a virus that primarily attacks which type of cell?" },
+					o: { hi: ["लाल रक्त कोशिकाएँ", "सहायक T-लिम्फोसाइट (CD4+ कोशिकाएँ)", "प्लेटलेट्स", "न्यूरॉन"], en: ["Red blood cells", "Helper T-lymphocytes (CD4+ cells)", "Platelets", "Neurons"] },
+					sol: { hi: "सही उत्तर: B) HIV मुख्यतः सहायक T-लिम्फोसाइट (CD4+ कोशिकाओं) को संक्रमित व नष्ट करता है, जिससे प्रतिरक्षा तंत्र गंभीर रूप से कमजोर हो जाता है।", en: "Correct answer: B) HIV primarily infects and destroys helper T-lymphocytes (CD4+ cells), severely weakening the immune system." } },
+				{ s: "S10", a: 1,
+					q: { hi: "निम्नलिखित में से कौन-सा एक जैव उर्वरक (Biofertilizer) का उदाहरण है?", en: "Which of the following is an example of a biofertilizer?" },
+					o: { hi: ["यूरिया", "राइजोबियम", "DDT", "सुपरफॉस्फेट"], en: ["Urea", "Rhizobium", "DDT", "Superphosphate"] },
+					sol: { hi: "सही उत्तर: B) राइजोबियम एक नाइट्रोजन-स्थिरीकरण करने वाला जीवाणु है, जिसका उपयोग मृदा में प्राकृतिक रूप से नाइट्रोजन बढ़ाने हेतु जैव उर्वरक के रूप में किया जाता है।", en: "Correct answer: B) Rhizobium is a nitrogen-fixing bacterium used as a biofertilizer to enrich soil nitrogen content naturally." } },
+				{ s: "S10", a: 1,
+					q: { hi: "पेनिसिलिन जैसे प्रतिजैविक (एंटीबायोटिक) किस प्रकार के जीव से प्राप्त होते हैं?", en: "Antibiotics such as penicillin are obtained from which type of organism?" },
+					o: { hi: ["केवल जीवाणु", "कवक (फंगस)", "विषाणु", "प्रोटोज़ोआ"], en: ["Bacteria only", "Fungi", "Virus", "Protozoa"] },
+					sol: { hi: "सही उत्तर: B) पेनिसिलिन कवक पेनिसिलियम नोटेटम से प्राप्त होता है।", en: "Correct answer: B) Penicillin is obtained from the fungus Penicillium notatum." } },
+				{ s: "S10", a: 1,
+					q: { hi: "जैव विविधता हॉटस्पॉट किन क्षेत्रों की विशेषता होती है?", en: "Biodiversity hotspots are regions characterized by?" },
+					o: { hi: ["कम प्रजाति समृद्धि तथा कम स्थानिकता", "उच्च प्रजाति समृद्धि तथा उच्च स्थानिकता, परंतु संकटग्रस्त", "कोई मानवीय खतरा नहीं", "केवल समुद्री पारिस्थितिकी तंत्र"], en: ["Low species richness and low endemism", "High species richness and high endemism, but under threat", "No human threat", "Only marine ecosystems"] },
+					sol: { hi: "सही उत्तर: B) जैव विविधता हॉटस्पॉट में असाधारण रूप से उच्च प्रजाति समृद्धि व स्थानिकता होती है, परंतु वे महत्वपूर्ण आवास क्षय व खतरे का सामना करते हैं।", en: "Correct answer: B) Biodiversity hotspots have exceptionally high species richness and endemism, but face significant habitat loss and threat." } },
+			];
+
+			const UI = {
+				en: {
+					subtitle: "MP Varg-1 (PGT) \u00b7 100 Questions",
+					timeLeft: "Time Left",
+					legAns: "Answered",
+					legNot: "Not Answered",
+					legMarked: "Marked",
+					legVisit: "Not Visited",
+					qof: (n, t) => "Q " + n + " of " + t,
+					clear: "Clear Response",
+					mark: "Mark for Review & Next",
+					prev: "\u2039 Previous",
+					save: "Save & Next \u203a",
+					submit: "Submit Test",
+					confirmMsg: (u) =>
+						"You have " +
+						u +
+						" unattempted question(s).\nSubmit the test now?",
+					rbrand: "PGT BIOLOGY MOCK TEST",
+					outof: (auto) =>
+						"MP Varg-1 (PGT) Biology \u00b7 " +
+						(auto
+							? "Time Up \u2014 Auto Submitted"
+							: "Test Submitted"),
+					scoreLabel: "Score",
+					thSection: "Section",
+					thCorrect: "Correct",
+					thWrong: "Wrong",
+					thSkipped: "Skipped",
+					rnote: "No negative marking. Tap any question below to see the correct answer.",
+					tagOk: "Correct",
+					tagBad: "Incorrect",
+					tagSkip: "Skipped",
+					solution: "Answer:",
+					retake: "Retake Test",
+					langBtn: "\u0939\u093f\u0902\u0926\u0940",
+					qLabelPrefix: "Q",
+					nCardTitle: "Before you begin",
+					nCardSub: "Enter your name so it appears on your result.",
+					nFieldLabel: "Student Name",
+					nPlaceholder: "e.g. Riya Sharma",
+					startBtn: "Start Test",
+					defaultName: "Student",
+				},
+				hi: {
+					subtitle:
+						"\u090f\u092e\u092a\u0940 \u0935\u0930\u094d\u0917-1 (PGT) \u00b7 100 \u092a\u094d\u0930\u0936\u094d\u0928",
+					timeLeft: "\u0936\u0947\u0937 \u0938\u092e\u092f",
+					legAns: "\u0909\u0924\u094d\u0924\u0930 \u0926\u093f\u092f\u093e",
+					legNot: "\u0909\u0924\u094d\u0924\u0930 \u0928\u0939\u0940\u0902 \u0926\u093f\u092f\u093e",
+					legMarked: "\u091a\u093f\u0939\u094d\u0928\u093f\u0924",
+					legVisit:
+						"\u0928\u0939\u0940\u0902 \u0926\u0947\u0916\u093e \u0917\u092f\u093e",
+					qof: (n, t) =>
+						"\u092a\u094d\u0930\u0936\u094d\u0928 " + n + " / " + t,
+					clear: "\u0909\u0924\u094d\u0924\u0930 \u0939\u091f\u093e\u090f\u0902",
+					mark: "\u0938\u092e\u0940\u0915\u094d\u0937\u093e \u0939\u0947\u0924\u0941 \u091a\u093f\u0939\u094d\u0928\u093f\u0924 \u0915\u0930\u0947\u0902 \u0914\u0930 \u0906\u0917\u0947",
+					prev: "\u2039 \u092a\u093f\u091b\u0932\u093e",
+					save: "\u0938\u0939\u0947\u091c\u0947\u0902 \u0914\u0930 \u0906\u0917\u0947 \u203a",
+					submit: "\u091f\u0947\u0938\u094d\u091f \u091c\u092e\u093e \u0915\u0930\u0947\u0902",
+					confirmMsg: (u) =>
+						"\u0906\u092a\u0915\u0947 " +
+						u +
+						" \u092a\u094d\u0930\u0936\u094d\u0928 \u0905\u0928\u0941\u0924\u094d\u0924\u0930\u093f\u0924 \u0939\u0948\u0902\u0964\n\u0915\u094d\u092f\u093e \u0905\u092c \u091f\u0947\u0938\u094d\u091f \u091c\u092e\u093e \u0915\u0930\u0947\u0902?",
+					rbrand: "PGT BIOLOGY MOCK TEST",
+					outof: (auto) =>
+						"\u090f\u092e\u092a\u0940 \u0935\u0930\u094d\u0917-1 (PGT) \u091c\u0940\u0935 \u0935\u093f\u091c\u094d\u091e\u093e\u0928 \u00b7 " +
+						(auto
+							? "\u0938\u092e\u092f \u0938\u092e\u093e\u092a\u094d\u0924 \u2014 \u0938\u094d\u0935\u0924\u0903 \u091c\u092e\u093e"
+							: "\u091f\u0947\u0938\u094d\u091f \u091c\u092e\u093e \u0939\u0941\u0906"),
+					scoreLabel: "\u0938\u094d\u0915\u094b\u0930",
+					thSection: "\u0905\u0928\u0941\u092d\u093e\u0917",
+					thCorrect: "\u0938\u0939\u0940",
+					thWrong: "\u0917\u0932\u0924",
+					thSkipped: "\u091b\u0942\u091f\u0947",
+					rnote: "\u0915\u094b\u0908 \u0930\u0923\u093e\u0924\u094d\u092e\u0915 \u0905\u0902\u0915\u0928 \u0928\u0939\u0940\u0902\u0964 \u0938\u0939\u0940 \u0909\u0924\u094d\u0924\u0930 \u0926\u0947\u0916\u0928\u0947 \u0939\u0947\u0924\u0941 \u0928\u0940\u091a\u0947 \u0915\u093f\u0938\u0940 \u092d\u0940 \u092a\u094d\u0930\u0936\u094d\u0928 \u092a\u0930 \u091f\u0948\u092a \u0915\u0930\u0947\u0902\u0964",
+					tagOk: "\u0938\u0939\u0940",
+					tagBad: "\u0917\u0932\u0924",
+					tagSkip: "\u091b\u0942\u091f\u093e",
+					solution: "\u0909\u0924\u094d\u0924\u0930:",
+					retake: "\u091f\u0947\u0938\u094d\u091f \u092b\u093f\u0930 \u0938\u0947 \u0926\u0947\u0902",
+					langBtn: "English",
+					qLabelPrefix: "\u092a\u094d\u0930\u0964",
+					nCardTitle:
+						"\u0936\u0941\u0930\u0942 \u0915\u0930\u0928\u0947 \u0938\u0947 \u092a\u0939\u0932\u0947",
+					nCardSub:
+						"\u0905\u092a\u0928\u093e \u0928\u093e\u092e \u0926\u0930\u094d\u091c \u0915\u0930\u0947\u0902 \u0924\u093e\u0915\u093f \u092f\u0939 \u0906\u092a\u0915\u0947 \u092a\u0930\u093f\u0923\u093e\u092e \u092e\u0947\u0902 \u0926\u093f\u0916\u0947\u0964",
+					nFieldLabel:
+						"\u0935\u093f\u0926\u094d\u092f\u093e\u0930\u094d\u0925\u0940 \u0915\u093e \u0928\u093e\u092e",
+					nPlaceholder:
+						"\u091c\u0948\u0938\u0947: \u0930\u093f\u092f\u093e \u0936\u0930\u094d\u092e\u093e",
+					startBtn:
+						"\u091f\u0947\u0938\u094d\u091f \u0936\u0941\u0930\u0942 \u0915\u0930\u0947\u0902",
+					defaultName:
+						"\u0935\u093f\u0926\u094d\u092f\u093e\u0930\u094d\u0925\u0940",
+				},
+			};
+
+			let lang = "en";
+			function t() {
+				return UI[lang];
+			}
+
+			const TOTAL = Q.length;
+			const DURATION = 120 * 60;
+			let cur = 0,
+				answers = {},
+				visited = new Set(),
+				marked = new Set(),
+				timeLeft = DURATION,
+				timerH = null;
+			let studentName = "";
+			let lastResult = null;
+
+			const secRange = {};
+			SECTIONS.forEach((sec) => {
+				const idx = Q.map((q, i) => (q.s === sec.key ? i : -1)).filter(
+					(i) => i >= 0
+				);
+				secRange[sec.key] = { start: idx[0], end: idx[idx.length - 1] };
+			});
+
+			const elTimer = document.getElementById("timer");
+			const elTimerbar = document.getElementById("timerbar");
+			const elPalette = document.getElementById("palette");
+			const elTabs = document.getElementById("sectiontabs");
+
+			function buildTabs() {
+				elTabs.innerHTML = "";
+				SECTIONS.forEach((sec) => {
+					const b = document.createElement("button");
+					b.textContent = sec.label[lang];
+					b.dataset.key = sec.key;
+					b.onclick = () => {
+						cur = secRange[sec.key].start;
+						render();
+					};
+					elTabs.appendChild(b);
+				});
+			}
+
+			function buildPalette() {
+				elPalette.innerHTML = "";
+				for (let i = 0; i < TOTAL; i++) {
+					const c = document.createElement("div");
+					c.className = "pcell";
+					c.textContent = i + 1;
+					c.onclick = () => {
+						cur = i;
+						render();
+					};
+					elPalette.appendChild(c);
+				}
+			}
+
+			function renderPalette() {
+				const cells = elPalette.children;
+				for (let i = 0; i < TOTAL; i++) {
+					const c = cells[i];
+					c.className = "pcell";
+					if (i === cur) c.classList.add("current");
+					const hasA = answers.hasOwnProperty(i);
+					const isMark = marked.has(i);
+					if (isMark) {
+						c.classList.add("marked");
+						if (hasA) c.classList.add("answered");
+					} else if (hasA) c.classList.add("answered");
+					else if (visited.has(i)) c.classList.add("notanswered");
+				}
+			}
+
+			function renderTabs() {
+				[...elTabs.children].forEach((b) =>
+					b.classList.toggle("active", Q[cur].s === b.dataset.key)
+				);
+			}
+
+			function renderQuestion() {
+				const item = Q[cur];
+				const sec = SECTIONS.find((s) => s.key === item.s);
+				document.getElementById("qno").textContent = t().qof(
+					cur + 1,
+					TOTAL
+				);
+				document.getElementById("qsec").textContent = sec.label[lang];
+				document.getElementById("qtext").textContent = item.q[lang];
+				const optDiv = document.getElementById("options");
+				optDiv.innerHTML = "";
+				item.o[lang].forEach((optText, idx) => {
+					const wrap = document.createElement("div");
+					wrap.className =
+						"opt" + (answers[cur] === idx ? " selected" : "");
+					const id = "opt_" + cur + "_" + idx;
+					wrap.innerHTML =
+						'<input type="radio" name="q' +
+						cur +
+						'" id="' +
+						id +
+						'"' +
+						(answers[cur] === idx ? " checked" : "") +
+						">" +
+						'<label for="' +
+						id +
+						'">' +
+						String.fromCharCode(65 + idx) +
+						". " +
+						optText +
+						"</label>";
+					wrap.onclick = () => {
+						answers[cur] = idx;
+						visited.add(cur);
+						renderQuestion();
+						renderPalette();
+					};
+					optDiv.appendChild(wrap);
+				});
+			}
+
+			function render() {
+				visited.add(cur);
+				renderQuestion();
+				renderPalette();
+				renderTabs();
+				elPalette.children[cur].scrollIntoView({
+					block: "nearest",
+					inline: "center",
+				});
+			}
+
+			document.getElementById("clearBtn").onclick = () => {
+				delete answers[cur];
+				renderQuestion();
+				renderPalette();
+			};
+			document.getElementById("markBtn").onclick = () => {
+				marked.add(cur);
+				goNext();
+			};
+			document.getElementById("saveBtn").onclick = goNext;
+			document.getElementById("prevBtn").onclick = () => {
+				if (cur > 0) {
+					cur--;
+					render();
+				}
+			};
+			function goNext() {
+				if (cur < TOTAL - 1) {
+					cur++;
+					render();
+				} else render();
+			}
+
+			document.getElementById("submitBtn").onclick = () => {
+				const u = TOTAL - Object.keys(answers).length;
+				if (confirm(t().confirmMsg(u))) submitTest();
+			};
+
+			function fmt(s) {
+				return (
+					String(Math.floor(s / 60)).padStart(2, "0") +
+					":" +
+					String(s % 60).padStart(2, "0")
+				);
+			}
+			function startTimer() {
+				timerH = setInterval(() => {
+					timeLeft--;
+					elTimer.textContent = fmt(Math.max(timeLeft, 0));
+					if (timeLeft <= 300) elTimerbar.classList.add("warn");
+					if (timeLeft <= 0) {
+						clearInterval(timerH);
+						submitTest(true);
+					}
+				}, 1000);
+			}
+
+			function submitTest(auto) {
+				clearInterval(timerH);
+				lastResult = { auto: !!auto };
+				renderResultScreen();
+			}
+
+			function renderResultScreen() {
+				if (!lastResult) return;
+				const auto = lastResult.auto;
+				const byS = {};
+				SECTIONS.forEach((s) => (byS[s.key] = { c: 0, w: 0, sk: 0 }));
+				let tot = 0;
+				Q.forEach((item, i) => {
+					const g = answers[i];
+					if (g === undefined) byS[item.s].sk++;
+					else if (g === item.a) {
+						byS[item.s].c++;
+						tot++;
+					} else byS[item.s].w++;
+				});
+
+				document.getElementById("app").style.display = "none";
+				const rs = document.getElementById("resultScreen");
+				rs.style.display = "block";
+				const pct = ((tot / TOTAL) * 100).toFixed(1);
+				const u = t();
+
+				let rows = "";
+				SECTIONS.forEach((s) => {
+					const d = byS[s.key];
+					rows += `<tr><td>${s.label[lang]}</td><td>${d.c}</td><td>${d.w}</td><td>${d.sk}</td></tr>`;
+				});
+
+				let review = "";
+				Q.forEach((item, i) => {
+					const g = answers[i];
+					let tag = "skip",
+						tl = u.tagSkip;
+					if (g !== undefined) {
+						if (g === item.a) {
+							tag = "ok";
+							tl = u.tagOk;
+						} else {
+							tag = "bad";
+							tl = u.tagBad;
+						}
+					}
+					let opts = "";
+					item.o[lang].forEach((ot, idx) => {
+						let cls = "";
+						if (idx === item.a) cls = "correctAns";
+						else if (idx === g) cls = "wrongChosen";
+						opts += `<div class="ropt ${cls}">${String.fromCharCode(
+							65 + idx
+						)}. ${ot}</div>`;
+					});
+					review += `<details class="qreview"><summary><span>${
+						u.qLabelPrefix
+					}${i + 1}. ${
+						SECTIONS.find((s) => s.key === item.s).label[lang]
+					}</span><span class="rtag ${tag}">${tl}</span></summary>
+   <div class="rqtext">${item.q[lang]}</div>
+   ${opts}
+   <div class="rsol"><b>${u.solution}</b> ${item.sol[lang]}</div>
+  </details>`;
+				});
+
+				rs.innerHTML = `
+  <div class="rhero">
+   <button class="langBtn" id="langBtnResult" type="button">${
+		u.langBtn
+   }</button>
+   <div class="rbrand">${u.rbrand}</div>
+   <div class="rname">${studentName ? studentName : u.defaultName}</div>
+   <div class="score">${tot} / ${TOTAL}</div>
+   <div class="outof">${u.outof(auto)}</div>
+   <div class="pct">${pct}% ${u.scoreLabel}</div>
+  </div>
+  <div class="rwrap">
+   <table class="rtable">
+    <tr><th>${u.thSection}</th><th>${u.thCorrect}</th><th>${
+					u.thWrong
+				}</th><th>${u.thSkipped}</th></tr>
+    ${rows}
+   </table>
+   <p class="rnote">${u.rnote}</p>
+   ${review}
+   <button id="retakeBtn">${u.retake}</button>
+  </div>`;
+
+				document.getElementById("langBtnResult").onclick = toggleLang;
+
+				document.getElementById("retakeBtn").onclick = () => {
+					answers = {};
+					visited = new Set();
+					marked = new Set();
+					cur = 0;
+					timeLeft = DURATION;
+					lastResult = null;
+					elTimerbar.classList.remove("warn");
+					elTimer.textContent = fmt(DURATION);
+					rs.style.display = "none";
+					document.getElementById("app").style.display = "flex";
+					renderPalette();
+					render();
+					startTimer();
+				};
+			}
+
+			function applyStaticText() {
+				const u = t();
+				document.getElementById("subtitleText").textContent =
+					u.subtitle;
+				document.getElementById("nSubtitleText").textContent =
+					u.subtitle;
+				document.getElementById("timeLeftLabel").textContent =
+					u.timeLeft;
+				document.getElementById("legAns").textContent = u.legAns;
+				document.getElementById("legNot").textContent = u.legNot;
+				document.getElementById("legMarked").textContent = u.legMarked;
+				document.getElementById("legVisit").textContent = u.legVisit;
+				document.getElementById("clearBtn").textContent = u.clear;
+				document.getElementById("markBtn").innerHTML = u.mark.replace(
+					"&",
+					"&amp;"
+				);
+				document.getElementById("prevBtn").innerHTML = u.prev;
+				document.getElementById("saveBtn").innerHTML = u.save.replace(
+					"&",
+					"&amp;"
+				);
+				document.getElementById("submitBtn").textContent = u.submit;
+				document.getElementById("langBtn").textContent = u.langBtn;
+				document.getElementById("langBtnName").textContent = u.langBtn;
+				document.getElementById("nCardTitle").textContent =
+					u.nCardTitle;
+				document.getElementById("nCardSub").textContent = u.nCardSub;
+				document.getElementById("nFieldLabel").textContent =
+					u.nFieldLabel;
+				document.getElementById("nameInput").placeholder =
+					u.nPlaceholder;
+				document.getElementById("startBtn").textContent = u.startBtn;
+			}
+
+			function toggleLang() {
+				lang = lang === "en" ? "hi" : "en";
+				applyStaticText();
+				buildTabs();
+				if (lastResult) {
+					renderResultScreen();
+				} else {
+					render();
+				}
+			}
+
+			document.getElementById("langBtn").onclick = toggleLang;
+			document.getElementById("langBtnName").onclick = toggleLang;
+
+			function beginTest() {
+				const val = document.getElementById("nameInput").value.trim();
+				studentName = val;
+				document.getElementById("nameScreen").style.display = "none";
+				document.getElementById("app").style.display = "flex";
+				render();
+				startTimer();
+			}
+			document.getElementById("startBtn").onclick = beginTest;
+			document
+				.getElementById("nameInput")
+				.addEventListener("keydown", (e) => {
+					if (e.key === "Enter") beginTest();
+				});
+
+			applyStaticText();
+			buildTabs();
+			buildPalette();
+			elTimer.textContent = fmt(DURATION);
+			document.getElementById("nameInput").focus();
+		</script>
+	</body>
+</html>
