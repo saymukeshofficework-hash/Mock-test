@@ -6,6 +6,14 @@
 
   var PHASE = { IDLE: "idle", INTRO: "intro", TEACHER: "teacher", CHILDREN: "children", PAUSED: "paused", COMPLETE: "complete" };
 
+  function shuffleInPlace(arr) {
+    for (var i = arr.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var tmp = arr[i]; arr[i] = arr[j]; arr[j] = tmp;
+    }
+    return arr;
+  }
+
   function LessonEngine(tts) {
     this.tts = tts;
     this.lesson = null;
@@ -86,6 +94,7 @@
     if (!this.lesson) return;
     this._stopAll();
     this.index = 0;
+    if (this.lesson.randomize) shuffleInPlace(this.lesson.items);
     if (this.lesson.introduction) {
       this._playIntro();
     } else {
