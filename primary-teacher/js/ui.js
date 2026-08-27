@@ -12,6 +12,7 @@
       categoryCounting: "🔢 गिनती",
       categoryLanguage: "🔤 भाषा",
       categoryBarakhadi: "📝 बारहखड़ी",
+      categoryRandom: "🎲 रैंडम अभ्यास",
       itemsCount: "{n} आइटम",
       btnStartShort: "▶ शुरू करें",
       btnPause: "⏸ रोकें",
@@ -60,6 +61,7 @@
       categoryCounting: "🔢 Counting",
       categoryLanguage: "🔤 Language",
       categoryBarakhadi: "📝 Barakhadi",
+      categoryRandom: "🎲 Random Practice",
       itemsCount: "{n} items",
       btnStartShort: "▶ Start",
       btnPause: "⏸ Pause",
@@ -120,7 +122,8 @@
   function cacheEls() {
     [
       "appTitle", "appSubtitle", "navSettingsBtn", "navHomeBtn",
-      "homeScreen", "categoryCountingTitle", "categoryLanguageTitle", "categoryBarakhadiTitle", "countingGrid", "languageGrid", "barakhadiGrid",
+      "homeScreen", "categoryCountingTitle", "categoryLanguageTitle", "categoryBarakhadiTitle", "categoryRandomTitle",
+      "countingGrid", "languageGrid", "barakhadiGrid", "randomGrid",
       "classroomScreen", "classroomTitle", "itemInstruction", "itemDisplay", "itemSpeech",
       "phaseIndicator", "repeatBlock", "repeatTogetherLabel", "repeatTextEl", "progressFill", "progressLabel", "nextPreview",
       "btnStart", "btnPause", "btnResume", "btnRestart", "btnPrevious", "btnNext", "btnRepeat", "btnStop", "btnFullscreenClassroom",
@@ -152,6 +155,7 @@
     els.categoryCountingTitle.textContent = t("categoryCounting");
     els.categoryLanguageTitle.textContent = t("categoryLanguage");
     els.categoryBarakhadiTitle.textContent = t("categoryBarakhadi");
+    els.categoryRandomTitle.textContent = t("categoryRandom");
 
     els.btnStart.textContent = t("btnStartShort");
     els.btnPause.textContent = t("btnPause");
@@ -197,12 +201,14 @@
   function lessonCategoryLabel(lesson) {
     if (lesson.category === "counting") return t("categoryCounting");
     if (lesson.category === "barakhadi") return t("categoryBarakhadi");
+    if (lesson.category === "random") return t("categoryRandom");
     return t("categoryLanguage");
   }
 
   function gridFor(lesson) {
     if (lesson.category === "counting") return els.countingGrid;
     if (lesson.category === "barakhadi") return els.barakhadiGrid;
+    if (lesson.category === "random") return els.randomGrid;
     return els.languageGrid;
   }
 
@@ -210,6 +216,7 @@
     els.countingGrid.innerHTML = "";
     els.languageGrid.innerHTML = "";
     els.barakhadiGrid.innerHTML = "";
+    els.randomGrid.innerHTML = "";
     lessons.forEach(function (lesson) {
       var card = document.createElement("article");
       card.className = "lesson-card";
