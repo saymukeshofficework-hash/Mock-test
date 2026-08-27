@@ -1,0 +1,3289 @@
+<!DOCTYPE html>
+<html lang="hi">
+	<head>
+		<meta charset="UTF-8" />
+		<meta
+			name="viewport"
+			content="width=device-width,initial-scale=1.0,maximum-scale=1.0"
+		/>
+		<title>PGT Chemistry Mock Test</title>
+		<style>
+			:root {
+				--navy: #16204e;
+				--navy-l: #22307a;
+				--blue: #2f6fed;
+				--blue-l: #eaf1ff;
+				--green: #1ba672;
+				--red: #e2483d;
+				--purple: #8b5cf6;
+				--bg: #f4f6fb;
+				--ink: #1c2233;
+				--muted: #6b7280;
+				--border: #e1e5ee;
+			}
+			* {
+				box-sizing: border-box;
+			}
+			html,
+			body {
+				margin: 0;
+				padding: 0;
+			}
+			body {
+				font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+					Roboto, "Noto Sans Devanagari", Helvetica, Arial, sans-serif;
+				background: var(--bg);
+				color: var(--ink);
+			}
+			#app {
+				max-width: 720px;
+				margin: 0 auto;
+				min-height: 100vh;
+				background: #fff;
+				display: flex;
+				flex-direction: column;
+			}
+			.topbar {
+				background: var(--navy);
+				color: #fff;
+				padding: 14px 16px;
+				display: flex;
+				justify-content: space-between;
+				align-items: flex-start;
+				gap: 10px;
+			}
+			.topbar .ttext {
+				font-weight: 800;
+				font-size: 17px;
+			}
+			.topbar small {
+				display: block;
+				font-weight: 400;
+				opacity: 0.75;
+				font-size: 12px;
+				margin-top: 3px;
+			}
+			.langBtn {
+				flex: 0 0 auto;
+				background: rgba(255, 255, 255, 0.14);
+				border: 1px solid rgba(255, 255, 255, 0.45);
+				color: #fff;
+				padding: 7px 13px;
+				border-radius: 999px;
+				font-size: 12.5px;
+				font-weight: 700;
+				white-space: nowrap;
+				cursor: pointer;
+			}
+			.langBtn:active {
+				background: rgba(255, 255, 255, 0.28);
+			}
+			.timerbar {
+				background: var(--blue);
+				color: #fff;
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				padding: 10px 16px;
+				font-size: 14px;
+			}
+			#timer {
+				background: #0d1430;
+				padding: 5px 12px;
+				border-radius: 6px;
+				font-weight: 700;
+				font-variant-numeric: tabular-nums;
+				font-size: 15px;
+			}
+			.timerbar.warn #timer {
+				background: var(--red);
+			}
+			.sectiontabs {
+				display: flex;
+				overflow-x: auto;
+				gap: 6px;
+				padding: 10px 12px;
+				background: var(--blue-l);
+				border-bottom: 1px solid var(--border);
+			}
+			.sectiontabs button {
+				flex: 0 0 auto;
+				border: 1px solid #c7d6f7;
+				background: #fff;
+				color: var(--navy);
+				padding: 7px 10px;
+				border-radius: 999px;
+				font-size: 12.5px;
+				font-weight: 600;
+				white-space: nowrap;
+			}
+			.sectiontabs button.active {
+				background: var(--navy);
+				border-color: var(--navy);
+				color: #fff;
+			}
+			.palette {
+				display: grid;
+				grid-template-columns: repeat(8, 1fr);
+				gap: 6px;
+				padding: 12px;
+				max-height: 190px;
+				overflow-y: auto;
+				background: #fbfcfe;
+				border-bottom: 1px solid var(--border);
+			}
+			.pcell {
+				aspect-ratio: 1;
+				border-radius: 7px;
+				border: 1px solid var(--border);
+				background: #fff;
+				color: var(--ink);
+				font-size: 12px;
+				font-weight: 700;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				position: relative;
+				cursor: pointer;
+			}
+			.pcell.current {
+				outline: 2px solid var(--navy);
+				outline-offset: 1px;
+			}
+			.pcell.answered {
+				background: var(--green);
+				border-color: var(--green);
+				color: #fff;
+			}
+			.pcell.notanswered {
+				background: var(--red);
+				border-color: var(--red);
+				color: #fff;
+			}
+			.pcell.marked {
+				background: var(--purple);
+				border-color: var(--purple);
+				color: #fff;
+			}
+			.pcell.marked.answered::after {
+				content: "";
+				position: absolute;
+				bottom: 2px;
+				right: 2px;
+				width: 6px;
+				height: 6px;
+				border-radius: 50%;
+				background: var(--green);
+				border: 1px solid #fff;
+			}
+			.legend {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 10px;
+				padding: 8px 14px;
+				font-size: 11px;
+				color: var(--muted);
+				background: #fbfcfe;
+				border-bottom: 1px solid var(--border);
+			}
+			.legend span {
+				display: inline-flex;
+				align-items: center;
+				gap: 4px;
+			}
+			.dot {
+				width: 9px;
+				height: 9px;
+				border-radius: 3px;
+				display: inline-block;
+			}
+			.qpanel {
+				padding: 16px;
+				flex: 1;
+			}
+			.qmeta {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				margin-bottom: 10px;
+				gap: 8px;
+			}
+			.qno {
+				font-weight: 700;
+				font-size: 14px;
+				color: var(--navy);
+				flex: 0 0 auto;
+			}
+			.qsec {
+				font-size: 11px;
+				color: #fff;
+				background: var(--navy-l);
+				padding: 3px 9px;
+				border-radius: 999px;
+				font-weight: 600;
+				text-align: right;
+			}
+			.qtext {
+				font-size: 16px;
+				line-height: 1.65;
+				margin-bottom: 16px;
+				font-weight: 600;
+			}
+			.options {
+				display: flex;
+				flex-direction: column;
+				gap: 10px;
+			}
+			.opt {
+				display: flex;
+				align-items: flex-start;
+				gap: 10px;
+				border: 1px solid var(--border);
+				border-radius: 10px;
+				padding: 11px 12px;
+				font-size: 15px;
+				line-height: 1.55;
+				cursor: pointer;
+			}
+			.opt.selected {
+				border-color: var(--blue);
+				background: var(--blue-l);
+			}
+			.opt input {
+				margin-top: 4px;
+				flex: 0 0 auto;
+			}
+			.opt label {
+				flex: 1;
+				cursor: pointer;
+			}
+			.actions {
+				display: flex;
+				gap: 10px;
+				padding: 0 16px 10px;
+			}
+			.actions button {
+				flex: 1;
+				padding: 12px 8px;
+				border-radius: 8px;
+				border: 1px solid var(--border);
+				background: #fff;
+				font-weight: 600;
+				font-size: 13px;
+				color: var(--navy);
+			}
+			.actions2 {
+				display: flex;
+				gap: 10px;
+				padding: 0 16px 16px;
+			}
+			.actions2 button {
+				flex: 1;
+				padding: 13px 8px;
+				border-radius: 8px;
+				border: none;
+				font-weight: 700;
+				font-size: 14px;
+			}
+			#prevBtn {
+				background: #eef0f6;
+				color: var(--navy);
+			}
+			#saveBtn {
+				background: var(--green);
+				color: #fff;
+			}
+			.submitwrap {
+				padding: 0 16px 22px;
+			}
+			#submitBtn {
+				width: 100%;
+				padding: 14px;
+				border: none;
+				border-radius: 8px;
+				background: var(--blue);
+				color: #fff;
+				font-weight: 700;
+				font-size: 15px;
+			}
+			/* Name entry screen */
+			#nameScreen {
+				max-width: 720px;
+				margin: 0 auto;
+				min-height: 100vh;
+				background: #fff;
+				display: flex;
+				flex-direction: column;
+			}
+			#nameScreen .ntop {
+				background: var(--navy);
+				color: #fff;
+				padding: 14px 16px;
+				display: flex;
+				justify-content: space-between;
+				align-items: flex-start;
+				gap: 10px;
+			}
+			#nameScreen .ncard {
+				flex: 1;
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
+				padding: 28px 24px;
+				text-align: center;
+			}
+			#nameScreen .nicon {
+				width: 60px;
+				height: 60px;
+				border-radius: 50%;
+				background: var(--blue-l);
+				color: var(--navy);
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				font-size: 26px;
+				font-weight: 800;
+				margin-bottom: 18px;
+			}
+			#nameScreen .ntitle {
+				font-size: 19px;
+				font-weight: 800;
+				color: var(--navy);
+				margin-bottom: 6px;
+			}
+			#nameScreen .nsub {
+				font-size: 13.5px;
+				color: var(--muted);
+				margin-bottom: 24px;
+			}
+			#nameScreen .nfield {
+				width: 100%;
+				max-width: 340px;
+				text-align: left;
+				margin-bottom: 22px;
+			}
+			#nameScreen .nfield label {
+				display: block;
+				font-size: 12.5px;
+				font-weight: 600;
+				color: var(--navy);
+				margin-bottom: 6px;
+			}
+			#nameInput {
+				width: 100%;
+				padding: 13px 14px;
+				border: 1.5px solid var(--border);
+				border-radius: 10px;
+				font-size: 16px;
+				color: var(--ink);
+				background: #fbfcfe;
+			}
+			#nameInput:focus {
+				outline: none;
+				border-color: var(--blue);
+			}
+			#startBtn {
+				width: 100%;
+				max-width: 340px;
+				padding: 14px;
+				border: none;
+				border-radius: 8px;
+				background: var(--blue);
+				color: #fff;
+				font-weight: 700;
+				font-size: 15px;
+			}
+			/* Result screen */
+			#resultScreen {
+				display: none;
+				max-width: 720px;
+				margin: 0 auto;
+				background: #fff;
+				min-height: 100vh;
+			}
+			.rhero {
+				background: var(--navy);
+				color: #fff;
+				padding: 28px 20px 22px;
+				text-align: center;
+				position: relative;
+			}
+			.rhero .rbrand {
+				font-size: 11px;
+				font-weight: 600;
+				letter-spacing: 1px;
+				opacity: 0.6;
+				text-transform: uppercase;
+			}
+			.rhero .rname {
+				font-size: 14px;
+				font-weight: 700;
+				margin-top: 8px;
+				opacity: 0.95;
+			}
+			.rhero .score {
+				font-size: 46px;
+				font-weight: 800;
+				line-height: 1;
+				margin-top: 6px;
+			}
+			.rhero .outof {
+				font-size: 14px;
+				opacity: 0.8;
+				margin-top: 4px;
+			}
+			.rhero .pct {
+				display: inline-block;
+				margin-top: 10px;
+				background: rgba(255, 255, 255, 0.12);
+				padding: 5px 14px;
+				border-radius: 999px;
+				font-size: 13px;
+				font-weight: 600;
+			}
+			.rhero .langBtn {
+				position: absolute;
+				top: 14px;
+				right: 14px;
+			}
+			.rwrap {
+				padding: 0 18px 24px;
+			}
+			table.rtable {
+				width: 100%;
+				border-collapse: collapse;
+				margin: 18px 0;
+				font-size: 12.5px;
+			}
+			table.rtable th,
+			table.rtable td {
+				padding: 8px 6px;
+				text-align: center;
+				border-bottom: 1px solid var(--border);
+			}
+			table.rtable th {
+				background: #f4f6fb;
+				font-size: 11px;
+				color: var(--muted);
+				text-transform: uppercase;
+				letter-spacing: 0.3px;
+			}
+			table.rtable td:first-child,
+			table.rtable th:first-child {
+				text-align: left;
+			}
+			.rnote {
+				font-size: 12.5px;
+				color: var(--muted);
+				margin: 4px 0 16px;
+			}
+			details.qreview {
+				border: 1px solid var(--border);
+				border-radius: 8px;
+				margin-bottom: 8px;
+				padding: 10px 12px;
+			}
+			details.qreview summary {
+				font-size: 13px;
+				font-weight: 600;
+				cursor: pointer;
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				list-style: none;
+				gap: 8px;
+			}
+			details.qreview summary::-webkit-details-marker {
+				display: none;
+			}
+			.rtag {
+				font-size: 11px;
+				font-weight: 700;
+				padding: 2px 8px;
+				border-radius: 999px;
+				color: #fff;
+				flex-shrink: 0;
+			}
+			.rtag.ok {
+				background: var(--green);
+			}
+			.rtag.bad {
+				background: var(--red);
+			}
+			.rtag.skip {
+				background: var(--muted);
+			}
+			.rqtext {
+				font-size: 14px;
+				margin: 10px 0 8px;
+				font-weight: 600;
+			}
+			.rsol {
+				font-size: 13px;
+				background: #f4f6fb;
+				border-radius: 6px;
+				padding: 8px 10px;
+				margin-bottom: 8px;
+				color: var(--muted);
+			}
+			.ropt {
+				font-size: 13.5px;
+				padding: 6px 9px;
+				border-radius: 6px;
+				margin-bottom: 5px;
+				border: 1px solid var(--border);
+			}
+			.ropt.correctAns {
+				background: #e6f7f0;
+				border-color: var(--green);
+			}
+			.ropt.wrongChosen {
+				background: #fdecea;
+				border-color: var(--red);
+			}
+			#retakeBtn {
+				width: 100%;
+				padding: 13px;
+				border: none;
+				border-radius: 8px;
+				background: var(--blue);
+				color: #fff;
+				font-weight: 700;
+				font-size: 14px;
+				margin-top: 6px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="nameScreen">
+			<div class="ntop">
+				<div>
+					<div class="ttext">PGT Chemistry Mock Test</div>
+					<small id="nSubtitleText"
+						>MP Varg-1 (PGT) &nbsp;&middot;&nbsp; 100
+						Questions</small
+					>
+				</div>
+				<button class="langBtn" id="langBtnName" type="button">
+					हिंदी
+				</button>
+			</div>
+			<div class="ncard">
+				<div class="nicon">&#9878;</div>
+				<div class="ntitle" id="nCardTitle">Before you begin</div>
+				<div class="nsub" id="nCardSub">
+					Enter your name so it appears on your result.
+				</div>
+				<div class="nfield">
+					<label for="nameInput" id="nFieldLabel">Student Name</label>
+					<input
+						type="text"
+						id="nameInput"
+						placeholder="e.g. Riya Sharma"
+						maxlength="60"
+						autocomplete="off"
+					/>
+				</div>
+				<button id="startBtn" type="button">Start Test</button>
+			</div>
+		</div>
+
+		<div id="app" style="display: none">
+			<div class="topbar">
+				<div>
+					<div class="ttext">PGT Chemistry Mock Test</div>
+					<small id="subtitleText"
+						>MP Varg-1 (PGT) &nbsp;&middot;&nbsp; 100
+						Questions</small
+					>
+				</div>
+				<button class="langBtn" id="langBtn" type="button">
+					हिंदी
+				</button>
+			</div>
+			<div class="timerbar" id="timerbar">
+				<span id="timeLeftLabel">Time Left</span>
+				<span id="timer">120:00</span>
+			</div>
+			<div class="sectiontabs" id="sectiontabs"></div>
+			<div class="palette" id="palette"></div>
+			<div class="legend">
+				<span
+					><i class="dot" style="background: var(--green)"></i
+					><span id="legAns">Answered</span></span
+				>
+				<span
+					><i class="dot" style="background: var(--red)"></i
+					><span id="legNot">Not Answered</span></span
+				>
+				<span
+					><i class="dot" style="background: var(--purple)"></i
+					><span id="legMarked">Marked</span></span
+				>
+				<span
+					><i
+						class="dot"
+						style="
+							background: #fff;
+							border: 1px solid var(--border);
+						"
+					></i
+					><span id="legVisit">Not Visited</span></span
+				>
+			</div>
+			<div class="qpanel" id="qpanel">
+				<div class="qmeta">
+					<span class="qno" id="qno">Q 1 of 100</span>
+					<span class="qsec" id="qsec"></span>
+				</div>
+				<div class="qtext" id="qtext"></div>
+				<div class="options" id="options"></div>
+			</div>
+			<div class="actions">
+				<button id="clearBtn">Clear Response</button>
+				<button id="markBtn">Mark for Review & Next</button>
+			</div>
+			<div class="actions2">
+				<button id="prevBtn">&#8249; Previous</button>
+				<button id="saveBtn">Save & Next &#8250;</button>
+			</div>
+			<div class="submitwrap">
+				<button id="submitBtn">Submit Test</button>
+			</div>
+		</div>
+
+		<div id="resultScreen"></div>
+
+		<script>
+			const SECTIONS = [
+				{
+					key: "S1",
+					label: {
+						hi: "\u092d\u093e\u0917 1 (1\u201310): \u0906\u0935\u0930\u094d\u0924 \u0938\u093e\u0930\u0923\u0940 \u090f\u0935\u0902 \u092a\u0930\u092e\u093e\u0923\u0941 \u0938\u0902\u0930\u091a\u0928\u093e",
+						en: "Part 1 (1-10): Periodic Table & Atomic Structure",
+					},
+				},
+				{
+					key: "S2",
+					label: {
+						hi: "\u092d\u093e\u0917 2 (11\u201320): \u090a\u0937\u094d\u092e\u093e\u0917\u0924\u093f\u0915\u0940 \u090f\u0935\u0902 \u0938\u093e\u092e\u094d\u092f\u093e\u0935\u0938\u094d\u0925\u093e",
+						en: "Part 2 (11-20): Thermodynamics & Equilibrium",
+					},
+				},
+				{
+					key: "S3",
+					label: {
+						hi: "\u092d\u093e\u0917 3 (21\u201330): \u0909\u092a\u0938\u0939\u0938\u0902\u092f\u094b\u091c\u0928 \u090f\u0935\u0902 d-\u092c\u094d\u0932\u0949\u0915",
+						en: "Part 3 (21-30): Coordination & d-Block",
+					},
+				},
+				{
+					key: "S4",
+					label: {
+						hi: "\u092d\u093e\u0917 4 (31\u201340): \u0915\u093e\u0930\u094d\u092c\u0928\u093f\u0915 \u0930\u0938\u093e\u092f\u0928 \u2013 I",
+						en: "Part 4 (31-40): Organic Chemistry \u2013 I",
+					},
+				},
+				{
+					key: "S5",
+					label: {
+						hi: "\u092d\u093e\u0917 5 (41\u201350): \u092d\u094c\u0924\u093f\u0915 \u0930\u0938\u093e\u092f\u0928 \u2013 \u0909\u0928\u094d\u0928\u0924",
+						en: "Part 5 (41-50): Physical Chemistry \u2013 Advanced",
+					},
+				},
+				{
+					key: "S6",
+					label: {
+						hi: "\u092d\u093e\u0917 6 (51\u201360): \u0935\u0948\u0926\u094d\u092f\u0941\u0924 \u0930\u0938\u093e\u092f\u0928",
+						en: "Part 6 (51-60): Electrochemistry",
+					},
+				},
+				{
+					key: "S7",
+					label: {
+						hi: "\u092d\u093e\u0917 7 (61\u201370): \u0915\u093e\u0930\u094d\u092c\u0928\u093f\u0915 \u0930\u0938\u093e\u092f\u0928 \u2013 II",
+						en: "Part 7 (61-70): Organic Chemistry \u2013 II",
+					},
+				},
+				{
+					key: "S8",
+					label: {
+						hi: "\u092d\u093e\u0917 8 (71\u201380): \u091c\u0948\u0935-\u0905\u0923\u0941 \u090f\u0935\u0902 \u092c\u0939\u0941\u0932\u0915",
+						en: "Part 8 (71-80): Biomolecules & Polymers",
+					},
+				},
+				{
+					key: "S9",
+					label: {
+						hi: "\u092d\u093e\u0917 9 (81\u201390): \u0930\u093e\u0938\u093e\u092f\u0928\u093f\u0915 \u092c\u0932\u0917\u0924\u093f\u0915\u0940 \u090f\u0935\u0902 \u0938\u093e\u092e\u094d\u092f (\u0909\u0928\u094d\u0928\u0924)",
+						en: "Part 9 (81-90): Chemical Kinetics & Equilibrium (Advanced)",
+					},
+				},
+				{
+					key: "S10",
+					label: {
+						hi: "\u092d\u093e\u0917 10 (91\u2013100): \u092e\u093f\u0936\u094d\u0930\u093f\u0924 \u090f\u0935\u0902 \u0905\u0928\u0941\u092a\u094d\u0930\u092f\u0941\u0915\u094d\u0924 \u0930\u0938\u093e\u092f\u0928",
+						en: "Part 10 (91-100): Mixed & Applied Chemistry",
+					},
+				},
+			];
+			const Q = [
+				{
+					s: "S1",
+					a: 2,
+					q: {
+						hi: "\u0906\u0935\u0930\u094d\u0924 \u0938\u093e\u0930\u0923\u0940 \u092e\u0947\u0902 \u0938\u0930\u094d\u0935\u093e\u0927\u093f\u0915 \u0935\u093f\u0926\u094d\u092f\u0941\u0924\u090b\u0923\u093e\u0924\u094d\u092e\u0915 \u0924\u0924\u094d\u0935 \u0915\u094c\u0928-\u0938\u093e \u0939\u0948?",
+						en: "Which element is the most electronegative in the periodic table?",
+					},
+					o: {
+						hi: [
+							"\u0911\u0915\u094d\u0938\u0940\u091c\u0928",
+							"\u0915\u094d\u0932\u094b\u0930\u0940\u0928",
+							"\u092b\u094d\u0932\u094b\u0930\u0940\u0928",
+							"\u0928\u093e\u0907\u091f\u094d\u0930\u094b\u091c\u0928",
+						],
+						en: ["Oxygen", "Chlorine", "Fluorine", "Nitrogen"],
+					},
+					sol: {
+						hi: "\u0938\u0939\u0940 \u0909\u0924\u094d\u0924\u0930: C) \u092b\u094d\u0932\u094b\u0930\u0940\u0928",
+						en: "Correct answer: C) Fluorine",
+					},
+				},
+				{
+					s: "S1",
+					a: 1,
+					q: {
+						hi: "\u0928\u093f\u092e\u094d\u0928 \u092e\u0947\u0902 \u0938\u0947 \u0915\u094c\u0928-\u0938\u093e \u0915\u094d\u0935\u093e\u0902\u091f\u092e \u0938\u0902\u0916\u094d\u092f\u093e \u0915\u093e \u0938\u0939\u0940 \u0938\u092e\u0942\u0939 \u0939\u0948?",
+						en: "Which of the following is a correct set of quantum numbers?",
+					},
+					o: {
+						hi: [
+							"n = 2, l = 2",
+							"n = 2, l = 1",
+							"n = 1, l = 1",
+							"n = 3, l = 3",
+						],
+						en: [
+							"n = 2, l = 2",
+							"n = 2, l = 1",
+							"n = 1, l = 1",
+							"n = 3, l = 3",
+						],
+					},
+					sol: {
+						hi: "\u0938\u0939\u0940 \u0909\u0924\u094d\u0924\u0930: B) n = 2, l = 1",
+						en: "Correct answer: B) n = 2, l = 1",
+					},
+				},
+				{
+					s: "S1",
+					a: 1,
+					q: {
+						hi: "\u0939\u093e\u0907\u091c\u0947\u0928\u092c\u0930\u094d\u0917 \u0915\u093e \u0905\u0928\u093f\u0936\u094d\u091a\u093f\u0924\u0924\u093e \u0938\u093f\u0926\u094d\u0927\u093e\u0902\u0924 \u0915\u093f\u0938\u0938\u0947 \u0938\u0902\u092c\u0902\u0927\u093f\u0924 \u0939\u0948?",
+						en: "Heisenberg's Uncertainty Principle is related to:",
+					},
+					o: {
+						hi: [
+							"\u0926\u094d\u0930\u0935\u094d\u092f\u092e\u093e\u0928",
+							"\u0938\u0902\u0935\u0947\u0917 \u090f\u0935\u0902 \u0938\u094d\u0925\u093f\u0924\u093f",
+							"\u0924\u093e\u092a\u092e\u093e\u0928",
+							"\u090a\u0930\u094d\u091c\u093e \u090f\u0935\u0902 \u0926\u093e\u092c",
+						],
+						en: [
+							"Mass",
+							"Momentum and position",
+							"Temperature",
+							"Energy and pressure",
+						],
+					},
+					sol: {
+						hi: "\u0938\u0939\u0940 \u0909\u0924\u094d\u0924\u0930: B) \u0938\u0902\u0935\u0947\u0917 \u090f\u0935\u0902 \u0938\u094d\u0925\u093f\u0924\u093f",
+						en: "Correct answer: B) Momentum and position",
+					},
+				},
+				{
+					s: "S1",
+					a: 2,
+					q: {
+						hi: "\u0928\u093f\u092e\u094d\u0928 \u092e\u0947\u0902 \u0938\u0947 \u0915\u094c\u0928-\u0938\u093e \u092f\u094c\u0917\u093f\u0915 \u0938\u0939\u0938\u0902\u092f\u094b\u091c\u0915 \u0939\u0948?",
+						en: "Which of the following compounds is covalent?",
+					},
+					o: {
+						hi: ["NaCl", "MgO", "H2O", "KBr"],
+						en: ["NaCl", "MgO", "H2O", "KBr"],
+					},
+					sol: {
+						hi: "\u0938\u0939\u0940 \u0909\u0924\u094d\u0924\u0930: C) H2O",
+						en: "Correct answer: C) H2O",
+					},
+				},
+				{
+					s: "S1",
+					a: 2,
+					q: {
+						hi: "\u0928\u093f\u092e\u094d\u0928 \u092e\u0947\u0902 \u0938\u0947 \u0915\u094c\u0928-\u0938\u093e \u0938\u092c\u0938\u0947 \u092a\u094d\u0930\u092c\u0932 \u0905\u092e\u094d\u0932 \u0939\u0948?",
+						en: "Which of the following is the strongest acid?",
+					},
+					o: {
+						hi: ["HF", "HCl", "HI", "HBr"],
+						en: ["HF", "HCl", "HI", "HBr"],
+					},
+					sol: {
+						hi: "\u0938\u0939\u0940 \u0909\u0924\u094d\u0924\u0930: C) HI",
+						en: "Correct answer: C) HI",
+					},
+				},
+				{
+					s: "S1",
+					a: 0,
+					q: {
+						hi: "\u0906\u0926\u0930\u094d\u0936 \u0917\u0948\u0938 \u0938\u092e\u0940\u0915\u0930\u0923 \u0939\u0948\u2014",
+						en: "The ideal gas equation is:",
+					},
+					o: {
+						hi: ["PV = nRT", "P = RT", "PV = RT2", "P = nRT2"],
+						en: ["PV = nRT", "P = RT", "PV = RT2", "P = nRT2"],
+					},
+					sol: {
+						hi: "\u0938\u0939\u0940 \u0909\u0924\u094d\u0924\u0930: A) PV = nRT",
+						en: "Correct answer: A) PV = nRT",
+					},
+				},
+				{
+					s: "S1",
+					a: 2,
+					q: {
+						hi: "\u0928\u093f\u092e\u094d\u0928 \u092e\u0947\u0902 \u0938\u0947 \u0915\u094c\u0928-\u0938\u0940 \u090a\u0937\u094d\u092e\u093e\u0915\u094d\u0937\u0947\u092a\u0940 (Exothermic) \u092a\u094d\u0930\u0915\u094d\u0930\u093f\u092f\u093e \u0939\u0948?",
+						en: "Which of the following is an exothermic process?",
+					},
+					o: {
+						hi: [
+							"\u092c\u0930\u094d\u092b \u0915\u093e \u092a\u093f\u0918\u0932\u0928\u093e",
+							"\u091c\u0932 \u0915\u093e \u0935\u093e\u0937\u094d\u092a\u0940\u0915\u0930\u0923",
+							"\u092e\u0940\u0925\u0947\u0928 \u0915\u093e \u0926\u0939\u0928",
+							"\u0906\u092f\u094b\u0921\u0940\u0928 \u0915\u093e \u0909\u0930\u094d\u0927\u094d\u0935\u092a\u093e\u0924\u0928",
+						],
+						en: [
+							"Melting of ice",
+							"Vaporization of water",
+							"Combustion of methane",
+							"Sublimation of iodine",
+						],
+					},
+					sol: {
+						hi: "\u0938\u0939\u0940 \u0909\u0924\u094d\u0924\u0930: C) \u092e\u0940\u0925\u0947\u0928 \u0915\u093e \u0926\u0939\u0928",
+						en: "Correct answer: C) Combustion of methane",
+					},
+				},
+				{
+					s: "S1",
+					a: 3,
+					q: {
+						hi: "\u0928\u093f\u092e\u094d\u0928 \u092e\u0947\u0902 \u0938\u0947 \u0915\u094c\u0928-\u0938\u093e \u0915\u094b\u0932\u093f\u0917\u0947\u091f\u093f\u0935 \u0917\u0941\u0923 \u0928\u0939\u0940\u0902 \u0939\u0948?",
+						en: "Which of the following is NOT a colligative property?",
+					},
+					o: {
+						hi: [
+							"\u092a\u0930\u093e\u0938\u0930\u0923 \u0926\u093e\u092c",
+							"\u0915\u094d\u0935\u0925\u0928\u093e\u0902\u0915 \u092e\u0947\u0902 \u0935\u0943\u0926\u094d\u0927\u093f",
+							"\u0917\u0932\u0928\u093e\u0902\u0915 \u092e\u0947\u0902 \u0915\u092e\u0940",
+							"\u0918\u0928\u0924\u094d\u0935",
+						],
+						en: [
+							"Osmotic pressure",
+							"Elevation of boiling point",
+							"Depression of freezing point",
+							"Density",
+						],
+					},
+					sol: {
+						hi: "\u0938\u0939\u0940 \u0909\u0924\u094d\u0924\u0930: D) \u0918\u0928\u0924\u094d\u0935",
+						en: "Correct answer: D) Density",
+					},
+				},
+				{
+					s: "S1",
+					a: 0,
+					q: {
+						hi: "\u0928\u093f\u092e\u094d\u0928 \u092e\u0947\u0902 \u0938\u0947 \u0915\u094c\u0928-\u0938\u093e \u092a\u094d\u0930\u0925\u092e \u0915\u094b\u091f\u093f \u0915\u0940 \u0905\u092d\u093f\u0915\u094d\u0930\u093f\u092f\u093e \u0915\u093e \u0909\u0926\u093e\u0939\u0930\u0923 \u0939\u0948?",
+						en: "Which of the following is an example of a first-order reaction?",
+					},
+					o: {
+						hi: [
+							"\u0930\u0947\u0921\u093f\u092f\u094b\u0927\u0930\u094d\u092e\u0940 \u0935\u093f\u0918\u091f\u0928",
+							"H2 + Cl2",
+							"\u090f\u0938\u094d\u091f\u0930\u0940\u0915\u0930\u0923",
+							"\u0938\u093e\u092c\u0941\u0928\u0940\u0915\u0930\u0923",
+						],
+						en: [
+							"Radioactive decay",
+							"H2 + Cl2",
+							"Esterification",
+							"Saponification",
+						],
+					},
+					sol: {
+						hi: "\u0938\u0939\u0940 \u0909\u0924\u094d\u0924\u0930: A) \u0930\u0947\u0921\u093f\u092f\u094b\u0927\u0930\u094d\u092e\u0940 \u0935\u093f\u0918\u091f\u0928",
+						en: "Correct answer: A) Radioactive decay",
+					},
+				},
+				{
+					s: "S1",
+					a: 0,
+					q: {
+						hi: "\u0928\u093f\u092e\u094d\u0928 \u092e\u0947\u0902 \u0938\u0947 \u0915\u094c\u0928-\u0938\u093e \u092a\u094d\u0930\u092c\u0932 \u0911\u0915\u094d\u0938\u0940\u0915\u093e\u0930\u0915 \u0939\u0948?",
+						en: "Which of the following is a strong oxidizing agent?",
+					},
+					o: {
+						hi: ["KMnO4", "NaCl", "NH3", "CH4"],
+						en: ["KMnO4", "NaCl", "NH3", "CH4"],
+					},
+					sol: {
+						hi: "\u0938\u0939\u0940 \u0909\u0924\u094d\u0924\u0930: A) KMnO4",
+						en: "Correct answer: A) KMnO4",
+					},
+				},
+				{
+					s: "S2",
+					a: 1,
+					q: {
+						hi: "\u0938\u0902\u0915\u094d\u0930\u092e\u0923 \u0924\u0924\u094d\u0935\u094b\u0902 \u0915\u093e \u0930\u0902\u0917 \u092e\u0941\u0916\u094d\u092f\u0924\u0903 \u0915\u093f\u0938 \u0915\u093e\u0930\u0923 \u0939\u094b\u0924\u093e \u0939\u0948?",
+						en: "The colour of transition elements is mainly due to:",
+					},
+					o: {
+						hi: [
+							"\u092a\u0942\u0930\u094d\u0923 d-\u0915\u0915\u094d\u0937\u0915",
+							"d-d \u0938\u0902\u0915\u094d\u0930\u092e\u0923",
+							"\u0909\u091a\u094d\u091a \u0918\u0928\u0924\u094d\u0935",
+							"\u0906\u092f\u0928\u093f\u0915 \u0924\u094d\u0930\u093f\u091c\u094d\u092f\u093e",
+						],
+						en: [
+							"Fully filled d-orbitals",
+							"d-d transition",
+							"High density",
+							"Ionic radius",
+						],
+					},
+					sol: {
+						hi: "\u0938\u0939\u0940 \u0909\u0924\u094d\u0924\u0930: B) d-d \u0938\u0902\u0915\u094d\u0930\u092e\u0923",
+						en: "Correct answer: B) d-d transition",
+					},
+				},
+				{
+					s: "S2",
+					a: 2,
+					q: {
+						hi: "K2Cr2O7 \u092e\u0947\u0902 \u0915\u094d\u0930\u094b\u092e\u093f\u092f\u092e \u0915\u0940 \u0911\u0915\u094d\u0938\u0940\u0915\u0930\u0923 \u0938\u0902\u0916\u094d\u092f\u093e \u0915\u094d\u092f\u093e \u0939\u0948?",
+						en: "What is the oxidation number of chromium in K2Cr2O7?",
+					},
+					o: {
+						hi: ["+3", "+4", "+6", "+7"],
+						en: ["+3", "+4", "+6", "+7"],
+					},
+					sol: {
+						hi: "\u0938\u0939\u0940 \u0909\u0924\u094d\u0924\u0930: C) +6",
+						en: "Correct answer: C) +6",
+					},
+				},
+				{
+					s: "S2",
+					a: 1,
+					q: {
+						hi: "\u0928\u093f\u092e\u094d\u0928 \u092e\u0947\u0902 \u0938\u0947 \u0915\u094c\u0928-\u0938\u093e \u0932\u0948\u0902\u0925\u0947\u0928\u093e\u0907\u0921 \u0939\u0948?",
+						en: "Which of the following is a lanthanide?",
+					},
+					o: {
+						hi: [
+							"\u092f\u0942\u0930\u0947\u0928\u093f\u092f\u092e",
+							"\u0938\u0947\u0930\u093f\u092f\u092e",
+							"\u0925\u094b\u0930\u093f\u092f\u092e",
+							"\u092a\u094d\u0932\u0942\u091f\u094b\u0928\u093f\u092f\u092e",
+						],
+						en: ["Uranium", "Cerium", "Thorium", "Plutonium"],
+					},
+					sol: {
+						hi: "\u0938\u0939\u0940 \u0909\u0924\u094d\u0924\u0930: B) \u0938\u0947\u0930\u093f\u092f\u092e",
+						en: "Correct answer: B) Cerium",
+					},
+				},
+				{
+					s: "S2",
+					a: 1,
+					q: {
+						hi: "\u090f\u0925\u0947\u0928\u0949\u0932 \u0915\u093e IUPAC \u0928\u093e\u092e \u0915\u094d\u092f\u093e \u0939\u0948?",
+						en: "What is the IUPAC name of ethanol?",
+					},
+					o: {
+						hi: [
+							"\u092e\u093f\u0925\u0947\u0928\u0949\u0932",
+							"\u090f\u0925\u0947\u0928\u0949\u0932",
+							"\u092a\u094d\u0930\u094b\u092a\u0947\u0928\u0949\u0932",
+							"\u090f\u0925\u0947\u0928",
+						],
+						en: ["Methanol", "Ethanol", "Propanol", "Ethane"],
+					},
+					sol: {
+						hi: "\u0938\u0939\u0940 \u0909\u0924\u094d\u0924\u0930: B) \u090f\u0925\u0947\u0928\u0949\u0932",
+						en: "Correct answer: B) Ethanol",
+					},
+				},
+				{
+					s: "S2",
+					a: 1,
+					q: {
+						hi: "\u0928\u093f\u092e\u094d\u0928 \u092e\u0947\u0902 \u0938\u0947 \u0915\u094c\u0928-\u0938\u093e \u090f\u0930\u094b\u092e\u0948\u091f\u093f\u0915 \u092f\u094c\u0917\u093f\u0915 \u0939\u0948?",
+						en: "Which of the following is an aromatic compound?",
+					},
+					o: {
+						hi: [
+							"\u0938\u093e\u0907\u0915\u094d\u0932\u094b\u0939\u0947\u0915\u094d\u0938\u0947\u0928",
+							"\u092c\u0947\u0902\u091c\u0940\u0928",
+							"\u090f\u0925\u0940\u0928",
+							"\u090f\u0938\u0940\u091f\u093f\u0932\u0940\u0928",
+						],
+						en: ["Cyclohexane", "Benzene", "Ethene", "Acetylene"],
+					},
+					sol: {
+						hi: "\u0938\u0939\u0940 \u0909\u0924\u094d\u0924\u0930: B) \u092c\u0947\u0902\u091c\u0940\u0928",
+						en: "Correct answer: B) Benzene",
+					},
+				},
+				{
+					s: "S2",
+					a: 0,
+					q: {
+						hi: "\u091f\u0949\u0932\u0947\u0902\u0938 \u0905\u092d\u093f\u0915\u0930\u094d\u092e\u0915 \u0915\u093e \u0909\u092a\u092f\u094b\u0917 \u0915\u093f\u0938\u0915\u0940 \u092a\u0939\u091a\u093e\u0928 \u092e\u0947\u0902 \u0915\u093f\u092f\u093e \u091c\u093e\u0924\u093e \u0939\u0948?",
+						en: "Tollens' reagent is used to identify:",
+					},
+					o: {
+						hi: [
+							"\u090f\u0932\u094d\u0921\u093f\u0939\u093e\u0907\u0921",
+							"\u0915\u0940\u091f\u094b\u0928",
+							"\u0905\u0932\u094d\u0915\u094b\u0939\u0949\u0932",
+							"\u0908\u0925\u0930",
+						],
+						en: ["Aldehyde", "Ketone", "Alcohol", "Ether"],
+					},
+					sol: {
+						hi: "\u0938\u0939\u0940 \u0909\u0924\u094d\u0924\u0930: A) \u090f\u0932\u094d\u0921\u093f\u0939\u093e\u0907\u0921",
+						en: "Correct answer: A) Aldehyde",
+					},
+				},
+				{
+					s: "S2",
+					a: 1,
+					q: {
+						hi: "\u0917\u094d\u0932\u0942\u0915\u094b\u091c\u093c \u0915\u093f\u0938 \u092a\u094d\u0930\u0915\u093e\u0930 \u0915\u093e \u0915\u093e\u0930\u094d\u092c\u094b\u0939\u093e\u0907\u0921\u094d\u0930\u0947\u091f \u0939\u0948?",
+						en: "Glucose is which type of carbohydrate?",
+					},
+					o: {
+						hi: [
+							"\u0921\u093e\u0907\u0938\u0947\u0915\u0947\u0930\u093e\u0907\u0921",
+							"\u092e\u094b\u0928\u094b\u0938\u0947\u0915\u0947\u0930\u093e\u0907\u0921",
+							"\u092a\u0949\u0932\u0940\u0938\u0947\u0915\u0947\u0930\u093e\u0907\u0921",
+							"\u0913\u0932\u093f\u0917\u094b\u0938\u0947\u0915\u0947\u0930\u093e\u0907\u0921",
+						],
+						en: [
+							"Disaccharide",
+							"Monosaccharide",
+							"Polysaccharide",
+							"Oligosaccharide",
+						],
+					},
+					sol: {
+						hi: "\u0938\u0939\u0940 \u0909\u0924\u094d\u0924\u0930: B) \u092e\u094b\u0928\u094b\u0938\u0947\u0915\u0947\u0930\u093e\u0907\u0921",
+						en: "Correct answer: B) Monosaccharide",
+					},
+				},
+				{
+					s: "S2",
+					a: 2,
+					q: {
+						hi: "\u0928\u093f\u092e\u094d\u0928 \u092e\u0947\u0902 \u0938\u0947 \u0915\u094c\u0928-\u0938\u093e \u092a\u094d\u0930\u093e\u0915\u0943\u0924\u093f\u0915 \u092c\u0939\u0941\u0932\u0915 (Natural Polymer) \u0939\u0948?",
+						en: "Which of the following is a natural polymer?",
+					},
+					o: {
+						hi: [
+							"PVC",
+							"\u091f\u0947\u092b\u094d\u0932\u0949\u0928",
+							"\u0938\u094d\u091f\u093e\u0930\u094d\u091a",
+							"\u0928\u093e\u092f\u0932\u0949\u0928-6",
+						],
+						en: ["PVC", "Teflon", "Starch", "Nylon-6"],
+					},
+					sol: {
+						hi: "\u0938\u0939\u0940 \u0909\u0924\u094d\u0924\u0930: C) \u0938\u094d\u091f\u093e\u0930\u094d\u091a",
+						en: "Correct answer: C) Starch",
+					},
+				},
+				{
+					s: "S2",
+					a: 2,
+					q: {
+						hi: "\u0928\u093f\u092e\u094d\u0928 \u092e\u0947\u0902 \u0938\u0947 \u0915\u094c\u0928-\u0938\u093e \u0938\u0930\u094d\u0935\u093e\u0927\u093f\u0915 \u092a\u094d\u0930\u092c\u0932 \u0932\u093f\u0917\u0948\u0902\u0921 \u0939\u0948?",
+						en: "Which of the following is the strongest ligand?",
+					},
+					o: {
+						hi: ["H2O", "NH3", "CN-", "F-"],
+						en: ["H2O", "NH3", "CN-", "F-"],
+					},
+					sol: {
+						hi: "\u0938\u0939\u0940 \u0909\u0924\u094d\u0924\u0930: C) CN-",
+						en: "Correct answer: C) CN-",
+					},
+				},
+				{
+					s: "S2",
+					a: 2,
+					q: {
+						hi: "pH = 7 \u0935\u093e\u0932\u093e \u0935\u093f\u0932\u092f\u0928 \u0939\u094b\u0924\u093e \u0939\u0948\u2014",
+						en: "A solution with pH = 7 is:",
+					},
+					o: {
+						hi: [
+							"\u0905\u092e\u094d\u0932\u0940\u092f",
+							"\u0915\u094d\u0937\u093e\u0930\u0940\u092f",
+							"\u0909\u0926\u093e\u0938\u0940\u0928",
+							"\u092a\u094d\u0930\u092c\u0932 \u0905\u092e\u094d\u0932\u0940\u092f",
+						],
+						en: ["Acidic", "Basic", "Neutral", "Strongly acidic"],
+					},
+					sol: {
+						hi: "\u0938\u0939\u0940 \u0909\u0924\u094d\u0924\u0930: C) \u0909\u0926\u093e\u0938\u0940\u0928",
+						en: "Correct answer: C) Neutral",
+					},
+				},
+				{
+					s: "S3",
+					a: 3,
+					q: {
+						hi: "\u0928\u093f\u092e\u094d\u0928 \u092e\u0947\u0902 \u0938\u0947 \u0915\u093f\u0938 \u0924\u0924\u094d\u0935 \u0915\u0940 \u092a\u094d\u0930\u0925\u092e \u0906\u092f\u0928\u0940\u0915\u0930\u0923 \u090a\u0930\u094d\u091c\u093e \u0938\u0930\u094d\u0935\u093e\u0927\u093f\u0915 \u0939\u094b\u0924\u0940 \u0939\u0948?",
+						en: "Which of the following elements has the highest first ionization energy?",
+					},
+					o: {
+						hi: ["Li", "Be", "B", "C"],
+						en: ["Li", "Be", "B", "C"],
+					},
+					sol: {
+						hi: "\u0938\u0939\u0940 \u0909\u0924\u094d\u0924\u0930: D) C",
+						en: "Correct answer: D) C",
+					},
+				},
+				{
+					s: "S3",
+					a: 1,
+					q: {
+						hi: "\u0936\u094d\u0930\u094b\u0921\u093f\u0902\u0917\u0930 \u0924\u0930\u0902\u0917 \u0938\u092e\u0940\u0915\u0930\u0923 \u0915\u093f\u0938\u0938\u0947 \u0938\u0902\u092c\u0902\u0927\u093f\u0924 \u0939\u0948?",
+						en: "The Schr\u00f6dinger wave equation is related to:",
+					},
+					o: {
+						hi: [
+							"\u0917\u0948\u0938\u094b\u0902 \u0915\u093e \u0917\u0924\u093f\u091c \u0938\u093f\u0926\u094d\u0927\u093e\u0902\u0924",
+							"\u092a\u0930\u092e\u093e\u0923\u0941 \u092e\u0947\u0902 \u0907\u0932\u0947\u0915\u094d\u091f\u094d\u0930\u0949\u0928 \u0915\u0940 \u0924\u0930\u0902\u0917 \u092a\u094d\u0930\u0915\u0943\u0924\u093f",
+							"\u090a\u0937\u094d\u092e\u093e\u0917\u0924\u093f\u0915\u0940",
+							"\u0930\u093e\u0938\u093e\u092f\u0928\u093f\u0915 \u0938\u093e\u092e\u094d\u092f\u093e\u0935\u0938\u094d\u0925\u093e",
+						],
+						en: [
+							"Kinetic theory of gases",
+							"Wave nature of electrons in atoms",
+							"Thermodynamics",
+							"Chemical equilibrium",
+						],
+					},
+					sol: {
+						hi: "\u0938\u0939\u0940 \u0909\u0924\u094d\u0924\u0930: B) \u092a\u0930\u092e\u093e\u0923\u0941 \u092e\u0947\u0902 \u0907\u0932\u0947\u0915\u094d\u091f\u094d\u0930\u0949\u0928 \u0915\u0940 \u0924\u0930\u0902\u0917 \u092a\u094d\u0930\u0915\u0943\u0924\u093f",
+						en: "Correct answer: B) Wave nature of electrons in atoms",
+					},
+				},
+				{
+					s: "S3",
+					a: 2,
+					q: {
+						hi: "\u0928\u093f\u092e\u094d\u0928\u0932\u093f\u0916\u093f\u0924 \u092e\u0947\u0902 \u0938\u0947 \u0915\u094c\u0928-\u0938\u093e \u092f\u094c\u0917\u093f\u0915 \u0905\u0927\u093f\u0915\u0924\u092e \u0939\u093e\u0907\u0921\u094d\u0930\u094b\u091c\u0928 \u092c\u0902\u0927 \u092c\u0928\u093e\u0924\u093e \u0939\u0948?",
+						en: "Which of the following compounds forms the maximum hydrogen bonding?",
+					},
+					o: {
+						hi: ["H2S", "HCl", "NH3", "CH4"],
+						en: ["H2S", "HCl", "NH3", "CH4"],
+					},
+					sol: {
+						hi: "\u0938\u0939\u0940 \u0909\u0924\u094d\u0924\u0930: C) NH3",
+						en: "Correct answer: C) NH3",
+					},
+				},
+				{
+					s: "S3",
+					a: 0,
+					q: {
+						hi: "1 \u092e\u094b\u0932 \u0907\u0932\u0947\u0915\u094d\u091f\u094d\u0930\u0949\u0928\u094b\u0902 \u092a\u0930 \u092b\u0948\u0930\u093e\u0921\u0947 \u0928\u093f\u092f\u0924\u093e\u0902\u0915 \u0915\u093e \u092e\u093e\u0928 \u0932\u0917\u092d\u0917 \u0915\u093f\u0924\u0928\u093e \u0939\u094b\u0924\u093e \u0939\u0948?",
+						en: "What is the approximate value of the Faraday constant for 1 mole of electrons?",
+					},
+					o: {
+						hi: [
+							"96500 C mol-1",
+							"8.314 J mol-1 K-1",
+							"6.023 \u00d7 10^23",
+							"22.4 L",
+						],
+						en: [
+							"96500 C mol-1",
+							"8.314 J mol-1 K-1",
+							"6.023 \u00d7 10^23",
+							"22.4 L",
+						],
+					},
+					sol: {
+						hi: "\u0938\u0939\u0940 \u0909\u0924\u094d\u0924\u0930: A) 96500 C mol-1",
+						en: "Correct answer: A) 96500 C mol-1",
+					},
+				},
+				{
+					s: "S3",
+					a: 2,
+					q: {
+						hi: "\u0928\u093f\u092e\u094d\u0928 \u092e\u0947\u0902 \u0938\u0947 \u0915\u094c\u0928-\u0938\u093e \u090a\u0937\u094d\u092e\u093e\u0917\u0924\u093f\u0915\u0940 \u0915\u093e \u0905\u0935\u0938\u094d\u0925\u093e \u092b\u0932\u0928 (State Function) \u0939\u0948?",
+						en: "Which of the following is a thermodynamic state function?",
+					},
+					o: {
+						hi: [
+							"\u090a\u0937\u094d\u092e\u093e (q)",
+							"\u0915\u093e\u0930\u094d\u092f (W)",
+							"\u090f\u0928\u094d\u0925\u0948\u0932\u094d\u092a\u0940 (H)",
+							"\u0918\u0930\u094d\u0937\u0923",
+						],
+						en: [
+							"Heat (q)",
+							"Work (W)",
+							"Enthalpy (H)",
+							"Friction",
+						],
+					},
+					sol: {
+						hi: "\u0938\u0939\u0940 \u0909\u0924\u094d\u0924\u0930: C) \u090f\u0928\u094d\u0925\u0948\u0932\u094d\u092a\u0940 (H)",
+						en: "Correct answer: C) Enthalpy (H)",
+					},
+				},
+				{
+					s: "S3",
+					a: 1,
+					q: {
+						hi: "\u0928\u093f\u092e\u094d\u0928 \u092e\u0947\u0902 \u0938\u0947 \u0915\u094c\u0928-\u0938\u093e \u092c\u092b\u0930 \u0935\u093f\u0932\u092f\u0928 \u092c\u0928\u093e\u0924\u093e \u0939\u0948?",
+						en: "Which of the following forms a buffer solution?",
+					},
+					o: {
+						hi: [
+							"HCl + NaCl",
+							"CH3COOH + CH3COONa",
+							"NaOH + NaCl",
+							"H2SO4 + Na2SO4",
+						],
+						en: [
+							"HCl + NaCl",
+							"CH3COOH + CH3COONa",
+							"NaOH + NaCl",
+							"H2SO4 + Na2SO4",
+						],
+					},
+					sol: {
+						hi: "\u0938\u0939\u0940 \u0909\u0924\u094d\u0924\u0930: B) CH3COOH + CH3COONa",
+						en: "Correct answer: B) CH3COOH + CH3COONa",
+					},
+				},
+				{
+					s: "S3",
+					a: 1,
+					q: {
+						hi: "\u0928\u093f\u092e\u094d\u0928 \u092e\u0947\u0902 \u0938\u0947 \u0915\u093f\u0938 \u0905\u092d\u093f\u0915\u094d\u0930\u093f\u092f\u093e \u092e\u0947\u0902 \u0394G = 0 \u0939\u094b\u0924\u093e \u0939\u0948?",
+						en: "In which of the following is \u0394G = 0?",
+					},
+					o: {
+						hi: [
+							"\u092a\u094d\u0930\u093e\u0930\u0902\u092d\u093f\u0915 \u0905\u0935\u0938\u094d\u0925\u093e",
+							"\u0938\u093e\u092e\u094d\u092f\u093e\u0935\u0938\u094d\u0925\u093e",
+							"\u0905\u092a\u0942\u0930\u094d\u0923 \u0905\u092d\u093f\u0915\u094d\u0930\u093f\u092f\u093e",
+							"\u0909\u0937\u094d\u092e\u093e\u0915\u094d\u0937\u0947\u092a\u0940 \u0905\u092d\u093f\u0915\u094d\u0930\u093f\u092f\u093e",
+						],
+						en: [
+							"Initial state",
+							"Equilibrium state",
+							"Incomplete reaction",
+							"Exothermic reaction",
+						],
+					},
+					sol: {
+						hi: "\u0938\u0939\u0940 \u0909\u0924\u094d\u0924\u0930: B) \u0938\u093e\u092e\u094d\u092f\u093e\u0935\u0938\u094d\u0925\u093e",
+						en: "Correct answer: B) Equilibrium state",
+					},
+				},
+				{
+					s: "S3",
+					a: 1,
+					q: {
+						hi: "\u0928\u093f\u092e\u094d\u0928 \u092e\u0947\u0902 \u0938\u0947 \u0915\u094c\u0928-\u0938\u093e \u0915\u094b\u0932\u0949\u0907\u0921 \u0915\u093e \u0909\u0926\u093e\u0939\u0930\u0923 \u0939\u0948?",
+						en: "Which of the following is an example of a colloid?",
+					},
+					o: {
+						hi: [
+							"\u0928\u092e\u0915 \u0915\u093e \u0935\u093f\u0932\u092f\u0928",
+							"\u0926\u0942\u0927",
+							"\u091a\u0940\u0928\u0940 \u0915\u093e \u0935\u093f\u0932\u092f\u0928",
+							"\u090f\u0925\u0947\u0928\u0949\u0932",
+						],
+						en: [
+							"Salt solution",
+							"Milk",
+							"Sugar solution",
+							"Ethanol",
+						],
+					},
+					sol: {
+						hi: "\u0938\u0939\u0940 \u0909\u0924\u094d\u0924\u0930: B) \u0926\u0942\u0927",
+						en: "Correct answer: B) Milk",
+					},
+				},
+				{
+					s: "S3",
+					a: 2,
+					q: {
+						hi: "\u0911\u0938\u094d\u091f\u0935\u093e\u0932\u094d\u0921 \u0915\u093e \u0924\u0928\u0941\u0915\u0930\u0923 \u0928\u093f\u092f\u092e \u0915\u093f\u0938 \u092a\u0930 \u0932\u093e\u0917\u0942 \u0939\u094b\u0924\u093e \u0939\u0948?",
+						en: "Ostwald's dilution law applies to:",
+					},
+					o: {
+						hi: [
+							"\u092a\u094d\u0930\u092c\u0932 \u0905\u092e\u094d\u0932",
+							"\u092a\u094d\u0930\u092c\u0932 \u0915\u094d\u0937\u093e\u0930",
+							"\u0926\u0941\u0930\u094d\u092c\u0932 \u0935\u093f\u0926\u094d\u092f\u0941\u0924 \u0905\u092a\u0918\u091f\u094d\u092f",
+							"\u0938\u092d\u0940 \u0932\u0935\u0923",
+						],
+						en: [
+							"Strong acids",
+							"Strong bases",
+							"Weak electrolytes",
+							"All salts",
+						],
+					},
+					sol: {
+						hi: "\u0938\u0939\u0940 \u0909\u0924\u094d\u0924\u0930: C) \u0926\u0941\u0930\u094d\u092c\u0932 \u0935\u093f\u0926\u094d\u092f\u0941\u0924 \u0905\u092a\u0918\u091f\u094d\u092f",
+						en: "Correct answer: C) Weak electrolytes",
+					},
+				},
+				{
+					s: "S3",
+					a: 0,
+					q: {
+						hi: "\u0928\u093f\u092e\u094d\u0928 \u092e\u0947\u0902 \u0938\u0947 \u0915\u094c\u0928-\u0938\u093e \u0909\u0924\u094d\u092a\u094d\u0930\u0947\u0930\u0915 (Catalyst) \u0939\u0948?",
+						en: "Which of the following is a catalyst?",
+					},
+					o: {
+						hi: ["MnO2", "CO2", "NaCl", "CaCO3"],
+						en: ["MnO2", "CO2", "NaCl", "CaCO3"],
+					},
+					sol: {
+						hi: "\u0938\u0939\u0940 \u0909\u0924\u094d\u0924\u0930: A) MnO2",
+						en: "Correct answer: A) MnO2",
+					},
+				},
+				{
+					s: "S4",
+					a: 3,
+					q: {
+						hi: "\u0928\u093f\u092e\u094d\u0928 \u092e\u0947\u0902 \u0938\u0947 \u0915\u094c\u0928-\u0938\u093e d-\u092c\u094d\u0932\u0949\u0915 \u0924\u0924\u094d\u0935 \u0928\u0939\u0940\u0902 \u0939\u0948?",
+						en: "Which of the following is NOT a d-block element?",
+					},
+					o: {
+						hi: ["Fe", "Zn", "Sc", "Ca"],
+						en: ["Fe", "Zn", "Sc", "Ca"],
+					},
+					sol: {
+						hi: "\u0938\u0939\u0940 \u0909\u0924\u094d\u0924\u0930: D) Ca",
+						en: "Correct answer: D) Ca",
+					},
+				},
+				{
+					s: "S4",
+					a: 0,
+					q: {
+						hi: "[Fe(CN)6]4- \u092e\u0947\u0902 Fe \u0915\u0940 \u0911\u0915\u094d\u0938\u0940\u0915\u0930\u0923 \u0938\u0902\u0916\u094d\u092f\u093e \u0915\u094d\u092f\u093e \u0939\u0948?",
+						en: "What is the oxidation number of Fe in [Fe(CN)6]4-?",
+					},
+					o: {
+						hi: ["+2", "+3", "+4", "+6"],
+						en: ["+2", "+3", "+4", "+6"],
+					},
+					sol: {
+						hi: "\u0938\u0939\u0940 \u0909\u0924\u094d\u0924\u0930: A) +2",
+						en: "Correct answer: A) +2",
+					},
+				},
+				{
+					s: "S4",
+					a: 0,
+					q: {
+						hi: "\u0928\u093f\u092e\u094d\u0928 \u092e\u0947\u0902 \u0938\u0947 \u0915\u094c\u0928-\u0938\u093e \u0938\u092c\u0938\u0947 \u092a\u094d\u0930\u092c\u0932 \u0905\u092a\u091a\u093e\u092f\u0915 (Reducing Agent) \u0939\u0948?",
+						en: "Which of the following is the strongest reducing agent?",
+					},
+					o: {
+						hi: ["Li", "Na", "K", "Cs"],
+						en: ["Li", "Na", "K", "Cs"],
+					},
+					sol: {
+						hi: "\u0938\u0939\u0940 \u0909\u0924\u094d\u0924\u0930: A) Li",
+						en: "Correct answer: A) Li",
+					},
+				},
+				{
+					s: "S4",
+					a: 2,
+					q: {
+						hi: "\u0928\u093f\u092e\u094d\u0928 \u092e\u0947\u0902 \u0938\u0947 \u0915\u094c\u0928-\u0938\u093e SN1 \u0905\u092d\u093f\u0915\u094d\u0930\u093f\u092f\u093e \u0915\u094b \u0938\u0930\u094d\u0935\u093e\u0927\u093f\u0915 \u0905\u0928\u0941\u0915\u0942\u0932 \u092c\u0928\u093e\u0924\u093e \u0939\u0948?",
+						en: "Which of the following most favours an SN1 reaction?",
+					},
+					o: {
+						hi: [
+							"\u092a\u094d\u0930\u093e\u0925\u092e\u093f\u0915 \u0915\u093e\u0930\u094d\u092c\u094b\u0915\u0948\u091f\u093e\u092f\u0928",
+							"\u0926\u094d\u0935\u093f\u0924\u0940\u092f\u0915 \u0915\u093e\u0930\u094d\u092c\u094b\u0915\u0948\u091f\u093e\u092f\u0928",
+							"\u0924\u0943\u0924\u0940\u092f\u0915 \u0915\u093e\u0930\u094d\u092c\u094b\u0915\u0948\u091f\u093e\u092f\u0928",
+							"\u092e\u093f\u0925\u093e\u0907\u0932 \u0915\u093e\u0930\u094d\u092c\u094b\u0915\u0948\u091f\u093e\u092f\u0928",
+						],
+						en: [
+							"Primary carbocation",
+							"Secondary carbocation",
+							"Tertiary carbocation",
+							"Methyl carbocation",
+						],
+					},
+					sol: {
+						hi: "\u0938\u0939\u0940 \u0909\u0924\u094d\u0924\u0930: C) \u0924\u0943\u0924\u0940\u092f\u0915 \u0915\u093e\u0930\u094d\u092c\u094b\u0915\u0948\u091f\u093e\u092f\u0928",
+						en: "Correct answer: C) Tertiary carbocation",
+					},
+				},
+				{
+					s: "S4",
+					a: 2,
+					q: {
+						hi: "\u0928\u093f\u092e\u094d\u0928 \u092e\u0947\u0902 \u0938\u0947 \u0915\u094c\u0928-\u0938\u093e \u092f\u094c\u0917\u093f\u0915 \u0911\u092a\u094d\u091f\u093f\u0915\u0932 \u0938\u092e\u093e\u0935\u092f\u0935\u0924\u093e (Optical Isomerism) \u092a\u094d\u0930\u0926\u0930\u094d\u0936\u093f\u0924 \u0915\u0930\u0924\u093e \u0939\u0948?",
+						en: "Which of the following compounds exhibits optical isomerism?",
+					},
+					o: {
+						hi: ["CH4", "CH3CH2OH", "CH3CH(OH)COOH", "CCl4"],
+						en: ["CH4", "CH3CH2OH", "CH3CH(OH)COOH", "CCl4"],
+					},
+					sol: {
+						hi: "\u0938\u0939\u0940 \u0909\u0924\u094d\u0924\u0930: C) CH3CH(OH)COOH",
+						en: "Correct answer: C) CH3CH(OH)COOH",
+					},
+				},
+				{
+					s: "S4",
+					a: 1,
+					q: {
+						hi: "\u090f\u0925\u0940\u0928 \u092e\u0947\u0902 \u0915\u093e\u0930\u094d\u092c\u0928 \u092a\u0930\u092e\u093e\u0923\u0941\u0913\u0902 \u0915\u093e \u0938\u0902\u0915\u0930\u0923 (Hybridization) \u0915\u094d\u092f\u093e \u0939\u0948?",
+						en: "What is the hybridization of carbon atoms in ethene?",
+					},
+					o: {
+						hi: ["sp", "sp2", "sp3", "dsp2"],
+						en: ["sp", "sp2", "sp3", "dsp2"],
+					},
+					sol: {
+						hi: "\u0938\u0939\u0940 \u0909\u0924\u094d\u0924\u0930: B) sp2",
+						en: "Correct answer: B) sp2",
+					},
+				},
+				{
+					s: "S4",
+					a: 0,
+					q: {
+						hi: "\u0928\u093f\u092e\u094d\u0928 \u092e\u0947\u0902 \u0938\u0947 \u0915\u094c\u0928-\u0938\u093e \u090f\u0930\u094b\u092e\u0948\u091f\u093f\u0915 \u092a\u094d\u0930\u0924\u093f\u0938\u094d\u0925\u093e\u092a\u0928 \u0905\u092d\u093f\u0915\u094d\u0930\u093f\u092f\u093e \u0939\u0948?",
+						en: "Which of the following is an aromatic electrophilic substitution reaction?",
+					},
+					o: {
+						hi: [
+							"\u0928\u093e\u0907\u091f\u094d\u0930\u0947\u0936\u0928",
+							"\u0939\u093e\u0907\u0921\u094d\u0930\u094b\u091c\u0928\u0940\u0915\u0930\u0923",
+							"\u0913\u091c\u093c\u094b\u0928\u094b\u0932\u093f\u0938\u093f\u0938",
+							"\u091c\u0932\u092f\u094b\u091c\u0928",
+						],
+						en: [
+							"Nitration",
+							"Hydrogenation",
+							"Ozonolysis",
+							"Hydration",
+						],
+					},
+					sol: {
+						hi: "\u0938\u0939\u0940 \u0909\u0924\u094d\u0924\u0930: A) \u0928\u093e\u0907\u091f\u094d\u0930\u0947\u0936\u0928",
+						en: "Correct answer: A) Nitration",
+					},
+				},
+				{
+					s: "S4",
+					a: 2,
+					q: {
+						hi: "\u0928\u093f\u092e\u094d\u0928 \u092e\u0947\u0902 \u0938\u0947 \u0915\u094c\u0928-\u0938\u093e \u0905\u092e\u0940\u0928 \u092a\u094d\u0930\u093e\u0925\u092e\u093f\u0915 (Primary Amine) \u0939\u0948?",
+						en: "Which of the following is a primary amine?",
+					},
+					o: {
+						hi: ["(CH3)3N", "(CH3)2NH", "CH3NH2", "C6H5N(CH3)2"],
+						en: ["(CH3)3N", "(CH3)2NH", "CH3NH2", "C6H5N(CH3)2"],
+					},
+					sol: {
+						hi: "\u0938\u0939\u0940 \u0909\u0924\u094d\u0924\u0930: C) CH3NH2",
+						en: "Correct answer: C) CH3NH2",
+					},
+				},
+				{
+					s: "S4",
+					a: 1,
+					q: {
+						hi: "DNA \u092e\u0947\u0902 \u0915\u094c\u0928-\u0938\u0940 \u0936\u0930\u094d\u0915\u0930\u093e \u092a\u093e\u0908 \u091c\u093e\u0924\u0940 \u0939\u0948?",
+						en: "Which sugar is found in DNA?",
+					},
+					o: {
+						hi: [
+							"\u0930\u093e\u0907\u092c\u094b\u091c\u093c",
+							"\u0921\u093f\u0911\u0915\u094d\u0938\u0940\u0930\u093e\u0907\u092c\u094b\u091c\u093c",
+							"\u0917\u094d\u0932\u0942\u0915\u094b\u091c\u093c",
+							"\u092b\u094d\u0930\u0915\u094d\u091f\u094b\u091c\u093c",
+						],
+						en: ["Ribose", "Deoxyribose", "Glucose", "Fructose"],
+					},
+					sol: {
+						hi: "\u0938\u0939\u0940 \u0909\u0924\u094d\u0924\u0930: B) \u0921\u093f\u0911\u0915\u094d\u0938\u0940\u0930\u093e\u0907\u092c\u094b\u091c\u093c",
+						en: "Correct answer: B) Deoxyribose",
+					},
+				},
+				{
+					s: "S4",
+					a: 2,
+					q: {
+						hi: "\u0928\u093f\u092e\u094d\u0928 \u092e\u0947\u0902 \u0938\u0947 \u0915\u094c\u0928-\u0938\u093e \u091c\u0948\u0935 \u0905\u092a\u0918\u091f\u0928\u0940\u092f (Biodegradable) \u092c\u0939\u0941\u0932\u0915 \u0939\u0948?",
+						en: "Which of the following is a biodegradable polymer?",
+					},
+					o: {
+						hi: [
+							"PVC",
+							"\u092a\u0949\u0932\u0940\u0925\u0940\u0928",
+							"PHBV",
+							"\u091f\u0947\u092b\u094d\u0932\u0949\u0928",
+						],
+						en: ["PVC", "Polythene", "PHBV", "Teflon"],
+					},
+					sol: {
+						hi: "\u0938\u0939\u0940 \u0909\u0924\u094d\u0924\u0930: C) PHBV",
+						en: "Correct answer: C) PHBV",
+					},
+				},
+				{
+					s: "S5",
+					a: 2,
+					q: {
+						hi: "\u0928\u093f\u092e\u094d\u0928\u0932\u093f\u0916\u093f\u0924 \u092e\u0947\u0902 \u0938\u0947 \u0915\u093f\u0938 \u0917\u0948\u0938 \u0915\u093e \u0935\u093f\u0938\u0930\u0923 (Diffusion) \u0938\u092c\u0938\u0947 \u0924\u0947\u091c\u093c \u0939\u094b\u0917\u093e?",
+						en: "Which of the following gases will diffuse the fastest?",
+					},
+					o: {
+						hi: ["O2", "N2", "H2", "CO2"],
+						en: ["O2", "N2", "H2", "CO2"],
+					},
+					sol: {
+						hi: "\u0938\u0939\u0940 \u0909\u0924\u094d\u0924\u0930: C) H2",
+						en: "Correct answer: C) H2",
+					},
+				},
+				{
+					s: "S5",
+					a: 0,
+					q: {
+						hi: "\u0928\u093f\u092e\u094d\u0928\u0932\u093f\u0916\u093f\u0924 \u092e\u0947\u0902 \u0938\u0947 \u0915\u093f\u0938\u0915\u093e \u092a\u0930\u092e\u093e\u0923\u0941 \u0924\u094d\u0930\u093f\u091c\u094d\u092f\u093e \u0938\u092c\u0938\u0947 \u0905\u0927\u093f\u0915 \u0939\u0948?",
+						en: "Which of the following has the largest atomic radius?",
+					},
+					o: {
+						hi: ["Na", "Mg", "Al", "Si"],
+						en: ["Na", "Mg", "Al", "Si"],
+					},
+					sol: {
+						hi: "\u0938\u0939\u0940 \u0909\u0924\u094d\u0924\u0930: A) Na",
+						en: "Correct answer: A) Na",
+					},
+				},
+				{
+					s: "S5",
+					a: 0,
+					q: {
+						hi: "0.1 M HCl \u0935\u093f\u0932\u092f\u0928 \u0915\u093e pH \u0939\u094b\u0917\u093e\u2014",
+						en: "The pH of a 0.1 M HCl solution will be:",
+					},
+					o: { hi: ["1", "2", "3", "4"], en: ["1", "2", "3", "4"] },
+					sol: {
+						hi: "\u0938\u0939\u0940 \u0909\u0924\u094d\u0924\u0930: A) 1",
+						en: "Correct answer: A) 1",
+					},
+				},
+				{
+					s: "S5",
+					a: 2,
+					q: {
+						hi: "\u0928\u093f\u092e\u094d\u0928 \u092e\u0947\u0902 \u0938\u0947 \u0915\u094c\u0928-\u0938\u093e \u0905\u0923\u0941 \u0930\u0948\u0916\u093f\u0915 (Linear) \u0938\u0902\u0930\u091a\u0928\u093e \u0935\u093e\u0932\u093e \u0939\u0948?",
+						en: "Which of the following molecules has a linear structure?",
+					},
+					o: {
+						hi: ["NH3", "H2O", "CO2", "SO2"],
+						en: ["NH3", "H2O", "CO2", "SO2"],
+					},
+					sol: {
+						hi: "\u0938\u0939\u0940 \u0909\u0924\u094d\u0924\u0930: C) CO2",
+						en: "Correct answer: C) CO2",
+					},
+				},
+				{
+					s: "S5",
+					a: 2,
+					q: {
+						hi: "\u0915\u093f\u0938\u0940 \u092a\u094d\u0930\u0925\u092e \u0915\u094b\u091f\u093f \u0905\u092d\u093f\u0915\u094d\u0930\u093f\u092f\u093e \u0915\u093e \u0905\u0930\u094d\u0927-\u0906\u092f\u0941 (Half-life) \u0915\u093f\u0938 \u092a\u0930 \u0928\u093f\u0930\u094d\u092d\u0930 \u0915\u0930\u0924\u0940 \u0939\u0948?",
+						en: "The half-life of a first-order reaction depends on:",
+					},
+					o: {
+						hi: [
+							"\u092a\u094d\u0930\u093e\u0930\u0902\u092d\u093f\u0915 \u0938\u093e\u0902\u0926\u094d\u0930\u0924\u093e",
+							"\u0924\u093e\u092a\u092e\u093e\u0928",
+							"\u0935\u0947\u0917 \u0928\u093f\u092f\u0924\u093e\u0902\u0915 (k)",
+							"\u0926\u093e\u092c",
+						],
+						en: [
+							"Initial concentration",
+							"Temperature",
+							"Rate constant (k)",
+							"Pressure",
+						],
+					},
+					sol: {
+						hi: "\u0938\u0939\u0940 \u0909\u0924\u094d\u0924\u0930: C) \u0935\u0947\u0917 \u0928\u093f\u092f\u0924\u093e\u0902\u0915 (k)",
+						en: "Correct answer: C) Rate constant (k)",
+					},
+				},
+				{
+					s: "S5",
+					a: 2,
+					q: {
+						hi: "\u0928\u093f\u092e\u094d\u0928 \u092e\u0947\u0902 \u0938\u0947 \u0915\u094c\u0928-\u0938\u093e \u0907\u0932\u0947\u0915\u094d\u091f\u094d\u0930\u094b\u0932\u093e\u0907\u091f \u0938\u092c\u0938\u0947 \u0905\u0927\u093f\u0915 \u0935\u093f\u0926\u094d\u092f\u0941\u0924 \u091a\u093e\u0932\u0915\u0924\u093e \u092a\u094d\u0930\u0926\u0930\u094d\u0936\u093f\u0924 \u0915\u0930\u0947\u0917\u093e?",
+						en: "Which of the following electrolytes will show the highest electrical conductivity?",
+					},
+					o: {
+						hi: ["CH3COOH", "NH4OH", "NaCl", "H2O"],
+						en: ["CH3COOH", "NH4OH", "NaCl", "H2O"],
+					},
+					sol: {
+						hi: "\u0938\u0939\u0940 \u0909\u0924\u094d\u0924\u0930: C) NaCl",
+						en: "Correct answer: C) NaCl",
+					},
+				},
+				{
+					s: "S5",
+					a: 2,
+					q: {
+						hi: "\u0907\u0932\u0947\u0915\u094d\u091f\u094d\u0930\u094b\u0921 \u0935\u093f\u092d\u0935 (Electrode Potential) \u0915\u094b \u092e\u093e\u092a\u0928\u0947 \u0915\u0947 \u0932\u093f\u090f \u092e\u093e\u0928\u0915 \u0907\u0932\u0947\u0915\u094d\u091f\u094d\u0930\u094b\u0921 \u0915\u094c\u0928-\u0938\u093e \u0939\u0948?",
+						en: "Which is the standard electrode used to measure electrode potential?",
+					},
+					o: {
+						hi: [
+							"\u0915\u0948\u0932\u094b\u092e\u0947\u0932 \u0907\u0932\u0947\u0915\u094d\u091f\u094d\u0930\u094b\u0921",
+							"\u0938\u093f\u0932\u094d\u0935\u0930 \u0907\u0932\u0947\u0915\u094d\u091f\u094d\u0930\u094b\u0921",
+							"\u092e\u093e\u0928\u0915 \u0939\u093e\u0907\u0921\u094d\u0930\u094b\u091c\u0928 \u0907\u0932\u0947\u0915\u094d\u091f\u094d\u0930\u094b\u0921 (SHE)",
+							"\u092a\u094d\u0932\u0948\u091f\u093f\u0928\u092e \u0907\u0932\u0947\u0915\u094d\u091f\u094d\u0930\u094b\u0921",
+						],
+						en: [
+							"Calomel electrode",
+							"Silver electrode",
+							"Standard Hydrogen Electrode (SHE)",
+							"Platinum electrode",
+						],
+					},
+					sol: {
+						hi: "\u0938\u0939\u0940 \u0909\u0924\u094d\u0924\u0930: C) \u092e\u093e\u0928\u0915 \u0939\u093e\u0907\u0921\u094d\u0930\u094b\u091c\u0928 \u0907\u0932\u0947\u0915\u094d\u091f\u094d\u0930\u094b\u0921 (SHE)",
+						en: "Correct answer: C) Standard Hydrogen Electrode (SHE)",
+					},
+				},
+				{
+					s: "S5",
+					a: 1,
+					q: {
+						hi: "\u0928\u093f\u092e\u094d\u0928 \u092e\u0947\u0902 \u0938\u0947 \u0915\u094c\u0928-\u0938\u093e \u092a\u0926\u093e\u0930\u094d\u0925 \u0905\u0928\u0941\u091a\u0941\u0902\u092c\u0915\u0940\u092f (Paramagnetic) \u0939\u0948?",
+						en: "Which of the following substances is paramagnetic?",
+					},
+					o: {
+						hi: ["Zn2+", "Cu2+", "Sc3+", "Zn"],
+						en: ["Zn2+", "Cu2+", "Sc3+", "Zn"],
+					},
+					sol: {
+						hi: "\u0938\u0939\u0940 \u0909\u0924\u094d\u0924\u0930: B) Cu2+",
+						en: "Correct answer: B) Cu2+",
+					},
+				},
+				{
+					s: "S5",
+					a: 1,
+					q: {
+						hi: "[Co(NH3)6]Cl3 \u092e\u0947\u0902 Co \u0915\u0940 \u0911\u0915\u094d\u0938\u0940\u0915\u0930\u0923 \u0905\u0935\u0938\u094d\u0925\u093e \u0939\u0948\u2014",
+						en: "What is the oxidation state of Co in [Co(NH3)6]Cl3?",
+					},
+					o: {
+						hi: ["+2", "+3", "+4", "+6"],
+						en: ["+2", "+3", "+4", "+6"],
+					},
+					sol: {
+						hi: "\u0938\u0939\u0940 \u0909\u0924\u094d\u0924\u0930: B) +3",
+						en: "Correct answer: B) +3",
+					},
+				},
+				{
+					s: "S5",
+					a: 1,
+					q: {
+						hi: "\u0932\u0948\u0902\u0925\u0947\u0928\u093e\u0907\u0921 \u0938\u0902\u0915\u0941\u091a\u0928 (Lanthanide Contraction) \u0915\u093e \u092e\u0941\u0916\u094d\u092f \u0915\u093e\u0930\u0923 \u0915\u094d\u092f\u093e \u0939\u0948?",
+						en: "What is the main cause of lanthanide contraction?",
+					},
+					o: {
+						hi: [
+							"d-\u0907\u0932\u0947\u0915\u094d\u091f\u094d\u0930\u0949\u0928\u094b\u0902 \u0915\u0940 \u0915\u092e\u091c\u094b\u0930 \u0936\u0940\u0932\u094d\u0921\u093f\u0902\u0917",
+							"f-\u0907\u0932\u0947\u0915\u094d\u091f\u094d\u0930\u0949\u0928\u094b\u0902 \u0915\u0940 \u0915\u092e\u091c\u094b\u0930 \u0936\u0940\u0932\u094d\u0921\u093f\u0902\u0917",
+							"p-\u0907\u0932\u0947\u0915\u094d\u091f\u094d\u0930\u0949\u0928\u094b\u0902 \u0915\u0940 \u0905\u0927\u093f\u0915 \u0936\u0940\u0932\u094d\u0921\u093f\u0902\u0917",
+							"s-\u0907\u0932\u0947\u0915\u094d\u091f\u094d\u0930\u0949\u0928\u094b\u0902 \u0915\u0940 \u0905\u0927\u093f\u0915 \u0936\u0940\u0932\u094d\u0921\u093f\u0902\u0917",
+						],
+						en: [
+							"Weak shielding by d-electrons",
+							"Weak shielding by f-electrons",
+							"Strong shielding by p-electrons",
+							"Strong shielding by s-electrons",
+						],
+					},
+					sol: {
+						hi: "\u0938\u0939\u0940 \u0909\u0924\u094d\u0924\u0930: B) f-\u0907\u0932\u0947\u0915\u094d\u091f\u094d\u0930\u0949\u0928\u094b\u0902 \u0915\u0940 \u0915\u092e\u091c\u094b\u0930 \u0936\u0940\u0932\u094d\u0921\u093f\u0902\u0917",
+						en: "Correct answer: B) Weak shielding by f-electrons",
+					},
+				},
+				{
+					s: "S6",
+					a: 0,
+					q: {
+						hi: "\u0928\u093f\u092e\u094d\u0928 \u092e\u0947\u0902 \u0938\u0947 \u0915\u094c\u0928-\u0938\u093e \u092f\u094c\u0917\u093f\u0915 \u092b\u093f\u0928\u0949\u0932 \u0939\u0948?",
+						en: "Which of the following compounds is a phenol?",
+					},
+					o: {
+						hi: ["C6H5OH", "C6H5CH2OH", "CH3OH", "C2H5OH"],
+						en: ["C6H5OH", "C6H5CH2OH", "CH3OH", "C2H5OH"],
+					},
+					sol: {
+						hi: "\u0938\u0939\u0940 \u0909\u0924\u094d\u0924\u0930: A) C6H5OH",
+						en: "Correct answer: A) C6H5OH",
+					},
+				},
+				{
+					s: "S6",
+					a: 1,
+					q: {
+						hi: "\u0928\u093f\u092e\u094d\u0928\u0932\u093f\u0916\u093f\u0924 \u092e\u0947\u0902 \u0938\u0947 \u0915\u094c\u0928-\u0938\u093e \u090f\u0932\u094d\u0921\u094b\u0932 \u0938\u0902\u0918\u0928\u0928 (Aldol Condensation) \u0915\u0930\u0924\u093e \u0939\u0948?",
+						en: "Which of the following undergoes aldol condensation?",
+					},
+					o: {
+						hi: ["HCHO", "CH3CHO", "C6H6", "HCOOH"],
+						en: ["HCHO", "CH3CHO", "C6H6", "HCOOH"],
+					},
+					sol: {
+						hi: "\u0938\u0939\u0940 \u0909\u0924\u094d\u0924\u0930: B) CH3CHO",
+						en: "Correct answer: B) CH3CHO",
+					},
+				},
+				{
+					s: "S6",
+					a: 1,
+					q: {
+						hi: "\u0915\u0948\u0928\u093f\u091c\u093c\u093e\u0930\u094b (Cannizzaro) \u0905\u092d\u093f\u0915\u094d\u0930\u093f\u092f\u093e \u0915\u093f\u0938 \u092a\u094d\u0930\u0915\u093e\u0930 \u0915\u0947 \u090f\u0932\u094d\u0921\u093f\u0939\u093e\u0907\u0921 \u0926\u094d\u0935\u093e\u0930\u093e \u0926\u0940 \u091c\u093e\u0924\u0940 \u0939\u0948?",
+						en: "The Cannizzaro reaction is given by which type of aldehyde?",
+					},
+					o: {
+						hi: [
+							"\u03b1-\u0939\u093e\u0907\u0921\u094d\u0930\u094b\u091c\u0928 \u092f\u0941\u0915\u094d\u0924",
+							"\u03b1-\u0939\u093e\u0907\u0921\u094d\u0930\u094b\u091c\u0928 \u0930\u0939\u093f\u0924",
+							"\u0938\u092d\u0940 \u090f\u0932\u094d\u0921\u093f\u0939\u093e\u0907\u0921",
+							"\u0915\u0947\u0935\u0932 \u090f\u0930\u094b\u092e\u0948\u091f\u093f\u0915 \u0915\u0940\u091f\u094b\u0928",
+						],
+						en: [
+							"Containing \u03b1-hydrogen",
+							"Lacking \u03b1-hydrogen",
+							"All aldehydes",
+							"Only aromatic ketones",
+						],
+					},
+					sol: {
+						hi: "\u0938\u0939\u0940 \u0909\u0924\u094d\u0924\u0930: B) \u03b1-\u0939\u093e\u0907\u0921\u094d\u0930\u094b\u091c\u0928 \u0930\u0939\u093f\u0924",
+						en: "Correct answer: B) Lacking \u03b1-hydrogen",
+					},
+				},
+				{
+					s: "S6",
+					a: 1,
+					q: {
+						hi: "\u092c\u0947\u0902\u091c\u0940\u0928 \u0915\u093e \u0928\u093e\u0907\u091f\u094d\u0930\u0947\u0936\u0928 \u0915\u093f\u0938 \u0905\u092d\u093f\u0915\u0930\u094d\u092e\u0915 \u092e\u093f\u0936\u094d\u0930\u0923 \u0938\u0947 \u0915\u093f\u092f\u093e \u091c\u093e\u0924\u093e \u0939\u0948?",
+						en: "Nitration of benzene is carried out using which reagent mixture?",
+					},
+					o: {
+						hi: [
+							"HCl + HNO3",
+							"HNO3 + H2SO4",
+							"HCl + H2SO4",
+							"HNO2 + H2SO4",
+						],
+						en: [
+							"HCl + HNO3",
+							"HNO3 + H2SO4",
+							"HCl + H2SO4",
+							"HNO2 + H2SO4",
+						],
+					},
+					sol: {
+						hi: "\u0938\u0939\u0940 \u0909\u0924\u094d\u0924\u0930: B) HNO3 + H2SO4",
+						en: "Correct answer: B) HNO3 + H2SO4",
+					},
+				},
+				{
+					s: "S6",
+					a: 2,
+					q: {
+						hi: "\u0928\u093f\u092e\u094d\u0928 \u092e\u0947\u0902 \u0938\u0947 \u0915\u094c\u0928-\u0938\u093e \u0905\u092e\u0940\u0928 \u0938\u092c\u0938\u0947 \u0905\u0927\u093f\u0915 \u0915\u094d\u0937\u093e\u0930\u0940\u092f (Basic) \u0939\u0948? (\u091c\u0932\u0940\u092f \u092e\u093e\u0927\u094d\u092f\u092e \u092e\u0947\u0902)",
+						en: "Which amine is most basic (in aqueous medium)?",
+					},
+					o: {
+						hi: ["NH3", "CH3NH2", "(CH3)2NH", "(CH3)3N"],
+						en: ["NH3", "CH3NH2", "(CH3)2NH", "(CH3)3N"],
+					},
+					sol: {
+						hi: "\u0938\u0939\u0940 \u0909\u0924\u094d\u0924\u0930: C) (CH3)2NH",
+						en: "Correct answer: C) (CH3)2NH",
+					},
+				},
+				{
+					s: "S6",
+					a: 2,
+					q: {
+						hi: "\u0928\u093f\u092e\u094d\u0928\u0932\u093f\u0916\u093f\u0924 \u092e\u0947\u0902 \u0938\u0947 \u0915\u094c\u0928-\u0938\u093e \u0915\u0943\u0924\u094d\u0930\u093f\u092e \u092c\u0939\u0941\u0932\u0915 (Synthetic Polymer) \u0939\u0948?",
+						en: "Which of the following is a synthetic polymer?",
+					},
+					o: {
+						hi: [
+							"\u0938\u0947\u0932\u0942\u0932\u094b\u091c\u093c",
+							"\u092a\u094d\u0930\u094b\u091f\u0940\u0928",
+							"\u0928\u093e\u092f\u0932\u0949\u0928-6,6",
+							"\u0938\u094d\u091f\u093e\u0930\u094d\u091a",
+						],
+						en: ["Cellulose", "Protein", "Nylon-6,6", "Starch"],
+					},
+					sol: {
+						hi: "\u0938\u0939\u0940 \u0909\u0924\u094d\u0924\u0930: C) \u0928\u093e\u092f\u0932\u0949\u0928-6,6",
+						en: "Correct answer: C) Nylon-6,6",
+					},
+				},
+				{
+					s: "S6",
+					a: 2,
+					q: {
+						hi: "\u0907\u0902\u0938\u0941\u0932\u093f\u0928 \u0915\u094d\u092f\u093e \u0939\u0948?",
+						en: "What is insulin?",
+					},
+					o: {
+						hi: [
+							"\u0915\u093e\u0930\u094d\u092c\u094b\u0939\u093e\u0907\u0921\u094d\u0930\u0947\u091f",
+							"\u0935\u0938\u093e",
+							"\u092a\u094d\u0930\u094b\u091f\u0940\u0928",
+							"\u0928\u094d\u092f\u0942\u0915\u094d\u0932\u093f\u0915 \u0905\u092e\u094d\u0932",
+						],
+						en: ["Carbohydrate", "Fat", "Protein", "Nucleic acid"],
+					},
+					sol: {
+						hi: "\u0938\u0939\u0940 \u0909\u0924\u094d\u0924\u0930: C) \u092a\u094d\u0930\u094b\u091f\u0940\u0928",
+						en: "Correct answer: C) Protein",
+					},
+				},
+				{
+					s: "S6",
+					a: 3,
+					q: {
+						hi: "\u0928\u093f\u092e\u094d\u0928 \u092e\u0947\u0902 \u0938\u0947 \u0915\u094c\u0928-\u0938\u093e \u0935\u093f\u091f\u093e\u092e\u093f\u0928 \u091c\u0932 \u092e\u0947\u0902 \u0935\u093f\u0932\u0947\u092f (Water Soluble) \u0939\u0948?",
+						en: "Which vitamin is water soluble?",
+					},
+					o: {
+						hi: [
+							"\u0935\u093f\u091f\u093e\u092e\u093f\u0928 A",
+							"\u0935\u093f\u091f\u093e\u092e\u093f\u0928 D",
+							"\u0935\u093f\u091f\u093e\u092e\u093f\u0928 E",
+							"\u0935\u093f\u091f\u093e\u092e\u093f\u0928 C",
+						],
+						en: [
+							"Vitamin A",
+							"Vitamin D",
+							"Vitamin E",
+							"Vitamin C",
+						],
+					},
+					sol: {
+						hi: "\u0938\u0939\u0940 \u0909\u0924\u094d\u0924\u0930: D) \u0935\u093f\u091f\u093e\u092e\u093f\u0928 C",
+						en: "Correct answer: D) Vitamin C",
+					},
+				},
+				{
+					s: "S6",
+					a: 1,
+					q: {
+						hi: "\u090f\u0915 \u092e\u094b\u0932 \u0906\u0926\u0930\u094d\u0936 \u0917\u0948\u0938 \u0915\u094b \u0938\u094d\u0925\u093f\u0930 \u0924\u093e\u092a \u092a\u0930 \u0926\u094b\u0917\u0941\u0928\u093e \u0906\u092f\u0924\u0928 \u0924\u0915 \u092b\u0948\u0932\u093e\u0928\u0947 \u092a\u0930 \u0915\u093f\u092f\u093e \u0917\u092f\u093e \u0915\u093e\u0930\u094d\u092f \u0915\u093f\u0938 \u092a\u0930 \u0928\u093f\u0930\u094d\u092d\u0930 \u0915\u0930\u0947\u0917\u093e?",
+						en: "The work done when one mole of ideal gas is expanded to double its volume at constant temperature depends on:",
+					},
+					o: {
+						hi: [
+							"\u0915\u0947\u0935\u0932 \u0926\u093e\u092c",
+							"\u0915\u0947\u0935\u0932 \u0924\u093e\u092a\u092e\u093e\u0928",
+							"\u0915\u0947\u0935\u0932 \u0906\u092f\u0924\u0928",
+							"\u0917\u0948\u0938 \u0915\u0947 \u0930\u0902\u0917",
+						],
+						en: [
+							"Only pressure",
+							"Only temperature",
+							"Only volume",
+							"Colour of the gas",
+						],
+					},
+					sol: {
+						hi: "\u0938\u0939\u0940 \u0909\u0924\u094d\u0924\u0930: B) \u0915\u0947\u0935\u0932 \u0924\u093e\u092a\u092e\u093e\u0928",
+						en: "Correct answer: B) Only temperature",
+					},
+				},
+				{
+					s: "S6",
+					a: 1,
+					q: {
+						hi: "\u0928\u093f\u092e\u094d\u0928\u0932\u093f\u0916\u093f\u0924 \u092e\u0947\u0902 \u0938\u0947 \u0915\u094c\u0928-\u0938\u093e \u0915\u0925\u0928 \u0938\u0939\u0940 \u0939\u0948?",
+						en: "Which of the following statements is correct?",
+					},
+					o: {
+						hi: [
+							"SN1 \u0905\u092d\u093f\u0915\u094d\u0930\u093f\u092f\u093e \u0926\u094d\u0935\u093f\u0906\u0923\u0935\u093f\u0915 \u0939\u094b\u0924\u0940 \u0939\u0948\u0964",
+							"SN2 \u0905\u092d\u093f\u0915\u094d\u0930\u093f\u092f\u093e \u090f\u0915-\u091a\u0930\u0923\u0940\u092f (One-step) \u0939\u094b\u0924\u0940 \u0939\u0948\u0964",
+							"SN2 \u092e\u0947\u0902 \u0915\u093e\u0930\u094d\u092c\u094b\u0915\u0948\u091f\u093e\u092f\u0928 \u092c\u0928\u0924\u093e \u0939\u0948\u0964",
+							"SN1 \u092e\u0947\u0902 Walden inversion \u0905\u0928\u093f\u0935\u093e\u0930\u094d\u092f \u0939\u0948\u0964",
+						],
+						en: [
+							"SN1 reaction is bimolecular.",
+							"SN2 reaction is a one-step reaction.",
+							"A carbocation is formed in SN2.",
+							"Walden inversion is essential in SN1.",
+						],
+					},
+					sol: {
+						hi: "\u0938\u0939\u0940 \u0909\u0924\u094d\u0924\u0930: B) SN2 \u0905\u092d\u093f\u0915\u094d\u0930\u093f\u092f\u093e \u090f\u0915-\u091a\u0930\u0923\u0940\u092f (One-step) \u0939\u094b\u0924\u0940 \u0939\u0948\u0964",
+						en: "Correct answer: B) SN2 reaction is a one-step reaction.",
+					},
+				},
+				{
+					s: "S7",
+					a: 3,
+					q: {
+						hi: "\u0915\u093f\u0938\u0940 \u0930\u0947\u0921\u093f\u092f\u094b\u0927\u0930\u094d\u092e\u0940 \u0924\u0924\u094d\u0935 \u0915\u0940 \u0905\u0930\u094d\u0927-\u0906\u092f\u0941 10 \u0926\u093f\u0928 \u0939\u0948\u0964 40 \u0926\u093f\u0928 \u092c\u093e\u0926 \u092e\u0942\u0932 \u092e\u093e\u0924\u094d\u0930\u093e \u0915\u093e \u0915\u093f\u0924\u0928\u093e \u092d\u093e\u0917 \u0936\u0947\u0937 \u0930\u0939\u0947\u0917\u093e?",
+						en: "The half-life of a radioactive element is 10 days. What fraction of the original amount will remain after 40 days?",
+					},
+					o: {
+						hi: ["1/2", "1/4", "1/8", "1/16"],
+						en: ["1/2", "1/4", "1/8", "1/16"],
+					},
+					sol: {
+						hi: "\u0938\u0939\u0940 \u0909\u0924\u094d\u0924\u0930: D) 1/16",
+						en: "Correct answer: D) 1/16",
+					},
+				},
+				{
+					s: "S7",
+					a: 1,
+					q: {
+						hi: "\u0928\u093f\u092e\u094d\u0928 \u092e\u0947\u0902 \u0938\u0947 \u0915\u093f\u0938\u0915\u093e \u0907\u0932\u0947\u0915\u094d\u091f\u094d\u0930\u0949\u0928 \u092c\u0902\u0927\u0941\u0924\u093e (Electron Affinity) \u0938\u0930\u094d\u0935\u093e\u0927\u093f\u0915 \u0939\u0948?",
+						en: "Which of the following has the highest electron affinity?",
+					},
+					o: {
+						hi: [
+							"\u092b\u094d\u0932\u094b\u0930\u0940\u0928",
+							"\u0915\u094d\u0932\u094b\u0930\u0940\u0928",
+							"\u092c\u094d\u0930\u094b\u092e\u0940\u0928",
+							"\u0906\u092f\u094b\u0921\u0940\u0928",
+						],
+						en: ["Fluorine", "Chlorine", "Bromine", "Iodine"],
+					},
+					sol: {
+						hi: "\u0938\u0939\u0940 \u0909\u0924\u094d\u0924\u0930: B) \u0915\u094d\u0932\u094b\u0930\u0940\u0928",
+						en: "Correct answer: B) Chlorine",
+					},
+				},
+				{
+					s: "S7",
+					a: 0,
+					q: {
+						hi: "\u0928\u093f\u092e\u094d\u0928\u0932\u093f\u0916\u093f\u0924 \u092e\u0947\u0902 \u0938\u0947 \u0915\u094c\u0928-\u0938\u093e \u0938\u092e-\u0907\u0932\u0947\u0915\u094d\u091f\u094d\u0930\u0949\u0928\u093f\u0915 (Isoelectronic) \u092f\u0941\u0917\u094d\u092e \u0939\u0948?",
+						en: "Which of the following is an isoelectronic pair?",
+					},
+					o: {
+						hi: [
+							"Na+ \u090f\u0935\u0902 Ne",
+							"Na \u090f\u0935\u0902 Mg",
+							"K+ \u090f\u0935\u0902 Ar+",
+							"Cl- \u090f\u0935\u0902 Br-",
+						],
+						en: [
+							"Na+ and Ne",
+							"Na and Mg",
+							"K+ and Ar+",
+							"Cl- and Br-",
+						],
+					},
+					sol: {
+						hi: "\u0938\u0939\u0940 \u0909\u0924\u094d\u0924\u0930: A) Na+ \u090f\u0935\u0902 Ne",
+						en: "Correct answer: A) Na+ and Ne",
+					},
+				},
+				{
+					s: "S7",
+					a: 2,
+					q: {
+						hi: "\u0928\u093f\u092e\u094d\u0928 \u092e\u0947\u0902 \u0938\u0947 \u0915\u093f\u0938 \u0917\u0948\u0938 \u0915\u093e \u0935\u093f\u091a\u0932\u0928 \u0906\u0926\u0930\u094d\u0936 \u0917\u0948\u0938 \u0935\u094d\u092f\u0935\u0939\u093e\u0930 \u0938\u0947 \u0938\u092c\u0938\u0947 \u0905\u0927\u093f\u0915 \u0939\u094b\u0924\u093e \u0939\u0948?",
+						en: "Which gas deviates the most from ideal gas behaviour?",
+					},
+					o: {
+						hi: ["H2", "He", "NH3", "Ne"],
+						en: ["H2", "He", "NH3", "Ne"],
+					},
+					sol: {
+						hi: "\u0938\u0939\u0940 \u0909\u0924\u094d\u0924\u0930: C) NH3",
+						en: "Correct answer: C) NH3",
+					},
+				},
+				{
+					s: "S7",
+					a: 2,
+					q: {
+						hi: "\u0928\u093f\u092e\u094d\u0928\u0932\u093f\u0916\u093f\u0924 \u092e\u0947\u0902 \u0938\u0947 \u0915\u093f\u0938\u0915\u093e \u092c\u0902\u0927 \u0915\u094b\u0923 (Bond Angle) \u0938\u092c\u0938\u0947 \u0915\u092e \u0939\u0948?",
+						en: "Which of the following has the smallest bond angle?",
+					},
+					o: {
+						hi: ["CH4", "NH3", "H2O", "BF3"],
+						en: ["CH4", "NH3", "H2O", "BF3"],
+					},
+					sol: {
+						hi: "\u0938\u0939\u0940 \u0909\u0924\u094d\u0924\u0930: C) H2O",
+						en: "Correct answer: C) H2O",
+					},
+				},
+				{
+					s: "S7",
+					a: 1,
+					q: {
+						hi: "\u092f\u0926\u093f \u0915\u093f\u0938\u0940 \u0905\u092d\u093f\u0915\u094d\u0930\u093f\u092f\u093e \u0915\u093e \u0935\u0947\u0917 \u0928\u093f\u092f\u0924\u093e\u0902\u0915 (k) \u0915\u093e \u092e\u093e\u0924\u094d\u0930\u0915 s-1 \u0939\u0948, \u0924\u094b \u0905\u092d\u093f\u0915\u094d\u0930\u093f\u092f\u093e \u0915\u093e \u0915\u094d\u0930\u092e \u0939\u094b\u0917\u093e\u2014",
+						en: "If the unit of the rate constant (k) of a reaction is s-1, the order of the reaction is:",
+					},
+					o: {
+						hi: [
+							"\u0936\u0942\u0928\u094d\u092f",
+							"\u092a\u094d\u0930\u0925\u092e",
+							"\u0926\u094d\u0935\u093f\u0924\u0940\u092f",
+							"\u0924\u0943\u0924\u0940\u092f",
+						],
+						en: ["Zero", "First", "Second", "Third"],
+					},
+					sol: {
+						hi: "\u0938\u0939\u0940 \u0909\u0924\u094d\u0924\u0930: B) \u092a\u094d\u0930\u0925\u092e",
+						en: "Correct answer: B) First",
+					},
+				},
+				{
+					s: "S7",
+					a: 1,
+					q: {
+						hi: "\u0928\u093f\u092e\u094d\u0928 \u092e\u0947\u0902 \u0938\u0947 \u0915\u094c\u0928-\u0938\u093e \u0915\u0925\u0928 \u0938\u0939\u0940 \u0939\u0948?",
+						en: "Which of the following statements is correct?",
+					},
+					o: {
+						hi: [
+							"\u0909\u0924\u094d\u092a\u094d\u0930\u0947\u0930\u0915 \u0938\u093e\u092e\u094d\u092f \u0928\u093f\u092f\u0924\u093e\u0902\u0915 \u092c\u0926\u0932 \u0926\u0947\u0924\u093e \u0939\u0948\u0964",
+							"\u0909\u0924\u094d\u092a\u094d\u0930\u0947\u0930\u0915 \u0938\u0915\u094d\u0930\u093f\u092f\u0923 \u090a\u0930\u094d\u091c\u093e \u0915\u092e \u0915\u0930\u0924\u093e \u0939\u0948\u0964",
+							"\u0909\u0924\u094d\u092a\u094d\u0930\u0947\u0930\u0915 \u0905\u092d\u093f\u0915\u094d\u0930\u093f\u092f\u093e \u0915\u0940 \u090a\u0937\u094d\u092e\u093e \u092c\u0926\u0932 \u0926\u0947\u0924\u093e \u0939\u0948\u0964",
+							"\u0909\u0924\u094d\u092a\u094d\u0930\u0947\u0930\u0915 \u0938\u094d\u0935\u092f\u0902 \u0938\u092e\u093e\u092a\u094d\u0924 \u0939\u094b \u091c\u093e\u0924\u093e \u0939\u0948\u0964",
+						],
+						en: [
+							"A catalyst changes the equilibrium constant.",
+							"A catalyst lowers the activation energy.",
+							"A catalyst changes the heat of reaction.",
+							"A catalyst is consumed in the reaction.",
+						],
+					},
+					sol: {
+						hi: "\u0938\u0939\u0940 \u0909\u0924\u094d\u0924\u0930: B) \u0909\u0924\u094d\u092a\u094d\u0930\u0947\u0930\u0915 \u0938\u0915\u094d\u0930\u093f\u092f\u0923 \u090a\u0930\u094d\u091c\u093e \u0915\u092e \u0915\u0930\u0924\u093e \u0939\u0948\u0964",
+						en: "Correct answer: B) A catalyst lowers the activation energy.",
+					},
+				},
+				{
+					s: "S7",
+					a: 2,
+					q: {
+						hi: "\u0928\u093f\u092e\u094d\u0928 \u092e\u0947\u0902 \u0938\u0947 \u0915\u094c\u0928-\u0938\u093e \u0917\u0948\u0938\u094b\u0902 \u0915\u0947 \u0905\u0935\u0936\u094b\u0937\u0923 \u0915\u093e \u0909\u0926\u093e\u0939\u0930\u0923 \u0939\u0948?",
+						en: "Which of the following is an example of absorption of gases?",
+					},
+					o: {
+						hi: [
+							"\u0938\u093f\u0932\u093f\u0915\u093e \u091c\u0947\u0932 \u0926\u094d\u0935\u093e\u0930\u093e \u091c\u0932 \u0915\u093e \u0905\u0935\u0936\u094b\u0937\u0923",
+							"\u091a\u093e\u0930\u0915\u094b\u0932 \u0926\u094d\u0935\u093e\u0930\u093e \u0917\u0948\u0938 \u0915\u093e \u0905\u0927\u093f\u0936\u094b\u0937\u0923",
+							"\u0905\u092e\u094b\u0928\u093f\u092f\u093e \u0915\u093e \u091c\u0932 \u092e\u0947\u0902 \u0918\u0941\u0932\u0928\u093e",
+							"\u0927\u0942\u0932 \u0915\u093e \u092c\u0948\u0920\u0928\u093e",
+						],
+						en: [
+							"Absorption of water by silica gel",
+							"Adsorption of gas by charcoal",
+							"Dissolution of ammonia in water",
+							"Settling of dust",
+						],
+					},
+					sol: {
+						hi: "\u0938\u0939\u0940 \u0909\u0924\u094d\u0924\u0930: C) \u0905\u092e\u094b\u0928\u093f\u092f\u093e \u0915\u093e \u091c\u0932 \u092e\u0947\u0902 \u0918\u0941\u0932\u0928\u093e",
+						en: "Correct answer: C) Dissolution of ammonia in water",
+					},
+				},
+				{
+					s: "S7",
+					a: 1,
+					q: {
+						hi: "\u0928\u093f\u092e\u094d\u0928 \u092e\u0947\u0902 \u0938\u0947 \u0915\u094c\u0928-\u0938\u093e \u0935\u093f\u0926\u094d\u092f\u0941\u0924 \u0905\u092a\u0918\u091f\u0928 (Electrolysis) \u092e\u0947\u0902 \u0915\u0948\u0925\u094b\u0921 \u092a\u0930 \u0928\u093f\u0915\u094d\u0937\u0947\u092a\u093f\u0924 \u0939\u094b\u0917\u093e?",
+						en: "Which of the following will be deposited at the cathode during electrolysis?",
+					},
+					o: {
+						hi: ["Na+", "Ag+", "Mg2+", "K+"],
+						en: ["Na+", "Ag+", "Mg2+", "K+"],
+					},
+					sol: {
+						hi: "\u0938\u0939\u0940 \u0909\u0924\u094d\u0924\u0930: B) Ag+",
+						en: "Correct answer: B) Ag+",
+					},
+				},
+				{
+					s: "S7",
+					a: 0,
+					q: {
+						hi: "\u0928\u093f\u092e\u094d\u0928 \u092e\u0947\u0902 \u0938\u0947 \u0915\u094c\u0928-\u0938\u093e \u0938\u092c\u0938\u0947 \u0905\u0927\u093f\u0915 \u0905\u0928\u0941\u091a\u0941\u0902\u092c\u0915\u0940\u092f (Paramagnetic) \u0939\u0948?",
+						en: "Which of the following is the most paramagnetic?",
+					},
+					o: {
+						hi: ["Fe3+", "Zn2+", "Sc3+", "Ti4+"],
+						en: ["Fe3+", "Zn2+", "Sc3+", "Ti4+"],
+					},
+					sol: {
+						hi: "\u0938\u0939\u0940 \u0909\u0924\u094d\u0924\u0930: A) Fe3+",
+						en: "Correct answer: A) Fe3+",
+					},
+				},
+				{
+					s: "S8",
+					a: 2,
+					q: {
+						hi: "\u0928\u093f\u092e\u094d\u0928 \u092e\u0947\u0902 \u0938\u0947 \u0915\u094c\u0928-\u0938\u093e \u0906\u092f\u0928 \u0930\u0902\u0917\u0939\u0940\u0928 (Colourless) \u0939\u0948?",
+						en: "Which of the following ions is colourless?",
+					},
+					o: {
+						hi: ["Cu2+", "Fe3+", "Zn2+", "Ni2+"],
+						en: ["Cu2+", "Fe3+", "Zn2+", "Ni2+"],
+					},
+					sol: {
+						hi: "\u0938\u0939\u0940 \u0909\u0924\u094d\u0924\u0930: C) Zn2+",
+						en: "Correct answer: C) Zn2+",
+					},
+				},
+				{
+					s: "S8",
+					a: 0,
+					q: {
+						hi: "\u091f\u0949\u0932\u094d\u092f\u0942\u0928 \u0915\u093e IUPAC \u0928\u093e\u092e \u0915\u094d\u092f\u093e \u0939\u0948?",
+						en: "What is the IUPAC name of toluene?",
+					},
+					o: {
+						hi: [
+							"\u092e\u093f\u0925\u093e\u0907\u0932\u092c\u0947\u0902\u091c\u0940\u0928",
+							"\u090f\u0925\u093e\u0907\u0932\u092c\u0947\u0902\u091c\u0940\u0928",
+							"\u0921\u093e\u0907\u092e\u093f\u0925\u093e\u0907\u0932\u092c\u0947\u0902\u091c\u0940\u0928",
+							"\u092b\u093f\u0928\u0949\u0932",
+						],
+						en: [
+							"Methylbenzene",
+							"Ethylbenzene",
+							"Dimethylbenzene",
+							"Phenol",
+						],
+					},
+					sol: {
+						hi: "\u0938\u0939\u0940 \u0909\u0924\u094d\u0924\u0930: A) \u092e\u093f\u0925\u093e\u0907\u0932\u092c\u0947\u0902\u091c\u0940\u0928",
+						en: "Correct answer: A) Methylbenzene",
+					},
+				},
+				{
+					s: "S8",
+					a: 1,
+					q: {
+						hi: "\u0928\u093f\u092e\u094d\u0928 \u092e\u0947\u0902 \u0938\u0947 \u0915\u094c\u0928-\u0938\u0940 \u0905\u092d\u093f\u0915\u094d\u0930\u093f\u092f\u093e \u090f\u0932\u094d\u0915\u0940\u0928 \u0915\u0940 \u092a\u0939\u091a\u093e\u0928 \u0915\u0947 \u0932\u093f\u090f \u092a\u094d\u0930\u092f\u0941\u0915\u094d\u0924 \u0939\u094b\u0924\u0940 \u0939\u0948?",
+						en: "Which reaction is used to identify alkenes?",
+					},
+					o: {
+						hi: [
+							"\u091f\u0949\u0932\u0947\u0902\u0938 \u092a\u0930\u0940\u0915\u094d\u0937\u0923",
+							"\u092c\u094d\u0930\u0949\u092e\u0940\u0928 \u091c\u0932 \u092a\u0930\u0940\u0915\u094d\u0937\u0923",
+							"\u092b\u0947\u0939\u0932\u093f\u0902\u0917 \u092a\u0930\u0940\u0915\u094d\u0937\u0923",
+							"\u0906\u092f\u094b\u0921\u094b\u092b\u0949\u0930\u094d\u092e \u092a\u0930\u0940\u0915\u094d\u0937\u0923",
+						],
+						en: [
+							"Tollens' test",
+							"Bromine water test",
+							"Fehling's test",
+							"Iodoform test",
+						],
+					},
+					sol: {
+						hi: "\u0938\u0939\u0940 \u0909\u0924\u094d\u0924\u0930: B) \u092c\u094d\u0930\u0949\u092e\u0940\u0928 \u091c\u0932 \u092a\u0930\u0940\u0915\u094d\u0937\u0923",
+						en: "Correct answer: B) Bromine water test",
+					},
+				},
+				{
+					s: "S8",
+					a: 1,
+					q: {
+						hi: "\u0928\u093f\u092e\u094d\u0928 \u092e\u0947\u0902 \u0938\u0947 \u0915\u094c\u0928-\u0938\u093e \u092f\u094c\u0917\u093f\u0915 \u0906\u092f\u094b\u0921\u094b\u092b\u0949\u0930\u094d\u092e \u092a\u0930\u0940\u0915\u094d\u0937\u0923 \u0926\u0947\u0924\u093e \u0939\u0948?",
+						en: "Which of the following compounds gives a positive iodoform test?",
+					},
+					o: {
+						hi: [
+							"\u092e\u0947\u0925\u0928\u0949\u0932",
+							"\u090f\u0925\u0947\u0928\u0949\u0932",
+							"\u092c\u0947\u0902\u091c\u0940\u0928",
+							"\u092b\u0949\u0930\u094d\u092e\u093f\u0915 \u0905\u092e\u094d\u0932",
+						],
+						en: ["Methanol", "Ethanol", "Benzene", "Formic acid"],
+					},
+					sol: {
+						hi: "\u0938\u0939\u0940 \u0909\u0924\u094d\u0924\u0930: B) \u090f\u0925\u0947\u0928\u0949\u0932",
+						en: "Correct answer: B) Ethanol",
+					},
+				},
+				{
+					s: "S8",
+					a: 1,
+					q: {
+						hi: "\u0928\u093f\u092e\u094d\u0928 \u092e\u0947\u0902 \u0938\u0947 \u0915\u094c\u0928-\u0938\u093e \u092f\u094c\u0917\u093f\u0915 \u0938\u092c\u0938\u0947 \u0905\u0927\u093f\u0915 \u0905\u092e\u094d\u0932\u0940\u092f \u0939\u0948?",
+						en: "Which of the following compounds is the most acidic?",
+					},
+					o: {
+						hi: [
+							"\u090f\u0925\u0947\u0928\u0949\u0932",
+							"\u092b\u093f\u0928\u0949\u0932",
+							"\u090f\u0925\u0947\u0928",
+							"\u090f\u0925\u0940\u0928",
+						],
+						en: ["Ethanol", "Phenol", "Ethane", "Ethene"],
+					},
+					sol: {
+						hi: "\u0938\u0939\u0940 \u0909\u0924\u094d\u0924\u0930: B) \u092b\u093f\u0928\u0949\u0932",
+						en: "Correct answer: B) Phenol",
+					},
+				},
+				{
+					s: "S8",
+					a: 1,
+					q: {
+						hi: "\u090f\u0921\u094d\u0930\u0940\u0928\u0932\u0940\u0928 (Adrenaline) \u0915\u093f\u0938 \u0935\u0930\u094d\u0917 \u0915\u093e \u091c\u0948\u0935-\u0905\u0923\u0941 \u0939\u0948?",
+						en: "Adrenaline belongs to which class of biomolecules?",
+					},
+					o: {
+						hi: [
+							"\u092a\u094d\u0930\u094b\u091f\u0940\u0928",
+							"\u0939\u093e\u0930\u094d\u092e\u094b\u0928",
+							"\u0915\u093e\u0930\u094d\u092c\u094b\u0939\u093e\u0907\u0921\u094d\u0930\u0947\u091f",
+							"\u0932\u093f\u092a\u093f\u0921",
+						],
+						en: ["Protein", "Hormone", "Carbohydrate", "Lipid"],
+					},
+					sol: {
+						hi: "\u0938\u0939\u0940 \u0909\u0924\u094d\u0924\u0930: B) \u0939\u093e\u0930\u094d\u092e\u094b\u0928",
+						en: "Correct answer: B) Hormone",
+					},
+				},
+				{
+					s: "S8",
+					a: 1,
+					q: {
+						hi: "RNA \u092e\u0947\u0902 \u0915\u094c\u0928-\u0938\u093e \u0928\u093e\u0907\u091f\u094d\u0930\u094b\u091c\u0928\u0940 \u0915\u094d\u0937\u093e\u0930 \u092a\u093e\u092f\u093e \u091c\u093e\u0924\u093e \u0939\u0948 \u091c\u094b DNA \u092e\u0947\u0902 \u0928\u0939\u0940\u0902 \u0939\u094b\u0924\u093e?",
+						en: "Which nitrogenous base is found in RNA but not in DNA?",
+					},
+					o: {
+						hi: [
+							"\u0925\u093e\u0907\u092e\u0940\u0928",
+							"\u092f\u0942\u0930\u0947\u0938\u093f\u0932",
+							"\u0917\u094d\u0935\u093e\u0928\u093f\u0928",
+							"\u0938\u093e\u0907\u091f\u094b\u0938\u093f\u0928",
+						],
+						en: ["Thymine", "Uracil", "Guanine", "Cytosine"],
+					},
+					sol: {
+						hi: "\u0938\u0939\u0940 \u0909\u0924\u094d\u0924\u0930: B) \u092f\u0942\u0930\u0947\u0938\u093f\u0932",
+						en: "Correct answer: B) Uracil",
+					},
+				},
+				{
+					s: "S8",
+					a: 2,
+					q: {
+						hi: "\u0928\u093f\u092e\u094d\u0928 \u092e\u0947\u0902 \u0938\u0947 \u0915\u094c\u0928-\u0938\u093e \u0938\u0902\u0918\u0928\u0928 \u092c\u0939\u0941\u0932\u0915 (Condensation Polymer) \u0939\u0948?",
+						en: "Which of the following is a condensation polymer?",
+					},
+					o: {
+						hi: [
+							"\u092a\u0949\u0932\u0940\u090f\u0925\u093f\u0932\u0940\u0928",
+							"PVC",
+							"\u0928\u093e\u092f\u0932\u0949\u0928-6,6",
+							"\u092a\u0949\u0932\u0940\u092a\u094d\u0930\u094b\u092a\u093f\u0932\u0940\u0928",
+						],
+						en: [
+							"Polyethylene",
+							"PVC",
+							"Nylon-6,6",
+							"Polypropylene",
+						],
+					},
+					sol: {
+						hi: "\u0938\u0939\u0940 \u0909\u0924\u094d\u0924\u0930: C) \u0928\u093e\u092f\u0932\u0949\u0928-6,6",
+						en: "Correct answer: C) Nylon-6,6",
+					},
+				},
+				{
+					s: "S8",
+					a: 2,
+					q: {
+						hi: "\u0930\u093e\u0938\u093e\u092f\u0928\u093f\u0915 \u0911\u0915\u094d\u0938\u0940\u091c\u0928 \u092e\u093e\u0902\u0917 (COD) \u0915\u093e \u0909\u092a\u092f\u094b\u0917 \u0915\u093f\u0938\u0915\u0947 \u0928\u093f\u0930\u094d\u0927\u093e\u0930\u0923 \u092e\u0947\u0902 \u0915\u093f\u092f\u093e \u091c\u093e\u0924\u093e \u0939\u0948?",
+						en: "Chemical Oxygen Demand (COD) is used to determine:",
+					},
+					o: {
+						hi: [
+							"\u092e\u093f\u091f\u094d\u091f\u0940 \u0915\u0940 \u0909\u0930\u094d\u0935\u0930\u0924\u093e",
+							"\u0935\u093e\u092f\u0941 \u092a\u094d\u0930\u0926\u0942\u0937\u0923",
+							"\u091c\u0932 \u092a\u094d\u0930\u0926\u0942\u0937\u0923",
+							"\u0927\u094d\u0935\u0928\u093f \u092a\u094d\u0930\u0926\u0942\u0937\u0923",
+						],
+						en: [
+							"Soil fertility",
+							"Air pollution",
+							"Water pollution",
+							"Noise pollution",
+						],
+					},
+					sol: {
+						hi: "\u0938\u0939\u0940 \u0909\u0924\u094d\u0924\u0930: C) \u091c\u0932 \u092a\u094d\u0930\u0926\u0942\u0937\u0923",
+						en: "Correct answer: C) Water pollution",
+					},
+				},
+				{
+					s: "S8",
+					a: 2,
+					q: {
+						hi: "\u0928\u093f\u092e\u094d\u0928\u0932\u093f\u0916\u093f\u0924 \u092e\u0947\u0902 \u0938\u0947 \u0915\u094c\u0928-\u0938\u093e \u0915\u0925\u0928 \u0938\u0939\u0940 \u0939\u0948?",
+						en: "Which of the following statements is correct?",
+					},
+					o: {
+						hi: [
+							"\u090f\u0902\u091c\u093e\u0907\u092e \u0905\u0915\u093e\u0930\u094d\u092c\u0928\u093f\u0915 \u0909\u0924\u094d\u092a\u094d\u0930\u0947\u0930\u0915 \u0939\u0948\u0902\u0964",
+							"\u090f\u0902\u091c\u093e\u0907\u092e \u0915\u0947\u0935\u0932 \u0909\u091a\u094d\u091a \u0924\u093e\u092a \u092a\u0930 \u0915\u093e\u0930\u094d\u092f \u0915\u0930\u0924\u0947 \u0939\u0948\u0902\u0964",
+							"\u0905\u0927\u093f\u0915\u093e\u0902\u0936 \u090f\u0902\u091c\u093e\u0907\u092e \u092a\u094d\u0930\u094b\u091f\u0940\u0928 \u0939\u094b\u0924\u0947 \u0939\u0948\u0902\u0964",
+							"\u0938\u092d\u0940 \u090f\u0902\u091c\u093e\u0907\u092e \u0915\u093e\u0930\u094d\u092c\u094b\u0939\u093e\u0907\u0921\u094d\u0930\u0947\u091f \u0939\u094b\u0924\u0947 \u0939\u0948\u0902\u0964",
+						],
+						en: [
+							"Enzymes are inorganic catalysts.",
+							"Enzymes work only at high temperature.",
+							"Most enzymes are proteins.",
+							"All enzymes are carbohydrates.",
+						],
+					},
+					sol: {
+						hi: "\u0938\u0939\u0940 \u0909\u0924\u094d\u0924\u0930: C) \u0905\u0927\u093f\u0915\u093e\u0902\u0936 \u090f\u0902\u091c\u093e\u0907\u092e \u092a\u094d\u0930\u094b\u091f\u0940\u0928 \u0939\u094b\u0924\u0947 \u0939\u0948\u0902\u0964",
+						en: "Correct answer: C) Most enzymes are proteins.",
+					},
+				},
+				{
+					s: "S9",
+					a: 0,
+					q: {
+						hi: "\u0928\u093f\u092e\u094d\u0928\u0932\u093f\u0916\u093f\u0924 \u092e\u0947\u0902 \u0938\u0947 \u0915\u093f\u0938 \u0924\u0924\u094d\u0935 \u0915\u0940 \u0926\u0942\u0938\u0930\u0940 \u0906\u092f\u0928\u0940\u0915\u0930\u0923 \u090a\u0930\u094d\u091c\u093e (Second Ionization Energy) \u0938\u092c\u0938\u0947 \u0905\u0927\u093f\u0915 \u0939\u094b\u0924\u0940 \u0939\u0948?",
+						en: "Which of the following elements has the highest second ionization energy?",
+					},
+					o: {
+						hi: ["Li", "Be", "B", "C"],
+						en: ["Li", "Be", "B", "C"],
+					},
+					sol: {
+						hi: "\u0938\u0939\u0940 \u0909\u0924\u094d\u0924\u0930: A) Li",
+						en: "Correct answer: A) Li",
+					},
+				},
+				{
+					s: "S9",
+					a: 3,
+					q: {
+						hi: "\u0928\u093f\u092e\u094d\u0928\u0932\u093f\u0916\u093f\u0924 \u092e\u0947\u0902 \u0915\u094c\u0928-\u0938\u093e \u0905\u0923\u0941 \u0927\u094d\u0930\u0941\u0935\u0940\u092f (Polar) \u0939\u0948?",
+						en: "Which of the following molecules is polar?",
+					},
+					o: {
+						hi: ["CO2", "BF3", "CCl4", "NH3"],
+						en: ["CO2", "BF3", "CCl4", "NH3"],
+					},
+					sol: {
+						hi: "\u0938\u0939\u0940 \u0909\u0924\u094d\u0924\u0930: D) NH3",
+						en: "Correct answer: D) NH3",
+					},
+				},
+				{
+					s: "S9",
+					a: 2,
+					q: {
+						hi: "\u092f\u0926\u093f \u0915\u093f\u0938\u0940 \u0905\u092d\u093f\u0915\u094d\u0930\u093f\u092f\u093e \u0915\u093e \u0935\u0947\u0917 \u0938\u092e\u0940\u0915\u0930\u0923 R = k[A]^2[B] \u0939\u0948, \u0924\u094b \u0905\u092d\u093f\u0915\u094d\u0930\u093f\u092f\u093e \u0915\u093e \u0915\u0941\u0932 \u0915\u094d\u0930\u092e \u0939\u094b\u0917\u093e\u2014",
+						en: "If the rate law of a reaction is R = k[A]^2[B], the overall order of the reaction is:",
+					},
+					o: { hi: ["1", "2", "3", "4"], en: ["1", "2", "3", "4"] },
+					sol: {
+						hi: "\u0938\u0939\u0940 \u0909\u0924\u094d\u0924\u0930: C) 3",
+						en: "Correct answer: C) 3",
+					},
+				},
+				{
+					s: "S9",
+					a: 1,
+					q: {
+						hi: "\u0928\u093f\u092e\u094d\u0928\u0932\u093f\u0916\u093f\u0924 \u092e\u0947\u0902 \u0938\u0947 \u0915\u094c\u0928-\u0938\u093e \u0917\u0948\u0938 \u0928\u093f\u092f\u092e \u0938\u094d\u0925\u093f\u0930 \u0924\u093e\u092a \u092a\u0930 \u0932\u093e\u0917\u0942 \u0939\u094b\u0924\u093e \u0939\u0948?",
+						en: "Which gas law applies at constant temperature?",
+					},
+					o: {
+						hi: [
+							"\u091a\u093e\u0930\u094d\u0932\u094d\u0938 \u0915\u093e \u0928\u093f\u092f\u092e",
+							"\u092c\u0949\u092f\u0932 \u0915\u093e \u0928\u093f\u092f\u092e",
+							"\u0917\u0947-\u0932\u0941\u0938\u093e\u0915 \u0915\u093e \u0928\u093f\u092f\u092e",
+							"\u0917\u094d\u0930\u093e\u0939\u092e \u0915\u093e \u0928\u093f\u092f\u092e",
+						],
+						en: [
+							"Charles's Law",
+							"Boyle's Law",
+							"Gay-Lussac's Law",
+							"Graham's Law",
+						],
+					},
+					sol: {
+						hi: "\u0938\u0939\u0940 \u0909\u0924\u094d\u0924\u0930: B) \u092c\u0949\u092f\u0932 \u0915\u093e \u0928\u093f\u092f\u092e",
+						en: "Correct answer: B) Boyle's Law",
+					},
+				},
+				{
+					s: "S9",
+					a: 1,
+					q: {
+						hi: "\u0928\u093f\u092e\u094d\u0928\u0932\u093f\u0916\u093f\u0924 \u092e\u0947\u0902 \u0938\u0947 \u0915\u094c\u0928-\u0938\u093e \u0915\u0925\u0928 \u0938\u0939\u0940 \u0939\u0948?",
+						en: "Which of the following statements is correct?",
+					},
+					o: {
+						hi: [
+							"\u0394H \u0938\u0926\u0948\u0935 \u0927\u0928\u093e\u0924\u094d\u092e\u0915 \u0939\u094b\u0924\u093e \u0939\u0948\u0964",
+							"\u0394G = \u0394H \u2013 T\u0394S",
+							"\u0394S \u0915\u092d\u0940 \u090b\u0923\u093e\u0924\u094d\u092e\u0915 \u0928\u0939\u0940\u0902 \u0939\u094b\u0924\u093e\u0964",
+							"\u0394G \u0915\u0947\u0935\u0932 \u0924\u093e\u092a \u092a\u0930 \u0928\u093f\u0930\u094d\u092d\u0930 \u0915\u0930\u0924\u093e \u0939\u0948\u0964",
+						],
+						en: [
+							"\u0394H is always positive.",
+							"\u0394G = \u0394H \u2013 T\u0394S",
+							"\u0394S is never negative.",
+							"\u0394G depends only on temperature.",
+						],
+					},
+					sol: {
+						hi: "\u0938\u0939\u0940 \u0909\u0924\u094d\u0924\u0930: B) \u0394G = \u0394H \u2013 T\u0394S",
+						en: "Correct answer: B) \u0394G = \u0394H \u2013 T\u0394S",
+					},
+				},
+				{
+					s: "S9",
+					a: 2,
+					q: {
+						hi: "\u0928\u093f\u092e\u094d\u0928\u0932\u093f\u0916\u093f\u0924 \u092e\u0947\u0902 \u0938\u0947 \u0915\u093f\u0938\u0915\u093e pH \u0938\u092c\u0938\u0947 \u0905\u0927\u093f\u0915 \u0939\u094b\u0917\u093e?",
+						en: "Which of the following will have the highest pH?",
+					},
+					o: {
+						hi: [
+							"0.1 M HCl",
+							"0.1 M CH3COOH",
+							"0.1 M NaOH",
+							"\u0936\u0941\u0926\u094d\u0927 \u091c\u0932",
+						],
+						en: [
+							"0.1 M HCl",
+							"0.1 M CH3COOH",
+							"0.1 M NaOH",
+							"Pure water",
+						],
+					},
+					sol: {
+						hi: "\u0938\u0939\u0940 \u0909\u0924\u094d\u0924\u0930: C) 0.1 M NaOH",
+						en: "Correct answer: C) 0.1 M NaOH",
+					},
+				},
+				{
+					s: "S9",
+					a: 2,
+					q: {
+						hi: "\u0928\u093f\u092e\u094d\u0928 \u092e\u0947\u0902 \u0938\u0947 \u0915\u094c\u0928-\u0938\u093e \u0907\u0932\u0947\u0915\u094d\u091f\u094d\u0930\u094b\u0932\u093e\u0907\u091f \u0938\u092c\u0938\u0947 \u0915\u092e\u091c\u094b\u0930 \u0939\u0948?",
+						en: "Which of the following is the weakest electrolyte?",
+					},
+					o: {
+						hi: ["HCl", "H2SO4", "CH3COOH", "NaOH"],
+						en: ["HCl", "H2SO4", "CH3COOH", "NaOH"],
+					},
+					sol: {
+						hi: "\u0938\u0939\u0940 \u0909\u0924\u094d\u0924\u0930: C) CH3COOH",
+						en: "Correct answer: C) CH3COOH",
+					},
+				},
+				{
+					s: "S9",
+					a: 2,
+					q: {
+						hi: "\u0928\u093f\u092e\u094d\u0928\u0932\u093f\u0916\u093f\u0924 \u092e\u0947\u0902 \u0938\u0947 \u0915\u094c\u0928-\u0938\u093e \u0938\u0902\u0915\u094d\u0930\u092e\u0923 \u0927\u093e\u0924\u0941 \u0928\u0939\u0940\u0902 \u0939\u0948?",
+						en: "Which of the following is NOT a transition metal?",
+					},
+					o: {
+						hi: ["Fe", "Cu", "Zn", "Cr"],
+						en: ["Fe", "Cu", "Zn", "Cr"],
+					},
+					sol: {
+						hi: "\u0938\u0939\u0940 \u0909\u0924\u094d\u0924\u0930: C) Zn",
+						en: "Correct answer: C) Zn",
+					},
+				},
+				{
+					s: "S9",
+					a: 1,
+					q: {
+						hi: "[Ni(CO)4] \u0915\u093e \u091c\u094d\u092f\u093e\u092e\u093f\u0924\u0940\u092f \u0906\u0915\u093e\u0930 (Geometry) \u0915\u094d\u092f\u093e \u0939\u0948?",
+						en: "What is the geometry of [Ni(CO)4]?",
+					},
+					o: {
+						hi: [
+							"\u0935\u0930\u094d\u0917 \u0938\u092e\u0924\u0932\u0940\u092f (Square Planar)",
+							"\u091a\u0924\u0941\u0937\u094d\u092b\u0932\u0915\u0940\u092f (Tetrahedral)",
+							"\u0905\u0937\u094d\u091f\u092b\u0932\u0915\u0940\u092f (Octahedral)",
+							"\u0924\u094d\u0930\u093f\u0915\u094b\u0923\u0940\u092f \u0938\u092e\u0924\u0932\u0940\u092f (Trigonal Planar)",
+						],
+						en: [
+							"Square planar",
+							"Tetrahedral",
+							"Octahedral",
+							"Trigonal planar",
+						],
+					},
+					sol: {
+						hi: "\u0938\u0939\u0940 \u0909\u0924\u094d\u0924\u0930: B) \u091a\u0924\u0941\u0937\u094d\u092b\u0932\u0915\u0940\u092f (Tetrahedral)",
+						en: "Correct answer: B) Tetrahedral",
+					},
+				},
+				{
+					s: "S9",
+					a: 1,
+					q: {
+						hi: "\u0928\u093f\u092e\u094d\u0928\u0932\u093f\u0916\u093f\u0924 \u092e\u0947\u0902 \u0938\u0947 \u0915\u094c\u0928-\u0938\u093e \u0938\u092c\u0938\u0947 \u092a\u094d\u0930\u092c\u0932 \u0911\u0915\u094d\u0938\u0940\u0915\u093e\u0930\u0915 \u0939\u0948?",
+						en: "Which of the following is the strongest oxidizing agent?",
+					},
+					o: {
+						hi: ["Fe2+", "Cl2", "Zn", "H2"],
+						en: ["Fe2+", "Cl2", "Zn", "H2"],
+					},
+					sol: {
+						hi: "\u0938\u0939\u0940 \u0909\u0924\u094d\u0924\u0930: B) Cl2",
+						en: "Correct answer: B) Cl2",
+					},
+				},
+				{
+					s: "S10",
+					a: 0,
+					q: {
+						hi: "\u0928\u093f\u092e\u094d\u0928\u0932\u093f\u0916\u093f\u0924 \u092e\u0947\u0902 \u0938\u0947 \u0915\u094c\u0928-\u0938\u093e \u092f\u094c\u0917\u093f\u0915 SN2 \u0905\u092d\u093f\u0915\u094d\u0930\u093f\u092f\u093e \u0938\u092c\u0938\u0947 \u0924\u0947\u091c\u0940 \u0938\u0947 \u0926\u0947\u0924\u093e \u0939\u0948?",
+						en: "Which of the following compounds gives the fastest SN2 reaction?",
+					},
+					o: {
+						hi: ["CH3Br", "C2H5Br", "(CH3)2CHBr", "(CH3)3CBr"],
+						en: ["CH3Br", "C2H5Br", "(CH3)2CHBr", "(CH3)3CBr"],
+					},
+					sol: {
+						hi: "\u0938\u0939\u0940 \u0909\u0924\u094d\u0924\u0930: A) CH3Br",
+						en: "Correct answer: A) CH3Br",
+					},
+				},
+				{
+					s: "S10",
+					a: 1,
+					q: {
+						hi: "\u0928\u093f\u092e\u094d\u0928 \u092e\u0947\u0902 \u0938\u0947 \u0915\u094c\u0928-\u0938\u093e \u092f\u094c\u0917\u093f\u0915 \u092b\u0947\u0939\u0932\u093f\u0902\u0917 \u0935\u093f\u0932\u092f\u0928 (Fehling's Solution) \u0915\u094b \u0905\u092a\u091a\u092f\u093f\u0924 \u0915\u0930\u0924\u093e \u0939\u0948?",
+						en: "Which of the following compounds reduces Fehling's solution?",
+					},
+					o: {
+						hi: [
+							"\u090f\u0938\u0940\u091f\u094b\u0928",
+							"\u090f\u0938\u0940\u091f\u0948\u0932\u094d\u0921\u093f\u0939\u093e\u0907\u0921",
+							"\u092c\u0947\u0902\u091c\u0940\u0928",
+							"\u090f\u0925\u0947\u0928\u0949\u0932",
+						],
+						en: ["Acetone", "Acetaldehyde", "Benzene", "Ethanol"],
+					},
+					sol: {
+						hi: "\u0938\u0939\u0940 \u0909\u0924\u094d\u0924\u0930: B) \u090f\u0938\u0940\u091f\u0948\u0932\u094d\u0921\u093f\u0939\u093e\u0907\u0921",
+						en: "Correct answer: B) Acetaldehyde",
+					},
+				},
+				{
+					s: "S10",
+					a: 1,
+					q: {
+						hi: "\u0928\u093f\u092e\u094d\u0928 \u092e\u0947\u0902 \u0938\u0947 \u0915\u094c\u0928-\u0938\u093e \u0915\u093e\u0930\u094d\u092c\u094b\u0915\u094d\u0938\u093f\u0932\u093f\u0915 \u0905\u092e\u094d\u0932 \u0938\u092c\u0938\u0947 \u0905\u0927\u093f\u0915 \u0905\u092e\u094d\u0932\u0940\u092f \u0939\u0948?",
+						en: "Which carboxylic acid is the most acidic?",
+					},
+					o: {
+						hi: ["CH3COOH", "HCOOH", "C2H5COOH", "C6H5COOH"],
+						en: ["CH3COOH", "HCOOH", "C2H5COOH", "C6H5COOH"],
+					},
+					sol: {
+						hi: "\u0938\u0939\u0940 \u0909\u0924\u094d\u0924\u0930: B) HCOOH",
+						en: "Correct answer: B) HCOOH",
+					},
+				},
+				{
+					s: "S10",
+					a: 1,
+					q: {
+						hi: "\u0935\u0941\u0930\u094d\u091f\u094d\u091c\u093c (Wurtz) \u0905\u092d\u093f\u0915\u094d\u0930\u093f\u092f\u093e \u0915\u093e \u0909\u092a\u092f\u094b\u0917 \u0915\u093f\u0938\u0915\u0947 \u0928\u093f\u0930\u094d\u092e\u093e\u0923 \u092e\u0947\u0902 \u0915\u093f\u092f\u093e \u091c\u093e\u0924\u093e \u0939\u0948?",
+						en: "The Wurtz reaction is used to prepare:",
+					},
+					o: {
+						hi: [
+							"\u090f\u0932\u094d\u0915\u0940\u0928",
+							"\u090f\u0932\u094d\u0915\u0947\u0928",
+							"\u090f\u0932\u094d\u0915\u094b\u0939\u0949\u0932",
+							"\u090f\u0932\u094d\u0921\u093f\u0939\u093e\u0907\u0921",
+						],
+						en: ["Alkenes", "Alkanes", "Alcohols", "Aldehydes"],
+					},
+					sol: {
+						hi: "\u0938\u0939\u0940 \u0909\u0924\u094d\u0924\u0930: B) \u090f\u0932\u094d\u0915\u0947\u0928",
+						en: "Correct answer: B) Alkanes",
+					},
+				},
+				{
+					s: "S10",
+					a: 2,
+					q: {
+						hi: "\u0928\u093f\u092e\u094d\u0928\u0932\u093f\u0916\u093f\u0924 \u092e\u0947\u0902 \u0938\u0947 \u0915\u094c\u0928-\u0938\u093e \u0906\u0935\u0936\u094d\u092f\u0915 \u0905\u092e\u0940\u0928\u094b \u0905\u092e\u094d\u0932 (Essential Amino Acid) \u0939\u0948?",
+						en: "Which of the following is an essential amino acid?",
+					},
+					o: {
+						hi: [
+							"\u0917\u094d\u0932\u093e\u0907\u0938\u093f\u0928",
+							"\u090f\u0932\u0948\u0928\u093f\u0928",
+							"\u0932\u093e\u0907\u0938\u093f\u0928",
+							"\u0938\u0947\u0930\u0940\u0928",
+						],
+						en: ["Glycine", "Alanine", "Lysine", "Serine"],
+					},
+					sol: {
+						hi: "\u0938\u0939\u0940 \u0909\u0924\u094d\u0924\u0930: C) \u0932\u093e\u0907\u0938\u093f\u0928",
+						en: "Correct answer: C) Lysine",
+					},
+				},
+				{
+					s: "S10",
+					a: 1,
+					q: {
+						hi: "\u092a\u094d\u0930\u093e\u0915\u0943\u0924\u093f\u0915 \u0930\u092c\u0930 \u0915\u093e \u092e\u0941\u0916\u094d\u092f \u0918\u091f\u0915 \u0939\u0948\u2014",
+						en: "The main component of natural rubber is:",
+					},
+					o: {
+						hi: [
+							"\u092a\u0949\u0932\u0940\u090f\u0925\u093f\u0932\u0940\u0928",
+							"\u092a\u0949\u0932\u0940\u0906\u0907\u0938\u094b\u092a\u094d\u0930\u0940\u0928",
+							"PVC",
+							"\u0928\u093e\u092f\u0932\u0949\u0928",
+						],
+						en: ["Polyethylene", "Polyisoprene", "PVC", "Nylon"],
+					},
+					sol: {
+						hi: "\u0938\u0939\u0940 \u0909\u0924\u094d\u0924\u0930: B) \u092a\u0949\u0932\u0940\u0906\u0907\u0938\u094b\u092a\u094d\u0930\u0940\u0928",
+						en: "Correct answer: B) Polyisoprene",
+					},
+				},
+				{
+					s: "S10",
+					a: 0,
+					q: {
+						hi: "BOD \u0915\u093e \u092a\u0942\u0930\u094d\u0923 \u0930\u0942\u092a \u0915\u094d\u092f\u093e \u0939\u0948?",
+						en: "What does BOD stand for?",
+					},
+					o: {
+						hi: [
+							"Biological Oxygen Demand",
+							"Basic Oxygen Density",
+							"Biological Oxidation Degree",
+							"Biochemical Oxide Demand",
+						],
+						en: [
+							"Biological Oxygen Demand",
+							"Basic Oxygen Density",
+							"Biological Oxidation Degree",
+							"Biochemical Oxide Demand",
+						],
+					},
+					sol: {
+						hi: "\u0938\u0939\u0940 \u0909\u0924\u094d\u0924\u0930: A) Biological Oxygen Demand",
+						en: "Correct answer: A) Biological Oxygen Demand",
+					},
+				},
+				{
+					s: "S10",
+					a: 2,
+					q: {
+						hi: "\u0928\u093f\u092e\u094d\u0928 \u092e\u0947\u0902 \u0938\u0947 \u0915\u094c\u0928-\u0938\u0940 \u0939\u0930\u093f\u0924 \u0930\u0938\u093e\u092f\u0928 (Green Chemistry) \u0915\u0940 \u0935\u093f\u0936\u0947\u0937\u0924\u093e \u0939\u0948?",
+						en: "Which of the following is a feature of Green Chemistry?",
+					},
+					o: {
+						hi: [
+							"\u0905\u0927\u093f\u0915 \u0935\u093f\u0937\u0948\u0932\u0947 \u0935\u093f\u0932\u093e\u092f\u0915\u094b\u0902 \u0915\u093e \u0909\u092a\u092f\u094b\u0917",
+							"\u0905\u0927\u093f\u0915 \u0905\u092a\u0936\u093f\u0937\u094d\u091f \u0909\u0924\u094d\u092a\u0928\u094d\u0928 \u0915\u0930\u0928\u093e",
+							"\u092a\u0930\u094d\u092f\u093e\u0935\u0930\u0923-\u0905\u0928\u0941\u0915\u0942\u0932 \u092a\u094d\u0930\u0915\u094d\u0930\u093f\u092f\u093e\u0913\u0902 \u0915\u093e \u0909\u092a\u092f\u094b\u0917",
+							"\u0905\u0927\u093f\u0915 \u090a\u0930\u094d\u091c\u093e \u0915\u0940 \u0916\u092a\u0924",
+						],
+						en: [
+							"Use of more toxic solvents",
+							"Generating more waste",
+							"Use of environmentally friendly processes",
+							"Higher energy consumption",
+						],
+					},
+					sol: {
+						hi: "\u0938\u0939\u0940 \u0909\u0924\u094d\u0924\u0930: C) \u092a\u0930\u094d\u092f\u093e\u0935\u0930\u0923-\u0905\u0928\u0941\u0915\u0942\u0932 \u092a\u094d\u0930\u0915\u094d\u0930\u093f\u092f\u093e\u0913\u0902 \u0915\u093e \u0909\u092a\u092f\u094b\u0917",
+						en: "Correct answer: C) Use of environmentally friendly processes",
+					},
+				},
+				{
+					s: "S10",
+					a: 2,
+					q: {
+						hi: "\u0928\u093f\u092e\u094d\u0928 \u092e\u0947\u0902 \u0938\u0947 \u0915\u094c\u0928-\u0938\u093e \u0915\u0925\u0928 \u0938\u0939\u0940 \u0939\u0948?",
+						en: "Which of the following statements is correct?",
+					},
+					o: {
+						hi: [
+							"DNA \u090f\u0915\u0932 \u0938\u0942\u0924\u094d\u0930\u0940 (Single-stranded) \u0939\u094b\u0924\u093e \u0939\u0948\u0964",
+							"RNA \u0938\u0926\u0948\u0935 \u0926\u094d\u0935\u093f\u0938\u0942\u0924\u094d\u0930\u0940 \u0939\u094b\u0924\u093e \u0939\u0948\u0964",
+							"DNA \u092e\u0947\u0902 \u0925\u093e\u0907\u092e\u0940\u0928 \u092a\u093e\u092f\u093e \u091c\u093e\u0924\u093e \u0939\u0948\u0964",
+							"RNA \u092e\u0947\u0902 \u0925\u093e\u0907\u092e\u0940\u0928 \u092a\u093e\u092f\u093e \u091c\u093e\u0924\u093e \u0939\u0948\u0964",
+						],
+						en: [
+							"DNA is single-stranded.",
+							"RNA is always double-stranded.",
+							"DNA contains thymine.",
+							"RNA contains thymine.",
+						],
+					},
+					sol: {
+						hi: "\u0938\u0939\u0940 \u0909\u0924\u094d\u0924\u0930: C) DNA \u092e\u0947\u0902 \u0925\u093e\u0907\u092e\u0940\u0928 \u092a\u093e\u092f\u093e \u091c\u093e\u0924\u093e \u0939\u0948\u0964",
+						en: "Correct answer: C) DNA contains thymine.",
+					},
+				},
+				{
+					s: "S10",
+					a: 2,
+					q: {
+						hi: "\u0928\u093f\u092e\u094d\u0928\u0932\u093f\u0916\u093f\u0924 \u092e\u0947\u0902 \u0938\u0947 \u0915\u094c\u0928-\u0938\u093e \u0915\u0925\u0928 \u0938\u0939\u0940 \u0939\u0948?",
+						en: "Which of the following statements is correct?",
+					},
+					o: {
+						hi: [
+							"\u0909\u0924\u094d\u092a\u094d\u0930\u0947\u0930\u0915 \u0905\u092d\u093f\u0915\u094d\u0930\u093f\u092f\u093e \u0915\u0947 \u0938\u093e\u092e\u094d\u092f\u093e\u0902\u0915 (Equilibrium Constant) \u0915\u094b \u092c\u0926\u0932 \u0926\u0947\u0924\u093e \u0939\u0948\u0964",
+							"\u0909\u0924\u094d\u092a\u094d\u0930\u0947\u0930\u0915 \u0915\u0947\u0935\u0932 \u0905\u0917\u094d\u0930\u0917\u093e\u092e\u0940 \u0905\u092d\u093f\u0915\u094d\u0930\u093f\u092f\u093e \u0915\u0940 \u0926\u0930 \u092c\u0922\u093c\u093e\u0924\u093e \u0939\u0948\u0964",
+							"\u0909\u0924\u094d\u092a\u094d\u0930\u0947\u0930\u0915 \u0905\u0917\u094d\u0930\u0917\u093e\u092e\u0940 \u090f\u0935\u0902 \u092a\u094d\u0930\u0924\u093f\u0917\u093e\u092e\u0940 \u0926\u094b\u0928\u094b\u0902 \u0905\u092d\u093f\u0915\u094d\u0930\u093f\u092f\u093e\u0913\u0902 \u0915\u0940 \u0926\u0930 \u0938\u092e\u093e\u0928 \u0930\u0942\u092a \u0938\u0947 \u092c\u0922\u093c\u093e\u0924\u093e \u0939\u0948\u0964",
+							"\u0909\u0924\u094d\u092a\u094d\u0930\u0947\u0930\u0915 \u0905\u092d\u093f\u0915\u094d\u0930\u093f\u092f\u093e \u0915\u0940 \u090f\u0928\u094d\u0925\u0948\u0932\u094d\u092a\u0940 \u092c\u0926\u0932 \u0926\u0947\u0924\u093e \u0939\u0948\u0964",
+						],
+						en: [
+							"A catalyst changes the equilibrium constant of a reaction.",
+							"A catalyst increases the rate of only the forward reaction.",
+							"A catalyst increases the rate of both forward and backward reactions equally.",
+							"A catalyst changes the enthalpy of a reaction.",
+						],
+					},
+					sol: {
+						hi: "\u0938\u0939\u0940 \u0909\u0924\u094d\u0924\u0930: C) \u0909\u0924\u094d\u092a\u094d\u0930\u0947\u0930\u0915 \u0905\u0917\u094d\u0930\u0917\u093e\u092e\u0940 \u090f\u0935\u0902 \u092a\u094d\u0930\u0924\u093f\u0917\u093e\u092e\u0940 \u0926\u094b\u0928\u094b\u0902 \u0905\u092d\u093f\u0915\u094d\u0930\u093f\u092f\u093e\u0913\u0902 \u0915\u0940 \u0926\u0930 \u0938\u092e\u093e\u0928 \u0930\u0942\u092a \u0938\u0947 \u092c\u0922\u093c\u093e\u0924\u093e \u0939\u0948\u0964",
+						en: "Correct answer: C) A catalyst increases the rate of both forward and backward reactions equally.",
+					},
+				},
+			];
+
+			const UI = {
+				en: {
+					subtitle: "MP Varg-1 (PGT) \u00b7 100 Questions",
+					timeLeft: "Time Left",
+					legAns: "Answered",
+					legNot: "Not Answered",
+					legMarked: "Marked",
+					legVisit: "Not Visited",
+					qof: (n, t) => "Q " + n + " of " + t,
+					clear: "Clear Response",
+					mark: "Mark for Review & Next",
+					prev: "\u2039 Previous",
+					save: "Save & Next \u203a",
+					submit: "Submit Test",
+					confirmMsg: (u) =>
+						"You have " +
+						u +
+						" unattempted question(s).\nSubmit the test now?",
+					rbrand: "PGT CHEMISTRY MOCK TEST",
+					outof: (auto) =>
+						"MP Varg-1 (PGT) Chemistry \u00b7 " +
+						(auto
+							? "Time Up \u2014 Auto Submitted"
+							: "Test Submitted"),
+					scoreLabel: "Score",
+					thSection: "Section",
+					thCorrect: "Correct",
+					thWrong: "Wrong",
+					thSkipped: "Skipped",
+					rnote: "No negative marking. Tap any question below to see the correct answer.",
+					tagOk: "Correct",
+					tagBad: "Incorrect",
+					tagSkip: "Skipped",
+					solution: "Answer:",
+					retake: "Retake Test",
+					langBtn: "\u0939\u093f\u0902\u0926\u0940",
+					qLabelPrefix: "Q",
+					nCardTitle: "Before you begin",
+					nCardSub: "Enter your name so it appears on your result.",
+					nFieldLabel: "Student Name",
+					nPlaceholder: "e.g. Riya Sharma",
+					startBtn: "Start Test",
+					defaultName: "Student",
+				},
+				hi: {
+					subtitle:
+						"\u090f\u092e\u092a\u0940 \u0935\u0930\u094d\u0917-1 (PGT) \u00b7 100 \u092a\u094d\u0930\u0936\u094d\u0928",
+					timeLeft: "\u0936\u0947\u0937 \u0938\u092e\u092f",
+					legAns: "\u0909\u0924\u094d\u0924\u0930 \u0926\u093f\u092f\u093e",
+					legNot: "\u0909\u0924\u094d\u0924\u0930 \u0928\u0939\u0940\u0902 \u0926\u093f\u092f\u093e",
+					legMarked: "\u091a\u093f\u0939\u094d\u0928\u093f\u0924",
+					legVisit:
+						"\u0928\u0939\u0940\u0902 \u0926\u0947\u0916\u093e \u0917\u092f\u093e",
+					qof: (n, t) =>
+						"\u092a\u094d\u0930\u0936\u094d\u0928 " + n + " / " + t,
+					clear: "\u0909\u0924\u094d\u0924\u0930 \u0939\u091f\u093e\u090f\u0902",
+					mark: "\u0938\u092e\u0940\u0915\u094d\u0937\u093e \u0939\u0947\u0924\u0941 \u091a\u093f\u0939\u094d\u0928\u093f\u0924 \u0915\u0930\u0947\u0902 \u0914\u0930 \u0906\u0917\u0947",
+					prev: "\u2039 \u092a\u093f\u091b\u0932\u093e",
+					save: "\u0938\u0939\u0947\u091c\u0947\u0902 \u0914\u0930 \u0906\u0917\u0947 \u203a",
+					submit: "\u091f\u0947\u0938\u094d\u091f \u091c\u092e\u093e \u0915\u0930\u0947\u0902",
+					confirmMsg: (u) =>
+						"\u0906\u092a\u0915\u0947 " +
+						u +
+						" \u092a\u094d\u0930\u0936\u094d\u0928 \u0905\u0928\u0941\u0924\u094d\u0924\u0930\u093f\u0924 \u0939\u0948\u0902\u0964\n\u0915\u094d\u092f\u093e \u0905\u092c \u091f\u0947\u0938\u094d\u091f \u091c\u092e\u093e \u0915\u0930\u0947\u0902?",
+					rbrand: "PGT CHEMISTRY MOCK TEST",
+					outof: (auto) =>
+						"\u090f\u092e\u092a\u0940 \u0935\u0930\u094d\u0917-1 (PGT) \u0930\u0938\u093e\u092f\u0928 \u0935\u093f\u091c\u094d\u091e\u093e\u0928 \u00b7 " +
+						(auto
+							? "\u0938\u092e\u092f \u0938\u092e\u093e\u092a\u094d\u0924 \u2014 \u0938\u094d\u0935\u0924\u0903 \u091c\u092e\u093e"
+							: "\u091f\u0947\u0938\u094d\u091f \u091c\u092e\u093e \u0939\u0941\u0906"),
+					scoreLabel: "\u0938\u094d\u0915\u094b\u0930",
+					thSection: "\u0905\u0928\u0941\u092d\u093e\u0917",
+					thCorrect: "\u0938\u0939\u0940",
+					thWrong: "\u0917\u0932\u0924",
+					thSkipped: "\u091b\u0942\u091f\u0947",
+					rnote: "\u0915\u094b\u0908 \u0930\u0923\u093e\u0924\u094d\u092e\u0915 \u0905\u0902\u0915\u0928 \u0928\u0939\u0940\u0902\u0964 \u0938\u0939\u0940 \u0909\u0924\u094d\u0924\u0930 \u0926\u0947\u0916\u0928\u0947 \u0939\u0947\u0924\u0941 \u0928\u0940\u091a\u0947 \u0915\u093f\u0938\u0940 \u092d\u0940 \u092a\u094d\u0930\u0936\u094d\u0928 \u092a\u0930 \u091f\u0948\u092a \u0915\u0930\u0947\u0902\u0964",
+					tagOk: "\u0938\u0939\u0940",
+					tagBad: "\u0917\u0932\u0924",
+					tagSkip: "\u091b\u0942\u091f\u093e",
+					solution: "\u0909\u0924\u094d\u0924\u0930:",
+					retake: "\u091f\u0947\u0938\u094d\u091f \u092b\u093f\u0930 \u0938\u0947 \u0926\u0947\u0902",
+					langBtn: "English",
+					qLabelPrefix: "\u092a\u094d\u0930\u0964",
+					nCardTitle:
+						"\u0936\u0941\u0930\u0942 \u0915\u0930\u0928\u0947 \u0938\u0947 \u092a\u0939\u0932\u0947",
+					nCardSub:
+						"\u0905\u092a\u0928\u093e \u0928\u093e\u092e \u0926\u0930\u094d\u091c \u0915\u0930\u0947\u0902 \u0924\u093e\u0915\u093f \u092f\u0939 \u0906\u092a\u0915\u0947 \u092a\u0930\u093f\u0923\u093e\u092e \u092e\u0947\u0902 \u0926\u093f\u0916\u0947\u0964",
+					nFieldLabel:
+						"\u0935\u093f\u0926\u094d\u092f\u093e\u0930\u094d\u0925\u0940 \u0915\u093e \u0928\u093e\u092e",
+					nPlaceholder:
+						"\u091c\u0948\u0938\u0947: \u0930\u093f\u092f\u093e \u0936\u0930\u094d\u092e\u093e",
+					startBtn:
+						"\u091f\u0947\u0938\u094d\u091f \u0936\u0941\u0930\u0942 \u0915\u0930\u0947\u0902",
+					defaultName:
+						"\u0935\u093f\u0926\u094d\u092f\u093e\u0930\u094d\u0925\u0940",
+				},
+			};
+
+			let lang = "en";
+			function t() {
+				return UI[lang];
+			}
+
+			const TOTAL = Q.length;
+			const DURATION = 120 * 60;
+			let cur = 0,
+				answers = {},
+				visited = new Set(),
+				marked = new Set(),
+				timeLeft = DURATION,
+				timerH = null;
+			let studentName = "";
+			let lastResult = null;
+
+			const secRange = {};
+			SECTIONS.forEach((sec) => {
+				const idx = Q.map((q, i) => (q.s === sec.key ? i : -1)).filter(
+					(i) => i >= 0
+				);
+				secRange[sec.key] = { start: idx[0], end: idx[idx.length - 1] };
+			});
+
+			const elTimer = document.getElementById("timer");
+			const elTimerbar = document.getElementById("timerbar");
+			const elPalette = document.getElementById("palette");
+			const elTabs = document.getElementById("sectiontabs");
+
+			function buildTabs() {
+				elTabs.innerHTML = "";
+				SECTIONS.forEach((sec) => {
+					const b = document.createElement("button");
+					b.textContent = sec.label[lang];
+					b.dataset.key = sec.key;
+					b.onclick = () => {
+						cur = secRange[sec.key].start;
+						render();
+					};
+					elTabs.appendChild(b);
+				});
+			}
+
+			function buildPalette() {
+				elPalette.innerHTML = "";
+				for (let i = 0; i < TOTAL; i++) {
+					const c = document.createElement("div");
+					c.className = "pcell";
+					c.textContent = i + 1;
+					c.onclick = () => {
+						cur = i;
+						render();
+					};
+					elPalette.appendChild(c);
+				}
+			}
+
+			function renderPalette() {
+				const cells = elPalette.children;
+				for (let i = 0; i < TOTAL; i++) {
+					const c = cells[i];
+					c.className = "pcell";
+					if (i === cur) c.classList.add("current");
+					const hasA = answers.hasOwnProperty(i);
+					const isMark = marked.has(i);
+					if (isMark) {
+						c.classList.add("marked");
+						if (hasA) c.classList.add("answered");
+					} else if (hasA) c.classList.add("answered");
+					else if (visited.has(i)) c.classList.add("notanswered");
+				}
+			}
+
+			function renderTabs() {
+				[...elTabs.children].forEach((b) =>
+					b.classList.toggle("active", Q[cur].s === b.dataset.key)
+				);
+			}
+
+			function renderQuestion() {
+				const item = Q[cur];
+				const sec = SECTIONS.find((s) => s.key === item.s);
+				document.getElementById("qno").textContent = t().qof(
+					cur + 1,
+					TOTAL
+				);
+				document.getElementById("qsec").textContent = sec.label[lang];
+				document.getElementById("qtext").textContent = item.q[lang];
+				const optDiv = document.getElementById("options");
+				optDiv.innerHTML = "";
+				item.o[lang].forEach((optText, idx) => {
+					const wrap = document.createElement("div");
+					wrap.className =
+						"opt" + (answers[cur] === idx ? " selected" : "");
+					const id = "opt_" + cur + "_" + idx;
+					wrap.innerHTML =
+						'<input type="radio" name="q' +
+						cur +
+						'" id="' +
+						id +
+						'"' +
+						(answers[cur] === idx ? " checked" : "") +
+						">" +
+						'<label for="' +
+						id +
+						'">' +
+						String.fromCharCode(65 + idx) +
+						". " +
+						optText +
+						"</label>";
+					wrap.onclick = () => {
+						answers[cur] = idx;
+						visited.add(cur);
+						renderQuestion();
+						renderPalette();
+					};
+					optDiv.appendChild(wrap);
+				});
+			}
+
+			function render() {
+				visited.add(cur);
+				renderQuestion();
+				renderPalette();
+				renderTabs();
+				elPalette.children[cur].scrollIntoView({
+					block: "nearest",
+					inline: "center",
+				});
+			}
+
+			document.getElementById("clearBtn").onclick = () => {
+				delete answers[cur];
+				renderQuestion();
+				renderPalette();
+			};
+			document.getElementById("markBtn").onclick = () => {
+				marked.add(cur);
+				goNext();
+			};
+			document.getElementById("saveBtn").onclick = goNext;
+			document.getElementById("prevBtn").onclick = () => {
+				if (cur > 0) {
+					cur--;
+					render();
+				}
+			};
+			function goNext() {
+				if (cur < TOTAL - 1) {
+					cur++;
+					render();
+				} else render();
+			}
+
+			document.getElementById("submitBtn").onclick = () => {
+				const u = TOTAL - Object.keys(answers).length;
+				if (confirm(t().confirmMsg(u))) submitTest();
+			};
+
+			function fmt(s) {
+				return (
+					String(Math.floor(s / 60)).padStart(2, "0") +
+					":" +
+					String(s % 60).padStart(2, "0")
+				);
+			}
+			function startTimer() {
+				timerH = setInterval(() => {
+					timeLeft--;
+					elTimer.textContent = fmt(Math.max(timeLeft, 0));
+					if (timeLeft <= 300) elTimerbar.classList.add("warn");
+					if (timeLeft <= 0) {
+						clearInterval(timerH);
+						submitTest(true);
+					}
+				}, 1000);
+			}
+
+			function submitTest(auto) {
+				clearInterval(timerH);
+				lastResult = { auto: !!auto };
+				renderResultScreen();
+			}
+
+			function renderResultScreen() {
+				if (!lastResult) return;
+				const auto = lastResult.auto;
+				const byS = {};
+				SECTIONS.forEach((s) => (byS[s.key] = { c: 0, w: 0, sk: 0 }));
+				let tot = 0;
+				Q.forEach((item, i) => {
+					const g = answers[i];
+					if (g === undefined) byS[item.s].sk++;
+					else if (g === item.a) {
+						byS[item.s].c++;
+						tot++;
+					} else byS[item.s].w++;
+				});
+
+				document.getElementById("app").style.display = "none";
+				const rs = document.getElementById("resultScreen");
+				rs.style.display = "block";
+				const pct = ((tot / TOTAL) * 100).toFixed(1);
+				const u = t();
+
+				let rows = "";
+				SECTIONS.forEach((s) => {
+					const d = byS[s.key];
+					rows += `<tr><td>${s.label[lang]}</td><td>${d.c}</td><td>${d.w}</td><td>${d.sk}</td></tr>`;
+				});
+
+				let review = "";
+				Q.forEach((item, i) => {
+					const g = answers[i];
+					let tag = "skip",
+						tl = u.tagSkip;
+					if (g !== undefined) {
+						if (g === item.a) {
+							tag = "ok";
+							tl = u.tagOk;
+						} else {
+							tag = "bad";
+							tl = u.tagBad;
+						}
+					}
+					let opts = "";
+					item.o[lang].forEach((ot, idx) => {
+						let cls = "";
+						if (idx === item.a) cls = "correctAns";
+						else if (idx === g) cls = "wrongChosen";
+						opts += `<div class="ropt ${cls}">${String.fromCharCode(
+							65 + idx
+						)}. ${ot}</div>`;
+					});
+					review += `<details class="qreview"><summary><span>${
+						u.qLabelPrefix
+					}${i + 1}. ${
+						SECTIONS.find((s) => s.key === item.s).label[lang]
+					}</span><span class="rtag ${tag}">${tl}</span></summary>
+   <div class="rqtext">${item.q[lang]}</div>
+   ${opts}
+   <div class="rsol"><b>${u.solution}</b> ${item.sol[lang]}</div>
+  </details>`;
+				});
+
+				rs.innerHTML = `
+  <div class="rhero">
+   <button class="langBtn" id="langBtnResult" type="button">${
+		u.langBtn
+   }</button>
+   <div class="rbrand">${u.rbrand}</div>
+   <div class="rname">${studentName ? studentName : u.defaultName}</div>
+   <div class="score">${tot} / ${TOTAL}</div>
+   <div class="outof">${u.outof(auto)}</div>
+   <div class="pct">${pct}% ${u.scoreLabel}</div>
+  </div>
+  <div class="rwrap">
+   <table class="rtable">
+    <tr><th>${u.thSection}</th><th>${u.thCorrect}</th><th>${
+					u.thWrong
+				}</th><th>${u.thSkipped}</th></tr>
+    ${rows}
+   </table>
+   <p class="rnote">${u.rnote}</p>
+   ${review}
+   <button id="retakeBtn">${u.retake}</button>
+  </div>`;
+
+				document.getElementById("langBtnResult").onclick = toggleLang;
+
+				document.getElementById("retakeBtn").onclick = () => {
+					answers = {};
+					visited = new Set();
+					marked = new Set();
+					cur = 0;
+					timeLeft = DURATION;
+					lastResult = null;
+					elTimerbar.classList.remove("warn");
+					elTimer.textContent = fmt(DURATION);
+					rs.style.display = "none";
+					document.getElementById("app").style.display = "flex";
+					renderPalette();
+					render();
+					startTimer();
+				};
+			}
+
+			function applyStaticText() {
+				const u = t();
+				document.getElementById("subtitleText").textContent =
+					u.subtitle;
+				document.getElementById("nSubtitleText").textContent =
+					u.subtitle;
+				document.getElementById("timeLeftLabel").textContent =
+					u.timeLeft;
+				document.getElementById("legAns").textContent = u.legAns;
+				document.getElementById("legNot").textContent = u.legNot;
+				document.getElementById("legMarked").textContent = u.legMarked;
+				document.getElementById("legVisit").textContent = u.legVisit;
+				document.getElementById("clearBtn").textContent = u.clear;
+				document.getElementById("markBtn").innerHTML = u.mark.replace(
+					"&",
+					"&amp;"
+				);
+				document.getElementById("prevBtn").innerHTML = u.prev;
+				document.getElementById("saveBtn").innerHTML = u.save.replace(
+					"&",
+					"&amp;"
+				);
+				document.getElementById("submitBtn").textContent = u.submit;
+				document.getElementById("langBtn").textContent = u.langBtn;
+				document.getElementById("langBtnName").textContent = u.langBtn;
+				document.getElementById("nCardTitle").textContent =
+					u.nCardTitle;
+				document.getElementById("nCardSub").textContent = u.nCardSub;
+				document.getElementById("nFieldLabel").textContent =
+					u.nFieldLabel;
+				document.getElementById("nameInput").placeholder =
+					u.nPlaceholder;
+				document.getElementById("startBtn").textContent = u.startBtn;
+			}
+
+			function toggleLang() {
+				lang = lang === "en" ? "hi" : "en";
+				applyStaticText();
+				buildTabs();
+				if (lastResult) {
+					renderResultScreen();
+				} else {
+					render();
+				}
+			}
+
+			document.getElementById("langBtn").onclick = toggleLang;
+			document.getElementById("langBtnName").onclick = toggleLang;
+
+			function beginTest() {
+				const val = document.getElementById("nameInput").value.trim();
+				studentName = val;
+				document.getElementById("nameScreen").style.display = "none";
+				document.getElementById("app").style.display = "flex";
+				render();
+				startTimer();
+			}
+			document.getElementById("startBtn").onclick = beginTest;
+			document
+				.getElementById("nameInput")
+				.addEventListener("keydown", (e) => {
+					if (e.key === "Enter") beginTest();
+				});
+
+			applyStaticText();
+			buildTabs();
+			buildPalette();
+			elTimer.textContent = fmt(DURATION);
+			document.getElementById("nameInput").focus();
+		</script>
+	</body>
+</html>
