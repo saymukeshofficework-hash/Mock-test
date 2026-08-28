@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react'
 import { Link } from 'react-router-dom'
+import SkyDecor from './SkyDecor'
 
 export default function Section({
   eyebrow,
@@ -22,8 +23,9 @@ export default function Section({
 }) {
   const isDark = tone === 'dark'
   return (
-    <section className={`${isDark ? 'bg-navy-900' : ''} ${className}`}>
-      <div className="container-page reveal py-14 sm:py-16">
+    <section className={`${isDark ? 'relative overflow-hidden bg-navy-900' : ''} ${className}`}>
+      {isDark && <SkyDecor stars={6} />}
+      <div className="container-page reveal relative z-10 py-14 sm:py-16">
         <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
           <div className="max-w-2xl">
             {eyebrow && <p className={`section-label mb-2 ${isDark ? 'text-gold-400' : ''}`}>{eyebrow}</p>}

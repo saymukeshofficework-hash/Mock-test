@@ -2,21 +2,14 @@ import { Link } from 'react-router-dom'
 import SEO from '../components/SEO'
 import Section from '../components/Section'
 import Icon from '../components/Icon'
+import SkyDecor from '../components/SkyDecor'
 import ClassCard from '../components/ClassCard'
 import CredentialCard from '../components/CredentialCard'
-import CourseCard from '../components/CourseCard'
-import PaidNoteCard from '../components/PaidNoteCard'
-import BundleCard from '../components/BundleCard'
-import OnlineClassCard from '../components/OnlineClassCard'
 import CalculatorCard from '../components/CalculatorCard'
 import ResourceCard from '../components/ResourceCard'
 import WhatsAppButton from '../components/WhatsAppButton'
 import { site } from '../data/site'
 import { classes } from '../data/classes'
-import { courses } from '../data/courses'
-import { paidNotes } from '../data/paidNotes'
-import { bundles } from '../data/bundles'
-import { onlineClasses } from '../data/onlineClasses'
 import { calculators } from '../data/calculators'
 import { resources } from '../data/resources'
 import { generalMessage } from '../lib/whatsapp'
@@ -29,7 +22,7 @@ export default function Home() {
     <>
       <SEO
         title="Home"
-        description="Mukesh Singh Dahiya — M.Sc. Botany, M.A. English, 12 years teaching experience. Notes, solutions, questions, previous papers, courses and NEET Biology resources for Classes 5–12, CBSE & MP Board."
+        description="Mukesh Singh Dahiya — M.Sc. Botany, M.A. English, 12 years teaching experience. Notes, solutions, questions, previous papers and NEET Biology resources for Classes 5–12, CBSE & MP Board."
       />
 
       {/* Hero */}
@@ -42,10 +35,25 @@ export default function Home() {
             backgroundSize: '48px 48px',
           }}
         />
-        <div className="pointer-events-none absolute -right-24 -top-24 h-96 w-96 animate-float rounded-full bg-brand-500/20 blur-3xl" />
-        <div className="pointer-events-none absolute -left-24 bottom-0 h-72 w-72 animate-float-slow rounded-full bg-emerald-500/10 blur-3xl" />
-        <div className="pointer-events-none absolute left-1/2 top-1/3 h-56 w-56 -translate-x-1/2 animate-float-slow rounded-full bg-gold-400/10 blur-3xl" />
-        <div className="container-page relative grid gap-10 py-16 sm:py-20 lg:grid-cols-2 lg:items-center lg:py-24">
+        <div className="pointer-events-none absolute -right-24 -top-24 h-96 w-96 animate-cloud-drift rounded-full bg-brand-500/20 blur-3xl" />
+        <div className="pointer-events-none absolute -left-24 bottom-0 h-72 w-72 animate-cloud-drift-slow rounded-full bg-emerald-500/10 blur-3xl" />
+        <div className="pointer-events-none absolute left-1/2 top-1/3 h-56 w-56 -translate-x-1/2 animate-cloud-drift-slow rounded-full bg-gold-400/10 blur-3xl" />
+        <SkyDecor />
+        <div className="pointer-events-none absolute inset-0 z-0 hidden lg:block" aria-hidden="true">
+          <div className="glass-panel absolute left-[6%] top-[16%] flex h-12 w-12 animate-float items-center justify-center rounded-2xl text-gold-300" style={{ animationDelay: '0.2s' }}>
+            <Icon name="book" className="h-5 w-5" />
+          </div>
+          <div className="glass-panel absolute right-[10%] top-[8%] flex h-12 w-12 animate-float-slow items-center justify-center rounded-2xl text-cyan-300" style={{ animationDelay: '1s' }}>
+            <Icon name="graduation" className="h-5 w-5" />
+          </div>
+          <div className="glass-panel absolute left-[16%] bottom-[16%] flex h-11 w-11 animate-float items-center justify-center rounded-2xl text-emerald-300" style={{ animationDelay: '1.8s' }}>
+            <Icon name="flask" className="h-5 w-5" />
+          </div>
+          <div className="glass-panel absolute right-[16%] bottom-[26%] flex h-10 w-10 animate-float-slow items-center justify-center rounded-2xl text-gold-200" style={{ animationDelay: '0.6s' }}>
+            <Icon name="sun" className="h-4 w-4" />
+          </div>
+        </div>
+        <div className="container-page relative z-10 grid gap-10 py-16 sm:py-20 lg:grid-cols-2 lg:items-center lg:py-24">
           <div>
             <p className="reveal section-label mb-4 text-cyan-400">Teacher & Educator</p>
             <h1 className="reveal font-serif text-4xl font-bold leading-tight text-white sm:text-5xl" style={{ transitionDelay: '80ms' }}>
@@ -70,9 +78,6 @@ export default function Home() {
               <Link to="/neet" className="btn-secondary border-white/20 bg-transparent text-white hover:border-cyan-400 hover:text-cyan-400">
                 NEET Biology
               </Link>
-              <Link to="/courses" className="btn-secondary border-white/20 bg-transparent text-white hover:border-gold-400 hover:text-gold-400">
-                Explore Courses
-              </Link>
             </div>
           </div>
           <div className="reveal relative mx-auto w-full max-w-sm" style={{ transitionDelay: '160ms' }}>
@@ -87,7 +92,7 @@ export default function Home() {
                 <p className="text-sm text-slate-300">{site.title}</p>
               </div>
             </div>
-            <div className="glass-panel animate-scale-in absolute -left-6 bottom-6 flex items-center gap-3 rounded-2xl px-4 py-3 shadow-glow-gold" style={{ animationDelay: '400ms' }}>
+            <div className="glass-panel animate-scale-in absolute -right-6 -top-6 flex items-center gap-3 rounded-2xl px-4 py-3 shadow-glow-gold" style={{ animationDelay: '400ms' }}>
               <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gold-400/20 text-gold-300">
                 <Icon name="clock" className="h-5 w-5" />
               </span>
@@ -131,61 +136,13 @@ export default function Home() {
         )}
       </Section>
 
-      {/* Premium courses — Navy + Gold */}
-      <Section tone="dark" eyebrow="Premium" title="Premium Courses" cta="View All Courses" ctaTo="/courses">
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {courses.slice(0, 3).map((c) => (
-            <CourseCard key={c.id} course={c} />
-          ))}
-        </div>
-      </Section>
-
-      {/* Premium notes */}
-      <Section eyebrow="Premium" title="Premium Notes" cta="Explore Premium Notes" ctaTo="/paid-notes" className="bg-slate-50 dark:bg-navy-900/40">
-        {paidNotes.length > 0 ? (
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {paidNotes.slice(0, 3).map((n) => (
-              <PaidNoteCard key={n.id} note={n} />
-            ))}
-          </div>
-        ) : (
-          <p className="text-slate-500 dark:text-slate-400">Premium notes will be added here soon.</p>
-        )}
-      </Section>
-
-      {/* Study bundles */}
-      <Section eyebrow="Bundle & Save" title="Study Bundles" cta="View All Bundles" ctaTo="/bundles" className="bg-white dark:bg-navy-950">
-        {bundles.length > 0 ? (
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {bundles.slice(0, 3).map((b) => (
-              <BundleCard key={b.id} bundle={b} />
-            ))}
-          </div>
-        ) : (
-          <p className="text-slate-500 dark:text-slate-400">Study bundles will be added here soon.</p>
-        )}
-      </Section>
-
-      {/* Online classes */}
-      <Section eyebrow="Live Learning" title="Online Classes" cta="View Online Classes" ctaTo="/online-classes" className="bg-white dark:bg-navy-950">
-        {onlineClasses.length > 0 ? (
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {onlineClasses.map((c) => (
-              <OnlineClassCard key={c.id} oc={c} />
-            ))}
-          </div>
-        ) : (
-          <p className="text-slate-500 dark:text-slate-400">Online classes will be announced here soon.</p>
-        )}
-      </Section>
-
-      {/* Learn directly — WhatsApp CTA */}
-      <Section eyebrow="Get Started" title="Learn Directly with Mukesh Singh Dahiya" description="Every premium course, note and online class is a WhatsApp message away." className="bg-slate-50 dark:bg-navy-900/40">
+      {/* Ask directly — WhatsApp CTA */}
+      <Section eyebrow="Get Started" title="Have a Doubt or Need Study Material?" description="Notes, solutions, questions and previous papers — just a WhatsApp message away." className="bg-slate-50 dark:bg-navy-900/40">
         <div className="grid gap-4 sm:grid-cols-3">
           {[
-            { title: 'Premium Courses', desc: 'Structured, chapter-by-chapter courses.', to: '/courses' },
-            { title: 'Premium Notes', desc: 'Exam-focused notes you can buy directly.', to: '/paid-notes' },
-            { title: 'Online Classes', desc: 'Live, doubt-clearing batches.', to: '/online-classes' },
+            { title: 'Notes & Solutions', desc: 'Chapter notes and step-by-step solutions.', to: '/notes' },
+            { title: 'Questions & Papers', desc: 'Practice questions and previous papers.', to: '/previous-papers' },
+            { title: 'NEET Biology', desc: 'Dedicated Botany and Zoology resources.', to: '/neet' },
           ].map((item) => (
             <div key={item.to} className="card flex flex-col gap-3 p-6">
               <h3 className="font-bold text-navy-900 dark:text-white">{item.title}</h3>
@@ -251,10 +208,11 @@ export default function Home() {
       </Section>
 
       {/* Contact CTA */}
-      <section className="border-t border-navy-800 bg-navy-900">
-        <div className="container-page flex flex-col items-center gap-4 py-16 text-center">
+      <section className="relative overflow-hidden border-t border-navy-800 bg-navy-900">
+        <SkyDecor />
+        <div className="container-page relative z-10 flex flex-col items-center gap-4 py-16 text-center">
           <h2 className="font-serif text-2xl font-bold text-white sm:text-3xl">
-            Have a question about classes, courses or study material?
+            Have a question about classes or study material?
           </h2>
           <div className="flex flex-wrap justify-center gap-3">
             <Link to="/contact" className="btn-primary bg-cyan-400 text-navy-950 hover:bg-cyan-300">

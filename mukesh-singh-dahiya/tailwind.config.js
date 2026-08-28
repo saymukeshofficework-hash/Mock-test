@@ -77,6 +77,18 @@ export default {
           '0%, 100%': { boxShadow: '0 0 0 0 rgba(16, 185, 129, 0.4)' },
           '50%': { boxShadow: '0 0 0 10px rgba(16, 185, 129, 0)' },
         },
+        'cloud-drift': {
+          '0%, 100%': { transform: 'translate(0, 0)' },
+          '50%': { transform: 'translate(36px, -14px)' },
+        },
+        'cloud-drift-slow': {
+          '0%, 100%': { transform: 'translate(0, 0)' },
+          '50%': { transform: 'translate(-28px, 18px)' },
+        },
+        twinkle: {
+          '0%, 100%': { opacity: '0.15', transform: 'scale(1)' },
+          '50%': { opacity: '0.9', transform: 'scale(1.4)' },
+        },
       },
       animation: {
         'fade-in': 'fade-in 0.5s ease-out both',
@@ -87,6 +99,9 @@ export default {
         'float-slow': 'float-slow 11s ease-in-out infinite',
         shimmer: 'shimmer 2.5s linear infinite',
         'pulse-glow': 'pulse-glow 2.4s ease-out infinite',
+        'cloud-drift': 'cloud-drift 22s ease-in-out infinite',
+        'cloud-drift-slow': 'cloud-drift-slow 30s ease-in-out infinite',
+        twinkle: 'twinkle 3s ease-in-out infinite',
       },
     },
   },
