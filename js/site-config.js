@@ -39,7 +39,7 @@ const FREE_TESTS = ["test01", "test02"];
 // Test 01 & 02 are automatically free for all logged-in students.
 // Paste your Razorpay link here after creating it. See ADMIN_INSTRUCTIONS.md.
 const PAYMENT_LINKS = {
-  all18: "PASTE_RAZORPAY_LINK_HERE",  // Tests 03-20 @ ₹199
+  all18: "https://rzp.io/rzp/PuwbvCy",  // Tests 03-20 @ ₹199
 };
 
 // One row per test. `id` must match a key in PAYMENT_LINKS and the purchased_tests values
