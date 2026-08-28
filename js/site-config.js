@@ -17,8 +17,8 @@ const SITE_CONFIG = {
   // anything beyond what supabase/schema.sql's Row Level Security policies allow, which
   // is the actual protection (not keeping this key secret). Never paste the "service_role"
   // key here or anywhere in this repository.
-  supabaseUrl: "PASTE_SUPABASE_PROJECT_URL_HERE",
-  supabaseAnonKey: "PASTE_SUPABASE_ANON_PUBLIC_KEY_HERE",
+  supabaseUrl: "https://ovaubhekxjtkodkhsybg.supabase.co",
+  supabaseAnonKey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im92YXViaGVreGp0a29ka2hzeWJnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODc4NTk4NDMsImV4cCI6MjEwMzQzNTg0M30.KKDmp6mt2YEIKxI0BP5I7BvAgMAStNXJiwgUy3X4b2s",
 
   // Students log in with a Student ID, but Supabase Auth needs an email address, so the
   // frontend maps "TET26001" -> "tet26001@students.tettesthub.app". Nothing is ever sent
