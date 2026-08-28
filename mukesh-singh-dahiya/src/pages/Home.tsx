@@ -42,16 +42,25 @@ export default function Home() {
             backgroundSize: '48px 48px',
           }}
         />
-        <div className="pointer-events-none absolute -right-24 -top-24 h-96 w-96 rounded-full bg-brand-500/20 blur-3xl" />
-        <div className="pointer-events-none absolute -left-24 bottom-0 h-72 w-72 rounded-full bg-emerald-500/10 blur-3xl" />
+        <div className="pointer-events-none absolute -right-24 -top-24 h-96 w-96 animate-float rounded-full bg-brand-500/20 blur-3xl" />
+        <div className="pointer-events-none absolute -left-24 bottom-0 h-72 w-72 animate-float-slow rounded-full bg-emerald-500/10 blur-3xl" />
+        <div className="pointer-events-none absolute left-1/2 top-1/3 h-56 w-56 -translate-x-1/2 animate-float-slow rounded-full bg-gold-400/10 blur-3xl" />
         <div className="container-page relative grid gap-10 py-16 sm:py-20 lg:grid-cols-2 lg:items-center lg:py-24">
           <div>
-            <p className="section-label mb-4 text-cyan-400">Teacher & Educator</p>
-            <h1 className="font-serif text-4xl font-bold leading-tight text-white sm:text-5xl">{site.name}</h1>
-            <p className="mt-3 text-lg font-medium text-cyan-300">{site.qualifications}</p>
-            <p className="mt-1 text-base text-slate-300">{site.scope}</p>
-            <p className="mt-6 max-w-xl text-slate-300">{site.intro}</p>
-            <div className="mt-8 flex flex-wrap gap-3">
+            <p className="reveal section-label mb-4 text-cyan-400">Teacher & Educator</p>
+            <h1 className="reveal font-serif text-4xl font-bold leading-tight text-white sm:text-5xl" style={{ transitionDelay: '80ms' }}>
+              {site.name}
+            </h1>
+            <p className="reveal mt-3 text-lg font-medium text-gradient-gold" style={{ transitionDelay: '140ms' }}>
+              {site.qualifications}
+            </p>
+            <p className="reveal mt-1 text-base text-slate-300" style={{ transitionDelay: '180ms' }}>
+              {site.scope}
+            </p>
+            <p className="reveal mt-6 max-w-xl text-slate-300" style={{ transitionDelay: '220ms' }}>
+              {site.intro}
+            </p>
+            <div className="reveal mt-8 flex flex-wrap gap-3" style={{ transitionDelay: '280ms' }}>
               <Link to="/classes" className="btn-primary">
                 Explore Classes
               </Link>
@@ -66,17 +75,26 @@ export default function Home() {
               </Link>
             </div>
           </div>
-          <div className="relative mx-auto w-full max-w-sm">
-            <div className="relative aspect-square w-full overflow-hidden rounded-3xl border border-white/10 shadow-card-lg">
+          <div className="reveal relative mx-auto w-full max-w-sm" style={{ transitionDelay: '160ms' }}>
+            <div className="relative aspect-square w-full overflow-hidden rounded-3xl border border-white/10 shadow-card-lg transition-shadow duration-500 hover:shadow-glow-gold">
               <img
                 src={asset(site.teacherImage)}
                 alt={`${site.name} — ${site.title}`}
-                className="h-full w-full object-cover object-top"
+                className="h-full w-full object-cover object-top transition-transform duration-700 hover:scale-105"
               />
               <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-navy-950/90 via-navy-950/40 to-transparent p-5">
                 <p className="font-serif text-lg font-bold text-white">{site.name}</p>
                 <p className="text-sm text-slate-300">{site.title}</p>
               </div>
+            </div>
+            <div className="glass-panel animate-scale-in absolute -left-6 bottom-6 flex items-center gap-3 rounded-2xl px-4 py-3 shadow-glow-gold" style={{ animationDelay: '400ms' }}>
+              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gold-400/20 text-gold-300">
+                <Icon name="clock" className="h-5 w-5" />
+              </span>
+              <span className="leading-tight">
+                <span className="block text-sm font-bold text-white">12 Years</span>
+                <span className="block text-xs text-slate-300">Teaching Experience</span>
+              </span>
             </div>
           </div>
         </div>

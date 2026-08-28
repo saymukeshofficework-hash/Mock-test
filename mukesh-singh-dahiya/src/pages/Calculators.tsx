@@ -14,7 +14,7 @@ export default function Calculators() {
         <h1 className="font-serif text-3xl font-bold text-navy-900 dark:text-white sm:text-4xl">Educational Calculators</h1>
         <p className="mt-2 max-w-2xl text-slate-600 dark:text-slate-300">Formula-based calculators for Mathematics, Physics, Chemistry and Biology / NEET.</p>
 
-        <Link to="/calculators/converter" className="card mt-8 flex items-center gap-4 p-5 transition hover:-translate-y-0.5 hover:shadow-card-lg">
+        <Link to="/calculators/converter" className="card mt-8 flex items-center gap-4 p-5">
           <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-brand-50 text-brand-600 dark:bg-brand-500/10 dark:text-cyan-300">
             <Icon name="calc" className="h-5 w-5" />
           </div>

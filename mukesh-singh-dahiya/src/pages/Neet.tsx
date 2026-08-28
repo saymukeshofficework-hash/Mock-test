@@ -29,7 +29,7 @@ export default function Neet() {
       <div className="container-page py-14">
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {links.map((l) => (
-            <Link key={l.to} to={l.to} className="card flex flex-col gap-3 p-6 transition hover:-translate-y-0.5 hover:shadow-card-lg">
+            <Link key={l.to} to={l.to} className="card flex flex-col gap-3 p-6">
               <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-brand-50 text-brand-600 dark:bg-brand-500/10 dark:text-cyan-300">
                 <Icon name={l.icon} className="h-5 w-5" />
               </div>

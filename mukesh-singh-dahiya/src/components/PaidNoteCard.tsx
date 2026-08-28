@@ -7,7 +7,7 @@ import { getClass } from '../data/classes'
 export default function PaidNoteCard({ note }: { note: PaidNote }) {
   const cls = getClass(note.classSlug)
   return (
-    <Link to={`/paid-notes/${note.slug}`} className="card flex flex-col gap-3 p-5 transition hover:-translate-y-0.5 hover:shadow-card-lg">
+    <Link to={`/paid-notes/${note.slug}`} className="card flex flex-col gap-3 p-5">
       <div className="flex flex-wrap items-center gap-1.5">
         <Badge tone="gold">Premium Notes</Badge>
         {cls && <Badge>{cls.label}</Badge>}

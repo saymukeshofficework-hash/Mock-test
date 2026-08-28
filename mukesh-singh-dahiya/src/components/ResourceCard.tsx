@@ -8,7 +8,7 @@ export default function ResourceCard({ resource }: { resource: Resource }) {
   return (
     <Link
       to={`/resources/${resource.slug}`}
-      className="card flex flex-col gap-3 p-5 transition hover:-translate-y-0.5 hover:shadow-card-lg"
+      className="card flex flex-col gap-3 p-5"
     >
       <div className="flex flex-wrap items-center gap-1.5">
         <Badge tone="brand">{resource.resourceType}</Badge>

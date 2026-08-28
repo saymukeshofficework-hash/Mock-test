@@ -15,7 +15,7 @@ export default function CourseCard({ course }: { course: Course }) {
   return (
     <Link
       to={`/courses/${course.slug}`}
-      className="card group flex flex-col gap-3 border-navy-800 bg-navy-900 p-5 transition hover:-translate-y-0.5 hover:shadow-card-lg"
+      className="card group flex flex-col gap-3 border-navy-800 bg-navy-900 p-5 hover:border-gold-400/40 hover:shadow-glow-gold"
     >
       <div className="flex flex-wrap items-center gap-1.5">
         <Badge tone="gold">Premium</Badge>

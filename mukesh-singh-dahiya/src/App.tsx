@@ -2,6 +2,7 @@ import { Route, Routes } from 'react-router-dom'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import ScrollToTop from './components/ScrollToTop'
+import ScrollReveal from './components/ScrollReveal'
 
 import Home from './pages/Home'
 import About from './pages/About'
@@ -40,6 +41,7 @@ export default function App() {
   return (
     <div className="flex min-h-screen flex-col">
       <ScrollToTop />
+      <ScrollReveal />
       <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:left-2 focus:top-2 focus:z-50 focus:rounded-lg focus:bg-white focus:px-4 focus:py-2 focus:shadow-card-lg">
         Skip to content
       </a>

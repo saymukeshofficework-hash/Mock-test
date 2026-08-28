@@ -21,7 +21,8 @@ const links = [
 
 export default function Footer() {
   return (
-    <footer className="border-t border-navy-800 bg-navy-950">
+    <footer className="relative border-t border-navy-800 bg-navy-950">
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-gold-400/40 to-transparent" />
       <div className="container-page grid gap-10 py-12 sm:grid-cols-2 lg:grid-cols-3">
         <div>
           <p className="font-serif text-lg font-bold text-white">{site.name}</p>
@@ -30,7 +31,7 @@ export default function Footer() {
         </div>
         <div className="grid grid-cols-2 gap-x-4 gap-y-2 sm:col-span-1">
           {links.map((l) => (
-            <Link key={l.to} to={l.to} className="text-sm text-slate-400 hover:text-cyan-400">
+            <Link key={l.to} to={l.to} className="text-sm text-slate-400 transition-colors hover:text-cyan-400">
               {l.label}
             </Link>
           ))}

@@ -7,7 +7,7 @@ import { getClass } from '../data/classes'
 export default function BundleCard({ bundle }: { bundle: Bundle }) {
   const cls = bundle.classSlug ? getClass(bundle.classSlug) : undefined
   return (
-    <Link to={`/bundles/${bundle.slug}`} className="card flex flex-col gap-3 p-5 transition hover:-translate-y-0.5 hover:shadow-card-lg">
+    <Link to={`/bundles/${bundle.slug}`} className="card flex flex-col gap-3 p-5">
       <div className="flex flex-wrap items-center gap-1.5">
         <Badge tone="gold">Bundle</Badge>
         {cls && <Badge>{cls.label}</Badge>}

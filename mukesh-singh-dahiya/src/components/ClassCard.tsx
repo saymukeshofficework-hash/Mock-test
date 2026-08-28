@@ -6,7 +6,7 @@ export default function ClassCard({ cls }: { cls: ClassInfo }) {
   return (
     <Link
       to={`/classes/${cls.slug}`}
-      className="card group flex flex-col gap-3 p-5 transition hover:-translate-y-0.5 hover:shadow-card-lg"
+      className="card group flex flex-col gap-3 p-5"
     >
       <div className="flex items-center justify-between">
         <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-navy-900 text-lg font-bold text-white dark:bg-cyan-400 dark:text-navy-950">

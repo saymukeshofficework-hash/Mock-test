@@ -6,7 +6,7 @@ export default function CalculatorCard({ calc }: { calc: CalculatorConfig }) {
   return (
     <Link
       to={`/calculators/${calc.slug}`}
-      className="card flex flex-col gap-3 p-5 transition hover:-translate-y-0.5 hover:shadow-card-lg"
+      className="card flex flex-col gap-3 p-5"
     >
       <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-50 text-brand-600 dark:bg-brand-500/10 dark:text-cyan-300">
         <Icon name="calc" className="h-5 w-5" />
