@@ -88,3 +88,17 @@ async function requireAuth() {
   }
   return session;
 }
+
+// Check if a student has access to a specific test.
+// Returns true if: test is free (in FREE_TESTS) OR student has purchased it.
+function canAccessTest(testId, profile) {
+  if (!profile) return false;
+
+  // Always allow free tests
+  if (FREE_TESTS && FREE_TESTS.includes(testId)) {
+    return profile.status === 'active';
+  }
+
+  // Allow purchased tests
+  return profile.status === 'active' && (profile.purchased_tests || []).includes(testId);
+}

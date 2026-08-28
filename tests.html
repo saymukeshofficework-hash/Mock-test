@@ -32,20 +32,21 @@
   <main class="container">
     <section class="section">
       <h2>All TET Mock Tests</h2>
-      <p class="lead">Each test has 150 questions across 5 sections, bilingual (English/Hindi), 150 minutes. Buy a single test, or the full pack below.</p>
+      <p class="lead">Tests 01 & 02 are <strong>FREE</strong> for all students. Tests 03-20 available in a single ₹199 bundle. Each test has 150 questions across 5 sections, bilingual (English/Hindi), 150 minutes.</p>
 
       <div id="buyNote" class="alert alert-info buy-note" style="display:none;"></div>
 
-      <div id="all20" class="card pricing-card" style="max-width:340px;margin:0 auto 36px;">
-        <span class="ribbon">Best Value</span>
-        <h3>All 20 Tests</h3>
-        <div class="price">₹<span id="priceAll20">199</span></div>
+      <div id="all18" class="card pricing-card" style="max-width:340px;margin:0 auto 36px;">
+        <span class="ribbon">18 Additional Tests</span>
+        <h3>All Tests (03-20)</h3>
+        <div class="price">₹<span id="priceAll18">199</span></div>
         <ul>
-          <li>All 20 full mock tests</li>
-          <li>3000 questions in total</li>
+          <li>18 additional full mock tests</li>
+          <li>2700 questions in total</li>
+          <li>Plus 2 free tests (01 & 02)</li>
           <li>Instant results, every test</li>
         </ul>
-        <button class="btn btn-primary btn-block" id="buyAll20Btn">🔒 Buy All 20 Tests</button>
+        <button class="btn btn-primary btn-block" id="buyAll18Btn">🔒 Buy All 18 Tests</button>
       </div>
 
       <div class="grid" id="testGrid"></div>
@@ -66,7 +67,7 @@
 <script src="js/site-config.js"></script>
 <script src="js/auth.js"></script>
 <script>
-  document.getElementById('priceAll20').textContent = PRICES.all20;
+  document.getElementById('priceAll18').textContent = PRICES.all18;
 
   function showBuyNote() {
     const el = document.getElementById('buyNote');
@@ -92,7 +93,7 @@
     showBuyNote();
   }
 
-  document.getElementById('buyAll20Btn').addEventListener('click', () => openPaymentLink(PAYMENT_LINKS.all20));
+  document.getElementById('buyAll18Btn').addEventListener('click', () => openPaymentLink(PAYMENT_LINKS.all18));
 
   const DOC_ICON = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M6 2h9l5 5v15H6V2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 13h6M9 17h6M9 9h2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
   const CLOCK_ICON = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/><path d="M12 7v5l3 3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
@@ -102,7 +103,10 @@
   function renderCards(purchasedTests) {
     grid.innerHTML = '';
     TEST_CATALOG.forEach(t => {
+      const isFree = FREE_TESTS && FREE_TESTS.includes(t.id);
       const owned = purchasedTests && purchasedTests.includes(t.id);
+      const hasAccess = isFree || owned;
+
       const card = document.createElement('div');
       card.className = 'card test-card';
       card.innerHTML = `
@@ -113,21 +117,25 @@
           <span class="meta">${DOC_ICON} ${t.questions} Questions</span>
           <span class="meta">${CLOCK_ICON} ${t.minutes} Minutes</span>
         </div>
-        <div class="${owned ? 'status-owned' : 'status-locked'}">${owned ? '✅ Purchased' : '🔒 Not purchased'}</div>
+        <div class="${hasAccess ? 'status-owned' : 'status-locked'}">
+          ${isFree ? '✅ FREE' : (owned ? '✅ Purchased' : '🔒 Not available')}
+        </div>
         <div class="cta"></div>
       `;
+
       const cta = card.querySelector('.cta');
-      if (owned) {
+      if (hasAccess) {
         const a = document.createElement('a');
         a.className = 'btn btn-primary btn-block';
         a.href = t.file;
         a.textContent = 'START TEST';
         cta.appendChild(a);
       } else {
+        // Tests 03-20: link to the all18 bundle purchase
         const btn = document.createElement('button');
         btn.className = 'btn btn-locked btn-block';
-        btn.textContent = '🔒 BUY TEST';
-        btn.addEventListener('click', () => openPaymentLink(PAYMENT_LINKS[t.id]));
+        btn.textContent = '🔒 BUY ALL 18';
+        btn.addEventListener('click', () => openPaymentLink(PAYMENT_LINKS.all18));
         cta.appendChild(btn);
       }
       grid.appendChild(card);
@@ -135,9 +143,9 @@
   }
 
   // Cards render as locked immediately (no flash of wrong state), then upgrade
-  // to "Purchased" for any test the logged-in student actually owns. This is
-  // a UX convenience only — the real access check happens server-side (Supabase
-  // Row Level Security) when a test page itself tries to fetch its questions.
+  // to "Free/Purchased" for any test the logged-in student actually has access to.
+  // This is a UX convenience only — the real access check happens server-side
+  // (Supabase Row Level Security) when a test page itself tries to fetch its questions.
   renderCards([]);
   (async () => {
     const session = await getSession();

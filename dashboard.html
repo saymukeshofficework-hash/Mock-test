@@ -73,7 +73,10 @@
     const grid = document.getElementById('myTestsGrid');
     grid.innerHTML = '';
     TEST_CATALOG.forEach(t => {
+      const isFree = FREE_TESTS && FREE_TESTS.includes(t.id);
       const owned = purchasedTests.includes(t.id);
+      const hasAccess = isFree || owned;
+
       const card = document.createElement('div');
       card.className = 'card test-card';
       card.innerHTML = `
@@ -83,7 +86,7 @@
         <div class="cta"></div>
       `;
       const cta = card.querySelector('.cta');
-      if (owned) {
+      if (hasAccess) {
         const a = document.createElement('a');
         a.className = 'btn btn-primary btn-block';
         a.href = t.file;
@@ -93,7 +96,7 @@
         const a = document.createElement('a');
         a.className = 'btn btn-locked btn-block';
         a.href = 'tests.html';
-        a.textContent = '🔒 BUY TEST';
+        a.textContent = '🔒 BUY ALL 18';
         cta.appendChild(a);
       }
       grid.appendChild(card);

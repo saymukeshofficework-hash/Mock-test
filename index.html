@@ -90,28 +90,30 @@
 
       <section class="section" id="pricing">
         <h2>Pricing</h2>
-        <p class="lead">Simple, one-time pricing. Buy a single test, or unlock all 20 at once.</p>
+        <p class="lead">Simple, one-time pricing. Start free with 2 tests, then unlock all 20 for ₹199.</p>
         <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(240px,1fr));max-width:640px;margin:0 auto;">
           <div class="card pricing-card">
-            <h3>Single Test</h3>
-            <div class="price">₹<span id="priceTest">29</span></div>
+            <h3>Free Access</h3>
+            <div class="price">₹0</div>
             <ul>
-              <li>Any 1 full mock test</li>
-              <li>150 questions, 150 minutes</li>
+              <li>2 full mock tests</li>
+              <li>Test 01 & Test 02</li>
+              <li>300 questions, 150 minutes each</li>
               <li>Instant results</li>
             </ul>
-            <a class="btn btn-primary btn-block" href="tests.html">Choose a Test</a>
+            <a class="btn btn-primary btn-block" href="login.html">Get Started Free</a>
           </div>
           <div class="card pricing-card featured">
-            <span class="ribbon">Best Value</span>
-            <h3>All 20 Tests</h3>
-            <div class="price">₹<span id="priceAll20">199</span></div>
+            <span class="ribbon">18 More Tests</span>
+            <h3>All Tests (03-20)</h3>
+            <div class="price">₹<span id="priceAll18">199</span></div>
             <ul>
-              <li>All 20 full mock tests</li>
-              <li>3000 questions in total</li>
+              <li>18 additional tests</li>
+              <li>Tests 03-20</li>
+              <li>2700 questions total</li>
               <li>Instant results, every test</li>
             </ul>
-            <a class="btn btn-primary btn-block" href="tests.html#all20">Get All 20 Tests</a>
+            <a class="btn btn-primary btn-block" href="tests.html">Unlock All 18</a>
           </div>
         </div>
       </section>
@@ -155,8 +157,7 @@
 
 <script src="js/site-config.js"></script>
 <script>
-  document.getElementById('priceTest').textContent = PRICES.test;
-  document.getElementById('priceAll20').textContent = PRICES.all20;
+  document.getElementById('priceAll18').textContent = PRICES.all18;
 
   const grid = document.getElementById('testOverviewGrid');
   TEST_CATALOG.slice(0, 6).forEach(t => {

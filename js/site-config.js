@@ -26,37 +26,20 @@ const SITE_CONFIG = {
   studentEmailDomain: "students.tettesthub.app",
 };
 
-// All amounts in INR. Shown on the homepage and test catalogue.
+// Pricing: Test 01 & 02 are FREE. Tests 03-20 sold as one ₹199 bundle.
+// No individual test purchases — only free access or the full ₹199 bundle.
 const PRICES = {
-  test: 29,
-  all20: 199,
+  all18: 199,  // Tests 03-20 (18 tests total)
 };
 
-// Paste each test's Razorpay Payment Link here after creating it in your Razorpay
-// Dashboard (Payment Links -> Create Payment Link). One link per test, plus one for the
-// All-20 package. See ADMIN_INSTRUCTIONS.md.
+// Tests that are FREE for all logged-in students
+const FREE_TESTS = ["test01", "test02"];
+
+// Only ONE Razorpay Payment Link needed: for the "All 18 Tests" (test03-test20) bundle @ ₹199.
+// Test 01 & 02 are automatically free for all logged-in students.
+// Paste your Razorpay link here after creating it. See ADMIN_INSTRUCTIONS.md.
 const PAYMENT_LINKS = {
-  test01: "PASTE_RAZORPAY_LINK_HERE",
-  test02: "PASTE_RAZORPAY_LINK_HERE",
-  test03: "PASTE_RAZORPAY_LINK_HERE",
-  test04: "PASTE_RAZORPAY_LINK_HERE",
-  test05: "PASTE_RAZORPAY_LINK_HERE",
-  test06: "PASTE_RAZORPAY_LINK_HERE",
-  test07: "PASTE_RAZORPAY_LINK_HERE",
-  test08: "PASTE_RAZORPAY_LINK_HERE",
-  test09: "PASTE_RAZORPAY_LINK_HERE",
-  test10: "PASTE_RAZORPAY_LINK_HERE",
-  test11: "PASTE_RAZORPAY_LINK_HERE",
-  test12: "PASTE_RAZORPAY_LINK_HERE",
-  test13: "PASTE_RAZORPAY_LINK_HERE",
-  test14: "PASTE_RAZORPAY_LINK_HERE",
-  test15: "PASTE_RAZORPAY_LINK_HERE",
-  test16: "PASTE_RAZORPAY_LINK_HERE",
-  test17: "PASTE_RAZORPAY_LINK_HERE",
-  test18: "PASTE_RAZORPAY_LINK_HERE",
-  test19: "PASTE_RAZORPAY_LINK_HERE",
-  test20: "PASTE_RAZORPAY_LINK_HERE",
-  all20: "PASTE_RAZORPAY_ALL20_LINK_HERE",
+  all18: "PASTE_RAZORPAY_LINK_HERE",  // Tests 03-20 @ ₹199
 };
 
 // One row per test. `id` must match a key in PAYMENT_LINKS and the purchased_tests values

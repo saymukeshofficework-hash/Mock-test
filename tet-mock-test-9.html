@@ -158,8 +158,8 @@
   if (!session) return;
 
   const profile = await getProfile(session.user.id);
-  if (!profile || profile.status !== 'active' || !(profile.purchased_tests || []).includes(TEST_ID)) {
-    loadingEl.innerHTML = 'You have not purchased this test. <a href="tests.html">Buy it here</a>, or <a href="dashboard.html">go to your dashboard</a>.';
+  if (!profile || !canAccessTest(TEST_ID, profile)) {
+    loadingEl.innerHTML = 'You do not have access to this test. <a href="tests.html">View available tests</a>, or <a href="dashboard.html">go to your dashboard</a>.';
     return;
   }
 
