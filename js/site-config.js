@@ -7,9 +7,9 @@ const SITE_CONFIG = {
   tagline: "Prepare. Practice. Perform.",
 
   contact: {
-    whatsapp: "PASTE_WHATSAPP_NUMBER_HERE",   // e.g. "+91 90000 00000"
-    phone: "PASTE_PHONE_NUMBER_HERE",
-    email: "PASTE_CONTACT_EMAIL_HERE",
+    whatsapp: "+91 7999811316",
+    phone: "+91 7999811326",
+    email: "saymukeshofficework@gmail.com",
   },
 
   // From your Supabase project: Project Settings -> API.
