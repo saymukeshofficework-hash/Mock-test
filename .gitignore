@@ -5,3 +5,6 @@
 # ADMIN_INSTRUCTIONS.md.
 supabase/seed_tests.sql
 supabase/seed_split/
+
+# Python bytecode from skill scripts
+__pycache__/
