@@ -1,6 +1,6 @@
 // Central configuration for TET Test Hub.
-// Edit values here — nothing else needs to change when you update prices,
-// contact details, or Razorpay Payment Links. See ADMIN_INSTRUCTIONS.md.
+// Edit values here — nothing else needs to change when you update prices
+// or contact details. See ADMIN_INSTRUCTIONS.md.
 
 const SITE_CONFIG = {
   name: "TET Test Hub",
@@ -35,15 +35,8 @@ const PRICES = {
 // Tests that are FREE for all logged-in students
 const FREE_TESTS = ["test01", "test02"];
 
-// Only ONE Razorpay Payment Link needed: for the "All 18 Tests" (test03-test20) bundle @ ₹199.
-// Test 01 & 02 are automatically free for all logged-in students.
-// Paste your Razorpay link here after creating it. See ADMIN_INSTRUCTIONS.md.
-const PAYMENT_LINKS = {
-  all18: "https://rzp.io/rzp/PuwbvCy",  // Tests 03-20 @ ₹199
-};
-
-// One row per test. `id` must match a key in PAYMENT_LINKS and the purchased_tests values
-// you set in Supabase; `file` must match an actual tet-mock-test-N.html page.
+// One row per test. `id` must match the purchased_tests values you set in Supabase;
+// `file` must match an actual tet-mock-test-N.html page.
 const TEST_CATALOG = [
   { id: "test01", number: 1, file: "tet-mock-test-1.html", title: "TET Full Test 01", questions: 150, minutes: 150 },
   { id: "test02", number: 2, file: "tet-mock-test-2.html", title: "TET Full Test 02", questions: 150, minutes: 150 },
