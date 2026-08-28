@@ -35,8 +35,6 @@
         allow some time after sending your details.
       </p>
       <div class="card" id="contactCard" style="max-width:420px;">
-        <p style="margin:6px 0;"><strong>WhatsApp:</strong> <span id="cWhatsapp">-</span></p>
-        <p style="margin:6px 0;"><strong>Phone:</strong> <span id="cPhone">-</span></p>
         <p style="margin:6px 0;"><strong>Email:</strong> <span id="cEmail">-</span></p>
       </div>
     </section>
@@ -62,8 +60,6 @@
       el.textContent = value;
     }
   }
-  fillContact('cWhatsapp', SITE_CONFIG.contact.whatsapp);
-  fillContact('cPhone', SITE_CONFIG.contact.phone);
   fillContact('cEmail', SITE_CONFIG.contact.email);
 </script>
 </body>

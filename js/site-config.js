@@ -7,8 +7,6 @@ const SITE_CONFIG = {
   tagline: "Prepare. Practice. Perform.",
 
   contact: {
-    whatsapp: "+91 7999811316",
-    phone: "+91 7999811326",
     email: "saymukeshofficework@gmail.com",
   },
 

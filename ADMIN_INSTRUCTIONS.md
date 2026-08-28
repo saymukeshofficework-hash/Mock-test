@@ -44,10 +44,10 @@ The anon key is *meant* to be public — it's safe to commit. It cannot read or 
 anything beyond what `supabase/schema.sql`'s policies allow.
 
 ### 6. Fill in your contact details
-Edit `contact` in `js/site-config.js` (WhatsApp number, phone, email) — these appear on
-the Contact page, which is where the "🔒 Contact Us to Unlock" buttons on `tests.html`
-send students. There is no payment link on the site; students reach out to you directly
-and you arrange payment (UPI, bank transfer, cash, or whatever you prefer) yourself.
+Edit `contact` in `js/site-config.js` (email only) — this appears on the Contact page,
+which is where the "🔒 Contact Us to Unlock" buttons on `tests.html` send students.
+There is no payment link on the site; students email you directly and you arrange
+payment (UPI, bank transfer, cash, or whatever you prefer) yourself.
 
 ### 7. Deploy
 Commit and push (or merge the PR) to `main`. The existing GitHub Actions workflow
@@ -59,7 +59,7 @@ extra to run.
 ## Per-student workflow (repeat for every purchase)
 
 1. Student browses **All Tests**, clicks **🔒 Contact Us to Unlock**, and lands on the
-   Contact page with your WhatsApp/phone/email.
+   Contact page with your email address.
 2. Student reaches out to you directly to arrange payment (UPI, bank transfer, cash,
    or whatever method you prefer).
 3. **You confirm the payment yourself** — check your bank/UPI app or however you
