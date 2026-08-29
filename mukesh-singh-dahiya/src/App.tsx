@@ -1,10 +1,10 @@
-import { Route, Routes } from 'react-router-dom'
+import { Outlet, Route, Routes } from 'react-router-dom'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import ScrollToTop from './components/ScrollToTop'
 import ScrollReveal from './components/ScrollReveal'
+import CinematicHome from './cinematic/CinematicHome'
 
-import Home from './pages/Home'
 import About from './pages/About'
 import Classes from './pages/Classes'
 import ClassPage from './pages/ClassPage'
@@ -37,6 +37,19 @@ import Contact from './pages/Contact'
 import Dashboard from './pages/Dashboard'
 import NotFound from './pages/NotFound'
 
+/** Standard site chrome (header/footer) for every page except the cinematic home. */
+function SiteLayout() {
+  return (
+    <>
+      <Header />
+      <main id="main-content" className="flex-1">
+        <Outlet />
+      </main>
+      <Footer />
+    </>
+  )
+}
+
 export default function App() {
   return (
     <div className="flex min-h-screen flex-col">
@@ -45,10 +58,10 @@ export default function App() {
       <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:left-2 focus:top-2 focus:z-50 focus:rounded-lg focus:bg-white focus:px-4 focus:py-2 focus:shadow-card-lg">
         Skip to content
       </a>
-      <Header />
-      <main id="main-content" className="flex-1">
-        <Routes>
-          <Route path="/" element={<Home />} />
+      <Routes>
+        <Route path="/" element={<CinematicHome />} />
+
+        <Route element={<SiteLayout />}>
           <Route path="/about" element={<About />} />
 
           <Route path="/classes" element={<Classes />} />
@@ -90,9 +103,8 @@ export default function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="*" element={<NotFound />} />
-        </Routes>
-      </main>
-      <Footer />
+        </Route>
+      </Routes>
     </div>
   )
 }
