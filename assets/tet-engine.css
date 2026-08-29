@@ -1,6 +1,6 @@
   :root{
-    --blue:#e0651a; --blue-dark:#a8460f; --green:#3fa142; --red:#d9534f;
-    --grey:#9e9e9e; --purple:#7b3fa0; --lightblue:#fdece0; --border:#d7dde5;
+    --blue:#6b7280; --blue-dark:#3f454e; --green:#3fa142; --red:#d9534f;
+    --grey:#9e9e9e; --purple:#7b3fa0; --lightblue:#f0f1f3; --border:#d7dde5;
   }
   *{box-sizing:border-box;}
   body{margin:0;font-family:Arial,Segoe UI,Helvetica,sans-serif;background:#f2f4f7;color:#222;}
