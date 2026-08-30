@@ -42,7 +42,7 @@ const PRICES = {
 // Payment is still verified and Supabase accounts still created manually —
 // this only replaces "email us to arrange payment" with a proper checkout page.
 const PAYMENT_LINKS = {
-  all18: "PASTE_RAZORPAY_PAYMENT_LINK_HERE",
+  all18: "https://rzp.io/rzp/t7ENfTq",
 };
 
 // Tests that are FREE for all logged-in students
