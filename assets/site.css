@@ -153,7 +153,9 @@ footer.site-footer .links{margin-bottom:8px;}
 footer.site-footer .links a{margin:0 8px;text-decoration:none;color:var(--blue-dark);font-weight:600;}
 
 @media(max-width:480px){
-  header.site-header{justify-content:center;text-align:center;}
+  header.site-header .brand{order:1;}
+  header.site-header .lang-toggle{order:2;}
+  header.site-header nav{order:3;flex-basis:100%;justify-content:center;text-align:center;}
   .hero{padding:40px 12px 28px;}
   .dash-header{flex-direction:column;}
 }
