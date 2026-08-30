@@ -21,7 +21,9 @@ const I18N_DICT = {
 
   // ---------- index.html ----------
   hero_eyebrow: { hi: "20 पूर्ण-लंबाई द्विभाषी मॉक टेस्ट", en: "20 Full-Length Bilingual Mock Tests" },
+  hero_h1: { hi: "टीईटी मॉक टेस्ट और ऑनलाइन प्रैक्टिस टेस्ट", en: "TET Mock Tests & Online Practice Tests" },
   hero_tagline: { hi: "तैयारी करें। अभ्यास करें। प्रदर्शन करें।", en: "Prepare. Practice. Perform." },
+  hero_intro: { hi: "वास्तविक ऑनलाइन मॉक टेस्ट, अभ्यास प्रश्नों और प्रदर्शन विश्लेषण के साथ टीईटी की तैयारी करें। 2 पूरे टेस्ट बिल्कुल मुफ्त से शुरू करें।", en: "Prepare for TET with realistic online mock tests, practice questions and performance analysis. Start with 2 full tests absolutely free." },
   hero_cta_free: { hi: "2 मुफ्त टेस्ट आज़माएं", en: "Try 2 Free Tests" },
   hero_cta_login: { hi: "छात्र लॉगिन", en: "Student Login" },
 
@@ -63,6 +65,19 @@ const I18N_DICT = {
   overview_seeall_btn: { hi: "सभी 20 टेस्ट देखें", en: "See All 20 Tests" },
   overview_more_suffix: { hi: "और टेस्ट", en: "more tests" },
   overview_viewall_link: { hi: "सभी देखें →", en: "View all →" },
+
+  provides_h2: { hi: "टीईटी टेस्ट हब क्या प्रदान करता है", en: "What TET Test Hub Provides" },
+  provides_p1: {
+    hi: "टीईटी टेस्ट हब असली परीक्षा पैटर्न जैसे ऑनलाइन टीईटी मॉक टेस्ट और अभ्यास प्रश्न अंग्रेज़ी और हिंदी दोनों में देता है। हर टेस्ट का परिणाम तुरंत खंड-वार मिलता है, ताकि आप जमा करते ही अपना प्रदर्शन जांच सकें और परीक्षा से पहले अपनी तैयारी की स्थिति समझ सकें।",
+    en: "TET Test Hub offers online TET mock tests and practice questions that mirror the real exam format, in English and Hindi. Each test is scored instantly with a section-wise breakdown, so you can check your performance right after submitting and see exactly where you stand before exam day.",
+  },
+
+  help_h2: { hi: "टीईटी मॉक टेस्ट कैसे मदद करते हैं", en: "How TET Mock Tests Help" },
+  help_intro: { hi: "नियमित रूप से पूर्ण-लंबाई मॉक टेस्ट देना टीईटी की तैयारी के सबसे प्रभावी तरीकों में से एक है:", en: "Taking full-length mock tests regularly is one of the most effective ways to prepare for TET:" },
+  help_li1: { hi: "असली परीक्षा जैसी 150 मिनट की समय-सीमा में अभ्यास करें", en: "Practice under the same 150-minute timed conditions as the real exam" },
+  help_li2: { hi: "कमज़ोर खंडों की पहचान करें ताकि पता चले कि क्या दोहराना है", en: "Identify weak sections so you know exactly what to revise" },
+  help_li3: { hi: "हर बार नए प्रश्नों का अभ्यास करके गति और सटीकता बढ़ाएं", en: "Build speed and accuracy by attempting fresh questions each time" },
+  help_li4: { hi: "खंड-वार अंकों से अपनी वर्तमान तैयारी का स्तर समझें", en: "Track your section-wise scores to understand your current preparation level" },
 
   pricing_h2: { hi: "मूल्य", en: "Pricing" },
   pricing_lead: { hi: "सरल, एकमुश्त मूल्य। 2 मुफ्त टेस्ट से शुरू करें, फिर सभी 20 को ₹199 में अनलॉक करें।", en: "Simple, one-time pricing. Start free with 2 tests, then unlock all 20 for ₹199." },

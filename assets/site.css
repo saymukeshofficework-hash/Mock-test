@@ -73,7 +73,8 @@ header.site-header nav a:hover:not(.active){background:rgba(255,255,255,.28);}
   padding:6px 14px;border-radius:20px;margin-bottom:18px;
 }
 .hero h1{margin:0 0 12px;font-size:clamp(28px,4.5vw,42px);font-weight:800;letter-spacing:-.5px;color:var(--blue-dark);}
-.hero p.tagline{margin:0 auto 26px;max-width:520px;font-size:16px;color:var(--muted);line-height:1.5;}
+.hero p.tagline{margin:0 auto 10px;max-width:520px;font-size:16px;color:var(--muted);line-height:1.5;}
+.hero p.intro{margin:0 auto 26px;max-width:560px;font-size:14.5px;color:var(--muted);line-height:1.6;}
 .hero .hero-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
 
 /* ---------- Cards / grid ---------- */
@@ -116,7 +117,7 @@ header.site-header nav a:hover:not(.active){background:rgba(255,255,255,.28);}
 .benefits-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;}
 .benefit{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px;}
 .benefit .icon{font-size:22px;margin-bottom:8px;}
-.benefit h4{margin:0 0 6px;font-size:15px;}
+.benefit h3{margin:0 0 6px;font-size:15px;}
 .benefit p{margin:0;font-size:13px;color:var(--muted);}
 
 /* ---------- FAQ (native <details>, no JS needed) ---------- */
