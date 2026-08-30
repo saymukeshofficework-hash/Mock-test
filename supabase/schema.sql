@@ -13,7 +13,9 @@
 --   * profiles.id = auth.users.id (one profile row per login).
 --   * test_content holds the actual exam questions. Row Level Security is the real
 --     access-control boundary: a browser can only fetch a test's questions if the logged-in
---     user's profile lists that test in purchased_tests AND is active. This is enforced by
+--     user's profile lists that test in purchased_tests AND is active — except test01 and
+--     test02, which are free and openly readable by anyone, logged in or not (no login wall
+--     on the free tests, matching FREE_TESTS in js/site-config.js). This is enforced by
 --     Postgres itself, not by JavaScript, so hiding a "Start Test" button is not what
 --     protects the content — this policy is.
 --   * No INSERT/UPDATE/DELETE policies are defined for students on either table. Only you,
@@ -48,13 +50,15 @@ create policy "profiles_select_own"
   on profiles for select
   using (id = auth.uid());
 
--- A logged-in student may read a test's questions only if it's in their purchased_tests
--- and their account is active. Anonymous (not logged in) requests never match this policy.
+-- test01 and test02 are free and readable by anyone (no login required) to match the
+-- "try 2 free tests" flow on the home page. Every other test requires a logged-in,
+-- active student whose purchased_tests includes that test.
 drop policy if exists "test_content_select_purchased" on test_content;
 create policy "test_content_select_purchased"
   on test_content for select
   using (
-    exists (
+    test_content.test_id in ('test01', 'test02')
+    or exists (
       select 1 from profiles p
       where p.id = auth.uid()
         and p.status = 'active'

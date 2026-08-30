@@ -20,7 +20,7 @@
 
   <!-- ACCESS CHECK / LOADING SCREEN -->
   <div id="loadingScreen" style="background:#fff;margin:16px;border:1px solid var(--border);padding:30px 20px;text-align:center;max-width:420px;margin-left:auto;margin-right:auto;">
-    Checking your access&hellip;
+    Loading test&hellip;
   </div>
 
   <!-- NAME ENTRY SCREEN -->
@@ -152,17 +152,9 @@
 <script src="assets/tet-engine.js"></script>
 <script>
 (async () => {
+  // test01 is one of the two free tests — no login required, just a name.
   const TEST_ID = "test01";
   const loadingEl = document.getElementById('loadingScreen');
-
-  const session = await requireAuth(); // redirects to login.html?next=... if not logged in
-  if (!session) return;
-
-  const profile = await getProfile(session.user.id);
-  if (!profile || !canAccessTest(TEST_ID, profile)) {
-    loadingEl.innerHTML = 'You do not have access to this test. <a href="tests.html">View available tests</a>, or <a href="dashboard.html">go to your dashboard</a>.';
-    return;
-  }
 
   const { data, error } = await supabaseClient
     .from('test_content')
@@ -177,9 +169,7 @@
 
   initExam(data.questions);
   loadingEl.style.display = 'none';
-  const nameScreen = document.getElementById('nameScreen');
-  nameScreen.style.display = 'block';
-  document.getElementById('candidateNameInput').value = profile.full_name || '';
+  document.getElementById('nameScreen').style.display = 'block';
 })();
 </script>
 </body>
