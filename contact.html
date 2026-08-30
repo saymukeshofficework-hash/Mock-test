@@ -38,6 +38,8 @@
       </p>
       <div class="card" id="contactCard" style="max-width:420px;">
         <p style="margin:6px 0;"><strong data-i18n="contact_email_label">Email:</strong> <span id="cEmail">-</span></p>
+        <p style="margin:14px 0 6px;"><strong data-i18n="contact_phone_label">WhatsApp / Call:</strong></p>
+        <div id="cPhones" style="display:flex;flex-direction:column;gap:6px;margin:4px 0 0;"></div>
       </div>
     </section>
   </main>
@@ -63,6 +65,24 @@
     }
   }
   fillContact('cEmail', SITE_CONFIG.contact.email);
+
+  const phonesEl = document.getElementById('cPhones');
+  function renderPhones() {
+    phonesEl.innerHTML = '';
+    (SITE_CONFIG.contact.phones || []).forEach((p) => {
+      const row = document.createElement('div');
+      row.style.cssText = 'display:flex;gap:8px;align-items:center;';
+      row.innerHTML = `
+        <span>${p.display}</span>
+        <a class="btn btn-secondary" style="padding:4px 12px;font-size:12px;" href="https://wa.me/${p.wa}" target="_blank" rel="noopener">${t('contact_whatsapp_btn')}</a>
+        <a class="btn btn-secondary" style="padding:4px 12px;font-size:12px;" href="tel:+${p.wa}">${t('contact_call_btn')}</a>
+      `;
+      phonesEl.appendChild(row);
+    });
+  }
+  renderPhones();
+  I18N_ONCHANGE = renderPhones;
+
   applyI18n();
 </script>
 </body>

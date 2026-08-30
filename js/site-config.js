@@ -8,6 +8,12 @@ const SITE_CONFIG = {
 
   contact: {
     email: "saymukeshofficework@gmail.com",
+    // Each number is shown as both a WhatsApp chat link and a Call link.
+    // "wa" is the number with country code, no + or spaces (required by wa.me).
+    phones: [
+      { display: "9179056016", wa: "919179056016" },
+      { display: "7999811326", wa: "917999811326" },
+    ],
   },
 
   // From your Supabase project: Project Settings -> API.
@@ -28,6 +34,15 @@ const SITE_CONFIG = {
 // No individual test purchases — only free access or the full ₹199 bundle.
 const PRICES = {
   all18: 199,  // Tests 03-20 (18 tests total)
+};
+
+// Razorpay Payment Link for the ₹199 bundle. Create this in your Razorpay
+// Dashboard -> Payment Links -> Create Payment Link (see ADMIN_INSTRUCTIONS.md
+// for the exact steps), then paste the resulting https://rzp.io/... URL here.
+// Payment is still verified and Supabase accounts still created manually —
+// this only replaces "email us to arrange payment" with a proper checkout page.
+const PAYMENT_LINKS = {
+  all18: "PASTE_RAZORPAY_PAYMENT_LINK_HERE",
 };
 
 // Tests that are FREE for all logged-in students

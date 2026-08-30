@@ -47,7 +47,7 @@
           <li data-i18n="bundle_li3">Plus 2 free tests (01 & 02)</li>
           <li data-i18n="bundle_li4">Instant results, every test</li>
         </ul>
-        <a class="btn btn-primary btn-block" href="contact.html" data-i18n="bundle_btn">🔒 Contact Us to Unlock</a>
+        <a class="btn btn-primary btn-block" id="bundleBuyBtn" href="contact.html" target="_blank" rel="noopener" data-i18n="bundle_btn">🔓 Buy Now – ₹199</a>
       </div>
 
       <div class="grid" id="testGrid"></div>
@@ -69,6 +69,14 @@
 <script src="js/auth.js"></script>
 <script>
   document.getElementById('priceAll18').textContent = PRICES.all18;
+
+  // Falls back to the Contact page if the Razorpay Payment Link hasn't been
+  // set up yet in js/site-config.js (still shows a placeholder URL).
+  function buyLinkHref() {
+    const link = PAYMENT_LINKS && PAYMENT_LINKS.all18;
+    return (link && link.indexOf('PASTE_') !== 0) ? link : 'contact.html';
+  }
+  document.getElementById('bundleBuyBtn').href = buyLinkHref();
 
   const DOC_ICON = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M6 2h9l5 5v15H6V2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 13h6M9 17h6M9 9h2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
   const CLOCK_ICON = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/><path d="M12 7v5l3 3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
@@ -108,10 +116,12 @@
         a.textContent = t('card_start_btn');
         cta.appendChild(a);
       } else {
-        // Tests 03-20: send the student to the Contact page to arrange payment
+        // Tests 03-20: send the student straight to the Razorpay Payment Link
         const a = document.createElement('a');
         a.className = 'btn btn-locked btn-block';
-        a.href = 'contact.html';
+        a.href = buyLinkHref();
+        a.target = '_blank';
+        a.rel = 'noopener';
         a.textContent = t('card_contact_btn');
         cta.appendChild(a);
       }

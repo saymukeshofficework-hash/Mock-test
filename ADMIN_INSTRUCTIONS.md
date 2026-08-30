@@ -1,8 +1,9 @@
 # TET Test Hub — Admin Instructions
 
-This is the manual workflow for running TET Test Hub: students contact you directly to
-arrange payment, you verify it yourself, and you create their account by hand. There is
-no payment link and no automated payment processing anywhere in this system.
+This is a semi-manual workflow for running TET Test Hub: students pay through a Razorpay
+Payment Link (a hosted checkout page — no backend or API integration on this site), you
+verify the payment yourself in the Razorpay dashboard, and you create their account by
+hand. There is no automated account creation anywhere in this system.
 
 ## One-time setup
 
@@ -44,12 +45,40 @@ The anon key is *meant* to be public — it's safe to commit. It cannot read or 
 anything beyond what `supabase/schema.sql`'s policies allow.
 
 ### 6. Fill in your contact details
-Edit `contact` in `js/site-config.js` (email only) — this appears on the Contact page,
-which is where the "🔒 Contact Us to Unlock" buttons on `tests.html` send students.
-There is no payment link on the site; students email you directly and you arrange
-payment (UPI, bank transfer, cash, or whatever you prefer) yourself.
+Edit `contact` in `js/site-config.js` — email plus the WhatsApp/call numbers you want
+shown on the Contact page. `phones` is a list of `{ display, wa }` objects: `display` is
+what's shown on the page, `wa` is the same number with the country code and no `+` or
+spaces (required for `wa.me` links), e.g. `{ display: "9179056016", wa: "919179056016" }`.
 
-### 7. Deploy
+### 7. Create your Razorpay Payment Link
+This is the one thing that has to be done through Razorpay's own dashboard — there's no
+API key or backend involved, just a link you paste into the site.
+
+1. Go to [dashboard.razorpay.com](https://dashboard.razorpay.com) and sign up (or log
+   in). You'll need to complete KYC/account activation before you can accept **live**
+   payments — until then, Razorpay lets you test the flow in Test Mode.
+2. In the left sidebar: **Payment Links -> + Create Payment Link**.
+3. Fill in:
+   - **Amount**: `199` (INR).
+   - **Description**: something like "TET Test Hub — Unlock 18 Mock Tests".
+   - Under **Customer Details**, turn on collecting **Name**, **Email**, and **Contact
+     Number** — this is how you'll know who paid, since there's no automated link back
+     to a student account.
+   - You can leave **Partial Payment** off and skip any redirect/webhook URL — this site
+     doesn't need one; you just check the dashboard for new payments.
+4. Click **Create Link**. Razorpay gives you a URL like `https://rzp.io/l/abcd1234`.
+5. Paste that URL into `js/site-config.js`:
+   ```js
+   const PAYMENT_LINKS = {
+     all18: "https://rzp.io/l/abcd1234",
+   };
+   ```
+   Until you do this, the "Buy Now" buttons on `tests.html` fall back to the Contact
+   page automatically (the code checks for the `PASTE_` placeholder).
+6. Switch Razorpay from Test Mode to Live Mode (once KYC is approved) so real payments
+   go through, and double check the Payment Link still works after switching.
+
+### 8. Deploy
 Commit and push (or merge the PR) to `main`. The existing GitHub Actions workflow
 (`.github/workflows/deploy.yml`) builds and publishes the site automatically — nothing
 extra to run.
@@ -58,13 +87,12 @@ extra to run.
 
 ## Per-student workflow (repeat for every purchase)
 
-1. Student browses **All Tests**, clicks **🔒 Contact Us to Unlock**, and lands on the
-   Contact page with your email address.
-2. Student reaches out to you directly to arrange payment (UPI, bank transfer, cash,
-   or whatever method you prefer).
-3. **You confirm the payment yourself** — check your bank/UPI app or however you
-   collected it. This is the only "verification" step; there is no automated check.
-4. **Create the student's login**, in Supabase:
+1. Student browses **All Tests** and clicks **🔓 Buy Now — ₹199**, which opens your
+   Razorpay Payment Link in a new tab and pays there.
+2. **You confirm the payment yourself** in the Razorpay dashboard (**Payment Links** or
+   **Payments**) — check the customer name/email/contact you collected on the link. This
+   is the only "verification" step; there is no automated check or webhook.
+3. **Create the student's login**, in Supabase:
    - **Authentication -> Users -> Add user**
      - Email: `<studentid>@students.tettesthub.app` (lowercase; must match
        `studentEmailDomain` in `js/site-config.js`) — e.g. a student ID of `TET26001`
@@ -81,8 +109,8 @@ extra to run.
        `{test01,test02,...,test20}` for all 20 (test IDs come from `TEST_CATALOG` in
        `js/site-config.js`).
      - `status`: `active`.
-5. Send the student their **Student ID** and **Password**.
-6. Student logs in at `login.html` and sees their purchased test(s) unlocked on
+4. Send the student their **Student ID** and **Password**.
+5. Student logs in at `login.html` and sees their purchased test(s) unlocked on
    `dashboard.html` / `tests.html`.
 
 ### Changing what a student can access later
@@ -92,7 +120,9 @@ Edit their row in **Table Editor -> profiles**:
   working) without deleting their account or history.
 
 ### Changing prices
-Edit `PRICES` in `js/site-config.js`, commit, push. No other file needs to change.
+Edit `PRICES` in `js/site-config.js` **and** the ₹199 amount on the Razorpay Payment
+Link itself (Payment Links can't be edited after creation — create a new one and update
+`PAYMENT_LINKS.all18` in `js/site-config.js` to match). Commit and push the code change.
 
 ## Never do this
 - Never put your Supabase **service_role** key anywhere in this repository or website —

@@ -107,7 +107,7 @@ const I18N_DICT = {
   bundle_li2: { hi: "कुल 2700 प्रश्न", en: "2700 questions in total" },
   bundle_li3: { hi: "साथ में 2 मुफ्त टेस्ट (01 और 02)", en: "Plus 2 free tests (01 & 02)" },
   bundle_li4: { hi: "हर टेस्ट में तुरंत परिणाम", en: "Instant results, every test" },
-  bundle_btn: { hi: "🔒 अनलॉक हेतु संपर्क करें", en: "🔒 Contact Us to Unlock" },
+  bundle_btn: { hi: "🔓 अभी खरीदें – ₹199", en: "🔓 Buy Now – ₹199" },
   card_full_mock: { hi: "पूर्ण मॉक टेस्ट", en: "Full Mock Test" },
   card_questions_suffix: { hi: "प्रश्न", en: "Questions" },
   card_minutes_suffix: { hi: "मिनट", en: "Minutes" },
@@ -115,7 +115,7 @@ const I18N_DICT = {
   card_purchased_badge: { hi: "✅ खरीदा गया", en: "✅ Purchased" },
   card_locked_badge: { hi: "🔒 उपलब्ध नहीं", en: "🔒 Not available" },
   card_start_btn: { hi: "टेस्ट शुरू करें", en: "START TEST" },
-  card_contact_btn: { hi: "🔒 अनलॉक हेतु संपर्क करें", en: "🔒 CONTACT TO UNLOCK" },
+  card_contact_btn: { hi: "🔓 अभी खरीदें", en: "🔓 BUY NOW" },
 
   // ---------- about.html ----------
   about_page_h2: { hi: "टीईटी टेस्ट हब के बारे में", en: "About TET Test Hub" },
@@ -139,6 +139,9 @@ const I18N_DICT = {
     en: "After payment, contact us with your payment details (screenshot or order ID) to receive your Student ID and Password. We verify each payment manually, so please allow some time after sending your details.",
   },
   contact_email_label: { hi: "ईमेल:", en: "Email:" },
+  contact_phone_label: { hi: "व्हाट्सएप / कॉल:", en: "WhatsApp / Call:" },
+  contact_whatsapp_btn: { hi: "व्हाट्सएप", en: "WhatsApp" },
+  contact_call_btn: { hi: "कॉल करें", en: "Call" },
   contact_coming_soon: { hi: "जल्द आ रहा है", en: "Coming soon" },
 
   // ---------- login.html ----------
