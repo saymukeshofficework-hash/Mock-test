@@ -8,6 +8,7 @@
 <meta name="description" content="Browse all 20 TET full mock tests. Buy a single test or the full 20-test package.">
 <link rel="icon" href="data:,">
 <link rel="stylesheet" href="assets/site.css">
+<script src="js/i18n.js"></script>
 <style>
   .buy-note{max-width:640px;margin:0 auto 24px;}
 </style>
@@ -22,30 +23,31 @@
       TET Test Hub
     </a>
     <nav>
-      <a href="index.html">Home</a>
-      <a href="tests.html" class="active">All Tests</a>
-      <a href="login.html">Student Login</a>
-      <a href="about.html">About</a>
-      <a href="contact.html">Contact</a>
+      <a href="index.html" data-i18n="nav_home">Home</a>
+      <a href="tests.html" class="active" data-i18n="nav_tests">All Tests</a>
+      <a href="login.html" data-i18n="nav_login">Student Login</a>
+      <a href="about.html" data-i18n="nav_about">About</a>
+      <a href="contact.html" data-i18n="nav_contact">Contact</a>
     </nav>
+    <button class="lang-toggle" id="langToggle" onclick="toggleLang()">EN</button>
   </header>
 
   <main class="container">
     <section class="section">
-      <h2>All TET Mock Tests</h2>
-      <p class="lead">Tests 01 & 02 are <strong>FREE</strong> for all students. Tests 03-20 available in a single ₹199 bundle. Each test has 150 questions across 5 sections, bilingual (English/Hindi), 150 minutes.</p>
+      <h2 data-i18n="tests_h2">All TET Mock Tests</h2>
+      <p class="lead" data-i18n-html="tests_lead">Tests 01 & 02 are <strong>FREE</strong> for all students. Tests 03-20 available in a single ₹199 bundle. Each test has 150 questions across 5 sections, bilingual (English/Hindi), 150 minutes.</p>
 
       <div id="all18" class="card pricing-card" style="max-width:340px;margin:0 auto 36px;">
-        <span class="ribbon">18 Additional Tests</span>
-        <h3>All Tests (03-20)</h3>
+        <span class="ribbon" data-i18n="bundle_ribbon">18 Additional Tests</span>
+        <h3 data-i18n="bundle_title">All Tests (03-20)</h3>
         <div class="price">₹<span id="priceAll18">199</span></div>
         <ul>
-          <li>18 additional full mock tests</li>
-          <li>2700 questions in total</li>
-          <li>Plus 2 free tests (01 & 02)</li>
-          <li>Instant results, every test</li>
+          <li data-i18n="bundle_li1">18 additional full mock tests</li>
+          <li data-i18n="bundle_li2">2700 questions in total</li>
+          <li data-i18n="bundle_li3">Plus 2 free tests (01 & 02)</li>
+          <li data-i18n="bundle_li4">Instant results, every test</li>
         </ul>
-        <a class="btn btn-primary btn-block" href="contact.html">🔒 Contact Us to Unlock</a>
+        <a class="btn btn-primary btn-block" href="contact.html" data-i18n="bundle_btn">🔒 Contact Us to Unlock</a>
       </div>
 
       <div class="grid" id="testGrid"></div>
@@ -54,12 +56,12 @@
 
   <footer class="site-footer">
     <div class="links">
-      <a href="index.html">Home</a>
-      <a href="login.html">Student Login</a>
-      <a href="about.html">About</a>
-      <a href="contact.html">Contact</a>
+      <a href="index.html" data-i18n="nav_home">Home</a>
+      <a href="login.html" data-i18n="nav_login">Student Login</a>
+      <a href="about.html" data-i18n="nav_about">About</a>
+      <a href="contact.html" data-i18n="nav_contact">Contact</a>
     </div>
-    TET Test Hub &mdash; free-to-browse, paid mock tests for Teacher Eligibility Test aspirants.
+    <span data-i18n="footer_tagline">TET Test Hub &mdash; free-to-browse, paid mock tests for Teacher Eligibility Test aspirants.</span>
   </footer>
 
 <script src="assets/vendor/supabase/supabase.js"></script>
@@ -72,26 +74,28 @@
   const CLOCK_ICON = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/><path d="M12 7v5l3 3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
 
   const grid = document.getElementById('testGrid');
+  let lastPurchasedTests = [];
 
   function renderCards(purchasedTests) {
+    lastPurchasedTests = purchasedTests || [];
     grid.innerHTML = '';
-    TEST_CATALOG.forEach(t => {
-      const isFree = FREE_TESTS && FREE_TESTS.includes(t.id);
-      const owned = purchasedTests && purchasedTests.includes(t.id);
+    TEST_CATALOG.forEach(item => {
+      const isFree = FREE_TESTS && FREE_TESTS.includes(item.id);
+      const owned = lastPurchasedTests.includes(item.id);
       const hasAccess = isFree || owned;
 
       const card = document.createElement('div');
       card.className = 'card test-card';
       card.innerHTML = `
-        <div class="badge">${t.number}</div>
-        <h3>${t.title}</h3>
-        <p class="desc">Full Mock Test</p>
+        <div class="badge">${item.number}</div>
+        <h3>${item.title}</h3>
+        <p class="desc">${t('card_full_mock')}</p>
         <div class="meta-row">
-          <span class="meta">${DOC_ICON} ${t.questions} Questions</span>
-          <span class="meta">${CLOCK_ICON} ${t.minutes} Minutes</span>
+          <span class="meta">${DOC_ICON} ${item.questions} ${t('card_questions_suffix')}</span>
+          <span class="meta">${CLOCK_ICON} ${item.minutes} ${t('card_minutes_suffix')}</span>
         </div>
         <div class="${hasAccess ? 'status-owned' : 'status-locked'}">
-          ${isFree ? '✅ FREE' : (owned ? '✅ Purchased' : '🔒 Not available')}
+          ${isFree ? t('card_free_badge') : (owned ? t('card_purchased_badge') : t('card_locked_badge'))}
         </div>
         <div class="cta"></div>
       `;
@@ -100,26 +104,29 @@
       if (hasAccess) {
         const a = document.createElement('a');
         a.className = 'btn btn-primary btn-block';
-        a.href = t.file;
-        a.textContent = 'START TEST';
+        a.href = item.file;
+        a.textContent = t('card_start_btn');
         cta.appendChild(a);
       } else {
         // Tests 03-20: send the student to the Contact page to arrange payment
         const a = document.createElement('a');
         a.className = 'btn btn-locked btn-block';
         a.href = 'contact.html';
-        a.textContent = '🔒 CONTACT TO UNLOCK';
+        a.textContent = t('card_contact_btn');
         cta.appendChild(a);
       }
       grid.appendChild(card);
     });
   }
 
+  I18N_ONCHANGE = () => renderCards(lastPurchasedTests);
+
   // Cards render as locked immediately (no flash of wrong state), then upgrade
   // to "Free/Purchased" for any test the logged-in student actually has access to.
   // This is a UX convenience only — the real access check happens server-side
   // (Supabase Row Level Security) when a test page itself tries to fetch its questions.
   renderCards([]);
+  applyI18n();
   (async () => {
     const session = await getSession();
     if (!session) return;

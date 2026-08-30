@@ -7,6 +7,7 @@
 <meta name="description" content="About TET Test Hub — 20 full-length bilingual TET mock tests for Teacher Eligibility Test aspirants.">
 <link rel="icon" href="data:,">
 <link rel="stylesheet" href="assets/site.css">
+<script src="js/i18n.js"></script>
 </head>
 <body>
 
@@ -18,43 +19,45 @@
       TET Test Hub
     </a>
     <nav>
-      <a href="index.html">Home</a>
-      <a href="tests.html">All Tests</a>
-      <a href="login.html">Student Login</a>
-      <a href="about.html" class="active">About</a>
-      <a href="contact.html">Contact</a>
+      <a href="index.html" data-i18n="nav_home">Home</a>
+      <a href="tests.html" data-i18n="nav_tests">All Tests</a>
+      <a href="login.html" data-i18n="nav_login">Student Login</a>
+      <a href="about.html" class="active" data-i18n="nav_about">About</a>
+      <a href="contact.html" data-i18n="nav_contact">Contact</a>
     </nav>
+    <button class="lang-toggle" id="langToggle" onclick="toggleLang()">EN</button>
   </header>
 
   <main class="container">
     <section class="section" style="max-width:720px;">
-      <h2>About TET Test Hub</h2>
-      <p class="lead">
+      <h2 data-i18n="about_page_h2">About TET Test Hub</h2>
+      <p class="lead" data-i18n="about_page_p1">
         TET Test Hub was built for one purpose: to give Teacher Eligibility Test aspirants
         realistic, full-length practice under exam-like conditions.
       </p>
-      <p>
+      <p data-i18n="about_page_p2">
         Every mock test follows the real TET pattern — 150 questions across Child
         Development &amp; Pedagogy, Language-1 (English), Language-2 (Hindi), Mathematics
         and Environmental Studies, completed in 150 minutes with a live timer, a question
         palette, and an instant section-wise result at the end. Every question can be read
         in English or Hindi.
       </p>
-      <p>
-        We keep things simple: buy a single test or the full 20-test pack, and once your
-        payment is verified you get a Student ID and password to log in and start
-        practicing straight away.
+      <p data-i18n="about_page_p3">
+        We keep things simple: Test 01 & 02 are free, and the remaining 18 tests are one
+        ₹199 bundle. Once your payment is verified you get a Student ID and password to
+        log in and start practicing straight away.
       </p>
     </section>
   </main>
 
   <footer class="site-footer">
     <div class="links">
-      <a href="index.html">Home</a>
-      <a href="tests.html">All Tests</a>
-      <a href="contact.html">Contact</a>
+      <a href="index.html" data-i18n="nav_home">Home</a>
+      <a href="tests.html" data-i18n="nav_tests">All Tests</a>
+      <a href="contact.html" data-i18n="nav_contact">Contact</a>
     </div>
-    TET Test Hub &mdash; free-to-browse, paid mock tests for Teacher Eligibility Test aspirants.
+    <span data-i18n="footer_tagline">TET Test Hub &mdash; free-to-browse, paid mock tests for Teacher Eligibility Test aspirants.</span>
   </footer>
+<script>applyI18n();</script>
 </body>
 </html>

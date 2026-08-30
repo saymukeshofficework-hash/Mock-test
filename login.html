@@ -8,6 +8,7 @@
 <meta name="description" content="Log in with your Student ID and password to access your purchased TET mock tests.">
 <link rel="icon" href="data:,">
 <link rel="stylesheet" href="assets/site.css">
+<script src="js/i18n.js"></script>
 </head>
 <body>
 
@@ -19,50 +20,53 @@
       TET Test Hub
     </a>
     <nav>
-      <a href="index.html">Home</a>
-      <a href="tests.html">All Tests</a>
-      <a href="login.html" class="active">Student Login</a>
-      <a href="about.html">About</a>
-      <a href="contact.html">Contact</a>
+      <a href="index.html" data-i18n="nav_home">Home</a>
+      <a href="tests.html" data-i18n="nav_tests">All Tests</a>
+      <a href="login.html" class="active" data-i18n="nav_login">Student Login</a>
+      <a href="about.html" data-i18n="nav_about">About</a>
+      <a href="contact.html" data-i18n="nav_contact">Contact</a>
     </nav>
+    <button class="lang-toggle" id="langToggle" onclick="toggleLang()">EN</button>
   </header>
 
   <main>
     <div class="form-card">
-      <h1>Student Login</h1>
-      <p class="sub">Log in with the Student ID and password you received after purchase.</p>
+      <h1 data-i18n="login_h1">Student Login</h1>
+      <p class="sub" data-i18n="login_sub">Log in with the Student ID and password you received after purchase.</p>
 
       <div id="formAlert" class="alert alert-error" style="display:none;"></div>
 
       <form id="loginForm">
         <div class="field">
-          <label for="studentId">Student ID</label>
-          <input type="text" id="studentId" autocomplete="username" placeholder="e.g. TET26001" required>
+          <label for="studentId" data-i18n="login_studentid_label">Student ID</label>
+          <input type="text" id="studentId" autocomplete="username" placeholder="e.g. TET26001" data-i18n-placeholder="login_studentid_placeholder" required>
         </div>
         <div class="field">
-          <label for="password">Password</label>
+          <label for="password" data-i18n="login_password_label">Password</label>
           <input type="password" id="password" autocomplete="current-password" required>
         </div>
-        <button type="submit" class="btn btn-primary btn-block" id="loginBtn">LOGIN</button>
+        <button type="submit" class="btn btn-primary btn-block" id="loginBtn" data-i18n="login_btn">LOGIN</button>
       </form>
 
-      <p class="form-note">Don't have login credentials? <a href="tests.html">Purchase a test</a> and <a href="contact.html">contact us</a> after payment.</p>
+      <p class="form-note" data-i18n-html="login_note">Don't have login credentials? <a href="tests.html">Purchase a test</a> and <a href="contact.html">contact us</a> after payment.</p>
     </div>
   </main>
 
   <footer class="site-footer">
     <div class="links">
-      <a href="index.html">Home</a>
-      <a href="tests.html">All Tests</a>
-      <a href="contact.html">Contact</a>
+      <a href="index.html" data-i18n="nav_home">Home</a>
+      <a href="tests.html" data-i18n="nav_tests">All Tests</a>
+      <a href="contact.html" data-i18n="nav_contact">Contact</a>
     </div>
-    TET Test Hub &mdash; free-to-browse, paid mock tests for Teacher Eligibility Test aspirants.
+    <span data-i18n="footer_tagline">TET Test Hub &mdash; free-to-browse, paid mock tests for Teacher Eligibility Test aspirants.</span>
   </footer>
 
 <script src="assets/vendor/supabase/supabase.js"></script>
 <script src="js/site-config.js"></script>
 <script src="js/auth.js"></script>
 <script>
+  applyI18n();
+
   function nextUrl() {
     const params = new URLSearchParams(location.search);
     const next = params.get('next');
@@ -82,7 +86,7 @@
     e.preventDefault();
     alertBox.style.display = 'none';
     loginBtn.disabled = true;
-    loginBtn.textContent = 'Logging in…';
+    loginBtn.textContent = t('login_btn_loading');
 
     const studentId = document.getElementById('studentId').value;
     const password = document.getElementById('password').value;
@@ -92,7 +96,7 @@
       alertBox.textContent = result.message;
       alertBox.style.display = 'block';
       loginBtn.disabled = false;
-      loginBtn.textContent = 'LOGIN';
+      loginBtn.textContent = t('login_btn');
       return;
     }
     location.href = nextUrl();

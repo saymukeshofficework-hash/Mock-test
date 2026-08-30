@@ -33,6 +33,13 @@ header.site-header nav a{color:#fff;text-decoration:none;font-size:13px;font-wei
 header.site-header nav a.active{background:#fff;color:var(--blue-dark);}
 header.site-header nav a:hover:not(.active){background:rgba(255,255,255,.28);}
 
+.lang-toggle{
+  color:#fff;background:rgba(255,255,255,.16);border:1.5px solid rgba(255,255,255,.4);
+  border-radius:20px;padding:6px 13px;font-size:12px;font-weight:800;letter-spacing:.3px;
+  cursor:pointer;flex-shrink:0;transition:background .15s;
+}
+.lang-toggle:hover{background:rgba(255,255,255,.3);}
+
 /* ---------- Buttons ---------- */
 .btn{
   display:inline-flex;align-items:center;justify-content:center;gap:6px;

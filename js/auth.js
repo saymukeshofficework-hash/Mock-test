@@ -18,14 +18,20 @@ function studentIdToEmail(studentId) {
   return `${studentId.trim().toLowerCase()}@${SITE_CONFIG.studentEmailDomain}`;
 }
 
+// Falls back to the English text on pages that don't load js/i18n.js (e.g. the exam
+// pages, which have their own separate per-question language toggle).
+function _authT(key, en) {
+  return typeof t === "function" ? t(key) : en;
+}
+
 // Returns { ok: true } on success, or { ok: false, message } with a
 // student-friendly (non-technical) error message on failure.
 async function loginWithStudentId(studentId, password) {
   if (!studentId || !password) {
-    return { ok: false, message: "Please enter your Student ID and password." };
+    return { ok: false, message: _authT("auth_err_missing", "Please enter your Student ID and password.") };
   }
   if (!supabaseClient) {
-    return { ok: false, message: "Login isn't available yet. Please try again later." };
+    return { ok: false, message: _authT("auth_err_unavailable", "Login isn't available yet. Please try again later.") };
   }
   try {
     const { data, error } = await supabaseClient.auth.signInWithPassword({
@@ -33,11 +39,11 @@ async function loginWithStudentId(studentId, password) {
       password,
     });
     if (error) {
-      return { ok: false, message: "Incorrect Student ID or password. Please check and try again." };
+      return { ok: false, message: _authT("auth_err_invalid", "Incorrect Student ID or password. Please check and try again.") };
     }
     return { ok: true, session: data.session };
   } catch (e) {
-    return { ok: false, message: "Something went wrong. Please try again in a moment." };
+    return { ok: false, message: _authT("auth_err_generic", "Something went wrong. Please try again in a moment.") };
   }
 }
 

@@ -8,6 +8,7 @@
 <meta name="robots" content="noindex">
 <link rel="icon" href="data:,">
 <link rel="stylesheet" href="assets/site.css">
+<script src="js/i18n.js"></script>
 </head>
 <body>
 
@@ -19,42 +20,43 @@
       TET Test Hub
     </a>
     <nav>
-      <a href="index.html">Home</a>
-      <a href="tests.html">All Tests</a>
-      <a href="#" id="logoutLink">Logout</a>
+      <a href="index.html" data-i18n="nav_home">Home</a>
+      <a href="tests.html" data-i18n="nav_tests">All Tests</a>
+      <a href="#" id="logoutLink" data-i18n="dash_logout">Logout</a>
     </nav>
+    <button class="lang-toggle" id="langToggle" onclick="toggleLang()">EN</button>
   </header>
 
   <main class="container">
-    <div id="loadingMsg" style="padding:60px 0;text-align:center;color:var(--muted);">Loading your dashboard…</div>
+    <div id="loadingMsg" style="padding:60px 0;text-align:center;color:var(--muted);" data-i18n="dash_loading">Loading your dashboard…</div>
 
     <div id="dashContent" style="display:none;">
       <div class="dash-header">
         <div class="who">
-          <h1>Welcome, <span id="whoName">Student</span></h1>
-          <p>Student ID: <strong id="whoId">-</strong></p>
+          <h1><span data-i18n="dash_welcome">Welcome,</span> <span id="whoName">Student</span></h1>
+          <p><span data-i18n="dash_studentid">Student ID:</span> <strong id="whoId">-</strong></p>
           <span class="pkg" id="whoPackage">Package</span>
         </div>
-        <button class="btn btn-secondary" id="logoutBtn">Logout</button>
+        <button class="btn btn-secondary" id="logoutBtn" data-i18n="dash_logout">Logout</button>
       </div>
 
-      <div id="disabledNotice" class="alert alert-error" style="display:none;">
+      <div id="disabledNotice" class="alert alert-error" style="display:none;" data-i18n-html="dash_disabled">
         Your account is currently disabled. Please contact support — see the <a href="contact.html">Contact page</a>.
       </div>
 
-      <h2 style="font-size:18px;margin:0 0 6px;">My Tests</h2>
-      <p style="font-size:13px;color:var(--muted);margin:0 0 20px;">Results are shown at the end of each test — they aren't saved for later viewing yet.</p>
+      <h2 style="font-size:18px;margin:0 0 6px;" data-i18n="dash_mytests_h2">My Tests</h2>
+      <p style="font-size:13px;color:var(--muted);margin:0 0 20px;" data-i18n="dash_mytests_note">Results are shown at the end of each test — they aren't saved for later viewing yet.</p>
       <div class="grid" id="myTestsGrid"></div>
     </div>
   </main>
 
   <footer class="site-footer">
     <div class="links">
-      <a href="index.html">Home</a>
-      <a href="tests.html">All Tests</a>
-      <a href="contact.html">Contact</a>
+      <a href="index.html" data-i18n="nav_home">Home</a>
+      <a href="tests.html" data-i18n="nav_tests">All Tests</a>
+      <a href="contact.html" data-i18n="nav_contact">Contact</a>
     </div>
-    TET Test Hub &mdash; free-to-browse, paid mock tests for Teacher Eligibility Test aspirants.
+    <span data-i18n="footer_tagline">TET Test Hub &mdash; free-to-browse, paid mock tests for Teacher Eligibility Test aspirants.</span>
   </footer>
 
 <script src="assets/vendor/supabase/supabase.js"></script>
@@ -70,39 +72,44 @@
   document.getElementById('logoutLink').addEventListener('click', (e) => { e.preventDefault(); doLogout(); });
   document.getElementById('logoutBtn').addEventListener('click', doLogout);
 
+  let lastPurchasedTests = [];
+
   function renderTests(purchasedTests) {
+    lastPurchasedTests = purchasedTests || [];
     const grid = document.getElementById('myTestsGrid');
     grid.innerHTML = '';
-    TEST_CATALOG.forEach(t => {
-      const isFree = FREE_TESTS && FREE_TESTS.includes(t.id);
-      const owned = purchasedTests.includes(t.id);
+    TEST_CATALOG.forEach(item => {
+      const isFree = FREE_TESTS && FREE_TESTS.includes(item.id);
+      const owned = lastPurchasedTests.includes(item.id);
       const hasAccess = isFree || owned;
 
       const card = document.createElement('div');
       card.className = 'card test-card';
       card.innerHTML = `
-        <div class="badge">${t.number}</div>
-        <h3>${t.title}</h3>
-        <p class="desc">${DOC_ICON} ${t.questions} Questions &middot; ${t.minutes} Minutes</p>
+        <div class="badge">${item.number}</div>
+        <h3>${item.title}</h3>
+        <p class="desc">${DOC_ICON} ${item.questions} ${t('card_questions_suffix')} &middot; ${item.minutes} ${t('card_minutes_suffix')}</p>
         <div class="cta"></div>
       `;
       const cta = card.querySelector('.cta');
       if (hasAccess) {
         const a = document.createElement('a');
         a.className = 'btn btn-primary btn-block';
-        a.href = t.file;
-        a.textContent = '✅ START TEST';
+        a.href = item.file;
+        a.textContent = t('dash_start_btn');
         cta.appendChild(a);
       } else {
         const a = document.createElement('a');
         a.className = 'btn btn-locked btn-block';
         a.href = 'tests.html';
-        a.textContent = '🔒 BUY ALL 18';
+        a.textContent = t('dash_buy_btn');
         cta.appendChild(a);
       }
       grid.appendChild(card);
     });
   }
+
+  I18N_ONCHANGE = () => renderTests(lastPurchasedTests);
 
   (async () => {
     const session = await requireAuth();
@@ -113,16 +120,15 @@
     document.getElementById('dashContent').style.display = 'block';
 
     if (!profile) {
-      document.getElementById('whoName').textContent = 'Student';
+      document.getElementById('whoName').textContent = t('dash_student_fallback');
       document.getElementById('disabledNotice').style.display = 'block';
-      document.getElementById('disabledNotice').textContent =
-        'We could not load your account. Please contact support — see the Contact page.';
+      document.getElementById('disabledNotice').textContent = t('dash_could_not_load');
       return;
     }
 
     document.getElementById('whoName').textContent = profile.full_name || profile.student_id;
     document.getElementById('whoId').textContent = profile.student_id;
-    document.getElementById('whoPackage').textContent = profile.package || 'No package assigned';
+    document.getElementById('whoPackage').textContent = profile.package || t('dash_no_package');
 
     if (profile.status !== 'active') {
       document.getElementById('disabledNotice').style.display = 'block';
@@ -132,6 +138,8 @@
 
     renderTests(profile.purchased_tests || []);
   })();
+
+  applyI18n();
 </script>
 </body>
 </html>

@@ -10,6 +10,7 @@
 <meta property="og:type" content="website">
 <link rel="icon" href="data:,">
 <link rel="stylesheet" href="assets/site.css">
+<script src="js/i18n.js"></script>
 </head>
 <body>
 
@@ -21,58 +22,59 @@
       TET Test Hub
     </a>
     <nav>
-      <a href="index.html" class="active">Home</a>
-      <a href="tests.html">All Tests</a>
-      <a href="login.html">Student Login</a>
-      <a href="about.html">About</a>
-      <a href="contact.html">Contact</a>
+      <a href="index.html" class="active" data-i18n="nav_home">Home</a>
+      <a href="tests.html" data-i18n="nav_tests">All Tests</a>
+      <a href="login.html" data-i18n="nav_login">Student Login</a>
+      <a href="about.html" data-i18n="nav_about">About</a>
+      <a href="contact.html" data-i18n="nav_contact">Contact</a>
     </nav>
+    <button class="lang-toggle" id="langToggle" onclick="toggleLang()">EN</button>
   </header>
 
   <main>
     <div class="hero">
-      <span class="eyebrow">20 Full-Length Bilingual Mock Tests</span>
+      <span class="eyebrow" data-i18n="hero_eyebrow">20 Full-Length Bilingual Mock Tests</span>
       <h1>TET Test Hub</h1>
-      <p class="tagline">Prepare. Practice. Perform.</p>
+      <p class="tagline" data-i18n="hero_tagline">Prepare. Practice. Perform.</p>
       <div class="hero-actions">
-        <a class="btn btn-primary" href="#freeTests">Try 2 Free Tests</a>
-        <a class="btn btn-secondary" href="login.html">Student Login</a>
+        <a class="btn btn-primary" href="#freeTests" data-i18n="hero_cta_free">Try 2 Free Tests</a>
+        <a class="btn btn-secondary" href="login.html" data-i18n="hero_cta_login">Student Login</a>
       </div>
     </div>
 
     <div class="container">
 
       <section class="section" id="freeTests" style="padding-top:24px;">
-        <h2>🎯 Start With 2 Full Tests — 100% Free</h2>
-        <p class="lead">No login, no payment — just enter your name and start. Take Test 01 &amp; Test 02, see exactly how you perform, then decide if you want the rest.</p>
+        <h2 data-i18n="free_h2">🎯 Start With 2 Full Tests — 100% Free</h2>
+        <p class="lead" data-i18n="free_lead">No login, no payment — just enter your name and start. Take Test 01 &amp; Test 02, see exactly how you perform, then decide if you want the rest.</p>
         <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(260px,1fr));max-width:700px;margin:0 auto 22px;">
           <div class="card test-card">
             <div class="badge">1</div>
-            <h3>TET Full Test 01</h3>
-            <p class="desc">150 Questions &middot; 150 Minutes &middot; Bilingual</p>
-            <div class="status-owned">✅ FREE — No login required</div>
-            <a class="btn btn-primary btn-block" href="tet-mock-test-1.html">Start Free Test 01</a>
+            <h3 data-i18n="free_test1_title">TET Full Test 01</h3>
+            <p class="desc" data-i18n="free_test_desc">150 Questions &middot; 150 Minutes &middot; Bilingual</p>
+            <div class="status-owned" data-i18n="free_badge">✅ FREE — No login required</div>
+            <a class="btn btn-primary btn-block" href="tet-mock-test-1.html" data-i18n="free_start1">Start Free Test 01</a>
           </div>
           <div class="card test-card">
             <div class="badge">2</div>
-            <h3>TET Full Test 02</h3>
-            <p class="desc">150 Questions &middot; 150 Minutes &middot; Bilingual</p>
-            <div class="status-owned">✅ FREE — No login required</div>
-            <a class="btn btn-primary btn-block" href="tet-mock-test-2.html">Start Free Test 02</a>
+            <h3 data-i18n="free_test2_title">TET Full Test 02</h3>
+            <p class="desc" data-i18n="free_test_desc">150 Questions &middot; 150 Minutes &middot; Bilingual</p>
+            <div class="status-owned" data-i18n="free_badge">✅ FREE — No login required</div>
+            <a class="btn btn-primary btn-block" href="tet-mock-test-2.html" data-i18n="free_start2">Start Free Test 02</a>
           </div>
         </div>
         <div class="card" style="max-width:640px;margin:0 auto;text-align:center;background:var(--lightblue);border-color:var(--blue-light);">
-          <p style="margin:0;font-size:15px;line-height:1.6;">
+          <p style="margin:0;font-size:15px;line-height:1.6;" data-i18n-html="free_upsell">
             <strong>Performed well on your free tests?</strong> Unlock <strong>18 more full-length tests</strong>
-            (Test 03&ndash;20 — 2700 more questions) in one bundle for just <strong>₹<span class="priceAll18Hook">199</span></strong>.
+            (Test 03&ndash;20 — 2700 more questions) in one bundle for just <strong>₹199</strong>.
           </p>
-          <a class="btn btn-primary" style="margin-top:14px;" href="tests.html">Unlock All 18 Tests — ₹<span class="priceAll18Hook">199</span></a>
+          <a class="btn btn-primary" style="margin-top:14px;" href="tests.html" data-i18n="free_unlock_btn">Unlock All 18 Tests — ₹199</a>
         </div>
       </section>
 
       <section class="section">
-        <h2>About the TET Mock Tests</h2>
-        <p class="lead">
+        <h2 data-i18n="about_h2">About the TET Mock Tests</h2>
+        <p class="lead" data-i18n="about_p1">
           TET Test Hub gives Teacher Eligibility Test aspirants 20 full-length practice
           tests built to match the real exam pattern — 150 questions across Child
           Development &amp; Pedagogy, Language-1 (English), Language-2 (Hindi), Mathematics
@@ -82,91 +84,91 @@
       </section>
 
       <section class="section">
-        <h2>Why practice here</h2>
+        <h2 data-i18n="benefits_h2">Why practice here</h2>
         <div class="benefits-grid">
           <div class="benefit">
             <div class="icon">📝</div>
-            <h4>Real exam pattern</h4>
-            <p>5 sections, 150 questions, 150 minutes — the same structure as the actual TET.</p>
+            <h4 data-i18n="benefit1_title">Real exam pattern</h4>
+            <p data-i18n="benefit1_desc">5 sections, 150 questions, 150 minutes — the same structure as the actual TET.</p>
           </div>
           <div class="benefit">
             <div class="icon">🌐</div>
-            <h4>Bilingual questions</h4>
-            <p>Switch between English and Hindi for any question, any time during the test.</p>
+            <h4 data-i18n="benefit2_title">Bilingual questions</h4>
+            <p data-i18n="benefit2_desc">Switch between English and Hindi for any question, any time during the test.</p>
           </div>
           <div class="benefit">
             <div class="icon">📊</div>
-            <h4>Instant results</h4>
-            <p>See your score and a section-wise breakdown the moment you submit.</p>
+            <h4 data-i18n="benefit3_title">Instant results</h4>
+            <p data-i18n="benefit3_desc">See your score and a section-wise breakdown the moment you submit.</p>
           </div>
           <div class="benefit">
             <div class="icon">📱</div>
-            <h4>Works on any device</h4>
-            <p>A clean, fast, mobile-friendly test screen — no app to install.</p>
+            <h4 data-i18n="benefit4_title">Works on any device</h4>
+            <p data-i18n="benefit4_desc">A clean, fast, mobile-friendly test screen — no app to install.</p>
           </div>
         </div>
       </section>
 
       <section class="section">
-        <h2>20 Full Mock Tests</h2>
-        <p class="lead">Every test has its own set of 150 questions across all 5 sections — practice with a fresh test each time.</p>
+        <h2 data-i18n="overview_h2">20 Full Mock Tests</h2>
+        <p class="lead" data-i18n="overview_lead">Every test has its own set of 150 questions across all 5 sections — practice with a fresh test each time.</p>
         <div class="grid" id="testOverviewGrid"></div>
         <p style="text-align:center;margin-top:24px;">
-          <a class="btn btn-primary" href="tests.html">See All 20 Tests</a>
+          <a class="btn btn-primary" href="tests.html" data-i18n="overview_seeall_btn">See All 20 Tests</a>
         </p>
       </section>
 
       <section class="section" id="pricing">
-        <h2>Pricing</h2>
-        <p class="lead">Simple, one-time pricing. Start free with 2 tests, then unlock all 20 for ₹199.</p>
+        <h2 data-i18n="pricing_h2">Pricing</h2>
+        <p class="lead" data-i18n="pricing_lead">Simple, one-time pricing. Start free with 2 tests, then unlock all 20 for ₹199.</p>
         <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(240px,1fr));max-width:640px;margin:0 auto;">
           <div class="card pricing-card">
-            <h3>Free Access</h3>
+            <h3 data-i18n="pricing_free_title">Free Access</h3>
             <div class="price">₹0</div>
             <ul>
-              <li>2 full mock tests</li>
-              <li>Test 01 & Test 02</li>
-              <li>300 questions, 150 minutes each</li>
-              <li>Instant results</li>
+              <li data-i18n="pricing_free_li1">2 full mock tests</li>
+              <li data-i18n="pricing_free_li2">Test 01 & Test 02</li>
+              <li data-i18n="pricing_free_li3">300 questions, 150 minutes each</li>
+              <li data-i18n="pricing_free_li4">Instant results</li>
             </ul>
-            <a class="btn btn-primary btn-block" href="#freeTests">Get Started Free</a>
+            <a class="btn btn-primary btn-block" href="#freeTests" data-i18n="pricing_free_btn">Get Started Free</a>
           </div>
           <div class="card pricing-card featured">
-            <span class="ribbon">18 More Tests</span>
-            <h3>All Tests (03-20)</h3>
+            <span class="ribbon" data-i18n="pricing_paid_ribbon">18 More Tests</span>
+            <h3 data-i18n="pricing_paid_title">All Tests (03-20)</h3>
             <div class="price">₹<span id="priceAll18">199</span></div>
             <ul>
-              <li>18 additional tests</li>
-              <li>Tests 03-20</li>
-              <li>2700 questions total</li>
-              <li>Instant results, every test</li>
+              <li data-i18n="pricing_paid_li1">18 additional tests</li>
+              <li data-i18n="pricing_paid_li2">Tests 03-20</li>
+              <li data-i18n="pricing_paid_li3">2700 questions total</li>
+              <li data-i18n="pricing_paid_li4">Instant results, every test</li>
             </ul>
-            <a class="btn btn-primary btn-block" href="tests.html">Unlock All 18</a>
+            <a class="btn btn-primary btn-block" href="tests.html" data-i18n="pricing_paid_btn">Unlock All 18</a>
           </div>
         </div>
       </section>
 
       <section class="section">
-        <h2>Frequently Asked Questions</h2>
+        <h2 data-i18n="faq_h2">Frequently Asked Questions</h2>
         <details class="faq-item">
-          <summary>How do I get access after paying?</summary>
-          <p>After payment, send your payment screenshot / order details to us by email — see the <a href="contact.html">Contact page</a>. We verify the payment and send your Student ID and password so you can log in and start your test.</p>
+          <summary data-i18n="faq1_q">How do I get access after paying?</summary>
+          <p data-i18n-html="faq1_a">After payment, send your payment screenshot / order details to us by email — see the <a href="contact.html">Contact page</a>. We verify the payment and send your Student ID and password so you can log in and start your test.</p>
         </details>
         <details class="faq-item">
-          <summary>Is payment verified automatically?</summary>
-          <p>No — payments are verified manually by the TET Test Hub team. Your account is created and enabled shortly after we confirm your payment.</p>
+          <summary data-i18n="faq2_q">Is payment verified automatically?</summary>
+          <p data-i18n="faq2_a">No — payments are verified manually by the TET Test Hub team. Your account is created and enabled shortly after we confirm your payment.</p>
         </details>
         <details class="faq-item">
-          <summary>Can I take a test in Hindi?</summary>
-          <p>Yes. Every question can be viewed in English or Hindi — switch languages any time during the test.</p>
+          <summary data-i18n="faq3_q">Can I take a test in Hindi?</summary>
+          <p data-i18n="faq3_a">Yes. Every question can be viewed in English or Hindi — switch languages any time during the test.</p>
         </details>
         <details class="faq-item">
-          <summary>Do I get results immediately?</summary>
-          <p>Yes, your score and a section-wise breakdown are shown the moment you submit the test.</p>
+          <summary data-i18n="faq4_q">Do I get results immediately?</summary>
+          <p data-i18n="faq4_a">Yes, your score and a section-wise breakdown are shown the moment you submit the test.</p>
         </details>
         <details class="faq-item">
-          <summary>Can I buy tests one at a time instead of all 18?</summary>
-          <p>No — tests 03-20 are sold together as a single ₹199 bundle, not individually. Tests 01 & 02 are always free.</p>
+          <summary data-i18n="faq5_q">Can I buy tests one at a time instead of all 18?</summary>
+          <p data-i18n="faq5_a">No — tests 03-20 are sold together as a single ₹199 bundle, not individually. Tests 01 & 02 are always free.</p>
         </details>
       </section>
 
@@ -175,42 +177,48 @@
 
   <footer class="site-footer">
     <div class="links">
-      <a href="tests.html">All Tests</a>
-      <a href="login.html">Student Login</a>
-      <a href="about.html">About</a>
-      <a href="contact.html">Contact</a>
+      <a href="tests.html" data-i18n="nav_tests">All Tests</a>
+      <a href="login.html" data-i18n="nav_login">Student Login</a>
+      <a href="about.html" data-i18n="nav_about">About</a>
+      <a href="contact.html" data-i18n="nav_contact">Contact</a>
     </div>
-    TET Test Hub &mdash; free-to-browse, paid mock tests for Teacher Eligibility Test aspirants.
+    <span data-i18n="footer_tagline">TET Test Hub &mdash; free-to-browse, paid mock tests for Teacher Eligibility Test aspirants.</span>
   </footer>
 
 <script src="js/site-config.js"></script>
 <script>
   document.getElementById('priceAll18').textContent = PRICES.all18;
-  document.querySelectorAll('.priceAll18Hook').forEach(el => el.textContent = PRICES.all18);
 
-  const grid = document.getElementById('testOverviewGrid');
-  TEST_CATALOG.slice(0, 6).forEach(t => {
-    const card = document.createElement('div');
-    card.className = 'card test-card';
-    card.innerHTML = `
-      <div class="badge">${t.number}</div>
-      <h3>${t.title}</h3>
-      <p class="desc">Full Mock Test</p>
-      <div class="meta-row">
-        <span class="meta">${t.questions} Questions</span>
-        <span class="meta">${t.minutes} Minutes</span>
-      </div>
-    `;
-    grid.appendChild(card);
-  });
-  const more = document.createElement('div');
-  more.className = 'card test-card';
-  more.style.display = 'flex';
-  more.style.alignItems = 'center';
-  more.style.justifyContent = 'center';
-  more.style.textAlign = 'center';
-  more.innerHTML = `<div><strong style="font-size:15px;">+${TEST_CATALOG.length - 6} more tests</strong><br><a href="tests.html" style="font-size:13px;">View all &rarr;</a></div>`;
-  grid.appendChild(more);
+  function renderOverview() {
+    const grid = document.getElementById('testOverviewGrid');
+    grid.innerHTML = '';
+    TEST_CATALOG.slice(0, 6).forEach(item => {
+      const card = document.createElement('div');
+      card.className = 'card test-card';
+      card.innerHTML = `
+        <div class="badge">${item.number}</div>
+        <h3>${item.title}</h3>
+        <p class="desc">${t('card_full_mock')}</p>
+        <div class="meta-row">
+          <span class="meta">${item.questions} ${t('card_questions_suffix')}</span>
+          <span class="meta">${item.minutes} ${t('card_minutes_suffix')}</span>
+        </div>
+      `;
+      grid.appendChild(card);
+    });
+    const more = document.createElement('div');
+    more.className = 'card test-card';
+    more.style.display = 'flex';
+    more.style.alignItems = 'center';
+    more.style.justifyContent = 'center';
+    more.style.textAlign = 'center';
+    more.innerHTML = `<div><strong style="font-size:15px;">+${TEST_CATALOG.length - 6} ${t('overview_more_suffix')}</strong><br><a href="tests.html" style="font-size:13px;">${t('overview_viewall_link')}</a></div>`;
+    grid.appendChild(more);
+  }
+
+  I18N_ONCHANGE = renderOverview;
+  renderOverview();
+  applyI18n();
 </script>
 </body>
 </html>
