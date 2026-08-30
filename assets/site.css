@@ -58,7 +58,7 @@ header.site-header nav a:hover:not(.active){background:rgba(255,255,255,.28);}
 
 /* ---------- Sections / hero ---------- */
 .section{padding:44px 0;}
-.section h2{font-size:24px;margin:0 0 8px;color:var(--blue-dark);}
+.section h1,.section h2{font-size:24px;margin:0 0 8px;color:var(--blue-dark);}
 .section .lead{color:var(--muted);font-size:15px;margin:0 0 28px;max-width:640px;}
 
 .hero{text-align:center;padding:56px 16px 40px;position:relative;overflow:hidden;}
