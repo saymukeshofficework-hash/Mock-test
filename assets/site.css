@@ -2,9 +2,9 @@
    about, contact). Reuses the same palette as the exam engine (assets/tet-engine.css)
    for visual consistency between the marketing site and the test itself. */
 :root{
-  --blue:#6b7280; --blue-dark:#3f454e; --blue-light:#9aa1ac;
+  --blue:#6366f1; --blue-dark:#4338ca; --blue-light:#a5b4fc;
   --green:#3fa142; --red:#d9534f; --grey:#9e9e9e;
-  --lightblue:#f0f1f3; --border:#dde3ec; --ink:#1c2430; --muted:#5b6472;
+  --lightblue:#eef0fe; --border:#dde3ec; --ink:#1c2430; --muted:#5b6472;
   --page:#f4f6fa; --card:#ffffff;
 }
 *{box-sizing:border-box;}
@@ -64,12 +64,12 @@ header.site-header nav a:hover:not(.active){background:rgba(255,255,255,.28);}
 .hero{text-align:center;padding:56px 16px 40px;position:relative;overflow:hidden;}
 .hero::before{
   content:"";position:absolute;inset:-40% -10% auto -10%;height:340px;
-  background:radial-gradient(60% 100% at 50% 0%, rgba(107,114,128,.14), transparent 70%);
+  background:radial-gradient(60% 100% at 50% 0%, rgba(99,102,241,.14), transparent 70%);
   pointer-events:none;
 }
 .hero .eyebrow{
   display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:700;
-  color:var(--blue-dark);background:var(--lightblue);border:1px solid #cfe0f7;
+  color:var(--blue-dark);background:var(--lightblue);border:1px solid #d7d9fb;
   padding:6px 14px;border-radius:20px;margin-bottom:18px;
 }
 .hero h1{margin:0 0 12px;font-size:clamp(28px,4.5vw,42px);font-weight:800;letter-spacing:-.5px;}
@@ -109,7 +109,7 @@ header.site-header nav a:hover:not(.active){background:rgba(255,255,255,.28);}
 .pricing-card ul{list-style:none;padding:0;margin:14px 0 20px;text-align:left;font-size:13.5px;color:var(--muted);}
 .pricing-card ul li{padding:5px 0;padding-left:22px;position:relative;}
 .pricing-card ul li::before{content:"✓";position:absolute;left:0;color:var(--green);font-weight:800;}
-.pricing-card.featured{border-color:var(--blue);box-shadow:0 4px 18px rgba(107,114,128,.16);}
+.pricing-card.featured{border-color:var(--blue);box-shadow:0 4px 18px rgba(99,102,241,.16);}
 .pricing-card .ribbon{display:inline-block;font-size:11px;font-weight:700;color:#fff;background:var(--blue);padding:3px 10px;border-radius:20px;margin-bottom:10px;}
 
 /* ---------- Benefits ---------- */
@@ -139,7 +139,7 @@ header.site-header nav a:hover:not(.active){background:rgba(255,255,255,.28);}
 
 .alert{padding:11px 14px;border-radius:8px;font-size:13px;margin-bottom:16px;}
 .alert-error{background:#fdecea;color:#a83228;border:1px solid #f3c6c1;}
-.alert-info{background:var(--lightblue);color:var(--blue-dark);border:1px solid #cfe0f7;}
+.alert-info{background:var(--lightblue);color:var(--blue-dark);border:1px solid #d7d9fb;}
 .alert-success{background:#eaf7ea;color:#256b28;border:1px solid #c7e6c8;}
 
 /* ---------- Dashboard ---------- */
