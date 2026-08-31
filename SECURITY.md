@@ -67,13 +67,35 @@ This means:
   session until the student logs out. This is normal for browser-based logins generally,
   not specific to this system.
 
+## Scoring happens in the database, not the browser
+
+Early versions of this site fetched a test's full `questions` payload — including the
+correct-answer index for every question — the moment the test page loaded, then scored
+the attempt in JavaScript. That meant the entire answer key sat in the page's memory
+(and in the network response, visible in dev tools) before the student had answered a
+single question — trivially defeating the test.
+
+This is fixed: the browser calls two Postgres functions (`get_test_questions` and
+`score_test_attempt`, defined in `supabase/schema.sql`) instead of querying
+`test_content` directly.
+- `get_test_questions` returns the questions with the `answer` field stripped out of
+  every question — the browser never receives it.
+- `score_test_attempt` takes the student's selected options, looks up the real answer
+  key itself (inside Postgres, never sent over the wire), and returns only the computed
+  score and section breakdown.
+
+Both functions run with the caller's own privileges (no `security definer`), so the same
+`test_content_select_purchased` RLS policy above still applies inside them — a student
+who isn't allowed to read a test can't score it either.
+
 ## What this system does not attempt to prevent
 
-- A **legitimate, paying** student who has fetched a test's questions can still copy them
-  out of the browser (view-source, dev tools, screenshots) once loaded — this is true of
+- A **legitimate, paying** student can still copy the *question text* out of the browser
+  (view-source, dev tools, screenshots) once it's on their screen — this is true of
   essentially any browser-based exam without heavy client-side DRM, and is out of scope
   here. RLS stops *unauthorized* access, not what an authorized viewer does with content
-  once delivered to their screen.
+  once delivered to their screen. The *answer key* specifically is not part of what's
+  delivered (see above) — only the score, after the student has already answered.
 - Rate limiting / abuse prevention beyond what Supabase's free tier provides by default.
 
 ## Bottom line

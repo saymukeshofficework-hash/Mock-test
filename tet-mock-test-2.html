@@ -156,18 +156,14 @@
   const TEST_ID = "test02";
   const loadingEl = document.getElementById('loadingScreen');
 
-  const { data, error } = await supabaseClient
-    .from('test_content')
-    .select('questions')
-    .eq('test_id', TEST_ID)
-    .single();
+  const { data, error } = await supabaseClient.rpc('get_test_questions', { p_test_id: TEST_ID });
 
   if (error || !data) {
     loadingEl.textContent = 'Could not load this test right now. Please try again in a moment.';
     return;
   }
 
-  initExam(data.questions);
+  initExam(data, TEST_ID);
   loadingEl.style.display = 'none';
   document.getElementById('nameScreen').style.display = 'block';
 })();

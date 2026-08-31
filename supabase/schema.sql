@@ -70,3 +70,115 @@ create policy "test_content_select_purchased"
 -- either table: students can never create accounts, change their own purchases, or edit
 -- question content from the browser. All writes happen through the Supabase Table Editor
 -- (Dashboard) using your own admin login, which connects with a role that bypasses RLS.
+
+-- ---------------------------------------------------------------------------------------
+-- Question delivery and scoring
+--
+-- IMPORTANT: test_content.questions embeds the correct `answer` index in the same object
+-- as the question text, for every question. A frontend that does `select('questions')`
+-- and scores client-side (the original design) therefore ships the entire answer key to
+-- the browser the moment a test loads — visible in DevTools before the student answers a
+-- single question. That defeats the whole point of a practice test. The two functions
+-- below fix this: the browser never receives an `answer` field, and scoring happens in
+-- Postgres, which is the only place that ever sees the real answer key.
+--
+-- Both functions are SECURITY INVOKER (the default — no `security definer` here), so they
+-- run as the calling role and the `test_content_select_purchased` policy above still
+-- applies inside them exactly as it does to a direct query. A student who isn't allowed to
+-- read a test still can't read it through these functions either.
+
+-- Returns a test's sections/questions with the `answer` field stripped out of every
+-- question. This is what the exam pages should fetch instead of `select('questions')`.
+create or replace function public.get_test_questions(p_test_id text)
+returns jsonb
+language sql
+stable
+as $$
+  select (
+    select jsonb_agg(
+      jsonb_build_object(
+        'name', sec->>'name',
+        'mode', sec->>'mode',
+        'questions', (
+          select coalesce(jsonb_agg(q - 'answer'), '[]'::jsonb)
+          from jsonb_array_elements(sec->'questions') q
+        )
+      )
+    )
+    from jsonb_array_elements(tc.questions) sec
+  )
+  from public.test_content tc
+  where tc.test_id = p_test_id;
+$$;
+
+-- Scores a completed attempt server-side against the real answer key.
+-- p_answers: one array per section (same order as the test's sections), each holding the
+-- selected option index per question in that section, or null for an unattempted question
+-- — i.e. exactly the shape of tet-engine.js's `state`, with each cell reduced to `.selected`.
+-- Returns { score, totalCorrect, totalIncorrect, totalUnattempted, rows: [{name, total, c, ic, un}, ...] }.
+create or replace function public.score_test_attempt(p_test_id text, p_answers jsonb)
+returns jsonb
+language plpgsql
+stable
+as $$
+declare
+  v_questions jsonb;
+  sec jsonb;
+  sec_idx int := 0;
+  q jsonb;
+  q_idx int;
+  sel jsonb;
+  total_correct int := 0;
+  total_incorrect int := 0;
+  total_unattempted int := 0;
+  total_score int := 0;
+  rows jsonb := '[]'::jsonb;
+  sec_c int; sec_ic int; sec_un int;
+begin
+  select tc.questions into v_questions
+  from public.test_content tc
+  where tc.test_id = p_test_id;
+
+  if v_questions is null then
+    raise exception 'test not found or not accessible';
+  end if;
+
+  for sec in select * from jsonb_array_elements(v_questions)
+  loop
+    sec_c := 0; sec_ic := 0; sec_un := 0;
+    q_idx := 0;
+    for q in select * from jsonb_array_elements(sec->'questions')
+    loop
+      sel := p_answers -> sec_idx -> q_idx;
+      if sel is null or sel = 'null'::jsonb then
+        sec_un := sec_un + 1;
+      elsif (sel)::int = (q->>'answer')::int then
+        sec_c := sec_c + 1;
+        total_score := total_score + 1;
+      else
+        sec_ic := sec_ic + 1;
+      end if;
+      q_idx := q_idx + 1;
+    end loop;
+    total_correct := total_correct + sec_c;
+    total_incorrect := total_incorrect + sec_ic;
+    total_unattempted := total_unattempted + sec_un;
+    rows := rows || jsonb_build_array(jsonb_build_object(
+      'name', sec->>'name', 'total', jsonb_array_length(sec->'questions'),
+      'c', sec_c, 'ic', sec_ic, 'un', sec_un
+    ));
+    sec_idx := sec_idx + 1;
+  end loop;
+
+  return jsonb_build_object(
+    'score', total_score,
+    'totalCorrect', total_correct,
+    'totalIncorrect', total_incorrect,
+    'totalUnattempted', total_unattempted,
+    'rows', rows
+  );
+end;
+$$;
+
+grant execute on function public.get_test_questions(text) to anon, authenticated;
+grant execute on function public.score_test_attempt(text, jsonb) to anon, authenticated;
