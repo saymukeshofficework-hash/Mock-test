@@ -10,12 +10,17 @@ let state = [];
 let curSection = 0, curQuestion = 0;
 let defaultLang = 'en';
 let submitted = false;
+let examTestId = null;
 
 // Called once the test's questions have been loaded (see the inline loader script at
 // the bottom of each tet-mock-test-N.html) — before this runs, nothing below can be
 // interacted with, since nameScreen stays hidden until the loader reveals it.
-function initExam(loadedSections){
+// `loadedSections` comes from the get_test_questions() RPC and never contains the
+// correct-answer field — scoring happens server-side in submitTest(), via the
+// score_test_attempt() RPC, which is the only place that ever sees the answer key.
+function initExam(loadedSections, testId){
   sections = loadedSections;
+  examTestId = testId;
   state = sections.map(sec => sec.questions.map(() => ({status:'notVisited', selected:null})));
 }
 
@@ -117,10 +122,20 @@ function renderQuestion(){
     const id = `opt_${curSection}_${curQuestion}_${i}`;
     const label = document.createElement('label');
     label.className = 'option';
-    label.innerHTML = `<input type="radio" name="q_${curSection}_${curQuestion}" id="${id}" value="${i}" ${saved===i?'checked':''}> <span>${opt}</span>`;
-    label.querySelector('input').addEventListener('change', () => {
+    const input = document.createElement('input');
+    input.type = 'radio';
+    input.name = `q_${curSection}_${curQuestion}`;
+    input.id = id;
+    input.value = i;
+    input.checked = saved === i;
+    input.addEventListener('change', () => {
       state[curSection][curQuestion].selected = i;
     });
+    const span = document.createElement('span');
+    span.textContent = opt;
+    label.appendChild(input);
+    label.appendChild(document.createTextNode(' '));
+    label.appendChild(span);
     optWrap.appendChild(label);
   });
   document.getElementById('sidebarSectionName').textContent = sections[curSection].name.toUpperCase();
@@ -209,41 +224,60 @@ function confirmSubmit(){
   }
 }
 
-function submitTest(autoSubmitted){
+// Scoring happens in Postgres (score_test_attempt RPC), not here — the browser never
+// holds the answer key, so there's nothing for a student to read out of dev tools.
+async function submitTest(autoSubmitted){
   if(submitted) return;
   submitted = true;
   clearInterval(timerInterval);
   document.getElementById('testScreen').style.display = 'none';
   document.getElementById('resultScreen').style.display = 'block';
 
-  let totalCorrect=0, totalIncorrect=0, totalUnattempted=0, score=0;
-  const rows = [];
-  sections.forEach((sec, si) => {
-    let c=0, ic=0, un=0;
-    sec.questions.forEach((q, qi) => {
-      const sel = state[si][qi].selected;
-      if(sel === null || sel === undefined){ un++; }
-      else if(sel === q.answer){ c++; score++; }
-      else { ic++; }
-    });
-    totalCorrect += c; totalIncorrect += ic; totalUnattempted += un;
-    rows.push({name: sec.name, total: sec.questions.length, c, ic, un});
+  document.getElementById('resultCandidateLine').textContent = 'Candidate: ' + candidateName;
+  document.getElementById('resultSummaryLine').textContent = 'Calculating your result…';
+  document.getElementById('resScore').textContent = '—';
+  document.getElementById('resCorrect').textContent = '—';
+  document.getElementById('resIncorrect').textContent = '—';
+  document.getElementById('resUnattempted').textContent = '—';
+  document.querySelector('#secBreakdownTable tbody').innerHTML = '';
+
+  const answers = state.map(sec => sec.map(q => q.selected));
+
+  const { data, error } = await supabaseClient.rpc('score_test_attempt', {
+    p_test_id: examTestId,
+    p_answers: answers,
   });
 
-  document.getElementById('resultCandidateLine').textContent = 'Candidate: ' + candidateName;
+  if(error || !data){
+    const summary = document.getElementById('resultSummaryLine');
+    summary.textContent = '';
+    summary.append('Could not calculate your result — please check your connection. ');
+    const retryBtn = document.createElement('button');
+    retryBtn.type = 'button';
+    retryBtn.className = 'btn btn-primary';
+    retryBtn.textContent = 'Retry';
+    retryBtn.onclick = () => { submitted = false; submitTest(autoSubmitted); };
+    summary.appendChild(retryBtn);
+    return;
+  }
+
   document.getElementById('resultSummaryLine').textContent = autoSubmitted
     ? 'Time is up — your test was submitted automatically.'
     : 'Your test has been submitted successfully.';
-  document.getElementById('resScore').textContent = score;
-  document.getElementById('resCorrect').textContent = totalCorrect;
-  document.getElementById('resIncorrect').textContent = totalIncorrect;
-  document.getElementById('resUnattempted').textContent = totalUnattempted;
+  document.getElementById('resScore').textContent = data.score;
+  document.getElementById('resCorrect').textContent = data.totalCorrect;
+  document.getElementById('resIncorrect').textContent = data.totalIncorrect;
+  document.getElementById('resUnattempted').textContent = data.totalUnattempted;
 
   const tbody = document.querySelector('#secBreakdownTable tbody');
   tbody.innerHTML = '';
-  rows.forEach(r => {
+  (data.rows || []).forEach(r => {
     const tr = document.createElement('tr');
-    tr.innerHTML = `<td>${r.name}</td><td>${r.total}</td><td>${r.c}</td><td>${r.ic}</td><td>${r.un}</td>`;
+    [r.name, r.total, r.c, r.ic, r.un].forEach(val => {
+      const td = document.createElement('td');
+      td.textContent = val;
+      tr.appendChild(td);
+    });
     tbody.appendChild(tr);
   });
 }
