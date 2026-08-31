@@ -44,6 +44,16 @@ const I18N_DICT = {
   },
   free_unlock_btn: { hi: "18 टेस्ट अनलॉक करें — ₹199", en: "Unlock All 18 Tests — ₹199" },
 
+  preview_h2: { hi: "शुरू करने से पहले टेस्ट स्क्रीन देखें", en: "See the Test Screen Before You Start" },
+  preview_lead: {
+    hi: "टेस्ट शुरू होते ही आप ठीक यही देखेंगे — लाइव काउंटडाउन टाइमर, रंग-कोडित प्रश्न पैलेट, और हर प्रश्न पर एक-क्लिक अंग्रेज़ी/हिंदी टॉगल।",
+    en: "Exactly what you'll see once a test begins — a live countdown timer, a colour-coded question palette, and a one-click English/Hindi toggle on every question.",
+  },
+  preview_alt: {
+    hi: "टीईटी टेस्ट हब की परीक्षा स्क्रीन — काउंटडाउन टाइमर, सेक्शन टैब, अंग्रेज़ी/हिंदी टॉगल वाला प्रश्न, और रंग-कोडित प्रश्न पैलेट दिखाते हुए",
+    en: "TET Test Hub exam screen showing the countdown timer, section tabs, a question with English/Hindi toggle, and the colour-coded question palette",
+  },
+
   about_h2: { hi: "टीईटी मॉक टेस्ट के बारे में", en: "About the TET Mock Tests" },
   about_p1: {
     hi: "टीईटी टेस्ट हब शिक्षक पात्रता परीक्षा के उम्मीदवारों को 20 पूर्ण-लंबाई वाले अभ्यास टेस्ट देता है, जो असली परीक्षा पैटर्न से मेल खाते हैं — बाल विकास एवं शिक्षाशास्त्र, भाषा-1 (अंग्रेज़ी), भाषा-2 (हिंदी), गणित और पर्यावरण अध्ययन में कुल 150 प्रश्न, 150 मिनट में, तुरंत खंड-वार परिणाम के साथ। घर बैठे, अपनी सुविधा से, अंग्रेज़ी या हिंदी में अभ्यास करें।",
@@ -221,6 +231,9 @@ function applyI18n() {
   });
   document.querySelectorAll("[data-i18n-placeholder]").forEach((el) => {
     el.setAttribute("placeholder", t(el.getAttribute("data-i18n-placeholder")));
+  });
+  document.querySelectorAll("[data-i18n-alt]").forEach((el) => {
+    el.setAttribute("alt", t(el.getAttribute("data-i18n-alt")));
   });
 
   const btn = document.getElementById("langToggle");
