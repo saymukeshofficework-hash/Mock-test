@@ -1,0 +1,68 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import ArticleCard from '../components/ArticleCard.astro';
+import Newsletter from '../components/Newsletter.astro';
+import { getAllPosts } from '../lib/posts';
+import { categories } from '../config/categories';
+import { withBase } from '../lib/url';
+import { siteConfig } from '../config/site';
+
+const posts = await getAllPosts();
+const featured = posts.find((p) => p.data.featured) ?? posts[0];
+const latest = posts.filter((p) => p.slug !== featured?.slug).slice(0, 9);
+
+// Only show categories that actually have at least one published post.
+const categoriesWithCounts = categories
+  .map((c) => ({ ...c, count: posts.filter((p) => p.data.category === c.name).length }))
+  .filter((c) => c.count > 0);
+---
+
+<BaseLayout title={siteConfig.BLOG_NAME} description={siteConfig.BLOG_DESCRIPTION} path="/">
+  {featured && <Hero featured={featured} />}
+
+  <section class="container section">
+    <div class="section-heading">
+      <h2>Latest Articles</h2>
+      <a href={withBase('/category/')}>Browse all categories &rarr;</a>
+    </div>
+    {latest.length > 0 ? (
+      <div class="article-grid">
+        {latest.map((post) => <ArticleCard post={post} />)}
+      </div>
+    ) : (
+      <p class="empty-state">More articles are on the way.</p>
+    )}
+  </section>
+
+  {categoriesWithCounts.length > 0 && (
+    <section class="container section">
+      <div class="section-heading"><h2>Browse by Category</h2></div>
+      <div class="category-grid">
+        {categoriesWithCounts.map((c) => (
+          <a href={withBase(`/category/${c.slug}/`)} class="category-tile card">
+            <span class="category-name">{c.name}</span>
+            <span class="category-count">{c.count} article{c.count === 1 ? '' : 's'}</span>
+          </a>
+        ))}
+      </div>
+    </section>
+  )}
+
+  <section class="container">
+    <Newsletter />
+  </section>
+</BaseLayout>
+
+<style>
+  .section { padding: 3rem 0; }
+  .section-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+  .section-heading h2 { margin: 0; }
+  .section-heading a { font-weight: 600; font-size: 0.9rem; }
+  .article-grid { display: grid; gap: 2rem 1.5rem; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+  .empty-state { color: var(--ink-faint); }
+  .category-grid { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
+  .category-tile { padding: 1.25rem; display: flex; flex-direction: column; gap: 0.3em; }
+  .category-name { font-weight: 700; color: var(--ink); }
+  .category-count { font-size: 0.8rem; color: var(--ink-faint); }
+</style>

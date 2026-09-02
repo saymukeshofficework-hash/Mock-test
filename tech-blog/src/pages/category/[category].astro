@@ -1,0 +1,43 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+import { categories } from '../../config/categories';
+import { getAllPosts } from '../../lib/posts';
+
+export async function getStaticPaths() {
+  const posts = await getAllPosts();
+  return categories
+    .filter((c) => posts.some((p) => p.data.category === c.name))
+    .map((c) => ({
+      params: { category: c.slug },
+      props: { category: c, posts: posts.filter((p) => p.data.category === c.name) },
+    }));
+}
+
+const { category, posts } = Astro.props;
+---
+
+<BaseLayout
+  title={category.name}
+  description={category.description}
+  path={`/category/${category.slug}/`}
+>
+  <div class="container category-page">
+    <Breadcrumbs items={[{ label: 'Home', href: '/' }, { label: category.name }]} />
+    <header class="category-header">
+      <h1>{category.name}</h1>
+      <p>{category.description}</p>
+    </header>
+    <div class="article-grid">
+      {posts.map((post) => <ArticleCard post={post} />)}
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .category-page { padding: 1.5rem 0 4rem; }
+  .category-header { margin: 1.5rem 0 2.5rem; max-width: 60ch; }
+  .category-header p { color: var(--ink-dim); }
+  .article-grid { display: grid; gap: 2rem 1.5rem; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+</style>

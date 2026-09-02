@@ -1,0 +1,37 @@
+---
+// Placeholder only — no email service is connected yet. The form
+// currently does nothing on submit; wire it to a provider (e.g.
+// Mailchimp, ConvertKit, Buttondown) when one is chosen.
+---
+
+<div class="newsletter">
+  <p class="eyebrow">Newsletter</p>
+  <h2>Get new articles in your inbox</h2>
+  <p class="newsletter-sub">No spam. Unsubscribe anytime. (Not connected yet — placeholder form.)</p>
+  <form class="newsletter-form" onsubmit="return false">
+    <input type="email" placeholder="you@example.com" aria-label="Email address" required disabled />
+    <button type="submit" class="btn btn-primary" disabled>Subscribe</button>
+  </form>
+</div>
+
+<style>
+  .newsletter {
+    text-align: center;
+    padding: 3rem 1.5rem;
+    border-radius: var(--radius);
+    background: var(--paper-soft);
+    border: 1px solid var(--border);
+    margin: 3rem 0;
+  }
+  .newsletter h2 { margin: 0.2em 0 0.4em; }
+  .newsletter-sub { color: var(--ink-faint); font-size: 0.85rem; margin: 0 0 1.5em; }
+  .newsletter-form { display: flex; gap: 0.6rem; max-width: 380px; margin: 0 auto; flex-wrap: wrap; justify-content: center; }
+  .newsletter-form input {
+    flex: 1;
+    min-width: 200px;
+    padding: 0.7em 1em;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    font-size: 0.95rem;
+  }
+</style>

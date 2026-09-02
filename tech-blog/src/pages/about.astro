@@ -1,0 +1,41 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import AuthorBox from '../components/AuthorBox.astro';
+import { siteConfig } from '../config/site';
+---
+
+<BaseLayout title="About" description={`About ${siteConfig.BLOG_NAME}.`} path="/about/">
+  <div class="container legal-page">
+    <Breadcrumbs items={[{ label: 'Home', href: '/' }, { label: 'About' }]} />
+    <h1>About {siteConfig.BLOG_NAME}</h1>
+    <p class="placeholder-notice">Placeholder content — replace before launch.</p>
+    <p>{siteConfig.BLOG_DESCRIPTION}</p>
+    <p>
+      {siteConfig.BLOG_NAME} covers AI tools, software, automation, productivity, smartphones,
+      gadgets, electronics, and buying guides — written for readers who want practical,
+      people-first coverage rather than hype.
+    </p>
+    <h2>Our Approach</h2>
+    <ul>
+      <li>We do not fabricate statistics, testimonials, or claims of hands-on testing.</li>
+      <li>Every review clearly states whether it is research-based or hands-on.</li>
+      <li>We disclose affiliate relationships — see our <a href="/affiliate-disclosure/">Affiliate Disclosure</a>.</li>
+    </ul>
+    <AuthorBox />
+  </div>
+</BaseLayout>
+
+<style>
+  .legal-page { max-width: var(--content-width); padding: 1.5rem 0 4rem; }
+  .placeholder-notice {
+    display: inline-block;
+    background: #fef3c7;
+    color: #92400e;
+    border: 1px solid #fbbf24;
+    border-radius: 6px;
+    padding: 0.4em 0.8em;
+    font-size: 0.85rem;
+    font-weight: 600;
+  }
+</style>

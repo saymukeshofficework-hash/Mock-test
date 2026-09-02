@@ -1,0 +1,27 @@
+---
+// Reusable affiliate CTA button. Pass a real `href` once a real affiliate
+// link exists — until then, omit it (or pass "#") and the button renders
+// as a clearly-marked placeholder instead of a dead/misleading link.
+interface Props {
+  label?: 'Check Pricing' | 'Try It' | 'Start Free' | 'Learn More' | 'Compare Plans' | string;
+  href?: string;
+  note?: string; // e.g. "Prices vary by plan"
+}
+const { label = 'Learn More', href, note } = Astro.props;
+const isPlaceholder = !href || href === '#';
+---
+
+<div class="affiliate-cta">
+  {isPlaceholder ? (
+    <span class="btn btn-primary is-placeholder" aria-disabled="true">{label} (link pending)</span>
+  ) : (
+    <a href={href} class="btn btn-primary" rel="sponsored noopener noreferrer" target="_blank">{label}</a>
+  )}
+  {note && <p class="cta-note">{note}</p>}
+</div>
+
+<style>
+  .affiliate-cta { margin: 1.5rem 0; }
+  .is-placeholder { opacity: 0.5; cursor: not-allowed; }
+  .cta-note { color: var(--ink-faint); font-size: 0.8rem; margin: 0.5em 0 0; }
+</style>

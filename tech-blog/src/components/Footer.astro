@@ -1,0 +1,70 @@
+---
+import { siteConfig } from '../config/site';
+import { withBase } from '../lib/url';
+
+const year = new Date().getFullYear();
+const legalLinks = [
+  { href: '/about/', label: 'About' },
+  { href: '/contact/', label: 'Contact' },
+  { href: '/privacy-policy/', label: 'Privacy Policy' },
+  { href: '/terms/', label: 'Terms' },
+  { href: '/disclaimer/', label: 'Disclaimer' },
+  { href: '/affiliate-disclosure/', label: 'Affiliate Disclosure' },
+];
+const socialEntries = Object.entries(siteConfig.SOCIAL_LINKS).filter(([, url]) => url);
+---
+
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div>
+      <p class="footer-brand">{siteConfig.BLOG_NAME}</p>
+      <p class="footer-tagline">{siteConfig.BLOG_TAGLINE}</p>
+    </div>
+    <nav aria-label="Legal">
+      <p class="footer-heading">Site</p>
+      <ul>
+        {legalLinks.map((l) => (
+          <li><a href={withBase(l.href)}>{l.label}</a></li>
+        ))}
+      </ul>
+    </nav>
+    {socialEntries.length > 0 && (
+      <nav aria-label="Social">
+        <p class="footer-heading">Follow</p>
+        <ul>
+          {socialEntries.map(([name, url]) => (
+            <li><a href={url} rel="noopener noreferrer" target="_blank">{name}</a></li>
+          ))}
+        </ul>
+      </nav>
+    )}
+  </div>
+  <div class="container footer-bottom">
+    <p>&copy; {year} {siteConfig.BLOG_NAME}. All rights reserved.</p>
+  </div>
+</footer>
+
+<style>
+  .site-footer { border-top: 1px solid var(--border); margin-top: 4rem; background: var(--paper-soft); }
+  .footer-grid {
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: 1fr;
+    padding: 3rem 1.25rem 2rem;
+  }
+  @media (min-width: 700px) {
+    .footer-grid { grid-template-columns: 2fr 1fr 1fr; }
+  }
+  .footer-brand { font-family: var(--font-serif); font-weight: 700; font-size: 1.1rem; margin: 0 0 0.4em; }
+  .footer-tagline { color: var(--ink-dim); margin: 0; }
+  .footer-heading { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-faint); margin: 0 0 0.8em; }
+  nav ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.5em; }
+  nav a { color: var(--ink-dim); }
+  nav a:hover { color: var(--color-primary); }
+  .footer-bottom {
+    border-top: 1px solid var(--border);
+    padding: 1.25rem;
+    font-size: 0.85rem;
+    color: var(--ink-faint);
+  }
+</style>

@@ -1,0 +1,114 @@
+---
+import { siteConfig } from '../config/site';
+import { categories } from '../config/categories';
+import { withBase } from '../lib/url';
+
+const navCategories = categories.slice(0, 6);
+---
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href={withBase('/')} class="logo">
+      <span class="logo-mark">{siteConfig.BLOG_NAME.slice(0, 2).toUpperCase()}</span>
+      <span class="logo-name">{siteConfig.BLOG_NAME}</span>
+    </a>
+
+    <nav class="nav-desktop" aria-label="Primary">
+      <a href={withBase('/')}>Home</a>
+      {navCategories.map((c) => (
+        <a href={withBase(`/category/${c.slug}/`)}>{c.name}</a>
+      ))}
+      <a href={withBase('/search/')} aria-label="Search">Search</a>
+    </nav>
+
+    <details class="nav-mobile">
+      <summary aria-label="Open menu">
+        <span class="menu-icon" aria-hidden="true"></span>
+      </summary>
+      <nav aria-label="Primary mobile" class="nav-mobile-panel">
+        <a href={withBase('/')}>Home</a>
+        {categories.map((c) => (
+          <a href={withBase(`/category/${c.slug}/`)}>{c.name}</a>
+        ))}
+        <a href={withBase('/search/')}>Search</a>
+      </nav>
+    </details>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    background: var(--paper);
+    z-index: 40;
+  }
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+    gap: 1rem;
+  }
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    color: var(--ink);
+    font-weight: 700;
+    font-family: var(--font-serif);
+    font-size: 1.15rem;
+  }
+  .logo:hover { text-decoration: none; }
+  .logo-mark {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 8px;
+    background: var(--color-primary);
+    color: #fff;
+    font-size: 0.85rem;
+  }
+  .nav-desktop { display: none; align-items: center; gap: 1.4rem; }
+  .nav-desktop a { color: var(--ink-dim); font-size: 0.92rem; font-weight: 600; }
+  .nav-desktop a:hover { color: var(--color-primary); text-decoration: none; }
+
+  @media (min-width: 900px) {
+    .nav-desktop { display: flex; }
+    .nav-mobile { display: none; }
+  }
+
+  .nav-mobile summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    display: flex;
+  }
+  .nav-mobile summary::-webkit-details-marker { display: none; }
+  .menu-icon, .menu-icon::before, .menu-icon::after {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: var(--ink);
+    position: relative;
+  }
+  .menu-icon::before, .menu-icon::after { content: ''; position: absolute; }
+  .menu-icon::before { top: -7px; }
+  .menu-icon::after { top: 7px; }
+  .nav-mobile[open] summary { position: relative; }
+  .nav-mobile-panel {
+    position: absolute;
+    left: 0; right: 0;
+    top: 64px;
+    background: var(--paper);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    padding: 0.5rem 1.25rem 1.25rem;
+  }
+  .nav-mobile-panel a { padding: 0.6rem 0; color: var(--ink); font-weight: 600; border-bottom: 1px solid var(--border); }
+  .nav-mobile-panel a:hover { color: var(--color-primary); text-decoration: none; }
+</style>

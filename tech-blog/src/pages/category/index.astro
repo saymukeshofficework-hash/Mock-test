@@ -1,0 +1,38 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import { categories } from '../../config/categories';
+import { getAllPosts } from '../../lib/posts';
+import { withBase } from '../../lib/url';
+import { siteConfig } from '../../config/site';
+
+const posts = await getAllPosts();
+const categoriesWithCounts = categories
+  .map((c) => ({ ...c, count: posts.filter((p) => p.data.category === c.name).length }))
+  .filter((c) => c.count > 0);
+---
+
+<BaseLayout title="Categories" description={`Browse all ${siteConfig.BLOG_NAME} categories.`} path="/category/">
+  <div class="container category-index">
+    <Breadcrumbs items={[{ label: 'Home', href: '/' }, { label: 'Categories' }]} />
+    <h1>Categories</h1>
+    <div class="category-grid">
+      {categoriesWithCounts.map((c) => (
+        <a href={withBase(`/category/${c.slug}/`)} class="category-tile card">
+          <span class="category-name">{c.name}</span>
+          <span class="category-desc">{c.description}</span>
+          <span class="category-count">{c.count} article{c.count === 1 ? '' : 's'}</span>
+        </a>
+      ))}
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .category-index { padding: 1.5rem 0 4rem; }
+  .category-grid { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); margin-top: 2rem; }
+  .category-tile { padding: 1.5rem; display: flex; flex-direction: column; gap: 0.4em; }
+  .category-name { font-weight: 700; font-size: 1.05rem; color: var(--ink); }
+  .category-desc { color: var(--ink-dim); font-size: 0.88rem; }
+  .category-count { color: var(--ink-faint); font-size: 0.8rem; margin-top: 0.3em; }
+</style>
