@@ -36,14 +36,25 @@ const navCategories = categories.slice(0, 6);
   </div>
 </header>
 
+<script>
+  const header = document.querySelector('.site-header');
+  const setScrolled = () => header?.classList.toggle('scrolled', window.scrollY > 8);
+  setScrolled();
+  window.addEventListener('scroll', setScrolled, { passive: true });
+</script>
+
 <style>
   .site-header {
     border-bottom: 1px solid var(--border);
     position: sticky;
     top: 0;
-    background: var(--paper);
+    background: color-mix(in srgb, var(--paper) 88%, transparent);
+    backdrop-filter: blur(10px) saturate(160%);
+    -webkit-backdrop-filter: blur(10px) saturate(160%);
     z-index: 40;
+    transition: box-shadow 0.25s var(--ease);
   }
+  .site-header.scrolled { box-shadow: 0 4px 24px rgba(20, 24, 31, 0.06); }
   .header-inner {
     display: flex;
     align-items: center;

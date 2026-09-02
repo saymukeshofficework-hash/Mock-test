@@ -26,11 +26,14 @@ const category = getCategoryByName(post.data.category);
 </article>
 
 <style>
-  .article-card { display: flex; flex-direction: column; }
+  .article-card { display: flex; flex-direction: column; transition: transform 0.3s var(--ease); }
+  .article-card:hover { transform: translateY(-4px); }
   .article-card.horizontal { flex-direction: row; gap: 1rem; }
-  .thumb-link { border-radius: var(--radius); overflow: hidden; aspect-ratio: 16/9; background: var(--paper-soft); }
+  .article-card.horizontal:hover { transform: none; }
+  .thumb-link { display: block; border-radius: var(--radius); overflow: hidden; aspect-ratio: 16/9; background: var(--paper-soft); }
   .article-card.horizontal .thumb-link { width: 140px; flex-shrink: 0; }
-  .thumb-link img { width: 100%; height: 100%; object-fit: cover; }
+  .thumb-link img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s var(--ease); }
+  .article-card:hover .thumb-link img { transform: scale(1.06); }
   .card-body { padding: 0.9rem 0.1rem; }
   .card-body .pill { margin-bottom: 0.6em; }
   .card-body h3 { font-size: 1.1rem; margin: 0.2em 0 0.3em; }

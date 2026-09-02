@@ -25,6 +25,8 @@
   --content-width: 720px;
   --radius: 10px;
   --shadow: 0 1px 2px rgba(20, 24, 31, 0.04), 0 8px 24px rgba(20, 24, 31, 0.06);
+  --shadow-lg: 0 4px 10px rgba(20, 24, 31, 0.05), 0 24px 48px rgba(20, 24, 31, 0.12);
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -64,8 +66,8 @@ a:focus-visible, button:focus-visible, input:focus-visible {
   outline-offset: 2px;
 }
 
-h1, h2, h3, h4 { font-family: var(--font-serif); line-height: 1.2; font-weight: 700; margin: 0 0 0.5em; }
-h1 { font-size: clamp(2rem, 4vw, 2.75rem); }
+h1, h2, h3, h4 { font-family: var(--font-serif); line-height: 1.15; font-weight: 700; letter-spacing: -0.01em; margin: 0 0 0.5em; }
+h1 { font-size: clamp(2.25rem, 4.5vw, 3.25rem); letter-spacing: -0.02em; }
 h2 { font-size: clamp(1.5rem, 3vw, 2rem); margin-top: 2em; }
 h3 { font-size: 1.25rem; margin-top: 1.5em; }
 p { margin: 0 0 1.2em; }
@@ -94,22 +96,26 @@ p { margin: 0 0 1.2em; }
   font-size: 0.95rem;
   border: 1px solid transparent;
   cursor: pointer;
-  transition: transform 0.15s ease, background-color 0.15s ease, border-color 0.15s ease;
+  transition: transform 0.25s var(--ease), box-shadow 0.25s var(--ease), background-color 0.25s var(--ease), border-color 0.25s var(--ease), filter 0.25s var(--ease);
 }
 .btn:hover { text-decoration: none; }
-.btn-primary { background: var(--color-accent-strong); color: #fff; }
-.btn-primary:hover { filter: brightness(1.12); }
+.btn-primary { background: var(--color-accent-strong); color: #fff; box-shadow: 0 1px 2px rgba(20, 24, 31, 0.1); }
+.btn-primary:hover {
+  filter: brightness(1.12);
+  transform: translateY(-1px);
+  box-shadow: 0 10px 24px color-mix(in srgb, var(--color-accent) 35%, transparent);
+}
 .btn-secondary { background: transparent; color: var(--ink); border-color: var(--border); }
-.btn-secondary:hover { border-color: var(--color-accent-strong); color: var(--color-accent-strong); }
+.btn-secondary:hover { border-color: var(--color-accent-strong); color: var(--color-accent-strong); transform: translateY(-1px); }
 
 .card {
   background: var(--paper);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   overflow: hidden;
-  transition: box-shadow 0.2s ease, transform 0.2s ease;
+  transition: box-shadow 0.3s var(--ease), transform 0.3s var(--ease);
 }
-.card:hover { box-shadow: var(--shadow); transform: translateY(-2px); }
+.card:hover { box-shadow: var(--shadow-lg); transform: translateY(-4px); }
 
 .pill {
   display: inline-block;
@@ -127,11 +133,33 @@ th, td { text-align: left; padding: 0.6em 0.8em; border: 1px solid var(--border)
 th { background: var(--paper-soft); font-weight: 700; }
 
 blockquote {
-  margin: 1.5em 0;
-  padding: 0.2em 1.2em;
+  margin: 2em 0;
+  padding: 0.3em 0 0.3em 1.4em;
   border-left: 3px solid var(--color-accent);
   color: var(--ink-dim);
+  font-family: var(--font-serif);
+  font-size: 1.15em;
+  line-height: 1.5;
   font-style: italic;
+}
+
+/* Editorial drop cap on the opening paragraph of an article body. */
+.prose > p:first-of-type::first-letter {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: 3.4em;
+  line-height: 0.82;
+  float: left;
+  margin: 0.04em 0.08em 0 0;
+  color: var(--color-accent-strong);
+}
+
+/* Scroll-reveal utility: sections fade/slide in as they enter the
+   viewport (see BaseLayout's IntersectionObserver). Skipped entirely
+   under reduced motion, so content just renders visible immediately. */
+@media (prefers-reduced-motion: no-preference) {
+  .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.7s var(--ease), transform 0.7s var(--ease); }
+  .reveal.is-visible { opacity: 1; transform: translateY(0); }
 }
 
 code { font-size: 0.9em; background: var(--paper-soft); padding: 0.15em 0.4em; border-radius: 4px; }
