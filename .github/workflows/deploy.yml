@@ -68,9 +68,6 @@ jobs:
       - name: Validate and build Technology Blog
         working-directory: tech-blog
         run: npm run build
-        env:
-          PUBLIC_SUPABASE_URL: ${{ secrets.TECH_BLOG_SUPABASE_URL }}
-          PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.TECH_BLOG_SUPABASE_ANON_KEY }}
 
       - name: Assemble combined site
         run: |

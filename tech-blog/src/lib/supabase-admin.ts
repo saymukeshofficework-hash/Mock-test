@@ -1,14 +1,23 @@
-// Browser-only client for the /admin/ pages. Uses the public anon key — safe to
-// ship in the bundle; supabase/blog_admin_schema.sql's Row Level Security (an
-// admin-email check, not "any logged-in user") is what actually protects writes.
+// Browser-only client for the /admin/ pages. No env vars / GitHub secrets
+// needed — see src/config/supabase-credentials.mjs for why it's safe to
+// commit the anon key directly.
 import { createClient } from '@supabase/supabase-js';
+import { SUPABASE_URL, SUPABASE_ANON_KEY } from '../config/supabase-credentials.mjs';
 
-const url = import.meta.env.PUBLIC_SUPABASE_URL;
-const anonKey = import.meta.env.PUBLIC_SUPABASE_ANON_KEY;
+// Admin sign-in uses a plain "Admin ID" (admin1 / admin2), not an email —
+// Supabase Auth only accepts emails, so this maps each ID to a synthetic
+// address under this domain, exactly like js/site-config.js's
+// studentEmailDomain does for TET Test Hub student IDs. These addresses are
+// never emailed — the two accounts were created directly with a password.
+export const ADMIN_EMAIL_DOMAIN = 'blog-admin.tettesthub.app';
 
-export const supabaseConfigured = Boolean(url && anonKey);
+export function adminIdToEmail(adminId: string): string {
+  return `${adminId.trim().toLowerCase()}@${ADMIN_EMAIL_DOMAIN}`;
+}
 
-export const supabase = supabaseConfigured ? createClient(url, anonKey) : null;
+export const supabaseConfigured = true;
+
+export const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 export interface BlogSubmission {
   id: string;

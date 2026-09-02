@@ -3,13 +3,23 @@
 A login-gated page at `/tech-blog/admin/` where you paste a complete article (front
 matter + Markdown/HTML body, same format as
 [`tech-blog/templates/article-template.md`](./tech-blog/templates/article-template.md))
-and it gets published to the live site. No separate CMS, no database of its own beyond
-one small table — see [`supabase/blog_admin_schema.sql`](./supabase/blog_admin_schema.sql)
-for exactly what it stores and why.
+and it gets published to the live site. No separate CMS, no manual setup required —
+already configured and ready to use.
+
+## Login now
+
+Go to `https://tettesthub.in/tech-blog/admin/` and sign in with `admin1` or `admin2`
+as the Admin ID — passwords for both were given to you directly in chat when these
+accounts were created (never committed to this repo). Lost or want to change one?
+Supabase: **tet-test-hub project -> Authentication -> Users**, select the account
+(`admin1@blog-admin.tettesthub.app` / `admin2@blog-admin.tettesthub.app`) -> **Reset
+password**.
 
 ## How it works
 
-1. You log in at `/tech-blog/admin/login/` with the admin account you create below.
+1. You log in with an Admin ID above (this maps to a Supabase account under
+   `@blog-admin.tettesthub.app` internally — see
+   [`tech-blog/src/lib/supabase-admin.ts`](./tech-blog/src/lib/supabase-admin.ts)).
 2. You paste an article and click **Save as draft** or **Publish now**. This writes one
    row to the `blog_submissions` table in Supabase (the same project TET Test Hub
    already uses) — nothing touches the repo yet.
@@ -19,36 +29,19 @@ for exactly what it stores and why.
    article — validated by `scripts/validate-content.mjs` and rendered by
    `ArticleLayout.astro` exactly like the three demo articles.
 4. A build happens automatically on every push to `main`, or instantly after
-   publishing if you set up the optional webhook in step 3 below.
+   publishing if you set up the optional webhook below.
 
-## One-time setup
+No GitHub secrets or `.env` files needed anywhere — the Supabase project URL and
+public `anon` key are committed directly in
+[`tech-blog/src/config/supabase-credentials.mjs`](./tech-blog/src/config/supabase-credentials.mjs).
+This is safe: it's the anon key, which is *designed* to be public (the same way
+`js/site-config.js`'s Supabase key at the repo root already is) — Row Level Security
+in [`supabase/blog_admin_schema.sql`](./supabase/blog_admin_schema.sql) is what
+actually protects writes, gated to exactly these two admin accounts, not "any
+authenticated user" (a logged-in student is also an `authenticated` user in this same
+project).
 
-### 1. Create your admin login
-In the **tet-test-hub** Supabase project (Dashboard -> Authentication -> Users -> Add
-user):
-- Email: an address you control — RLS is currently locked to
-  `saymukeshofficework@gmail.com` (see the two policies in
-  `supabase/blog_admin_schema.sql`). If you want to use a different address, update
-  both `auth.jwt() ->> 'email' = '...'` lines there and re-run them in the SQL Editor.
-- Password: whatever you'll sign in with at `/tech-blog/admin/login/`.
-- Check **"Auto Confirm User"** (same as student accounts — there's no real inbox to
-  confirm from).
-
-This does **not** grant test-series admin access or vice versa — it's a completely
-separate permission, scoped to the `blog_submissions` table only.
-
-### 2. Add the two GitHub repo secrets
-**Settings -> Secrets and variables -> Actions -> New repository secret**, add both:
-
-| Name | Value |
-|---|---|
-| `TECH_BLOG_SUPABASE_URL` | `https://ovaubhekxjtkodkhsybg.supabase.co` |
-| `TECH_BLOG_SUPABASE_ANON_KEY` | the `anon` key from **Project Settings -> API** in the same Supabase project |
-
-Without these, the admin panel builds but shows "not configured", and the build simply
-skips syncing any admin-submitted posts (everything else on the site is unaffected).
-
-### 3. (Optional) Instant rebuilds — Supabase -> GitHub webhook
+## (Optional) Instant rebuilds — Supabase -> GitHub webhook
 Skip this and publishing still works — it just waits for the next push to `main`
 (or you trigger `.github/workflows/deploy.yml` manually via **Actions -> Deploy to
 GitHub Pages -> Run workflow**). To make **Publish now** rebuild the site within
@@ -74,9 +67,6 @@ since the workflow just rebuilds from whatever is currently `published`.
 
 ## Using it
 
-Go to `https://tettesthub.in/tech-blog/admin/`, sign in, and paste an article. A few
-things to know:
-
 - **Images**: there's no upload button. Use a full `https://...` image URL for
   `featuredImage` (and any inline images in the body) — an already-existing site image
   path like `/images/articles/...` only works if that file is actually committed to
@@ -95,10 +85,20 @@ things to know:
   will not include it (existing already-deployed pages aren't retroactively removed
   from a past build until the next one runs).
 
+## Adding or removing an admin account
+1. Supabase Dashboard -> **Authentication -> Users -> Add user** — email
+   `<newid>@blog-admin.tettesthub.app`, set a password, check **Auto Confirm User**.
+2. Add that email to both policies in
+   [`supabase/blog_admin_schema.sql`](./supabase/blog_admin_schema.sql) (the `in
+   (...)` list) and re-run just those two `create policy` statements in the SQL
+   Editor.
+3. To remove an account, delete it in **Authentication -> Users** and drop its email
+   from both policies the same way.
+
 ## Never do this
 - Never put the Supabase **service_role** key anywhere in this repository, the admin
   page, or the GitHub webhook — only the **anon** key belongs in
-  `TECH_BLOG_SUPABASE_ANON_KEY` / `PUBLIC_SUPABASE_ANON_KEY`.
+  `supabase-credentials.mjs`.
 - Never widen the `blog_submissions_admin_all` policy in
   `supabase/blog_admin_schema.sql` to "any authenticated user" — this project's
   `authenticated` role also includes every TET Test Hub student account.

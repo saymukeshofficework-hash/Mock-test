@@ -6,34 +6,36 @@
 // filesystem — from here on it's a normal article, going through the exact
 // same Zod schema validation and rendering as every hand-written one.
 //
-// No-ops (exit 0) when PUBLIC_SUPABASE_URL / PUBLIC_SUPABASE_ANON_KEY aren't
-// set, so a plain local `npm run build` without credentials still works.
+// Never hard-fails the build: this is supplementary content on top of the
+// hand-written articles already in git, so a transient Supabase hiccup (or a
+// network-restricted environment) should not be able to take down deploying
+// the rest of the site. Failures are logged loudly (visible in the Actions
+// run) and just skip the sync, leaving src/content/posts/ as it already is.
 
 import { writeFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
+import { SUPABASE_URL, SUPABASE_ANON_KEY } from '../src/config/supabase-credentials.mjs';
 
 const ROOT = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 const POSTS_DIR = path.join(ROOT, 'src/content/posts');
 
-const url = process.env.PUBLIC_SUPABASE_URL;
-const anonKey = process.env.PUBLIC_SUPABASE_ANON_KEY;
-
 async function main() {
-  if (!url || !anonKey) {
-    console.log('sync-admin-posts: PUBLIC_SUPABASE_URL / PUBLIC_SUPABASE_ANON_KEY not set — skipping.');
+  const endpoint = `${SUPABASE_URL}/rest/v1/blog_submissions?select=slug,raw_markdown&status=eq.published`;
+  let res;
+  try {
+    res = await fetch(endpoint, {
+      headers: { apikey: SUPABASE_ANON_KEY, Authorization: `Bearer ${SUPABASE_ANON_KEY}` },
+    });
+  } catch (e) {
+    console.warn(`sync-admin-posts: could not reach Supabase (${e.message}) — skipping.`);
     return;
   }
 
-  const endpoint = `${url}/rest/v1/blog_submissions?select=slug,raw_markdown&status=eq.published`;
-  const res = await fetch(endpoint, {
-    headers: { apikey: anonKey, Authorization: `Bearer ${anonKey}` },
-  });
-
   if (!res.ok) {
-    console.error(`sync-admin-posts: Supabase request failed (${res.status} ${res.statusText})`);
-    console.error(await res.text());
-    process.exit(1);
+    console.warn(`sync-admin-posts: Supabase request failed (${res.status} ${res.statusText}) — skipping.`);
+    console.warn(await res.text());
+    return;
   }
 
   const rows = await res.json();

@@ -60,7 +60,7 @@ import templateText from '../../../templates/article-template.md?raw';
 </BaseLayout>
 
 <script>
-  import { supabase, supabaseConfigured, type BlogSubmission } from '../../lib/supabase-admin';
+  import { supabase, type BlogSubmission } from '../../lib/supabase-admin';
 
   const gate = document.getElementById('gate')!;
   const app = document.getElementById('app')!;
@@ -70,14 +70,10 @@ import templateText from '../../../templates/article-template.md?raw';
   const publishStatus = document.getElementById('publish-status')!;
   const listEl = document.getElementById('submissions-list')!;
 
-  if (!supabaseConfigured) {
-    gate.textContent = 'Admin panel is not configured (missing PUBLIC_SUPABASE_URL / PUBLIC_SUPABASE_ANON_KEY).';
-  } else {
-    init();
-  }
+  init();
 
   async function init() {
-    const { data } = await supabase!.auth.getSession();
+    const { data } = await supabase.auth.getSession();
     if (!data.session) {
       window.location.href = 'login/';
       return;
@@ -89,7 +85,7 @@ import templateText from '../../../templates/article-template.md?raw';
   }
 
   signOutBtn.addEventListener('click', async () => {
-    await supabase!.auth.signOut();
+    await supabase.auth.signOut();
     window.location.href = 'login/';
   });
 
@@ -122,7 +118,7 @@ import templateText from '../../../templates/article-template.md?raw';
     const status = (form.querySelector('input[name="status"]:checked') as HTMLInputElement).value;
     publishStatus.textContent = 'Saving…';
 
-    const { error } = await supabase!
+    const { error } = await supabase
       .from('blog_submissions')
       .upsert({ slug, raw_markdown: raw, status }, { onConflict: 'slug' });
 
@@ -135,7 +131,7 @@ import templateText from '../../../templates/article-template.md?raw';
   });
 
   async function loadSubmissions() {
-    const { data, error } = await supabase!
+    const { data, error } = await supabase
       .from('blog_submissions')
       .select('id, slug, status, updated_at')
       .order('updated_at', { ascending: false });
@@ -160,7 +156,7 @@ import templateText from '../../../templates/article-template.md?raw';
         <button type="button" class="btn btn-secondary delete-btn">Delete</button>
       `;
       item.querySelector('.edit-btn')!.addEventListener('click', async () => {
-        const { data: full, error: fetchErr } = await supabase!
+        const { data: full, error: fetchErr } = await supabase
           .from('blog_submissions')
           .select('raw_markdown')
           .eq('id', row.id)
@@ -174,7 +170,7 @@ import templateText from '../../../templates/article-template.md?raw';
       });
       item.querySelector('.delete-btn')!.addEventListener('click', async () => {
         if (!confirm(`Delete "${row.slug}"? This cannot be undone.`)) return;
-        const { error: delErr } = await supabase!.from('blog_submissions').delete().eq('id', row.id);
+        const { error: delErr } = await supabase.from('blog_submissions').delete().eq('id', row.id);
         if (delErr) {
           publishStatus.textContent = `Could not delete: ${delErr.message}`;
           return;

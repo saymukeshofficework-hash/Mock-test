@@ -5,11 +5,11 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 <BaseLayout title="Admin Login" description="Blog admin sign-in." path="/admin/login/" noindex noPagefind>
   <div class="container admin-login">
     <h1>Admin Login</h1>
-    <p class="hint">Sign in with the admin account created in Supabase (see TECH_BLOG_ADMIN_INSTRUCTIONS.md).</p>
+    <p class="hint">Sign in with your Admin ID (admin1 or admin2) and password.</p>
 
     <form id="login-form" class="login-form">
-      <label for="email">Email</label>
-      <input id="email" type="email" required autocomplete="username" />
+      <label for="admin-id">Admin ID</label>
+      <input id="admin-id" type="text" required autocomplete="username" placeholder="admin1" />
 
       <label for="password">Password</label>
       <input id="password" type="password" required autocomplete="current-password" />
@@ -21,27 +21,22 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 </BaseLayout>
 
 <script>
-  import { supabase, supabaseConfigured } from '../../lib/supabase-admin';
+  import { supabase, adminIdToEmail } from '../../lib/supabase-admin';
 
   const form = document.getElementById('login-form') as HTMLFormElement;
   const status = document.getElementById('login-status')!;
 
-  if (!supabaseConfigured) {
-    status.textContent = 'Admin login is not configured (missing PUBLIC_SUPABASE_URL / PUBLIC_SUPABASE_ANON_KEY).';
-  } else {
-    // Already signed in? Skip straight to the admin panel.
-    supabase!.auth.getSession().then(({ data }) => {
-      if (data.session) window.location.href = '../';
-    });
-  }
+  // Already signed in? Skip straight to the admin panel.
+  supabase.auth.getSession().then(({ data }) => {
+    if (data.session) window.location.href = '../';
+  });
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
-    if (!supabase) return;
     status.textContent = 'Signing in…';
-    const email = (document.getElementById('email') as HTMLInputElement).value;
+    const adminId = (document.getElementById('admin-id') as HTMLInputElement).value;
     const password = (document.getElementById('password') as HTMLInputElement).value;
-    const { error } = await supabase.auth.signInWithPassword({ email, password });
+    const { error } = await supabase.auth.signInWithPassword({ email: adminIdToEmail(adminId), password });
     if (error) {
       status.textContent = error.message;
       return;
