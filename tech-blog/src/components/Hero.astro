@@ -20,7 +20,7 @@ const category = getCategoryByName(featured.data.category);
         <time datetime={featured.data.date.toISOString()}>{formatDate(featured.data.date)}</time>
         {featured.data.readingTime && <> · {featured.data.readingTime} min read</>}
       </p>
-      <a href={withBase(`/posts/${featured.slug}/`)} class="btn btn-primary">Read the Article</a>
+      <a href={withBase(`/posts/${featured.slug}/`)} class="btn btn-primary btn-cta">Read the Article <span aria-hidden="true">&rarr;</span></a>
     </div>
     <a href={withBase(`/posts/${featured.slug}/`)} class="hero-image-link">
       <img src={withBase(featured.data.featuredImage)} alt={featured.data.featuredImageAlt} width="800" height="600" />

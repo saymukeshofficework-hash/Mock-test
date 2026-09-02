@@ -89,24 +89,45 @@ p { margin: 0 0 1.2em; }
 .btn {
   display: inline-flex;
   align-items: center;
-  gap: 0.4em;
-  padding: 0.7em 1.3em;
+  gap: 0.5em;
+  padding: 0.85em 1.7em;
   border-radius: 999px;
-  font-weight: 600;
-  font-size: 0.95rem;
+  font-weight: 700;
+  font-size: 1rem;
   border: 1px solid transparent;
   cursor: pointer;
   transition: transform 0.25s var(--ease), box-shadow 0.25s var(--ease), background-color 0.25s var(--ease), border-color 0.25s var(--ease), filter 0.25s var(--ease);
 }
 .btn:hover { text-decoration: none; }
-.btn-primary { background: var(--color-accent-strong); color: #fff; box-shadow: 0 1px 2px rgba(20, 24, 31, 0.1); }
+.btn-primary {
+  background: var(--color-accent-strong);
+  color: #fff;
+  box-shadow: 0 8px 20px color-mix(in srgb, var(--color-accent) 38%, transparent);
+}
 .btn-primary:hover {
   filter: brightness(1.12);
-  transform: translateY(-1px);
-  box-shadow: 0 10px 24px color-mix(in srgb, var(--color-accent) 35%, transparent);
+  transform: translateY(-2px);
+  box-shadow: 0 16px 32px color-mix(in srgb, var(--color-accent) 48%, transparent);
 }
-.btn-secondary { background: transparent; color: var(--ink); border-color: var(--border); }
+.btn-primary:active { transform: translateY(0); }
+.btn-secondary { background: transparent; color: var(--ink); border-color: var(--border); font-weight: 600; }
 .btn-secondary:hover { border-color: var(--color-accent-strong); color: var(--color-accent-strong); transform: translateY(-1px); }
+
+/* Extra-prominent CTA modifier: for the one primary conversion action per
+   page (hero, newsletter) — not every button, so it stays meaningful.
+   Pulses to draw the eye; frozen to its glow state under reduced motion. */
+.btn-cta {
+  font-size: 1.05rem;
+  padding: 0.95em 2rem;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .btn-cta { animation: btn-cta-pulse 2.6s var(--ease) infinite; }
+  .btn-cta:hover { animation-play-state: paused; }
+}
+@keyframes btn-cta-pulse {
+  0%, 100% { box-shadow: 0 8px 20px color-mix(in srgb, var(--color-accent) 38%, transparent); }
+  50% { box-shadow: 0 8px 28px color-mix(in srgb, var(--color-accent) 60%, transparent); }
+}
 
 .card {
   background: var(--paper);
