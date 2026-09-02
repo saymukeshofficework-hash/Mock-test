@@ -5,6 +5,7 @@ export interface NavLink {
 }
 export interface NavGroup {
   label: string
+  badge?: string
   links: NavLink[]
   secondaryLinks?: NavLink[]
 }
@@ -47,6 +48,18 @@ export const navGroups: NavGroup[] = [
       { label: 'NEET Questions', to: '/neet/questions' },
       { label: 'Previous Questions', to: '/neet/previous-questions' },
       { label: 'Revision', to: '/neet/revision' },
+    ],
+  },
+  {
+    label: 'Virtual Lab',
+    badge: '3D',
+    links: [
+      { label: '3D Lab Hub', to: '/virtual-lab', badge: 'All Labs' },
+      { label: 'Microscope Simulator', to: '/virtual-lab/microscope' },
+      { label: 'Plant & Animal Cells', to: '/virtual-lab/cell' },
+      { label: 'DNA Double Helix', to: '/virtual-lab/dna' },
+      { label: 'Stomata & Photosynthesis', to: '/virtual-lab/stomata' },
+      { label: 'Flower Dissection', to: '/virtual-lab/flower' },
     ],
   },
   {

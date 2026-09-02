@@ -7,6 +7,7 @@ import { bundles } from '../data/bundles'
 import { onlineClasses } from '../data/onlineClasses'
 import { calculators } from '../data/calculators'
 import { scienceClasses, scienceNotes } from '../data/scienceNotes'
+import { labExperiments, specimenSlides } from '../data/virtualLab'
 
 export interface SearchResult {
   id: string
@@ -18,6 +19,35 @@ export interface SearchResult {
 
 function buildIndex(): SearchResult[] {
   const items: SearchResult[] = []
+
+  // 3D Virtual Biology Lab System
+  items.push({
+    id: 'virtual-lab-hub',
+    title: '3D Virtual Biology Lab',
+    type: 'Virtual Lab',
+    to: '/virtual-lab',
+    meta: '3D Virtual Biology Lab Simulator Microscope Cells DNA Stomata Flower Dissection WebGL',
+  })
+
+  labExperiments.forEach((exp) => {
+    items.push({
+      id: `virtual-lab-${exp.id}`,
+      title: `${exp.title} (3D Virtual Lab)`,
+      type: 'Virtual Lab',
+      to: `/virtual-lab/${exp.slug}`,
+      meta: `${exp.category} · ${exp.subtitle} · ${exp.classes.join(' ')} · ${exp.materials.join(' ')}`,
+    })
+  })
+
+  specimenSlides.forEach((slide) => {
+    items.push({
+      id: `specimen-slide-${slide.id}`,
+      title: `${slide.commonName} (${slide.name})`,
+      type: 'Lab Specimen',
+      to: '/virtual-lab/microscope',
+      meta: `Microscope slide · ${slide.stain} · ${slide.cellType} · ${slide.description}`,
+    })
+  })
 
   // Science Notes System
   items.push({

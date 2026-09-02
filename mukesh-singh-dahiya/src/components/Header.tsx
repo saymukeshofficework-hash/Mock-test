@@ -45,14 +45,19 @@ export default function Header() {
             ))}
             {navGroups.map((group) => (
               <div key={group.label} className="relative" onMouseEnter={() => setOpenGroup(group.label)}>
-                <button className="flex items-center gap-1 rounded-lg px-3 py-2 text-sm font-semibold text-navy-700 hover:bg-slate-50 hover:text-brand-700 dark:text-slate-200 dark:hover:bg-navy-800 dark:hover:text-cyan-400">
-                  {group.label}
+                <button className="flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-semibold text-navy-700 hover:bg-slate-50 hover:text-brand-700 dark:text-slate-200 dark:hover:bg-navy-800 dark:hover:text-cyan-400">
+                  <span>{group.label}</span>
+                  {group.badge && (
+                    <span className="rounded-full bg-emerald-100 px-1.5 py-0.5 text-[9px] font-extrabold text-emerald-700 dark:bg-emerald-950 dark:text-emerald-300">
+                      {group.badge}
+                    </span>
+                  )}
                   <Icon name="chevronDown" className="h-3.5 w-3.5" />
                 </button>
                 {openGroup === group.label && (
                   <div
                     className={`animate-scale-in absolute left-0 top-full origin-top-left rounded-xl border border-slate-200 bg-white p-2 shadow-card-lg dark:border-navy-700 dark:bg-navy-900 ${
-                      group.label === 'Learn' ? 'w-80 p-3' : 'w-56'
+                      group.label === 'Learn' ? 'w-80 p-3' : group.label === 'Virtual Lab' ? 'w-72 p-3' : 'w-56'
                     }`}
                   >
                     {group.label === 'Learn' ? (
@@ -114,6 +119,40 @@ export default function Header() {
                             </div>
                           </div>
                         )}
+                      </div>
+                    ) : group.label === 'Virtual Lab' ? (
+                      <div>
+                        {/* Featured 3D Lab Hub Link */}
+                        <Link
+                          to="/virtual-lab"
+                          onClick={() => setOpenGroup(null)}
+                          className="flex items-center justify-between rounded-lg bg-gradient-to-r from-emerald-500/10 via-cyan-500/10 to-transparent p-2.5 text-sm font-bold text-emerald-800 transition-colors hover:bg-emerald-50 dark:text-cyan-300 dark:hover:bg-navy-800 border border-emerald-500/20"
+                        >
+                          <span className="flex items-center gap-2">
+                            <Icon name="microscope" className="h-4 w-4 text-emerald-600 dark:text-cyan-400" />
+                            <span>3D Biology Lab Hub</span>
+                          </span>
+                          <span className="rounded bg-emerald-500/20 px-1.5 py-0.5 text-[9px] font-extrabold uppercase tracking-wider text-emerald-800 dark:text-cyan-300">
+                            Live 3D
+                          </span>
+                        </Link>
+
+                        <div className="mt-2 space-y-0.5">
+                          <p className="px-2 text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1">
+                            Interactive Workbenches
+                          </p>
+                          {group.links.slice(1).map((l) => (
+                            <Link
+                              key={l.to}
+                              to={l.to}
+                              onClick={() => setOpenGroup(null)}
+                              className="flex items-center justify-between rounded-lg px-2.5 py-1.5 text-xs font-semibold text-navy-700 transition-colors hover:bg-slate-50 hover:text-brand-700 dark:text-slate-200 dark:hover:bg-navy-800 dark:hover:text-cyan-400"
+                            >
+                              <span>{l.label}</span>
+                              <Icon name="chevronRight" className="h-3 w-3 text-slate-400" />
+                            </Link>
+                          ))}
+                        </div>
                       </div>
                     ) : (
                       group.links.map((l) => (

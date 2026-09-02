@@ -62,6 +62,35 @@ export default function MobileNav({ open, onClose }: { open: boolean; onClose: (
                       ))}
                     </div>
                   </>
+                ) : group.label === 'Virtual Lab' ? (
+                  <>
+                    <Link
+                      to="/virtual-lab"
+                      onClick={onClose}
+                      className="flex items-center justify-between rounded-lg bg-emerald-50 px-2.5 py-2 text-sm font-bold text-emerald-800 dark:bg-emerald-950/60 dark:text-cyan-300"
+                    >
+                      <span className="flex items-center gap-1.5">
+                        <Icon name="microscope" className="h-4 w-4 text-emerald-600 dark:text-cyan-400" />
+                        <span>3D Virtual Biology Lab</span>
+                      </span>
+                      <span className="rounded bg-emerald-200/70 px-1.5 py-0.5 text-[10px] font-bold text-emerald-900 dark:bg-emerald-400/20 dark:text-cyan-300">
+                        Live 3D
+                      </span>
+                    </Link>
+                    <div className="flex flex-col gap-1 py-1">
+                      {group.links.slice(1).map((l) => (
+                        <Link
+                          key={l.to}
+                          to={l.to}
+                          onClick={onClose}
+                          className="flex items-center justify-between rounded-lg px-2 py-1.5 text-xs font-semibold text-slate-700 transition-colors hover:bg-slate-50 dark:text-slate-300 dark:hover:bg-navy-800"
+                        >
+                          <span>{l.label}</span>
+                          <Icon name="chevronRight" className="h-3 w-3 text-slate-400" />
+                        </Link>
+                      ))}
+                    </div>
+                  </>
                 ) : (
                   group.links.map((l) => (
                     <Link

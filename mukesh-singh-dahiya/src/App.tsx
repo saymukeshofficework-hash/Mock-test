@@ -38,6 +38,8 @@ import Dashboard from './pages/Dashboard'
 import ScienceLanding from './pages/ScienceLanding'
 import ScienceClassPage from './pages/ScienceClassPage'
 import ScienceNoteDetail from './pages/ScienceNoteDetail'
+import VirtualLabHub from './pages/VirtualLabHub'
+import VirtualLabExperiment from './pages/VirtualLabExperiment'
 import NotFound from './pages/NotFound'
 
 /** Standard site chrome (header/footer) for every page except the cinematic home. */
@@ -106,6 +108,10 @@ export default function App() {
           <Route path="/calculators" element={<Calculators />} />
           <Route path="/calculators/converter" element={<UnitConverter />} />
           <Route path="/calculators/:slug" element={<CalculatorDetail />} />
+
+          {/* 3D Virtual Biology Lab */}
+          <Route path="/virtual-lab" element={<VirtualLabHub />} />
+          <Route path="/virtual-lab/:experimentId" element={<VirtualLabExperiment />} />
 
           <Route path="/resources" element={<Resources />} />
           <Route path="/resources/:slug" element={<ResourceDetail />} />
