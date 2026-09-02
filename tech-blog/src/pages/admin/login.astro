@@ -1,0 +1,66 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Admin Login" description="Blog admin sign-in." path="/admin/login/" noindex noPagefind>
+  <div class="container admin-login">
+    <h1>Admin Login</h1>
+    <p class="hint">Sign in with the admin account created in Supabase (see TECH_BLOG_ADMIN_INSTRUCTIONS.md).</p>
+
+    <form id="login-form" class="login-form">
+      <label for="email">Email</label>
+      <input id="email" type="email" required autocomplete="username" />
+
+      <label for="password">Password</label>
+      <input id="password" type="password" required autocomplete="current-password" />
+
+      <button type="submit" class="btn btn-primary">Sign In</button>
+      <p id="login-status" class="status" role="status"></p>
+    </form>
+  </div>
+</BaseLayout>
+
+<script>
+  import { supabase, supabaseConfigured } from '../../lib/supabase-admin';
+
+  const form = document.getElementById('login-form') as HTMLFormElement;
+  const status = document.getElementById('login-status')!;
+
+  if (!supabaseConfigured) {
+    status.textContent = 'Admin login is not configured (missing PUBLIC_SUPABASE_URL / PUBLIC_SUPABASE_ANON_KEY).';
+  } else {
+    // Already signed in? Skip straight to the admin panel.
+    supabase!.auth.getSession().then(({ data }) => {
+      if (data.session) window.location.href = '../';
+    });
+  }
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (!supabase) return;
+    status.textContent = 'Signing in…';
+    const email = (document.getElementById('email') as HTMLInputElement).value;
+    const password = (document.getElementById('password') as HTMLInputElement).value;
+    const { error } = await supabase.auth.signInWithPassword({ email, password });
+    if (error) {
+      status.textContent = error.message;
+      return;
+    }
+    window.location.href = '../';
+  });
+</script>
+
+<style>
+  .admin-login { max-width: 380px; padding: 4rem 1.25rem; }
+  .hint { color: var(--ink-faint); font-size: 0.9rem; }
+  .login-form { display: flex; flex-direction: column; gap: 0.4rem; margin-top: 1.5rem; }
+  .login-form label { font-size: 0.85rem; font-weight: 700; margin-top: 0.6rem; }
+  .login-form input {
+    padding: 0.7em 1em;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    font-size: 1rem;
+  }
+  .login-form .btn { margin-top: 1.2rem; justify-content: center; }
+  .status { color: var(--ink-dim); font-size: 0.85rem; min-height: 1.2em; }
+</style>

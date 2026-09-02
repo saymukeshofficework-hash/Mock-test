@@ -93,7 +93,7 @@ async function main() {
       seenSlugs.set(slug, file);
     }
 
-    if (fm.featuredImage) {
+    if (fm.featuredImage && !/^https?:\/\//.test(fm.featuredImage)) {
       const imgPath = path.join(PUBLIC_DIR, fm.featuredImage.replace(/^\//, ''));
       if (!(await fileExists(imgPath))) {
         errors.push(`${prefix} featuredImage "${fm.featuredImage}" does not exist at public${fm.featuredImage}`);
