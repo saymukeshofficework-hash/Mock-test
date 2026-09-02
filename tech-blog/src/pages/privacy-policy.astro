@@ -1,0 +1,44 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { siteConfig } from '../config/site';
+---
+
+<BaseLayout title="Privacy Policy" description={`Privacy Policy for ${siteConfig.BLOG_NAME}.`} path="/privacy-policy/">
+  <div class="container legal-page">
+    <Breadcrumbs items={[{ label: 'Home', href: '/' }, { label: 'Privacy Policy' }]} />
+    <h1>Privacy Policy</h1>
+    <p class="placeholder-notice">
+      PLACEHOLDER — this is a generic starting draft, not professionally reviewed legal advice.
+      Have a qualified professional review this page for your jurisdiction before launch.
+    </p>
+    <p>Last updated: PLACEHOLDER_DATE</p>
+
+    <h2>Information We Collect</h2>
+    <p>
+      {siteConfig.BLOG_NAME} may collect standard web analytics data (pages visited, approximate
+      location, device/browser type) if Google Analytics is enabled (see <code>GOOGLE_ANALYTICS_ID</code>
+      in <code>src/config/site.ts</code>). No analytics service is connected until that value is set.
+    </p>
+
+    <h2>Cookies</h2>
+    <p>Analytics tools, if enabled, may use cookies. This site does not otherwise set tracking cookies.</p>
+
+    <h2>Third-Party Links</h2>
+    <p>
+      Some articles contain affiliate links to third-party sites. We are not responsible for the
+      privacy practices of those sites — see our <a href="/affiliate-disclosure/">Affiliate Disclosure</a>.
+    </p>
+
+    <h2>Contact</h2>
+    <p>Questions about this policy: <a href={`mailto:${siteConfig.CONTACT_EMAIL}`}>{siteConfig.CONTACT_EMAIL}</a></p>
+  </div>
+</BaseLayout>
+
+<style>
+  .legal-page { max-width: var(--content-width); padding: 1.5rem 0 4rem; }
+  .placeholder-notice {
+    background: #fef3c7; color: #92400e; border: 1px solid #fbbf24; border-radius: 6px;
+    padding: 0.8em 1em; font-size: 0.9rem; font-weight: 600;
+  }
+</style>

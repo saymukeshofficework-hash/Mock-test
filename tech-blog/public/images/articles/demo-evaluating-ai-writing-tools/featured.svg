@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img" aria-label="Illustration of a spark representing AI">
+  <rect width="1200" height="675" fill="#0f172a"/>
+  <rect x="0" y="0" width="1200" height="675" fill="#1a56db" opacity="0.08"/>
+  <g transform="translate(600,340)" fill="#1a56db">
+    <path d="M0 -140 L36 -36 L140 0 L36 36 L0 140 L-36 36 L-140 0 L-36 -36 Z" opacity="0.85"/>
+    <circle cx="220" cy="-120" r="10" opacity="0.6"/>
+    <circle cx="-230" cy="110" r="14" opacity="0.5"/>
+    <circle cx="200" cy="140" r="7" opacity="0.6"/>
+  </g>
+  <text x="600" y="600" text-anchor="middle" font-family="Georgia, serif" font-size="34" fill="#eef0f3">Placeholder image — demo article</text>
+</svg>

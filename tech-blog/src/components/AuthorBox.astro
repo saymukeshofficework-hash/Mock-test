@@ -1,0 +1,39 @@
+---
+import { siteConfig } from '../config/site';
+import { withBase } from '../lib/url';
+
+interface Props { authorName?: string }
+const { authorName = siteConfig.AUTHOR_NAME } = Astro.props;
+---
+
+<div class="author-box">
+  {siteConfig.AUTHOR_PHOTO ? (
+    <img src={withBase(siteConfig.AUTHOR_PHOTO)} alt={authorName} class="author-photo" width="64" height="64" />
+  ) : (
+    <div class="author-photo author-photo-placeholder" aria-hidden="true">{authorName.slice(0, 1)}</div>
+  )}
+  <div>
+    <p class="author-name">Written by {authorName}</p>
+    <p class="author-bio">{siteConfig.AUTHOR_BIO}</p>
+  </div>
+</div>
+
+<style>
+  .author-box {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+    padding: 1.25rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--paper-soft);
+    margin: 2rem 0;
+  }
+  .author-photo { width: 56px; height: 56px; border-radius: 50%; object-fit: cover; flex-shrink: 0; }
+  .author-photo-placeholder {
+    display: flex; align-items: center; justify-content: center;
+    background: var(--color-primary); color: #fff; font-weight: 700; font-size: 1.3rem;
+  }
+  .author-name { font-weight: 700; margin: 0 0 0.3em; }
+  .author-bio { color: var(--ink-dim); margin: 0; font-size: 0.92rem; }
+</style>

@@ -1,0 +1,125 @@
+---
+import { siteConfig } from '../config/site';
+import { withBase, absoluteUrl } from '../lib/url';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+  image?: string;
+  path: string; // current path, e.g. "/posts/my-post/" — used for canonical + OG url
+  type?: 'website' | 'article';
+  noindex?: boolean;
+  structuredData?: Record<string, unknown>[];
+}
+
+const {
+  title,
+  description,
+  image = siteConfig.LOGO,
+  path,
+  type = 'website',
+  noindex = false,
+  structuredData = [],
+} = Astro.props;
+
+const pageTitle = title.includes(siteConfig.BLOG_NAME) ? title : `${title} | ${siteConfig.BLOG_NAME}`;
+const canonical = absoluteUrl(path);
+const ogImage = image.startsWith('http') ? image : absoluteUrl(image);
+
+const baseStructuredData = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: siteConfig.BLOG_NAME,
+    url: siteConfig.BLOG_DOMAIN,
+    description: siteConfig.BLOG_DESCRIPTION,
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    name: siteConfig.AUTHOR_NAME,
+  },
+];
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+
+    <link rel="icon" type="image/svg+xml" href={withBase(siteConfig.FAVICON)} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content={type} />
+    <meta property="og:site_name" content={siteConfig.BLOG_NAME} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+
+    <!-- Twitter/X -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <link rel="alternate" type="application/rss+xml" title={siteConfig.BLOG_NAME} href={withBase('/rss.xml')} />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Libre+Bodoni:wght@400;500;600;700&family=Public+Sans:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    {siteConfig.SEARCH_CONSOLE_VERIFICATION && (
+      <meta name="google-site-verification" content={siteConfig.SEARCH_CONSOLE_VERIFICATION} />
+    )}
+
+    {[...baseStructuredData, ...structuredData].map((data) => (
+      <script type="application/ld+json" set:html={JSON.stringify(data)} is:inline />
+    ))}
+
+    <style define:vars={{ colorPrimary: siteConfig.PRIMARY_COLOR, colorSecondary: siteConfig.SECONDARY_COLOR, colorAccent: siteConfig.ACCENT_COLOR }}>
+      :root {
+        --color-primary: var(--colorPrimary);
+        --color-secondary: var(--colorSecondary);
+        --color-accent: var(--colorAccent);
+      }
+    </style>
+
+    {siteConfig.GOOGLE_ANALYTICS_ID && (
+      <>
+        <script async src={`https://www.googletagmanager.com/gtag/js?id=${siteConfig.GOOGLE_ANALYTICS_ID}`} is:inline></script>
+        <script define:vars={{ gaId: siteConfig.GOOGLE_ANALYTICS_ID }} is:inline>
+          window.dataLayer = window.dataLayer || [];
+          function gtag() { dataLayer.push(arguments); }
+          gtag('js', new Date());
+          gtag('config', gaId);
+        </script>
+      </>
+    )}
+  </head>
+  <body>
+    <a href="#main-content" class="skip-link">Skip to content</a>
+    <Header />
+    <main id="main-content" data-pagefind-body>
+      <!-- Pin Pagefind's result title/excerpt to the real page metadata
+           instead of letting it guess from the first heading it finds —
+           e.g. the homepage's first <h1> is the featured article's title,
+           which would otherwise become every homepage search result's title. -->
+      <span data-pagefind-meta="title" class="visually-hidden">{title}</span>
+      <span data-pagefind-meta="description" class="visually-hidden">{description}</span>
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

@@ -1,0 +1,21 @@
+---
+import type { Post } from '../lib/posts';
+import ArticleCard from './ArticleCard.astro';
+
+interface Props { posts: Post[] }
+const { posts } = Astro.props;
+---
+
+{posts.length > 0 && (
+  <section class="related" aria-labelledby="related-heading">
+    <h2 id="related-heading">Related Articles</h2>
+    <div class="related-grid">
+      {posts.map((post) => <ArticleCard post={post} />)}
+    </div>
+  </section>
+)}
+
+<style>
+  .related { margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border); }
+  .related-grid { display: grid; gap: 1.5rem; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+</style>

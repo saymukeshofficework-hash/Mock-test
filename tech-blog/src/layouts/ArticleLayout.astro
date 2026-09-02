@@ -1,0 +1,168 @@
+---
+import type { Post } from '../lib/posts';
+import BaseLayout from './BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import TableOfContents from '../components/TableOfContents.astro';
+import ProsCons from '../components/ProsCons.astro';
+import FAQ from '../components/FAQ.astro';
+import AffiliateCTA from '../components/AffiliateCTA.astro';
+import AdSlot from '../components/AdSlot.astro';
+import AuthorBox from '../components/AuthorBox.astro';
+import SocialShare from '../components/SocialShare.astro';
+import RelatedArticles from '../components/RelatedArticles.astro';
+import { getCategoryByName } from '../config/categories';
+import { withBase, absoluteUrl, formatDate } from '../lib/url';
+
+interface Props {
+  post: Post;
+  headings: { depth: number; slug: string; text: string }[];
+  related: Post[];
+  prev: Post | null;
+  next: Post | null;
+}
+const { post, headings, related, prev, next } = Astro.props;
+const { data } = post;
+const path = `/posts/${post.slug}/`;
+const category = getCategoryByName(data.category);
+const url = absoluteUrl(path);
+
+const articleStructuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: data.title,
+  description: data.description,
+  image: absoluteUrl(data.featuredImage),
+  datePublished: data.date.toISOString(),
+  dateModified: (data.updated ?? data.date).toISOString(),
+  author: { '@type': 'Person', name: data.author },
+  ...(data.reviewType === 'hands-on'
+    ? { about: 'This article includes first-hand testing observations.' }
+    : {}),
+};
+---
+
+<BaseLayout
+  title={data.seoTitle ?? data.title}
+  description={data.description}
+  image={data.featuredImage}
+  path={path}
+  type="article"
+  structuredData={[articleStructuredData]}
+>
+  <article class="container article">
+    <Breadcrumbs
+      items={[
+        { label: 'Home', href: '/' },
+        ...(category ? [{ label: category.name, href: `/category/${category.slug}/` }] : []),
+        { label: data.title },
+      ]}
+    />
+
+    {data.demo && (
+      <p class="demo-banner">Demo article — for testing the site template only. Safe to delete.</p>
+    )}
+
+    <header class="article-header">
+      {category && <a href={withBase(`/category/${category.slug}/`)} class="pill">{category.name}</a>}
+      <h1>{data.title}</h1>
+      <p class="article-excerpt">{data.description}</p>
+      <p class="article-meta">
+        By {data.author} · <time datetime={data.date.toISOString()}>{formatDate(data.date)}</time>
+        {data.updated && data.updated.getTime() !== data.date.getTime() && (
+          <> · Updated {formatDate(data.updated)}</>
+        )}
+        {data.readingTime && <> · {data.readingTime} min read</>}
+      </p>
+    </header>
+
+    <img
+      src={withBase(data.featuredImage)}
+      alt={data.featuredImageAlt}
+      class="featured-image"
+      width="1200"
+      height="675"
+    />
+
+    <AdSlot position="top" />
+
+    <div class="article-layout">
+      <div class="article-body">
+        <TableOfContents headings={headings} />
+        <div class="prose">
+          <slot />
+        </div>
+
+        <ProsCons pros={data.pros} cons={data.cons} />
+
+        {data.verdict && (
+          <div class="verdict">
+            <p class="verdict-heading">Verdict</p>
+            <p>{data.verdict}</p>
+          </div>
+        )}
+
+        <AdSlot position="in-content" />
+
+        <FAQ faqs={data.faqs} />
+
+        {data.affiliateCta && (
+          <AffiliateCTA label={data.affiliateCta.label} href={data.affiliateCta.href} note={data.affiliateCta.note} />
+        )}
+
+        <SocialShare url={url} title={data.title} />
+        <AuthorBox authorName={data.author} />
+        <AdSlot position="bottom" />
+      </div>
+    </div>
+
+    {(prev || next) && (
+      <nav class="prev-next" aria-label="Article navigation">
+        {prev ? (
+          <a href={withBase(`/posts/${prev.slug}/`)} class="prev-next-link">
+            <span class="prev-next-label">&larr; Previous</span>
+            <span>{prev.data.title}</span>
+          </a>
+        ) : <span />}
+        {next ? (
+          <a href={withBase(`/posts/${next.slug}/`)} class="prev-next-link align-right">
+            <span class="prev-next-label">Next &rarr;</span>
+            <span>{next.data.title}</span>
+          </a>
+        ) : <span />}
+      </nav>
+    )}
+
+    <RelatedArticles posts={related} />
+  </article>
+</BaseLayout>
+
+<style>
+  .article { max-width: var(--content-width); padding-top: 1.5rem; padding-bottom: 4rem; }
+  .demo-banner {
+    background: #fef3c7;
+    color: #92400e;
+    border: 1px solid #fbbf24;
+    border-radius: var(--radius);
+    padding: 0.6em 1em;
+    font-size: 0.85rem;
+    margin: 1rem 0;
+  }
+  .article-header { margin: 1.5rem 0 1.5rem; }
+  .article-header .pill { margin-bottom: 0.8em; }
+  .article-excerpt { color: var(--ink-dim); font-size: 1.1rem; }
+  .article-meta { color: var(--ink-faint); font-size: 0.85rem; }
+  .featured-image { width: 100%; aspect-ratio: 16/9; object-fit: cover; border-radius: var(--radius); margin-bottom: 1.5rem; }
+  .prose :global(h2) { scroll-margin-top: 5rem; }
+  .prose :global(h3) { scroll-margin-top: 5rem; }
+  .prose :global(img) { border-radius: var(--radius); margin: 1.5em 0; }
+  .prose :global(figcaption) { color: var(--ink-faint); font-size: 0.85rem; text-align: center; margin-top: -1em; margin-bottom: 1.5em; }
+  .verdict { background: var(--paper-soft); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.25rem; margin: 1.75rem 0; }
+  .verdict-heading { font-weight: 700; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 0.06em; color: var(--ink-faint); margin: 0 0 0.5em; }
+  .verdict p:last-child { margin: 0; }
+
+  .prev-next { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 3rem; }
+  .prev-next-link { padding: 1rem; border: 1px solid var(--border); border-radius: var(--radius); display: flex; flex-direction: column; gap: 0.3em; }
+  .prev-next-link:hover { border-color: var(--color-accent-strong); text-decoration: none; }
+  .prev-next-link.align-right { text-align: right; align-items: flex-end; }
+  .prev-next-label { font-size: 0.75rem; color: var(--ink-faint); font-weight: 700; text-transform: uppercase; }
+</style>

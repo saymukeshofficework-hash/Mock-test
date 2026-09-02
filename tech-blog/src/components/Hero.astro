@@ -1,0 +1,43 @@
+---
+import type { Post } from '../lib/posts';
+import { withBase, formatDate } from '../lib/url';
+import { getCategoryByName } from '../config/categories';
+import { siteConfig } from '../config/site';
+
+interface Props { featured: Post }
+const { featured } = Astro.props;
+const category = getCategoryByName(featured.data.category);
+---
+
+<section class="hero">
+  <div class="container hero-grid">
+    <div class="hero-copy">
+      <p class="eyebrow">{siteConfig.BLOG_TAGLINE}</p>
+      {category && <a href={withBase(`/category/${category.slug}/`)} class="pill">{category.name}</a>}
+      <h1><a href={withBase(`/posts/${featured.slug}/`)}>{featured.data.title}</a></h1>
+      <p class="hero-excerpt">{featured.data.description}</p>
+      <p class="hero-meta">
+        <time datetime={featured.data.date.toISOString()}>{formatDate(featured.data.date)}</time>
+        {featured.data.readingTime && <> · {featured.data.readingTime} min read</>}
+      </p>
+      <a href={withBase(`/posts/${featured.slug}/`)} class="btn btn-primary">Read the Article</a>
+    </div>
+    <a href={withBase(`/posts/${featured.slug}/`)} class="hero-image-link">
+      <img src={withBase(featured.data.featuredImage)} alt={featured.data.featuredImageAlt} width="800" height="600" />
+    </a>
+  </div>
+</section>
+
+<style>
+  .hero { padding: 2.5rem 0 3rem; border-bottom: 1px solid var(--border); }
+  .hero-grid { display: grid; gap: 2rem; align-items: center; grid-template-columns: 1fr; }
+  @media (min-width: 900px) { .hero-grid { grid-template-columns: 1.1fr 0.9fr; } }
+  .hero-copy .pill { margin: 0.5em 0 0.8em; }
+  .hero-copy h1 { margin: 0 0 0.5em; }
+  .hero-copy h1 a { color: var(--ink); }
+  .hero-copy h1 a:hover { color: var(--color-accent-strong); text-decoration: none; }
+  .hero-excerpt { color: var(--ink-dim); font-size: 1.1rem; }
+  .hero-meta { color: var(--ink-faint); font-size: 0.85rem; margin-bottom: 1.5em; }
+  .hero-image-link { border-radius: var(--radius); overflow: hidden; aspect-ratio: 4/3; background: var(--paper-soft); }
+  .hero-image-link img { width: 100%; height: 100%; object-fit: cover; }
+</style>

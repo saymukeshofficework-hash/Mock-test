@@ -1,0 +1,85 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { withBase } from '../lib/url';
+
+const pagefindUrl = withBase('/pagefind/pagefind.js');
+---
+
+<BaseLayout title="Search" description="Search articles." path="/search/" noindex>
+  <div class="container search-page">
+    <Breadcrumbs items={[{ label: 'Home', href: '/' }, { label: 'Search' }]} />
+    <h1>Search</h1>
+    <input id="search-input" type="search" placeholder="Search articles..." aria-label="Search articles" autofocus />
+    <p id="search-status" class="search-status" role="status"></p>
+    <ul id="search-results" class="search-results"></ul>
+  </div>
+</BaseLayout>
+
+<script type="module" define:vars={{ pagefindUrl }}>
+  const input = document.getElementById('search-input');
+  const results = document.getElementById('search-results');
+  const status = document.getElementById('search-status');
+  let pagefind;
+  let debounceTimer;
+
+  async function loadPagefind() {
+    if (pagefind) return pagefind;
+    try {
+      pagefind = await import(/* @vite-ignore */ pagefindUrl);
+    } catch {
+      status.textContent = 'Search index not available in this preview. Run "npm run build" to generate it.';
+    }
+    return pagefind;
+  }
+
+  async function runSearch(term) {
+    if (!term) {
+      results.innerHTML = '';
+      status.textContent = '';
+      return;
+    }
+    const pf = await loadPagefind();
+    if (!pf) return;
+    const search = await pf.search(term);
+    status.textContent = `${search.results.length} result${search.results.length === 1 ? '' : 's'}`;
+    const items = await Promise.all(search.results.slice(0, 20).map((r) => r.data()));
+    results.innerHTML = items
+      .map(
+        (item) => `
+        <li>
+          <a href="${item.url}">
+            <span class="result-title">${item.meta.title ?? item.url}</span>
+            <span class="result-excerpt">${item.excerpt}</span>
+          </a>
+        </li>`
+      )
+      .join('');
+  }
+
+  input.addEventListener('input', (e) => {
+    clearTimeout(debounceTimer);
+    const value = e.target.value.trim();
+    debounceTimer = setTimeout(() => runSearch(value), 150);
+  });
+
+  loadPagefind();
+</script>
+
+<style>
+  .search-page { padding: 1.5rem 0 4rem; max-width: 700px; }
+  #search-input {
+    width: 100%;
+    font-size: 1.1rem;
+    padding: 0.8em 1em;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    margin: 1.5rem 0 0.75rem;
+  }
+  .search-status { color: var(--ink-faint); font-size: 0.85rem; min-height: 1.2em; }
+  .search-results { list-style: none; margin: 0; padding: 0; }
+  .search-results li { border-bottom: 1px solid var(--border); padding: 1rem 0; }
+  .result-title { display: block; font-weight: 700; color: var(--ink); }
+  .result-excerpt { display: block; color: var(--ink-dim); font-size: 0.9rem; margin-top: 0.3em; }
+  .result-excerpt :global(mark) { background: var(--color-accent-tint); color: inherit; }
+</style>

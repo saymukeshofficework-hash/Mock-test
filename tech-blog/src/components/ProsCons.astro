@@ -1,0 +1,32 @@
+---
+interface Props { pros?: string[]; cons?: string[] }
+const { pros = [], cons = [] } = Astro.props;
+---
+
+{(pros.length > 0 || cons.length > 0) && (
+  <div class="pros-cons">
+    {pros.length > 0 && (
+      <div class="pc-column pc-pros">
+        <p class="pc-heading">Pros</p>
+        <ul>{pros.map((item) => <li>{item}</li>)}</ul>
+      </div>
+    )}
+    {cons.length > 0 && (
+      <div class="pc-column pc-cons">
+        <p class="pc-heading">Cons</p>
+        <ul>{cons.map((item) => <li>{item}</li>)}</ul>
+      </div>
+    )}
+  </div>
+)}
+
+<style>
+  .pros-cons { display: grid; gap: 1rem; grid-template-columns: 1fr; margin: 1.75rem 0; }
+  @media (min-width: 560px) { .pros-cons { grid-template-columns: 1fr 1fr; } }
+  .pc-column { border-radius: var(--radius); padding: 1rem 1.25rem; border: 1px solid var(--border); }
+  .pc-pros { background: rgba(34, 197, 94, 0.06); border-color: rgba(34, 197, 94, 0.25); }
+  .pc-cons { background: rgba(239, 68, 68, 0.06); border-color: rgba(239, 68, 68, 0.25); }
+  .pc-heading { font-weight: 700; margin: 0 0 0.5em; }
+  .pc-column ul { margin: 0; padding-left: 1.2em; }
+  .pc-column li { margin-bottom: 0.4em; }
+</style>

@@ -1,0 +1,38 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { siteConfig } from '../config/site';
+---
+
+<BaseLayout title="Affiliate Disclosure" description={`Affiliate Disclosure for ${siteConfig.BLOG_NAME}.`} path="/affiliate-disclosure/">
+  <div class="container legal-page">
+    <Breadcrumbs items={[{ label: 'Home', href: '/' }, { label: 'Affiliate Disclosure' }]} />
+    <h1>Affiliate Disclosure</h1>
+    <p class="placeholder-notice">
+      PLACEHOLDER — this is a generic starting draft, not professionally reviewed legal advice.
+      Have a qualified professional review this page for your jurisdiction before launch.
+    </p>
+
+    <p>
+      {siteConfig.BLOG_NAME} may participate in affiliate programs. If you click an affiliate link
+      and make a purchase, we may earn a commission at no extra cost to you.
+    </p>
+    <p>
+      No affiliate relationships are currently active — this site ships with no real affiliate
+      links. When a real affiliate link is added to an article, it is marked with <code>rel="sponsored"</code>
+      and this disclosure applies to it.
+    </p>
+    <p>
+      Affiliate relationships never influence our editorial opinions. We do not accept payment in
+      exchange for positive reviews.
+    </p>
+  </div>
+</BaseLayout>
+
+<style>
+  .legal-page { max-width: var(--content-width); padding: 1.5rem 0 4rem; }
+  .placeholder-notice {
+    background: #fef3c7; color: #92400e; border: 1px solid #fbbf24; border-radius: 6px;
+    padding: 0.8em 1em; font-size: 0.9rem; font-weight: 600;
+  }
+</style>

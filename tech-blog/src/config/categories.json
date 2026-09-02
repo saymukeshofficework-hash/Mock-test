@@ -1,0 +1,18 @@
+[
+  { "slug": "ai-tools", "name": "AI Tools", "description": "AI-powered tools and platforms for individuals and teams." },
+  { "slug": "ai-software", "name": "AI Software", "description": "Software built around artificial intelligence and machine learning." },
+  { "slug": "ai-agents", "name": "AI Agents", "description": "Autonomous and semi-autonomous AI agent systems." },
+  { "slug": "automation", "name": "Automation", "description": "Workflow and business process automation." },
+  { "slug": "business-software", "name": "Business Software", "description": "Software for running and scaling a business." },
+  { "slug": "productivity", "name": "Productivity", "description": "Tools and techniques for getting more done." },
+  { "slug": "smartphones", "name": "Smartphones", "description": "Phones, comparisons, and buying advice." },
+  { "slug": "gadgets", "name": "Gadgets", "description": "Consumer gadgets and accessories." },
+  { "slug": "electronics", "name": "Electronics", "description": "Consumer electronics coverage." },
+  { "slug": "laptops-computers", "name": "Laptops & Computers", "description": "Laptops, desktops, and computing hardware." },
+  { "slug": "apps", "name": "Apps", "description": "Mobile and desktop application reviews." },
+  { "slug": "reviews", "name": "Technology Reviews", "description": "In-depth technology product reviews." },
+  { "slug": "comparisons", "name": "Comparisons", "description": "Head-to-head product and software comparisons." },
+  { "slug": "buying-guides", "name": "Buying Guides", "description": "Guides to help you choose the right product." },
+  { "slug": "how-to-guides", "name": "How-To Guides", "description": "Step-by-step technology how-tos." },
+  { "slug": "news", "name": "Technology News", "description": "Selected technology news coverage." }
+]

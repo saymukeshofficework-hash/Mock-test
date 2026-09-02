@@ -1,0 +1,27 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { siteConfig } from '../config/site';
+---
+
+<BaseLayout title="Contact" description={`Contact ${siteConfig.BLOG_NAME}.`} path="/contact/">
+  <div class="container legal-page">
+    <Breadcrumbs items={[{ label: 'Home', href: '/' }, { label: 'Contact' }]} />
+    <h1>Contact</h1>
+    <p class="placeholder-notice">Placeholder content — replace before launch.</p>
+    <p>
+      For questions, tips, corrections, or partnership inquiries, reach out at:
+      <a href={`mailto:${siteConfig.CONTACT_EMAIL}`}>{siteConfig.CONTACT_EMAIL}</a>
+    </p>
+    <p>CONTACT_EMAIL is a placeholder in <code>src/config/site.ts</code> — set a real address before launch.</p>
+  </div>
+</BaseLayout>
+
+<style>
+  .legal-page { max-width: var(--content-width); padding: 1.5rem 0 4rem; }
+  .placeholder-notice {
+    display: inline-block;
+    background: #fef3c7; color: #92400e; border: 1px solid #fbbf24; border-radius: 6px;
+    padding: 0.4em 0.8em; font-size: 0.85rem; font-weight: 600;
+  }
+</style>

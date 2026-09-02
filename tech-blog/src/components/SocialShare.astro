@@ -1,0 +1,26 @@
+---
+interface Props { url: string; title: string }
+const { url, title } = Astro.props;
+const encodedUrl = encodeURIComponent(url);
+const encodedTitle = encodeURIComponent(title);
+
+const links = [
+  { label: 'X', href: `https://twitter.com/intent/tweet?url=${encodedUrl}&text=${encodedTitle}` },
+  { label: 'LinkedIn', href: `https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}` },
+  { label: 'Facebook', href: `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}` },
+];
+---
+
+<div class="social-share">
+  <span class="share-label">Share:</span>
+  {links.map((l) => (
+    <a href={l.href} target="_blank" rel="noopener noreferrer" aria-label={`Share on ${l.label}`}>{l.label}</a>
+  ))}
+</div>
+
+<style>
+  .social-share { display: flex; align-items: center; gap: 0.9rem; margin: 1.5rem 0; font-size: 0.85rem; }
+  .share-label { color: var(--ink-faint); font-weight: 600; }
+  .social-share a { color: var(--ink-dim); font-weight: 600; }
+  .social-share a:hover { color: var(--color-accent-strong); }
+</style>

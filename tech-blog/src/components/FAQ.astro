@@ -1,0 +1,35 @@
+---
+interface Item { question: string; answer: string }
+interface Props { faqs?: Item[] }
+const { faqs = [] } = Astro.props;
+
+const structuredData = faqs.length > 0 ? {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((f) => ({
+    '@type': 'Question',
+    name: f.question,
+    acceptedAnswer: { '@type': 'Answer', text: f.answer },
+  })),
+} : null;
+---
+
+{faqs.length > 0 && (
+  <section class="faq" aria-labelledby="faq-heading">
+    <h2 id="faq-heading">Frequently Asked Questions</h2>
+    {faqs.map((item) => (
+      <details class="faq-item">
+        <summary>{item.question}</summary>
+        <p>{item.answer}</p>
+      </details>
+    ))}
+    <script type="application/ld+json" set:html={JSON.stringify(structuredData)} is:inline />
+  </section>
+)}
+
+<style>
+  .faq { margin: 2rem 0; }
+  .faq-item { border-bottom: 1px solid var(--border); padding: 0.9rem 0; }
+  .faq-item summary { cursor: pointer; font-weight: 600; }
+  .faq-item p { margin: 0.7em 0 0; color: var(--ink-dim); }
+</style>

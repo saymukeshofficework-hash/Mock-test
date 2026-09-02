@@ -63,3 +63,7 @@ This repository also contains **Bulbul Bhatia**, a premium bilingual (English/Hi
 
 This repository also contains a premium educational platform for **Mukesh Singh Dahiya** (M.Sc. Botany, M.A. English, 12 years teaching experience) — study notes, solutions, questions, previous papers, premium courses, paid notes, online classes, NEET Biology resources and educational calculators for Classes 5–12, CBSE & MP Board, English Medium. Built with React, TypeScript, Tailwind CSS and Vite on a fully data-driven architecture — new content (notes, questions, courses, etc.) is added via the files under `mukesh-singh-dahiya/src/data/` without touching page code. See [`mukesh-singh-dahiya/README.md`](./mukesh-singh-dahiya/README.md) for development details.
 
+## Technology Blog
+
+This repository also contains a **technology blog** (brand name not finalized — see placeholders in `tech-blog/src/config/site.ts`) covering AI tools, software, automation, productivity, smartphones, gadgets, electronics, and buying guides. Built with Astro as a static, content-first site: articles are Markdown files with validated front matter (`tech-blog/src/content/posts/`), and publishing one is the entire workflow — push a Markdown file, GitHub Actions builds and deploys it, no code changes needed. See [`tech-blog/README.md`](./tech-blog/README.md) and [`tech-blog/docs/SPARK_PUBLISHING_GUIDE.md`](./tech-blog/docs/SPARK_PUBLISHING_GUIDE.md) for details.
+

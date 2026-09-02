@@ -1,0 +1,43 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { siteConfig } from '../config/site';
+---
+
+<BaseLayout title="Terms of Use" description={`Terms of Use for ${siteConfig.BLOG_NAME}.`} path="/terms/">
+  <div class="container legal-page">
+    <Breadcrumbs items={[{ label: 'Home', href: '/' }, { label: 'Terms' }]} />
+    <h1>Terms of Use</h1>
+    <p class="placeholder-notice">
+      PLACEHOLDER — this is a generic starting draft, not professionally reviewed legal advice.
+      Have a qualified professional review this page for your jurisdiction before launch.
+    </p>
+    <p>Last updated: PLACEHOLDER_DATE</p>
+
+    <h2>Use of Content</h2>
+    <p>
+      Content on {siteConfig.BLOG_NAME} is provided for informational purposes only. You may link
+      to our articles; republishing full articles without permission is not permitted.
+    </p>
+
+    <h2>No Warranty</h2>
+    <p>
+      Content is provided "as is" without warranties of any kind. Product specifications, prices,
+      and availability change — always verify with the manufacturer or retailer before purchasing.
+    </p>
+
+    <h2>Changes</h2>
+    <p>These terms may be updated from time to time.</p>
+
+    <h2>Contact</h2>
+    <p><a href={`mailto:${siteConfig.CONTACT_EMAIL}`}>{siteConfig.CONTACT_EMAIL}</a></p>
+  </div>
+</BaseLayout>
+
+<style>
+  .legal-page { max-width: var(--content-width); padding: 1.5rem 0 4rem; }
+  .placeholder-notice {
+    background: #fef3c7; color: #92400e; border: 1px solid #fbbf24; border-radius: 6px;
+    padding: 0.8em 1em; font-size: 0.9rem; font-weight: 600;
+  }
+</style>

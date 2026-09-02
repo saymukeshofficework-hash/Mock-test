@@ -1,0 +1,43 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { siteConfig } from '../config/site';
+---
+
+<BaseLayout title="Disclaimer" description={`Disclaimer for ${siteConfig.BLOG_NAME}.`} path="/disclaimer/">
+  <div class="container legal-page">
+    <Breadcrumbs items={[{ label: 'Home', href: '/' }, { label: 'Disclaimer' }]} />
+    <h1>Disclaimer</h1>
+    <p class="placeholder-notice">
+      PLACEHOLDER — this is a generic starting draft, not professionally reviewed legal advice.
+      Have a qualified professional review this page for your jurisdiction before launch.
+    </p>
+
+    <h2>Not Professional Advice</h2>
+    <p>
+      Content on {siteConfig.BLOG_NAME} is for general informational purposes and does not
+      constitute professional, financial, or legal advice.
+    </p>
+
+    <h2>Product Reviews</h2>
+    <p>
+      Each article discloses whether it is <strong>research-based</strong> or
+      <strong>hands-on</strong> (see the review type shown on the article, when applicable). We do
+      not claim hands-on testing unless it actually occurred.
+    </p>
+
+    <h2>Accuracy</h2>
+    <p>
+      We aim for accuracy but prices, specifications, and availability change without notice —
+      verify details with the manufacturer or retailer before making a purchase.
+    </p>
+  </div>
+</BaseLayout>
+
+<style>
+  .legal-page { max-width: var(--content-width); padding: 1.5rem 0 4rem; }
+  .placeholder-notice {
+    background: #fef3c7; color: #92400e; border: 1px solid #fbbf24; border-radius: 6px;
+    padding: 0.8em 1em; font-size: 0.9rem; font-weight: 600;
+  }
+</style>

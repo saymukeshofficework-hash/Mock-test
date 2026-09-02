@@ -1,0 +1,34 @@
+---
+// Placeholder ad slot — no ad network is wired up yet. Swap the inner
+// markup for a real ad tag/script when a network is selected; the
+// position/sizing classes are ready to go.
+interface Props { position: 'top' | 'in-content' | 'sidebar' | 'bottom' }
+const { position } = Astro.props;
+const labels: Record<Props['position'], string> = {
+  top: 'Advertisement',
+  'in-content': 'Advertisement',
+  sidebar: 'Advertisement',
+  bottom: 'Advertisement',
+};
+---
+
+<div class:list={['ad-slot', `ad-slot-${position}`]} data-ad-position={position}>
+  <span class="ad-label">{labels[position]}</span>
+</div>
+
+<style>
+  .ad-slot {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px dashed var(--border);
+    border-radius: var(--radius);
+    background: var(--paper-soft);
+    color: var(--ink-faint);
+    font-size: 0.75rem;
+    margin: 1.75rem 0;
+  }
+  .ad-slot-top, .ad-slot-bottom { min-height: 90px; }
+  .ad-slot-in-content { min-height: 100px; }
+  .ad-slot-sidebar { min-height: 250px; }
+</style>

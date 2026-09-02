@@ -1,0 +1,166 @@
+/* Design tokens — PRIMARY_COLOR/SECONDARY_COLOR are overridden inline by
+   BaseLayout.astro from src/config/site.ts, so these are just fallbacks. */
+:root {
+  --color-primary: #18181b;
+  --color-secondary: #3f3f46;
+  --color-accent: #ec4899;
+  /* Raw ACCENT_COLOR fails WCAG AA (~3.6:1) as text/button-fill on white —
+     only safe there at large-text sizes (24px+) or as a non-text indicator
+     (focus rings, thin borders need only 3:1). This derived shade (~6.5:1)
+     is what links, button fills, and the eyebrow label actually use. */
+  --color-accent-strong: color-mix(in srgb, var(--color-accent) 65%, black);
+  --color-accent-tint: color-mix(in srgb, var(--color-accent) 12%, white);
+
+  --ink: #14181f;
+  --ink-dim: #4b5361;
+  --ink-faint: #7c8494;
+  --paper: #ffffff;
+  --paper-soft: #f6f7f9;
+  --border: #e5e7eb;
+
+  --font-serif: 'Libre Bodoni', Georgia, 'Times New Roman', serif;
+  --font-sans: 'Public Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  --max-width: 1180px;
+  --content-width: 720px;
+  --radius: 10px;
+  --shadow: 0 1px 2px rgba(20, 24, 31, 0.04), 0 8px 24px rgba(20, 24, 31, 0.06);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ink: #eef0f3;
+    --ink-dim: #b4bac5;
+    --ink-faint: #7c8494;
+    --paper: #12151b;
+    --paper-soft: #191d25;
+    --border: #262b35;
+    /* Tint toward the dark surface color instead of white, and lighten
+       (not darken) the "strong" interactive shade so it stays readable
+       against a near-black background. */
+    --color-accent-strong: color-mix(in srgb, var(--color-accent) 80%, white);
+    --color-accent-tint: color-mix(in srgb, var(--color-accent) 16%, #12151b);
+  }
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 17px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+img, svg { max-width: 100%; height: auto; display: block; }
+a { color: var(--color-accent-strong); text-decoration: none; }
+a:hover { text-decoration: underline; }
+a:focus-visible, button:focus-visible, input:focus-visible {
+  /* Focus indicators only need 3:1 (non-text), so the brighter accent is
+     fine here even where it wouldn't pass as body text. */
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+h1, h2, h3, h4 { font-family: var(--font-serif); line-height: 1.2; font-weight: 700; margin: 0 0 0.5em; }
+h1 { font-size: clamp(2rem, 4vw, 2.75rem); }
+h2 { font-size: clamp(1.5rem, 3vw, 2rem); margin-top: 2em; }
+h3 { font-size: 1.25rem; margin-top: 1.5em; }
+p { margin: 0 0 1.2em; }
+
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 1.25rem;
+}
+
+.eyebrow {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-accent-strong);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  padding: 0.7em 1.3em;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: transform 0.15s ease, background-color 0.15s ease, border-color 0.15s ease;
+}
+.btn:hover { text-decoration: none; }
+.btn-primary { background: var(--color-accent-strong); color: #fff; }
+.btn-primary:hover { filter: brightness(1.12); }
+.btn-secondary { background: transparent; color: var(--ink); border-color: var(--border); }
+.btn-secondary:hover { border-color: var(--color-accent-strong); color: var(--color-accent-strong); }
+
+.card {
+  background: var(--paper);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+.card:hover { box-shadow: var(--shadow); transform: translateY(-2px); }
+
+.pill {
+  display: inline-block;
+  padding: 0.3em 0.8em;
+  border-radius: 999px;
+  background: var(--color-accent-tint);
+  border: 1px solid transparent;
+  color: var(--color-accent-strong);
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+table { width: 100%; border-collapse: collapse; margin: 1.5em 0; display: block; overflow-x: auto; }
+th, td { text-align: left; padding: 0.6em 0.8em; border: 1px solid var(--border); }
+th { background: var(--paper-soft); font-weight: 700; }
+
+blockquote {
+  margin: 1.5em 0;
+  padding: 0.2em 1.2em;
+  border-left: 3px solid var(--color-accent);
+  color: var(--ink-dim);
+  font-style: italic;
+}
+
+code { font-size: 0.9em; background: var(--paper-soft); padding: 0.15em 0.4em; border-radius: 4px; }
+pre { border-radius: var(--radius); padding: 1em; overflow-x: auto; }
+pre code { background: none; padding: 0; }
+
+.visually-hidden {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -3rem;
+  background: var(--color-primary);
+  color: #fff;
+  padding: 0.6em 1em;
+  border-radius: 6px;
+  z-index: 100;
+  transition: top 0.15s ease;
+}
+.skip-link:focus { top: 1rem; }
+
+@media (max-width: 640px) {
+  body { font-size: 16px; }
+}
