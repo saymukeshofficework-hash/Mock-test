@@ -1,8 +1,15 @@
 /* Design tokens — PRIMARY_COLOR/SECONDARY_COLOR are overridden inline by
    BaseLayout.astro from src/config/site.ts, so these are just fallbacks. */
 :root {
-  --color-primary: #1a56db;
-  --color-secondary: #0f172a;
+  --color-primary: #18181b;
+  --color-secondary: #3f3f46;
+  --color-accent: #ec4899;
+  /* Raw ACCENT_COLOR fails WCAG AA (~3.6:1) as text/button-fill on white —
+     only safe there at large-text sizes (24px+) or as a non-text indicator
+     (focus rings, thin borders need only 3:1). This derived shade (~6.5:1)
+     is what links, button fills, and the eyebrow label actually use. */
+  --color-accent-strong: color-mix(in srgb, var(--color-accent) 65%, black);
+  --color-accent-tint: color-mix(in srgb, var(--color-accent) 12%, white);
 
   --ink: #14181f;
   --ink-dim: #4b5361;
@@ -11,8 +18,8 @@
   --paper-soft: #f6f7f9;
   --border: #e5e7eb;
 
-  --font-serif: 'Source Serif 4', Georgia, 'Times New Roman', serif;
-  --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, Roboto, sans-serif;
+  --font-serif: 'Libre Bodoni', Georgia, 'Times New Roman', serif;
+  --font-sans: 'Public Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 
   --max-width: 1180px;
   --content-width: 720px;
@@ -28,6 +35,11 @@
     --paper: #12151b;
     --paper-soft: #191d25;
     --border: #262b35;
+    /* Tint toward the dark surface color instead of white, and lighten
+       (not darken) the "strong" interactive shade so it stays readable
+       against a near-black background. */
+    --color-accent-strong: color-mix(in srgb, var(--color-accent) 80%, white);
+    --color-accent-tint: color-mix(in srgb, var(--color-accent) 16%, #12151b);
   }
 }
 
@@ -43,10 +55,12 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 img, svg { max-width: 100%; height: auto; display: block; }
-a { color: var(--color-primary); text-decoration: none; }
+a { color: var(--color-accent-strong); text-decoration: none; }
 a:hover { text-decoration: underline; }
 a:focus-visible, button:focus-visible, input:focus-visible {
-  outline: 2px solid var(--color-primary);
+  /* Focus indicators only need 3:1 (non-text), so the brighter accent is
+     fine here even where it wouldn't pass as body text. */
+  outline: 2px solid var(--color-accent);
   outline-offset: 2px;
 }
 
@@ -67,7 +81,7 @@ p { margin: 0 0 1.2em; }
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--color-primary);
+  color: var(--color-accent-strong);
 }
 
 .btn {
@@ -83,10 +97,10 @@ p { margin: 0 0 1.2em; }
   transition: transform 0.15s ease, background-color 0.15s ease, border-color 0.15s ease;
 }
 .btn:hover { text-decoration: none; }
-.btn-primary { background: var(--color-primary); color: #fff; }
-.btn-primary:hover { filter: brightness(1.08); }
+.btn-primary { background: var(--color-accent-strong); color: #fff; }
+.btn-primary:hover { filter: brightness(1.12); }
 .btn-secondary { background: transparent; color: var(--ink); border-color: var(--border); }
-.btn-secondary:hover { border-color: var(--color-primary); color: var(--color-primary); }
+.btn-secondary:hover { border-color: var(--color-accent-strong); color: var(--color-accent-strong); }
 
 .card {
   background: var(--paper);
@@ -101,11 +115,11 @@ p { margin: 0 0 1.2em; }
   display: inline-block;
   padding: 0.3em 0.8em;
   border-radius: 999px;
-  background: var(--paper-soft);
-  border: 1px solid var(--border);
-  color: var(--ink-dim);
+  background: var(--color-accent-tint);
+  border: 1px solid transparent;
+  color: var(--color-accent-strong);
   font-size: 0.8rem;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 table { width: 100%; border-collapse: collapse; margin: 1.5em 0; display: block; overflow-x: auto; }
@@ -115,7 +129,7 @@ th { background: var(--paper-soft); font-weight: 700; }
 blockquote {
   margin: 1.5em 0;
   padding: 0.2em 1.2em;
-  border-left: 3px solid var(--color-primary);
+  border-left: 3px solid var(--color-accent);
   color: var(--ink-dim);
   font-style: italic;
 }

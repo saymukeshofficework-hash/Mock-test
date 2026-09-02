@@ -3,6 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/Hero.astro';
 import ArticleCard from '../components/ArticleCard.astro';
 import Newsletter from '../components/Newsletter.astro';
+import AuthorBox from '../components/AuthorBox.astro';
 import { getAllPosts } from '../lib/posts';
 import { categories } from '../config/categories';
 import { withBase } from '../lib/url';
@@ -20,6 +21,10 @@ const categoriesWithCounts = categories
 
 <BaseLayout title={siteConfig.BLOG_NAME} description={siteConfig.BLOG_DESCRIPTION} path="/">
   {featured && <Hero featured={featured} />}
+
+  <section class="container">
+    <Newsletter />
+  </section>
 
   <section class="container section">
     <div class="section-heading">
@@ -49,8 +54,9 @@ const categoriesWithCounts = categories
     </section>
   )}
 
-  <section class="container">
-    <Newsletter />
+  <section class="container section author-section">
+    <div class="section-heading"><h2>About the Author</h2></div>
+    <AuthorBox />
   </section>
 </BaseLayout>
 
@@ -65,4 +71,5 @@ const categoriesWithCounts = categories
   .category-tile { padding: 1.25rem; display: flex; flex-direction: column; gap: 0.3em; }
   .category-name { font-weight: 700; color: var(--ink); }
   .category-count { font-size: 0.8rem; color: var(--ink-faint); }
+  .author-section { padding-top: 0; }
 </style>

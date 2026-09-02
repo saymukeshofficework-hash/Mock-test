@@ -31,9 +31,17 @@ export const siteConfig = {
   LOGO: '/images/logo-placeholder.svg',
   FAVICON: '/favicon.svg',
 
-  // Any valid CSS color. Used by src/styles/global.css via inline custom properties.
-  PRIMARY_COLOR: '#1a56db',
-  SECONDARY_COLOR: '#0f172a',
+  // Any valid CSS color. Used by src/styles/global.css via inline custom
+  // properties. Swiss-Modernism-inspired editorial palette (via the
+  // ui-ux-pro-max skill's design-system search for this product type):
+  // near-black + charcoal structure, one confident accent color. Change
+  // any of the three here and every button/link/badge/focus-ring follows —
+  // ACCENT_COLOR's darker interactive shade (links, button fills) is
+  // derived automatically in global.css via color-mix(), so this stays a
+  // single value to edit, not two.
+  PRIMARY_COLOR: '#18181B',
+  SECONDARY_COLOR: '#3F3F46',
+  ACCENT_COLOR: '#EC4899',
 
   SOCIAL_LINKS: {
     twitter: '',
