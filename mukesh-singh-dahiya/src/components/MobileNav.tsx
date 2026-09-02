@@ -31,11 +31,63 @@ export default function MobileNav({ open, onClose }: { open: boolean; onClose: (
             <div key={group.label}>
               <p className="section-label mb-2 px-2">{group.label}</p>
               <div className="flex flex-col gap-1">
-                {group.links.map((l) => (
-                  <Link key={l.to} to={l.to} onClick={onClose} className="rounded-lg px-2 py-2 text-sm text-slate-600 transition-colors hover:bg-slate-50 dark:text-slate-300 dark:hover:bg-navy-800">
-                    {l.label}
-                  </Link>
-                ))}
+                {group.label === 'Learn' ? (
+                  <>
+                    <Link
+                      to="/learn/science"
+                      onClick={onClose}
+                      className="flex items-center justify-between rounded-lg bg-brand-50 px-2.5 py-2 text-sm font-bold text-brand-700 dark:bg-cyan-950/60 dark:text-cyan-300"
+                    >
+                      <span className="flex items-center gap-1.5">
+                        <Icon name="sparkles" className="h-4 w-4 text-brand-600 dark:text-cyan-400" />
+                        <span>Science Notes</span>
+                      </span>
+                      <span className="rounded bg-brand-200/60 px-1.5 py-0.5 text-[10px] font-bold dark:bg-cyan-400/20">
+                        Grades 6–12
+                      </span>
+                    </Link>
+                    <div className="grid grid-cols-2 gap-1 py-1">
+                      {group.links.slice(1).map((l) => (
+                        <Link
+                          key={l.to}
+                          to={l.to}
+                          onClick={onClose}
+                          className="flex items-center gap-1.5 rounded-lg px-2 py-1.5 text-xs font-semibold text-slate-700 transition-colors hover:bg-slate-50 dark:text-slate-300 dark:hover:bg-navy-800"
+                        >
+                          <span className="flex h-4 w-4 items-center justify-center rounded bg-slate-100 text-[9px] font-bold text-navy-800 dark:bg-navy-700 dark:text-slate-200">
+                            {l.label.replace('Class ', '')}
+                          </span>
+                          <span>{l.label}</span>
+                        </Link>
+                      ))}
+                    </div>
+                  </>
+                ) : (
+                  group.links.map((l) => (
+                    <Link
+                      key={l.to}
+                      to={l.to}
+                      onClick={onClose}
+                      className="rounded-lg px-2 py-2 text-sm text-slate-600 transition-colors hover:bg-slate-50 dark:text-slate-300 dark:hover:bg-navy-800"
+                    >
+                      {l.label}
+                    </Link>
+                  ))
+                )}
+                {group.secondaryLinks && (
+                  <div className="mt-1 pt-1.5 border-t border-slate-100 dark:border-navy-800 flex flex-col gap-0.5">
+                    {group.secondaryLinks.map((sl) => (
+                      <Link
+                        key={sl.to}
+                        to={sl.to}
+                        onClick={onClose}
+                        className="rounded-lg px-2 py-1 text-xs text-slate-500 hover:text-brand-600 dark:text-slate-400 dark:hover:text-cyan-400"
+                      >
+                        {sl.label}
+                      </Link>
+                    ))}
+                  </div>
+                )}
               </div>
             </div>
           ))}

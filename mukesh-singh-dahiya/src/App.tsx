@@ -35,6 +35,9 @@ import Resources from './pages/Resources'
 import ResourceDetail from './pages/ResourceDetail'
 import Contact from './pages/Contact'
 import Dashboard from './pages/Dashboard'
+import ScienceLanding from './pages/ScienceLanding'
+import ScienceClassPage from './pages/ScienceClassPage'
+import ScienceNoteDetail from './pages/ScienceNoteDetail'
 import NotFound from './pages/NotFound'
 
 /** Standard site chrome (header/footer) for every page except the cinematic home. */
@@ -63,6 +66,13 @@ export default function App() {
 
         <Route element={<SiteLayout />}>
           <Route path="/about" element={<About />} />
+
+          {/* Science Notes System (Classes 6 to 12) */}
+          <Route path="/learn" element={<ScienceLanding />} />
+          <Route path="/learn/science" element={<ScienceLanding />} />
+          <Route path="/learn/science/:classSlug" element={<ScienceClassPage />} />
+          <Route path="/learn/science/:classSlug/:chapterSlug" element={<ScienceNoteDetail />} />
+          <Route path="/learn/science/:classSlug/:subjectSlug/:chapterSlug" element={<ScienceNoteDetail />} />
 
           <Route path="/classes" element={<Classes />} />
           <Route path="/classes/:classSlug" element={<ClassPage />} />

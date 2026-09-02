@@ -6,6 +6,7 @@ import { paidNotes } from '../data/paidNotes'
 import { bundles } from '../data/bundles'
 import { onlineClasses } from '../data/onlineClasses'
 import { calculators } from '../data/calculators'
+import { scienceClasses, scienceNotes } from '../data/scienceNotes'
 
 export interface SearchResult {
   id: string
@@ -17,6 +18,38 @@ export interface SearchResult {
 
 function buildIndex(): SearchResult[] {
   const items: SearchResult[] = []
+
+  // Science Notes System
+  items.push({
+    id: 'science-notes-landing',
+    title: 'Science Notes (Classes 6 to 12)',
+    type: 'Science Notes',
+    to: '/learn/science',
+    meta: 'Science Notes Classes 6 7 8 9 10 11 12 CBSE MP Board',
+  })
+
+  scienceClasses.forEach((sc) =>
+    items.push({
+      id: `science-class-${sc.classSlug}`,
+      title: `${sc.title} (Class ${sc.numeral})`,
+      type: 'Science Notes',
+      to: `/learn/science/${sc.classSlug}`,
+      meta: `Class ${sc.numeral} · ${sc.label} · Science Notes · CBSE & MP Board`,
+    }),
+  )
+
+  scienceNotes.forEach((sn) => {
+    const classNum = sn.classSlug.replace('class-', '')
+    const topicList = sn.topics.map((t) => t.title).join(' ')
+    const keywords = sn.keywords.join(' ')
+    items.push({
+      id: `science-note-${sn.id}`,
+      title: `${sn.chapterName} (Class ${classNum} ${sn.subjectName})`,
+      type: 'Science Note',
+      to: `/learn/science/${sn.classSlug}/${sn.slug}`,
+      meta: `Class ${classNum} · ${sn.subjectName} · Chapter ${sn.chapterNumber} · ${sn.shortDescription} · ${topicList} · ${keywords}`,
+    })
+  })
 
   classes.forEach((c) => items.push({ id: `class-${c.slug}`, title: c.label, type: 'Class', to: `/classes/${c.slug}` }))
   subjects.forEach((s) => items.push({ id: `subject-${s.slug}`, title: s.name, type: 'Subject', to: `/subjects/${s.slug}` }))
