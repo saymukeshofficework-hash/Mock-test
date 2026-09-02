@@ -4,6 +4,11 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+  # Fired by the Supabase Database Webhook configured on blog_submissions (see
+  # TECH_BLOG_ADMIN_INSTRUCTIONS.md) so publishing from /tech-blog/admin/ rebuilds
+  # the site without waiting for the next push to main.
+  repository_dispatch:
+    types: [publish-tech-blog]
 
 permissions:
   contents: read

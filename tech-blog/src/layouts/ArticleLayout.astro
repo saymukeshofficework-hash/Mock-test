@@ -49,6 +49,8 @@ const articleStructuredData = {
   type="article"
   structuredData={[articleStructuredData]}
 >
+  <div class="reading-progress" aria-hidden="true"><div class="reading-progress-bar" id="reading-progress-bar"></div></div>
+
   <article class="container article">
     <Breadcrumbs
       items={[
@@ -136,7 +138,27 @@ const articleStructuredData = {
   </article>
 </BaseLayout>
 
+<script>
+  const bar = document.getElementById('reading-progress-bar');
+  const article = document.querySelector('.article-body');
+  function update() {
+    if (!bar || !article) return;
+    const rect = article.getBoundingClientRect();
+    const total = rect.height - window.innerHeight;
+    const scrolled = Math.min(Math.max(-rect.top, 0), Math.max(total, 0));
+    bar.style.width = `${total > 0 ? (scrolled / total) * 100 : 0}%`;
+  }
+  update();
+  window.addEventListener('scroll', update, { passive: true });
+  window.addEventListener('resize', update);
+</script>
+
 <style>
+  .reading-progress { position: sticky; top: 64px; height: 3px; background: transparent; z-index: 39; }
+  .reading-progress-bar { height: 100%; width: 0%; background: var(--color-accent-strong); }
+  @media (prefers-reduced-motion: no-preference) {
+    .reading-progress-bar { transition: width 0.1s linear; }
+  }
   .article { max-width: var(--content-width); padding-top: 1.5rem; padding-bottom: 4rem; }
   .demo-banner {
     background: #fef3c7;

@@ -13,6 +13,7 @@ interface Props {
   type?: 'website' | 'article';
   noindex?: boolean;
   structuredData?: Record<string, unknown>[];
+  noPagefind?: boolean; // excludes this page from on-site search (e.g. /admin/)
 }
 
 const {
@@ -23,6 +24,7 @@ const {
   type = 'website',
   noindex = false,
   structuredData = [],
+  noPagefind = false,
 } = Astro.props;
 
 const pageTitle = title.includes(siteConfig.BLOG_NAME) ? title : `${title} | ${siteConfig.BLOG_NAME}`;
@@ -109,17 +111,40 @@ const baseStructuredData = [
     )}
   </head>
   <body>
+    <noscript><style>.reveal { opacity: 1 !important; transform: none !important; }</style></noscript>
     <a href="#main-content" class="skip-link">Skip to content</a>
     <Header />
-    <main id="main-content" data-pagefind-body>
+    <main id="main-content" data-pagefind-body={noPagefind ? undefined : true}>
       <!-- Pin Pagefind's result title/excerpt to the real page metadata
            instead of letting it guess from the first heading it finds —
            e.g. the homepage's first <h1> is the featured article's title,
            which would otherwise become every homepage search result's title. -->
-      <span data-pagefind-meta="title" class="visually-hidden">{title}</span>
-      <span data-pagefind-meta="description" class="visually-hidden">{description}</span>
+      {!noPagefind && (
+        <>
+          <span data-pagefind-meta="title" class="visually-hidden">{title}</span>
+          <span data-pagefind-meta="description" class="visually-hidden">{description}</span>
+        </>
+      )}
       <slot />
     </main>
     <Footer />
+    <script>
+      if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window) {
+        const io = new IntersectionObserver(
+          (entries) => {
+            for (const entry of entries) {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+                io.unobserve(entry.target);
+              }
+            }
+          },
+          { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
+        );
+        document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+      } else {
+        document.querySelectorAll('.reveal').forEach((el) => el.classList.add('is-visible'));
+      }
+    </script>
   </body>
 </html>

@@ -1,0 +1,61 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Admin Login" description="Blog admin sign-in." path="/admin/login/" noindex noPagefind>
+  <div class="container admin-login">
+    <h1>Admin Login</h1>
+    <p class="hint">Sign in with your Admin ID (admin1 or admin2) and password.</p>
+
+    <form id="login-form" class="login-form">
+      <label for="admin-id">Admin ID</label>
+      <input id="admin-id" type="text" required autocomplete="username" placeholder="admin1" />
+
+      <label for="password">Password</label>
+      <input id="password" type="password" required autocomplete="current-password" />
+
+      <button type="submit" class="btn btn-primary">Sign In</button>
+      <p id="login-status" class="status" role="status"></p>
+    </form>
+  </div>
+</BaseLayout>
+
+<script>
+  import { supabase, adminIdToEmail } from '../../lib/supabase-admin';
+
+  const form = document.getElementById('login-form') as HTMLFormElement;
+  const status = document.getElementById('login-status')!;
+
+  // Already signed in? Skip straight to the admin panel.
+  supabase.auth.getSession().then(({ data }) => {
+    if (data.session) window.location.href = '../';
+  });
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    status.textContent = 'Signing in…';
+    const adminId = (document.getElementById('admin-id') as HTMLInputElement).value;
+    const password = (document.getElementById('password') as HTMLInputElement).value;
+    const { error } = await supabase.auth.signInWithPassword({ email: adminIdToEmail(adminId), password });
+    if (error) {
+      status.textContent = error.message;
+      return;
+    }
+    window.location.href = '../';
+  });
+</script>
+
+<style>
+  .admin-login { max-width: 380px; padding: 4rem 1.25rem; }
+  .hint { color: var(--ink-faint); font-size: 0.9rem; }
+  .login-form { display: flex; flex-direction: column; gap: 0.4rem; margin-top: 1.5rem; }
+  .login-form label { font-size: 0.85rem; font-weight: 700; margin-top: 0.6rem; }
+  .login-form input {
+    padding: 0.7em 1em;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    font-size: 1rem;
+  }
+  .login-form .btn { margin-top: 1.2rem; justify-content: center; }
+  .status { color: var(--ink-dim); font-size: 0.85rem; min-height: 1.2em; }
+</style>

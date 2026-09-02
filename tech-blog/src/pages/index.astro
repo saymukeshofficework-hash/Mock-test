@@ -26,7 +26,7 @@ const categoriesWithCounts = categories
     <Newsletter />
   </section>
 
-  <section class="container section">
+  <section class="container section reveal">
     <div class="section-heading">
       <h2>Latest Articles</h2>
       <a href={withBase('/category/')}>Browse all categories &rarr;</a>
@@ -41,7 +41,7 @@ const categoriesWithCounts = categories
   </section>
 
   {categoriesWithCounts.length > 0 && (
-    <section class="container section">
+    <section class="container section reveal">
       <div class="section-heading"><h2>Browse by Category</h2></div>
       <div class="category-grid">
         {categoriesWithCounts.map((c) => (
@@ -54,7 +54,7 @@ const categoriesWithCounts = categories
     </section>
   )}
 
-  <section class="container section author-section">
+  <section class="container section author-section reveal">
     <div class="section-heading"><h2>About the Author</h2></div>
     <AuthorBox />
   </section>

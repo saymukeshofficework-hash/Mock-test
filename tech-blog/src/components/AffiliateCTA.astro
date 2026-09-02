@@ -15,7 +15,7 @@ const isPlaceholder = !href || href === '#';
   {isPlaceholder ? (
     <span class="btn btn-primary is-placeholder" aria-disabled="true">{label} (link pending)</span>
   ) : (
-    <a href={href} class="btn btn-primary" rel="sponsored noopener noreferrer" target="_blank">{label}</a>
+    <a href={href} class="btn btn-primary btn-cta" rel="sponsored noopener noreferrer" target="_blank">{label}</a>
   )}
   {note && <p class="cta-note">{note}</p>}
 </div>
