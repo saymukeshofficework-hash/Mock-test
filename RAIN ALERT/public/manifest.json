@@ -1,0 +1,17 @@
+{
+  "name": "Sone River Flood Alert",
+  "short_name": "Sone Flood",
+  "description": "Live water levels, flood safety warnings, and GIS proximity alerts for the Sone River.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0d1117",
+  "theme_color": "#0d1117",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "192x192 512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

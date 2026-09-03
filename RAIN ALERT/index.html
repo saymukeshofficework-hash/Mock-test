@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Sone River Flood Alert – Live Water Level & Flood Safety</title>
+    <meta name="description" content="Check Sone River water levels, flood risk, nearby river locations and safety alerts across Madhya Pradesh, Uttar Pradesh, and Bihar." />
+    <meta name="theme-color" content="#0d1117" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Sone Flood" />
+
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Sone River Flood Alert – Live Water Level & Flood Safety" />
+    <meta property="og:description" content="Real-time river level tracking, GIS proximity detection, and safety warnings for communities along the Sone River basin." />
+    <meta property="og:image" content="/icons/icon-512.png" />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="manifest" href="/manifest.json" />
+    <script>
+      window.addEventListener('error', function(e) {
+        console.error('GLOBAL CAUGHT ERROR:', e.error || e.message);
+        var errBox = document.getElementById('debug-error-box');
+        if (!errBox) {
+          errBox = document.createElement('div');
+          errBox.id = 'debug-error-box';
+          errBox.style = 'position:fixed;bottom:12px;left:12px;right:12px;background:#7f1d1d;color:#fecaca;padding:12px 16px;border-radius:12px;z-index:999999;font-size:12px;font-family:monospace;max-height:180px;overflow:auto;border:1px solid #ef4444;box-shadow:0 10px 30px rgba(0,0,0,0.8);';
+          document.body.appendChild(errBox);
+        }
+        errBox.innerHTML = '<strong>⚠️ Runtime Error Caught:</strong><br>' + (e.error ? (e.error.stack || e.error.message) : e.message);
+      });
+      window.addEventListener('unhandledrejection', function(e) {
+        console.error('UNHANDLED PROMISE REJECTION:', e.reason);
+      });
+    </script>
+  </head>
+  <body class="bg-[#0d1117] text-gray-100 min-h-screen antialiased selection:bg-sky-500/30 selection:text-sky-200">
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
