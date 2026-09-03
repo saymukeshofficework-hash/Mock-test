@@ -36,6 +36,7 @@ jobs:
             bulbul-bhatia/package-lock.json
             mukesh-singh-dahiya/package-lock.json
             tech-blog/package-lock.json
+            RAIN ALERT/package-lock.json
 
       - name: Install Ludo 3D dependencies
         working-directory: ludo-3d
@@ -67,6 +68,18 @@ jobs:
 
       - name: Validate and build Technology Blog
         working-directory: tech-blog
+        run: npm run build
+
+      - name: Install Rain Alert dependencies
+        working-directory: RAIN ALERT
+        run: npm ci
+
+      - name: Test Rain Alert
+        working-directory: RAIN ALERT
+        run: npm test
+
+      - name: Build Rain Alert
+        working-directory: RAIN ALERT
         run: npm run build
 
       - name: Assemble combined site
@@ -109,6 +122,10 @@ jobs:
           # Technology Blog build output (includes the Pagefind search index)
           mkdir -p _site/tech-blog
           cp -r tech-blog/dist/. _site/tech-blog/
+
+          # Rain Alert (Sone River Flood Alert) build output
+          mkdir -p "_site/rain-alert"
+          cp -r "RAIN ALERT/dist/." "_site/rain-alert/"
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
