@@ -9,7 +9,7 @@ const focusAreas = ['School Academics', 'English', 'Science', 'Biology', 'Mathem
 export default function About() {
   return (
     <>
-      <SEO title="About" description="About Mukesh Singh Dahiya — M.Sc. Botany, M.A. English, 12 years of teaching experience across Classes 5–12, CBSE and MP Board." />
+      <SEO title="About" description="About Mukesh Dahiya — M.Sc. Botany, M.A. English, 12 years of teaching experience across Classes 5–12, CBSE and MP Board." />
       <Breadcrumbs items={[{ label: 'Home', to: '/' }, { label: 'About' }]} />
       <div className="container-page py-14 sm:py-16">
         <div className="mx-auto max-w-3xl">

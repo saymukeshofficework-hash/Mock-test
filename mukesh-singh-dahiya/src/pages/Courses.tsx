@@ -10,7 +10,7 @@ export default function Courses() {
 
   return (
     <>
-      <SEO title="Courses" description="Premium school and NEET courses by Mukesh Singh Dahiya." />
+      <SEO title="Courses" description="Premium school and NEET courses by Mukesh Dahiya." />
       <Breadcrumbs items={[{ label: 'Home', to: '/' }, { label: 'Courses' }]} />
       <div className="container-page py-14 sm:py-16">
         <h1 className="font-serif text-3xl font-bold text-navy-900 dark:text-white sm:text-4xl">Premium Courses</h1>

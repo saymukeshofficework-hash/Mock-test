@@ -1789,7 +1789,7 @@ export const scienceNotes: ScienceNote[] = [
       'State the universal rules of binomial nomenclature with an example (Mangifera indica Linn.).',
       'Why is consciousness regarded as a defining feature of life while growth is not?',
     ],
-    keywords: ['Class 11 Biology', 'The Living World', 'Taxonomy', 'Binomial nomenclature', 'Herbarium', 'NEET Biology', 'Mukesh Singh Dahiya'],
+    keywords: ['Class 11 Biology', 'The Living World', 'Taxonomy', 'Binomial nomenclature', 'Herbarium', 'NEET Biology', 'Mukesh Dahiya'],
     status: 'available',
   },
   {

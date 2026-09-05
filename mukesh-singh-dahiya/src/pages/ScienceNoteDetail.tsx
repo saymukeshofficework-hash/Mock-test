@@ -126,7 +126,7 @@ export default function ScienceNoteDetail() {
               <p className="mx-auto mt-2 max-w-lg text-sm text-slate-600 dark:text-slate-300">
                 The comprehensive revision notes, solved examples, and exam pointers for{' '}
                 <strong className="text-navy-900 dark:text-white">Chapter {note.chapterNumber}: {note.chapterName}</strong> are
-                being curated and verified by Mukesh Singh Dahiya according to the latest NCERT syllabus.
+                being curated and verified by Mukesh Dahiya according to the latest NCERT syllabus.
               </p>
               <div className="mt-6 flex flex-wrap justify-center gap-3">
                 <a

@@ -1,14 +1,14 @@
 import { contact } from '../config/contact'
 
 export const site = {
-  name: 'Mukesh Singh Dahiya',
+  name: 'Mukesh Dahiya',
   title: 'Teacher & Educator',
   qualifications: 'M.Sc. Botany | M.A. English | 12 Years Teaching Experience',
   scope: 'Classes 5–12 | CBSE & MP Board | English Medium',
   tagline: 'Learn Better. Understand Deeper. Achieve More.',
   intro:
     'Structured learning resources for Classes 5–12, including notes, solutions, questions, previous papers, educational calculators and dedicated NEET Biology resources.',
-  bio: 'Mukesh Singh Dahiya is an educator with 12 years of teaching experience, holding an M.Sc. in Botany and an M.A. in English. He provides structured academic learning resources for students from Classes 5 to 12 across CBSE and MP Board in English Medium, along with dedicated NEET Biology resources in Botany and Zoology.',
+  bio: 'Mukesh Dahiya is an educator with 12 years of teaching experience, holding an M.Sc. in Botany and an M.A. in English. He provides structured academic learning resources for students from Classes 5 to 12 across CBSE and MP Board in English Medium, along with dedicated NEET Biology resources in Botany and Zoology.',
   credentials: [
     { label: 'M.Sc. Botany', icon: 'leaf' },
     { label: 'M.A. English', icon: 'book' },

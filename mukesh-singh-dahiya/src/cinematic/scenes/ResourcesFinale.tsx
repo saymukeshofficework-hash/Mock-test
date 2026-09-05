@@ -94,7 +94,7 @@ export default function ResourcesFinale({ reduced }: { reduced: boolean }) {
       <div className="signature-mark relative flex flex-col items-center gap-3 px-6 pb-20 pt-4 text-center opacity-0">
         <span className="c-huge c-serif c-accent-text text-3xl sm:text-4xl">MSD</span>
         <span className="signature-name c-serif text-sm uppercase tracking-[0.3em] text-[color:var(--c-ink-dim)] opacity-0">
-          Mukesh Singh Dahiya
+          Mukesh Dahiya
         </span>
       </div>
     </div>
