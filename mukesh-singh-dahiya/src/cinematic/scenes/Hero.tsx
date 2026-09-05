@@ -58,7 +58,7 @@ export default function Hero({ play, reduced }: { play: boolean; reduced: boolea
 
       <h1 className="relative">
         <span className="hero-line c-huge c-serif block text-[15vw] sm:text-[9vw] lg:text-[7.5vw]">MUKESH</span>
-        <span className="hero-line c-huge c-serif block text-[15vw] sm:text-[9vw] lg:text-[7.5vw] c-accent-text">SINGH DAHIYA</span>
+        <span className="hero-line c-huge c-serif block text-[15vw] sm:text-[9vw] lg:text-[7.5vw] c-accent-text">DAHIYA</span>
       </h1>
 
       <p className="hero-sub relative mt-8 max-w-xl text-sm text-[color:var(--c-ink-dim)] sm:text-base">
