@@ -1,6 +1,6 @@
-# Mukesh Singh Dahiya — Educational Platform
+# Mukesh Dahiya — Educational Platform
 
-A premium educational website for teacher **Mukesh Singh Dahiya** (M.Sc. Botany,
+A premium educational website for teacher **Mukesh Dahiya** (M.Sc. Botany,
 M.A. English, 12 years teaching experience) — notes, solutions, questions,
 previous papers, premium courses, paid notes, online classes, NEET Biology
 resources and educational calculators for Classes 5–12, CBSE & MP Board,

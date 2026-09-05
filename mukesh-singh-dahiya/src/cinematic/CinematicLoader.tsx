@@ -30,7 +30,7 @@ export default function CinematicLoader({ onDone }: { onDone: () => void }) {
   return (
     <div className="c-loader" data-hidden={hidden} role="status" aria-label="Loading">
       <span className="c-loader-mark">MSD</span>
-      <span className="c-loader-name">Mukesh Singh Dahiya</span>
+      <span className="c-loader-name">Mukesh Dahiya</span>
       <span className="c-loader-bar">
         <span className="c-loader-bar-fill" style={{ width: `${progress}%` }} />
       </span>

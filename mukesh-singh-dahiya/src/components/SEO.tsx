@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 
 export default function SEO({ title, description }: { title: string; description: string }) {
   useEffect(() => {
-    const fullTitle = `${title} | Mukesh Singh Dahiya`
+    const fullTitle = `${title} | Mukesh Dahiya`
     document.title = fullTitle
 
     const setMeta = (attr: 'name' | 'property', key: string, content: string) => {

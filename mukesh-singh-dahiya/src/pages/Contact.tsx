@@ -11,7 +11,7 @@ export default function Contact() {
 
   return (
     <>
-      <SEO title="Contact" description="Get in touch with Mukesh Singh Dahiya about classes, courses or study material." />
+      <SEO title="Contact" description="Get in touch with Mukesh Dahiya about classes, courses or study material." />
       <Breadcrumbs items={[{ label: 'Home', to: '/' }, { label: 'Contact' }]} />
       <div className="container-page py-14 sm:py-16">
         <div className="mx-auto max-w-4xl">

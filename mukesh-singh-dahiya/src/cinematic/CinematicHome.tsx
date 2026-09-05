@@ -25,7 +25,7 @@ export default function CinematicHome() {
     <div className={`cinematic-root ${isDesktop ? 'cursor-none' : ''}`}>
       <SEO
         title="Teacher • Mentor • Lifelong Learner"
-        description="Mukesh Singh Dahiya — M.Sc. Botany, M.A. English, 12 years teaching experience. A cinematic journey through classroom, growth, curiosity and knowledge."
+        description="Mukesh Dahiya — M.Sc. Botany, M.A. English, 12 years teaching experience. A cinematic journey through classroom, growth, curiosity and knowledge."
       />
       <CinematicLoader onDone={() => setLoaded(true)} />
       {isDesktop && <CustomCursor />}
