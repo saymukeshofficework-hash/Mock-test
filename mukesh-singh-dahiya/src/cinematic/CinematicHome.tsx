@@ -13,6 +13,7 @@ import OceanScene from './scenes/OceanScene'
 import AboutExperience from './scenes/AboutExperience'
 import TeachingPhilosophy from './scenes/TeachingPhilosophy'
 import LearningJourney from './scenes/LearningJourney'
+import BooksShowcase from './scenes/BooksShowcase'
 import ResourcesFinale from './scenes/ResourcesFinale'
 import './cinematic.css'
 
@@ -40,6 +41,7 @@ export default function CinematicHome() {
         <AboutExperience reduced={reduced} />
         <TeachingPhilosophy reduced={reduced} />
         <LearningJourney reduced={reduced} isDesktop={isDesktop} />
+        <BooksShowcase reduced={reduced} />
         <ResourcesFinale reduced={reduced} />
       </main>
       <CinematicFooter />

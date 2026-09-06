@@ -199,6 +199,12 @@ export default function MockTestRunner({ test }: { test: MockTest }) {
 
   return (
     <div className="card overflow-hidden">
+      {studentName && (
+        <div className="flex items-center justify-between border-b border-slate-200 bg-slate-50 px-5 py-2 text-sm dark:border-navy-700 dark:bg-navy-950/40">
+          <span className="text-slate-500 dark:text-slate-400">Candidate</span>
+          <span className="font-semibold text-navy-900 dark:text-white">{studentName}</span>
+        </div>
+      )}
       <div className={`flex items-center justify-between px-5 py-3 text-white ${warn ? 'bg-rose-600' : 'bg-brand-600'}`}>
         <span className="flex items-center gap-2 text-sm font-medium">
           <Icon name="clock" className="h-4 w-4" />
