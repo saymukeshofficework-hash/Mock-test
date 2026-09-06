@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta
+			name="viewport"
+			content="width=device-width,initial-scale=1.0,maximum-scale=1.0"
+		/>
+		<title>English Grammar Mock Test - 1</title>
+		<style>
+			:root {
+				--navy: #16204e;
+				--navy-l: #22307a;
+				--blue: #2f6fed;
+				--blue-l: #eaf1ff;
+				--green: #1ba672;
+				--red: #e2483d;
+				--purple: #8b5cf6;
+				--bg: #f4f6fb;
+				--ink: #1c2233;
+				--muted: #6b7280;
+				--border: #e1e5ee;
+			}
+			* {
+				box-sizing: border-box;
+			}
+			html,
+			body {
+				margin: 0;
+				padding: 0;
+			}
+			body {
+				font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+					Roboto, "Noto Sans Devanagari", Helvetica, Arial, sans-serif;
+				background: var(--bg);
+				color: var(--ink);
+			}
+			#app {
+				max-width: 720px;
+				margin: 0 auto;
+				min-height: 100vh;
+				background: #fff;
+				display: flex;
+				flex-direction: column;
+			}
+			.topbar {
+				background: var(--navy);
+				color: #fff;
+				padding: 14px 16px;
+				display: flex;
+				justify-content: space-between;
+				align-items: flex-start;
+				gap: 10px;
+			}
+			.topbar .ttext {
+				font-weight: 800;
+				font-size: 17px;
+			}
+			.topbar small {
+				display: block;
+				font-weight: 400;
+				opacity: 0.75;
+				font-size: 12px;
+				margin-top: 3px;
+			}
+			.timerbar {
+				background: var(--blue);
+				color: #fff;
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				padding: 10px 16px;
+				font-size: 14px;
+			}
+			#timer {
+				background: #0d1430;
+				padding: 5px 12px;
+				border-radius: 6px;
+				font-weight: 700;
+				font-variant-numeric: tabular-nums;
+				font-size: 15px;
+			}
+			.timerbar.warn #timer {
+				background: var(--red);
+			}
+			.palette {
+				display: grid;
+				grid-template-columns: repeat(8, 1fr);
+				gap: 6px;
+				padding: 12px;
+				max-height: 190px;
+				overflow-y: auto;
+				background: #fbfcfe;
+				border-bottom: 1px solid var(--border);
+			}
+			.pcell {
+				aspect-ratio: 1;
+				border-radius: 7px;
+				border: 1px solid var(--border);
+				background: #fff;
+				color: var(--ink);
+				font-size: 12px;
+				font-weight: 700;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				position: relative;
+				cursor: pointer;
+			}
+			.pcell.current {
+				outline: 2px solid var(--navy);
+				outline-offset: 1px;
+			}
+			.pcell.answered {
+				background: var(--green);
+				border-color: var(--green);
+				color: #fff;
+			}
+			.pcell.notanswered {
+				background: var(--red);
+				border-color: var(--red);
+				color: #fff;
+			}
+			.pcell.marked {
+				background: var(--purple);
+				border-color: var(--purple);
+				color: #fff;
+			}
+			.pcell.marked.answered::after {
+				content: "";
+				position: absolute;
+				bottom: 2px;
+				right: 2px;
+				width: 6px;
+				height: 6px;
+				border-radius: 50%;
+				background: var(--green);
+				border: 1px solid #fff;
+			}
+			.legend {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 10px;
+				padding: 8px 14px;
+				font-size: 11px;
+				color: var(--muted);
+				background: #fbfcfe;
+				border-bottom: 1px solid var(--border);
+			}
+			.legend span {
+				display: inline-flex;
+				align-items: center;
+				gap: 4px;
+			}
+			.dot {
+				width: 9px;
+				height: 9px;
+				border-radius: 3px;
+				display: inline-block;
+			}
+			.qpanel {
+				padding: 16px;
+				flex: 1;
+			}
+			.qmeta {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				margin-bottom: 10px;
+				gap: 8px;
+			}
+			.qno {
+				font-weight: 700;
+				font-size: 14px;
+				color: var(--navy);
+				flex: 0 0 auto;
+			}
+			.qsec {
+				font-size: 11px;
+				color: #fff;
+				background: var(--navy-l);
+				padding: 3px 9px;
+				border-radius: 999px;
+				font-weight: 600;
+				text-align: right;
+			}
+			.qtext {
+				font-size: 16px;
+				line-height: 1.65;
+				margin-bottom: 16px;
+				font-weight: 600;
+			}
+			.options {
+				display: flex;
+				flex-direction: column;
+				gap: 10px;
+			}
+			.opt {
+				display: flex;
+				align-items: flex-start;
+				gap: 10px;
+				border: 1px solid var(--border);
+				border-radius: 10px;
+				padding: 11px 12px;
+				font-size: 15px;
+				line-height: 1.55;
+				cursor: pointer;
+			}
+			.opt.selected {
+				border-color: var(--blue);
+				background: var(--blue-l);
+			}
+			.opt input {
+				margin-top: 4px;
+				flex: 0 0 auto;
+			}
+			.opt label {
+				flex: 1;
+				cursor: pointer;
+			}
+			.actions {
+				display: flex;
+				gap: 10px;
+				padding: 0 16px 10px;
+			}
+			.actions button {
+				flex: 1;
+				padding: 12px 8px;
+				border-radius: 8px;
+				border: 1px solid var(--border);
+				background: #fff;
+				font-weight: 600;
+				font-size: 13px;
+				color: var(--navy);
+			}
+			.actions2 {
+				display: flex;
+				gap: 10px;
+				padding: 0 16px 16px;
+			}
+			.actions2 button {
+				flex: 1;
+				padding: 13px 8px;
+				border-radius: 8px;
+				border: none;
+				font-weight: 700;
+				font-size: 14px;
+			}
+			#prevBtn {
+				background: #eef0f6;
+				color: var(--navy);
+			}
+			#saveBtn {
+				background: var(--green);
+				color: #fff;
+			}
+			.submitwrap {
+				padding: 0 16px 22px;
+			}
+			#submitBtn {
+				width: 100%;
+				padding: 14px;
+				border: none;
+				border-radius: 8px;
+				background: var(--blue);
+				color: #fff;
+				font-weight: 700;
+				font-size: 15px;
+			}
+			/* Name entry screen */
+			#nameScreen {
+				max-width: 720px;
+				margin: 0 auto;
+				min-height: 100vh;
+				background: #fff;
+				display: flex;
+				flex-direction: column;
+			}
+			#nameScreen .ntop {
+				background: var(--navy);
+				color: #fff;
+				padding: 14px 16px;
+			}
+			#nameScreen .ncard {
+				flex: 1;
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
+				padding: 28px 24px;
+				text-align: center;
+			}
+			#nameScreen .nicon {
+				width: 60px;
+				height: 60px;
+				border-radius: 50%;
+				background: var(--blue-l);
+				color: var(--navy);
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				font-size: 26px;
+				font-weight: 800;
+				margin-bottom: 18px;
+			}
+			#nameScreen .ntitle {
+				font-size: 19px;
+				font-weight: 800;
+				color: var(--navy);
+				margin-bottom: 6px;
+			}
+			#nameScreen .nsub {
+				font-size: 13.5px;
+				color: var(--muted);
+				margin-bottom: 24px;
+			}
+			#nameScreen .nfield {
+				width: 100%;
+				max-width: 340px;
+				text-align: left;
+				margin-bottom: 22px;
+			}
+			#nameScreen .nfield label {
+				display: block;
+				font-size: 12.5px;
+				font-weight: 600;
+				color: var(--navy);
+				margin-bottom: 6px;
+			}
+			#nameInput {
+				width: 100%;
+				padding: 13px 14px;
+				border: 1.5px solid var(--border);
+				border-radius: 10px;
+				font-size: 16px;
+				color: var(--ink);
+				background: #fbfcfe;
+			}
+			#nameInput:focus {
+				outline: none;
+				border-color: var(--blue);
+			}
+			#startBtn {
+				width: 100%;
+				max-width: 340px;
+				padding: 14px;
+				border: none;
+				border-radius: 8px;
+				background: var(--blue);
+				color: #fff;
+				font-weight: 700;
+				font-size: 15px;
+			}
+			/* Result screen */
+			#resultScreen {
+				display: none;
+				max-width: 720px;
+				margin: 0 auto;
+				background: #fff;
+				min-height: 100vh;
+			}
+			.rhero {
+				background: var(--navy);
+				color: #fff;
+				padding: 28px 20px 22px;
+				text-align: center;
+				position: relative;
+			}
+			.rhero .rbrand {
+				font-size: 11px;
+				font-weight: 600;
+				letter-spacing: 1px;
+				opacity: 0.6;
+				text-transform: uppercase;
+			}
+			.rhero .rname {
+				font-size: 14px;
+				font-weight: 700;
+				margin-top: 8px;
+				opacity: 0.95;
+			}
+			.rhero .score {
+				font-size: 46px;
+				font-weight: 800;
+				line-height: 1;
+				margin-top: 6px;
+			}
+			.rhero .outof {
+				font-size: 14px;
+				opacity: 0.8;
+				margin-top: 4px;
+			}
+			.rhero .pct {
+				display: inline-block;
+				margin-top: 10px;
+				background: rgba(255, 255, 255, 0.12);
+				padding: 5px 14px;
+				border-radius: 999px;
+				font-size: 13px;
+				font-weight: 600;
+			}
+			.rwrap {
+				padding: 0 18px 24px;
+			}
+			table.rtable {
+				width: 100%;
+				border-collapse: collapse;
+				margin: 18px 0;
+				font-size: 12.5px;
+			}
+			table.rtable th,
+			table.rtable td {
+				padding: 8px 6px;
+				text-align: center;
+				border-bottom: 1px solid var(--border);
+			}
+			table.rtable th {
+				background: #f4f6fb;
+				font-size: 11px;
+				color: var(--muted);
+				text-transform: uppercase;
+				letter-spacing: 0.3px;
+			}
+			table.rtable td:first-child,
+			table.rtable th:first-child {
+				text-align: left;
+			}
+			.rnote {
+				font-size: 12.5px;
+				color: var(--muted);
+				margin: 4px 0 16px;
+			}
+			details.qreview {
+				border: 1px solid var(--border);
+				border-radius: 8px;
+				margin-bottom: 8px;
+				padding: 10px 12px;
+			}
+			details.qreview summary {
+				font-size: 13px;
+				font-weight: 600;
+				cursor: pointer;
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				list-style: none;
+				gap: 8px;
+			}
+			details.qreview summary::-webkit-details-marker {
+				display: none;
+			}
+			.rtag {
+				font-size: 11px;
+				font-weight: 700;
+				padding: 2px 8px;
+				border-radius: 999px;
+				color: #fff;
+				flex-shrink: 0;
+			}
+			.rtag.ok {
+				background: var(--green);
+			}
+			.rtag.bad {
+				background: var(--red);
+			}
+			.rtag.skip {
+				background: var(--muted);
+			}
+			.rqtext {
+				font-size: 14px;
+				margin: 10px 0 8px;
+				font-weight: 600;
+			}
+			.rsol {
+				font-size: 13px;
+				background: #f4f6fb;
+				border-radius: 6px;
+				padding: 8px 10px;
+				margin-bottom: 8px;
+				color: var(--muted);
+			}
+			.ropt {
+				font-size: 13.5px;
+				padding: 6px 9px;
+				border-radius: 6px;
+				margin-bottom: 5px;
+				border: 1px solid var(--border);
+			}
+			.ropt.correctAns {
+				background: #e6f7f0;
+				border-color: var(--green);
+			}
+			.ropt.wrongChosen {
+				background: #fdecea;
+				border-color: var(--red);
+			}
+			#retakeBtn {
+				width: 100%;
+				padding: 13px;
+				border: none;
+				border-radius: 8px;
+				background: var(--blue);
+				color: #fff;
+				font-weight: 700;
+				font-size: 14px;
+				margin-top: 6px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="nameScreen">
+			<div class="ntop">
+				<div class="ttext">English Grammar Mock Test - 1</div>
+				<small
+					>Fill in the Blanks &nbsp;&middot;&nbsp; 25
+					Questions</small
+				>
+			</div>
+			<div class="ncard">
+				<div class="nicon">&#9999;</div>
+				<div class="ntitle">Before you begin</div>
+				<div class="nsub">
+					Enter your name so it appears on your result.
+				</div>
+				<div class="nfield">
+					<label for="nameInput">Student Name</label>
+					<input
+						type="text"
+						id="nameInput"
+						placeholder="e.g. Riya Sharma"
+						maxlength="60"
+						autocomplete="off"
+					/>
+				</div>
+				<button id="startBtn" type="button">Start Test</button>
+			</div>
+		</div>
+
+		<div id="app" style="display: none">
+			<div class="topbar">
+				<div>
+					<div class="ttext">English Grammar Mock Test - 1</div>
+					<small
+						>Fill in the Blanks &nbsp;&middot;&nbsp; 25
+						Questions</small
+					>
+				</div>
+			</div>
+			<div class="timerbar" id="timerbar">
+				<span>Time Left</span>
+				<span id="timer">20:00</span>
+			</div>
+			<div class="palette" id="palette"></div>
+			<div class="legend">
+				<span
+					><i class="dot" style="background: var(--green)"></i
+					><span>Answered</span></span
+				>
+				<span
+					><i class="dot" style="background: var(--red)"></i
+					><span>Not Answered</span></span
+				>
+				<span
+					><i class="dot" style="background: var(--purple)"></i
+					><span>Marked</span></span
+				>
+				<span
+					><i
+						class="dot"
+						style="background: #fff; border: 1px solid var(--border)"
+					></i
+					><span>Not Visited</span></span
+				>
+			</div>
+			<div class="qpanel" id="qpanel">
+				<div class="qmeta">
+					<span class="qno" id="qno">Q 1 of 25</span>
+					<span class="qsec" id="qsec">Fill in the Blanks</span>
+				</div>
+				<div class="qtext" id="qtext"></div>
+				<div class="options" id="options"></div>
+			</div>
+			<div class="actions">
+				<button id="clearBtn">Clear Response</button>
+				<button id="markBtn">Mark for Review &amp; Next</button>
+			</div>
+			<div class="actions2">
+				<button id="prevBtn">&#8249; Previous</button>
+				<button id="saveBtn">Save &amp; Next &#8250;</button>
+			</div>
+			<div class="submitwrap">
+				<button id="submitBtn">Submit Test</button>
+			</div>
+		</div>
+
+		<div id="resultScreen"></div>
+
+		<script>
+			const Q = [
+				{
+					q: "1. He knows ___ boy.",
+					o: ["a", "an", "the", "some"],
+					a: 2,
+					sol: "Correct answer: C) the — a specific, already-known boy takes the definite article.",
+				},
+				{
+					q: "2. His brother is ___ R.J. in a local radio channel.",
+					o: ["a", "an", "the", "no article"],
+					a: 1,
+					sol: "Correct answer: B) an — the letter “R” starts with a vowel sound (“ar”).",
+				},
+				{
+					q: "3. There is not ___ water in the pool.",
+					o: ["some", "any", "much", "many"],
+					a: 1,
+					sol: "Correct answer: B) any — “any” is used with uncountable nouns in negative sentences.",
+				},
+				{
+					q: "4. He has ___ many plays.",
+					o: ["write", "written", "writes", "wrote"],
+					a: 1,
+					sol: "Correct answer: B) written — present perfect tense (has + past participle).",
+				},
+				{
+					q: "5. ___ I take your pen?",
+					o: ["Can", "May", "Should", "Must"],
+					a: 1,
+					sol: "Correct answer: B) May — used to politely ask for permission.",
+				},
+				{
+					q: "6. We ___ to follow the traffic rules.",
+					o: ["has", "have", "had", "having"],
+					a: 1,
+					sol: "Correct answer: B) have — “We have to” expresses obligation with a plural subject.",
+				},
+				{
+					q: "7. When I was young, I ___ climb trees.",
+					o: ["can", "could", "should", "would"],
+					a: 1,
+					sol: "Correct answer: B) could — expresses past ability.",
+				},
+				{
+					q: "8. I haven’t bought ___ milk today.",
+					o: ["some", "any", "much", "a"],
+					a: 1,
+					sol: "Correct answer: B) any — used with uncountable nouns in negative sentences.",
+				},
+				{
+					q: "9. How ___ students are present today?",
+					o: ["much", "many", "more", "most"],
+					a: 1,
+					sol: "Correct answer: B) many — used with countable plural nouns.",
+				},
+				{
+					q: "10. How ___ sugar do you take in tea?",
+					o: ["many", "much", "more", "most"],
+					a: 1,
+					sol: "Correct answer: B) much — used with uncountable nouns.",
+				},
+				{
+					q: "11. The Earth ___ round the Sun.",
+					o: ["revolve", "revolves", "revolving", "revolved"],
+					a: 1,
+					sol: "Correct answer: B) revolves — present simple for a universal/general truth.",
+				},
+				{
+					q: "12. He always ___ on time.",
+					o: ["come", "comes", "coming", "came"],
+					a: 1,
+					sol: "Correct answer: B) comes — present simple for a habitual action with “always”.",
+				},
+				{
+					q: "13. ___ Ganga is a sacred river.",
+					o: ["A", "An", "The", "No article"],
+					a: 2,
+					sol: "Correct answer: C) The — names of rivers always take “the”.",
+				},
+				{
+					q: "14. Arun is ___ tallest boy in the class.",
+					o: ["a", "an", "the", "no article"],
+					a: 2,
+					sol: "Correct answer: C) the — superlative degree always takes “the”.",
+				},
+				{
+					q: "15. His father is ___ University professor.",
+					o: ["a", "an", "the", "no article"],
+					a: 0,
+					sol: "Correct answer: A) a — “University” begins with the consonant sound “yoo”.",
+				},
+				{
+					q: "16. They have been playing here ___ morning.",
+					o: ["since", "for", "from", "at"],
+					a: 0,
+					sol: "Correct answer: A) since — used with a specific point of time.",
+				},
+				{
+					q: "17. We have been studying in this college ___ three years.",
+					o: ["since", "for", "from", "in"],
+					a: 1,
+					sol: "Correct answer: B) for — used with a period/duration of time.",
+				},
+				{
+					q: "18. They will go to Delhi ___ Monday.",
+					o: ["in", "at", "on", "since"],
+					a: 2,
+					sol: "Correct answer: C) on — used with days of the week.",
+				},
+				{
+					q: "19. We went to Kashmir ___ April.",
+					o: ["on", "at", "in", "since"],
+					a: 2,
+					sol: "Correct answer: C) in — used with months.",
+				},
+				{
+					q: "20. His uncle died ___ cancer.",
+					o: ["of", "from", "with", "by"],
+					a: 0,
+					sol: "Correct answer: A) of — “die of” is used for diseases.",
+				},
+				{
+					q: "21. He is afraid ___ dogs.",
+					o: ["of", "from", "at", "with"],
+					a: 0,
+					sol: "Correct answer: A) of — “afraid of” is the correct preposition combination.",
+				},
+				{
+					q: "22. I am not going to office ___ I am ill.",
+					o: ["because", "although", "unless", "so"],
+					a: 0,
+					sol: "Correct answer: A) because — introduces the reason for not going to office.",
+				},
+				{
+					q: "23. ___ you work hard, you will pass.",
+					o: ["If", "Unless", "Although", "Since"],
+					a: 0,
+					sol: "Correct answer: A) If — introduces the condition for passing.",
+				},
+				{
+					q: "24. I prefer coffee ___ tea.",
+					o: ["than", "to", "from", "over"],
+					a: 1,
+					sol: "Correct answer: B) to — the verb “prefer” is followed by “to”, not “than”.",
+				},
+				{
+					q: "25. The patient had died ___ the doctor arrived.",
+					o: ["before", "after", "when", "since"],
+					a: 0,
+					sol: "Correct answer: A) before — past perfect tense pairs with “before” to show which action happened first.",
+				},
+			];
+
+			const TOTAL = Q.length;
+			const DURATION = 20 * 60;
+			let answers = new Array(TOTAL).fill(null);
+			let marked = new Array(TOTAL).fill(false);
+			let visited = new Array(TOTAL).fill(false);
+			let current = 0;
+			let studentName = "";
+			let timeLeft = DURATION;
+			let timerId = null;
+			let submitted = false;
+
+			const nameScreen = document.getElementById("nameScreen");
+			const app = document.getElementById("app");
+			const resultScreen = document.getElementById("resultScreen");
+			const nameInput = document.getElementById("nameInput");
+			const startBtn = document.getElementById("startBtn");
+			const palette = document.getElementById("palette");
+			const qno = document.getElementById("qno");
+			const qtext = document.getElementById("qtext");
+			const options = document.getElementById("options");
+			const timerEl = document.getElementById("timer");
+			const timerbar = document.getElementById("timerbar");
+			const clearBtn = document.getElementById("clearBtn");
+			const markBtn = document.getElementById("markBtn");
+			const prevBtn = document.getElementById("prevBtn");
+			const saveBtn = document.getElementById("saveBtn");
+			const submitBtn = document.getElementById("submitBtn");
+
+			startBtn.addEventListener("click", () => {
+				studentName = nameInput.value.trim() || "Student";
+				nameScreen.style.display = "none";
+				app.style.display = "flex";
+				visited[0] = true;
+				renderPalette();
+				renderQuestion();
+				startTimer();
+			});
+
+			function startTimer() {
+				timerId = setInterval(() => {
+					timeLeft--;
+					if (timeLeft <= 60) timerbar.classList.add("warn");
+					if (timeLeft <= 0) {
+						clearInterval(timerId);
+						timeLeft = 0;
+						finishTest();
+					}
+					renderTimer();
+				}, 1000);
+				renderTimer();
+			}
+
+			function renderTimer() {
+				const m = Math.floor(timeLeft / 60)
+					.toString()
+					.padStart(2, "0");
+				const s = (timeLeft % 60).toString().padStart(2, "0");
+				timerEl.textContent = m + ":" + s;
+			}
+
+			function renderPalette() {
+				palette.innerHTML = "";
+				for (let i = 0; i < TOTAL; i++) {
+					const cell = document.createElement("div");
+					cell.className = "pcell";
+					cell.textContent = i + 1;
+					if (i === current) cell.classList.add("current");
+					if (marked[i]) cell.classList.add("marked");
+					if (answers[i] !== null) cell.classList.add("answered");
+					else if (visited[i]) cell.classList.add("notanswered");
+					cell.addEventListener("click", () => {
+						current = i;
+						visited[i] = true;
+						renderPalette();
+						renderQuestion();
+					});
+					palette.appendChild(cell);
+				}
+			}
+
+			function renderQuestion() {
+				const item = Q[current];
+				qno.textContent = "Q " + (current + 1) + " of " + TOTAL;
+				qtext.textContent = item.q;
+				options.innerHTML = "";
+				item.o.forEach((optText, idx) => {
+					const wrap = document.createElement("div");
+					wrap.className = "opt";
+					if (answers[current] === idx) wrap.classList.add("selected");
+					const input = document.createElement("input");
+					input.type = "radio";
+					input.name = "opt";
+					input.id = "opt" + idx;
+					input.checked = answers[current] === idx;
+					input.addEventListener("change", () => {
+						answers[current] = idx;
+						renderQuestion();
+						renderPalette();
+					});
+					const label = document.createElement("label");
+					label.setAttribute("for", "opt" + idx);
+					label.textContent =
+						String.fromCharCode(65 + idx) + ") " + optText;
+					wrap.appendChild(input);
+					wrap.appendChild(label);
+					wrap.addEventListener("click", (e) => {
+						if (e.target !== input) input.click();
+					});
+					options.appendChild(wrap);
+				});
+			}
+
+			clearBtn.addEventListener("click", () => {
+				answers[current] = null;
+				renderQuestion();
+				renderPalette();
+			});
+
+			markBtn.addEventListener("click", () => {
+				marked[current] = !marked[current];
+				goNext();
+			});
+
+			prevBtn.addEventListener("click", () => {
+				if (current > 0) {
+					current--;
+					visited[current] = true;
+					renderPalette();
+					renderQuestion();
+				}
+			});
+
+			saveBtn.addEventListener("click", goNext);
+
+			function goNext() {
+				if (current < TOTAL - 1) {
+					current++;
+					visited[current] = true;
+					renderPalette();
+					renderQuestion();
+				}
+			}
+
+			submitBtn.addEventListener("click", () => {
+				if (confirm("Are you sure you want to submit the test?")) {
+					finishTest();
+				}
+			});
+
+			function finishTest() {
+				if (submitted) return;
+				submitted = true;
+				if (timerId) clearInterval(timerId);
+				app.style.display = "none";
+				renderResult();
+			}
+
+			function renderResult() {
+				let correct = 0,
+					wrong = 0,
+					skipped = 0;
+				Q.forEach((item, i) => {
+					if (answers[i] === null) skipped++;
+					else if (answers[i] === item.a) correct++;
+					else wrong++;
+				});
+				const pct = Math.round((correct / TOTAL) * 100);
+
+				let html = "";
+				html += '<div class="rhero">';
+				html += '<div class="rbrand">English Grammar Mock Test - 1</div>';
+				html += '<div class="rname">' + escapeHtml(studentName) + "</div>";
+				html += '<div class="score">' + correct + "</div>";
+				html += '<div class="outof">out of ' + TOTAL + "</div>";
+				html += '<div class="pct">' + pct + "% Score</div>";
+				html += "</div>";
+				html += '<div class="rwrap">';
+				html += '<table class="rtable">';
+				html +=
+					"<tr><th>Correct</th><th>Wrong</th><th>Skipped</th></tr>";
+				html +=
+					"<tr><td>" +
+					correct +
+					"</td><td>" +
+					wrong +
+					"</td><td>" +
+					skipped +
+					"</td></tr>";
+				html += "</table>";
+				html +=
+					'<div class="rnote">Tap a question below to see the correct answer and explanation.</div>';
+
+				Q.forEach((item, i) => {
+					const chosen = answers[i];
+					const isCorrect = chosen === item.a;
+					const tag =
+						chosen === null
+							? '<span class="rtag skip">Skipped</span>'
+							: isCorrect
+							? '<span class="rtag ok">Correct</span>'
+							: '<span class="rtag bad">Wrong</span>';
+					html += '<details class="qreview">';
+					html +=
+						"<summary><span>Q" +
+						(i + 1) +
+						"</span>" +
+						tag +
+						"</summary>";
+					html += '<div class="rqtext">' + escapeHtml(item.q) + "</div>";
+					item.o.forEach((optText, idx) => {
+						let cls = "ropt";
+						if (idx === item.a) cls += " correctAns";
+						else if (idx === chosen) cls += " wrongChosen";
+						html +=
+							'<div class="' +
+							cls +
+							'">' +
+							String.fromCharCode(65 + idx) +
+							") " +
+							escapeHtml(optText) +
+							"</div>";
+					});
+					html += '<div class="rsol">' + escapeHtml(item.sol) + "</div>";
+					html += "</details>";
+				});
+
+				html +=
+					'<button id="retakeBtn" type="button">Retake Test</button>';
+				html += "</div>";
+
+				resultScreen.innerHTML = html;
+				resultScreen.style.display = "block";
+				document
+					.getElementById("retakeBtn")
+					.addEventListener("click", () => location.reload());
+			}
+
+			function escapeHtml(str) {
+				const div = document.createElement("div");
+				div.textContent = str;
+				return div.innerHTML;
+			}
+		</script>
+	</body>
+</html>
