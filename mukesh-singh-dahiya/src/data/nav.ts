@@ -34,6 +34,7 @@ export const navGroups: NavGroup[] = [
     label: 'Practice',
     links: [
       { label: 'Questions', to: '/questions' },
+      { label: 'Mock Tests', to: '/mock-tests', badge: 'New' },
       { label: 'Worksheets', to: '/notes?type=Worksheet' },
       { label: 'Previous Papers', to: '/previous-papers' },
     ],

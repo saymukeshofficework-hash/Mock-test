@@ -13,6 +13,8 @@ import Subjects from './pages/Subjects'
 import Notes from './pages/Notes'
 import Solutions from './pages/Solutions'
 import Questions from './pages/Questions'
+import MockTests from './pages/MockTests'
+import MockTestDetail from './pages/MockTestDetail'
 import PreviousPapers from './pages/PreviousPapers'
 import Courses from './pages/Courses'
 import CourseDetail from './pages/CourseDetail'
@@ -86,6 +88,8 @@ export default function App() {
           <Route path="/notes" element={<Notes />} />
           <Route path="/solutions" element={<Solutions />} />
           <Route path="/questions" element={<Questions />} />
+          <Route path="/mock-tests" element={<MockTests />} />
+          <Route path="/mock-tests/:slug" element={<MockTestDetail />} />
           <Route path="/previous-papers" element={<PreviousPapers />} />
 
           <Route path="/courses" element={<Courses />} />

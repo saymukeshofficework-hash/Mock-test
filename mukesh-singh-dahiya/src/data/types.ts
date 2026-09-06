@@ -68,6 +68,26 @@ export interface Question {
   difficulty: 'Easy' | 'Medium' | 'Hard'
 }
 
+export interface MockTestQuestion {
+  id: string
+  question: string
+  options: string[]
+  answer: number
+  explanation: string
+}
+
+export interface MockTest {
+  id: string
+  slug: string
+  title: string
+  classSlug: string
+  board: Board
+  subject: string
+  topic: string
+  durationMinutes: number
+  questions: MockTestQuestion[]
+}
+
 export interface PreviousPaper {
   id: string
   title: string
