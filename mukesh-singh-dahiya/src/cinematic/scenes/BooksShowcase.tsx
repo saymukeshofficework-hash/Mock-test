@@ -1,9 +1,4 @@
-import { useEffect, useRef } from 'react'
-import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { books, bookCategories, getFeaturedBooks } from '../../data/books'
-
-gsap.registerPlugin(ScrollTrigger)
 
 // Featured (NEET) books first, then the rest in their catalogue order —
 // used by the "Buy Now" showcase below the cover strip.
@@ -11,28 +6,14 @@ const featured = getFeaturedBooks()
 const rest = books.filter((b) => !b.featured)
 const buyOrder = [...featured, ...rest]
 
-export default function BooksShowcase({ reduced }: { reduced: boolean }) {
-  const rootRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    if (!rootRef.current) return
-    const ctx = gsap.context(() => {
-      gsap.fromTo(
-        '.book-cover-card',
-        { opacity: 0, y: reduced ? 0 : 20 },
-        { opacity: 1, y: 0, duration: 0.5, stagger: 0.04, scrollTrigger: { trigger: '.book-cover-strip', start: 'top 85%' } }
-      )
-      gsap.fromTo(
-        '.book-buy-card',
-        { opacity: 0, y: reduced ? 0 : 24 },
-        { opacity: 1, y: 0, duration: 0.6, stagger: 0.06, scrollTrigger: { trigger: '.book-buy-grid', start: 'top 80%' } }
-      )
-    }, rootRef)
-    return () => ctx.revert()
-  }, [reduced])
-
+// Deliberately no scroll-triggered fade-in here: this section sits right
+// after the Hero, and GSAP ScrollTrigger positions computed that early
+// are unreliable on mobile Safari (its dynamic address bar resizes the
+// viewport mid-scroll), which left the cards stuck at opacity 0. Static
+// content that's always visible is more important here than a reveal.
+export default function BooksShowcase() {
   return (
-    <div ref={rootRef} id="books" className="scene-teacher relative px-6 py-28">
+    <div id="books" className="scene-teacher relative px-6 py-28">
       {/* All published books — cover showcase */}
       <div className="mx-auto max-w-6xl">
         <p className="c-eyebrow mb-4 text-center">Published Author</p>
