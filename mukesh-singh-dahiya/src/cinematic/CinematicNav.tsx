@@ -3,10 +3,10 @@ import { Link } from 'react-router-dom'
 
 const LINKS = [
   { id: 'home', label: 'Home' },
+  { id: 'books', label: 'Books' },
   { id: 'about', label: 'About' },
   { id: 'learning-journey', label: 'Journey' },
   { id: 'teaching', label: 'Teaching' },
-  { id: 'books', label: 'Books' },
   { id: 'resources', label: 'Resources' },
   { id: 'contact', label: 'Contact' },
 ]
