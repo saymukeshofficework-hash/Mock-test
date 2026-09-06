@@ -67,3 +67,14 @@ This repository also contains a premium educational platform for **Mukesh Dahiya
 
 This repository also contains a **technology blog** (brand name not finalized — see placeholders in `tech-blog/src/config/site.ts`) covering AI tools, software, automation, productivity, smartphones, gadgets, electronics, and buying guides. Built with Astro as a static, content-first site: articles are Markdown files with validated front matter (`tech-blog/src/content/posts/`), and publishing one is the entire workflow — push a Markdown file, GitHub Actions builds and deploys it, no code changes needed. See [`tech-blog/README.md`](./tech-blog/README.md) and [`tech-blog/docs/SPARK_PUBLISHING_GUIDE.md`](./tech-blog/docs/SPARK_PUBLISHING_GUIDE.md) for details.
 
+## Printer Flip Notifier
+
+This repository also contains **Printer Flip Notifier**, a small Windows
+system-tray app for double-sided printing on printers with no automatic
+duplexer (e.g. the Canon PIXMA G3000): it watches the Windows print queue
+and window titles for the manual-duplex "flip the pages" prompt and speaks
+a reminder out loud via offline text-to-speech, so you don't have to keep
+checking the screen. Python, no backend. See
+[`printer-flip-notifier/README.md`](./printer-flip-notifier/README.md) for
+setup, configuration, and packaging into a standalone `.exe`.
+
