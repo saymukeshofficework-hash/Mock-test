@@ -34,6 +34,7 @@ export default function CinematicHome() {
 
       <main id="main-content">
         <Hero play={loaded} reduced={reduced} />
+        <BooksShowcase reduced={reduced} />
         <DigitalBoard reduced={reduced} />
         <GrowingTree reduced={reduced} />
         <SubjectFusion reduced={reduced} />
@@ -41,7 +42,6 @@ export default function CinematicHome() {
         <AboutExperience reduced={reduced} />
         <TeachingPhilosophy reduced={reduced} />
         <LearningJourney reduced={reduced} isDesktop={isDesktop} />
-        <BooksShowcase reduced={reduced} />
         <ResourcesFinale reduced={reduced} />
       </main>
       <CinematicFooter />
