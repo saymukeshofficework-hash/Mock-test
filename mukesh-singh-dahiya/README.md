@@ -58,7 +58,7 @@ Upload actual files (PDFs, images) under `public/resources/<type>/` or
   `discountPrice`, `offerLabel`, `currency`) on `Course`, `PaidNote`,
   `Bundle` and `OnlineClass` in `src/data/types.ts`, rendered only via
   `PriceTag` — never hardcode a price in a component.
-- Deployed as a sibling app under `/mukesh-singh-dahiya/` on the combined
+- Deployed as a sibling app under `/mukesh-dahiya/` on the combined
   GitHub Pages site (see the repo root `404.html` and
   `.github/workflows/deploy.yml`); `src/lib/publicBase.ts` resolves the
   mount path at runtime for the router basename and asset URLs.

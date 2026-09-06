@@ -54,11 +54,11 @@ jobs:
         working-directory: bulbul-bhatia
         run: npm run build
 
-      - name: Install Mukesh Singh Dahiya dependencies
+      - name: Install Mukesh Dahiya dependencies
         working-directory: mukesh-singh-dahiya
         run: npm ci
 
-      - name: Build Mukesh Singh Dahiya
+      - name: Build Mukesh Dahiya
         working-directory: mukesh-singh-dahiya
         run: npm run build
 
@@ -115,9 +115,9 @@ jobs:
           mkdir -p _site/bulbul-bhatia
           cp -r bulbul-bhatia/dist/. _site/bulbul-bhatia/
 
-          # Mukesh Singh Dahiya build output
-          mkdir -p _site/mukesh-singh-dahiya
-          cp -r mukesh-singh-dahiya/dist/. _site/mukesh-singh-dahiya/
+          # Mukesh Dahiya build output
+          mkdir -p _site/mukesh-dahiya
+          cp -r mukesh-singh-dahiya/dist/. _site/mukesh-dahiya/
 
           # Technology Blog build output (includes the Pagefind search index)
           mkdir -p _site/tech-blog
