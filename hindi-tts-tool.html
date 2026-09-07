@@ -268,7 +268,12 @@
   }
 
   speakBtn.addEventListener("click", () => {
-    speakText(textInput.value);
+    const text = textInput.value.trim();
+    if (!text) {
+      statusLine.textContent = "कृपया कुछ टेक्स्ट लिखें।";
+      return;
+    }
+    speakText(text);
   });
 
   names.forEach(name => {
