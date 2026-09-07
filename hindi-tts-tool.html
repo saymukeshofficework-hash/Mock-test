@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>हिंदी टेक्स्ट टू स्पीच</title>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    margin: 0;
+    padding: 24px 12px;
+    min-height: 100vh;
+    background: #f0f2f5;
+    font-family: "Segoe UI", "Noto Sans Devanagari", Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+  }
+  .card {
+    width: 90%;
+    max-width: 480px;
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08), 0 2px 8px rgba(0, 0, 0, 0.06);
+    padding: 28px 22px 24px;
+  }
+  h1 {
+    margin: 0 0 4px;
+    font-size: 22px;
+    color: #2c3e50;
+    text-align: center;
+  }
+  .subtitle {
+    margin: 0 0 20px;
+    font-size: 13px;
+    color: #7f8c8d;
+    text-align: center;
+  }
+  label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 6px;
+  }
+  textarea {
+    width: 100%;
+    min-height: 110px;
+    padding: 12px;
+    border: 1px solid #d7dde3;
+    border-radius: 10px;
+    font-size: 15px;
+    font-family: inherit;
+    color: #2c3e50;
+    resize: vertical;
+    outline: none;
+    transition: border-color 0.15s ease;
+  }
+  textarea:focus {
+    border-color: #2c3e50;
+  }
+  select {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #d7dde3;
+    border-radius: 10px;
+    font-size: 14px;
+    color: #2c3e50;
+    background: #fff;
+    outline: none;
+  }
+  .field {
+    margin-bottom: 16px;
+  }
+  .speak-btn {
+    display: block;
+    width: 100%;
+    padding: 14px;
+    margin-top: 6px;
+    background: #2c3e50;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-size: 17px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.15s ease, transform 0.05s ease;
+  }
+  .speak-btn:hover {
+    background: #24313f;
+  }
+  .speak-btn:active {
+    transform: scale(0.99);
+  }
+  .status {
+    margin-top: 10px;
+    min-height: 18px;
+    text-align: center;
+    font-size: 13px;
+    color: #16a085;
+    font-weight: 600;
+  }
+  .voice-warning {
+    margin-top: 8px;
+    font-size: 12px;
+    color: #c0392b;
+    text-align: center;
+  }
+  hr {
+    border: none;
+    border-top: 1px solid #ecf0f1;
+    margin: 24px 0 16px;
+  }
+  h2 {
+    font-size: 16px;
+    color: #2c3e50;
+    margin: 0 0 14px;
+    text-align: center;
+  }
+  .preset-group {
+    border: 1px solid #e3e7eb;
+    border-radius: 10px;
+    padding: 10px 12px 12px;
+    margin-bottom: 12px;
+    background: #fafbfc;
+  }
+  .preset-name {
+    font-size: 14px;
+    font-weight: 700;
+    color: #2c3e50;
+    margin-bottom: 8px;
+  }
+  .preset-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .preset-btn {
+    flex: 1 1 auto;
+    padding: 7px 10px;
+    background: #eef1f4;
+    color: #2c3e50;
+    border: 1px solid #dde2e7;
+    border-radius: 8px;
+    font-size: 12px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.15s ease;
+  }
+  .preset-btn:hover {
+    background: #e0e5ea;
+  }
+  .preset-btn:active {
+    background: #d3dae0;
+  }
+</style>
+</head>
+<body>
+
+<div class="card">
+  <h1>हिंदी टेक्स्ट टू स्पीच</h1>
+  <p class="subtitle">अपना संदेश लिखें और उसे आवाज़ में सुनें</p>
+
+  <div class="field">
+    <label for="voiceSelect">आवाज़ चुनें</label>
+    <select id="voiceSelect"></select>
+    <div class="voice-warning" id="voiceWarning" hidden>
+      कोई हिंदी आवाज़ नहीं मिली। बेहतर अनुभव के लिए कृपया Google Chrome ब्राउज़र का उपयोग करें।
+    </div>
+  </div>
+
+  <div class="field">
+    <label for="textInput">यहाँ टेक्स्ट लिखें</label>
+    <textarea id="textInput" placeholder="अपना हिंदी संदेश यहाँ लिखें..."></textarea>
+  </div>
+
+  <button class="speak-btn" id="speakBtn">बोलें (Speak)</button>
+  <div class="status" id="statusLine"></div>
+
+  <hr>
+
+  <h2>त्वरित संदेश (Quick Messages)</h2>
+  <div id="presetContainer"></div>
+</div>
+
+<script>
+  const names = ["सुनिधि", "मोनू", "राधिका", "माही", "प्रवीण", "ध्यान सिंह", "रुचि", "विकाश", "किरन"];
+  const phrases = [
+    "बात नहीं करो।",
+    "आप क्या लिख रहे हो?",
+    "पढ़ाई पर ध्यान दो।",
+    "आप क्यों नहीं लिख रहे हो?"
+  ];
+
+  const voiceSelect = document.getElementById("voiceSelect");
+  const voiceWarning = document.getElementById("voiceWarning");
+  const textInput = document.getElementById("textInput");
+  const speakBtn = document.getElementById("speakBtn");
+  const statusLine = document.getElementById("statusLine");
+  const presetContainer = document.getElementById("presetContainer");
+
+  const synth = window.speechSynthesis;
+  let voices = [];
+
+  function speakText(text) {
+    if (!text || !text.trim()) return;
+    synth.cancel();
+    const utterance = new SpeechSynthesisUtterance(text);
+    const selectedVoice = voices.find(v => v.name === voiceSelect.value);
+    if (selectedVoice) {
+      utterance.voice = selectedVoice;
+      utterance.lang = selectedVoice.lang;
+    } else {
+      utterance.lang = "hi-IN";
+    }
+    utterance.rate = 0.92;
+    utterance.pitch = 1.0;
+    utterance.volume = 1.0;
+
+    utterance.onstart = () => {
+      statusLine.textContent = "बोल रहा है...";
+    };
+    utterance.onend = () => {
+      statusLine.textContent = "पूर्ण।";
+    };
+    utterance.onerror = () => {
+      statusLine.textContent = "पूर्ण।";
+    };
+
+    synth.speak(utterance);
+  }
+
+  function isFemaleHindiVoice(voice) {
+    const n = voice.name.toLowerCase();
+    return ["female", "women", "priya", "lekha", "swara"].some(k => n.includes(k));
+  }
+
+  function populateVoices() {
+    voices = synth.getVoices();
+    voiceSelect.innerHTML = "";
+
+    const hindiVoices = voices.filter(v => v.lang && v.lang.toLowerCase().startsWith("hi"));
+    const orderedVoices = hindiVoices.length
+      ? [...hindiVoices, ...voices.filter(v => !hindiVoices.includes(v))]
+      : voices;
+
+    orderedVoices.forEach(voice => {
+      const option = document.createElement("option");
+      option.value = voice.name;
+      option.textContent = `${voice.name} (${voice.lang})`;
+      voiceSelect.appendChild(option);
+    });
+
+    if (hindiVoices.length) {
+      voiceWarning.hidden = true;
+      const femaleHindi = hindiVoices.find(isFemaleHindiVoice);
+      voiceSelect.value = (femaleHindi || hindiVoices[0]).name;
+    } else {
+      voiceWarning.hidden = false;
+    }
+  }
+
+  populateVoices();
+  if (typeof synth.onvoiceschanged !== "undefined") {
+    synth.onvoiceschanged = populateVoices;
+  }
+
+  speakBtn.addEventListener("click", () => {
+    speakText(textInput.value);
+  });
+
+  names.forEach(name => {
+    const group = document.createElement("div");
+    group.className = "preset-group";
+
+    const label = document.createElement("div");
+    label.className = "preset-name";
+    label.textContent = name;
+    group.appendChild(label);
+
+    const buttonRow = document.createElement("div");
+    buttonRow.className = "preset-buttons";
+
+    phrases.forEach(phrase => {
+      const btn = document.createElement("button");
+      btn.className = "preset-btn";
+      btn.type = "button";
+      btn.textContent = phrase;
+      btn.addEventListener("click", () => {
+        speakText(`${name} — ${phrase}`);
+      });
+      buttonRow.appendChild(btn);
+    });
+
+    group.appendChild(buttonRow);
+    presetContainer.appendChild(group);
+  });
+</script>
+
+</body>
+</html>
