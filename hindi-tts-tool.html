@@ -202,13 +202,13 @@
   const presetContainer = document.getElementById("presetContainer");
 
   const synth = window.speechSynthesis;
-  let voices = [];
+  let orderedVoices = [];
 
   function speakText(text) {
     if (!text || !text.trim()) return;
     synth.cancel();
     const utterance = new SpeechSynthesisUtterance(text);
-    const selectedVoice = voices.find(v => v.name === voiceSelect.value);
+    const selectedVoice = orderedVoices[Number(voiceSelect.value)];
     if (selectedVoice) {
       utterance.voice = selectedVoice;
       utterance.lang = selectedVoice.lang;
@@ -219,11 +219,15 @@
     utterance.pitch = 1.0;
     utterance.volume = 1.0;
 
+    const soundsWrong = selectedVoice && !(selectedVoice.lang || "").toLowerCase().startsWith("hi");
+
     utterance.onstart = () => {
       statusLine.textContent = "बोल रहा है...";
     };
     utterance.onend = () => {
-      statusLine.textContent = "पूर्ण।";
+      statusLine.textContent = soundsWrong
+        ? "पूर्ण। (यह आवाज़ हिंदी में सही उच्चारण नहीं कर सकती, कृपया कोई हिंदी आवाज़ चुनें।)"
+        : "पूर्ण।";
     };
     utterance.onerror = () => {
       statusLine.textContent = "पूर्ण।";
@@ -238,17 +242,17 @@
   }
 
   function populateVoices() {
-    voices = synth.getVoices();
+    const voices = synth.getVoices();
     voiceSelect.innerHTML = "";
 
     const hindiVoices = voices.filter(v => v.lang && v.lang.toLowerCase().startsWith("hi"));
-    const orderedVoices = hindiVoices.length
+    orderedVoices = hindiVoices.length
       ? [...hindiVoices, ...voices.filter(v => !hindiVoices.includes(v))]
       : voices;
 
-    orderedVoices.forEach(voice => {
+    orderedVoices.forEach((voice, index) => {
       const option = document.createElement("option");
-      option.value = voice.name;
+      option.value = String(index);
       option.textContent = `${voice.name} (${voice.lang})`;
       voiceSelect.appendChild(option);
     });
@@ -256,7 +260,7 @@
     if (hindiVoices.length) {
       voiceWarning.hidden = true;
       const femaleHindi = hindiVoices.find(isFemaleHindiVoice);
-      voiceSelect.value = (femaleHindi || hindiVoices[0]).name;
+      voiceSelect.value = String(orderedVoices.indexOf(femaleHindi || hindiVoices[0]));
     } else {
       voiceWarning.hidden = false;
     }
