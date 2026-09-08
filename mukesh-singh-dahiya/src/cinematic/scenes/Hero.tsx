@@ -61,7 +61,7 @@ export default function Hero({ play, reduced }: { play: boolean; reduced: boolea
         </div>
       </div>
 
-      <div className="hero-photo relative mb-8 h-28 w-28 overflow-hidden rounded-2xl border border-white/15 opacity-0 shadow-[0_0_40px_rgba(0,0,0,0.35)] sm:h-32 sm:w-32">
+      <div className="hero-photo relative mb-8 h-44 w-44 overflow-hidden rounded-2xl border border-white/15 opacity-0 shadow-[0_0_40px_rgba(0,0,0,0.35)] sm:h-56 sm:w-56 lg:h-64 lg:w-64">
         <img
           src={asset(site.teacherImage)}
           alt={`${site.name} — ${site.title}`}
