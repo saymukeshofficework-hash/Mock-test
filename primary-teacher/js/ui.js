@@ -13,6 +13,9 @@
       categoryLanguage: "🔤 भाषा",
       categoryBarakhadi: "📝 बारहखड़ी",
       categoryRandom: "🎲 रैंडम अभ्यास",
+      categoryCustom: "✍️ अपना टेक्स्ट पढ़ें",
+      customTextPlaceholder: "यहाँ अंग्रेज़ी टेक्स्ट पेस्ट करें...",
+      customTextLessonTitle: "मेरा टेक्स्ट",
       itemsCount: "{n} आइटम",
       btnStartShort: "▶ शुरू करें",
       btnPause: "⏸ रोकें",
@@ -62,6 +65,9 @@
       categoryLanguage: "🔤 Language",
       categoryBarakhadi: "📝 Barakhadi",
       categoryRandom: "🎲 Random Practice",
+      categoryCustom: "✍️ Read Your Own Text",
+      customTextPlaceholder: "Paste English text here...",
+      customTextLessonTitle: "My Text",
       itemsCount: "{n} items",
       btnStartShort: "▶ Start",
       btnPause: "⏸ Pause",
@@ -122,8 +128,8 @@
   function cacheEls() {
     [
       "appTitle", "appSubtitle", "navSettingsBtn", "navHomeBtn",
-      "homeScreen", "categoryCountingTitle", "categoryLanguageTitle", "categoryBarakhadiTitle", "categoryRandomTitle",
-      "countingGrid", "languageGrid", "barakhadiGrid", "randomGrid",
+      "homeScreen", "categoryCountingTitle", "categoryLanguageTitle", "categoryBarakhadiTitle", "categoryRandomTitle", "categoryCustomTitle",
+      "countingGrid", "languageGrid", "barakhadiGrid", "randomGrid", "customTextInput", "btnPlayCustomText",
       "classroomScreen", "classroomTitle", "itemInstruction", "itemDisplay", "itemSpeech",
       "phaseIndicator", "repeatBlock", "repeatTogetherLabel", "repeatTextEl", "progressFill", "progressLabel", "nextPreview",
       "btnStart", "btnPause", "btnResume", "btnRestart", "btnPrevious", "btnNext", "btnRepeat", "btnStop", "btnFullscreenClassroom",
@@ -156,6 +162,9 @@
     els.categoryLanguageTitle.textContent = t("categoryLanguage");
     els.categoryBarakhadiTitle.textContent = t("categoryBarakhadi");
     els.categoryRandomTitle.textContent = t("categoryRandom");
+    els.categoryCustomTitle.textContent = t("categoryCustom");
+    els.customTextInput.placeholder = t("customTextPlaceholder");
+    els.btnPlayCustomText.textContent = t("btnStartShort");
 
     els.btnStart.textContent = t("btnStartShort");
     els.btnPause.textContent = t("btnPause");

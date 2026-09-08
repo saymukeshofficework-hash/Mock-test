@@ -49,12 +49,8 @@
     UI.showScreen("home");
   }
 
-  function startLesson(id) {
-    var lesson = findLesson(id);
-    if (!lesson) return;
+  function enterClassroom(lesson) {
     currentLesson = lesson;
-    settings.lastLessonId = id;
-    persist();
     UI.showCompletion(false);
     UI.showScreen("classroom");
     UI.renderClassroomHeader(lesson);
@@ -63,6 +59,32 @@
     UI.renderIntro(lesson);
     UI.setControlsState({ phase: "idle" });
     engine.start();
+  }
+
+  function startLesson(id) {
+    var lesson = findLesson(id);
+    if (!lesson) return;
+    settings.lastLessonId = id;
+    persist();
+    enterClassroom(lesson);
+  }
+
+  // Reads whatever the teacher pasted into the home-screen text box, one word
+  // at a time, through the exact same classroom (speak -> children's turn ->
+  // pause -> next word) and controls as every other lesson.
+  function startCustomText() {
+    var text = (UI.els.customTextInput.value || "").trim();
+    if (!text) return;
+    var words = text.split(/\s+/).filter(Boolean);
+    if (!words.length) return;
+    enterClassroom({
+      id: "custom-text",
+      title: UI.t("customTextLessonTitle"),
+      titleEn: UI.t("customTextLessonTitle"),
+      category: "custom",
+      language: "en-IN",
+      items: words.map(function (w) { return { display: w, speech: w, repeatText: w }; })
+    });
   }
 
   /* ---------- Engine events -> UI ---------- */
@@ -97,6 +119,7 @@
   }
 
   function bindControls() {
+    UI.els.btnPlayCustomText.addEventListener("click", startCustomText);
     UI.els.btnStart.addEventListener("click", function () { engine.start(); });
     UI.els.btnPause.addEventListener("click", function () { engine.pause(); });
     UI.els.btnResume.addEventListener("click", function () { engine.resume(); });
