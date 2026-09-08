@@ -132,6 +132,26 @@ a { color: var(--blue-dark); }
   gap: 18px;
 }
 
+.custom-text-box {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-width: 640px;
+}
+.custom-text-box textarea {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1.5px solid var(--sky-mid);
+  border-radius: var(--radius-md);
+  font-family: inherit;
+  font-size: 1rem;
+  color: var(--ink);
+  resize: vertical;
+  min-height: 110px;
+}
+.custom-text-box textarea:focus-visible { outline: var(--focus-ring); outline-offset: 1px; }
+.custom-text-box .btn { align-self: flex-start; }
+
 .lesson-card {
   background: var(--white);
   border-radius: var(--radius-lg);
