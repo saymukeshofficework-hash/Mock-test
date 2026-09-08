@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { site } from '../../data/site'
+import { asset } from '../../lib/publicBase'
 
 const PARTICLES = Array.from({ length: 18 }, (_, i) => ({
   left: `${(i * 37) % 96}%`,
@@ -17,12 +18,18 @@ export default function Hero({ play, reduced }: { play: boolean; reduced: boolea
     if (!play || !rootRef.current) return
     const ctx = gsap.context(() => {
       if (reduced) {
-        gsap.set(['.hero-label', '.hero-line', '.hero-sub', '.hero-cta'], { opacity: 1, y: 0, clipPath: 'inset(0 0% 0 0)' })
+        gsap.set(['.hero-photo', '.hero-label', '.hero-line', '.hero-sub', '.hero-cta'], {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          clipPath: 'inset(0 0% 0 0)',
+        })
         return
       }
       const tl = gsap.timeline({ defaults: { ease: 'power3.out' } })
       tl.fromTo('.hero-bg-glow', { opacity: 0 }, { opacity: 1, duration: 1.4 })
-        .fromTo('.hero-label', { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.6 }, '-=0.9')
+        .fromTo('.hero-photo', { opacity: 0, scale: 0.9, y: 10 }, { opacity: 1, scale: 1, y: 0, duration: 0.8 }, '-=1.1')
+        .fromTo('.hero-label', { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.6 }, '-=0.7')
         .fromTo(
           '.hero-line',
           { clipPath: 'inset(0 100% 0 0)', opacity: 1 },
@@ -52,6 +59,14 @@ export default function Hero({ play, reduced }: { play: boolean; reduced: boolea
             />
           ))}
         </div>
+      </div>
+
+      <div className="hero-photo relative mb-8 h-28 w-28 overflow-hidden rounded-2xl border border-white/15 opacity-0 shadow-[0_0_40px_rgba(0,0,0,0.35)] sm:h-32 sm:w-32">
+        <img
+          src={asset(site.teacherImage)}
+          alt={`${site.name} — ${site.title}`}
+          className="h-full w-full object-cover object-center grayscale contrast-[1.05]"
+        />
       </div>
 
       <p className="hero-label c-eyebrow relative mb-6">Teacher • Mentor • Lifelong Learner</p>
