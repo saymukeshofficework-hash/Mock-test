@@ -67,11 +67,11 @@ export default function AboutExperience({ reduced }: { reduced: boolean }) {
             <p className="text-sm uppercase tracking-[0.2em] text-[color:var(--c-ink-faint)]">{site.scope}</p>
           </div>
         </div>
-        <div className="about-photo relative mx-auto aspect-[4/5] w-full max-w-sm overflow-hidden rounded-2xl border border-white/10">
+        <div className="about-photo relative mx-auto aspect-square w-full max-w-sm overflow-hidden rounded-2xl border border-white/10">
           <img
             src={asset(site.teacherImage)}
             alt={`${site.name} — ${site.title}`}
-            className="h-full w-full object-cover object-top grayscale contrast-[1.05]"
+            className="h-full w-full object-cover object-center grayscale contrast-[1.05]"
           />
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
         </div>
