@@ -83,6 +83,24 @@
     flex: 1;
     font-size: 15px;
   }
+  .toggles {
+    display: flex;
+    gap: 16px;
+    flex-shrink: 0;
+  }
+  .toggle-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+  }
+  .toggle-label {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
   .switch {
     position: relative;
     width: 46px;
@@ -113,11 +131,14 @@
     box-shadow: 0 1px 2px rgba(0,0,0,0.25);
     transition: transform 0.2s ease;
   }
-  input:checked ~ .track {
-    background: var(--navy);
-  }
   input:checked ~ .track .knob {
     transform: translateX(22px);
+  }
+  .switch.blue input:checked ~ .track {
+    background: #2563eb;
+  }
+  .switch.red input:checked ~ .track {
+    background: #dc2626;
   }
   footer {
     position: sticky;
@@ -143,14 +164,14 @@
   <div class="page">
     <header>
       <h1>Attendance</h1>
-      <div class="subtitle">Tap a switch to mark present / absent</div>
+      <div class="subtitle">Blue = present, red = pencil taken</div>
     </header>
 
     <div class="list" id="list"></div>
 
     <footer>
-      <div id="count">Present: 18 / 18</div>
-      <div class="sub">Tap names to toggle attendance</div>
+      <div id="count">Present: 18 / 18 &nbsp;·&nbsp; Pencil taken: 0 / 18</div>
+      <div class="sub">Tap a switch to toggle</div>
     </footer>
   </div>
 
@@ -166,7 +187,7 @@
   const state = {};
   let total = 0;
   classes.forEach(g => g.students.forEach((name, i) => {
-    state[`${g.className}-${i}`] = true;
+    state[`${g.className}-${i}`] = { present: true, pencil: false };
     total++;
   }));
 
@@ -174,8 +195,9 @@
   const countEl = document.getElementById("count");
 
   function updateCount() {
-    const present = Object.values(state).filter(Boolean).length;
-    countEl.textContent = `Present: ${present} / ${total}`;
+    const present = Object.values(state).filter(s => s.present).length;
+    const pencil = Object.values(state).filter(s => s.pencil).length;
+    countEl.textContent = `Present: ${present} / ${total} · Pencil taken: ${pencil} / ${total}`;
   }
 
   classes.forEach(g => {
@@ -197,16 +219,29 @@
       row.innerHTML = `
         <div class="avatar">${initial}</div>
         <div class="name">${name}</div>
-        <label class="switch">
-          <input type="checkbox" checked data-key="${key}">
-          <span class="track"><span class="knob"></span></span>
-        </label>
+        <div class="toggles">
+          <div class="toggle-group">
+            <span class="toggle-label">Present</span>
+            <label class="switch blue">
+              <input type="checkbox" checked data-key="${key}" data-type="present">
+              <span class="track"><span class="knob"></span></span>
+            </label>
+          </div>
+          <div class="toggle-group">
+            <span class="toggle-label">Pencil</span>
+            <label class="switch red">
+              <input type="checkbox" data-key="${key}" data-type="pencil">
+              <span class="track"><span class="knob"></span></span>
+            </label>
+          </div>
+        </div>
       `;
 
-      const checkbox = row.querySelector("input");
-      checkbox.addEventListener("change", (e) => {
-        state[key] = e.target.checked;
-        updateCount();
+      row.querySelectorAll("input").forEach(checkbox => {
+        checkbox.addEventListener("change", (e) => {
+          state[key][e.target.dataset.type] = e.target.checked;
+          updateCount();
+        });
       });
 
       group.appendChild(row);
