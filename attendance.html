@@ -60,8 +60,9 @@
   .pdf-btn:hover {
     opacity: 0.9;
   }
-  .print-status {
-    display: none;
+  .pdf-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
   }
   .list {
     flex: 1;
@@ -181,27 +182,8 @@
     opacity: 0.8;
     margin-top: 2px;
   }
-  @media print {
-    .pdf-btn {
-      display: none;
-    }
-    .toggles {
-      display: none;
-    }
-    .print-status {
-      display: inline;
-      font-size: 12px;
-      font-weight: 700;
-    }
-    .row {
-      break-inside: avoid;
-    }
-    footer {
-      position: static;
-      background: none;
-      color: var(--text);
-      border-top: 2px solid var(--navy);
-    }
+  .pdf-exporting .knob {
+    box-shadow: none !important;
   }
 </style>
 </head>
@@ -223,6 +205,8 @@
     </footer>
   </div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script>
   const classes = [
     { className: "Class I", students: ["Laxmi Pradhan", "Mahi Singh", "Prakash Singh", "Radhika Singh"] },
@@ -283,25 +267,15 @@
             </label>
           </div>
         </div>
-        <span class="print-status"></span>
       `;
-
-      const printStatus = row.querySelector(".print-status");
-
-      function refreshPrintStatus() {
-        const s = state[key];
-        printStatus.textContent = `${s.present ? "Present" : "Absent"} · Pencil: ${s.pencil ? "Yes" : "No"}`;
-      }
 
       row.querySelectorAll("input").forEach(checkbox => {
         checkbox.addEventListener("change", (e) => {
           state[key][e.target.dataset.type] = e.target.checked;
           updateCount();
-          refreshPrintStatus();
         });
       });
 
-      refreshPrintStatus();
       group.appendChild(row);
     });
 
@@ -310,9 +284,77 @@
 
   updateCount();
 
-  document.getElementById("downloadPdf").addEventListener("click", () => {
-    window.print();
-  });
+  const A4_WIDTH_MM = 210;
+  const A4_HEIGHT_MM = 297;
+  const SETTLE_DELAY_MS = 200;
+
+  async function exportPdf() {
+    const btn = document.getElementById("downloadPdf");
+    const originalLabel = btn.textContent;
+
+    if (typeof html2canvas === "undefined" || typeof window.jspdf === "undefined") {
+      alert("PDF export isn't available right now: the html2canvas/jsPDF libraries failed to load from the CDN. Check your connection and reload the page.");
+      return;
+    }
+
+    const containers = Array.from(document.querySelectorAll(".group"));
+    if (containers.length === 0) return;
+
+    const { jsPDF } = window.jspdf;
+    const originalScrollX = window.scrollX;
+    const originalScrollY = window.scrollY;
+
+    btn.disabled = true;
+    document.body.classList.add("pdf-exporting");
+
+    try {
+      await document.fonts.ready;
+
+      const pdf = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4" });
+
+      for (let i = 0; i < containers.length; i++) {
+        const el = containers[i];
+        btn.textContent = `Rendering page ${i + 1} of ${containers.length}...`;
+
+        const prevWidth = el.style.width;
+        const prevHeight = el.style.height;
+        const prevOverflow = el.style.overflow;
+
+        el.style.width = A4_WIDTH_MM + "mm";
+        el.style.height = A4_HEIGHT_MM + "mm";
+        el.style.overflow = "hidden";
+
+        el.scrollIntoView({ block: "start" });
+        await new Promise(resolve => setTimeout(resolve, SETTLE_DELAY_MS));
+
+        const canvas = await html2canvas(el, {
+          scale: 2,
+          useCORS: true,
+          backgroundColor: "#ffffff",
+        });
+
+        el.style.width = prevWidth;
+        el.style.height = prevHeight;
+        el.style.overflow = prevOverflow;
+
+        const imgData = canvas.toDataURL("image/png");
+
+        if (i > 0) pdf.addPage();
+        pdf.addImage(imgData, "PNG", 0, 0, A4_WIDTH_MM, A4_HEIGHT_MM);
+      }
+
+      pdf.save("attendance.pdf");
+    } catch (err) {
+      alert("PDF export failed: " + (err && err.message ? err.message : err));
+    } finally {
+      document.body.classList.remove("pdf-exporting");
+      btn.disabled = false;
+      btn.textContent = originalLabel;
+      window.scrollTo(originalScrollX, originalScrollY);
+    }
+  }
+
+  document.getElementById("downloadPdf").addEventListener("click", exportPdf);
 </script>
 </body>
 </html>
