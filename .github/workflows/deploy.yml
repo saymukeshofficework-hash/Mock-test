@@ -89,7 +89,7 @@ jobs:
           mkdir -p _site
 
           # TET Test Hub: marketing site + test pages at the site root
-          cp index.html tests.html login.html dashboard.html about.html contact.html _site/
+          cp index.html tests.html login.html dashboard.html about.html contact.html attendance.html _site/
           cp tet-mock-test-*.html _site/
           cp -r assets _site/assets
           cp -r js _site/js
