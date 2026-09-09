@@ -45,10 +45,18 @@
     padding: 12px 20px 100px;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 4px 24px;
+    gap: 20px 24px;
+    align-items: start;
     max-width: 1000px;
     margin: 0 auto;
     width: 100%;
+  }
+  .group-title {
+    margin: 0 0 4px;
+    padding: 4px 8px;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--navy);
   }
   .row {
     display: flex;
@@ -141,47 +149,70 @@
     <div class="list" id="list"></div>
 
     <footer>
-      <div id="count">Present: 14 / 14</div>
+      <div id="count">Present: 18 / 18</div>
       <div class="sub">Tap names to toggle attendance</div>
     </footer>
   </div>
 
 <script>
-  const names = ["APraveen","Kiran","Monu","Divyansh","Manish","Prakash","Dhansingh","Vikas","Shanti","Radhika","Radhika Singh","Lakshmi","Ruchi","Vibha"];
+  const classes = [
+    { className: "Class I", students: ["Laxmi Pradhan", "Mahi Singh", "Prakash Singh", "Radhika Singh"] },
+    { className: "Class II", students: ["Divyansh Pradhan", "Kiran Pradhan", "Mahima Pradhan", "Praveen Singh Maravi", "Radhika Pradhan", "Rakhi Pradhan", "Sunidhi Pradhan"] },
+    { className: "Class III", students: ["Divyansh Pradhan", "Monu Singh", "Ruchi Pradhan", "Vikash Singh"] },
+    { className: "Class IV", students: ["Dhyan Singh"] },
+    { className: "Class V", students: ["Shanti Pradhan", "Vibha Pradhan"] },
+  ];
 
   const state = {};
-  names.forEach(n => state[n] = true); // default: all present
+  let total = 0;
+  classes.forEach(g => g.students.forEach((name, i) => {
+    state[`${g.className}-${i}`] = true;
+    total++;
+  }));
 
   const listEl = document.getElementById("list");
   const countEl = document.getElementById("count");
 
   function updateCount() {
     const present = Object.values(state).filter(Boolean).length;
-    countEl.textContent = `Present: ${present} / ${names.length}`;
+    countEl.textContent = `Present: ${present} / ${total}`;
   }
 
-  names.forEach(name => {
-    const row = document.createElement("div");
-    row.className = "row";
+  classes.forEach(g => {
+    const group = document.createElement("div");
+    group.className = "group";
 
-    const initial = name.trim()[0].toUpperCase();
+    const title = document.createElement("h2");
+    title.className = "group-title";
+    title.textContent = g.className;
+    group.appendChild(title);
 
-    row.innerHTML = `
-      <div class="avatar">${initial}</div>
-      <div class="name">${name}</div>
-      <label class="switch">
-        <input type="checkbox" checked data-name="${name}">
-        <span class="track"><span class="knob"></span></span>
-      </label>
-    `;
+    g.students.forEach((name, i) => {
+      const key = `${g.className}-${i}`;
+      const row = document.createElement("div");
+      row.className = "row";
 
-    const checkbox = row.querySelector("input");
-    checkbox.addEventListener("change", (e) => {
-      state[name] = e.target.checked;
-      updateCount();
+      const initial = name.trim()[0].toUpperCase();
+
+      row.innerHTML = `
+        <div class="avatar">${initial}</div>
+        <div class="name">${name}</div>
+        <label class="switch">
+          <input type="checkbox" checked data-key="${key}">
+          <span class="track"><span class="knob"></span></span>
+        </label>
+      `;
+
+      const checkbox = row.querySelector("input");
+      checkbox.addEventListener("change", (e) => {
+        state[key] = e.target.checked;
+        updateCount();
+      });
+
+      group.appendChild(row);
     });
 
-    listEl.appendChild(row);
+    listEl.appendChild(group);
   });
 
   updateCount();
