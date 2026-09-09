@@ -185,6 +185,12 @@
   .pdf-exporting .knob {
     box-shadow: none !important;
   }
+  .pdf-exporting .pdf-btn {
+    display: none;
+  }
+  .pdf-exporting footer {
+    position: static;
+  }
 </style>
 </head>
 <body>
@@ -297,8 +303,8 @@
       return;
     }
 
-    const containers = Array.from(document.querySelectorAll(".group"));
-    if (containers.length === 0) return;
+    const target = document.querySelector(".page");
+    if (!target) return;
 
     const { jsPDF } = window.jspdf;
     const originalScrollX = window.scrollX;
@@ -310,37 +316,39 @@
     try {
       await document.fonts.ready;
 
+      target.scrollIntoView({ block: "start" });
+      await new Promise(resolve => setTimeout(resolve, SETTLE_DELAY_MS));
+
+      const fullCanvas = await html2canvas(target, {
+        scale: 2,
+        useCORS: true,
+        backgroundColor: "#ffffff",
+      });
+
+      const pxPerMm = fullCanvas.width / A4_WIDTH_MM;
+      const pageHeightPx = Math.round(A4_HEIGHT_MM * pxPerMm);
+      const totalPages = Math.max(1, Math.ceil(fullCanvas.height / pageHeightPx));
+
       const pdf = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4" });
 
-      for (let i = 0; i < containers.length; i++) {
-        const el = containers[i];
-        btn.textContent = `Rendering page ${i + 1} of ${containers.length}...`;
+      for (let i = 0; i < totalPages; i++) {
+        btn.textContent = `Rendering page ${i + 1} of ${totalPages}...`;
 
-        const prevWidth = el.style.width;
-        const prevHeight = el.style.height;
-        const prevOverflow = el.style.overflow;
+        const sliceHeightPx = Math.min(pageHeightPx, fullCanvas.height - i * pageHeightPx);
+        const sliceCanvas = document.createElement("canvas");
+        sliceCanvas.width = fullCanvas.width;
+        sliceCanvas.height = sliceHeightPx;
+        sliceCanvas.getContext("2d").drawImage(
+          fullCanvas,
+          0, i * pageHeightPx, fullCanvas.width, sliceHeightPx,
+          0, 0, fullCanvas.width, sliceHeightPx
+        );
 
-        el.style.width = A4_WIDTH_MM + "mm";
-        el.style.height = A4_HEIGHT_MM + "mm";
-        el.style.overflow = "hidden";
-
-        el.scrollIntoView({ block: "start" });
-        await new Promise(resolve => setTimeout(resolve, SETTLE_DELAY_MS));
-
-        const canvas = await html2canvas(el, {
-          scale: 2,
-          useCORS: true,
-          backgroundColor: "#ffffff",
-        });
-
-        el.style.width = prevWidth;
-        el.style.height = prevHeight;
-        el.style.overflow = prevOverflow;
-
-        const imgData = canvas.toDataURL("image/png");
+        const imgData = sliceCanvas.toDataURL("image/png");
+        const sliceHeightMm = sliceHeightPx / pxPerMm;
 
         if (i > 0) pdf.addPage();
-        pdf.addImage(imgData, "PNG", 0, 0, A4_WIDTH_MM, A4_HEIGHT_MM);
+        pdf.addImage(imgData, "PNG", 0, 0, A4_WIDTH_MM, sliceHeightMm);
       }
 
       pdf.save("attendance.pdf");
