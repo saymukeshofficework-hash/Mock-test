@@ -1,10 +1,10 @@
 import type { DocumentElement, SchoolDocument } from '../../types/document'
 import { getPageDimsMm } from './pageSize'
 import ElementRenderer, { cloneElementWithNewId } from './ElementRenderer'
-import { resolveVariables } from '../../utils/variables'
 import { resolveElementForDisplay } from '../../utils/resolveElement'
 import { getSchoolSettings } from '../../storage/schoolSettingsRepo'
 import ScaleToFit from './ScaleToFit'
+import DocumentHeaderBlock from './DocumentHeaderBlock'
 
 interface DocumentCanvasProps {
   doc: SchoolDocument
@@ -12,6 +12,7 @@ interface DocumentCanvasProps {
   selectedId: string | null
   onSelect: (id: string | null) => void
   onElementsChange: (elements: DocumentElement[]) => void
+  onHeaderHtmlChange: (html: string) => void
   variableContext: Record<string, string>
 }
 
@@ -45,6 +46,7 @@ export default function DocumentCanvas({
   selectedId,
   onSelect,
   onElementsChange,
+  onHeaderHtmlChange,
   variableContext,
 }: DocumentCanvasProps) {
   const dims = getPageDimsMm(doc.pageSize, doc.orientation)
@@ -90,18 +92,13 @@ export default function DocumentCanvas({
             onClick={(e) => e.stopPropagation()}
           >
             {doc.header.visible && (pageIdx === 0 || doc.header.showOnEveryPage) && (
-              <div className="flex items-start gap-3 border-b-2 border-black pb-2 mb-4">
-                {doc.header.showSchoolLogo && settings.logo_url && (
-                  <img src={settings.logo_url} alt="लोगो" className="w-14 h-14 object-contain" />
-                )}
-                <div
-                  className="flex-1 text-center leading-snug font-devanagari"
-                  dangerouslySetInnerHTML={{ __html: resolveVariables(doc.header.html, variableContext) }}
-                />
-                {doc.header.showGovtLogo && settings.govt_logo_url && (
-                  <img src={settings.govt_logo_url} alt="शासकीय चिन्ह" className="w-14 h-14 object-contain" />
-                )}
-              </div>
+              <DocumentHeaderBlock
+                header={doc.header}
+                settings={settings}
+                readOnly={readOnly}
+                variableContext={variableContext}
+                onChange={onHeaderHtmlChange}
+              />
             )}
             <div className="space-y-1">
               {pageElements.map(({ el, index }) => (

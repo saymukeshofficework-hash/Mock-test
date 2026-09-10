@@ -241,11 +241,9 @@ export default function PropertiesPanel({ doc, selectedElement, onDocChange, onE
             <input type="checkbox" checked={doc.header.showGovtLogo} onChange={(e) => onDocChange({ header: { ...doc.header, showGovtLogo: e.target.checked } })} />
             शासकीय चिन्ह
           </label>
-          <textarea
-            className={FIELD + ' min-h-[90px]'}
-            value={doc.header.html}
-            onChange={(e) => onDocChange({ header: { ...doc.header, html: e.target.value } })}
-          />
+          <p className="text-xs text-slate-400">
+            हेडर टेक्स्ट को सीधे पेज पर क्लिक करके संपादित करें — बोल्ड, फॉन्ट, आकार आदि विकल्प वहाँ टूलबार में उपलब्ध हैं।
+          </p>
         </div>
       </section>
 

@@ -122,6 +122,26 @@ export function StampBlock({
               if (file) onChange({ src: await fileToDataUrl(file) })
             }}
           />
+          <div className="flex items-center border rounded overflow-hidden">
+            <button
+              className={`px-2 py-1 ${element.align === 'left' ? 'bg-brand-600 text-white' : 'hover:bg-slate-50'}`}
+              onClick={() => onChange({ align: 'left' })}
+            >
+              बाएं
+            </button>
+            <button
+              className={`px-2 py-1 border-l ${element.align === 'center' ? 'bg-brand-600 text-white' : 'hover:bg-slate-50'}`}
+              onClick={() => onChange({ align: 'center' })}
+            >
+              मध्य
+            </button>
+            <button
+              className={`px-2 py-1 border-l ${element.align === 'right' ? 'bg-brand-600 text-white' : 'hover:bg-slate-50'}`}
+              onClick={() => onChange({ align: 'right' })}
+            >
+              दाएं
+            </button>
+          </div>
           <label className="flex items-center gap-1">
             आकार
             <input

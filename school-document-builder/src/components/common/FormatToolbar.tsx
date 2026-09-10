@@ -33,6 +33,23 @@ export default function FormatToolbar({ onInsertVariable }: FormatToolbarProps) 
       {btn('⟹', 'दाएं संरेखित', 'justifyRight')}
       <div className="w-px h-5 bg-slate-200 mx-1" />
       <select
+        title="फॉन्ट"
+        className="text-sm border border-slate-200 rounded px-1 py-0.5"
+        defaultValue=""
+        onChange={(e) => {
+          if (e.target.value) exec('fontName', e.target.value)
+          e.target.value = ''
+        }}
+      >
+        <option value="" disabled>
+          फॉन्ट
+        </option>
+        <option value="Noto Sans Devanagari">Noto Sans Devanagari</option>
+        <option value="Noto Serif Devanagari">Noto Serif Devanagari</option>
+        <option value="Kokila">Kokila</option>
+        <option value="Mangal">Mangal</option>
+      </select>
+      <select
         title="फॉन्ट आकार"
         className="text-sm border border-slate-200 rounded px-1 py-0.5"
         defaultValue=""

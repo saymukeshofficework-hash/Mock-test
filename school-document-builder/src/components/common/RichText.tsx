@@ -10,6 +10,7 @@ interface RichTextProps {
   style?: React.CSSProperties
   tag?: 'div' | 'span'
   onFocus?: () => void
+  onBlurCapture?: () => void
   readOnly?: boolean
 }
 
@@ -22,6 +23,7 @@ export default function RichText({
   style,
   tag = 'div',
   onFocus,
+  onBlurCapture,
   readOnly = false,
 }: RichTextProps) {
   const ref = useRef<HTMLDivElement>(null)
@@ -66,6 +68,7 @@ export default function RichText({
         const value = (e.target as HTMLDivElement).innerHTML
         lastSet.current = value
         onChange(value)
+        onBlurCapture?.()
       }}
     />
   )
