@@ -19,16 +19,23 @@ export async function downloadDocumentAsPdf(doc: SchoolDocument, fileName: strin
     format: [dims.w, dims.h],
   })
 
-  for (let i = 0; i < sheets.length; i++) {
-    const canvas = await html2canvas(sheets[i], {
-      scale: 2.5,
-      useCORS: true,
-      backgroundColor: '#ffffff',
-      ignoreElements: (el) => el.classList.contains('no-print'),
-    })
-    const imgData = canvas.toDataURL('image/jpeg', 0.95)
-    if (i > 0) pdf.addPage([dims.w, dims.h], doc.orientation === 'landscape' ? 'landscape' : 'portrait')
-    pdf.addImage(imgData, 'JPEG', 0, 0, dims.w, dims.h, undefined, 'FAST')
+  // Force true physical size for the capture, regardless of the current
+  // viewport's "shrink to fit small screens" scaling (see ScaleToFit).
+  document.body.classList.add('pdf-exporting')
+  try {
+    for (let i = 0; i < sheets.length; i++) {
+      const canvas = await html2canvas(sheets[i], {
+        scale: 2.5,
+        useCORS: true,
+        backgroundColor: '#ffffff',
+        ignoreElements: (el) => el.classList.contains('no-print'),
+      })
+      const imgData = canvas.toDataURL('image/jpeg', 0.95)
+      if (i > 0) pdf.addPage([dims.w, dims.h], doc.orientation === 'landscape' ? 'landscape' : 'portrait')
+      pdf.addImage(imgData, 'JPEG', 0, 0, dims.w, dims.h, undefined, 'FAST')
+    }
+  } finally {
+    document.body.classList.remove('pdf-exporting')
   }
 
   pdf.save(`${fileName}.pdf`)
