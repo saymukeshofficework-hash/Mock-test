@@ -28,6 +28,13 @@ export default function TopNav() {
               {n.label}
             </Link>
           ))}
+          <a
+            href="patra-nirman-pustika.pdf"
+            download
+            className="px-3 py-1.5 rounded-lg transition border border-brand-400 hover:bg-brand-600"
+          >
+            उपयोग पुस्तिका (PDF)
+          </a>
         </nav>
       </div>
     </header>
