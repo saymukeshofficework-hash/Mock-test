@@ -19,7 +19,18 @@ export default function DocumentHeaderBlock({ header, settings, readOnly, variab
   const [showVars, setShowVars] = useState(false)
 
   return (
-    <div className="flex items-start gap-3 border-b-2 border-black pb-2 mb-4">
+    <div
+      className="flex items-start gap-3 border-b-2 border-black pb-2 mb-4"
+      onFocus={() => setFocused(true)}
+      onBlur={(e) => {
+        // Only hide once focus truly leaves the whole header block (content + toolbar).
+        // Without this check, tapping a toolbar select/button would itself blur the
+        // contentEditable and instantly hide the toolbar before the tap could register.
+        if (!e.currentTarget.contains(e.relatedTarget as Node | null)) {
+          setFocused(false)
+        }
+      }}
+    >
       {header.showSchoolLogo && settings.logo_url && (
         <img src={settings.logo_url} alt="लोगो" className="w-14 h-14 object-contain shrink-0" />
       )}
@@ -32,8 +43,6 @@ export default function DocumentHeaderBlock({ header, settings, readOnly, variab
         <RichText
           html={readOnly ? resolveVariables(header.html, variableContext) : header.html}
           onChange={onChange}
-          onFocus={() => setFocused(true)}
-          onBlurCapture={() => setFocused(false)}
           align="center"
           className="leading-snug font-devanagari"
           placeholder="हेडर टेक्स्ट लिखें..."

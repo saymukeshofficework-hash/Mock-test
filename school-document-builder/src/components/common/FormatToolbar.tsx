@@ -2,7 +2,9 @@ interface FormatToolbarProps {
   onInsertVariable?: () => void
 }
 
-const BTN = 'px-2 py-1 text-sm rounded hover:bg-slate-200 active:bg-slate-300 border border-transparent'
+const BTN =
+  'min-w-[34px] min-h-[34px] px-2 py-1.5 text-sm rounded hover:bg-slate-200 active:bg-slate-300 border border-transparent flex items-center justify-center'
+const SELECT = 'text-sm border border-slate-200 rounded px-1.5 py-2 min-h-[34px]'
 
 function exec(command: string, value?: string) {
   document.execCommand(command, false, value)
@@ -23,7 +25,7 @@ export default function FormatToolbar({ onInsertVariable }: FormatToolbarProps) 
     </button>
   )
   return (
-    <div className="flex flex-wrap items-center gap-0.5 bg-white border border-slate-200 rounded-lg shadow-sm px-1 py-1 no-print">
+    <div className="flex flex-wrap items-center gap-1 bg-white border border-slate-200 rounded-lg shadow-sm px-1.5 py-1.5 no-print">
       {btn('B', 'बोल्ड', 'bold')}
       <span className="italic">{btn('I', 'इटैलिक', 'italic')}</span>
       <span className="underline">{btn('U', 'रेखांकित', 'underline')}</span>
@@ -34,7 +36,7 @@ export default function FormatToolbar({ onInsertVariable }: FormatToolbarProps) 
       <div className="w-px h-5 bg-slate-200 mx-1" />
       <select
         title="फॉन्ट"
-        className="text-sm border border-slate-200 rounded px-1 py-0.5"
+        className={SELECT}
         defaultValue=""
         onChange={(e) => {
           if (e.target.value) exec('fontName', e.target.value)
@@ -51,7 +53,7 @@ export default function FormatToolbar({ onInsertVariable }: FormatToolbarProps) 
       </select>
       <select
         title="फॉन्ट आकार"
-        className="text-sm border border-slate-200 rounded px-1 py-0.5"
+        className={SELECT}
         defaultValue=""
         onChange={(e) => {
           if (e.target.value) exec('fontSize', e.target.value)
