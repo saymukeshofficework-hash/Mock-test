@@ -1,5 +1,6 @@
 import type { Align, DocumentElement, SchoolDocument } from '../../types/document'
 import { VARIABLE_DEFS, extractUsedVariables } from '../../utils/variables'
+import { SEAL_SIZE_PRESETS } from '../elements/MiscElements'
 
 interface PropertiesPanelProps {
   doc: SchoolDocument
@@ -85,6 +86,17 @@ function ElementProps({ element, onChange }: { element: DocumentElement; onChang
           </div>
           <div>
             <span className={LABEL}>आकार (%)</span>
+            <div className="flex gap-1 mb-2">
+              {SEAL_SIZE_PRESETS.map(({ label, value }) => (
+                <button
+                  key={label}
+                  className={`flex-1 py-1 text-xs rounded border ${element.widthPct === value ? 'bg-brand-600 text-white border-brand-600' : 'border-slate-200 hover:bg-slate-50'}`}
+                  onClick={() => onChange({ widthPct: value } as never)}
+                >
+                  {label}
+                </button>
+              ))}
+            </div>
             <input type="range" min={10} max={60} className="w-full" value={element.widthPct} onChange={(e) => onChange({ widthPct: Number(e.target.value) } as never)} />
           </div>
           <div>
