@@ -8,6 +8,7 @@ interface PropertiesPanelProps {
   doc: SchoolDocument
   selectedElement: DocumentElement | null
   onDocChange: (patch: Partial<SchoolDocument>) => void
+  onDocPatchFn: (fn: (doc: SchoolDocument) => Partial<SchoolDocument>) => void
   onElementChange: (patch: Partial<DocumentElement>) => void
 }
 
@@ -30,22 +31,38 @@ function AlignPicker({ value, onChange }: { value: Align; onChange: (a: Align) =
   )
 }
 
-function SmartPasteBox({ doc, onApply }: { doc: SchoolDocument; onApply: (patch: Partial<SchoolDocument>) => void }) {
+function SmartPasteBox({
+  doc,
+  onApply,
+}: {
+  doc: SchoolDocument
+  onApply: (fn: (doc: SchoolDocument) => Partial<SchoolDocument>) => void
+}) {
   const [text, setText] = useState('')
   const [summary, setSummary] = useState<string | null>(null)
 
   function apply(source: string) {
-    const res = applySmartPaste(doc, source)
-    const patch: Partial<SchoolDocument> = {}
-    if (res.header) patch.header = res.header
-    if (res.elements) patch.elements = res.elements
-    if (Object.keys(patch).length > 0) onApply(patch)
-
+    // Summary message only — fine if `doc` is a render behind, it only reports which
+    // [SECTION] tags were found in the pasted text, not anything about current content.
+    const preview = applySmartPaste(doc, source)
     const parts: string[] = []
-    if (res.filledHeader) parts.push('हेडर')
-    if (res.filledMatter) parts.push('मैटर')
-    if (res.filledTableRows > 0) parts.push(`तालिका (${res.filledTableRows} पंक्तियाँ)`)
+    if (preview.filledHeader) parts.push('हेडर')
+    if (preview.filledMatter) parts.push('मैटर')
+    if (preview.filledTableRows > 0) parts.push(`तालिका (${preview.filledTableRows} पंक्तियाँ)`)
     setSummary(parts.length > 0 ? `${parts.join(', ')} भर दिया गया ✓` : 'कोई [HEADER]/[MATTER]/[TABLE] सेक्शन नहीं मिला')
+
+    // The actual mutation always runs against whatever doc is current at the moment
+    // React applies this update (not whatever this component last rendered with), so
+    // a stray double-invoke (double paste, a click racing the paste's own auto-apply,
+    // etc.) can never duplicate content — a second run just replaces the first run's
+    // result again instead of piling another copy on top of it.
+    onApply((latestDoc) => {
+      const res = applySmartPaste(latestDoc, source)
+      const patch: Partial<SchoolDocument> = {}
+      if (res.header) patch.header = res.header
+      if (res.elements) patch.elements = res.elements
+      return patch
+    })
   }
 
   return (
@@ -276,12 +293,12 @@ function ElementProps({ element, onChange }: { element: DocumentElement; onChang
   }
 }
 
-export default function PropertiesPanel({ doc, selectedElement, onDocChange, onElementChange }: PropertiesPanelProps) {
+export default function PropertiesPanel({ doc, selectedElement, onDocChange, onDocPatchFn, onElementChange }: PropertiesPanelProps) {
   return (
     <div className="p-3 space-y-5">
       <section>
         <h3 className="text-sm font-semibold text-slate-700 mb-2">स्मार्ट पेस्ट (पूरा डेटा एक साथ भरें)</h3>
-        <SmartPasteBox doc={doc} onApply={onDocChange} />
+        <SmartPasteBox doc={doc} onApply={onDocPatchFn} />
       </section>
 
       {selectedElement && (
