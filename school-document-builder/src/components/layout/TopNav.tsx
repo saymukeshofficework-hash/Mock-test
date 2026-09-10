@@ -13,8 +13,8 @@ export default function TopNav() {
     <header className="bg-brand-700 text-white">
       <div className="max-w-6xl mx-auto px-4 py-3 flex items-center gap-6 flex-wrap">
         <Link to="/" className="font-devanagari">
-          <div className="font-bold text-lg leading-tight">विद्यालय सूचना एवं पत्र निर्माण प्रणाली</div>
-          <div className="text-[11px] text-brand-100">शासकीय प्राथमिक शाला आदर्श नगर · शिक्षा केंद्र आदर्श केंद्र</div>
+          <div className="font-bold text-lg leading-tight">मुकेश द्वारा निर्मित सूचना एवं पत्र निर्माण प्रणाली</div>
+          <div className="text-[11px] text-brand-100">Mukesh द्वारा निर्मित · Version 3.2001.25</div>
         </Link>
         <nav className="flex items-center gap-1 ml-auto text-sm">
           {NAV.map((n) => (
