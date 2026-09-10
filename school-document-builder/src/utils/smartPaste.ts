@@ -189,6 +189,12 @@ export function applySmartPaste(doc: SchoolDocument, rawText: string): SmartPast
   result.filledMatter = bodyElements.some((e) => e.type === 'paragraph')
   result.filledTableRows = tableRows
 
+  // A क्रमांक/दिनांक pair inserted by an earlier smart-paste is recognizable by its own
+  // signature (no underline — a real template's own क्रमांक/दिनांक always has one) — drop
+  // it before inserting a fresh pair, so re-applying never stacks up duplicates.
+  const isPriorHeaderMeta = (e: DocumentElement) =>
+    e.type === 'keyvalue' && !e.underline && (e.label === 'क्रमांक' || e.label === 'दिनांक')
+
   // Replace every existing paragraph/table with the new flowing body, inserted where
   // the first one used to be (or appended at the end if the document had neither yet).
   let inserted = false
@@ -199,7 +205,7 @@ export function applySmartPaste(doc: SchoolDocument, rawText: string): SmartPast
         nextElements.push(...bodyElements)
         inserted = true
       }
-    } else {
+    } else if (!isPriorHeaderMeta(e)) {
       nextElements.push(e)
     }
   })
