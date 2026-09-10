@@ -17,6 +17,7 @@ import {
   type CellPos,
 } from '../../utils/tableOps'
 import { columnAutoSum, evaluateFormula, stripHtml } from '../../utils/formulas'
+import { applyPastedGrid, parseTabularPaste } from '../../utils/tablePaste'
 
 interface TableBlockProps {
   element: TableElement
@@ -48,6 +49,10 @@ export default function TableBlock({ element, readOnly, onChange }: TableBlockPr
   const [sel, setSel] = useState<{ a: CellPos; b: CellPos } | null>(null)
   const [activeCell, setActiveCell] = useState<CellPos | null>(null)
   const [formulaDraft, setFormulaDraft] = useState('')
+  const [showPaste, setShowPaste] = useState(false)
+  const [pasteText, setPasteText] = useState('')
+  const [pasteHasHeader, setPasteHasHeader] = useState(true)
+  const [pasteResult, setPasteResult] = useState<number | null>(null)
   const dragCol = useRef<{ index: number; startX: number; startWidth: number; nextWidth: number } | null>(null)
 
   const setTable = (t: TableData) => onChange({ table: t })
@@ -161,6 +166,16 @@ export default function TableBlock({ element, readOnly, onChange }: TableBlockPr
     setFormulaDraft('')
   }
 
+  function applyPaste(source: string) {
+    const grid = parseTabularPaste(source)
+    if (grid.length === 0) {
+      setPasteResult(0)
+      return
+    }
+    setTable(applyPastedGrid(table, grid, pasteHasHeader))
+    setPasteResult(pasteHasHeader ? grid.length - 1 : grid.length)
+  }
+
   return (
     <div className="my-2">
       {!readOnly && (
@@ -168,6 +183,12 @@ export default function TableBlock({ element, readOnly, onChange }: TableBlockPr
           <button className="tbl-btn" onClick={() => setTable(addRow(table, table.rows.length))}>+ पंक्ति</button>
           <button className="tbl-btn" onClick={() => setTable(addColumn(table, table.columns.length))}>+ कॉलम</button>
           <button className="tbl-btn" onClick={selectAll}>सभी सेल चुनें</button>
+          <button
+            className={`tbl-btn ${showPaste ? 'bg-brand-600 text-white border-brand-600' : ''}`}
+            onClick={() => setShowPaste((s) => !s)}
+          >
+            डेटा पेस्ट करें
+          </button>
           {activeCell && (
             <>
               <label className="tbl-btn flex items-center gap-1">
@@ -269,6 +290,44 @@ export default function TableBlock({ element, readOnly, onChange }: TableBlockPr
               />
             </span>
           )}
+        </div>
+      )}
+
+      {!readOnly && showPaste && (
+        <div className="no-print border border-dashed border-brand-300 bg-brand-50 rounded-lg p-2 mb-2 space-y-1.5">
+          <p className="text-xs text-slate-600">
+            Excel/Sheets से कॉपी की गई पंक्तियाँ यहाँ पेस्ट करें — यदि पहली पंक्ति हेडर (कॉलम नाम) है और तालिका के
+            हेडर से मेल खाती है तो कॉलम अपने आप सही जगह भर जाएंगे, वरना क्रम अनुसार भरे जाएंगे। ज़रूरत पड़ने पर नई
+            पंक्तियाँ अपने आप जुड़ जाएंगी।
+          </p>
+          <textarea
+            className="w-full border border-slate-200 rounded px-2 py-1 text-xs min-h-[70px] font-mono bg-white"
+            placeholder={'कक्षा\tबालक\tबालिका\tकुल\nकक्षा 1\t18\t16\t34'}
+            value={pasteText}
+            onChange={(e) => setPasteText(e.target.value)}
+            onPaste={(e) => {
+              const pasted = e.clipboardData.getData('text')
+              if (!pasted) return
+              setPasteText(pasted)
+              setTimeout(() => applyPaste(pasted), 0)
+            }}
+          />
+          <div className="flex flex-wrap items-center gap-2">
+            <label className="flex items-center gap-1 text-xs">
+              <input type="checkbox" checked={pasteHasHeader} onChange={(e) => setPasteHasHeader(e.target.checked)} />
+              पहली पंक्ति हेडर है
+            </label>
+            <button
+              type="button"
+              className="px-3 py-1 rounded bg-brand-600 text-white text-xs font-medium hover:bg-brand-700"
+              onClick={() => applyPaste(pasteText)}
+            >
+              तालिका भरें
+            </button>
+            {pasteResult !== null && (
+              <span className="text-xs text-green-600">{pasteResult} पंक्तियाँ भरी गईं ✓</span>
+            )}
+          </div>
         </div>
       )}
 
