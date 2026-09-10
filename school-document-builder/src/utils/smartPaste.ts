@@ -21,6 +21,16 @@ function textToHtml(s: string): string {
   return escapeHtml(s).trim().split('\n').join('<br/>')
 }
 
+/** The document header is always a single line — join pasted header lines with ", " instead of <br/>. */
+function headerLinesToHtml(s: string): string {
+  const lines = s
+    .trim()
+    .split('\n')
+    .map((l) => l.trim())
+    .filter(Boolean)
+  return escapeHtml(lines.join(', '))
+}
+
 /**
  * Strips characters that a chat app's copy/paste sometimes sneaks in and that would
  * otherwise silently break tag matching: zero-width spaces/joiners, a BOM, non-breaking
@@ -100,7 +110,7 @@ export function applySmartPaste(doc: SchoolDocument, rawText: string): SmartPast
   const header = extractSection(text, ['HEADER', 'हेडर'])
   let body = text
   if (header) {
-    result.header = { ...doc.header, html: textToHtml(header.value) }
+    result.header = { ...doc.header, html: headerLinesToHtml(header.value) }
     result.filledHeader = true
     body = text.slice(header.matchEnd)
   }
