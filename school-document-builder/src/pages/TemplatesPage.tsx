@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import TopNav from '../components/layout/TopNav'
 import { BUILTIN_TEMPLATES } from '../templates/builtins'
-import { deleteUserTemplate, listUserTemplates } from '../storage/templatesRepo'
+import { deleteUserTemplate, duplicateUserTemplate, listUserTemplates, saveAsTemplate } from '../storage/templatesRepo'
 
 export default function TemplatesPage() {
   const navigate = useNavigate()
@@ -30,6 +30,15 @@ export default function TemplatesPage() {
                       उपयोग करें
                     </button>
                     <button
+                      className="text-slate-500 hover:underline"
+                      onClick={() => {
+                        duplicateUserTemplate(t.id)
+                        setRefresh((r) => r + 1)
+                      }}
+                    >
+                      कॉपी करें
+                    </button>
+                    <button
                       className="text-red-500 hover:underline"
                       onClick={() => {
                         if (confirm('टेम्पलेट हटाएं?')) {
@@ -53,12 +62,24 @@ export default function TemplatesPage() {
             <div key={t.id} className="bg-white border border-slate-200 rounded-xl p-4 shadow-sm flex flex-col hover:border-brand-400 transition">
               <div className="font-medium text-slate-800">{t.name}</div>
               <div className="text-xs text-slate-500 mt-1 flex-1">{t.description}</div>
-              <button
-                className="mt-3 text-sm text-white bg-brand-600 hover:bg-brand-700 rounded-lg py-1.5 font-medium"
-                onClick={() => navigate(`/editor/new?template=${t.id}`)}
-              >
-                टेम्पलेट उपयोग करें
-              </button>
+              <div className="flex items-center gap-2 mt-3">
+                <button
+                  className="flex-1 text-sm text-white bg-brand-600 hover:bg-brand-700 rounded-lg py-1.5 font-medium"
+                  onClick={() => navigate(`/editor/new?template=${t.id}`)}
+                >
+                  उपयोग करें
+                </button>
+                <button
+                  className="text-sm text-brand-700 border border-brand-200 hover:bg-brand-50 rounded-lg py-1.5 px-3 font-medium"
+                  title="इस टेम्पलेट की कॉपी 'मेरे टेम्पलेट' में सहेजें ताकि आप उसे बदल सकें"
+                  onClick={() => {
+                    saveAsTemplate(t.build(), `${t.name} (कॉपी)`, t.description)
+                    setRefresh((r) => r + 1)
+                  }}
+                >
+                  कॉपी करें
+                </button>
+              </div>
             </div>
           ))}
         </div>
