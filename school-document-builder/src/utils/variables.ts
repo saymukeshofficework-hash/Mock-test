@@ -71,6 +71,47 @@ export function extractUsedVariables(doc: { header: { html: string }; elements: 
   return Array.from(keys)
 }
 
+function normalizeKey(raw: string): string {
+  return raw
+    .trim()
+    .replace(/^\{\{|\}\}$/g, '')
+    .replace(/[:：=-]+$/, '')
+    .trim()
+    .toLowerCase()
+    .replace(/\s+/g, '_')
+}
+
+/**
+ * Parses pasted data (e.g. copied from a two-column Excel/Sheets range, or typed as
+ * "key: value" lines) into a map of variable key -> value, matching each line's key
+ * against known variable keys or their Hindi labels. Unmatched lines are ignored.
+ */
+export function parseFieldPaste(text: string): Record<string, string> {
+  const result: Record<string, string> = {}
+  const byNormalizedLabel = new Map(VARIABLE_DEFS.map((v) => [normalizeKey(v.label), v.key]))
+  const knownKeys = new Set(VARIABLE_DEFS.map((v) => v.key))
+
+  text
+    .split(/\r?\n/)
+    .map((line) => line.trim())
+    .filter(Boolean)
+    .forEach((line) => {
+      // Prefer a tab (two Excel/Sheets columns pasted as-is), then common label/value separators.
+      const delimiter = line.includes('\t') ? '\t' : /:|=| - /.exec(line)?.[0]
+      if (!delimiter) return
+      const idx = line.indexOf(delimiter)
+      const rawKey = line.slice(0, idx)
+      const rawValue = line.slice(idx + delimiter.length)
+      if (!rawValue.trim()) return
+
+      const key = normalizeKey(rawKey)
+      const matchedKey = knownKeys.has(key) ? key : byNormalizedLabel.get(key)
+      if (matchedKey) result[matchedKey] = rawValue.trim()
+    })
+
+  return result
+}
+
 export function resolveVariables(text: string, context: Record<string, string>): string {
   if (!text) return text
   return text.replace(/\{\{\s*([a-zA-Z0-9_]+)\s*\}\}/g, (match, key) => {

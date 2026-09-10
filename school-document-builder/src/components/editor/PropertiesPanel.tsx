@@ -1,5 +1,6 @@
+import { useState } from 'react'
 import type { Align, DocumentElement, SchoolDocument } from '../../types/document'
-import { VARIABLE_DEFS, extractUsedVariables } from '../../utils/variables'
+import { VARIABLE_DEFS, extractUsedVariables, parseFieldPaste } from '../../utils/variables'
 import { SEAL_SIZE_PRESETS } from '../elements/MiscElements'
 
 interface PropertiesPanelProps {
@@ -24,6 +25,53 @@ function AlignPicker({ value, onChange }: { value: Align; onChange: (a: Align) =
           {a === 'left' ? 'बाएं' : a === 'center' ? 'मध्य' : a === 'right' ? 'दाएं' : 'जस्टिफाई'}
         </button>
       ))}
+    </div>
+  )
+}
+
+function PasteFillBox({ onFill }: { onFill: (values: Record<string, string>) => void }) {
+  const [text, setText] = useState('')
+  const [result, setResult] = useState<number | null>(null)
+
+  function apply(source: string) {
+    const values = parseFieldPaste(source)
+    const count = Object.keys(values).length
+    if (count > 0) onFill(values)
+    setResult(count)
+  }
+
+  return (
+    <div className="border border-dashed border-brand-300 bg-brand-50 rounded-lg p-2 space-y-1.5">
+      <p className="text-xs text-slate-600">
+        डेटा यहाँ पेस्ट करें (Excel की दो कॉलम या "लेबल: मान" पंक्तियाँ) — मिलान वाली फ़ील्ड स्वतः भर जाएंगी।
+      </p>
+      <textarea
+        className="w-full border border-slate-200 rounded px-2 py-1 text-xs min-h-[64px] font-mono bg-white"
+        placeholder={'विद्यालय का नाम: ...\nदिनांक: ...\nविद्यार्थी का नाम: ...'}
+        value={text}
+        onChange={(e) => setText(e.target.value)}
+        onPaste={(e) => {
+          const pasted = e.clipboardData.getData('text')
+          if (!pasted) return
+          setText(pasted)
+          setTimeout(() => apply(pasted), 0)
+        }}
+      />
+      <div className="flex items-center gap-2">
+        <button
+          type="button"
+          className="px-3 py-1 rounded bg-brand-600 text-white text-xs font-medium hover:bg-brand-700"
+          onClick={() => apply(text)}
+        >
+          फ़ील्ड भरें
+        </button>
+        {result !== null &&
+          (result > 0 ? (
+            <span className="text-xs text-green-600">{result} फ़ील्ड भरी गईं ✓</span>
+          ) : (
+            <span className="text-xs text-amber-600">कोई मिलान फ़ील्ड नहीं मिली</span>
+          ))}
+      </div>
     </div>
   )
 }
@@ -262,6 +310,7 @@ export default function PropertiesPanel({ doc, selectedElement, onDocChange, onE
       <section>
         <h3 className="text-sm font-semibold text-slate-700 mb-2">दस्तावेज़ फ़ील्ड / चर के मान</h3>
         <div className="space-y-2">
+          <PasteFillBox onFill={(values) => onDocChange({ fields: { ...doc.fields, ...values } })} />
           {extractUsedVariables(doc).length === 0 && (
             <p className="text-xs text-slate-400">
               दस्तावेज़ में अभी कोई {'{{'}चर{'}}'} उपयोग नहीं हुआ है। टेक्स्ट टूलबार से {'{{ }}'} चर बटन द्वारा जोड़ें।
