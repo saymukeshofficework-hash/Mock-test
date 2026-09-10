@@ -1,0 +1,94 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+html, body {
+  font-family: 'Noto Sans Devanagari', 'Mangal', 'Kokila', Arial, sans-serif;
+  background: #eef1f6;
+}
+
+/* ---------- Page canvas sizes (px @ 96dpi approximation, scaled by --page-scale) ---------- */
+.page-sheet {
+  background: #ffffff;
+  color: #111;
+  box-shadow: 0 1px 4px rgba(0,0,0,.15), 0 8px 24px rgba(0,0,0,.08);
+  position: relative;
+  overflow: hidden;
+}
+
+.page-border-thin { border: 1.5px solid #222; }
+.page-border-double { border: 4px double #222; }
+.page-border-gov {
+  border: 3px solid #7a1f1f;
+  outline: 1px solid #7a1f1f;
+  outline-offset: -8px;
+}
+
+[contenteditable="true"] {
+  outline: none;
+}
+[contenteditable="true"]:hover {
+  background: rgba(30, 58, 138, 0.04);
+}
+[contenteditable="true"]:focus {
+  background: rgba(30, 58, 138, 0.06);
+  box-shadow: 0 0 0 1px #1e3a8a inset;
+}
+
+.rt-content p { margin: 0 0 4px 0; }
+.rt-content:empty:before {
+  content: attr(data-placeholder);
+  color: #9aa0aa;
+}
+
+/* Editor-only chrome that must never appear in print/export */
+.no-print { }
+
+@media print {
+  html, body {
+    background: #fff !important;
+  }
+  .no-print, .no-print * {
+    display: none !important;
+  }
+  .print-root {
+    position: static !important;
+  }
+  .page-sheet {
+    box-shadow: none !important;
+    margin: 0 !important;
+    page-break-after: always;
+    break-after: page;
+  }
+  .page-sheet:last-child {
+    page-break-after: auto;
+    break-after: auto;
+  }
+  [contenteditable="true"]:hover,
+  [contenteditable="true"]:focus {
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+}
+
+@page {
+  margin: 0;
+}
+
+.scrollbar-thin::-webkit-scrollbar { width: 8px; height: 8px; }
+.scrollbar-thin::-webkit-scrollbar-thumb { background: #c7cdd8; border-radius: 4px; }
+.scrollbar-thin::-webkit-scrollbar-track { background: transparent; }
+
+.tbl-btn {
+  padding: 2px 8px;
+  border: 1px solid #d7dbe3;
+  border-radius: 5px;
+  background: #fff;
+  white-space: nowrap;
+}
+.tbl-btn:hover { background: #f4f6fb; }
+
