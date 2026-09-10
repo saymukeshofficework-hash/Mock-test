@@ -1,5 +1,5 @@
 import type { SchoolDocument, DocumentElement, TableElement } from '../types/document'
-import { newCell, newDate, newKeyValue, newParagraph, newTableElement } from './factory'
+import { newCell, newKeyValue, newParagraph, newTableElement } from './factory'
 import { applyPastedGrid, parseTabularPaste } from './tablePaste'
 
 export interface SmartPasteResult {
@@ -54,13 +54,6 @@ function joinHeaderLines(lines: string[]): string {
   return escapeHtml(lines.join(', '))
 }
 
-/** "10/09/2026" (or -/. separated) -> "2026-09-10", the format the date input/element.value expects. */
-function toIsoDate(raw: string): string | undefined {
-  const m = /^(\d{1,2})[/.-](\d{1,2})[/.-](\d{4})$/.exec(raw.trim())
-  if (!m) return undefined
-  const [, d, mo, y] = m
-  return `${y}-${mo.padStart(2, '0')}-${d.padStart(2, '0')}`
-}
 
 /**
  * Strips characters that a chat app's copy/paste sometimes sneaks in and that would
@@ -147,9 +140,10 @@ export function applySmartPaste(doc: SchoolDocument, rawText: string): SmartPast
     result.filledHeader = true
     body = text.slice(header.matchEnd)
     if (meta.refNo || meta.date) {
-      const iso = meta.date ? toIsoDate(meta.date) : undefined
-      const dateEl = iso ? { ...newDate(), useToday: false, value: iso } : newDate()
-      headerMetaElements = [newKeyValue('क्रमांक', meta.refNo ?? ''), dateEl]
+      headerMetaElements = [
+        { ...newKeyValue('क्रमांक', meta.refNo ?? ''), underline: false },
+        { ...newKeyValue('दिनांक', meta.date ?? ''), underline: false },
+      ]
     }
   }
   body = stripLeadingTag(body.trim(), ['MATTER', 'विषय', 'BODY', 'मैटर'])
