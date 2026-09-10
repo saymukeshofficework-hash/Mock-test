@@ -78,6 +78,91 @@ function casteWiseTable(): TableData {
   }
 }
 
+/**
+ * Complex multi-level merged header table matching the school's physical माहवार जातिवार
+ * (month-wise, caste-wise) register — कक्षावार दर्ज संख्या, SC/ST/OBC/GEN, उपस्थिति,
+ * दाखिल-खारिज-शेष एवं बैगा जाति, हर समूह में बालक(B)/बालिका(G)/योग(T) उप-स्तंभ सहित।
+ */
+function monthwiseCasteTable(): TableData {
+  const groups: { label: string; sub: string[] }[] = [
+    { label: 'क्र.', sub: [] },
+    { label: 'कक्षा', sub: [] },
+    { label: 'दर्ज छात्र संख्या', sub: ['B', 'G', 'T'] },
+    { label: 'SC', sub: ['B', 'G'] },
+    { label: 'ST', sub: ['B', 'G'] },
+    { label: 'OBC', sub: ['B', 'G'] },
+    { label: 'GEN', sub: ['B', 'G'] },
+    { label: 'कुल उपस्थित', sub: ['B', 'G', 'T'] },
+    { label: 'औसत उपस्थित', sub: ['B', 'G', 'T'] },
+    { label: 'दाखिल', sub: ['B', 'G', 'T'] },
+    { label: 'खारिज', sub: ['B', 'G', 'T'] },
+    { label: 'शेष', sub: ['B', 'G', 'T'] },
+    { label: 'बैगा जाति', sub: ['B', 'G', 'T'] },
+    { label: 'कार्य दिवस', sub: [] },
+    { label: 'अन्य', sub: [] },
+  ]
+
+  const header0: string[] = []
+  const header1: string[] = []
+  groups.forEach((g) => {
+    if (g.sub.length === 0) {
+      header0.push(g.label)
+      header1.push('')
+    } else {
+      header0.push(g.label, ...Array(g.sub.length - 1).fill(''))
+      header1.push(...g.sub)
+    }
+  })
+  const cols = header0.length
+
+  const r0 = row(header0, { header: true })
+  const r1 = row(header1, { header: true })
+  let ci = 0
+  groups.forEach((g) => {
+    if (g.sub.length === 0) {
+      r0.cells[ci].rowspan = 2
+      r1.cells[ci].merged = true
+      ci += 1
+    } else {
+      r0.cells[ci].colspan = g.sub.length
+      for (let k = 1; k < g.sub.length; k++) r0.cells[ci + k].merged = true
+      ci += g.sub.length
+    }
+  })
+
+  const classRows: { label: string; total?: boolean }[] = [
+    { label: 'पहली' },
+    { label: 'दूसरी' },
+    { label: 'तीसरी' },
+    { label: 'चौथी' },
+    { label: 'पांचवीं' },
+    { label: 'योग प्राथ.', total: true },
+    { label: 'छठवीं' },
+    { label: 'सातवीं' },
+    { label: 'आठवीं' },
+    { label: 'योग माध्य.', total: true },
+    { label: 'महायोग', total: true },
+    { label: 'प्रा.+मा.', total: true },
+  ]
+  let serial = 0
+  const dataRows = classRows.map(({ label, total }) => {
+    const cells = Array.from({ length: cols }, () => '')
+    cells[1] = label
+    if (!total) {
+      serial += 1
+      cells[0] = String(serial)
+    }
+    return row(cells, { total: !!total })
+  })
+
+  return {
+    columns: Array.from({ length: cols }, () => ({ id: uid('col'), widthPct: 100 / cols })),
+    rows: [r0, r1, ...dataRows],
+    borders: 'all',
+    autoSerial: false,
+  }
+}
+
 function studentCountTable(): TableData {
   const header = ['कक्षा', 'बालक', 'बालिका', 'कुल']
   const classes = ['1', '2', '3', '4', '5']
@@ -224,6 +309,32 @@ const templates: BuiltinTemplate[] = [
       const el = newTableElement(1, 1)
       el.table = casteWiseTable()
       d.elements = [newHeading('जातिवार विद्यार्थी संख्या', 1), el]
+      return d
+    },
+  },
+  {
+    id: 'monthwise-caste-report',
+    name: 'माहवार जातिवार रिपोर्ट',
+    description: 'कक्षावार दर्ज, SC/ST/OBC/GEN, उपस्थिति, दाखिल-खारिज-शेष व बैगा जाति की माहवार रिपोर्ट (जन शिक्षा केंद्र हेतु)',
+    docType: 'monthwise-caste-report',
+    build: () => {
+      const d = base('माहवार जातिवार रिपोर्ट', 'monthwise-caste-report')
+      d.orientation = 'landscape'
+      const el = newTableElement(1, 1)
+      el.table = monthwiseCasteTable()
+      d.elements = [
+        newKeyValue('क्रमांक', ''),
+        newDate(),
+        newParagraph('प्रति,<br/>श्रीमान् प्रभारी, जन शिक्षा केंद्र ......................,<br/>विषय – माहवार जातिवार माह ...................... 20.........'),
+        newKeyValue('शिक्षक संख्या', ''),
+        newKeyValue('प्रशिक्षित', ''),
+        newKeyValue('अप्रशिक्षित', 'N.I.L.'),
+        newKeyValue('अतिथि शिक्षक संख्या', ''),
+        newKeyValue('प्राथ.', 'N.I.L.'),
+        newKeyValue('मा.', ''),
+        el,
+        newSignature(),
+      ]
       return d
     },
   },
