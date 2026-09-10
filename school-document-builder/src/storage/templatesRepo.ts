@@ -29,6 +29,23 @@ export function saveAsTemplate(doc: SchoolDocument, name: string, description: s
   return template
 }
 
+export function duplicateUserTemplate(id: string): SchoolDocument | undefined {
+  const all = readJSON<SchoolDocument[]>(KEY, [])
+  const source = all.find((d) => d.id === id)
+  if (!source) return undefined
+  const now = Date.now()
+  const copy: SchoolDocument = {
+    ...source,
+    id: uid('tpl'),
+    name: `${source.name} (कॉपी)`,
+    createdAt: now,
+    updatedAt: now,
+  }
+  all.push(copy)
+  writeJSON(KEY, all)
+  return copy
+}
+
 export function deleteUserTemplate(id: string): void {
   const all = readJSON<SchoolDocument[]>(KEY, [])
   writeJSON(

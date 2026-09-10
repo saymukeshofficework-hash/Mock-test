@@ -17,11 +17,11 @@ export interface SchoolSettings {
 }
 
 export const DEFAULT_SCHOOL_SETTINGS: SchoolSettings = {
-  school_name: 'शासकीय प्राथमिक शाला भरमीला',
-  education_center: 'बिजौरी',
-  district: 'उमरिया',
-  state: 'मध्य प्रदेश',
-  block: 'मानपुर',
+  school_name: 'शासकीय प्राथमिक शाला आदर्श नगर',
+  education_center: 'आदर्श केंद्र',
+  district: 'उदाहरण जिला',
+  state: 'उदाहरण राज्य',
+  block: 'उदाहरण विकासखंड',
   udise_code: '',
   mobile: '',
   email: '',
@@ -31,5 +31,5 @@ export const DEFAULT_SCHOOL_SETTINGS: SchoolSettings = {
   logo_url: '',
   govt_logo_url: '',
   date_format: 'DD/MM/YYYY',
-  default_place: 'भरमीला',
+  default_place: 'आदर्श नगर',
 }
