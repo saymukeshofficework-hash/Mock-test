@@ -64,6 +64,21 @@
     opacity: 0.6;
     cursor: not-allowed;
   }
+  .btn-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 8px;
+    flex-shrink: 0;
+  }
+  .save-btn {
+    background: #16a34a;
+  }
+  .save-status {
+    font-size: 11px;
+    color: var(--muted);
+    min-height: 14px;
+  }
   .list {
     flex: 1;
     padding: 12px 20px 100px;
@@ -185,7 +200,7 @@
   .pdf-exporting .knob {
     box-shadow: none !important;
   }
-  .pdf-exporting .pdf-btn {
+  .pdf-exporting .btn-group {
     display: none;
   }
   .pdf-exporting footer {
@@ -200,7 +215,11 @@
         <h1>Attendance</h1>
         <div class="subtitle">Blue = present, red = pencil taken</div>
       </div>
-      <button class="pdf-btn" id="downloadPdf" type="button">Download PDF</button>
+      <div class="btn-group">
+        <button class="pdf-btn save-btn" id="saveBtn" type="button">Save</button>
+        <button class="pdf-btn" id="downloadPdf" type="button">Download PDF</button>
+        <div class="save-status" id="saveStatus"></div>
+      </div>
     </header>
 
     <div class="list" id="list"></div>
@@ -222,10 +241,28 @@
     { className: "Class V", students: ["Shanti Pradhan", "Vibha Pradhan"] },
   ];
 
+  const STORAGE_KEY = "attendance-state-v1";
+
+  function loadSavedState() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      return raw ? JSON.parse(raw) : null;
+    } catch (err) {
+      return null;
+    }
+  }
+
+  const savedState = loadSavedState();
+
   const state = {};
   let total = 0;
   classes.forEach(g => g.students.forEach((name, i) => {
-    state[`${g.className}-${i}`] = { present: true, pencil: false };
+    const key = `${g.className}-${i}`;
+    const saved = savedState && savedState[key];
+    state[key] = {
+      present: saved ? !!saved.present : true,
+      pencil: saved ? !!saved.pencil : false,
+    };
     total++;
   }));
 
@@ -253,6 +290,8 @@
       row.className = "row";
 
       const initial = name.trim()[0].toUpperCase();
+      const presentChecked = state[key].present ? "checked" : "";
+      const pencilChecked = state[key].pencil ? "checked" : "";
 
       row.innerHTML = `
         <div class="avatar">${initial}</div>
@@ -261,14 +300,14 @@
           <div class="toggle-group">
             <span class="toggle-label">Present</span>
             <label class="switch blue">
-              <input type="checkbox" checked data-key="${key}" data-type="present">
+              <input type="checkbox" ${presentChecked} data-key="${key}" data-type="present">
               <span class="track"><span class="knob"></span></span>
             </label>
           </div>
           <div class="toggle-group">
             <span class="toggle-label">Pencil</span>
             <label class="switch red">
-              <input type="checkbox" data-key="${key}" data-type="pencil">
+              <input type="checkbox" ${pencilChecked} data-key="${key}" data-type="pencil">
               <span class="track"><span class="knob"></span></span>
             </label>
           </div>
@@ -376,6 +415,22 @@
   }
 
   document.getElementById("downloadPdf").addEventListener("click", exportPdf);
+
+  const saveStatusEl = document.getElementById("saveStatus");
+
+  document.getElementById("saveBtn").addEventListener("click", () => {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      saveStatusEl.textContent = "Saved";
+    } catch (err) {
+      saveStatusEl.textContent = "";
+      alert("Couldn't save: " + (err && err.message ? err.message : err));
+      return;
+    }
+    setTimeout(() => {
+      if (saveStatusEl.textContent === "Saved") saveStatusEl.textContent = "";
+    }, 2500);
+  });
 </script>
 </body>
 </html>
