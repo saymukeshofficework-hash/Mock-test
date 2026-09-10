@@ -33,6 +33,27 @@ function splitIntoPages(elements: DocumentElement[]): IndexedElement[][] {
   return pages
 }
 
+/**
+ * A क्रमांक (keyvalue) immediately next to a दिनांक (date) is the standard office-letter
+ * pairing — always drawn on one line (one on each side) rather than as two stacked rows.
+ */
+function groupIntoRows(pageElements: IndexedElement[]): IndexedElement[][] {
+  const rows: IndexedElement[][] = []
+  for (let i = 0; i < pageElements.length; i++) {
+    const cur = pageElements[i]
+    const next = pageElements[i + 1]
+    const pairTypes = ['keyvalue', 'date']
+    const isPair = next && cur.el.type !== next.el.type && pairTypes.includes(cur.el.type) && pairTypes.includes(next.el.type)
+    if (isPair) {
+      rows.push([cur, next])
+      i++
+    } else {
+      rows.push([cur])
+    }
+  }
+  return rows
+}
+
 const BORDER_CLASS = {
   none: '',
   thin: 'page-border-thin',
@@ -101,22 +122,30 @@ export default function DocumentCanvas({
               />
             )}
             <div className="space-y-1">
-              {pageElements.map(({ el, index }) => (
-                <ElementRenderer
-                  key={el.id}
-                  element={readOnly ? resolveElementForDisplay(el, variableContext) : el}
-                  index={index}
-                  total={doc.elements.length}
-                  readOnly={readOnly}
-                  selected={selectedId === el.id}
-                  onSelect={() => onSelect(el.id)}
-                  onChange={(p) => patch(index, p)}
-                  onDelete={() => remove(index)}
-                  onMoveUp={() => move(index, -1)}
-                  onMoveDown={() => move(index, 1)}
-                  onDuplicate={() => duplicate(index)}
-                />
-              ))}
+              {groupIntoRows(pageElements).map((row) => {
+                const items = row.map(({ el, index }) => (
+                  <ElementRenderer
+                    key={el.id}
+                    element={readOnly ? resolveElementForDisplay(el, variableContext) : el}
+                    index={index}
+                    total={doc.elements.length}
+                    readOnly={readOnly}
+                    selected={selectedId === el.id}
+                    onSelect={() => onSelect(el.id)}
+                    onChange={(p) => patch(index, p)}
+                    onDelete={() => remove(index)}
+                    onMoveUp={() => move(index, -1)}
+                    onMoveDown={() => move(index, 1)}
+                    onDuplicate={() => duplicate(index)}
+                  />
+                ))
+                if (row.length === 1) return items[0]
+                return (
+                  <div key={row[0].el.id} className="flex flex-wrap items-baseline justify-between gap-x-6">
+                    {items}
+                  </div>
+                )
+              })}
               {pageElements.length === 0 && !readOnly && (
                 <div className="text-center text-slate-300 text-sm py-16 border-2 border-dashed border-slate-200 rounded">
                   बाएं मेनू से तत्व जोड़ें
