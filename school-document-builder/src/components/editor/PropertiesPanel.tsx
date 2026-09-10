@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import type { Align, DocumentElement, SchoolDocument } from '../../types/document'
 import { VARIABLE_DEFS, extractUsedVariables, parseFieldPaste } from '../../utils/variables'
+import { applySmartPaste } from '../../utils/smartPaste'
 import { SEAL_SIZE_PRESETS } from '../elements/MiscElements'
 
 interface PropertiesPanelProps {
@@ -25,6 +26,56 @@ function AlignPicker({ value, onChange }: { value: Align; onChange: (a: Align) =
           {a === 'left' ? 'बाएं' : a === 'center' ? 'मध्य' : a === 'right' ? 'दाएं' : 'जस्टिफाई'}
         </button>
       ))}
+    </div>
+  )
+}
+
+function SmartPasteBox({ doc, onApply }: { doc: SchoolDocument; onApply: (patch: Partial<SchoolDocument>) => void }) {
+  const [text, setText] = useState('')
+  const [summary, setSummary] = useState<string | null>(null)
+
+  function apply(source: string) {
+    const res = applySmartPaste(doc, source)
+    const patch: Partial<SchoolDocument> = {}
+    if (res.header) patch.header = res.header
+    if (res.elements) patch.elements = res.elements
+    if (Object.keys(patch).length > 0) onApply(patch)
+
+    const parts: string[] = []
+    if (res.filledHeader) parts.push('हेडर')
+    if (res.filledMatter) parts.push('मैटर')
+    if (res.filledTableRows > 0) parts.push(`तालिका (${res.filledTableRows} पंक्तियाँ)`)
+    setSummary(parts.length > 0 ? `${parts.join(', ')} भर दिया गया ✓` : 'कोई [HEADER]/[MATTER]/[TABLE] सेक्शन नहीं मिला')
+  }
+
+  return (
+    <div className="border border-dashed border-brand-300 bg-brand-50 rounded-lg p-2 space-y-1.5">
+      <p className="text-xs text-slate-600">
+        [HEADER], [MATTER], [TABLE] सेक्शन वाला पूरा डेटा यहाँ पेस्ट करें — हेडर, मुख्य पाठ और तालिका सभी एक साथ भर
+        जाएंगे (तालिका न हो तो नई बन जाएगी)।
+      </p>
+      <textarea
+        className="w-full border border-slate-200 rounded px-2 py-1 text-xs min-h-[90px] font-mono bg-white"
+        placeholder={'[HEADER]\nकार्यालय प्रधानाध्यापक, ...\n\n[MATTER]\nयह सूचित किया जाता है कि...\n\n[TABLE]\nकक्षा\tबालक\tबालिका\nकक्षा 1\t18\t16'}
+        value={text}
+        onChange={(e) => setText(e.target.value)}
+        onPaste={(e) => {
+          const pasted = e.clipboardData.getData('text')
+          if (!pasted) return
+          setText(pasted)
+          setTimeout(() => apply(pasted), 0)
+        }}
+      />
+      <div className="flex items-center gap-2">
+        <button
+          type="button"
+          className="px-3 py-1 rounded bg-brand-600 text-white text-xs font-medium hover:bg-brand-700"
+          onClick={() => apply(text)}
+        >
+          सब भरें
+        </button>
+        {summary && <span className="text-xs text-green-600">{summary}</span>}
+      </div>
     </div>
   )
 }
@@ -228,6 +279,11 @@ function ElementProps({ element, onChange }: { element: DocumentElement; onChang
 export default function PropertiesPanel({ doc, selectedElement, onDocChange, onElementChange }: PropertiesPanelProps) {
   return (
     <div className="p-3 space-y-5">
+      <section>
+        <h3 className="text-sm font-semibold text-slate-700 mb-2">स्मार्ट पेस्ट (पूरा डेटा एक साथ भरें)</h3>
+        <SmartPasteBox doc={doc} onApply={onDocChange} />
+      </section>
+
       {selectedElement && (
         <section>
           <h3 className="text-sm font-semibold text-slate-700 mb-2">तत्व गुण</h3>
