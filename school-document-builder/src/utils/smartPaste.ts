@@ -21,10 +21,27 @@ function textToHtml(s: string): string {
   return escapeHtml(s).trim().split('\n').join('<br/>')
 }
 
+/**
+ * Strips characters that a chat app's copy/paste sometimes sneaks in and that would
+ * otherwise silently break tag matching: zero-width spaces/joiners, a BOM, non-breaking
+ * spaces, and markdown bold wrapped directly around a [TAG].
+ */
+function normalizePasted(text: string): string {
+  return text
+    .replace(/[​‌‍﻿]/g, '')
+    .replace(/ /g, ' ')
+    .replace(/\*\*(\[[A-Za-zऀ-ॿ]+\])\*\*/g, '$1')
+}
+
+/** Matches a [TAG], tolerating an optional trailing colon (e.g. "[HEADER]:"). */
+function tagPattern(names: string[]): string {
+  return `\\[(?:${names.join('|')})\\]:?`
+}
+
 /** Pulls the text under a [SECTION] marker, up to the next [MARKER] or end of the text. */
 function extractSection(text: string, names: string[]): { value: string; matchEnd: number } | null {
   const pattern = new RegExp(
-    `\\[(?:${names.join('|')})\\]\\s*([\\s\\S]*?)(?=\\n\\s*\\[[A-Za-z\\u0900-\\u097F]+\\]|$)`,
+    `${tagPattern(names)}\\s*([\\s\\S]*?)(?=\\n\\s*\\[[A-Za-z\\u0900-\\u097F]+\\]:?|$)`,
     'i',
   )
   const match = pattern.exec(text)
@@ -34,8 +51,21 @@ function extractSection(text: string, names: string[]): { value: string; matchEn
 }
 
 function stripLeadingTag(s: string, names: string[]): string {
-  const re = new RegExp(`^\\s*\\[(?:${names.join('|')})\\]\\s*`, 'i')
+  const re = new RegExp(`^\\s*${tagPattern(names)}\\s*`, 'i')
   return s.replace(re, '')
+}
+
+/**
+ * If the whole flowing body was accidentally pasted twice back-to-back (a mobile
+ * clipboard/paste quirk, or clicking "सब भरें" twice before the box updated), the
+ * chunk list is an exact repeat of itself. Detect that and keep only the first copy.
+ */
+function dropDuplicatedTail(chunks: string[]): string[] {
+  const n = chunks.length
+  if (n < 2 || n % 2 !== 0) return chunks
+  const half = n / 2
+  const isDuplicate = chunks.slice(0, half).every((c, i) => c === chunks[half + i])
+  return isDuplicate ? chunks.slice(0, half) : chunks
 }
 
 /**
@@ -48,8 +78,9 @@ function stripLeadingTag(s: string, names: string[]): string {
  * table's headers by text; a table is created (sized to the pasted columns) if the
  * document doesn't have one yet.
  */
-export function applySmartPaste(doc: SchoolDocument, text: string): SmartPasteResult {
+export function applySmartPaste(doc: SchoolDocument, rawText: string): SmartPasteResult {
   const result: SmartPasteResult = { filledHeader: false, filledMatter: false, filledTableRows: 0 }
+  const text = normalizePasted(rawText)
 
   const header = extractSection(text, ['HEADER', 'हेडर'])
   let body = text
@@ -61,10 +92,12 @@ export function applySmartPaste(doc: SchoolDocument, text: string): SmartPasteRe
   body = stripLeadingTag(body.trim(), ['MATTER', 'विषय', 'BODY', 'मैटर'])
   if (!body.trim()) return result
 
-  const chunks = body
-    .split(/\n\s*\n/)
-    .map((c) => c.trim())
-    .filter(Boolean)
+  const chunks = dropDuplicatedTail(
+    body
+      .split(/\n\s*\n/)
+      .map((c) => c.trim())
+      .filter(Boolean),
+  )
   if (chunks.length === 0) return result
 
   const existingTableIdx = doc.elements.findIndex((e) => e.type === 'table')
@@ -73,7 +106,7 @@ export function applySmartPaste(doc: SchoolDocument, text: string): SmartPasteRe
   let tableRows = 0
 
   const bodyElements: DocumentElement[] = chunks.map((chunk) => {
-    const tableMatch = /^\[(?:TABLE|तालिका)\]\s*([\s\S]*)$/i.exec(chunk)
+    const tableMatch = new RegExp(`^${tagPattern(['TABLE', 'तालिका'])}\\s*([\\s\\S]*)$`, 'i').exec(chunk)
     if (!tableMatch) return newParagraph(textToHtml(chunk))
 
     const grid = parseTabularPaste(tableMatch[1])

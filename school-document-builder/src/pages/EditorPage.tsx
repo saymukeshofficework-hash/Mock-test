@@ -162,6 +162,7 @@ export default function EditorPage() {
             doc={doc}
             selectedElement={selectedElement}
             onDocChange={(patch) => setDoc((d) => ({ ...d, ...patch }))}
+            onDocPatchFn={(fn) => setDoc((d) => ({ ...d, ...fn(d) }))}
             onElementChange={updateSelectedElement}
           />
         </aside>
