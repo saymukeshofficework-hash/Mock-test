@@ -4,8 +4,25 @@ import { readJSON, writeJSON } from './localStore'
 
 const KEY = 'userTemplates'
 
+/** Strips one or more trailing " (कॉपी)" suffixes, so copying a copy never compounds the name. */
+function stripCopySuffix(name: string): string {
+  return name.replace(/(\s*\(कॉपी\))+$/, '')
+}
+
 export function listUserTemplates(): SchoolDocument[] {
-  return readJSON<SchoolDocument[]>(KEY, []).sort((a, b) => b.updatedAt - a.updatedAt)
+  const all = readJSON<SchoolDocument[]>(KEY, [])
+  // One-time cleanup for names that already piled up "(कॉपी) (कॉपी) ..." before this fix.
+  let changed = false
+  const normalized = all.map((t) => {
+    const clean = `${stripCopySuffix(t.name)} (कॉपी)`
+    if (t.name.includes('(कॉपी) (कॉपी)') && t.name !== clean) {
+      changed = true
+      return { ...t, name: clean }
+    }
+    return t
+  })
+  if (changed) writeJSON(KEY, normalized)
+  return normalized.sort((a, b) => b.updatedAt - a.updatedAt)
 }
 
 export function getUserTemplate(id: string): SchoolDocument | undefined {
@@ -37,7 +54,7 @@ export function duplicateUserTemplate(id: string): SchoolDocument | undefined {
   const copy: SchoolDocument = {
     ...source,
     id: uid('tpl'),
-    name: `${source.name} (कॉपी)`,
+    name: `${stripCopySuffix(source.name)} (कॉपी)`,
     createdAt: now,
     updatedAt: now,
   }
