@@ -78,9 +78,26 @@ function ElementProps({ element, onChange }: { element: DocumentElement; onChang
       )
     case 'stamp':
       return (
-        <div>
-          <span className={LABEL}>चौड़ाई (%)</span>
-          <input type="range" min={10} max={60} className="w-full" value={element.widthPct} onChange={(e) => onChange({ widthPct: Number(e.target.value) } as never)} />
+        <div className="space-y-3">
+          <div>
+            <span className={LABEL}>स्थान (Placement)</span>
+            <AlignPicker value={element.align} onChange={(align) => onChange({ align } as never)} />
+          </div>
+          <div>
+            <span className={LABEL}>आकार (%)</span>
+            <input type="range" min={10} max={60} className="w-full" value={element.widthPct} onChange={(e) => onChange({ widthPct: Number(e.target.value) } as never)} />
+          </div>
+          <div>
+            <span className={LABEL}>ऊर्ध्वाधर स्थिति (px)</span>
+            <input
+              type="range"
+              min={-60}
+              max={60}
+              className="w-full"
+              value={element.offsetTopPx ?? 0}
+              onChange={(e) => onChange({ offsetTopPx: Number(e.target.value) } as never)}
+            />
+          </div>
         </div>
       )
     case 'signature':
