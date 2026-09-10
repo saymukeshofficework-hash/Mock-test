@@ -34,8 +34,9 @@ function splitIntoPages(elements: DocumentElement[]): IndexedElement[][] {
 }
 
 /**
- * A क्रमांक (keyvalue) immediately next to a दिनांक (date) is the standard office-letter
- * pairing — always drawn on one line (one on each side) rather than as two stacked rows.
+ * Two adjacent keyvalue/date fields (क्रमांक next to दिनांक, दिनांक next to स्थान, or two
+ * plain keyvalue fields) are the standard office-letter pairing — always drawn on one
+ * line, one on each side, rather than as two stacked rows.
  */
 function groupIntoRows(pageElements: IndexedElement[]): IndexedElement[][] {
   const rows: IndexedElement[][] = []
@@ -43,7 +44,7 @@ function groupIntoRows(pageElements: IndexedElement[]): IndexedElement[][] {
     const cur = pageElements[i]
     const next = pageElements[i + 1]
     const pairTypes = ['keyvalue', 'date']
-    const isPair = next && cur.el.type !== next.el.type && pairTypes.includes(cur.el.type) && pairTypes.includes(next.el.type)
+    const isPair = next && pairTypes.includes(cur.el.type) && pairTypes.includes(next.el.type)
     if (isPair) {
       rows.push([cur, next])
       i++

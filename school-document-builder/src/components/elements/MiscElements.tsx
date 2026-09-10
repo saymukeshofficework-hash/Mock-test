@@ -9,7 +9,7 @@ import type {
   SpacerElement,
   StampElement,
 } from '../../types/document'
-import { todayFormatted } from '../../utils/date'
+import { formatDate, todayFormatted } from '../../utils/date'
 import { getSchoolSettings } from '../../storage/schoolSettingsRepo'
 import { uid } from '../../utils/id'
 
@@ -228,7 +228,12 @@ export function DateBlock({
   onChange: (patch: Partial<DateElement>) => void
 }) {
   const settings = getSchoolSettings()
-  const display = element.useToday ? todayFormatted(settings.date_format) : element.value
+  const isoMatch = /^(\d{4})-(\d{2})-(\d{2})$/.exec(element.value)
+  const display = element.useToday
+    ? todayFormatted(settings.date_format)
+    : isoMatch
+      ? formatDate(new Date(Number(isoMatch[1]), Number(isoMatch[2]) - 1, Number(isoMatch[3])), settings.date_format)
+      : element.value
   return (
     <div style={{ textAlign: element.align }} className="flex items-center gap-2 justify-start">
       <span className="font-medium">{element.label}:</span>

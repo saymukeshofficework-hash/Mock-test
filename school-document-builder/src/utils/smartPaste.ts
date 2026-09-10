@@ -1,5 +1,5 @@
 import type { SchoolDocument, DocumentElement, TableElement } from '../types/document'
-import { newCell, newParagraph, newTableElement } from './factory'
+import { newCell, newKeyValue, newParagraph, newTableElement } from './factory'
 import { applyPastedGrid, parseTabularPaste } from './tablePaste'
 
 export interface SmartPasteResult {
@@ -21,15 +21,39 @@ function textToHtml(s: string): string {
   return escapeHtml(s).trim().split('\n').join('<br/>')
 }
 
-/** The document header is always a single line — join pasted header lines with ", " instead of <br/>. */
-function headerLinesToHtml(s: string): string {
-  const lines = s
+const REF_NO_RE = /^क्रमांक\s*[-–:]\s*(.+)$/
+const HEADER_DATE_RE = /^दिनांक\s*[-–:]\s*(.+)$/
+
+/**
+ * A pasted [HEADER] sometimes carries "क्रमांक – ..." / "दिनांक – ..." lines mixed into
+ * the address block. Those pull out into their own क्रमांक/दिनांक row (rendered below the
+ * header, order on the left and date on the right) instead of being joined into the
+ * single-line header text.
+ */
+function extractHeaderMeta(value: string): { lines: string[]; refNo?: string; date?: string } {
+  const lines: string[] = []
+  let refNo: string | undefined
+  let date: string | undefined
+  value
     .trim()
     .split('\n')
     .map((l) => l.trim())
     .filter(Boolean)
+    .forEach((line) => {
+      const refMatch = REF_NO_RE.exec(line)
+      const dateMatch = HEADER_DATE_RE.exec(line)
+      if (refMatch) refNo = refMatch[1].trim()
+      else if (dateMatch) date = dateMatch[1].trim()
+      else lines.push(line)
+    })
+  return { lines, refNo, date }
+}
+
+/** The document header is always a single line — join the remaining header lines with ", ". */
+function joinHeaderLines(lines: string[]): string {
   return escapeHtml(lines.join(', '))
 }
+
 
 /**
  * Strips characters that a chat app's copy/paste sometimes sneaks in and that would
@@ -109,10 +133,18 @@ export function applySmartPaste(doc: SchoolDocument, rawText: string): SmartPast
 
   const header = extractSection(text, ['HEADER', 'हेडर'])
   let body = text
+  let headerMetaElements: DocumentElement[] = []
   if (header) {
-    result.header = { ...doc.header, html: headerLinesToHtml(header.value) }
+    const meta = extractHeaderMeta(header.value)
+    result.header = { ...doc.header, html: joinHeaderLines(meta.lines) }
     result.filledHeader = true
     body = text.slice(header.matchEnd)
+    if (meta.refNo || meta.date) {
+      headerMetaElements = [
+        { ...newKeyValue('क्रमांक', meta.refNo ?? ''), underline: false },
+        { ...newKeyValue('दिनांक', meta.date ?? ''), underline: false },
+      ]
+    }
   }
   body = stripLeadingTag(body.trim(), ['MATTER', 'विषय', 'BODY', 'मैटर'])
   if (!body.trim()) return result
@@ -132,7 +164,12 @@ export function applySmartPaste(doc: SchoolDocument, rawText: string): SmartPast
 
   const bodyElements: DocumentElement[] = chunks.map((chunk) => {
     const tableMatch = new RegExp(`^${tagPattern(['TABLE', 'तालिका'])}\\s*([\\s\\S]*)$`, 'i').exec(chunk)
-    if (!tableMatch) return newParagraph(textToHtml(chunk))
+    if (!tableMatch) {
+      const paragraph = newParagraph(textToHtml(chunk))
+      // The भवदीय closing (valediction, signatory name, school name) reads as a
+      // right-aligned block in a real office letter, not flush against the left margin.
+      return /^भवदीय/.test(chunk.trim()) ? { ...paragraph, align: 'right' } : paragraph
+    }
 
     const grid = parseTabularPaste(tableMatch[1])
     if (grid.length === 0) return newParagraph('')
@@ -167,6 +204,14 @@ export function applySmartPaste(doc: SchoolDocument, rawText: string): SmartPast
     }
   })
   if (!inserted) nextElements.push(...bodyElements)
+
+  // क्रमांक/दिनांक (from the header) sit just above the title — right after the header,
+  // before the first heading — or right at the top if there's no heading to lead with.
+  if (headerMetaElements.length > 0) {
+    const headingIdx = nextElements.findIndex((e) => e.type === 'heading')
+    nextElements.splice(headingIdx >= 0 ? headingIdx : 0, 0, ...headerMetaElements)
+  }
+
   result.elements = nextElements
 
   return result
