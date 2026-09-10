@@ -13,6 +13,12 @@ import { todayFormatted } from '../../utils/date'
 import { getSchoolSettings } from '../../storage/schoolSettingsRepo'
 import { uid } from '../../utils/id'
 
+export const SEAL_SIZE_PRESETS: { label: string; value: number }[] = [
+  { label: 'छोटा', value: 15 },
+  { label: 'मध्यम', value: 25 },
+  { label: 'बड़ा', value: 40 },
+]
+
 function fileToDataUrl(file: File): Promise<string> {
   return new Promise((resolve, reject) => {
     const reader = new FileReader()
@@ -141,6 +147,17 @@ export function StampBlock({
             >
               दाएं
             </button>
+          </div>
+          <div className="flex items-center border rounded overflow-hidden">
+            {SEAL_SIZE_PRESETS.map(({ label, value }) => (
+              <button
+                key={label}
+                className={`px-2 py-1 first:border-l-0 border-l ${element.widthPct === value ? 'bg-brand-600 text-white' : 'hover:bg-slate-50'}`}
+                onClick={() => onChange({ widthPct: value })}
+              >
+                {label}
+              </button>
+            ))}
           </div>
           <label className="flex items-center gap-1">
             आकार

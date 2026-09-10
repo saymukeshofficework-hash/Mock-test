@@ -344,6 +344,20 @@ export default function TableBlock({ element, readOnly, onChange }: TableBlockPr
                   </td>
                 )
               })}
+              {!readOnly && (
+                <td className="no-print border-0 p-0 align-middle w-6">
+                  <button
+                    type="button"
+                    title="पंक्ति हटाएं"
+                    disabled={table.rows.length <= 1}
+                    className="w-6 h-6 flex items-center justify-center rounded text-slate-400 hover:text-red-600 hover:bg-red-50 disabled:opacity-30 disabled:hover:bg-transparent disabled:hover:text-slate-400"
+                    onMouseDown={(e) => e.stopPropagation()}
+                    onClick={() => setTable(deleteRow(table, r))}
+                  >
+                    🗑
+                  </button>
+                </td>
+              )}
             </tr>
           ))}
         </tbody>
