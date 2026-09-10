@@ -31,6 +31,47 @@ function AlignPicker({ value, onChange }: { value: Align; onChange: (a: Align) =
   )
 }
 
+const CHATGPT_PROMPT = `आप एक सरकारी विद्यालय के लिए पत्र, सूचना और रिपोर्ट लिखने में मदद करने वाले सहायक हैं।
+
+मुझे जो भी पत्र चाहिए, उसका पूरा जवाब हमेशा नीचे दिए गए ठीक इसी प्रारूप में दें। इसके अलावा कोई अतिरिक्त वाक्य, नंबरिंग या स्टार (**) न जोड़ें:
+
+[HEADER]
+(पत्र के ऊपर का भाग — कार्यालय का नाम, दिनांक, क्रमांक — हर बात नई लाइन पर)
+
+[MATTER]
+(पत्र का पूरा मुख्य पाठ — प्रति, विषय, संबोधन, पैराग्राफ — हर पैराग्राफ के बाद एक खाली लाइन छोड़ें)
+
+[TABLE]
+(तालिका ज़रूरी हो तभी लिखें — पहली पंक्ति में कॉलम के नाम, बाकी में डेटा, हर कॉलम को कॉमा से अलग करें)
+
+(तालिका के बाद बचा पत्र — जैसे "भवदीय," और हस्ताक्षर — एक खाली लाइन के बाद जारी रखें)
+
+नोट: तालिका न चाहिए हो तो [TABLE] बिलकुल मत लिखें।
+
+अब मेरा पत्र यह है: [यहाँ अपनी ज़रूरत लिखें — जैसे "खेल दिवस हेतु कक्षावार छात्र संख्या भेजने का पत्र बनाओ"]`
+
+async function copyToClipboard(text: string): Promise<boolean> {
+  try {
+    await navigator.clipboard.writeText(text)
+    return true
+  } catch {
+    try {
+      const el = document.createElement('textarea')
+      el.value = text
+      el.style.position = 'fixed'
+      el.style.opacity = '0'
+      document.body.appendChild(el)
+      el.focus()
+      el.select()
+      const ok = document.execCommand('copy')
+      document.body.removeChild(el)
+      return ok
+    } catch {
+      return false
+    }
+  }
+}
+
 function SmartPasteBox({
   doc,
   onApply,
@@ -40,6 +81,7 @@ function SmartPasteBox({
 }) {
   const [text, setText] = useState('')
   const [summary, setSummary] = useState<string | null>(null)
+  const [promptCopied, setPromptCopied] = useState<'idle' | 'copied' | 'failed'>('idle')
 
   function apply(source: string) {
     // Summary message only — fine if `doc` is a render behind, it only reports which
@@ -71,6 +113,21 @@ function SmartPasteBox({
         [HEADER], [MATTER], [TABLE] सेक्शन वाला पूरा डेटा यहाँ पेस्ट करें — हेडर, मुख्य पाठ और तालिका सभी एक साथ भर
         जाएंगे (तालिका न हो तो नई बन जाएगी)।
       </p>
+      <div className="flex items-center gap-2">
+        <button
+          type="button"
+          className="px-2.5 py-1 rounded border border-brand-300 bg-white text-brand-700 text-xs font-medium hover:bg-brand-100"
+          onClick={async () => {
+            const ok = await copyToClipboard(CHATGPT_PROMPT)
+            setPromptCopied(ok ? 'copied' : 'failed')
+            setTimeout(() => setPromptCopied('idle'), 2000)
+          }}
+        >
+          ChatGPT प्रॉम्प्ट कॉपी करें
+        </button>
+        {promptCopied === 'copied' && <span className="text-xs text-green-600">कॉपी हो गया ✓ — अब ChatGPT में पेस्ट करें</span>}
+        {promptCopied === 'failed' && <span className="text-xs text-amber-600">कॉपी नहीं हो सका, टेक्स्ट चुनकर मैन्युअल कॉपी करें</span>}
+      </div>
       <textarea
         className="w-full border border-slate-200 rounded px-2 py-1 text-xs min-h-[90px] font-mono bg-white"
         placeholder={'[HEADER]\nकार्यालय प्रधानाध्यापक, ...\n\n[MATTER]\nयह सूचित किया जाता है कि...\n\n[TABLE]\nकक्षा\tबालक\tबालिका\nकक्षा 1\t18\t16'}
