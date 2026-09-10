@@ -38,6 +38,19 @@ function tagPattern(names: string[]): string {
   return `\\[(?:${names.join('|')})\\]:?`
 }
 
+/**
+ * If the same top-level tag (e.g. [HEADER]) appears a second time anywhere in the
+ * text, the whole template was almost certainly pasted twice back-to-back (a clipboard
+ * that accumulated two copies, or copying the same reply twice) rather than the user
+ * intending a second [HEADER] section. Cut everything from that second occurrence
+ * onward, keeping just the first copy.
+ */
+function truncateAtSecondOccurrence(text: string, names: string[]): string {
+  const pattern = new RegExp(tagPattern(names), 'gi')
+  const matches = [...text.matchAll(pattern)]
+  return matches.length < 2 ? text : text.slice(0, matches[1].index)
+}
+
 /** Pulls the text under a [SECTION] marker, up to the next [MARKER] or end of the text. */
 function extractSection(text: string, names: string[]): { value: string; matchEnd: number } | null {
   const pattern = new RegExp(
@@ -80,7 +93,9 @@ function dropDuplicatedTail(chunks: string[]): string[] {
  */
 export function applySmartPaste(doc: SchoolDocument, rawText: string): SmartPasteResult {
   const result: SmartPasteResult = { filledHeader: false, filledMatter: false, filledTableRows: 0 }
-  const text = normalizePasted(rawText)
+  let text = normalizePasted(rawText)
+  text = truncateAtSecondOccurrence(text, ['HEADER', 'हेडर'])
+  text = truncateAtSecondOccurrence(text, ['MATTER', 'विषय', 'BODY', 'मैटर'])
 
   const header = extractSection(text, ['HEADER', 'हेडर'])
   let body = text
