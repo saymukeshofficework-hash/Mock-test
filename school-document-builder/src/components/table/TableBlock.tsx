@@ -7,10 +7,13 @@ import {
   deleteColumn,
   deleteRow,
   mergeCells,
+  selectAllCells,
   setColumnWidth,
+  setRowHeight,
   splitCell,
   toggleRowFlag,
   updateCell,
+  updateCellsInRange,
   type CellPos,
 } from '../../utils/tableOps'
 import { columnAutoSum, evaluateFormula, stripHtml } from '../../utils/formulas'
@@ -114,6 +117,49 @@ export default function TableBlock({ element, readOnly, onChange }: TableBlockPr
   const hasMultiSelection = !!sel && (sel.a.r !== sel.b.r || sel.a.c !== sel.b.c)
   const activeMaster = activeCell ? table.rows[activeCell.r]?.cells[activeCell.c] : null
   const canSplit = !!activeMaster && (activeMaster.colspan > 1 || activeMaster.rowspan > 1)
+  const selectedCellCount = sel ? (Math.abs(sel.a.r - sel.b.r) + 1) * (Math.abs(sel.a.c - sel.b.c) + 1) : 0
+
+  function applyCellPatch(patch: Partial<TableData['rows'][number]['cells'][number]>) {
+    if (hasMultiSelection && sel) {
+      setTable(updateCellsInRange(table, sel.a, sel.b, patch))
+    } else if (activeCell) {
+      setTable(updateCell(table, activeCell.r, activeCell.c, patch))
+    }
+  }
+
+  function selectionCells(): CellPos[] {
+    if (hasMultiSelection && sel) {
+      const r1 = Math.min(sel.a.r, sel.b.r)
+      const r2 = Math.max(sel.a.r, sel.b.r)
+      const c1 = Math.min(sel.a.c, sel.b.c)
+      const c2 = Math.max(sel.a.c, sel.b.c)
+      const list: CellPos[] = []
+      for (let r = r1; r <= r2; r++) {
+        for (let c = c1; c <= c2; c++) {
+          if (!table.rows[r].cells[c].merged) list.push({ r, c })
+        }
+      }
+      return list
+    }
+    return activeCell ? [activeCell] : []
+  }
+
+  /** Toggles a boolean cell flag across the whole selection: turns it on for everyone
+   *  unless every selected cell already has it on, in which case it turns it off. This
+   *  avoids the anchor cell (which can be a header, already bold) deciding the outcome. */
+  function toggleBoolFlag(flag: 'bold' | 'italic' | 'underline') {
+    const cells = selectionCells()
+    if (!cells.length) return
+    const allOn = cells.every(({ r, c }) => table.rows[r].cells[c][flag])
+    applyCellPatch({ [flag]: !allOn })
+  }
+
+  function selectAll() {
+    const full = selectAllCells(table)
+    setSel(full)
+    setActiveCell(full.a)
+    setFormulaDraft('')
+  }
 
   return (
     <div className="my-2">
@@ -121,6 +167,37 @@ export default function TableBlock({ element, readOnly, onChange }: TableBlockPr
         <div className="no-print flex flex-wrap items-center gap-2 mb-2 bg-white border border-slate-200 rounded-lg px-2 py-1.5 text-xs">
           <button className="tbl-btn" onClick={() => setTable(addRow(table, table.rows.length))}>+ पंक्ति</button>
           <button className="tbl-btn" onClick={() => setTable(addColumn(table, table.columns.length))}>+ कॉलम</button>
+          <button className="tbl-btn" onClick={selectAll}>सभी सेल चुनें</button>
+          {activeCell && (
+            <>
+              <label className="tbl-btn flex items-center gap-1">
+                पंक्ति ऊंचाई
+                <input
+                  type="number"
+                  className="w-14 border-none outline-none"
+                  min={0}
+                  placeholder="auto"
+                  value={table.rows[activeCell.r].heightPx ?? ''}
+                  onChange={(e) =>
+                    setTable(setRowHeight(table, activeCell.r, e.target.value ? Number(e.target.value) : undefined))
+                  }
+                />
+                px
+              </label>
+              <label className="tbl-btn flex items-center gap-1">
+                कॉलम चौड़ाई
+                <input
+                  type="number"
+                  className="w-14 border-none outline-none"
+                  min={4}
+                  max={100}
+                  value={Math.round(table.columns[activeCell.c].widthPct * 10) / 10}
+                  onChange={(e) => setTable(setColumnWidth(table, activeCell.c, Number(e.target.value) || 4))}
+                />
+                %
+              </label>
+            </>
+          )}
           {activeCell && (
             <>
               <button className="tbl-btn" onClick={() => setTable(addRow(table, activeCell.r))}>ऊपर पंक्ति जोड़ें</button>
@@ -208,7 +285,7 @@ export default function TableBlock({ element, readOnly, onChange }: TableBlockPr
         </colgroup>
         <tbody>
           {table.rows.map((row, r) => (
-            <tr key={row.id}>
+            <tr key={row.id} style={row.heightPx ? { height: row.heightPx } : undefined}>
               {table.autoSerial && (
                 <td
                   className={table.borders !== 'none' ? 'border border-slate-800 text-center align-middle' : 'text-center align-middle'}
@@ -272,15 +349,17 @@ export default function TableBlock({ element, readOnly, onChange }: TableBlockPr
         </tbody>
       </table>
       {!readOnly && activeCell && (
-        <div className="no-print flex items-center gap-2 mt-1 text-xs bg-white border border-slate-200 rounded px-2 py-1">
-          <span>चयनित सेल फॉर्मेट:</span>
-          <button className="tbl-btn" onClick={() => setTable(updateCell(table, activeCell.r, activeCell.c, { bold: !table.rows[activeCell.r].cells[activeCell.c].bold }))}>B</button>
-          <button className="tbl-btn italic" onClick={() => setTable(updateCell(table, activeCell.r, activeCell.c, { italic: !table.rows[activeCell.r].cells[activeCell.c].italic }))}>I</button>
-          <button className="tbl-btn underline" onClick={() => setTable(updateCell(table, activeCell.r, activeCell.c, { underline: !table.rows[activeCell.r].cells[activeCell.c].underline }))}>U</button>
+        <div className="no-print flex flex-wrap items-center gap-2 mt-1 text-xs bg-white border border-slate-200 rounded px-2 py-1">
+          <span>
+            {hasMultiSelection ? `चयनित ${selectedCellCount} सेल फॉर्मेट:` : 'चयनित सेल फॉर्मेट:'}
+          </span>
+          <button className="tbl-btn" onClick={() => toggleBoolFlag('bold')}>B</button>
+          <button className="tbl-btn italic" onClick={() => toggleBoolFlag('italic')}>I</button>
+          <button className="tbl-btn underline" onClick={() => toggleBoolFlag('underline')}>U</button>
           <select
             className="tbl-btn"
             value={table.rows[activeCell.r].cells[activeCell.c].align}
-            onChange={(e) => setTable(updateCell(table, activeCell.r, activeCell.c, { align: e.target.value as never }))}
+            onChange={(e) => applyCellPatch({ align: e.target.value as never })}
           >
             <option value="left">बाएं</option>
             <option value="center">केंद्र</option>
@@ -289,7 +368,7 @@ export default function TableBlock({ element, readOnly, onChange }: TableBlockPr
           <select
             className="tbl-btn"
             value={table.rows[activeCell.r].cells[activeCell.c].valign}
-            onChange={(e) => setTable(updateCell(table, activeCell.r, activeCell.c, { valign: e.target.value as never }))}
+            onChange={(e) => applyCellPatch({ valign: e.target.value as never })}
           >
             <option value="top">ऊपर</option>
             <option value="middle">मध्य</option>
@@ -299,13 +378,13 @@ export default function TableBlock({ element, readOnly, onChange }: TableBlockPr
             type="color"
             className="w-7 h-6 border rounded"
             value={table.rows[activeCell.r].cells[activeCell.c].bg || '#ffffff'}
-            onChange={(e) => setTable(updateCell(table, activeCell.r, activeCell.c, { bg: e.target.value }))}
+            onChange={(e) => applyCellPatch({ bg: e.target.value })}
           />
           <input
             type="number"
             className="tbl-btn w-14"
             value={table.rows[activeCell.r].cells[activeCell.c].fontSize}
-            onChange={(e) => setTable(updateCell(table, activeCell.r, activeCell.c, { fontSize: Number(e.target.value) }))}
+            onChange={(e) => applyCellPatch({ fontSize: Number(e.target.value) })}
           />
         </div>
       )}

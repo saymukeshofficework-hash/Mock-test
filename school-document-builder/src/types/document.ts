@@ -48,6 +48,8 @@ export interface StampElement extends BaseElement {
   src: string
   widthPct: number
   align: Align
+  /** Fine vertical nudge (px) to place the seal exactly where it's needed, e.g. overlapping a signature. */
+  offsetTopPx: number
 }
 
 export interface KeyValueElement extends BaseElement {
@@ -126,6 +128,7 @@ export interface TableRow {
   cells: TableCell[]
   isHeader: boolean
   isTotalRow: boolean
+  heightPx?: number
 }
 
 export interface TableData {

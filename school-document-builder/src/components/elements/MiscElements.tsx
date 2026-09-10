@@ -95,7 +95,11 @@ export function StampBlock({
   return (
     <div style={{ textAlign: element.align }}>
       {element.src ? (
-        <img src={element.src} alt="मुहर" style={{ width: `${element.widthPct}%`, display: 'inline-block' }} />
+        <img
+          src={element.src}
+          alt="मुहर"
+          style={{ width: `${element.widthPct}%`, display: 'inline-block', marginTop: element.offsetTopPx ?? 0 }}
+        />
       ) : (
         !readOnly && (
           <div className="border-2 border-dashed border-slate-300 rounded p-4 text-center text-slate-400 text-xs w-40 mx-auto">
@@ -104,7 +108,7 @@ export function StampBlock({
         )
       )}
       {!readOnly && (
-        <div className="no-print mt-1 flex items-center gap-2 justify-center text-xs">
+        <div className="no-print mt-1 flex flex-wrap items-center gap-3 justify-center text-xs">
           <button className="px-2 py-1 border rounded hover:bg-slate-50" onClick={() => inputRef.current?.click()}>
             मुहर अपलोड करें
           </button>
@@ -118,6 +122,53 @@ export function StampBlock({
               if (file) onChange({ src: await fileToDataUrl(file) })
             }}
           />
+          <div className="flex items-center border rounded overflow-hidden">
+            <button
+              className={`px-2 py-1 ${element.align === 'left' ? 'bg-brand-600 text-white' : 'hover:bg-slate-50'}`}
+              onClick={() => onChange({ align: 'left' })}
+            >
+              बाएं
+            </button>
+            <button
+              className={`px-2 py-1 border-l ${element.align === 'center' ? 'bg-brand-600 text-white' : 'hover:bg-slate-50'}`}
+              onClick={() => onChange({ align: 'center' })}
+            >
+              मध्य
+            </button>
+            <button
+              className={`px-2 py-1 border-l ${element.align === 'right' ? 'bg-brand-600 text-white' : 'hover:bg-slate-50'}`}
+              onClick={() => onChange({ align: 'right' })}
+            >
+              दाएं
+            </button>
+          </div>
+          <label className="flex items-center gap-1">
+            आकार
+            <input
+              type="range"
+              min={10}
+              max={60}
+              value={element.widthPct}
+              onChange={(e) => onChange({ widthPct: Number(e.target.value) })}
+              className="align-middle"
+            />
+          </label>
+          <label className="flex items-center gap-1">
+            स्थान (ऊपर-नीचे)
+            <input
+              type="range"
+              min={-60}
+              max={60}
+              value={element.offsetTopPx ?? 0}
+              onChange={(e) => onChange({ offsetTopPx: Number(e.target.value) })}
+              className="align-middle"
+            />
+          </label>
+          {(element.offsetTopPx ?? 0) !== 0 && (
+            <button className="text-brand-600 hover:underline" onClick={() => onChange({ offsetTopPx: 0 })}>
+              रीसेट
+            </button>
+          )}
         </div>
       )}
     </div>

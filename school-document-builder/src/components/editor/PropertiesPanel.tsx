@@ -78,9 +78,26 @@ function ElementProps({ element, onChange }: { element: DocumentElement; onChang
       )
     case 'stamp':
       return (
-        <div>
-          <span className={LABEL}>चौड़ाई (%)</span>
-          <input type="range" min={10} max={60} className="w-full" value={element.widthPct} onChange={(e) => onChange({ widthPct: Number(e.target.value) } as never)} />
+        <div className="space-y-3">
+          <div>
+            <span className={LABEL}>स्थान (Placement)</span>
+            <AlignPicker value={element.align} onChange={(align) => onChange({ align } as never)} />
+          </div>
+          <div>
+            <span className={LABEL}>आकार (%)</span>
+            <input type="range" min={10} max={60} className="w-full" value={element.widthPct} onChange={(e) => onChange({ widthPct: Number(e.target.value) } as never)} />
+          </div>
+          <div>
+            <span className={LABEL}>ऊर्ध्वाधर स्थिति (px)</span>
+            <input
+              type="range"
+              min={-60}
+              max={60}
+              className="w-full"
+              value={element.offsetTopPx ?? 0}
+              onChange={(e) => onChange({ offsetTopPx: Number(e.target.value) } as never)}
+            />
+          </div>
         </div>
       )
     case 'signature':
@@ -224,11 +241,9 @@ export default function PropertiesPanel({ doc, selectedElement, onDocChange, onE
             <input type="checkbox" checked={doc.header.showGovtLogo} onChange={(e) => onDocChange({ header: { ...doc.header, showGovtLogo: e.target.checked } })} />
             शासकीय चिन्ह
           </label>
-          <textarea
-            className={FIELD + ' min-h-[90px]'}
-            value={doc.header.html}
-            onChange={(e) => onDocChange({ header: { ...doc.header, html: e.target.value } })}
-          />
+          <p className="text-xs text-slate-400">
+            हेडर टेक्स्ट को सीधे पेज पर क्लिक करके संपादित करें — बोल्ड, फॉन्ट, आकार आदि विकल्प वहाँ टूलबार में उपलब्ध हैं।
+          </p>
         </div>
       </section>
 

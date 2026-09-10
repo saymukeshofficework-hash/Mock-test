@@ -85,7 +85,7 @@ export function newSignature(): SignatureElement {
 }
 
 export function newStamp(): StampElement {
-  return { id: uid('el'), type: 'stamp', src: '', widthPct: 20, align: 'left' }
+  return { id: uid('el'), type: 'stamp', src: '', widthPct: 20, align: 'left', offsetTopPx: 0 }
 }
 
 export function newKeyValue(label = 'क्रमांक', value = ''): KeyValueElement {

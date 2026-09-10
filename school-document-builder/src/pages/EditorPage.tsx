@@ -152,6 +152,7 @@ export default function EditorPage() {
             selectedId={selectedId}
             onSelect={setSelectedId}
             onElementsChange={updateElements}
+            onHeaderHtmlChange={(html) => setDoc((d) => ({ ...d, header: { ...d.header, html } }))}
             variableContext={variableContext}
           />
         </main>

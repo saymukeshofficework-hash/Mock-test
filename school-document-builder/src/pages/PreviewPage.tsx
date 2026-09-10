@@ -60,6 +60,7 @@ export default function PreviewPage() {
         selectedId={null}
         onSelect={() => {}}
         onElementsChange={() => {}}
+        onHeaderHtmlChange={() => {}}
         variableContext={variableContext}
       />
     </div>

@@ -52,6 +52,11 @@ export function setColumnWidth(table: TableData, index: number, widthPct: number
   return { ...table, columns }
 }
 
+export function setRowHeight(table: TableData, index: number, heightPx: number | undefined): TableData {
+  const rows = table.rows.map((row, ri) => (ri === index ? { ...row, heightPx } : row))
+  return { ...table, rows }
+}
+
 export function updateCell(table: TableData, r: number, c: number, patch: Partial<TableData['rows'][number]['cells'][number]>): TableData {
   const rows = table.rows.map((row, ri) => {
     if (ri !== r) return row
@@ -59,6 +64,33 @@ export function updateCell(table: TableData, r: number, c: number, patch: Partia
     return { ...row, cells }
   })
   return { ...table, rows }
+}
+
+/** Applies the same patch to every non-merged cell inside the rectangular selection. */
+export function updateCellsInRange(
+  table: TableData,
+  a: CellPos,
+  b: CellPos,
+  patch: Partial<TableData['rows'][number]['cells'][number]>,
+): TableData {
+  const r1 = Math.min(a.r, b.r)
+  const r2 = Math.max(a.r, b.r)
+  const c1 = Math.min(a.c, b.c)
+  const c2 = Math.max(a.c, b.c)
+  const rows = table.rows.map((row, ri) => {
+    if (ri < r1 || ri > r2) return row
+    const cells = row.cells.map((cell, ci) => {
+      if (ci < c1 || ci > c2 || cell.merged) return cell
+      return { ...cell, ...patch }
+    })
+    return { ...row, cells }
+  })
+  return { ...table, rows }
+}
+
+/** Selects every cell of the table (top-left to bottom-right), for "select all" + bulk formatting. */
+export function selectAllCells(table: TableData): { a: CellPos; b: CellPos } {
+  return { a: { r: 0, c: 0 }, b: { r: table.rows.length - 1, c: table.columns.length - 1 } }
 }
 
 export function toggleRowFlag(table: TableData, r: number, flag: 'isHeader' | 'isTotalRow'): TableData {
