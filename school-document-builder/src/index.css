@@ -73,10 +73,33 @@ html, body {
     background: transparent !important;
     box-shadow: none !important;
   }
+
+  /* Never let the on-screen "shrink to fit small viewports" scaling affect
+     the printed/exported page — always print at true physical size. */
+  .scale-fit-box {
+    width: auto !important;
+    height: auto !important;
+  }
+  .scale-fit-inner {
+    transform: none !important;
+    position: static !important;
+  }
 }
 
 @page {
   margin: 0;
+}
+
+/* Also neutralize the mobile "shrink to fit" scaling while the PDF-download
+   button is rasterizing the page, so the export is always full physical size
+   regardless of the current viewport width. */
+body.pdf-exporting .scale-fit-box {
+  width: auto !important;
+  height: auto !important;
+}
+body.pdf-exporting .scale-fit-inner {
+  transform: none !important;
+  position: static !important;
 }
 
 .scrollbar-thin::-webkit-scrollbar { width: 8px; height: 8px; }

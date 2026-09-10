@@ -168,7 +168,7 @@ export function newBlankDocument(name = 'नया दस्तावेज़',
     border: 'none',
     header: {
       visible: true,
-      html: 'कार्यालय<br/>प्रधानाध्यापक<br/><strong>{{school_name}}</strong><br/>शिक्षा केंद्र - {{education_center}}, जिला - {{district}} ({{state}})',
+      html: 'कार्यालय प्रधानाध्यापक, <strong>{{school_name}}</strong>, शिक्षा केंद्र - {{education_center}}, जिला - {{district}} ({{state}})',
       showSchoolLogo: false,
       showGovtLogo: false,
       showOnEveryPage: true,

@@ -4,6 +4,7 @@ import ElementRenderer, { cloneElementWithNewId } from './ElementRenderer'
 import { resolveVariables } from '../../utils/variables'
 import { resolveElementForDisplay } from '../../utils/resolveElement'
 import { getSchoolSettings } from '../../storage/schoolSettingsRepo'
+import ScaleToFit from './ScaleToFit'
 
 interface DocumentCanvasProps {
   doc: SchoolDocument
@@ -75,57 +76,58 @@ export default function DocumentCanvas({
   return (
     <div className="print-root flex flex-col items-center gap-8 py-8" onClick={() => onSelect(null)}>
       {pages.map((pageElements, pageIdx) => (
-        <div
-          key={pageIdx}
-          className={`page-sheet ${BORDER_CLASS[doc.border]}`}
-          style={{
-            width: `${dims.w}mm`,
-            minHeight: `${dims.h}mm`,
-            paddingTop: `${doc.margins.top}mm`,
-            paddingBottom: `${doc.margins.bottom}mm`,
-            paddingLeft: `${doc.margins.left}mm`,
-            paddingRight: `${doc.margins.right}mm`,
-          }}
-          onClick={(e) => e.stopPropagation()}
-        >
-          {doc.header.visible && (pageIdx === 0 || doc.header.showOnEveryPage) && (
-            <div className="flex items-start gap-3 border-b-2 border-black pb-2 mb-4">
-              {doc.header.showSchoolLogo && settings.logo_url && (
-                <img src={settings.logo_url} alt="लोगो" className="w-14 h-14 object-contain" />
-              )}
-              <div
-                className="flex-1 text-center leading-snug font-devanagari"
-                dangerouslySetInnerHTML={{ __html: resolveVariables(doc.header.html, variableContext) }}
-              />
-              {doc.header.showGovtLogo && settings.govt_logo_url && (
-                <img src={settings.govt_logo_url} alt="शासकीय चिन्ह" className="w-14 h-14 object-contain" />
-              )}
-            </div>
-          )}
-          <div className="space-y-1">
-            {pageElements.map(({ el, index }) => (
-              <ElementRenderer
-                key={el.id}
-                element={readOnly ? resolveElementForDisplay(el, variableContext) : el}
-                index={index}
-                total={doc.elements.length}
-                readOnly={readOnly}
-                selected={selectedId === el.id}
-                onSelect={() => onSelect(el.id)}
-                onChange={(p) => patch(index, p)}
-                onDelete={() => remove(index)}
-                onMoveUp={() => move(index, -1)}
-                onMoveDown={() => move(index, 1)}
-                onDuplicate={() => duplicate(index)}
-              />
-            ))}
-            {pageElements.length === 0 && !readOnly && (
-              <div className="text-center text-slate-300 text-sm py-16 border-2 border-dashed border-slate-200 rounded">
-                बाएं मेनू से तत्व जोड़ें
+        <ScaleToFit key={pageIdx}>
+          <div
+            className={`page-sheet ${BORDER_CLASS[doc.border]}`}
+            style={{
+              width: `${dims.w}mm`,
+              minHeight: `${dims.h}mm`,
+              paddingTop: `${doc.margins.top}mm`,
+              paddingBottom: `${doc.margins.bottom}mm`,
+              paddingLeft: `${doc.margins.left}mm`,
+              paddingRight: `${doc.margins.right}mm`,
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            {doc.header.visible && (pageIdx === 0 || doc.header.showOnEveryPage) && (
+              <div className="flex items-start gap-3 border-b-2 border-black pb-2 mb-4">
+                {doc.header.showSchoolLogo && settings.logo_url && (
+                  <img src={settings.logo_url} alt="लोगो" className="w-14 h-14 object-contain" />
+                )}
+                <div
+                  className="flex-1 text-center leading-snug font-devanagari"
+                  dangerouslySetInnerHTML={{ __html: resolveVariables(doc.header.html, variableContext) }}
+                />
+                {doc.header.showGovtLogo && settings.govt_logo_url && (
+                  <img src={settings.govt_logo_url} alt="शासकीय चिन्ह" className="w-14 h-14 object-contain" />
+                )}
               </div>
             )}
+            <div className="space-y-1">
+              {pageElements.map(({ el, index }) => (
+                <ElementRenderer
+                  key={el.id}
+                  element={readOnly ? resolveElementForDisplay(el, variableContext) : el}
+                  index={index}
+                  total={doc.elements.length}
+                  readOnly={readOnly}
+                  selected={selectedId === el.id}
+                  onSelect={() => onSelect(el.id)}
+                  onChange={(p) => patch(index, p)}
+                  onDelete={() => remove(index)}
+                  onMoveUp={() => move(index, -1)}
+                  onMoveDown={() => move(index, 1)}
+                  onDuplicate={() => duplicate(index)}
+                />
+              ))}
+              {pageElements.length === 0 && !readOnly && (
+                <div className="text-center text-slate-300 text-sm py-16 border-2 border-dashed border-slate-200 rounded">
+                  बाएं मेनू से तत्व जोड़ें
+                </div>
+              )}
+            </div>
           </div>
-        </div>
+        </ScaleToFit>
       ))}
     </div>
   )
