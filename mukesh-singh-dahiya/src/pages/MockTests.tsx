@@ -9,14 +9,15 @@ export default function MockTests() {
     <>
       <SEO
         title="English Grammar Mock Tests"
-        description="5 timed English Grammar mock tests with a question palette and instant results — fill in the blanks and do-as-directed sentence transformations."
+        description="10 timed English Grammar mock tests with a question palette and instant results — fill in the blanks, do-as-directed transformations, determiners, prepositions, modals, conjunctions, tenses and active/passive voice."
       />
       <Breadcrumbs items={[{ label: 'Home', to: '/' }, { label: 'Mock Tests' }]} />
       <div className="container-page py-14 sm:py-16">
         <h1 className="font-serif text-3xl font-bold text-navy-900 dark:text-white sm:text-4xl">English Grammar Mock Tests</h1>
         <p className="mt-2 max-w-2xl text-slate-600 dark:text-slate-300">
-          5 timed mock tests covering 119 grammar questions — fill in the blanks and do-as-directed sentence transformations — each with a
-          question palette, timer and a detailed results review.
+          10 timed mock tests covering 194 grammar questions — fill in the blanks, do-as-directed transformations, determiners,
+          prepositions, modals, conjunctions, tenses and active/passive voice — each with a question palette, timer and a detailed
+          results review.
         </p>
 
         <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
