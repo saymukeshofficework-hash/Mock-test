@@ -71,7 +71,11 @@
   .result-card.incorrect .num{color:var(--red);}
   .result-card.unattempted .num{color:var(--grey);}
   .result-card.score .num{color:var(--blue);}
-  .sec-breakdown{width:100%;border-collapse:collapse;margin-top:10px;font-size:13px;}
+  /* The 5-column table doesn't fit narrow phone widths without wrapping section
+     names into unreadable slivers, so its own min-content width stays wider than
+     the screen — this wrapper scrolls just the table instead of the whole page. */
+  .sec-breakdown-wrap{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;margin-top:10px;}
+  .sec-breakdown{width:100%;border-collapse:collapse;font-size:13px;}
   .sec-breakdown th,.sec-breakdown td{border:1px solid var(--border);padding:8px;text-align:center;}
   .sec-breakdown th{background:var(--lightblue);}
 
