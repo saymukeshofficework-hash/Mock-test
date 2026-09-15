@@ -564,6 +564,63 @@ const templates: BuiltinTemplate[] = [
     },
   },
   {
+    id: 'cwsn-identification',
+    name: 'CWSN पहचान प्रपत्र (2026-27)',
+    description: 'दिव्यांग बालक-बालिका चिन्हांकन प्रपत्र, कक्षा 1 से 8, शासकीय/निजी विद्यालय एवं शाला त्यागी बच्चे',
+    docType: 'cwsn-identification',
+    build: () => {
+      const d = base('CWSN पहचान प्रपत्र', 'cwsn-identification')
+      d.orientation = 'landscape'
+      d.pageSize = 'Legal'
+      d.margins = { top: 10, bottom: 10, left: 8, right: 8 }
+      // [label, relative width weight] — longer fields (address, bank details) get more
+      // room than short ones (class, DOB) instead of squeezing all 22 columns equally.
+      const headerSpecs: [string, number][] = [
+        ['JSK', 4],
+        ['Name of school', 8],
+        ['Udise Code', 5],
+        ['Name of CWSN', 7],
+        ['Samagra ID number', 6],
+        ['Father Name', 6],
+        ['Mother Name', 6],
+        ['Mobile Number', 5],
+        ['Address', 9],
+        ['Name of Bank & Branch', 8],
+        ['Bank Account Number', 6],
+        ['Bank IFSC Code', 5],
+        ['Gendar', 3],
+        ['Class', 3],
+        ['Aadhar Number of Student', 6],
+        ['DOB', 4],
+        ['Type of Disability', 6],
+        ['Disability %', 4],
+        ['Disability carificate Yes/No', 6],
+        ['Categary (SC, ST, OBC, Gen.)', 6],
+        ['Attach Disibality Certificat Yes/No', 7],
+        ['Attach udi ID card Yes/No', 6],
+      ]
+      const headers = headerSpecs.map(([label]) => label)
+      const el = newTableElement(1, 1)
+      el.table = simpleTable(
+        headers,
+        Array.from({ length: 25 }, () => headers.map(() => '')),
+      )
+      el.table.autoSerial = true
+      el.table.rows[0].cells.forEach((cell) => {
+        cell.fontSize = 10
+      })
+      const totalWeight = headerSpecs.reduce((sum, [, w]) => sum + w, 0)
+      el.table.columns.forEach((col, i) => {
+        col.widthPct = (headerSpecs[i][1] / totalWeight) * 100
+      })
+      d.elements = [
+        newHeading('CWSN Identification Govt./Pvt. School and Out Off School Class 1 to 8 (न्यूनतम 10 प्रतिशत दिव्यांगता तक के बच्चें शामिल होंगे) 2026-27', 2),
+        el,
+      ]
+      return d
+    },
+  },
+  {
     id: 'blank',
     name: 'कस्टम खाली दस्तावेज',
     description: 'शुरुआत से नया दस्तावेज़ बनाएं',
