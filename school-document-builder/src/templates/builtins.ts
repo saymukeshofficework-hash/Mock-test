@@ -571,36 +571,48 @@ const templates: BuiltinTemplate[] = [
     build: () => {
       const d = base('CWSN पहचान प्रपत्र', 'cwsn-identification')
       d.orientation = 'landscape'
-      const headers = [
-        'JSK',
-        'Name of school',
-        'Udise Code',
-        'Name of CWSN',
-        'Samagra ID number',
-        'Father Name',
-        'Mother Name',
-        'Mobile Number',
-        'Address',
-        'Name of Bank & Branch',
-        'Bank Account Number',
-        'Bank IFSC Code',
-        'Gendar',
-        'Class',
-        'Aadhar Number of Student',
-        'DOB',
-        'Type of Disability',
-        'Disability %',
-        'Disability carificate Yes/No',
-        'Categary (SC, ST, OBC, Gen.)',
-        'Attach Disibality Certificat Yes/No',
-        'Attach udi ID card Yes/No',
+      d.pageSize = 'Legal'
+      d.margins = { top: 10, bottom: 10, left: 8, right: 8 }
+      // [label, relative width weight] — longer fields (address, bank details) get more
+      // room than short ones (class, DOB) instead of squeezing all 22 columns equally.
+      const headerSpecs: [string, number][] = [
+        ['JSK', 4],
+        ['Name of school', 8],
+        ['Udise Code', 5],
+        ['Name of CWSN', 7],
+        ['Samagra ID number', 6],
+        ['Father Name', 6],
+        ['Mother Name', 6],
+        ['Mobile Number', 5],
+        ['Address', 9],
+        ['Name of Bank & Branch', 8],
+        ['Bank Account Number', 6],
+        ['Bank IFSC Code', 5],
+        ['Gendar', 3],
+        ['Class', 3],
+        ['Aadhar Number of Student', 6],
+        ['DOB', 4],
+        ['Type of Disability', 6],
+        ['Disability %', 4],
+        ['Disability carificate Yes/No', 6],
+        ['Categary (SC, ST, OBC, Gen.)', 6],
+        ['Attach Disibality Certificat Yes/No', 7],
+        ['Attach udi ID card Yes/No', 6],
       ]
+      const headers = headerSpecs.map(([label]) => label)
       const el = newTableElement(1, 1)
       el.table = simpleTable(
         headers,
         Array.from({ length: 25 }, () => headers.map(() => '')),
       )
       el.table.autoSerial = true
+      el.table.rows[0].cells.forEach((cell) => {
+        cell.fontSize = 10
+      })
+      const totalWeight = headerSpecs.reduce((sum, [, w]) => sum + w, 0)
+      el.table.columns.forEach((col, i) => {
+        col.widthPct = (headerSpecs[i][1] / totalWeight) * 100
+      })
       d.elements = [
         newHeading('CWSN Identification Govt./Pvt. School and Out Off School Class 1 to 8 (न्यूनतम 10 प्रतिशत दिव्यांगता तक के बच्चें शामिल होंगे) 2026-27', 2),
         el,
