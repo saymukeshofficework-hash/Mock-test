@@ -564,6 +564,51 @@ const templates: BuiltinTemplate[] = [
     },
   },
   {
+    id: 'cwsn-identification',
+    name: 'CWSN पहचान प्रपत्र (2026-27)',
+    description: 'दिव्यांग बालक-बालिका चिन्हांकन प्रपत्र, कक्षा 1 से 8, शासकीय/निजी विद्यालय एवं शाला त्यागी बच्चे',
+    docType: 'cwsn-identification',
+    build: () => {
+      const d = base('CWSN पहचान प्रपत्र', 'cwsn-identification')
+      d.orientation = 'landscape'
+      const headers = [
+        'JSK',
+        'Name of school',
+        'Udise Code',
+        'Name of CWSN',
+        'Samagra ID number',
+        'Father Name',
+        'Mother Name',
+        'Mobile Number',
+        'Address',
+        'Name of Bank & Branch',
+        'Bank Account Number',
+        'Bank IFSC Code',
+        'Gendar',
+        'Class',
+        'Aadhar Number of Student',
+        'DOB',
+        'Type of Disability',
+        'Disability %',
+        'Disability carificate Yes/No',
+        'Categary (SC, ST, OBC, Gen.)',
+        'Attach Disibality Certificat Yes/No',
+        'Attach udi ID card Yes/No',
+      ]
+      const el = newTableElement(1, 1)
+      el.table = simpleTable(
+        headers,
+        Array.from({ length: 25 }, () => headers.map(() => '')),
+      )
+      el.table.autoSerial = true
+      d.elements = [
+        newHeading('CWSN Identification Govt./Pvt. School and Out Off School Class 1 to 8 (न्यूनतम 10 प्रतिशत दिव्यांगता तक के बच्चें शामिल होंगे) 2026-27', 2),
+        el,
+      ]
+      return d
+    },
+  },
+  {
     id: 'blank',
     name: 'कस्टम खाली दस्तावेज',
     description: 'शुरुआत से नया दस्तावेज़ बनाएं',
