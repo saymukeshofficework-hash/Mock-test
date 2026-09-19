@@ -34,12 +34,18 @@ create table if not exists profiles (
 );
 
 create table if not exists test_content (
-  test_id text primary key,        -- 'test01' .. 'test20'
+  test_id text primary key,        -- 'test01'..'test20', or '<examId>-<paperId>-<subjectId>-NN'
+                                    -- for UPTET/UP TGT/UP PGT/CTET (see js/exam-catalog.js)
   title text not null,
   question_count integer not null,
   duration_minutes integer not null,
-  questions jsonb not null         -- the same `sections` array the exam engine already expects
+  questions jsonb not null,        -- the same `sections` array the exam engine already expects
+  is_free boolean not null default false  -- readable without login/purchase, like test01/test02
 );
+
+-- Existing installs: add the column and backfill the two original free tests.
+alter table test_content add column if not exists is_free boolean not null default false;
+update test_content set is_free = true where test_id in ('test01', 'test02');
 
 alter table profiles enable row level security;
 alter table test_content enable row level security;
@@ -50,14 +56,16 @@ create policy "profiles_select_own"
   on profiles for select
   using (id = auth.uid());
 
--- test01 and test02 are free and readable by anyone (no login required) to match the
--- "try 2 free tests" flow on the home page. Every other test requires a logged-in,
--- active student whose purchased_tests includes that test.
+-- Rows with is_free = true (test01/test02 today; mark any future test the same way)
+-- are readable by anyone, no login required, to match the "try free tests" flow on
+-- the home page. Every other test requires a logged-in, active student whose
+-- purchased_tests includes that test. This check is exam-agnostic: it works the same
+-- for "test01" as for a UPTET/CTET/UP TGT/UP PGT test_id.
 drop policy if exists "test_content_select_purchased" on test_content;
 create policy "test_content_select_purchased"
   on test_content for select
   using (
-    test_content.test_id in ('test01', 'test02')
+    test_content.is_free
     or exists (
       select 1 from profiles p
       where p.id = auth.uid()

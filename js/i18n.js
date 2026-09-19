@@ -44,6 +44,17 @@ const I18N_DICT = {
   },
   free_unlock_btn: { hi: "18 टेस्ट अनलॉक करें — ₹199", en: "Unlock All 18 Tests — ₹199" },
 
+  exams_h2: { hi: "शिक्षक परीक्षाएं", en: "Teacher Exams" },
+  exams_lead: {
+    hi: "टीईटी टेस्ट हब अब एक पूर्ण शिक्षक-परीक्षा तैयारी मंच बन रहा है। अब तक जो उपलब्ध है उसे देखें।",
+    en: "TET Test Hub is expanding into a full teacher-exam prep platform. Explore what's here so far.",
+  },
+  exams_uptet_desc: { hi: "पेपर 1 और पेपर 2, विषयवार", en: "Paper 1 & Paper 2, by subject" },
+  exams_tgt_desc: { hi: "कक्षा IX-X के लिए विषयवार टेस्ट", en: "Subject-wise tests for Classes IX-X" },
+  exams_pgt_desc: { hi: "कक्षा XI-XII के लिए विषयवार टेस्ट", en: "Subject-wise tests for Classes XI-XII" },
+  exams_ctet_desc: { hi: "पेपर 1 और पेपर 2, साथ ही पूर्ण मॉक टेस्ट", en: "Paper 1 & Paper 2, plus full mock tests" },
+  exams_more_link: { hi: "और यूपी शिक्षक परीक्षाएं →", en: "More UP Teacher Exams →" },
+
   preview_h2: { hi: "शुरू करने से पहले टेस्ट स्क्रीन देखें", en: "See the Test Screen Before You Start" },
   preview_lead: {
     hi: "टेस्ट शुरू होते ही आप ठीक यही देखेंगे — लाइव काउंटडाउन टाइमर, रंग-कोडित प्रश्न पैलेट, और हर प्रश्न पर एक-क्लिक अंग्रेज़ी/हिंदी टॉगल।",
