@@ -1,0 +1,206 @@
+{
+  "_about": "Order of chapters in the final PDF. Export each Google Doc (File → Download → PDF) into content/source/parts/ using the 'file' name, then run: cd bridge-course && npm run product:inspect -- --merge. Doc titles are from the Drive folder 'bridge course notes by Rakesh pandey' (inspected 2026-09-25). Paper numbers marked '?' are not printed in the notes themselves; the others are.",
+  "notes": [
+    "Pedagogy of Language-II has TWO docs titled 'Unit 11 - Other Dimensions of Assessment'. Use the one last modified 25 Sep 2026 17:32; the other was never edited after creation. Confirm and delete the duplicate in Drive.",
+    "Pedagogy of The World Around Us has no Unit 3 or Unit 4 docs in the folder. Confirm whether they are intentionally omitted before selling.",
+    "Curriculum, Pedagogy and Assessment has only Unit 1. Confirm this is complete."
+  ],
+  "papers": [
+    {
+      "paper": "1",
+      "driveFolder": "Child Development and Educational Psychology",
+      "chapters": [
+        {
+          "docTitle": "इकाई 1 - बाल्यावस्था को समझना (Bridge Course Notes by Rakesh pandey)",
+          "file": "cdep-01.pdf"
+        },
+        {
+          "docTitle": "इकाई 2 - बाल्यावस्था और समाजीकरण (Bridge Course Notes by Rakesh pandey)",
+          "file": "cdep-02.pdf"
+        },
+        {
+          "docTitle": "इकाई 3 - स्व की भारतीय अवधारणा (Bridge Course Notes by Rakesh pandey)",
+          "file": "cdep-03.pdf"
+        }
+      ]
+    },
+    {
+      "paper": "2?",
+      "driveFolder": "Curriculum, Pedagogy and Assessment",
+      "chapters": [
+        {
+          "docTitle": "इकाई 1 - पाठ्यचर्या (Bridge Course Notes by Rakesh pandey)",
+          "file": "cpa-01.pdf"
+        }
+      ]
+    },
+    {
+      "paper": "3?",
+      "driveFolder": "Pedagogy of Language-I",
+      "chapters": [
+        {
+          "docTitle": "इकाई 1 - भाषा-शिक्षा की विभिन्न नीतियाँ एवं बहुभाषिकता (Bridge Course Notes by Rakesh pandey)",
+          "file": "lang1-01.pdf"
+        },
+        {
+          "docTitle": "इकाई 2 - उदीयमान साक्षरता एवं भाषा संबंधी पाठ्यचर्या-लक्ष्य व सीखने के प्रतिफल (Bridge Course Notes by Rakesh pandey)",
+          "file": "lang1-02.pdf"
+        },
+        {
+          "docTitle": "इकाई 3 - चार ब्लॉक मॉडल एवं मौखिक भाषा-विकास (Bridge Course Notes by Rakesh pandey)",
+          "file": "lang1-03.pdf"
+        },
+        {
+          "docTitle": "इकाई 4 - शब्द-पहचान की विभिन्न रणनीतियाँ (Bridge Course Notes by Rakesh pandey)",
+          "file": "lang1-04.pdf"
+        },
+        {
+          "docTitle": "इकाई 5 - पढ़ना एवं विभिन्न संसाधन (Bridge Course Notes by Rakesh pandey)",
+          "file": "lang1-05.pdf"
+        },
+        {
+          "docTitle": "इकाई 6 - लेखन को समझना और लेखन कौशल का विकास (Bridge Course Notes by Rakesh pandey)",
+          "file": "lang1-06.pdf"
+        },
+        {
+          "docTitle": "इकाई 7 - इकाई-योजना एवं पाठ-योजना का निर्माण (Bridge Course Notes by Rakesh pandey)",
+          "file": "lang1-07.pdf"
+        },
+        {
+          "docTitle": "इकाई 8 - मौखिक भाषा का आकलन : विभिन्न आकलन युक्तियाँ (Bridge Course Notes by Rakesh pandey)",
+          "file": "lang1-08.pdf"
+        },
+        {
+          "docTitle": "इकाई 9 - पठन का आकलन : विभिन्न उपकरण एवं रणनीतियाँ (Bridge Course Notes by Rakesh pandey)",
+          "file": "lang1-09.pdf"
+        },
+        {
+          "docTitle": "इकाई 10 - लेखन का आकलन : विभिन्न उपकरण एवं रणनीतियाँ (Bridge Course Notes by Rakesh pandey)",
+          "file": "lang1-10.pdf"
+        },
+        {
+          "docTitle": "इकाई 11 - आकलन के अन्य पक्ष : 360 डिग्री आकलन एवं स्व-संशोधन (Bridge Course Notes by Rakesh pandey)",
+          "file": "lang1-11.pdf"
+        },
+        {
+          "docTitle": "अध्याय 12 (प्रारंभिक पृष्ठ) - पाठ्यक्रम परिचय एवं संपूर्ण पुनरावृत्ति पत्रक (Bridge Course Notes by Rakesh pandey)",
+          "file": "lang1-12.pdf"
+        }
+      ]
+    },
+    {
+      "paper": "4",
+      "driveFolder": "Pedagogy of Language-II",
+      "chapters": [
+        {
+          "docTitle": "Unit 1 - Language Education: Various Policies and Multilingualism (Bridge Course Notes by Rakesh pandey)",
+          "file": "lang2-01.pdf"
+        },
+        {
+          "docTitle": "Unit 2 - Second Language Acquisition and Curricular Goals (Bridge Course Notes by Rakesh pandey)",
+          "file": "lang2-02.pdf"
+        },
+        {
+          "docTitle": "Unit 3 - Four Block Approach and Oral Language Development (Bridge Course Notes by Rakesh pandey)",
+          "file": "lang2-03.pdf"
+        },
+        {
+          "docTitle": "Unit 4 - Word Recognition: Various Strategies (Bridge Course Notes by Rakesh pandey)",
+          "file": "lang2-04.pdf"
+        },
+        {
+          "docTitle": "Unit 5 - Reading and Various Resources (Bridge Course Notes by Rakesh pandey)",
+          "file": "lang2-05.pdf"
+        },
+        {
+          "docTitle": "Unit 6 - Understanding Writing and Development of Writing Skills (Bridge Course Notes by Rakesh pandey)",
+          "file": "lang2-06.pdf"
+        },
+        {
+          "docTitle": "Unit 7 - Unit Planning and Lesson Planning (Bridge Course Notes by Rakesh pandey)",
+          "file": "lang2-07.pdf"
+        },
+        {
+          "docTitle": "Unit 8 - Assessment of Oral Language: Tools and Strategies (Bridge Course Notes by Rakesh pandey)",
+          "file": "lang2-08.pdf"
+        },
+        {
+          "docTitle": "Unit 9 - Assessment of Reading: Tools and Strategies (Bridge Course Notes by Rakesh pandey)",
+          "file": "lang2-09.pdf"
+        },
+        {
+          "docTitle": "Unit 10 - Assessment of Writing in a Second Language: Various Tools and Strategies (Bridge Course Notes by Rakesh pandey)",
+          "file": "lang2-10.pdf"
+        },
+        {
+          "docTitle": "Unit 11 - Other Dimensions of Assessment (Bridge Course Notes by Rakesh pandey)",
+          "file": "lang2-11.pdf"
+        },
+        {
+          "docTitle": "Chapter 12 - Curriculum: Course Overview and Revision Sheet (Bridge Course Notes by Rakesh pandey)",
+          "file": "lang2-12.pdf"
+        },
+        {
+          "docTitle": "Chapter 13 - Glossary: Key Terms and Quiz (Bridge Course Notes by Rakesh pandey)",
+          "file": "lang2-13.pdf"
+        },
+        {
+          "docTitle": "Chapter 14 - Suggested Reading: Quick Guide (Bridge Course Notes by Rakesh pandey)",
+          "file": "lang2-14.pdf"
+        }
+      ]
+    },
+    {
+      "paper": "5",
+      "driveFolder": "Pedagogy of Mathematics",
+      "chapters": [
+        {
+          "docTitle": "इकाई 1 - गणित की प्रकृति (Bridge Course Notes by Rakesh pandey)",
+          "file": "math-01.pdf"
+        },
+        {
+          "docTitle": "इकाई 2 - बच्चे गणित कैसे सीखते हैं (Bridge Course Notes by Rakesh pandey)",
+          "file": "math-02.pdf"
+        },
+        {
+          "docTitle": "इकाई 3 - गणितीय संचार: आँकड़ों का प्रबंधन एवं स्थानिक चिंतन (Bridge Course Notes by Rakesh pandey)",
+          "file": "math-03.pdf"
+        },
+        {
+          "docTitle": "इकाई 4 - गणित में शिक्षण अधिगम (Bridge Course Notes by Rakesh pandey)",
+          "file": "math-04.pdf"
+        }
+      ]
+    },
+    {
+      "paper": "6",
+      "driveFolder": "Pedagogy of The World Around Us",
+      "chapters": [
+        {
+          "docTitle": "इकाई 1 - हमारे आस-पास की दुनिया (TWAU) का स्वरूप तथा क्षेत्र (Bridge Course Notes by Rakesh pandey)",
+          "file": "twau-01.pdf"
+        },
+        {
+          "docTitle": "इकाई 2 - बच्चों के विचार और वैकल्पिक अवधारणाओं को समझना (Bridge Course Notes by Rakesh pandey)",
+          "file": "twau-02.pdf"
+        },
+        {
+          "docTitle": "इकाई 5 - हमारे आस-पास की दुनिया में अधिगम संसाधन (Bridge Course Notes by Rakesh pandey)",
+          "file": "twau-03.pdf"
+        },
+        {
+          "docTitle": "इकाई 6 - पाठ्यपुस्तक (हमारा अद्भुत संसार) (Bridge Course Notes by Rakesh pandey)",
+          "file": "twau-04.pdf"
+        },
+        {
+          "docTitle": "इकाई 7 - योजना निर्माण (Planning) (Bridge Course Notes by Rakesh pandey)",
+          "file": "twau-05.pdf"
+        },
+        {
+          "docTitle": "इकाई 8 - आकलन (Bridge Course Notes by Rakesh pandey)",
+          "file": "twau-06.pdf"
+        }
+      ]
+    }
+  ]
+}

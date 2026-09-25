@@ -1,0 +1,5 @@
+# Keep the commercial product and all working files out of git.
+*
+!.gitignore
+!README.md
+!manifest.json

@@ -67,3 +67,7 @@ This repository also contains a premium educational platform for **Mukesh Dahiya
 
 This repository also contains a **technology blog** (brand name not finalized — see placeholders in `tech-blog/src/config/site.ts`) covering AI tools, software, automation, productivity, smartphones, gadgets, electronics, and buying guides. Built with Astro as a static, content-first site: articles are Markdown files with validated front matter (`tech-blog/src/content/posts/`), and publishing one is the entire workflow — push a Markdown file, GitHub Actions builds and deploys it, no code changes needed. See [`tech-blog/README.md`](./tech-blog/README.md) and [`tech-blog/docs/SPARK_PUBLISHING_GUIDE.md`](./tech-blog/docs/SPARK_PUBLISHING_GUIDE.md) for details.
 
+
+## Bridge Course Notes store
+
+This repository also contains the **Bridge Course Notes by Rakesh Pandey** store (`bridge-course/`, served at `/bridge-course/`) — a mobile-first landing page selling the notes as a ₹199 PDF, with Razorpay payments verified by Supabase Edge Functions (`supabase/functions/`) and delivery from private Supabase Storage via short-lived signed URLs. Built with React, TypeScript, Tailwind CSS and Vite. See [`docs/BRIDGE_COURSE_IMPLEMENTATION.md`](./docs/BRIDGE_COURSE_IMPLEMENTATION.md) and the setup guides next to it.

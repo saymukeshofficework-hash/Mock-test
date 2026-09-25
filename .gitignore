@@ -8,3 +8,16 @@ supabase/seed_split/
 
 # Python bytecode from skill scripts
 __pycache__/
+
+# Secrets — never commit (see bridge-course/.env.example, supabase/.env.example)
+.env
+.env.*
+!.env.example
+supabase/.env
+supabase/.temp/
+
+# Commercial product files — the paid PDF lives only in PRIVATE Supabase Storage
+# (content/source/ has its own deny-all .gitignore)
+bridge-course/**/*.pdf
+Bridge Course Notes*.pdf
+bridge-course-notes*.pdf
