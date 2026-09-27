@@ -60,7 +60,16 @@ export default function BuyDialog({ open, onClose }: { open: boolean; onClose: (
 
       setStage('checkout')
       track('checkout_opened')
-      openCheckout(
+      // Our <dialog> is modal: it sits in the browser's top layer and makes the rest of
+      // the page inert, so Razorpay's checkout iframe would open *behind* it and be
+      // untappable. Close it while Razorpay is showing; reopen it for "Verifying…".
+      dialogRef.current?.close()
+      let finished = false
+      const reopen = () => {
+        const d = dialogRef.current
+        if (d && !d.open) d.showModal()
+      }
+      const rzp = openCheckout(
         {
           key: order.razorpay_key_id || site.razorpayKeyIdFallback,
           amount: order.amount, // from the server, never from this page
@@ -71,9 +80,18 @@ export default function BuyDialog({ open, onClose }: { open: boolean; onClose: (
           prefill: { name: buyer.buyer_name, email: buyer.buyer_email, contact: `+91${phone}` },
           notes: { order_reference: order.internal_order_reference },
           theme: { color: '#10213a' },
-          modal: { confirm_close: true, ondismiss: () => setStage('form') },
+          modal: {
+            confirm_close: true,
+            ondismiss: () => {
+              if (finished) return
+              setStage('form')
+              reopen()
+            },
+          },
           handler: async (resp) => {
+            finished = true
             setStage('verifying')
+            reopen()
             try {
               const { status, data } = await api.verifyPayment(resp)
               if (status === 200 && data.access_token) {
@@ -91,7 +109,9 @@ export default function BuyDialog({ open, onClose }: { open: boolean; onClose: (
           },
         },
         () => {
+          finished = true
           track('payment_failed')
+          rzp.close()
           navigate(`/payment-failed?ref=${encodeURIComponent(order.internal_order_reference)}`)
         },
       )
