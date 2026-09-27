@@ -31,6 +31,14 @@ To publish test 21+: extend `scripts/question-bank.js`, bump `TOTAL_TESTS` in bo
 generator scripts, add a row to `TEST_CATALOG`/`PAYMENT_LINKS` in `js/site-config.js`,
 re-run both scripts, and paste the new SQL into Supabase.
 
+### Typing Practice
+
+[`typing-practice/`](./typing-practice/) (served at `/typing-practice/`) is TET Test
+Hub's typing practice: English, Hindi Unicode, Mangal and Krutidev, with live WPM /
+accuracy, exam mode, results, progress and history stored in the browser. Static ES
+modules, no build step; `cd typing-practice && npm test` runs the typing-engine unit
+tests. See [`docs/TYPING_PRACTICE.md`](./docs/TYPING_PRACTICE.md).
+
 ## BBC English Coaching Classes Burhar
 
 This repository also contains a mobile-first English learning platform for **BBC English Coaching Classes Burhar** (an independent coaching institute in Burhar, Madhya Pradesh — not affiliated with the British Broadcasting Corporation). It's a static HTML/CSS/JS site with no build step — open [`bbc-english/index.html`](./bbc-english/index.html) directly, or serve the `bbc-english/` folder with any static file server. See [`bbc-english/CLAUDE.md`](./bbc-english/CLAUDE.md) for architecture and conventions.

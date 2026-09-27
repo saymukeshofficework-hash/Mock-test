@@ -114,6 +114,11 @@ jobs:
         working-directory: bridge-course
         run: npm run check:bundle
 
+      # Typing Practice: static ES modules, no install/build — just run the engine tests.
+      - name: Test Typing Practice engine
+        working-directory: typing-practice
+        run: npm test
+
       - name: Assemble combined site
         run: |
           set -e
@@ -130,6 +135,10 @@ jobs:
           cp 404.html _site/
           cp CNAME _site/
           cp robots.txt sitemap.xml _site/
+
+          # Typing Practice (/typing-practice/), static, no build step; tests aren't published
+          cp -r typing-practice _site/typing-practice
+          rm -rf _site/typing-practice/tests _site/typing-practice/package.json
 
           # BBC English Coaching Classes Burhar platform, static, no build step
           cp -r bbc-english _site/bbc-english
