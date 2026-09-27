@@ -43,8 +43,8 @@ export const product = {
 
 // ---------------------------------------------------------------------------
 // What's inside — taken from the source folder "bridge course notes by Rakesh pandey"
-// (Google Drive, inspected 2026-09-25). Paper numbers are shown only where the notes
-// themselves print them. If the compiled PDF differs, update this list.
+// (Google Drive, exported 2026-09-27). Paper numbers are as printed in the notes.
+// Must match the final PDF (content/source/manifest.json order).
 // ---------------------------------------------------------------------------
 
 export type Paper = {
@@ -64,14 +64,16 @@ export const papers: Paper[] = [
     chapters: ['बाल्यावस्था को समझना', 'बाल्यावस्था और समाजीकरण', 'स्व की भारतीय अवधारणा'],
   },
   {
+    number: 2,
     title: 'Curriculum, Pedagogy and Assessment',
-    titleHi: 'पाठ्यचर्या, शिक्षाशास्त्र एवं आकलन',
+    titleHi: 'पाठ्यचर्या, शिक्षाशास्त्र एवं मूल्यांकन',
     language: 'Hindi',
     chapters: ['पाठ्यचर्या'],
   },
   {
+    number: 3,
     title: 'Pedagogy of Language-I',
-    titleHi: 'भाषा-I का शिक्षाशास्त्र',
+    titleHi: 'भाषा का शिक्षाशास्त्र-I',
     language: 'Hindi',
     chapters: [
       'भाषा-शिक्षा की विभिन्न नीतियाँ एवं बहुभाषिकता',
@@ -193,7 +195,8 @@ export const howItWorks = [
   'Download your notes',
 ]
 
-// Sample pages: typeset excerpts from real chapters. Only the top part of 3 of the
+// Sample pages: real pages of the final PDF with the lower half faded out and a
+// watermark (scripts/previews/render_previews_from_pdf.py). Only the top of 3 of the
 // 40 chapters is shown, so the paid PDF can't be reconstructed from previews.
 export const samples = [
   { src: 'previews/sample-1.webp', alt: 'Sample page — Paper 1, इकाई 1: बाल्यावस्था को समझना (in-text MCQs with explanations)' },

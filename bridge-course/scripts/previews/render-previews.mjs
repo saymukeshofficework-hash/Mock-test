@@ -5,9 +5,8 @@
 // first few questions of 3 of the 40 chapters are included — never enough to rebuild
 // the paid PDF — and every image carries a SAMPLE / PREVIEW watermark.
 //
-// Once the final compiled PDF exists, prefer real page renders instead:
-//   pdftoppm -f 3 -l 3 -r 110 -png "content/source/Bridge Course Notes by Rakesh Pandey.pdf" page
-// then crop/watermark them (see docs/BRIDGE_COURSE_IMPLEMENTATION.md → "Sample pages").
+// The live previews are now real page renders from the final PDF
+// (render_previews_from_pdf.py); run this with --og-only to rebuild just the share image.
 //
 // Usage (needs `playwright` + `sharp` + @fontsource fonts resolvable from NODE_PATH):
 //   FONT_DIR=/path/to/node_modules/@fontsource node scripts/previews/render-previews.mjs
@@ -91,7 +90,9 @@ const browser = await chromium.launch({ executablePath: process.env.CHROMIUM_PAT
 const ctx = await browser.newContext({ deviceScaleFactor: 2 })
 const p = await ctx.newPage()
 
-for (const [i, s] of samplePages.entries()) {
+// --og-only: keep the real-page previews from render_previews_from_pdf.py and only
+// rebuild the share image from sample-1.webp.
+for (const [i, s] of (process.argv.includes('--og-only') ? [] : samplePages).entries()) {
   await p.setViewportSize({ width: 600, height: 780 })
   await p.setContent(page(s), { waitUntil: 'load' })
   await p.evaluate(() => document.fonts.ready)

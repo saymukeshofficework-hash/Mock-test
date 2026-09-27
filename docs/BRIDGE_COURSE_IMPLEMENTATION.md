@@ -33,7 +33,8 @@ Course admins are an explicit allow-list (`bridge_admins`).
 
 Found in Google Drive (not synced to this machine) via the Drive connector:
 `bridge course notes by Rakesh pandey/` → 6 sub-folders, **40 chapter Google Docs**
-(+1 duplicate). No compiled PDF exists. Details, the required production file and how to
+(+1 duplicate). There was no compiled PDF; it was built on 27 Sep 2026 from Google's PDF
+exports of each Doc (198 pages, 5.4 MB). Details, the required production file and how to
 build it: [`content/source/README.md`](../content/source/README.md) and
 [`content/source/manifest.json`](../content/source/manifest.json).
 
@@ -152,10 +153,11 @@ done in the Razorpay Dashboard; a full refund automatically disables access via 
 `refund.processed` webhook.
 
 ### Sample pages
-`public/previews/sample-*.webp` are typeset from the first part of three real chapters
-(`scripts/previews/samples.mjs`), watermarked "SAMPLE / PREVIEW" and faded before the end.
-Once the final PDF exists you may replace them with real page renders (`pdftoppm`, crop the
-lower half, keep the watermark). Keep to ≤ 4 partial pages.
+`public/previews/sample-*.webp` are real first pages of three chapters of the final PDF
+(Paper 1 Unit 1, Paper 4 Unit 4, Paper 6 Unit 1) with the lower half faded out and a
+"SAMPLE / PREVIEW" watermark — `scripts/previews/render_previews_from_pdf.py` then
+`to-webp.mjs`. Keep to ≤ 4 partial pages. The share image is rebuilt with
+`render-previews.mjs --og-only`.
 
 ## 7. Phase 2 — buyer watermarking (not built)
 

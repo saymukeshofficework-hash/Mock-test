@@ -1,7 +1,7 @@
 {
-  "_about": "Order of chapters in the final PDF. Export each Google Doc (File → Download → PDF) into content/source/parts/ using the 'file' name, then run: cd bridge-course && npm run product:inspect -- --merge. Doc titles are from the Drive folder 'bridge course notes by Rakesh pandey' (inspected 2026-09-25). Paper numbers marked '?' are not printed in the notes themselves; the others are.",
+  "_about": "Order of chapters in the final PDF. Each Google Doc is exported as PDF into content/source/parts/ under its 'file' name, then assembled with bridge-course/scripts/build_product_pdf.py. Doc titles are from the Drive folder 'bridge course notes by Rakesh pandey'; paper numbers are as printed in the notes.",
   "notes": [
-    "Pedagogy of Language-II has TWO docs titled 'Unit 11 - Other Dimensions of Assessment'. Use the one last modified 25 Sep 2026 17:32; the other was never edited after creation. Confirm and delete the duplicate in Drive.",
+    "Pedagogy of Language-II has TWO docs titled 'Unit 11 - Other Dimensions of Assessment'. The book uses the one last modified 25 Sep 2026 17:32; the other was never edited after creation. Delete the duplicate in Drive.",
     "Pedagogy of The World Around Us has no Unit 3 or Unit 4 docs in the folder. Confirm whether they are intentionally omitted before selling.",
     "Curriculum, Pedagogy and Assessment has only Unit 1. Confirm this is complete."
   ],
@@ -25,7 +25,7 @@
       ]
     },
     {
-      "paper": "2?",
+      "paper": "2",
       "driveFolder": "Curriculum, Pedagogy and Assessment",
       "chapters": [
         {
@@ -35,7 +35,7 @@
       ]
     },
     {
-      "paper": "3?",
+      "paper": "3",
       "driveFolder": "Pedagogy of Language-I",
       "chapters": [
         {

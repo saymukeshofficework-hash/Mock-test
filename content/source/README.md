@@ -27,16 +27,19 @@ Drive connector.
 `content/source/Bridge Course Notes by Rakesh Pandey.pdf` — one PDF, all 40 chapters in
 the order of `manifest.json`.
 
-## How to produce it
+## How it was produced (27 Sep 2026)
 
-1. In each Google Doc: **File → Download → PDF document**. Save it into
-   `content/source/parts/` with the `file` name from `manifest.json`
-   (e.g. `cdep-01.pdf`, `lang2-04.pdf`). Optionally put a cover page first as `cover.pdf`
-   and add it to the manifest.
-2. `cd bridge-course && npm install && npm run product:inspect -- --merge`
-   — merges in order, then prints page count, size and page size.
-3. Open the result and read the cover, the contents and a few pages of every paper.
-4. Upload it to **private** Supabase Storage (see `docs/SUPABASE_SETUP.md` → Storage).
+1. Each of the 40 Google Docs was exported with Google's own PDF export (identical to
+   **File → Download → PDF**) into `content/source/parts/<file>.pdf` (names from `manifest.json`).
+2. `bridge-course/scripts/build_product_pdf.py` assembled them: cover page, 2-page
+   contents list, the 40 chapters unchanged, page numbers, bookmarks (Paper → chapter).
+   Result: **198 pages, 5.4 MB, US Letter**.
+3. `npm run product:inspect` (in `bridge-course/`) confirms it opens and reports size/pages.
 
-Resolve the three notes in `manifest.json` (duplicate Unit 11, missing TWAU units 3–4,
+To rebuild after editing a Doc: re-export that Doc into `parts/` under the same name, run
+`FONT_DIR=… python3 bridge-course/scripts/build_product_pdf.py`, re-upload to Storage
+(see `docs/SUPABASE_SETUP.md` §4), and optionally re-run
+`scripts/previews/render_previews_from_pdf.py` for the landing-page samples.
+
+Resolve the notes in `manifest.json` (duplicate Unit 11, missing TWAU units 3–4,
 single-unit Curriculum paper) before selling.
