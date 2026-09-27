@@ -72,6 +72,10 @@ or copy them anywhere.
 
 ## 4. Storage — upload the PDF
 
+> Current (27 Sep 2026): uploaded at the bucket root as `bridge-course-notes.pdf`
+> (5,704,358 bytes). `products.file_path` was set to match — the download function always
+> reads the path from the `products` row, so either location works as long as they agree.
+
 1. Build/inspect the file (`content/source/README.md`).
 2. Dashboard → **Storage → bridge-course-private** → create folder `products` → upload
    the PDF, then rename it to exactly `bridge-course-notes.pdf`
