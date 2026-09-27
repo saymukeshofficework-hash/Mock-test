@@ -38,7 +38,7 @@ export const product = {
   format: 'PDF',
   fileName: 'Bridge Course Notes by Rakesh Pandey.pdf',
   // Server-side values mirrored here only for customer-facing copy.
-  maxDownloads: 5,
+  maxDownloads: 2, // display only — the real limit is products.max_downloads in the database
   linkExpiryMinutes: 5,
 }
 

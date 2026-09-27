@@ -62,7 +62,7 @@ with a local, git-ignored copy of `supabase/.env.example`).
 | `SITE_URL` | recommended | `https://tettesthub.in/bridge-course/` (its origin is allowed by CORS) |
 | `ALLOWED_ORIGINS` | optional | extra comma-separated origins (defaults to localhost dev) |
 | `DOWNLOAD_URL_EXPIRY_SECONDS` | optional | `300` |
-| `MAX_DOWNLOADS` | optional | `5` (applies to new purchases) |
+| `MAX_DOWNLOADS` | optional | fallback only — the limit is `products.max_downloads` (currently **2**) |
 | `ACCESS_TOKEN_EXPIRY_DAYS` | optional | `30` |
 | `PRODUCT_SLUG` / `PRODUCT_AMOUNT_PAISE` / `PRODUCT_CURRENCY` | optional | `bridge-course-notes` / `19900` / `INR` |
 | `STORAGE_BUCKET` / `PRODUCT_FILE_PATH` / `DOWNLOAD_FILE_NAME` | optional | defaults as in `.env.example` |
@@ -112,7 +112,9 @@ select status, count(*), sum(amount_paise)/100 as rupees from orders group by st
 -- find a buyer
 select public_reference, status, buyer_name, buyer_phone, created_at from orders
 where buyer_phone = '98xxxxxxxx' or buyer_email ilike '%name%';
--- give 5 more downloads
-update purchases set max_downloads = max_downloads + 5
+-- change the download limit for FUTURE buyers (also update maxDownloads in bridge-course/src/config.ts)
+update products set max_downloads = 2 where slug = 'bridge-course-notes';
+-- give one buyer 2 more downloads
+update purchases set max_downloads = max_downloads + 2
 where order_id = (select id from orders where public_reference = 'BCN-XXXXXXXXXX');
 ```
