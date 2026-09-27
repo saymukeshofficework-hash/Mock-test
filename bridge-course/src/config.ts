@@ -207,20 +207,22 @@ export const samples = [
 // ---------------------------------------------------------------------------
 
 export const business = {
-  sellerName: '[Seller / business name — to be filled in]',
-  address: '[Business address — to be filled in]',
+  sellerName: 'Rakesh Pandey',
+  address: '', // optional — shown on Terms/Contact only when filled in
   gstin: '', // leave empty unless registered; never invent one
-  grievanceOfficer: '[Name of person handling complaints — to be filled in]',
-  lastUpdated: '25 September 2026',
+  grievanceOfficer: 'Rakesh Pandey (reach us via the Contact page)',
+  lastUpdated: '27 September 2026',
 }
 
 // Refund text is configurable and deliberately NOT decided here. Replace
 // `refundPolicy.body` with the policy you actually want to offer.
 export const refundPolicy = {
-  isPlaceholder: true,
-  summary: '[Refund policy to be decided by the seller]',
+  isPlaceholder: false,
+  summary: 'Digital product — no refunds once access is given, except when we fail to deliver.',
   body: [
-    '[Write your refund policy here. For example, state whether refunds are offered for digital products, within how many days, and how a customer should ask for one.]',
-    'If your payment was deducted but you did not receive access, that is not a refund case — use “Check Payment Status” or contact support and we will give you access or, if the payment did not complete, it is reversed by your bank/Razorpay as per their timelines.',
+    'Bridge Course Notes is a digital PDF that is delivered instantly after payment. Because the full product is available to you as soon as your payment is verified, purchases cannot be cancelled and are not refundable once access has been given.',
+    'You WILL get a full refund if: (a) your payment was successful but we are unable to give you the PDF and our support cannot fix it within 3 working days, or (b) you were accidentally charged more than once for the same order — the extra payment is refunded.',
+    'If money was deducted but the payment did not complete, you were not charged: the amount is reversed automatically by your bank/Razorpay.',
+    'To ask for a refund, contact us with your order reference (BCN-…) or Razorpay payment ID (pay_…). Approved refunds are made to your original payment method through Razorpay; banks usually credit them within 5–7 working days.',
   ],
 }

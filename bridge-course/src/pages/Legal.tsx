@@ -16,7 +16,7 @@ export function Terms() {
     <Prose title="Terms of Sale">
       <Updated />
       <h2>1. Who is selling</h2>
-      <p>{product.name} is sold by {business.sellerName}, {business.address}.{business.gstin ? ` GSTIN: ${business.gstin}.` : ''}</p>
+      <p>{product.name} is sold by {business.sellerName}{business.address ? `, ${business.address}` : ''}.{business.gstin ? ` GSTIN: ${business.gstin}.` : ''}</p>
       <h2>2. The product</h2>
       <p>
         A digital PDF of study notes, priced at {product.priceDisplay} (INR), inclusive of any applicable taxes unless stated
@@ -88,7 +88,7 @@ export function Privacy() {
         Order and payment records are kept as long as needed for access, support and legal requirements. To ask for a copy,
         correction or deletion of your data, contact us via the <Link to="/contact">contact page</Link>.
       </p>
-      <p>Data controller: {business.sellerName}, {business.address}.</p>
+      <p>Data controller: {business.sellerName}{business.address ? `, ${business.address}` : ''}.</p>
     </Prose>
   )
 }
@@ -120,10 +120,10 @@ export function Contact() {
         <Link to="/check-status" className="btn-secondary">CHECK PAYMENT STATUS</Link>
       </div>
       <ul>
-        <li>WhatsApp: {hasWhatsApp ? `+${site.whatsappNumber}` : '[WhatsApp support number — to be configured (VITE_WHATSAPP_NUMBER)]'}</li>
-        <li>Email: {site.supportEmail || '[Support email — to be filled in]'}</li>
+        {hasWhatsApp && <li>WhatsApp: +{site.whatsappNumber}</li>}
+        {site.supportEmail && <li>Email: {site.supportEmail}</li>}
         <li>Seller: {business.sellerName}</li>
-        <li>Address: {business.address}</li>
+        {business.address && <li>Address: {business.address}</li>}
       </ul>
     </Prose>
   )
