@@ -507,6 +507,8 @@ function renderMetrics() {
   $("mCpm").textContent = measurable ? m.cpm : 0;
   $("mAcc").textContent = m.typedChars ? `${Math.round(m.accuracy)}%` : "—";
   $("mErr").textContent = m.errors;
+  // Condensed stats shown in the timer bar when there's no room for the stats row.
+  $("miniStats").textContent = `${measurable ? m.wpm : 0} WPM · ${m.typedChars ? Math.round(m.accuracy) + "%" : "—"}`;
   const p = Math.round(m.progress);
   $("mProg").textContent = `${p}%`;
   $("progressPct").textContent = `${p}%`;
@@ -711,6 +713,13 @@ function updateViewport() {
   root.setProperty("--vvtop", `${Math.round(vv ? vv.offsetTop : 0)}px`);
   document.body.classList.toggle("tp-short", h < 560);
   document.body.classList.toggle("tp-tiny", h < 300);
+  // e.g. iPhone in landscape with the keyboard open: ~100 px of page left.
+  const micro = h < 200;
+  document.body.classList.toggle("tp-micro", micro);
+  if (micro && w > h && session && !session.portraitTipShown) {
+    session.portraitTipShown = true;
+    toast(tr("portrait_tip"), 4000);
+  }
   // Side by side only when clearly wide (a portrait phone with the keyboard open can be
   // slightly wider than tall and must stay stacked).
   document.body.classList.toggle("tp-landscape", w >= 560 && w > h * 1.3);

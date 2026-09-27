@@ -324,6 +324,9 @@ body.tp-in-test{background:var(--tf-bg);}
   max-width:min(92vw,420px);text-align:center;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;
 }
 .tp-toast.show{opacity:1;transform:translate(-50%,0);}
+/* During a test the bottom of the screen may be behind the on-screen keyboard. */
+body.tp-in-test .tp-toast{top:calc(var(--vvtop,0px) + 8px);bottom:auto;transform:translate(-50%,-20px);}
+body.tp-in-test .tp-toast.show{transform:translate(-50%,0);}
 
 /* ---------- focus visibility ---------- */
 .tp-format:focus-visible,.tp-chip:focus-visible,.tp-mode:focus-visible,.tf-btn:focus-visible,.tf-ctl:focus-visible,.tf-lang:focus-visible,.btn:focus-visible,header.site-header a:focus-visible,.lang-toggle:focus-visible{
@@ -420,6 +423,21 @@ body.tp-short #testView .tf-unicode-ref p{max-height:56px;font-size:15px;}
 /* Very little room (landscape + keyboard): progress is still shown in the stats row. */
 body.tp-tiny #testView .tf-progress{display:none;}
 body.tp-tiny #testView .tf-ctl{min-height:34px;}
+
+/* Almost no room (iPhone landscape + keyboard ≈ 100 px): one slim bar with timer,
+   WPM/accuracy and icon-only controls; everything else goes to passage + input. */
+.tf-mini{display:none;}
+body.tp-micro #testView .tf-mini{display:inline;font-size:13px;font-weight:700;white-space:nowrap;font-variant-numeric:tabular-nums;}
+body.tp-micro #testView .tf-metrics,body.tp-micro #testView .tf-progress{display:none;}
+body.tp-micro #testView .tf-timerbar{padding:2px 6px 2px 10px;}
+body.tp-micro #testView .tf-timer{font-size:14px;padding:2px 8px;min-width:0;}
+body.tp-micro #testView .tf-ctl{min-height:32px;min-width:40px;padding:0 8px;}
+body.tp-micro #testView .tf-ctl-txt{display:none;}
+body.tp-micro #testView .tf-body{padding:4px 8px;}
+body.tp-micro #testView .tf-passage{font-size:16px;line-height:1.5;padding:4px 8px;}
+body.tp-micro #testView .tf-passage.font-devanagari,body.tp-micro #testView .tf-passage.font-mangal{line-height:1.7;}
+body.tp-micro #testView .tf-input{font-size:16px;line-height:1.4;padding:4px 8px;}
+body.tp-micro #testView .tf-note,body.tp-micro #testView .tf-unicode-ref{display:none;}
 
 /* Phone in landscape: passage and typing box side by side, both full height. */
 body.tp-short.tp-landscape #testView .tf-body{
