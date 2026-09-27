@@ -13,6 +13,7 @@ const I18N_DICT = {
   nav_login: { hi: "छात्र लॉगिन", en: "Student Login" },
   nav_about: { hi: "हमारे बारे में", en: "About" },
   nav_contact: { hi: "संपर्क करें", en: "Contact" },
+  nav_typing: { hi: "टाइपिंग प्रैक्टिस", en: "Typing Practice" },
   nav_logout: { hi: "लॉगआउट", en: "Logout" },
   footer_tagline: {
     hi: "टीईटी टेस्ट हब — निःशुल्क ब्राउज़िंग, सशुल्क मॉक टेस्ट, शिक्षक पात्रता परीक्षा उम्मीदवारों के लिए।",
@@ -53,6 +54,9 @@ const I18N_DICT = {
   exams_tgt_desc: { hi: "कक्षा IX-X के लिए विषयवार टेस्ट", en: "Subject-wise tests for Classes IX-X" },
   exams_pgt_desc: { hi: "कक्षा XI-XII के लिए विषयवार टेस्ट", en: "Subject-wise tests for Classes XI-XII" },
   exams_ctet_desc: { hi: "पेपर 1 और पेपर 2, साथ ही पूर्ण मॉक टेस्ट", en: "Paper 1 & Paper 2, plus full mock tests" },
+  home_typing_h: { hi: "टाइपिंग प्रैक्टिस", en: "Typing Practice" },
+  home_typing_desc: { hi: "English और Hindi typing की speed और accuracy बढ़ाएँ।", en: "Build your English and Hindi typing speed and accuracy." },
+  home_typing_btn: { hi: "अभ्यास करें", en: "Practice Now" },
   exams_more_link: { hi: "और यूपी शिक्षक परीक्षाएं →", en: "More UP Teacher Exams →" },
 
   preview_h2: { hi: "शुरू करने से पहले टेस्ट स्क्रीन देखें", en: "See the Test Screen Before You Start" },

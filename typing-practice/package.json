@@ -1,0 +1,9 @@
+{
+  "name": "tettesthub-typing-practice",
+  "private": true,
+  "description": "Typing Practice for TET Test Hub — static ES modules, no build step. `npm test` runs the typing-engine unit tests with Node's built-in test runner.",
+  "type": "module",
+  "scripts": {
+    "test": "node --test tests/*.test.js"
+  }
+}
