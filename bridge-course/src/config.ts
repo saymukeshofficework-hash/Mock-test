@@ -145,64 +145,16 @@ export const totals = {
   chapters: papers.reduce((n, p) => n + p.chapters.length, 0),
 }
 
-// Features observed in every chapter of the source notes (see docs for evidence).
-export const whatYouGet = [
-  {
-    title: 'In-text questions, answered',
-    body: 'Every पाठगत प्रश्न / Check Your Progress question with the correct option marked ✔ and a short explanation of why.',
-  },
-  {
-    title: 'End-of-unit answers',
-    body: 'पाठांत प्रश्न / End Exercises written out as structured answers — points, examples and a conclusion.',
-  },
-  {
-    title: 'Quick revision lists',
-    body: 'A त्वरित सूची / Quick Revision List and one-glance answer key for each unit.',
-  },
-  {
-    title: 'Tables & comparisons',
-    body: 'Key ideas laid out in tables — e.g. EVS vs TWAU, disciplinary vs interdisciplinary, skill-wise summaries.',
-  },
-  {
-    title: 'Practice MCQs',
-    body: 'Extra practice MCQs with answers in many units, plus revision sheets, a glossary and a suggested-reading guide for Language-II.',
-  },
-  {
-    title: 'Hindi + English',
-    body: 'Five papers in Hindi and Pedagogy of Language-II in English, exactly as the course is taught.',
-  },
-]
-
-export const whyTheseNotes = [
-  'Structured the same way in every unit: in-text questions → quick list → end-of-unit answers.',
-  'Easy revision — short points and tables instead of long paragraphs.',
-  'Important concepts organised clearly, with the policy references the course uses (NEP 2020, NCF-FS 2022, NCF-SE 2023).',
-  'Exam-oriented: answers to the actual in-text and end-of-unit questions, not general theory.',
-  'Digital PDF — read on your phone, anywhere, without carrying books.',
-]
-
-export const receive = [
-  'Complete digital PDF',
-  'Instant access after successful payment',
-  'Mobile-friendly reading',
-  'Downloadable for personal study',
-  'No physical delivery',
-]
-
-export const howItWorks = [
-  'Enter your details',
-  `Pay ${product.priceDisplay} securely through Razorpay`,
-  'Payment is verified automatically',
-  'Download your notes',
-]
+// Buyer-facing copy (feature lists, steps, FAQ…) lives in src/i18n.tsx in Hindi and English.
 
 // Sample pages: real pages of the final PDF with the lower half faded out and a
 // watermark (scripts/previews/render_previews_from_pdf.py). Only the top of 3 of the
 // 40 chapters is shown, so the paid PDF can't be reconstructed from previews.
+// Alt texts: i18n.tsx → samples.alts (same order).
 export const samples = [
-  { src: 'previews/sample-1.webp', alt: 'Sample page — Paper 1, इकाई 1: बाल्यावस्था को समझना (in-text MCQs with explanations)' },
-  { src: 'previews/sample-2.webp', alt: 'Sample page — Paper 4, Unit 4: Word Recognition (Check Your Progress with model answers)' },
-  { src: 'previews/sample-3.webp', alt: 'Sample page — Paper 6, इकाई 1: TWAU का स्वरूप तथा क्षेत्र (key points and tables)' },
+  { src: 'previews/sample-1.webp' },
+  { src: 'previews/sample-2.webp' },
+  { src: 'previews/sample-3.webp' },
 ]
 
 // ---------------------------------------------------------------------------

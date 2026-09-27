@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { useLang } from '../i18n'
 import { hasWhatsApp, supportUrl } from '../lib/whatsapp'
 
 export function WhatsAppIcon({ className = 'h-5 w-5' }: { className?: string }) {
@@ -12,16 +13,17 @@ export function WhatsAppIcon({ className = 'h-5 w-5' }: { className?: string }) 
 // Falls back to the /contact page when no WhatsApp number is configured, so no
 // number is ever hard-coded and no button leads nowhere.
 export default function WhatsAppButton({
-  label = 'CONTACT ON WHATSAPP',
+  label,
   message,
   className = 'btn-whatsapp',
 }: { label?: string; message?: string; className?: string }) {
+  const { t } = useLang()
   if (!hasWhatsApp) {
-    return <Link to="/contact" className={className.replace('btn-whatsapp', 'btn-secondary')}>CONTACT SUPPORT</Link>
+    return <Link to="/contact" className={className.replace('btn-whatsapp', 'btn-secondary')}>{t.whatsapp.support}</Link>
   }
   return (
     <a href={supportUrl(message)} target="_blank" rel="noopener" className={className}>
-      <WhatsAppIcon /> {label}
+      <WhatsAppIcon /> {label ?? t.whatsapp.contact}
     </a>
   )
 }

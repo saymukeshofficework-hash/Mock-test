@@ -4,7 +4,8 @@ import { Page } from '../components/Layout'
 import WhatsAppButton from '../components/WhatsAppButton'
 import { access } from '../lib/access'
 import { track } from '../lib/analytics'
-import { api, ApiError } from '../lib/api'
+import { useLang } from '../i18n'
+import { api } from '../lib/api'
 import { supportMessageForOrder } from '../lib/whatsapp'
 
 // Payment recovery: "money deducted but no download", closed browser, failed callback,
@@ -14,6 +15,7 @@ import { supportMessageForOrder } from '../lib/whatsapp'
 export default function CheckStatus() {
   const navigate = useNavigate()
   const [params] = useSearchParams()
+  const { t, errorText } = useLang()
   const pending = access.getPending()
   const initialRef = params.get('ref') ?? pending?.orderReference ?? ''
   const [ref, setRef] = useState(initialRef)
@@ -25,7 +27,7 @@ export default function CheckStatus() {
   async function check(e?: FormEvent) {
     e?.preventDefault()
     if (!ref.trim() || contact.trim().length < 5) {
-      setMsg({ tone: 'error', text: 'Enter your order reference (or Razorpay payment ID) and the mobile number or email you used.' })
+      setMsg({ tone: 'error', text: t.status.missing })
       return
     }
     setBusy(true)
@@ -40,13 +42,13 @@ export default function CheckStatus() {
       }
       if (status === 202 && autoTries.current < 6) {
         autoTries.current += 1
-        setMsg({ tone: 'info', text: 'Payment verification is still processing. Checking again…' })
+        setMsg({ tone: 'info', text: t.status.processing })
         setTimeout(() => check(), 5000)
         return
       }
-      setMsg({ tone: 'info', text: data.message ?? 'We could not confirm your payment yet. Please contact support.' })
+      setMsg({ tone: 'info', text: t.status.results[data.status] ?? data.message ?? t.download.reasons.not_paid })
     } catch (err) {
-      setMsg({ tone: 'error', text: err instanceof ApiError ? err.message : 'Something went wrong. Please try again.' })
+      setMsg({ tone: 'error', text: errorText(err) })
     } finally {
       setBusy(false)
     }
@@ -64,16 +66,16 @@ export default function CheckStatus() {
     <Page>
       <section className="mx-auto max-w-lg px-4 py-10 sm:py-16">
         <div className="rounded-3xl bg-paper-50 p-6 shadow-sheet ring-1 ring-paper-200 sm:p-8">
-          <h1 className="font-serif text-3xl font-semibold text-ink-900">Check Payment Status</h1>
-          <p className="mt-2 text-ink-700">Paid but didn’t get the download, or closed the page? Get your access back here.</p>
+          <h1 className="font-serif text-3xl font-semibold text-ink-900">{t.status.title}</h1>
+          <p className="mt-2 text-ink-700">{t.status.intro}</p>
           <form onSubmit={check} className="mt-6 space-y-4" noValidate>
             <label className="block">
-              <span className="text-sm font-medium">Order reference or Razorpay payment ID</span>
+              <span className="text-sm font-medium">{t.status.refLabel}</span>
               <input className={`${field} font-mono`} value={ref} onChange={(e) => setRef(e.target.value)}
                 placeholder="BCN-XXXXXXXXXX or pay_XXXXXXXX" autoCapitalize="characters" spellCheck={false} maxLength={64} />
             </label>
             <label className="block">
-              <span className="text-sm font-medium">Mobile number or email used at checkout</span>
+              <span className="text-sm font-medium">{t.status.contactLabel}</span>
               <input className={field} value={contact} onChange={(e) => setContact(e.target.value)} autoComplete="tel" maxLength={254} />
             </label>
             {msg && (
@@ -81,11 +83,10 @@ export default function CheckStatus() {
                 {msg.text}
               </p>
             )}
-            <button className="btn-primary w-full" disabled={busy}>{busy ? 'Checking…' : 'CHECK PAYMENT STATUS'}</button>
+            <button className="btn-primary w-full" disabled={busy}>{busy ? t.status.checking : t.status.button}</button>
           </form>
           <p className="mt-5 text-sm text-ink-500">
-            The Razorpay payment ID (starts with <span className="font-mono">pay_</span>) is in the payment confirmation
-            SMS/email from Razorpay.
+            {t.status.hint1} <span className="font-mono">pay_</span> {t.status.hint2}
           </p>
           <div className="mt-5 border-t border-paper-200 pt-5">
             <WhatsAppButton message={supportMessageForOrder(ref || null)} />
