@@ -19,8 +19,9 @@ export const site = {
     clean(env.VITE_SUPABASE_PUBLISHABLE_KEY) || 'sb_publishable_LXYxPPuR4tX7vGyWg7NIyA_-F_ieSGW',
   razorpayKeyIdFallback: clean(env.VITE_RAZORPAY_KEY_ID),
   siteUrl: clean(env.VITE_SITE_URL) || 'https://tettesthub.in/bridge-course/',
-  // Digits only incl. country code, e.g. "919876543210". Empty → WhatsApp buttons hidden.
-  whatsappNumber: clean(env.VITE_WHATSAPP_NUMBER).replace(/\D/g, ''),
+  // Support WhatsApp, digits only incl. country code. The repository Variable
+  // VITE_WHATSAPP_NUMBER overrides this default. Set the default to '' to hide the buttons.
+  whatsappNumber: clean(env.VITE_WHATSAPP_NUMBER).replace(/\D/g, '') || '918770375866',
   supportEmail: clean(env.VITE_SUPPORT_EMAIL),
 }
 
