@@ -383,6 +383,57 @@ body.tp-in-test{background:var(--tf-bg);}
   .tp-mode-grid{grid-template-columns:1fr;}
   .tf-ctl{padding:0 10px;}
 }
+/* ---------- test screen on touch devices ----------
+   Pinned to the visible viewport (JS keeps --vvh/--vvtop in sync with
+   visualViewport), so the on-screen keyboard never covers the typing box and the
+   passage never slides under the stats. The passage takes whatever height is left. */
+body.tp-touch #testView{position:fixed;top:var(--vvtop,0px);left:0;right:0;margin:0 auto;height:var(--vvh);min-height:0;overflow:hidden;z-index:10;}
+body.tp-touch #testView .tf-sticky{position:static;}
+body.tp-touch #testView .tf-body{flex:1;min-height:0;}
+body.tp-touch #testView .tf-passage-wrap{flex:1 1 auto;min-height:56px;display:flex;}
+body.tp-touch #testView .tf-passage{flex:1;max-height:none;}
+body.tp-touch #testView .tf-input{flex:0 0 auto;height:96px;min-height:0;resize:none;}
+
+/* Short visible area (keyboard open, or a phone in landscape): compact header —
+   timer bar, one row of six stats, a thin progress bar. */
+body.tp-short #testView .tf-topbar{display:none;}
+body.tp-short #testView .tf-timerbar{padding:3px 8px 3px 12px;}
+body.tp-short #testView .tf-timer{font-size:15px;padding:3px 10px;}
+body.tp-short #testView .tf-timer-label{display:none;}
+body.tp-short #testView .tf-ctl{min-height:38px;}
+body.tp-short #testView .tf-metrics{grid-template-columns:repeat(6,minmax(0,1fr));}
+body.tp-short #testView .tf-metric{padding:2px;border-bottom:none;border-right:1px solid var(--tf-border);}
+body.tp-short #testView .tf-metric:last-child{border-right:none;}
+body.tp-short #testView .tf-m-label{font-size:9px;}
+body.tp-short #testView .tf-m-val{font-size:15px;line-height:1.15;}
+body.tp-short #testView .tf-progress{padding:3px 12px;}
+body.tp-short #testView .tf-progress-label{display:none;}
+body.tp-short #testView .tf-body{padding:6px 10px;gap:6px;}
+body.tp-short #testView .tf-passage{font-size:18px;line-height:1.6;padding:8px 12px;}
+body.tp-short #testView .tf-passage.font-devanagari,body.tp-short #testView .tf-passage.font-mangal{line-height:1.8;}
+body.tp-short #testView .tf-input{height:64px;font-size:17px;padding:8px 12px;}
+body.tp-short #testView .tf-hint{display:none;}
+body.tp-short #testView .tf-note,body.tp-short #testView .tf-warn{font-size:12px;padding:5px 10px;}
+body.tp-short #testView .tf-unicode-ref summary{min-height:24px;font-size:13px;}
+body.tp-short #testView .tf-unicode-ref p{max-height:56px;font-size:15px;}
+
+/* Very little room (landscape + keyboard): progress is still shown in the stats row. */
+body.tp-tiny #testView .tf-progress{display:none;}
+body.tp-tiny #testView .tf-ctl{min-height:34px;}
+
+/* Phone in landscape: passage and typing box side by side, both full height. */
+body.tp-short.tp-landscape #testView .tf-body{
+  display:grid;grid-template-columns:minmax(0,3fr) minmax(0,2fr);
+  grid-template-rows:auto auto minmax(0,1fr) auto;
+  grid-template-areas:"warn warn" "note note" "pass input" "ref input";
+  row-gap:0;column-gap:10px;
+}
+body.tp-short.tp-landscape #testView .tf-warn{grid-area:warn;margin-bottom:6px;}
+body.tp-short.tp-landscape #testView .tf-note{grid-area:note;margin-bottom:6px;}
+body.tp-short.tp-landscape #testView .tf-passage-wrap{grid-area:pass;min-height:0;}
+body.tp-short.tp-landscape #testView .tf-unicode-ref{grid-area:ref;margin-top:4px;}
+body.tp-short.tp-landscape #testView .tf-input{grid-area:input;height:auto;align-self:stretch;}
+
 /* While typing on a phone the keyboard takes half the screen: tuck the top bar away. */
 body.tp-typing-mobile #testView .tf-topbar{display:none;}
 
