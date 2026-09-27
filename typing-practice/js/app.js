@@ -698,12 +698,30 @@ window.addEventListener("beforeunload", (e) => {
   }
 });
 
-// Keep layout sized to the *visible* viewport when the phone keyboard opens.
-if (window.visualViewport) {
-  const setVvh = () => document.documentElement.style.setProperty("--vvh", `${Math.round(window.visualViewport.height)}px`);
-  window.visualViewport.addEventListener("resize", setVvh);
-  setVvh();
+// Touch devices: the test screen is pinned to the *visible* viewport — the part the
+// on-screen keyboard doesn't cover — and gets a compact layout when that area is
+// short (keyboard open, or a phone in landscape).
+document.body.classList.toggle("tp-touch", window.matchMedia("(pointer: coarse)").matches);
+function updateViewport() {
+  const vv = window.visualViewport;
+  const h = vv ? vv.height : window.innerHeight;
+  const w = vv ? vv.width : window.innerWidth;
+  const root = document.documentElement.style;
+  root.setProperty("--vvh", `${Math.round(h)}px`);
+  root.setProperty("--vvtop", `${Math.round(vv ? vv.offsetTop : 0)}px`);
+  document.body.classList.toggle("tp-short", h < 560);
+  document.body.classList.toggle("tp-tiny", h < 300);
+  // Side by side only when clearly wide (a portrait phone with the keyboard open can be
+  // slightly wider than tall and must stay stacked).
+  document.body.classList.toggle("tp-landscape", w >= 560 && w > h * 1.3);
+  if (session) session.view.keepCurrentVisible(Math.min(session.engine.comparison.currentIndex, session.engine.prepared.words.length - 1));
 }
+if (window.visualViewport) {
+  window.visualViewport.addEventListener("resize", updateViewport);
+  window.visualViewport.addEventListener("scroll", updateViewport);
+}
+window.addEventListener("resize", updateViewport);
+updateViewport();
 
 // ------------------------------------------------------------------ finish + result
 function finishTest(reason) {
