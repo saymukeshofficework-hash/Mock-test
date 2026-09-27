@@ -20,6 +20,15 @@
   :focus-visible {
     @apply outline-none ring-4 ring-saffron-400/40;
   }
+  /* Devanagari: letter-spacing breaks up the headline bar (shirorekha) and tight
+     leading clips the vowel signs above/below, so relax both for Hindi text. */
+  html[lang='hi'] [class*='tracking-']:not([lang='en']),
+  html[lang='hi'] :is(.btn-primary, .btn-secondary, .btn-ghost-dark, .btn-whatsapp) {
+    letter-spacing: normal;
+  }
+  html[lang='hi'] :is(h1, h2, h3):not([lang='en']) {
+    line-height: 1.35;
+  }
 }
 
 @layer components {

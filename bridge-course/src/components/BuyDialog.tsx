@@ -1,9 +1,10 @@
 import { useEffect, useRef, useState, type FormEvent } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { product, site } from '../config'
+import { useLang } from '../i18n'
 import { access } from '../lib/access'
 import { track } from '../lib/analytics'
-import { api, ApiError } from '../lib/api'
+import { api } from '../lib/api'
 import { loadCheckout, openCheckout } from '../lib/razorpay'
 
 type Stage = 'form' | 'starting' | 'checkout' | 'verifying'
@@ -20,6 +21,7 @@ function normalisePhone(v: string) {
 
 export default function BuyDialog({ open, onClose }: { open: boolean; onClose: () => void }) {
   const navigate = useNavigate()
+  const { t, errorText } = useLang()
   const dialogRef = useRef<HTMLDialogElement>(null)
   const [stage, setStage] = useState<Stage>('form')
   const [error, setError] = useState<string | null>(null)
@@ -39,9 +41,9 @@ export default function BuyDialog({ open, onClose }: { open: boolean; onClose: (
 
   const phone = normalisePhone(form.phone)
   const errors = {
-    name: form.name.trim().length < 2 ? 'Please enter your full name.' : '',
-    phone: !PHONE.test(phone) ? 'Enter a valid 10-digit mobile number.' : '',
-    email: !EMAIL.test(form.email.trim()) ? 'Enter a valid email address.' : '',
+    name: form.name.trim().length < 2 ? t.buy.errName : '',
+    phone: !PHONE.test(phone) ? t.buy.errPhone : '',
+    email: !EMAIL.test(form.email.trim()) ? t.buy.errEmail : '',
   }
   const valid = !errors.name && !errors.phone && !errors.email
   const busy = stage !== 'form'
@@ -75,7 +77,7 @@ export default function BuyDialog({ open, onClose }: { open: boolean; onClose: (
           amount: order.amount, // from the server, never from this page
           currency: order.currency,
           name: product.name,
-          description: `Digital PDF notes — ${product.priceDisplay}`,
+          description: t.buy.rzpDescription,
           order_id: order.razorpay_order_id,
           prefill: { name: buyer.buyer_name, email: buyer.buyer_email, contact: `+91${phone}` },
           notes: { order_reference: order.internal_order_reference },
@@ -117,7 +119,7 @@ export default function BuyDialog({ open, onClose }: { open: boolean; onClose: (
       )
     } catch (err) {
       setStage('form')
-      setError(err instanceof ApiError ? err.message : 'Unable to start payment. Please try again.')
+      setError(errorText(err, t.startFailed))
     }
   }
 
@@ -136,7 +138,7 @@ export default function BuyDialog({ open, onClose }: { open: boolean; onClose: (
         <div className="flex items-start justify-between gap-4">
           <div>
             <h2 id="buy-title" className="font-serif text-2xl font-semibold leading-tight">{product.shortName}</h2>
-            <p className="mt-0.5 text-sm text-ink-500">by {product.author} · PDF</p>
+            <p className="mt-0.5 text-sm text-ink-500">{t.buy.by}</p>
           </div>
           <div className="text-right">
             <p className="font-serif text-3xl font-bold text-ink-900">{product.priceDisplay}</p>
@@ -146,20 +148,20 @@ export default function BuyDialog({ open, onClose }: { open: boolean; onClose: (
         {stage === 'verifying' ? (
           <div className="py-10 text-center" role="status" aria-live="polite">
             <div className="mx-auto h-10 w-10 animate-spin rounded-full border-4 border-paper-300 border-t-saffron-500" />
-            <p className="mt-4 font-medium">Verifying your payment…</p>
-            <p className="mt-1 text-sm text-ink-500">Please don’t close this page.</p>
+            <p className="mt-4 font-medium">{t.buy.verifying}</p>
+            <p className="mt-1 text-sm text-ink-500">{t.buy.dontClose}</p>
           </div>
         ) : (
           <>
             <div className="mt-5 space-y-4">
               <label className="block">
-                <span className="text-sm font-medium">Full name</span>
+                <span className="text-sm font-medium">{t.buy.name}</span>
                 <input className={field} autoComplete="name" value={form.name} maxLength={80}
                   onChange={(e) => setForm({ ...form, name: e.target.value })} disabled={busy} />
                 {touched && errors.name && <span className="mt-1 block text-sm text-red-700">{errors.name}</span>}
               </label>
               <label className="block">
-                <span className="text-sm font-medium">Mobile number</span>
+                <span className="text-sm font-medium">{t.buy.phone}</span>
                 <div className="relative">
                   <span className="pointer-events-none absolute left-4 top-1/2 mt-0.5 -translate-y-1/2 text-base text-ink-500">+91</span>
                   <input className={`${field} pl-14`} type="tel" inputMode="numeric" autoComplete="tel-national"
@@ -169,7 +171,7 @@ export default function BuyDialog({ open, onClose }: { open: boolean; onClose: (
                 {touched && errors.phone && <span className="mt-1 block text-sm text-red-700">{errors.phone}</span>}
               </label>
               <label className="block">
-                <span className="text-sm font-medium">Email</span>
+                <span className="text-sm font-medium">{t.buy.email}</span>
                 <input className={field} type="email" inputMode="email" autoComplete="email" value={form.email} maxLength={254}
                   onChange={(e) => setForm({ ...form, email: e.target.value })} disabled={busy} />
                 {touched && errors.email && <span className="mt-1 block text-sm text-red-700">{errors.email}</span>}
@@ -179,15 +181,15 @@ export default function BuyDialog({ open, onClose }: { open: boolean; onClose: (
             {error && <p className="mt-4 rounded-xl bg-red-50 px-4 py-3 text-sm text-red-800" role="alert">{error}</p>}
 
             <button type="submit" disabled={busy} className="btn-primary mt-6 w-full">
-              {stage === 'form' ? `PAY ${product.priceDisplay} SECURELY` : 'Opening secure payment…'}
+              {stage === 'form' ? t.buy.pay : t.buy.opening}
             </button>
             <p className="mt-3 flex items-center justify-center gap-1.5 text-center text-xs text-ink-500">
               <svg viewBox="0 0 20 20" className="h-3.5 w-3.5" fill="currentColor" aria-hidden><path d="M10 1.5 3.5 4v5.2c0 4 2.8 7.6 6.5 8.8 3.7-1.2 6.5-4.8 6.5-8.8V4L10 1.5Z" /></svg>
-              Payments are processed by Razorpay. We never see your card or UPI PIN.
+              {t.buy.secure}
             </p>
             <button type="button" onClick={onClose} disabled={busy}
               className="mt-1 w-full py-3 text-sm font-medium text-ink-500 underline-offset-4 hover:underline">
-              Cancel
+              {t.buy.cancel}
             </button>
           </>
         )}

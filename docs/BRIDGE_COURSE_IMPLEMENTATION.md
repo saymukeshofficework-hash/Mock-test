@@ -43,7 +43,7 @@ questions (पाठगत प्रश्न / Check Your Progress) with the co
 explanation, a quick revision list, and end-of-unit answers (पाठांत प्रश्न / End
 Exercises); several have practice MCQs, tables, a revision sheet, glossary and reading
 guide. Five papers are in Hindi, Pedagogy of Language-II in English. The landing-page
-claims in `bridge-course/src/config.ts` are limited to these observed facts.
+claims in `bridge-course/src/config.ts` and `src/i18n.tsx` are limited to these observed facts.
 
 Open questions for the seller (also in the manifest): duplicate Language-II Unit 11;
 TWAU has no Unit 3/4 docs; Curriculum paper has only Unit 1.
@@ -53,6 +53,7 @@ TWAU has no Unit 3/4 docs; Curriculum paper has only Unit 1.
 ```
 bridge-course/                    new Vite + React + TS + Tailwind app (sibling-app stack)
   src/config.ts                   ← single source of truth for all displayed product info
+  src/i18n.tsx                    ← Hindi (default) / English copy + हिंदी|EN toggle
   src/lib/{api,razorpay,access,analytics,whatsapp,base}.ts
   src/components/{BuyDialog,DownloadPanel,Layout,WhatsAppButton}.tsx
   src/pages/{Landing,Success,PaymentFailed,CheckStatus,Admin,Legal,faq}.tsx
@@ -121,6 +122,13 @@ message only and replaced by a generic message.
 
 * **Displayed** product facts, price label, chapter list, FAQ, legal placeholders,
   refund text: `bridge-course/src/config.ts` (+ `src/pages/faq.tsx`).
+* **Wording / language**: `bridge-course/src/i18n.tsx` holds every buyer-facing string in
+  Hindi and English (same keys, TypeScript enforces both). Hindi is the default; the
+  header toggle remembers the choice in `localStorage` (`bc_lang_v1`). Server error
+  messages are English, so the page maps each error `code` to Hindi (`errors` in
+  i18n.tsx). Terms/Privacy/Refund/Contact and /admin stay English on purpose; Hindi
+  readers see a one-line note on those pages. FAQ text in both languages:
+  `src/pages/faq.tsx`.
 * **Charged** price: `public.products.amount_paise` (+ `PRODUCT_AMOUNT_PAISE` guard).
 * Frontend env (public): `bridge-course/.env.example` → GitHub repository *Variables*.
 * Backend secrets: `supabase/.env.example` → Supabase Edge Function secrets.

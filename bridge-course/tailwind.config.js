@@ -30,8 +30,8 @@ export default {
         },
       },
       fontFamily: {
-        sans: ['"Inter"', 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Noto Sans Devanagari', 'sans-serif'],
-        serif: ['"Source Serif 4"', 'Georgia', 'Noto Serif Devanagari', 'serif'],
+        sans: ['"Inter"', '"Noto Sans Devanagari"', 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'sans-serif'],
+        serif: ['"Source Serif 4"', '"Noto Serif Devanagari"', 'Georgia', 'serif'],
       },
       boxShadow: {
         sheet: '0 1px 2px rgba(16,33,58,.06), 0 12px 32px -12px rgba(16,33,58,.25)',
