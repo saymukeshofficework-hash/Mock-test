@@ -1,0 +1,23 @@
+# Supabase CLI config — only the Bridge Course Edge Functions are managed by the CLI.
+# The older SQL files in this folder (schema.sql, blog_admin_schema.sql) were applied by
+# hand in the SQL Editor and are NOT migrations; don't run `supabase db reset` against
+# the live project. See docs/SUPABASE_SETUP.md.
+project_id = "ovaubhekxjtkodkhsybg"
+
+# All functions are called with the publishable key (sb_publishable_...), which is not a
+# JWT, so the platform's JWT check must be off. Each function authorises requests in
+# its own code (publishable-key gate, Razorpay signatures, hashed access tokens).
+[functions.create-razorpay-order]
+verify_jwt = false
+
+[functions.verify-razorpay-payment]
+verify_jwt = false
+
+[functions.razorpay-webhook]
+verify_jwt = false
+
+[functions.create-download-link]
+verify_jwt = false
+
+[functions.order-status]
+verify_jwt = false

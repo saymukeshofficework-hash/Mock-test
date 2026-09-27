@@ -38,6 +38,7 @@ jobs:
             tech-blog/package-lock.json
             RAIN ALERT/package-lock.json
             school-document-builder/package-lock.json
+            bridge-course/package-lock.json
 
       - name: Install Ludo 3D dependencies
         working-directory: ludo-3d
@@ -91,6 +92,28 @@ jobs:
         working-directory: school-document-builder
         run: npm run build
 
+      - name: Install Bridge Course dependencies
+        working-directory: bridge-course
+        run: npm ci
+
+      # Only PUBLIC values are passed to the frontend build (repository Variables, not
+      # Secrets). Razorpay/Supabase secrets live in Supabase Edge Function secrets and
+      # never touch this workflow. See docs/DEPLOYMENT.md.
+      - name: Build Bridge Course
+        working-directory: bridge-course
+        env:
+          VITE_SUPABASE_URL: ${{ vars.VITE_SUPABASE_URL }}
+          VITE_SUPABASE_PUBLISHABLE_KEY: ${{ vars.VITE_SUPABASE_PUBLISHABLE_KEY }}
+          VITE_RAZORPAY_KEY_ID: ${{ vars.VITE_RAZORPAY_KEY_ID }}
+          VITE_WHATSAPP_NUMBER: ${{ vars.VITE_WHATSAPP_NUMBER }}
+          VITE_SITE_URL: ${{ vars.VITE_SITE_URL }}
+          VITE_SUPPORT_EMAIL: ${{ vars.VITE_SUPPORT_EMAIL }}
+        run: npm run build
+
+      - name: Check Bridge Course bundle for secrets and the paid PDF
+        working-directory: bridge-course
+        run: npm run check:bundle
+
       - name: Assemble combined site
         run: |
           set -e
@@ -140,6 +163,11 @@ jobs:
           # School Document Builder build output
           mkdir -p _site/school-document-builder
           cp -r school-document-builder/dist/. _site/school-document-builder/
+
+          # Bridge Course Notes store build output (the paid PDF is NOT part of the
+          # build — it lives in private Supabase Storage)
+          mkdir -p _site/bridge-course
+          cp -r bridge-course/dist/. _site/bridge-course/
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
