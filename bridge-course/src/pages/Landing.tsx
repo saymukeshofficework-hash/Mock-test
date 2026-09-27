@@ -100,6 +100,22 @@ export default function Landing() {
         </div>
       </section>
 
+      {/* INTRO — who it's for + an honest pitch */}
+      <section className="mx-auto max-w-5xl px-4 pt-14 sm:pt-20">
+        <p className="max-w-3xl font-serif text-2xl font-semibold leading-snug text-ink-900 sm:text-3xl">{t.intro.question}</p>
+        <p className="mt-4 max-w-3xl text-[1.05rem] leading-relaxed text-ink-700">{t.intro.answer}</p>
+        <div className="mt-8 grid gap-4 md:grid-cols-2">
+          <div className="rounded-2xl border border-paper-200 bg-paper-50 p-6">
+            <h2 className="font-serif text-xl font-semibold text-ink-900">{t.intro.whoTitle}</h2>
+            {t.intro.who.map((x) => <p key={x} className="mt-2 text-[15px] leading-relaxed text-ink-700">{x}</p>)}
+          </div>
+          <div className="rounded-2xl border border-saffron-400/40 bg-saffron-500/5 p-6">
+            <h2 className="font-serif text-xl font-semibold text-ink-900">{t.intro.honestTitle}</h2>
+            {t.intro.honest.map((x) => <p key={x} className="mt-2 text-[15px] leading-relaxed text-ink-700">{x}</p>)}
+          </div>
+        </div>
+      </section>
+
       {/* WHAT YOU GET */}
       <section className="mx-auto max-w-5xl px-4 py-14 sm:py-20">
         <SectionTitle kicker={t.get.kicker} title={t.get.title} />
@@ -200,6 +216,7 @@ export default function Landing() {
       {/* HOW IT WORKS */}
       <section className="mx-auto max-w-5xl px-4 py-14 sm:py-20">
         <SectionTitle kicker={t.how.kicker} title={t.how.title} />
+        <p className="-mt-3 mb-6 max-w-2xl text-ink-700">{t.how.sub}</p>
         <ol className="grid gap-4 sm:grid-cols-4">
           {t.how.steps.map((step, i) => (
             <li key={step} className="rounded-2xl border border-paper-200 bg-paper-50 p-5">
@@ -242,6 +259,14 @@ export default function Landing() {
             <WhatsAppIcon /> {t.help.share}
           </a>
         </div>
+      </section>
+
+      {/* TEACHER'S NOTE */}
+      <section className="mx-auto max-w-3xl px-4 pb-14">
+        <figure className="border-l-4 border-saffron-500 pl-5">
+          <figcaption className="font-serif text-xl font-semibold text-ink-900">{t.teacher.title}</figcaption>
+          <blockquote className="mt-2 text-[1.05rem] leading-relaxed text-ink-700">{t.teacher.body}</blockquote>
+        </figure>
       </section>
 
       {/* FINAL CTA */}

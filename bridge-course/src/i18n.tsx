@@ -73,9 +73,24 @@ const en = {
     card: `One-time payment · Digital PDF · ${totals.chapters} chapter notes`,
     cta: `GET THE NOTES — ${P}`,
   },
+  intro: {
+    question: 'Preparing for the Bridge Course but not sure what to read, or where to find the material?',
+    answer: 'That is exactly why these notes were made. Everything is in one place, in simple language and in the right order, so you spend your time studying instead of searching.',
+    whoTitle: 'Who are these notes for?',
+    who: [
+      'Teachers and candidates doing the Bridge Course who want one organised set of material to study from.',
+      'The notes live on your phone. Open them whenever you get time, and look back at them whenever you need to.',
+    ],
+    honestTitle: 'Should you buy them?',
+    honest: [
+      'If you are preparing for the Bridge Course and want all the material in one place, yes, they will help.',
+      'But to be straight with you: this is not a magic shortcut. You still have to read and revise yourself. These notes just make that work a little easier.',
+    ],
+  },
   how: {
     kicker: 'How it works',
     title: 'Four steps, about two minutes',
+    sub: 'As soon as your payment completes, the download button appears on the same page. You can do the whole thing from your phone.',
     steps: ['Enter your details', `Pay ${P} securely through Razorpay`, 'Payment is verified automatically', 'Download your notes'],
   },
   faq: { kicker: 'FAQ', title: 'Questions buyers ask' },
@@ -85,6 +100,10 @@ const en = {
     shareTitle: 'Know someone preparing?',
     shareBody: 'Share these notes in your WhatsApp group.',
     share: 'SHARE ON WHATSAPP',
+  },
+  teacher: {
+    title: 'A small piece of advice from a teacher',
+    body: 'During preparation, the hardest part is often not the studying but finding the right material. The aim here was simple: put the material in one place so your time goes into studying.',
   },
   final: { cta: 'BUY NOW — GET INSTANT ACCESS', paid: 'Already paid?', check: 'Check payment status' },
   bar: { sub: 'PDF · instant access', buy: 'BUY NOW', share: 'Share on WhatsApp' },
@@ -176,7 +195,7 @@ const hi: Strings = {
   },
   hero: {
     by: 'राकेश पांडेय द्वारा',
-    tagline: 'जल्दी रिवीज़न, बेहतर समझ और परीक्षा की तैयारी के लिए बनाए गए संपूर्ण डिजिटल नोट्स।',
+    tagline: 'ब्रिज कोर्स की तैयारी के लिए नोट्स — सारी बातें एक जगह, आसान भाषा में और सही क्रम में।',
     oneTime: 'एक बार का भुगतान · PDF',
     buy: `अभी खरीदें — ${P}`,
     samples: 'सैंपल पेज देखें',
@@ -227,9 +246,24 @@ const hi: Strings = {
     card: `एक बार का भुगतान · डिजिटल PDF · ${totals.chapters} अध्यायों के नोट्स`,
     cta: `नोट्स पाएँ — ${P}`,
   },
+  intro: {
+    question: 'ब्रिज कोर्स की तैयारी कर रहे हैं, पर समझ नहीं आ रहा कि पढ़ें क्या और सामग्री कहाँ से लाएँ?',
+    answer: 'यही सोचकर ये नोट्स बनाए गए हैं। सारी बातें एक जगह हैं, आसान भाषा में और सही क्रम में। अब अलग-अलग जगह सामग्री ढूँढने में समय नहीं लगेगा।',
+    whoTitle: 'ये नोट्स किसके लिए हैं?',
+    who: [
+      'उन शिक्षकों और अभ्यर्थियों के लिए, जो ब्रिज कोर्स कर रहे हैं और पढ़ने के लिए एक व्यवस्थित सामग्री अपने पास रखना चाहते हैं।',
+      'नोट्स फ़ोन में रहेंगे। जब समय मिले, खोलकर पढ़ लीजिए और ज़रूरत हो तो दोबारा देख लीजिए।',
+    ],
+    honestTitle: 'क्या आपको ये नोट्स लेने चाहिए?',
+    honest: [
+      'अगर आप ब्रिज कोर्स की तैयारी कर रहे हैं और पूरी सामग्री एक जगह चाहते हैं, तो हाँ, ये आपके काम आएँगे।',
+      'पर सीधी बात: ये कोई जादुई शॉर्टकट नहीं है। पढ़ना और दोहराना आपको ही होगा। ये नोट्स बस उस काम को थोड़ा आसान कर देते हैं।',
+    ],
+  },
   how: {
     kicker: 'कैसे काम करता है',
     title: 'चार आसान चरण, लगभग दो मिनट',
+    sub: 'भुगतान पूरा होते ही उसी पेज पर डाउनलोड बटन आ जाता है। पूरा काम मोबाइल से हो जाता है।',
     steps: ['अपनी जानकारी भरें', `Razorpay से सुरक्षित रूप से ${P} का भुगतान करें`, 'भुगतान अपने-आप सत्यापित होता है', 'अपने नोट्स डाउनलोड करें'],
   },
   faq: { kicker: 'सवाल-जवाब', title: 'खरीदने वालों के आम सवाल' },
@@ -240,7 +274,11 @@ const hi: Strings = {
     shareBody: 'ये नोट्स अपने WhatsApp ग्रुप में शेयर करें।',
     share: 'WhatsApp पर शेयर करें',
   },
-  final: { cta: 'अभी खरीदें — तुरंत एक्सेस पाएँ', paid: 'भुगतान कर चुके हैं?', check: 'भुगतान की स्थिति देखें' },
+  teacher: {
+    title: 'एक शिक्षक की छोटी-सी सलाह',
+    body: 'तैयारी में अक्सर पढ़ाई से ज़्यादा मुश्किल सही सामग्री ढूँढना होता है। कोशिश यही रही है कि सामग्री एक जगह मिल जाए और आपका समय पढ़ने में लगे।',
+  },
+  final: { cta: 'अभी नोट्स पाएँ', paid: 'भुगतान कर चुके हैं?', check: 'भुगतान की स्थिति देखें' },
   bar: { sub: 'PDF · तुरंत एक्सेस', buy: 'अभी खरीदें', share: 'WhatsApp पर शेयर करें' },
   buy: {
     by: 'राकेश पांडेय द्वारा · PDF',
