@@ -19,6 +19,9 @@ import { renderProgress, renderHistory } from "./ui/dashboard.js";
 const $ = (id) => document.getElementById(id);
 const reducedMotion = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 const isSmallScreen = () => window.matchMedia("(max-width: 720px)").matches;
+// Decided once at load so the layout, the Keyboard button and autofocus always agree.
+const TOUCH = window.matchMedia("(pointer: coarse)").matches;
+const isTouch = () => TOUCH;
 
 // ------------------------------------------------------------------ language
 // Follow the site-wide toggle from /js/i18n.js (Hindi by default). If that script
@@ -446,11 +449,13 @@ function startTest(config) {
   pushHistory("test");
   // On phones the keyboard takes half the screen: hide the title bar for the whole
   // test (not on focus/blur — toggling it mid-tap would shift the control buttons).
-  document.body.classList.toggle("tp-typing-mobile", isSmallScreen() && window.matchMedia("(pointer: coarse)").matches);
+  document.body.classList.toggle("tp-typing-mobile", isSmallScreen() && TOUCH);
   pushRecentId(formatId, passage.id);
 
-  // Called from a click, so focusing here is allowed to open the phone keyboard.
-  input.focus({ preventScroll: true });
+  // Desktop: focus straight away. Touch devices: don't pop the keyboard open — the
+  // student reads the passage first and taps the typing box (or the Keyboard button).
+  if (!isTouch()) input.focus({ preventScroll: true });
+  updateKbdBtn();
   session.tickId = window.setInterval(onTick, 200);
 }
 
@@ -517,6 +522,19 @@ function renderMetrics() {
   renderClock();
 }
 
+/** Keyboard show/hide button (touch devices only). */
+function updateKbdBtn() {
+  const btn = $("kbdBtn");
+  if (!btn || btn.hidden) return;
+  const open = document.activeElement === $("typingInput");
+  const label = open ? tr("kbd_hide") : tr("kbd_show");
+  btn.querySelector(".tf-ctl-txt").textContent = label;
+  btn.querySelector(".tf-ctl-ico").textContent = open ? "⌨▾" : "⌨";
+  btn.setAttribute("aria-label", label);
+  btn.setAttribute("aria-pressed", String(open));
+  btn.disabled = !session || session.engine.state === "paused" || session.engine.isFinished;
+}
+
 function updateControls() {
   if (!session) return;
   const st = session.engine.state;
@@ -527,6 +545,7 @@ function updateControls() {
   $("pauseBtn").setAttribute("aria-label", paused ? tr("resume") : tr("pause"));
   $("restartBtn").setAttribute("aria-label", tr("restart"));
   $("endBtn").setAttribute("aria-label", tr("end_test"));
+  updateKbdBtn();
 }
 
 // ------------------------------------------------------------------ input
@@ -591,6 +610,20 @@ function bindTestInput() {
   input.addEventListener("beforeinput", (e) => {
     if (e.inputType === "insertFromPaste" || e.inputType === "insertFromDrop" || e.inputType === "insertFromPasteAsQuotation") blockPaste(e);
   });
+  input.addEventListener("focus", updateKbdBtn);
+  input.addEventListener("blur", updateKbdBtn);
+  const kbd = $("kbdBtn");
+  kbd.hidden = !isTouch();
+  // Keep the tap from moving focus off the input first, so the click sees the real state.
+  kbd.addEventListener("pointerdown", (e) => e.preventDefault());
+  kbd.addEventListener("mousedown", (e) => e.preventDefault());
+  kbd.addEventListener("click", () => {
+    if (!session || kbd.disabled) return;
+    if (document.activeElement === input) input.blur();
+    else input.focus({ preventScroll: true });
+    updateKbdBtn();
+  });
+
   input.addEventListener("keydown", (e) => {
     if (e.key === "Escape") {
       e.preventDefault();
@@ -703,7 +736,7 @@ window.addEventListener("beforeunload", (e) => {
 // Touch devices: the test screen is pinned to the *visible* viewport — the part the
 // on-screen keyboard doesn't cover — and gets a compact layout when that area is
 // short (keyboard open, or a phone in landscape).
-document.body.classList.toggle("tp-touch", window.matchMedia("(pointer: coarse)").matches);
+document.body.classList.toggle("tp-touch", TOUCH);
 function updateViewport() {
   const vv = window.visualViewport;
   const h = vv ? vv.height : window.innerHeight;
