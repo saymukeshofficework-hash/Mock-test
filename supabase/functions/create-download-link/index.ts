@@ -32,12 +32,19 @@ type Consume = {
   order_reference: string
 }
 
+// The file name the buyer's phone saves, per product (products.download_name).
+async function downloadName(bucket: string, path: string): Promise<string> {
+  const { data } = await db().from('products').select('download_name')
+    .eq('file_bucket', bucket).eq('file_path', path).limit(1).maybeSingle()
+  return data?.download_name || config.downloadFileName()
+}
+
 async function deliverFile(c: Consume): Promise<string | null> {
   const bucket = c.file_bucket || config.storageBucket()
   const path = c.file_path || config.productFilePath()
   const { data, error } = await db().storage
     .from(bucket)
-    .createSignedUrl(path, config.downloadUrlExpirySeconds(), { download: config.downloadFileName() })
+    .createSignedUrl(path, config.downloadUrlExpirySeconds(), { download: await downloadName(bucket, path) })
   if (error || !data?.signedUrl) {
     console.error(`[create-download-link] sign failed: ${error?.message ?? 'no url'}`)
     return null

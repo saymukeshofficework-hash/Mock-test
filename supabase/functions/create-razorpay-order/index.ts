@@ -2,7 +2,7 @@
 // → { razorpay_order_id, razorpay_key_id, amount, currency, internal_order_reference, product_name }
 //
 // The amount is read from the products table. Nothing the browser sends can change
-// it: there is no amount field, and product_slug must be the one product on sale.
+// it: there is no amount field, and product_slug must be on the productPrices allow-list.
 import { config } from '../_shared/config.ts'
 import { randomReference } from '../_shared/crypto.ts'
 import { db, type ProductRow } from '../_shared/db.ts'
@@ -17,7 +17,8 @@ Deno.serve(handler('create-razorpay-order', async (req) => {
   const buyer = validateBuyer(body)
 
   const slug = typeof body.product_slug === 'string' ? body.product_slug : ''
-  if (slug !== config.productSlug()) {
+  const expectedPaise = config.productPrices()[slug]
+  if (!expectedPaise) {
     throw new PublicError(400, 'This product is not available.', 'invalid_product')
   }
 
@@ -30,10 +31,10 @@ Deno.serve(handler('create-razorpay-order', async (req) => {
   if (!product || !product.active) {
     throw new PublicError(400, 'This product is not available right now.', 'inactive_product')
   }
-  if (product.amount_paise !== config.productAmountPaise() || product.currency !== config.productCurrency()) {
+  if (product.amount_paise !== expectedPaise || product.currency !== config.productCurrency()) {
     // Price in the DB and the configured price disagree — refuse rather than charge
     // an unexpected amount. See docs/BRIDGE_COURSE_IMPLEMENTATION.md "Changing the price".
-    throw new Error('product price does not match PRODUCT_AMOUNT_PAISE/PRODUCT_CURRENCY')
+    throw new Error(`product ${slug} price does not match productPrices/PRODUCT_CURRENCY`)
   }
 
   const since = new Date(Date.now() - 60 * 60 * 1000).toISOString()

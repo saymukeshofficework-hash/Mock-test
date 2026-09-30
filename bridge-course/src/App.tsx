@@ -5,6 +5,7 @@ import Landing from './pages/Landing'
 import { Contact, NotFound, Privacy, Refund, Terms } from './pages/Legal'
 import PaymentFailed from './pages/PaymentFailed'
 import Success from './pages/Success'
+import TeachingPlan from './pages/TeachingPlan'
 
 // Admin pulls in supabase-js; keep it out of the landing-page bundle.
 const Admin = lazy(() => import('./pages/Admin'))
@@ -21,6 +22,7 @@ export default function App() {
       <ScrollToTop />
       <Routes>
         <Route path="/" element={<Landing />} />
+        <Route path="/assignment-copy" element={<TeachingPlan />} />
         <Route path="/success" element={<Success />} />
         <Route path="/payment-failed" element={<PaymentFailed />} />
         <Route path="/check-status" element={<CheckStatus />} />

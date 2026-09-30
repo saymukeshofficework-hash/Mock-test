@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import BuyDialog from '../components/BuyDialog'
 import { Page } from '../components/Layout'
 import WhatsAppButton, { WhatsAppIcon } from '../components/WhatsAppButton'
-import { papers, product, samples } from '../config'
+import { papers, product, samples, teachingPlan } from '../config'
 import { useLang } from '../i18n'
 import { track } from '../lib/analytics'
 import { asset } from '../lib/base'
@@ -258,6 +258,19 @@ export default function Landing() {
           <a href={shareUrl()} target="_blank" rel="noopener" className="btn-whatsapp mt-4">
             <WhatsAppIcon /> {t.help.share}
           </a>
+        </div>
+      </section>
+
+      {/* CROSS-SELL: Teaching Plan copy */}
+      <section className="mx-auto max-w-5xl px-4 pb-14">
+        <div className="flex flex-col gap-5 rounded-2xl border border-saffron-400/40 bg-saffron-500/5 p-6 sm:flex-row sm:items-center">
+          <img src={asset('previews/tp-1.webp')} alt="" width={600} height={849} loading="lazy"
+            className="w-24 flex-none -rotate-3 rounded shadow-sheet ring-1 ring-paper-300" />
+          <div className="flex-1">
+            <h2 className="font-serif text-xl font-semibold text-ink-900">{t.alsoCopy.title}</h2>
+            <p className="mt-1 text-[15px] leading-relaxed text-ink-700">{t.alsoCopy.body}</p>
+          </div>
+          <Link to={teachingPlan.path} className="btn-secondary flex-none">{t.alsoCopy.cta}</Link>
         </div>
       </section>
 

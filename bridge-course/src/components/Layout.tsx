@@ -47,6 +47,7 @@ export function Footer() {
           <Link to="/privacy" className="hover:text-ink-900">{t.footer.privacy}</Link>
           <Link to="/refund" className="hover:text-ink-900">{t.footer.refund}</Link>
           <Link to="/contact" className="hover:text-ink-900">{t.footer.contact}</Link>
+          <Link to="/assignment-copy" className="hover:text-ink-900">{t.footer.copy}</Link>
           <Link to="/check-status" className="hover:text-ink-900">{t.footer.checkStatus}</Link>
           {hasWhatsApp && <a href={supportUrl()} target="_blank" rel="noopener" className="hover:text-ink-900">{t.footer.whatsapp}</a>}
         </nav>

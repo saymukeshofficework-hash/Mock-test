@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, type FormEvent } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { product, site } from '../config'
+import { product, site, type SaleItem } from '../config'
 import { useLang } from '../i18n'
 import { access } from '../lib/access'
 import { track } from '../lib/analytics'
@@ -19,7 +19,12 @@ function normalisePhone(v: string) {
   return d
 }
 
-export default function BuyDialog({ open, onClose }: { open: boolean; onClose: () => void }) {
+export default function BuyDialog({ open, onClose, item = product, subtitle }: {
+  open: boolean
+  onClose: () => void
+  item?: SaleItem
+  subtitle?: string
+}) {
   const navigate = useNavigate()
   const { t, errorText } = useLang()
   const dialogRef = useRef<HTMLDialogElement>(null)
@@ -57,7 +62,7 @@ export default function BuyDialog({ open, onClose }: { open: boolean; onClose: (
 
     const buyer = { buyer_name: form.name.trim(), buyer_email: form.email.trim().toLowerCase(), buyer_phone: phone }
     try {
-      const [{ data: order }] = await Promise.all([api.createOrder(buyer, product.slug), loadCheckout()])
+      const [{ data: order }] = await Promise.all([api.createOrder(buyer, item.slug), loadCheckout()])
       access.savePending({ orderReference: order.internal_order_reference, email: buyer.buyer_email, phone })
 
       setStage('checkout')
@@ -76,8 +81,8 @@ export default function BuyDialog({ open, onClose }: { open: boolean; onClose: (
           key: order.razorpay_key_id || site.razorpayKeyIdFallback,
           amount: order.amount, // from the server, never from this page
           currency: order.currency,
-          name: product.name,
-          description: t.buy.rzpDescription,
+          name: item.name,
+          description: t.buy.rzpDescription(item.priceDisplay),
           order_id: order.razorpay_order_id,
           prefill: { name: buyer.buyer_name, email: buyer.buyer_email, contact: `+91${phone}` },
           notes: { order_reference: order.internal_order_reference },
@@ -137,11 +142,11 @@ export default function BuyDialog({ open, onClose }: { open: boolean; onClose: (
         <div className="mx-auto mb-4 h-1.5 w-12 rounded-full bg-paper-300 sm:hidden" aria-hidden />
         <div className="flex items-start justify-between gap-4">
           <div>
-            <h2 id="buy-title" className="font-serif text-2xl font-semibold leading-tight">{product.shortName}</h2>
-            <p className="mt-0.5 text-sm text-ink-500">{t.buy.by}</p>
+            <h2 id="buy-title" className="font-serif text-2xl font-semibold leading-tight">{item.shortName}</h2>
+            <p className="mt-0.5 text-sm text-ink-500">{subtitle ?? (item.slug === product.slug ? t.buy.by : t.buy.pdf)}</p>
           </div>
           <div className="text-right">
-            <p className="font-serif text-3xl font-bold text-ink-900">{product.priceDisplay}</p>
+            <p className="font-serif text-3xl font-bold text-ink-900">{item.priceDisplay}</p>
           </div>
         </div>
 
@@ -181,7 +186,7 @@ export default function BuyDialog({ open, onClose }: { open: boolean; onClose: (
             {error && <p className="mt-4 rounded-xl bg-red-50 px-4 py-3 text-sm text-red-800" role="alert">{error}</p>}
 
             <button type="submit" disabled={busy} className="btn-primary mt-6 w-full">
-              {stage === 'form' ? t.buy.pay : t.buy.opening}
+              {stage === 'form' ? t.buy.pay(item.priceDisplay) : t.buy.opening}
             </button>
             <p className="mt-3 flex items-center justify-center gap-1.5 text-center text-xs text-ink-500">
               <svg viewBox="0 0 20 20" className="h-3.5 w-3.5" fill="currentColor" aria-hidden><path d="M10 1.5 3.5 4v5.2c0 4 2.8 7.6 6.5 8.8 3.7-1.2 6.5-4.8 6.5-8.8V4L10 1.5Z" /></svg>

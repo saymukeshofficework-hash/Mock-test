@@ -49,4 +49,5 @@ export type ProductRow = {
   amount_paise: number
   currency: string
   active: boolean
+  download_name?: string | null
 }

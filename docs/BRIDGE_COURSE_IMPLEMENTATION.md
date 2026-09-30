@@ -183,3 +183,17 @@ Still needed before selling — see [DEPLOYMENT.md → Go-live checklist](./DEPL
 compile + upload the PDF, set Razorpay test secrets, add the webhook, create an admin
 user, set GitHub Variables (WhatsApp number), fill legal placeholders and the refund
 policy, run the Test Mode checklist, then switch to live keys deliberately.
+
+## Products on sale
+
+| Slug | Price | Page | Storage path (bucket `bridge-course-private`) |
+|---|---|---|---|
+| `bridge-course-notes` | ₹199 | `/bridge-course/` | `bridge-course-notes.pdf` |
+| `teaching-plan-copy` | ₹29 | `/bridge-course/assignment-copy` | `products/teaching-plan-copy.pdf` |
+
+Adding another product: insert a `products` row (price, file path, `download_name`,
+`max_downloads`), add its slug and price to `productPrices` in
+`supabase/functions/_shared/config.ts` (or the `PRODUCT_PRICES` secret) and redeploy
+`create-razorpay-order`, upload the PDF to the private bucket, then add a `SaleItem` in
+`bridge-course/src/config.ts` and a page that opens `<BuyDialog item={…} />`.
+Migration for the second product: `supabase/migrations/20260930090000_teaching_plan_copy.sql`.
