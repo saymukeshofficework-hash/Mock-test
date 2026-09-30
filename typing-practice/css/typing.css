@@ -468,3 +468,124 @@ body.tp-typing-mobile #testView .tf-topbar{display:none;}
   .rhero{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
   .rsec{break-inside:avoid;}
 }
+
+/* =====================================================================
+   Black & white minimalist theme (Typing Practice only).
+   Everything is black, white and greys: no gradients, no shadows, no
+   coloured badges. The one colour kept is red, for mistakes (wrong letters,
+   error counts). Only this page loads typing.css, so the rest of the site
+   keeps its own look.
+   ===================================================================== */
+:root{
+  /* site.css palette used by the header, cards and buttons */
+  --blue:#000; --blue-dark:#000; --blue-light:#bdbdbd; --lightblue:#f4f4f4;
+  --green:#000; --red:#000; --grey:#9e9e9e;
+  --border:#e4e4e4; --ink:#000; --muted:#666; --page:#fff; --card:#fff;
+  /* test-format palette */
+  --tf-navy:#000; --tf-navy-l:#222; --tf-blue:#000; --tf-blue-l:#f1f1f1;
+  --tf-green:#000; --tf-green-ink:#000; --tf-red:#000; --tf-red-ink:#000;
+  --tf-bg:#fff; --tf-ink:#000; --tf-muted:#6b6b6b; --tf-border:#e4e4e4;
+  --tf-ok-bg:#f1f1f1; --tf-bad-bg:#fdecea;
+  /* the one colour kept: red for mistakes */
+  --err:#c62828;
+}
+body{background:#fff;}
+
+/* header: white bar, black text, active link underlined */
+header.site-header{background:#fff;color:#000;box-shadow:none;border-bottom:1px solid var(--border);}
+header.site-header .brand{color:#000;}
+header.site-header .brand .logo{background:#000;}
+header.site-header nav a{background:transparent;color:#000;font-weight:500;border-radius:4px;}
+header.site-header nav a:hover:not(.active){background:#f1f1f1;}
+header.site-header nav a.active{background:transparent;color:#000;font-weight:700;text-decoration:underline;text-underline-offset:6px;text-decoration-thickness:2px;}
+.lang-toggle{color:#000;background:transparent;border:1px solid #000;border-radius:4px;}
+.lang-toggle:hover{background:#f1f1f1;}
+
+/* hero, buttons, cards */
+.hero::before{display:none;}
+.hero .eyebrow{background:transparent;border:none;color:var(--muted);font-weight:600;letter-spacing:.4px;padding:0;}
+.hero h1{letter-spacing:-.8px;}
+.btn{border-radius:4px;box-shadow:none;}
+.btn-primary{background:#000;color:#fff;}
+.btn-primary:hover{filter:none;background:#222;}
+.btn-secondary{background:#fff;color:#000;border:1px solid #000;}
+.btn-secondary:hover{background:#f1f1f1;}
+.card,.card:hover,.tp-panel,.tp-mode:hover{box-shadow:none;transform:none;}
+.card{border-radius:6px;}
+.card:hover,.tp-mode:hover{border-color:#000;}
+.alert-info{background:#f7f7f7;color:#000;border:1px solid var(--border);}
+
+.tp-format{border:1px solid var(--border);border-radius:6px;}
+.tp-format[aria-checked="true"]{border:2px solid #000;background:#fff;box-shadow:none;padding:13px 13px 12px;}
+.tp-format[aria-checked="true"]::after{background:#000;}
+.tp-chip{border:1px solid var(--border);border-radius:4px;font-weight:600;}
+.tp-chip[aria-pressed="true"]{background:#000;border-color:#000;color:#fff;}
+.tp-mode-badge{background:#f1f1f1;color:#000;border-radius:4px;}
+.tp-meta{background:#f1f1f1;color:#000;border-radius:3px;}
+.tp-meta.done{background:#000;color:#fff;}
+.tp-stat,.tp-fstat,.tp-table-wrap{border-radius:6px;}
+.faq-item{border-radius:6px;}
+
+/* test screen */
+.tf-lang{border-radius:4px;}
+.tf-timerbar{background:#fff;color:#000;border-bottom:1px solid var(--tf-border);}
+.tf-timer{background:#000;color:#fff;border-radius:4px;}
+.tf-timerbar.warn .tf-timer{background:#fff;color:#000;box-shadow:inset 0 0 0 2px #000;}
+.tf-ctl{background:#fff;color:#000;border:1px solid #000;border-radius:4px;}
+.tf-ctl:hover{background:#f1f1f1;}
+.tf-ctl-end{background:#000;color:#fff;border-color:#000;}
+.tf-ctl-end:hover{background:#222;}
+.tf-sticky{box-shadow:none;border-bottom:1px solid var(--tf-border);}
+.tf-progress-track{background:#ececec;}
+.tf-passage{background:#fff;border-radius:6px;color:#767676;}
+.tf-passage .ok{color:#000;}
+.tf-passage .bad{color:var(--err);background:var(--tf-bad-bg);text-decoration:underline wavy var(--err);text-decoration-thickness:1px;text-underline-offset:4px;}
+.tf-passage .miss{color:var(--err);background:var(--tf-bad-bg);text-decoration:line-through;}
+.tf-passage .x{color:var(--err);background:var(--tf-bad-bg);}
+.tf-passage .sp.miss{box-shadow:inset 0 -3px 0 var(--err);}
+.tf-m-err{color:var(--err);}
+.tf-passage .w.active{background:transparent;}
+.tf-input{border:1px solid var(--tf-border);border-radius:6px;}
+.tf-input:focus{border-color:#000;box-shadow:none;}
+.tf-warn{background:#fff;color:#000;border:2px solid #000;border-radius:4px;}
+.tf-note{background:#f7f7f7;color:#000;border:1px solid var(--tf-border);border-radius:4px;}
+.tf-paused,.tf-done{background:rgba(255,255,255,.96);border-radius:6px;}
+.tf-btn{border-radius:4px;}
+.tf-btn-primary:hover:not(:disabled){background:#222;}
+.tf-btn-ghost{background:#f1f1f1;color:#000;}
+.tf-btn-outline{border-color:#000;}
+
+/* exam intro */
+.tf-icon{background:#f1f1f1;color:#000;}
+.tf-field input,.tf-field select{background:#fff;border:1px solid var(--tf-border);border-radius:4px;}
+.tf-field input:focus,.tf-field select:focus{border-color:#000;}
+.tf-instructions{background:#f7f7f7;border-radius:4px;}
+
+/* result */
+.rpill{background:transparent;border:1px solid rgba(255,255,255,.6);}
+.rpill.lvl-excellent,.rpill.lvl-veryGood,.rpill.lvl-good,.rpill.lvl-average,.rpill.lvl-needsPractice{background:#fff;color:#000;border-color:#fff;}
+.rmotiv{background:#f7f7f7;color:#000;border-radius:4px;border-left:3px solid #000;}
+.rcell,.rerr,.rchar{border-radius:4px;}
+.rbar-track{background:#ececec;}
+.rbar-fill{background:#000;}
+.rbar-fill.acc{background:#555;}
+.rbar-fill.err{background:var(--err);}
+.rchart .avg{stroke:#8a8a8a;}
+.rchart .area{fill:rgba(0,0,0,.06);}
+.hl-bad{color:var(--err);background:var(--tf-bad-bg);}
+.rcell.bad .v{color:var(--err);}
+.hl-exp{color:#000;background:transparent;text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:3px;}
+.rerr-row .tag{background:#6b6b6b;}
+.rerr-row .tag.missed{background:#9a9a9a;}
+.rerr-row .tag.extra{background:var(--err);}
+.rintegrity{background:#fff;border:2px solid #000;border-radius:4px;}
+.tp-dialog{border-radius:6px;box-shadow:none;border:1px solid #000;}
+.tp-toast{border-radius:4px;}
+
+/* focus: black ring (the amber one clashed with the palette) */
+.tp-format:focus-visible,.tp-chip:focus-visible,.tp-mode:focus-visible,.tf-btn:focus-visible,.tf-ctl:focus-visible,.tf-lang:focus-visible,.btn:focus-visible,header.site-header a:focus-visible,.lang-toggle:focus-visible{
+  outline:2px solid #000;outline-offset:2px;
+}
+.rhero .tf-lang:focus-visible{outline-color:#fff;}
+/* The result heading only receives focus programmatically (for screen readers); no ring. */
+.rhero h1:focus{outline:none;}
