@@ -4,7 +4,7 @@
 import { Link } from 'react-router-dom'
 import { Prose } from '../components/Layout'
 import WhatsAppButton from '../components/WhatsAppButton'
-import { business, product, refundPolicy, site, teachingPlan } from '../config'
+import { business, product, refundPolicy, site, assignmentCombo } from '../config'
 import { hasWhatsApp } from '../lib/whatsapp'
 
 function Updated() {
@@ -16,12 +16,12 @@ export function Terms() {
     <Prose title="Terms of Sale">
       <Updated />
       <h2>1. Who is selling</h2>
-      <p>The products on this site ({product.name}; {teachingPlan.name}) are sold by {business.sellerName}{business.address ? `, ${business.address}` : ''}.{business.gstin ? ` GSTIN: ${business.gstin}.` : ''}</p>
+      <p>The products on this site ({product.name}; {assignmentCombo.name}) are sold by {business.sellerName}{business.address ? `, ${business.address}` : ''}.{business.gstin ? ` GSTIN: ${business.gstin}.` : ''}</p>
       <h2>2. The product</h2>
       <p>
-        Digital PDFs: {product.name}, a set of study notes priced at {product.priceDisplay}, and {teachingPlan.name}, a
-        blank printable template priced at {teachingPlan.priceDisplay} (INR), inclusive of any applicable taxes unless stated
-        otherwise at checkout. Nothing physical is shipped. You may print the Teaching Plan copy for your own use.
+        Digital PDFs: {product.name}, a set of study notes priced at {product.priceDisplay}, and {assignmentCombo.name}, a
+        printable PDF of assignment covers and a blank teaching plan priced at {assignmentCombo.priceDisplay} (INR), inclusive of any applicable taxes unless stated
+        otherwise at checkout. Nothing physical is shipped. You may print the Assignment Combo for your own use. The combo is not an official NIOS publication.
       </p>
       <h2>3. Payment</h2>
       <p>

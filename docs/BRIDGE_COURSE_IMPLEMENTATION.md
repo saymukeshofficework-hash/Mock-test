@@ -189,11 +189,14 @@ policy, run the Test Mode checklist, then switch to live keys deliberately.
 | Slug | Price | Page | Storage path (bucket `bridge-course-private`) |
 |---|---|---|---|
 | `bridge-course-notes` | ₹199 | `/bridge-course/` | `bridge-course-notes.pdf` |
-| `teaching-plan-copy` | ₹29 | `/bridge-course/assignment-copy` | `products/teaching-plan-copy.pdf` |
+| `assignment-combo` | ₹49 | `/bridge-course/assignment-combo` | `products/assignment-combo.pdf` (19 pages: 7 covers + 12-page Teaching Plan) |
+| `teaching-plan-copy` | ₹29 | — (inactive; `/assignment-copy` redirects to the combo) | never uploaded |
 
 Adding another product: insert a `products` row (price, file path, `download_name`,
 `max_downloads`), add its slug and price to `productPrices` in
 `supabase/functions/_shared/config.ts` (or the `PRODUCT_PRICES` secret) and redeploy
 `create-razorpay-order`, upload the PDF to the private bucket, then add a `SaleItem` in
 `bridge-course/src/config.ts` and a page that opens `<BuyDialog item={…} />`.
-Migration for the second product: `supabase/migrations/20260930090000_teaching_plan_copy.sql`.
+Migrations: `20260930090000_teaching_plan_copy.sql` (first version), `20260930100000_assignment_combo.sql` (₹49 combo).
+The combo PDF is built from the seller's two PDFs (covers first, then the Teaching Plan) and kept
+locally in `content/source/` (git-ignored).
