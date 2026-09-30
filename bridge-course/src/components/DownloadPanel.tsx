@@ -40,6 +40,10 @@ export default function DownloadPanel({ token }: { token: string }) {
   const active = status.status === 'active'
   return (
     <div>
+      <div className="mb-6 flex items-center justify-between gap-4 rounded-2xl bg-paper-100 px-4 py-3">
+        <p className="font-semibold leading-snug text-ink-900">{status.product_name}</p>
+        <p className="font-serif text-2xl font-bold">₹{Math.round(status.amount / 100)}</p>
+      </div>
       {active ? (
         <button onClick={download} disabled={busy} className="btn-primary w-full text-lg">
           {busy ? t.download.preparing : t.download.button}

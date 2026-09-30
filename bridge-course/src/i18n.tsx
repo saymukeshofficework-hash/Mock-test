@@ -17,7 +17,7 @@ const en = {
   header: { alreadyPaid: 'Already paid?' },
   footer: {
     terms: 'Terms', privacy: 'Privacy', refund: 'Refund policy', contact: 'Contact',
-    checkStatus: 'Check payment status', whatsapp: 'WhatsApp support',
+    checkStatus: 'Check payment status', whatsapp: 'WhatsApp support', copy: 'Teaching Plan copy (₹29)',
     secured: 'Payments secured by Razorpay.',
   },
   hero: {
@@ -105,21 +105,27 @@ const en = {
     title: 'A small piece of advice from a teacher',
     body: 'During preparation, the hardest part is often not the studying but finding the right material. The aim here was simple: put the material in one place so your time goes into studying.',
   },
+  alsoCopy: {
+    title: 'Also available: Teaching Plan assignment copy',
+    body: 'A printable blank शिक्षण योजना (Teaching Plan) — 12 A4 pages to fill in by hand for your assignment.',
+    cta: 'See the copy — ₹29',
+  },
   final: { cta: 'BUY NOW — GET INSTANT ACCESS', paid: 'Already paid?', check: 'Check payment status' },
   bar: { sub: 'PDF · instant access', buy: 'BUY NOW', share: 'Share on WhatsApp' },
   buy: {
     by: `by ${product.author} · PDF`,
+    pdf: 'PDF',
     name: 'Full name', phone: 'Mobile number', email: 'Email',
     errName: 'Please enter your full name.',
     errPhone: 'Enter a valid 10-digit mobile number.',
     errEmail: 'Enter a valid email address.',
-    pay: `PAY ${P} SECURELY`,
+    pay: (price: string) => `PAY ${price} SECURELY`,
     opening: 'Opening secure payment…',
     verifying: 'Verifying your payment…',
     dontClose: 'Please don’t close this page.',
     secure: 'Payments are processed by Razorpay. We never see your card or UPI PIN.',
     cancel: 'Cancel',
-    rzpDescription: `Digital PDF notes — ${P}`,
+    rzpDescription: (price: string) => `Digital PDF — ${price}`,
   },
   download: {
     reasons: {
@@ -190,7 +196,7 @@ const hi: Strings = {
   header: { alreadyPaid: 'भुगतान कर चुके हैं?' },
   footer: {
     terms: 'नियम व शर्तें (Terms)', privacy: 'गोपनीयता (Privacy)', refund: 'रिफ़ंड नीति', contact: 'संपर्क',
-    checkStatus: 'भुगतान की स्थिति देखें', whatsapp: 'WhatsApp सहायता',
+    checkStatus: 'भुगतान की स्थिति देखें', whatsapp: 'WhatsApp सहायता', copy: 'शिक्षण योजना कॉपी (₹29)',
     secured: 'भुगतान Razorpay द्वारा सुरक्षित।',
   },
   hero: {
@@ -278,21 +284,27 @@ const hi: Strings = {
     title: 'एक शिक्षक की छोटी-सी सलाह',
     body: 'तैयारी में अक्सर पढ़ाई से ज़्यादा मुश्किल सही सामग्री ढूँढना होता है। कोशिश यही रही है कि सामग्री एक जगह मिल जाए और आपका समय पढ़ने में लगे।',
   },
+  alsoCopy: {
+    title: 'साथ में: शिक्षण योजना असाइनमेंट कॉपी',
+    body: 'प्रिंट करने योग्य खाली शिक्षण योजना (Teaching Plan) — असाइनमेंट के लिए हाथ से भरने वाले 12 A4 पेज।',
+    cta: 'कॉपी देखें — ₹29',
+  },
   final: { cta: 'अभी नोट्स पाएँ', paid: 'भुगतान कर चुके हैं?', check: 'भुगतान की स्थिति देखें' },
   bar: { sub: 'PDF · तुरंत एक्सेस', buy: 'अभी खरीदें', share: 'WhatsApp पर शेयर करें' },
   buy: {
     by: 'राकेश पांडेय द्वारा · PDF',
+    pdf: 'PDF',
     name: 'पूरा नाम', phone: 'मोबाइल नंबर', email: 'ईमेल',
     errName: 'कृपया अपना पूरा नाम लिखें।',
     errPhone: 'सही 10 अंकों का मोबाइल नंबर लिखें।',
     errEmail: 'सही ईमेल पता लिखें।',
-    pay: `${P} सुरक्षित भुगतान करें`,
+    pay: (price: string) => `${price} सुरक्षित भुगतान करें`,
     opening: 'सुरक्षित भुगतान खुल रहा है…',
     verifying: 'आपका भुगतान सत्यापित हो रहा है…',
     dontClose: 'कृपया यह पेज बंद न करें।',
     secure: 'भुगतान Razorpay द्वारा होता है। आपका कार्ड या UPI PIN हम कभी नहीं देखते।',
     cancel: 'रद्द करें',
-    rzpDescription: `डिजिटल PDF नोट्स — ${P}`,
+    rzpDescription: (price: string) => `डिजिटल PDF — ${price}`,
   },
   download: {
     reasons: {

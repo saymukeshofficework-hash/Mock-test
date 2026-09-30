@@ -4,7 +4,7 @@
 import { Link } from 'react-router-dom'
 import { Prose } from '../components/Layout'
 import WhatsAppButton from '../components/WhatsAppButton'
-import { business, product, refundPolicy, site } from '../config'
+import { business, product, refundPolicy, site, teachingPlan } from '../config'
 import { hasWhatsApp } from '../lib/whatsapp'
 
 function Updated() {
@@ -16,11 +16,12 @@ export function Terms() {
     <Prose title="Terms of Sale">
       <Updated />
       <h2>1. Who is selling</h2>
-      <p>{product.name} is sold by {business.sellerName}{business.address ? `, ${business.address}` : ''}.{business.gstin ? ` GSTIN: ${business.gstin}.` : ''}</p>
+      <p>The products on this site ({product.name}; {teachingPlan.name}) are sold by {business.sellerName}{business.address ? `, ${business.address}` : ''}.{business.gstin ? ` GSTIN: ${business.gstin}.` : ''}</p>
       <h2>2. The product</h2>
       <p>
-        A digital PDF of study notes, priced at {product.priceDisplay} (INR), inclusive of any applicable taxes unless stated
-        otherwise at checkout. Nothing physical is shipped.
+        Digital PDFs: {product.name}, a set of study notes priced at {product.priceDisplay}, and {teachingPlan.name}, a
+        blank printable template priced at {teachingPlan.priceDisplay} (INR), inclusive of any applicable taxes unless stated
+        otherwise at checkout. Nothing physical is shipped. You may print the Teaching Plan copy for your own use.
       </p>
       <h2>3. Payment</h2>
       <p>
@@ -35,7 +36,7 @@ export function Terms() {
       </p>
       <h2>5. Licence — personal study only</h2>
       <p>
-        The notes are licensed to the buyer for personal, non-commercial study. You may not resell, share, upload, forward
+        Each PDF is licensed to the buyer for personal, non-commercial use. You may not resell, share, upload, forward
         in groups, or republish the PDF or any part of it. We may disable access where a purchase is misused.
       </p>
       <h2>6. Refunds</h2>

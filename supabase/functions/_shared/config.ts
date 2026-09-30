@@ -34,6 +34,20 @@ export const config = {
   // products table. If the two disagree, order creation refuses to run.
   productAmountPaise: () => int('PRODUCT_AMOUNT_PAISE', 19900),
   productCurrency: () => str('PRODUCT_CURRENCY', 'INR'),
+  // Every product that may be sold, slug → expected price in paise. A slug not listed
+  // here cannot be bought even if a products row exists. Override with the secret
+  // PRODUCT_PRICES="slug:paise,slug:paise" (PRODUCT_SLUG/PRODUCT_AMOUNT_PAISE still
+  // apply to the main product).
+  productPrices: (): Record<string, number> => {
+    const prices: Record<string, number> = { 'teaching-plan-copy': 2900 }
+    for (const pair of (Deno.env.get('PRODUCT_PRICES') ?? '').split(',')) {
+      const [slug, paise] = pair.split(':').map((x) => x.trim())
+      const n = Number.parseInt(paise ?? '', 10)
+      if (slug && Number.isFinite(n) && n > 0) prices[slug] = n
+    }
+    prices[config.productSlug()] = config.productAmountPaise()
+    return prices
+  },
 
   storageBucket: () => str('STORAGE_BUCKET', 'bridge-course-private'),
   productFilePath: () => str('PRODUCT_FILE_PATH', 'products/bridge-course-notes.pdf'),
