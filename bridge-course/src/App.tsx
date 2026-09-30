@@ -1,11 +1,11 @@
 import { lazy, Suspense, useEffect } from 'react'
-import { Route, Routes, useLocation } from 'react-router-dom'
+import { Navigate, Route, Routes, useLocation } from 'react-router-dom'
 import CheckStatus from './pages/CheckStatus'
 import Landing from './pages/Landing'
 import { Contact, NotFound, Privacy, Refund, Terms } from './pages/Legal'
 import PaymentFailed from './pages/PaymentFailed'
 import Success from './pages/Success'
-import TeachingPlan from './pages/TeachingPlan'
+import AssignmentCombo from './pages/AssignmentCombo'
 
 // Admin pulls in supabase-js; keep it out of the landing-page bundle.
 const Admin = lazy(() => import('./pages/Admin'))
@@ -22,7 +22,8 @@ export default function App() {
       <ScrollToTop />
       <Routes>
         <Route path="/" element={<Landing />} />
-        <Route path="/assignment-copy" element={<TeachingPlan />} />
+        <Route path="/assignment-combo" element={<AssignmentCombo />} />
+        <Route path="/assignment-copy" element={<Navigate to="/assignment-combo" replace />} />
         <Route path="/success" element={<Success />} />
         <Route path="/payment-failed" element={<PaymentFailed />} />
         <Route path="/check-status" element={<CheckStatus />} />

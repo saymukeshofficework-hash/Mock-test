@@ -39,7 +39,7 @@ export const config = {
   // PRODUCT_PRICES="slug:paise,slug:paise" (PRODUCT_SLUG/PRODUCT_AMOUNT_PAISE still
   // apply to the main product).
   productPrices: (): Record<string, number> => {
-    const prices: Record<string, number> = { 'teaching-plan-copy': 2900 }
+    const prices: Record<string, number> = { 'assignment-combo': 4900 }
     for (const pair of (Deno.env.get('PRODUCT_PRICES') ?? '').split(',')) {
       const [slug, paise] = pair.split(':').map((x) => x.trim())
       const n = Number.parseInt(paise ?? '', 10)

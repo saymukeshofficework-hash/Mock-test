@@ -1,52 +1,57 @@
-// Landing page for the ₹29 printable Teaching Plan (शिक्षण योजना) assignment copy.
-// Describes only what is actually in the PDF: a blank 12-page A4 template.
+// Landing page for the ₹49 Assignment Combo: 7 assignment covers (Course 1–7) + a blank
+// 12-page Teaching Plan (शिक्षण योजना), one 19-page A4 PDF. Describes only what is in the PDF.
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import BuyDialog from '../components/BuyDialog'
 import { Page } from '../components/Layout'
 import WhatsAppButton from '../components/WhatsAppButton'
-import { product, teachingPlan } from '../config'
+import { assignmentCombo, product } from '../config'
 import { useLang, type Lang } from '../i18n'
 import { track } from '../lib/analytics'
 import { asset } from '../lib/base'
 
-const P = teachingPlan.priceDisplay
+const P = assignmentCombo.priceDisplay
 
 const copy: Record<Lang, {
   kicker: string; title: string; sub: string; tagline: string; buy: string; oneTime: string; trust: string[]
+  coversTitle: string; coversBody: string; course: (n: number) => string
   insideTitle: string; inside: { title: string; body: string }[]
   howTitle: string; how: string[]
   previewTitle: string; previewNote: string; alts: string[]; tap: string; close: string
   faqTitle: string; faqs: { q: string; a: string }[]
   notesTitle: string; notesBody: string; notesCta: string
-  helpTitle: string; helpBody: string; finalCta: string; docTitle: string; subtitle: string
+  helpTitle: string; helpBody: string; finalCta: string; docTitle: string; subtitle: string; disclaimer: string
 }> = {
   hi: {
-    kicker: 'ब्रिज कोर्स · असाइनमेंट कॉपी',
-    title: 'शिक्षण योजना',
-    sub: 'Teaching Plan — प्रिंट करने योग्य कॉपी',
-    tagline: 'असाइनमेंट के लिए तैयार खाली शिक्षण योजना। डाउनलोड करें, A4 पर प्रिंट करें और हाथ से भरें।',
+    kicker: 'ब्रिज कोर्स · असाइनमेंट कॉम्बो',
+    title: 'असाइनमेंट कॉम्बो',
+    sub: '7 कवर + शिक्षण योजना — एक PDF',
+    tagline: 'सभी 7 कोर्स के रंगीन असाइनमेंट कवर और 12 पेज की खाली शिक्षण योजना — एक ही PDF में। डाउनलोड करें, A4 पर प्रिंट करें और असाइनमेंट तैयार।',
     buy: `अभी खरीदें — ${P}`,
     oneTime: 'एक बार का भुगतान · PDF',
-    trust: ['12 पेज, A4', 'तुरंत डाउनलोड', 'सुरक्षित Razorpay भुगतान'],
-    insideTitle: 'इस कॉपी में क्या है',
+    trust: ['19 पेज, A4', 'तुरंत डाउनलोड', 'सुरक्षित Razorpay भुगतान'],
+    coversTitle: '7 असाइनमेंट कवर — हर कोर्स का अलग',
+    coversBody: 'हर कवर पर “NIOS B.Ed Bridge Course · असाइनमेंट”, कोर्स नंबर और पाठ्यक्रम का नाम छपा है। रंगीन प्रिंट में सबसे अच्छे लगते हैं।',
+    course: (n) => `कोर्स ${n}`,
+    insideTitle: 'शिक्षण योजना (12 पेज) में क्या है',
     inside: [
       { title: 'पहला पेज — पूरी जानकारी', body: 'दिनांक, कक्षा, विषय, पाठ, कालांश और अवधि के खाने; लर्निंग आउटकम, प्रकरण और शिक्षण-सिखाने की सामग्री लिखने की जगह।' },
       { title: 'सीखने-सिखाने की प्रक्रियाएँ', body: 'हर पेज पर तालिका: क्र.सं., चरण, समय और आकलन के तरीके — लाइनों के साथ, ताकि लिखना आसान रहे।' },
-      { title: '10 पेज चरणों के लिए', body: 'पेज 2 से 11 तक सिर्फ़ चरण-तालिका, ताकि पूरी गतिविधि विस्तार से लिख सकें।' },
+      { title: '10 पेज चरणों के लिए', body: 'बीच के 10 पेज सिर्फ़ चरण-तालिका, ताकि पूरी गतिविधि विस्तार से लिख सकें।' },
       { title: 'अंतिम पेज', body: 'प्रदत्त गृहकार्य (Home Assignment) और शिक्षक की आगामी योजना / टिप्पणी (Teacher’s Remarks) के लिए अलग खाने।' },
     ],
     howTitle: 'कैसे इस्तेमाल करें',
-    how: [`${P} का भुगतान करें`, 'PDF डाउनलोड करके फ़ोन में सेव करें', 'दुकान या घर पर A4 पेपर पर प्रिंट कराएँ', 'हाथ से भरें और असाइनमेंट में लगाएँ'],
+    how: [`${P} का भुगतान करें`, 'PDF डाउनलोड करके फ़ोन में सेव करें', 'कवर रंगीन में और शिक्षण योजना A4 पर प्रिंट कराएँ', 'शिक्षण योजना हाथ से भरें और हर असाइनमेंट पर उसका कवर लगाएँ'],
     previewTitle: 'पेज देखें',
     previewNote: 'प्रीव्यू कम क्वालिटी में और “SAMPLE · PREVIEW” के साथ है। खरीदने पर साफ़, बिना वॉटरमार्क वाली PDF मिलती है।',
-    alts: ['पहला पेज — शिक्षण योजना का शीर्ष भाग, लर्निंग आउटकम और चरण-तालिका', 'अंतिम पेज — चरण-तालिका, प्रदत्त गृहकार्य और शिक्षक की आगामी योजना'],
-    tap: 'बड़ा देखने के लिए टैप करें',
+    alts: ['कवर — कोर्स 1: बाल विकास एवं शैक्षिक मनोविज्ञान', 'कवर — कोर्स 6: हमारे आस-पास की दुनिया का शिक्षाशास्त्र', 'शिक्षण योजना — पहला पेज', 'शिक्षण योजना — अंतिम पेज'],
+    tap: 'बड़ा देखें',
     close: 'बंद करें',
     faqTitle: 'सवाल-जवाब',
     faqs: [
-      { q: 'क्या यह भरी हुई शिक्षण योजना है?', a: 'नहीं। यह खाली कॉपी (टेम्पलेट) है — इसे प्रिंट करके आप खुद भरते हैं।' },
-      { q: 'क्या कोई छपी हुई कॉपी घर आएगी?', a: 'नहीं। यह केवल डिजिटल PDF है, जिसे आप खुद प्रिंट करते हैं।' },
+      { q: 'इस PDF में क्या-क्या है?', a: 'पहले 7 पेज: कोर्स 1 से 7 तक के असाइनमेंट कवर। उसके बाद 12 पेज: खाली शिक्षण योजना। कुल 19 पेज, A4 साइज़।' },
+      { q: 'क्या शिक्षण योजना भरी हुई है?', a: 'नहीं। यह खाली कॉपी (टेम्पलेट) है — इसे प्रिंट करके आप खुद भरते हैं।' },
+      { q: 'क्या छपी हुई कॉपी घर आएगी?', a: 'नहीं। यह केवल डिजिटल PDF है, जिसे आप खुद प्रिंट करते हैं।' },
       { q: 'कितनी बार प्रिंट कर सकता/सकती हूँ?', a: 'अपने असाइनमेंट के लिए जितनी बार चाहें। PDF आगे बेचना या ग्रुप में शेयर करना मना है।' },
       { q: 'डाउनलोड कितनी बार होगा?', a: `भुगतान के बाद ${product.maxDownloads} बार डाउनलोड कर सकते हैं। PDF खुलते ही फ़ोन में सेव कर लें।` },
     ],
@@ -55,35 +60,40 @@ const copy: Record<Lang, {
     notesCta: `नोट्स देखें — ${product.priceDisplay}`,
     helpTitle: 'मदद चाहिए?',
     helpBody: 'खरीदने से पहले कोई सवाल हो या भुगतान के बाद कोई समस्या — हमें मैसेज करें।',
-    finalCta: `शिक्षण योजना कॉपी पाएँ — ${P}`,
-    docTitle: `शिक्षण योजना असाइनमेंट कॉपी (Teaching Plan) PDF | ${P}`,
-    subtitle: 'प्रिंट करने योग्य PDF · 12 पेज',
+    finalCta: `असाइनमेंट कॉम्बो पाएँ — ${P}`,
+    docTitle: `असाइनमेंट कॉम्बो — 7 कवर + शिक्षण योजना PDF | ${P}`,
+    subtitle: 'प्रिंट करने योग्य PDF · 19 पेज',
+    disclaimer: 'यह NIOS का आधिकारिक प्रकाशन नहीं है। कवर पर संस्थान और कोर्स का नाम केवल आपके असाइनमेंट की पहचान के लिए है।',
   },
   en: {
-    kicker: 'Bridge Course · Assignment copy',
-    title: 'Teaching Plan',
-    sub: 'शिक्षण योजना — printable copy',
-    tagline: 'A blank Teaching Plan ready for your assignment. Download it, print it on A4 and fill it in by hand.',
+    kicker: 'Bridge Course · Assignment combo',
+    title: 'Assignment Combo',
+    sub: '7 covers + Teaching Plan — one PDF',
+    tagline: 'Colour assignment covers for all 7 courses and a 12-page blank Teaching Plan (शिक्षण योजना) in one PDF. Download, print on A4 and your assignment is ready.',
     buy: `BUY NOW — ${P}`,
     oneTime: 'one-time · PDF',
-    trust: ['12 pages, A4', 'Instant download', 'Secure Razorpay payment'],
-    insideTitle: 'What’s in the copy',
+    trust: ['19 pages, A4', 'Instant download', 'Secure Razorpay payment'],
+    coversTitle: '7 assignment covers — one per course',
+    coversBody: 'Each cover reads “NIOS B.Ed Bridge Course · असाइनमेंट” with the course number and course name. They look best printed in colour.',
+    course: (n) => `Course ${n}`,
+    insideTitle: 'What’s in the Teaching Plan (12 pages)',
     inside: [
       { title: 'Page 1 — all the details', body: 'Boxes for date, class, subject, chapter, period and time; space for learning outcomes, topic and required materials.' },
       { title: 'Teaching-learning process', body: 'A table on every page — S.N., steps, expected time and methods of assessment — with ruled lines for easy writing.' },
-      { title: '10 pages for steps', body: 'Pages 2 to 11 are the steps table only, so you can write the whole activity in detail.' },
+      { title: '10 pages for steps', body: 'The middle 10 pages are the steps table only, so you can write the whole activity in detail.' },
       { title: 'Last page', body: 'Separate sections for the home assignment and the teacher’s next plan / remarks.' },
     ],
     howTitle: 'How to use it',
-    how: [`Pay ${P}`, 'Download the PDF and save it on your phone', 'Print it on A4 paper at home or a shop', 'Fill it in by hand and attach it to your assignment'],
+    how: [`Pay ${P}`, 'Download the PDF and save it on your phone', 'Print the covers in colour and the Teaching Plan on A4', 'Fill in the Teaching Plan by hand and put a cover on each assignment'],
     previewTitle: 'See the pages',
     previewNote: 'Previews are low-quality and marked “SAMPLE · PREVIEW”. The PDF you buy is clean, without watermarks.',
-    alts: ['Page 1 — Teaching Plan header, learning outcomes and steps table', 'Last page — steps table, home assignment and teacher’s next plan'],
-    tap: 'Tap to enlarge',
+    alts: ['Cover — Course 1: Child Development and Educational Psychology', 'Cover — Course 6: Pedagogy of The World Around Us', 'Teaching Plan — first page', 'Teaching Plan — last page'],
+    tap: 'Enlarge',
     close: 'Close',
     faqTitle: 'FAQ',
     faqs: [
-      { q: 'Is this a filled-in teaching plan?', a: 'No. It is a blank copy (template) — you print it and fill it in yourself.' },
+      { q: 'What is in the PDF?', a: 'First 7 pages: assignment covers for Course 1 to 7. Then 12 pages: a blank Teaching Plan. 19 A4 pages in total.' },
+      { q: 'Is the Teaching Plan filled in?', a: 'No. It is a blank copy (template) — you print it and fill it in yourself.' },
       { q: 'Will a printed copy be delivered?', a: 'No. It is a digital PDF only; you print it yourself.' },
       { q: 'How many times can I print it?', a: 'As many times as you need for your own assignments. Reselling or sharing the PDF in groups is not allowed.' },
       { q: 'How many downloads do I get?', a: `You can download it ${product.maxDownloads} times after paying. Save the PDF on your phone as soon as it opens.` },
@@ -93,15 +103,16 @@ const copy: Record<Lang, {
     notesCta: `See the notes — ${product.priceDisplay}`,
     helpTitle: 'Need help?',
     helpBody: 'Questions before buying, or a problem after paying — message us.',
-    finalCta: `GET THE TEACHING PLAN COPY — ${P}`,
-    docTitle: `Teaching Plan (शिक्षण योजना) Assignment Copy PDF | ${P}`,
-    subtitle: 'Printable PDF · 12 pages',
+    finalCta: `GET THE ASSIGNMENT COMBO — ${P}`,
+    docTitle: `Assignment Combo — 7 Covers + Teaching Plan PDF | ${P}`,
+    subtitle: 'Printable PDF · 19 pages',
+    disclaimer: 'This is not an official NIOS publication. The institution and course names on the covers are only there to label your assignments.',
   },
 }
 
-const previews = ['previews/tp-1.webp', 'previews/tp-12.webp']
+const previews = ['previews/cv-1.webp', 'previews/cv-6.webp', 'previews/tp-1.webp', 'previews/tp-12.webp']
 
-export default function TeachingPlan() {
+export default function AssignmentCombo() {
   const { lang, t: tt } = useLang()
   const c = copy[lang]
   const [buyOpen, setBuyOpen] = useState(false)
@@ -148,12 +159,26 @@ export default function TeachingPlan() {
             </p>
           </div>
           <div className="relative mx-auto h-[300px] w-full max-w-[320px] sm:h-[380px]" aria-hidden>
-            <img src={asset(previews[1])} alt="" width={600} height={849}
+            <img src={asset(previews[2])} alt="" width={600} height={849}
               className="absolute right-0 top-6 w-[62%] rotate-[7deg] rounded-md shadow-2xl ring-1 ring-black/10" />
             <img src={asset(previews[0])} alt="" width={600} height={849} fetchPriority="high"
               className="absolute left-2 top-2 w-[70%] -rotate-[4deg] rounded-md shadow-2xl ring-1 ring-black/10" />
           </div>
         </div>
+      </section>
+
+      {/* COVERS */}
+      <section className="mx-auto max-w-5xl px-4 pt-14 sm:pt-20">
+        <h2 className="font-serif text-[1.75rem] font-semibold leading-tight text-ink-900 sm:text-4xl">{c.coversTitle}</h2>
+        <p className="mt-3 max-w-2xl text-ink-700">{c.coversBody}</p>
+        <ol className="mt-6 grid gap-2 sm:grid-cols-2">
+          {assignmentCombo.courses.map((name, i) => (
+            <li key={name} className="flex items-center gap-3 rounded-xl border border-paper-200 bg-paper-50 px-4 py-3">
+              <span className="flex-none rounded-lg bg-ink-900 px-2.5 py-1 text-xs font-bold text-paper-50">{c.course(i + 1)}</span>
+              <span className="text-[15px] text-ink-800">{name}</span>
+            </li>
+          ))}
+        </ol>
       </section>
 
       {/* INSIDE */}
@@ -173,7 +198,7 @@ export default function TeachingPlan() {
       <section id="pages" className="scroll-mt-16 bg-paper-200/60">
         <div className="mx-auto max-w-5xl px-4 py-14 sm:py-20">
           <h2 className="font-serif text-[1.75rem] font-semibold leading-tight text-ink-900 sm:text-4xl">{c.previewTitle}</h2>
-          <div className="mt-7 grid grid-cols-2 gap-4 sm:max-w-2xl">
+          <div className="mt-7 grid grid-cols-2 gap-4 sm:grid-cols-4">
             {previews.map((src, i) => (
               <button key={src} onClick={() => setZoom(i)}
                 className="relative overflow-hidden rounded-xl bg-white shadow-sheet ring-1 ring-paper-300">
@@ -183,6 +208,7 @@ export default function TeachingPlan() {
             ))}
           </div>
           <p className="mt-3 text-sm text-ink-500">{c.previewNote}</p>
+          <p className="mt-2 text-sm text-ink-500">{c.disclaimer}</p>
         </div>
       </section>
 
@@ -235,7 +261,7 @@ export default function TeachingPlan() {
         <div className="rounded-2xl border border-paper-200 bg-paper-50 p-6">
           <h2 className="font-serif text-2xl font-semibold text-ink-900">{c.helpTitle}</h2>
           <p className="mt-1 text-ink-700">{c.helpBody}</p>
-          <div className="mt-4"><WhatsAppButton message={`Hello, I need help with ${teachingPlan.name}.`} /></div>
+          <div className="mt-4"><WhatsAppButton message={`Hello, I need help with ${assignmentCombo.name}.`} /></div>
         </div>
       </section>
 
@@ -253,7 +279,7 @@ export default function TeachingPlan() {
         </div>
       </section>
 
-      <BuyDialog open={buyOpen} onClose={() => setBuyOpen(false)} item={teachingPlan} subtitle={c.subtitle} />
+      <BuyDialog open={buyOpen} onClose={() => setBuyOpen(false)} item={assignmentCombo} subtitle={c.subtitle} />
     </Page>
   )
 }

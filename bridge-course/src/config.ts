@@ -46,14 +46,24 @@ export const product = {
 // productPrices (supabase/functions/_shared/config.ts); price labels here are display only.
 export type SaleItem = { slug: string; name: string; shortName: string; priceDisplay: string }
 
-export const teachingPlan = {
-  slug: 'teaching-plan-copy',
-  name: 'Assignment Copy — Teaching Plan (शिक्षण योजना)',
-  shortName: 'Teaching Plan Copy',
-  priceDisplay: '₹29',
-  priceNumber: 29,
-  pages: 12,
-  path: '/assignment-copy',
+// ₹49 combo: 7 assignment covers (Course 1–7) + 12-page blank Teaching Plan, one PDF.
+export const assignmentCombo = {
+  slug: 'assignment-combo',
+  name: 'Assignment Combo — 7 Covers + Teaching Plan (शिक्षण योजना)',
+  shortName: 'Assignment Combo',
+  priceDisplay: '₹49',
+  priceNumber: 49,
+  pages: 19,
+  path: '/assignment-combo',
+  courses: [
+    'बाल विकास एवं शैक्षिक मनोविज्ञान',
+    'पाठ्यचर्या, शिक्षाशास्त्र एवं मूल्यांकन',
+    'भाषा का शिक्षाशास्त्र-I (हिंदी)',
+    'भाषा-II (अंग्रेज़ी) का शिक्षाशास्त्र',
+    'गणित का शिक्षाशास्त्र',
+    'हमारे आस-पास की दुनिया का शिक्षाशास्त्र',
+    'विद्यालय अनुभव कार्यक्रम एवं प्रायोगिक कार्य',
+  ],
 }
 
 // ---------------------------------------------------------------------------
@@ -190,7 +200,7 @@ export const refundPolicy = {
   isPlaceholder: false,
   summary: 'Digital product — no refunds once access is given, except when we fail to deliver.',
   body: [
-    'Everything sold here (Bridge Course Notes and the Teaching Plan assignment copy) is a digital PDF delivered instantly after payment. Because the full product is available to you as soon as your payment is verified, purchases cannot be cancelled and are not refundable once access has been given.',
+    'Everything sold here (Bridge Course Notes and the Assignment Combo) is a digital PDF delivered instantly after payment. Because the full product is available to you as soon as your payment is verified, purchases cannot be cancelled and are not refundable once access has been given.',
     'You WILL get a full refund if: (a) your payment was successful but we are unable to give you the PDF and our support cannot fix it within 3 working days, or (b) you were accidentally charged more than once for the same order — the extra payment is refunded.',
     'If money was deducted but the payment did not complete, you were not charged: the amount is reversed automatically by your bank/Razorpay.',
     'To ask for a refund, contact us with your order reference (BCN-…) or Razorpay payment ID (pay_…). Approved refunds are made to your original payment method through Razorpay; banks usually credit them within 5–7 working days.',
