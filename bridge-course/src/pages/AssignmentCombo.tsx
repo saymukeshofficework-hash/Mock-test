@@ -31,7 +31,7 @@ const copy: Record<Lang, {
     oneTime: 'एक बार का भुगतान · PDF',
     trust: ['19 पेज, A4', 'तुरंत डाउनलोड', 'सुरक्षित Razorpay भुगतान'],
     coversTitle: '7 असाइनमेंट कवर — हर कोर्स का अलग',
-    coversBody: 'हर कवर पर “NIOS B.Ed Bridge Course · असाइनमेंट”, कोर्स नंबर और पाठ्यक्रम का नाम छपा है। रंगीन प्रिंट में सबसे अच्छे लगते हैं।',
+    coversBody: 'हर कवर पर “NIOS B.Ed Bridge Course · असाइनमेंट”, कोर्स नंबर और पाठ्यक्रम का नाम छपा है, और शिक्षक का नाम व विद्यालय का नाम लिखने की जगह है। रंगीन प्रिंट में सबसे अच्छे लगते हैं।',
     course: (n) => `कोर्स ${n}`,
     insideTitle: 'शिक्षण योजना (12 पेज) में क्या है',
     inside: [
@@ -50,7 +50,7 @@ const copy: Record<Lang, {
     faqTitle: 'सवाल-जवाब',
     faqs: [
       { q: 'इस PDF में क्या-क्या है?', a: 'पहले 7 पेज: कोर्स 1 से 7 तक के असाइनमेंट कवर। उसके बाद 12 पेज: खाली शिक्षण योजना। कुल 19 पेज, A4 साइज़।' },
-      { q: 'क्या शिक्षण योजना भरी हुई है?', a: 'नहीं। यह खाली कॉपी (टेम्पलेट) है — इसे प्रिंट करके आप खुद भरते हैं।' },
+      { q: 'क्या शिक्षण योजना भरी हुई है?', a: 'नहीं। यह खाली कॉपी (टेम्पलेट) है — इसे प्रिंट करके आप खुद भरते हैं। कवर पर अपना नाम और विद्यालय का नाम भी हाथ से लिखें।' },
       { q: 'क्या छपी हुई कॉपी घर आएगी?', a: 'नहीं। यह केवल डिजिटल PDF है, जिसे आप खुद प्रिंट करते हैं।' },
       { q: 'कितनी बार प्रिंट कर सकता/सकती हूँ?', a: 'अपने असाइनमेंट के लिए जितनी बार चाहें। PDF आगे बेचना या ग्रुप में शेयर करना मना है।' },
       { q: 'डाउनलोड कितनी बार होगा?', a: `भुगतान के बाद ${product.maxDownloads} बार डाउनलोड कर सकते हैं। PDF खुलते ही फ़ोन में सेव कर लें।` },
@@ -63,7 +63,7 @@ const copy: Record<Lang, {
     finalCta: `असाइनमेंट कॉम्बो पाएँ — ${P}`,
     docTitle: `असाइनमेंट कॉम्बो — 7 कवर + शिक्षण योजना PDF | ${P}`,
     subtitle: 'प्रिंट करने योग्य PDF · 19 पेज',
-    disclaimer: 'यह NIOS का आधिकारिक प्रकाशन नहीं है। कवर पर संस्थान और कोर्स का नाम केवल आपके असाइनमेंट की पहचान के लिए है।',
+    disclaimer: 'यह NIOS का आधिकारिक प्रकाशन नहीं है। कवर पर कोर्स का नाम केवल आपके असाइनमेंट की पहचान के लिए है।',
   },
   en: {
     kicker: 'Bridge Course · Assignment combo',
@@ -74,7 +74,7 @@ const copy: Record<Lang, {
     oneTime: 'one-time · PDF',
     trust: ['19 pages, A4', 'Instant download', 'Secure Razorpay payment'],
     coversTitle: '7 assignment covers — one per course',
-    coversBody: 'Each cover reads “NIOS B.Ed Bridge Course · असाइनमेंट” with the course number and course name. They look best printed in colour.',
+    coversBody: 'Each cover reads “NIOS B.Ed Bridge Course · असाइनमेंट” with the course number and course name, plus lines for the teacher’s name and school name. They look best printed in colour.',
     course: (n) => `Course ${n}`,
     insideTitle: 'What’s in the Teaching Plan (12 pages)',
     inside: [
@@ -93,7 +93,7 @@ const copy: Record<Lang, {
     faqTitle: 'FAQ',
     faqs: [
       { q: 'What is in the PDF?', a: 'First 7 pages: assignment covers for Course 1 to 7. Then 12 pages: a blank Teaching Plan. 19 A4 pages in total.' },
-      { q: 'Is the Teaching Plan filled in?', a: 'No. It is a blank copy (template) — you print it and fill it in yourself.' },
+      { q: 'Is the Teaching Plan filled in?', a: 'No. It is a blank copy (template) — you print it and fill it in yourself. Write your name and school name on the covers by hand too.' },
       { q: 'Will a printed copy be delivered?', a: 'No. It is a digital PDF only; you print it yourself.' },
       { q: 'How many times can I print it?', a: 'As many times as you need for your own assignments. Reselling or sharing the PDF in groups is not allowed.' },
       { q: 'How many downloads do I get?', a: `You can download it ${product.maxDownloads} times after paying. Save the PDF on your phone as soon as it opens.` },
@@ -106,7 +106,7 @@ const copy: Record<Lang, {
     finalCta: `GET THE ASSIGNMENT COMBO — ${P}`,
     docTitle: `Assignment Combo — 7 Covers + Teaching Plan PDF | ${P}`,
     subtitle: 'Printable PDF · 19 pages',
-    disclaimer: 'This is not an official NIOS publication. The institution and course names on the covers are only there to label your assignments.',
+    disclaimer: 'This is not an official NIOS publication. The course names on the covers are only there to label your assignments.',
   },
 }
 
