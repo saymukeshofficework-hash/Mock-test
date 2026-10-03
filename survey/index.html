@@ -133,7 +133,7 @@ textarea.in{min-height:72px;resize:vertical}
     <h1 id="loginTitle">लॉगिन करें</h1>
     <p class="sub" id="loginSub">Only approved team members can open this data.</p>
     <form id="loginForm" class="stack" novalidate>
-      <label class="f">ईमेल / Email<input class="in" id="lEmail" type="email" autocomplete="username" required></label>
+      <label class="f">यूज़र ID या ईमेल / User ID or Email<input class="in" id="lEmail" type="text" autocomplete="username" autocapitalize="none" autocorrect="off" spellcheck="false" required></label>
       <label class="f" id="pwWrap">पासवर्ड / Password<input class="in" id="lPass" type="password" autocomplete="current-password" minlength="8" required></label>
       <button class="btn" id="lBtn" type="submit">Sign in</button>
       <div id="lMsg" class="msg" hidden></div>
@@ -195,11 +195,13 @@ textarea.in{min-height:72px;resize:vertical}
   <main id="pTeam" class="wrap" hidden>
     <div class="panel">
       <h2>टीम एक्सेस / Team access</h2>
-      <p>Only these emails can open, add and edit entries. Add a person here, then they open this page, tap “Create password”, and sign in.</p>
-      <form class="addrow" id="addForm" novalidate>
-        <input class="in" id="newEmail" type="email" placeholder="name@gmail.com" aria-label="Email to add">
-        <select class="in" id="newRole" style="flex:0 0 130px" aria-label="Role"><option value="member">Member</option><option value="admin">Admin</option></select>
-        <button class="btn" type="submit">Add</button>
+      <p>Create a user ID and password for each person. They can sign in right away, with no email needed.</p>
+      <form class="stack" id="addForm" novalidate>
+        <label class="f">यूज़र ID <small>e.g. ramesh01 (or a real email)</small><input class="in" id="newEmail" type="text" autocapitalize="none" autocorrect="off" spellcheck="false" autocomplete="off"></label>
+        <label class="f">पासवर्ड / Password <small>at least 8 characters</small>
+          <span class="addrow"><input class="in" id="newPass" type="text" autocomplete="new-password" autocapitalize="none" spellcheck="false"><button type="button" class="btn ghost" id="genPass">Generate</button></span></label>
+        <span class="addrow"><select class="in" id="newRole" aria-label="Role"><option value="member">Member (add &amp; edit)</option><option value="admin">Admin (also delete &amp; manage team)</option></select>
+        <button class="btn" type="submit" id="createBtn">Create user</button></span>
       </form>
       <div id="teamMsg" class="msg" hidden style="margin-top:10px"></div>
       <div id="members" style="margin-top:12px"></div>
@@ -215,6 +217,9 @@ textarea.in{min-height:72px;resize:vertical}
 const SUPABASE_URL = "https://ovaubhekxjtkodkhsybg.supabase.co";
 const SUPABASE_KEY = "sb_publishable_LXYxPPuR4tX7vGyWg7NIyA_-F_ieSGW";
 const IDLE_MINUTES = 20; // auto sign-out when idle
+const TEAM_DOMAIN = "team.tettesthub.in";
+const toEmail = v=>{v=String(v||"").trim().toLowerCase();return !v?"":v.includes("@")?v:v+"@"+TEAM_DOMAIN};
+const showId = e=>String(e||"").replace("@"+TEAM_DOMAIN,"");
 const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 const YN = ["हाँ / Yes","नहीं / No"];
@@ -295,8 +300,9 @@ $("#toggleMode").onclick=()=>{signupMode=!signupMode;
   $("#lPass").autocomplete=signupMode?"new-password":"current-password";
   msg($("#lMsg"),"")};
 $("#loginForm").onsubmit=async e=>{e.preventDefault();
-  const email=$("#lEmail").value.trim().toLowerCase(), password=$("#lPass").value, m=$("#lMsg");
-  if(!email||!email.includes("@")) return msg(m,"Enter a valid email.","err");
+  const email=toEmail($("#lEmail").value), password=$("#lPass").value, m=$("#lMsg");
+  if(!email) return msg(m,"Enter your user ID or email.","err");
+  if(signupMode&&email.endsWith("@"+TEAM_DOMAIN)) return msg(m,"User IDs are created by the admin. Just sign in with the ID and password you were given.","err");
   if(password.length<8) return msg(m,"Password must be at least 8 characters.","err");
   $("#lBtn").disabled=true;
   try{
@@ -311,8 +317,9 @@ $("#loginForm").onsubmit=async e=>{e.preventDefault();
     }
   }catch(err){msg(m, /invalid/i.test(err.message)?"Wrong email or password.":err.message,"err")}
   $("#lBtn").disabled=false};
-$("#forgot").onclick=async()=>{const email=$("#lEmail").value.trim().toLowerCase();
+$("#forgot").onclick=async()=>{const email=toEmail($("#lEmail").value);
   if(!email) return msg($("#lMsg"),"Type your email above first, then tap Forgot password.","err");
+  if(email.endsWith("@"+TEAM_DOMAIN)) return msg($("#lMsg"),"Ask your admin to reset the password for this user ID.","err");
   const {error}=await sb.auth.resetPasswordForEmail(email,{redirectTo:location.href.split("#")[0]});
   msg($("#lMsg"),error?error.message:"Password reset link sent to "+email+".",error?"err":"ok")};
 
@@ -333,8 +340,8 @@ async function boot(session){
   me=session.user.email.toLowerCase();
   const {data,error}=await sb.rpc("survey_role");
   role=error?null:data;
-  if(!role){$("#deniedEmail").textContent=me;show("vDenied");return}
-  $("#whoAmI").textContent=me+" · "+(role==="admin"?"Admin":"Member");
+  if(!role){$("#deniedEmail").textContent=showId(me);show("vDenied");return}
+  $("#whoAmI").textContent=showId(me)+" · "+(role==="admin"?"Admin":"Member");
   $("#teamBtn").hidden=role!=="admin";
   show("vApp");openList();loadRows();
 }
@@ -447,16 +454,39 @@ addEventListener("beforeunload",e=>{if(dirty&&!$("#pForm").hidden){e.preventDefa
 async function openTeam(){if(role!=="admin") return;setPage("pTeam");$("#barTitle").textContent="टीम / Team";loadMembers()}
 async function loadMembers(){const {data,error}=await sb.from("survey_members").select("*").order("added_at");
   if(error) return msg($("#teamMsg"),error.message,"err");
-  $("#members").innerHTML=data.map(m=>`<div class="mem"><span>${esc(m.email)}</span>${m.role==="admin"?'<span class="tag">Admin</span>':""}${m.email===me?"":`<button class="btn ghost" style="min-height:36px;padding:4px 12px" data-rm="${esc(m.email)}">Remove</button>`}</div>`).join("")}
-$("#members").onclick=async e=>{const b=e.target.closest("[data-rm]");if(!b) return;
-  if(b.dataset.armed!=="1"){b.dataset.armed="1";b.textContent="Tap to confirm";b.classList.add("danger");return}
-  const {error}=await sb.from("survey_members").delete().eq("email",b.dataset.rm);
-  msg($("#teamMsg"),error?error.message:b.dataset.rm+" removed. They can no longer open the data.",error?"err":"ok");loadMembers()};
-$("#addForm").onsubmit=async e=>{e.preventDefault();const email=$("#newEmail").value.trim().toLowerCase();
-  if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return msg($("#teamMsg"),"Enter a valid email.","err");
-  const {error}=await sb.from("survey_members").insert({email,role:$("#newRole").value});
-  if(error) return msg($("#teamMsg"),/duplicate/.test(error.message)?"Already on the list.":error.message,"err");
-  $("#newEmail").value="";msg($("#teamMsg"),email+" added. Send them this page's link; they tap “Create password” to start.","ok");loadMembers()};
+  $("#members").innerHTML=data.map(m=>{const team=m.email.endsWith("@"+TEAM_DOMAIN);
+    return `<div class="mem" data-em="${esc(m.email)}"><span><b>${esc(showId(m.email))}</b>${team?"":' <small style="color:var(--muted)">(email)</small>'}</span>${m.role==="admin"?'<span class="tag">Admin</span>':""}
+    ${team&&m.email!==me?`<button class="btn ghost" style="min-height:36px;padding:4px 10px" data-pw="1">Password</button>`:""}
+    ${m.email===me?"":`<button class="btn ghost" style="min-height:36px;padding:4px 10px" data-rm="${esc(m.email)}">Remove</button>`}</div>`}).join("")}
+async function callUsers(body){
+  const {data,error}=await sb.functions.invoke("survey-users",{body});
+  if(error){let t=error.message;try{t=(await error.context.json()).error||t}catch(_){}throw new Error(t)}
+  return data}
+$("#genPass").onclick=()=>{const c="abcdefghjkmnpqrstuvwxyz23456789";let p="";const a=crypto.getRandomValues(new Uint32Array(10));for(const n of a)p+=c[n%c.length];$("#newPass").value=p};
+$("#members").onclick=async e=>{
+  const rm=e.target.closest("[data-rm]");
+  if(rm){if(rm.dataset.armed!=="1"){rm.dataset.armed="1";rm.textContent="Tap to confirm";rm.classList.add("danger");return}
+    const {error}=await sb.from("survey_members").delete().eq("email",rm.dataset.rm);
+    msg($("#teamMsg"),error?error.message:showId(rm.dataset.rm)+" removed. They can no longer open the data.",error?"err":"ok");return loadMembers()}
+  const pw=e.target.closest("[data-pw]");
+  if(pw){const row=pw.closest(".mem");if(row.nextElementSibling?.classList.contains("pwrow")) return row.nextElementSibling.remove();
+    row.insertAdjacentHTML("afterend",`<form class="addrow pwrow" style="padding:0 0 10px" novalidate><input class="in" type="text" placeholder="New password (8+)" autocomplete="new-password" autocapitalize="none" aria-label="New password"><button class="btn" type="submit">Save</button></form>`);
+    const f=row.nextElementSibling;f.querySelector("input").focus();
+    f.onsubmit=async ev=>{ev.preventDefault();const b=f.querySelector("button");b.disabled=true;
+      try{await callUsers({action:"set_password",login:row.dataset.em,password:f.querySelector("input").value});
+        msg($("#teamMsg"),"Password changed for "+showId(row.dataset.em)+". Share the new password with them.","ok");f.remove()}
+      catch(err){msg($("#teamMsg"),err.message,"err");b.disabled=false}}}};
+$("#addForm").onsubmit=async e=>{e.preventDefault();
+  const login=$("#newEmail").value.trim().toLowerCase(),password=$("#newPass").value;
+  if(!login) return msg($("#teamMsg"),"Enter a user ID.","err");
+  if(password.length<8) return msg($("#teamMsg"),"Password must be at least 8 characters.","err");
+  $("#createBtn").disabled=true;
+  try{const r=await callUsers({action:"create",login,password,role:$("#newRole").value});
+    msg($("#teamMsg"),r.note==="existing"?login+" already had an account, so it was added to the team. They sign in with their own existing password."
+      :"User created. Share with them: link "+location.href.split("#")[0]+" · ID "+showId(toEmail(login))+" · and the password you set.","ok");
+    $("#newEmail").value="";$("#newPass").value="";loadMembers()}
+  catch(err){msg($("#teamMsg"),err.message,"err")}
+  $("#createBtn").disabled=false};
 
 /* ---------- CSV export (opens in Excel, Hindi preserved) ---------- */
 function exportCsv(){
