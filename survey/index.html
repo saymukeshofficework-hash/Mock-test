@@ -303,7 +303,8 @@ $("#loginForm").onsubmit=async e=>{e.preventDefault();
     if(signupMode){
       const {data,error}=await sb.auth.signUp({email,password,options:{emailRedirectTo:location.href.split("#")[0]}});
       if(error) throw error;
-      if(!data.session) msg(m,"Check your email inbox and tap the confirmation link, then sign in here.","ok");
+      if(data.user&&Array.isArray(data.user.identities)&&data.user.identities.length===0){msg(m,"This email already has an account (for example from tettesthub.in). Use Sign in with that same password.","err");$("#toggleMode").click();}
+      else if(!data.session) msg(m,"Check your email inbox (and Spam) and tap the confirmation link, then sign in here.","ok");
     }else{
       const {error}=await sb.auth.signInWithPassword({email,password});
       if(error) throw error;
