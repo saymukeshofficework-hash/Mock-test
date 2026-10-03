@@ -140,6 +140,9 @@ jobs:
           cp -r typing-practice _site/typing-practice
           rm -rf _site/typing-practice/tests _site/typing-practice/package.json
 
+          # Survey data entry (/survey/), static, login-protected via Supabase
+          cp -r survey _site/survey
+
           # BBC English Coaching Classes Burhar platform, static, no build step
           cp -r bbc-english _site/bbc-english
 

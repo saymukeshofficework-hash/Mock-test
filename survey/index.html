@@ -1,0 +1,472 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#ffffff">
+<title>जनगणना डेटा एंट्री</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700&family=Mukta:wght@400;500;600&display=swap">
+<style>
+/* Layout: single mobile column, sticky colour-chip section nav, sticky save bar. Each of 7 sections owns one hue. */
+:root{
+  --bg:#f7f7fb; --surface:#ffffff; --fg:#1d1b2e; --muted:#6c6a80; --line:#e6e5ef;
+  --ink:#2b2350; --focus:#5b4bff;
+  --c1:#ff5d5d; --c2:#ff9f1c; --c3:#2bb673; --c4:#2f80ff; --c5:#8b5cf6; --c6:#ec4899; --c7:#14b8a6;
+  --danger:#d93636; --ok:#1f9d5c;
+  --display:"Baloo 2","Mukta",system-ui,sans-serif;
+  --body:"Mukta",system-ui,-apple-system,"Segoe UI",sans-serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root{
+  --bg:#13121c; --surface:#1d1c29; --fg:#ecebf5; --muted:#a09eb5; --line:#2e2c3e; --ink:#d9d4ff; --focus:#8f84ff;
+  --c1:#ff7676; --c2:#ffb347; --c3:#3fd18a; --c4:#5c9bff; --c5:#a78bfa; --c6:#f472b6; --c7:#2dd4bf;
+  --danger:#ff6b6b; --ok:#3fd18a; color-scheme:dark;}}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--fg);font:16px/1.5 var(--body);-webkit-font-smoothing:antialiased;
+  padding:env(safe-area-inset-top,0) 0 env(safe-area-inset-bottom,0)}
+[hidden]{display:none!important}
+h1,h2,h3{font-family:var(--display);line-height:1.15;margin:0;text-wrap:balance}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+.wrap{max-width:720px;margin:0 auto;padding-inline:16px}
+.rainbow{height:5px;background:linear-gradient(90deg,var(--c1),var(--c2),var(--c3),var(--c4),var(--c5),var(--c6),var(--c7))}
+
+/* Login */
+.login{min-height:100vh;display:grid;place-items:center;padding:32px 16px}
+.login-card{width:100%;max-width:380px;background:var(--surface);border-radius:20px;padding:28px 22px;border:1px solid var(--line)}
+.dots{display:flex;gap:6px;margin-bottom:18px}
+.dots i{width:12px;height:12px;border-radius:50%;display:block}
+.login h1{font-size:28px;color:var(--ink)}
+.login p.sub{color:var(--muted);margin:4px 0 22px}
+.stack{display:grid;gap:14px}
+label.f{display:grid;gap:4px;font-size:14px;font-weight:600}
+label.f small{font-weight:400;color:var(--muted)}
+.in{width:100%;min-height:46px;padding:10px 12px;border:1.5px solid var(--line);border-radius:12px;background:var(--bg);font-size:16px}
+.in:focus{border-color:var(--focus);outline:none;background:var(--surface)}
+textarea.in{min-height:72px;resize:vertical}
+.btn{min-height:46px;border:0;border-radius:12px;padding:10px 18px;font-weight:600;background:var(--ink);color:var(--surface)}
+.btn.ghost{background:transparent;color:var(--ink);border:1.5px solid var(--line)}
+.btn.danger{background:transparent;color:var(--danger);border:1.5px solid var(--danger)}
+.btn:disabled{opacity:.55}
+.linkbtn{background:none;border:0;color:var(--focus);padding:4px 0;font-weight:600}
+.msg{font-size:14px;padding:10px 12px;border-radius:10px;background:var(--bg)}
+.msg.err{color:var(--danger)} .msg.ok{color:var(--ok)}
+
+/* App bar */
+.bar{position:sticky;top:0;z-index:20;background:var(--surface);border-bottom:1px solid var(--line)}
+.bar .row{display:flex;align-items:center;gap:10px;padding-block:10px}
+.bar h1{font-size:20px;color:var(--ink);flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.iconbtn{width:40px;height:40px;border-radius:12px;border:1.5px solid var(--line);background:var(--surface);display:grid;place-items:center;flex:none}
+.iconbtn svg{width:20px;height:20px;stroke:var(--fg);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.menu{position:absolute;right:16px;top:58px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:6px;min-width:220px;box-shadow:0 10px 30px rgba(20,16,60,.15);display:grid}
+.menu button{background:none;border:0;text-align:left;padding:10px 12px;border-radius:10px}
+.menu button:hover{background:var(--bg)}
+.menu .who{padding:8px 12px;font-size:13px;color:var(--muted);border-bottom:1px solid var(--line);margin-bottom:4px;word-break:break-all}
+
+/* List */
+.tools{display:flex;gap:10px;padding-block:14px 6px}
+.search{flex:1;min-width:0}
+.count{color:var(--muted);font-size:14px;padding-bottom:8px;font-variant-numeric:tabular-nums}
+.list{display:grid;gap:10px;padding-bottom:110px}
+.item{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;text-align:left;width:100%;
+  background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:12px 14px}
+.item:active{transform:scale(.99)}
+.avatar{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;font-family:var(--display);font-weight:700;font-size:18px;color:#fff}
+.item .nm{font-weight:600;font-size:17px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.item .meta{font-size:13px;color:var(--muted);display:flex;flex-wrap:wrap;gap:4px 10px}
+.item .no{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums;text-align:right}
+.empty{text-align:center;padding:40px 16px;color:var(--muted)}
+.empty h3{color:var(--fg);font-size:20px;margin-bottom:6px}
+.fab{position:fixed;right:16px;bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:30;border:0;border-radius:18px;
+  padding:14px 20px;font-weight:700;font-size:16px;color:#fff;background:linear-gradient(135deg,var(--c5),var(--c4));box-shadow:0 10px 24px rgba(91,75,255,.35);display:flex;gap:8px;align-items:center}
+
+/* Form */
+.chips{display:flex;gap:8px;overflow-x:auto;padding-block:8px 10px;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:none;border:0;border-radius:999px;padding:6px 12px;font-size:14px;font-weight:600;background:color-mix(in srgb,var(--k) 14%,transparent);color:var(--k)}
+.sec{background:var(--surface);border:1px solid var(--line);border-radius:18px;margin-top:14px;overflow:hidden;scroll-margin-top:120px}
+.sec-h{display:flex;align-items:center;gap:10px;padding:14px 16px;border-bottom:1px solid var(--line)}
+.sec-h .sw{width:10px;height:28px;border-radius:6px;background:var(--k)}
+.sec-h h2{font-size:19px}
+.sec-h h2 small{display:block;font-family:var(--body);font-weight:500;font-size:13px;color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;padding:16px}
+.grid .full{grid-column:1/-1}
+@media (max-width:560px){.grid{grid-template-columns:minmax(0,1fr)}}
+.q{display:grid;gap:4px;min-width:0}
+.q .lbl{font-size:14px;font-weight:600;display:flex;gap:6px}
+.q .lbl b{color:var(--k);font-variant-numeric:tabular-nums}
+.q .en{font-weight:400;color:var(--muted);font-size:12.5px;display:block}
+.q .in:focus{border-color:var(--k)}
+.pair{display:grid;grid-template-columns:1fr 90px;gap:8px}
+.savebar{position:sticky;bottom:0;z-index:15;background:var(--surface);border-top:1px solid var(--line);margin-top:18px;
+  padding:12px 0 calc(12px + env(safe-area-inset-bottom,0px))}
+.savebar .wrap{display:flex;gap:10px;align-items:center}
+.savebar .btn.main{flex:1;background:linear-gradient(135deg,var(--c3),var(--c7));color:#fff;font-size:17px}
+.stamp{font-size:12.5px;color:var(--muted);padding:10px 2px 0}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(90px + env(safe-area-inset-bottom,0px));z-index:50;
+  background:var(--ink);color:var(--surface);padding:10px 16px;border-radius:12px;font-weight:600;max-width:calc(100% - 32px)}
+.confirm{display:flex;gap:8px;flex-wrap:wrap;align-items:center;padding:12px 16px;font-size:14px}
+
+/* Team */
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:16px;margin-top:16px}
+.panel h2{font-size:20px;margin-bottom:4px}
+.panel p{color:var(--muted);margin:0 0 12px;font-size:14px}
+.addrow{display:flex;gap:8px;flex-wrap:wrap}
+.addrow .in{flex:1 1 200px}
+.mem{display:flex;gap:10px;align-items:center;padding:10px 0;border-top:1px solid var(--line)}
+.mem span{flex:1;min-width:0;word-break:break-all}
+.tag{font-size:12px;padding:2px 8px;border-radius:999px;background:color-mix(in srgb,var(--c5) 16%,transparent);color:var(--c5);font-weight:600}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<section id="vLogin" class="login" hidden>
+  <div class="login-card">
+    <div class="dots" aria-hidden="true"><i style="background:var(--c1)"></i><i style="background:var(--c2)"></i><i style="background:var(--c3)"></i><i style="background:var(--c4)"></i><i style="background:var(--c5)"></i><i style="background:var(--c6)"></i><i style="background:var(--c7)"></i></div>
+    <h1 id="loginTitle">लॉगिन करें</h1>
+    <p class="sub" id="loginSub">Only approved team members can open this data.</p>
+    <form id="loginForm" class="stack" novalidate>
+      <label class="f">ईमेल / Email<input class="in" id="lEmail" type="email" autocomplete="username" required></label>
+      <label class="f" id="pwWrap">पासवर्ड / Password<input class="in" id="lPass" type="password" autocomplete="current-password" minlength="8" required></label>
+      <button class="btn" id="lBtn" type="submit">Sign in</button>
+      <div id="lMsg" class="msg" hidden></div>
+      <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px">
+        <button type="button" class="linkbtn" id="toggleMode">पहली बार? Create password</button>
+        <button type="button" class="linkbtn" id="forgot">Forgot password</button>
+      </div>
+    </form>
+  </div>
+</section>
+
+<!-- NO ACCESS -->
+<section id="vDenied" class="login" hidden>
+  <div class="login-card">
+    <h1>Access pending</h1>
+    <p class="sub">You are signed in as <b id="deniedEmail"></b>, but this email is not on the team list yet. Ask the admin to add it, then reload this page.</p>
+    <button class="btn ghost" data-act="logout">Sign out</button>
+  </div>
+</section>
+
+<!-- APP -->
+<div id="vApp" hidden>
+  <div class="bar">
+    <div class="rainbow"></div>
+    <div class="wrap row">
+      <button class="iconbtn" id="backBtn" aria-label="Back" hidden><svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg></button>
+      <h1 id="barTitle">डेटा एंट्री</h1>
+      <button class="iconbtn" id="menuBtn" aria-label="Menu"><svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg></button>
+    </div>
+    <div class="wrap" id="chipWrap" hidden><div class="chips" id="chips"></div></div>
+    <div class="menu" id="menu" hidden>
+      <div class="who" id="whoAmI"></div>
+      <button data-act="list">सभी एंट्री / All entries</button>
+      <button data-act="team" id="teamBtn" hidden>टीम / Team access</button>
+      <button data-act="csv">Download CSV (Excel)</button>
+      <button data-act="logout">Sign out</button>
+    </div>
+  </div>
+
+  <!-- list -->
+  <main id="pList" class="wrap">
+    <div class="tools"><input class="in search" id="q" type="search" placeholder="नाम, मोबाइल या एंट्री नंबर से खोजें" aria-label="Search"></div>
+    <div class="count" id="count"></div>
+    <div class="list" id="list"></div>
+  </main>
+  <button class="fab" id="fab"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>नई एंट्री</button>
+
+  <!-- form -->
+  <form id="pForm" novalidate hidden>
+    <div class="wrap" id="sections"></div>
+    <div class="wrap"><div class="sec" id="delBox" hidden style="--k:var(--danger)"><div class="confirm" id="delArea"></div></div><div class="stamp" id="stamp"></div></div>
+    <div class="savebar"><div class="wrap">
+      <button type="button" class="btn ghost" id="cancelBtn">रद्द</button>
+      <button type="submit" class="btn main" id="saveBtn">सेव करें / Save</button>
+    </div></div>
+  </form>
+
+  <!-- team -->
+  <main id="pTeam" class="wrap" hidden>
+    <div class="panel">
+      <h2>टीम एक्सेस / Team access</h2>
+      <p>Only these emails can open, add and edit entries. Add a person here, then they open this page, tap “Create password”, and sign in.</p>
+      <form class="addrow" id="addForm" novalidate>
+        <input class="in" id="newEmail" type="email" placeholder="name@gmail.com" aria-label="Email to add">
+        <select class="in" id="newRole" style="flex:0 0 130px" aria-label="Role"><option value="member">Member</option><option value="admin">Admin</option></select>
+        <button class="btn" type="submit">Add</button>
+      </form>
+      <div id="teamMsg" class="msg" hidden style="margin-top:10px"></div>
+      <div id="members" style="margin-top:12px"></div>
+      <p style="margin-top:14px">Members can add and edit. Only admins can delete entries and manage this list.</p>
+    </div>
+  </main>
+</div>
+
+<div class="toast" id="toast" hidden></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script>
+const SUPABASE_URL = "https://ovaubhekxjtkodkhsybg.supabase.co";
+const SUPABASE_KEY = "sb_publishable_LXYxPPuR4tX7vGyWg7NIyA_-F_ieSGW";
+const IDLE_MINUTES = 20; // auto sign-out when idle
+const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+const YN = ["हाँ / Yes","नहीं / No"];
+const SECTIONS = [
+ {k:"--c1", hi:"व्यक्तिगत विवरण", en:"Personal details", f:[
+  ["person_name",1,"व्यक्ति का नाम","Person's Name","text",null,{req:1,full:1}],
+  ["relation_to_head",2,"परिवार के मुखिया से संबंध","Relationship to Head","select",["मुखिया / Head","पत्नी / Wife","पति / Husband","पुत्र / Son","पुत्री / Daughter","बहू / Daughter-in-law","दामाद / Son-in-law","पोता-पोती / Grandchild","पिता / Father","माता / Mother","भाई / Brother","बहन / Sister","अन्य / Other"]],
+  ["gender",3,"लिंग","Gender","select",["पुरुष / Male","महिला / Female","ट्रांसजेंडर / Transgender"]],
+  ["dob",4,"जन्मतिथि और उम्र","Date of Birth and Age","dobage"],
+  ["marital_status",5,"वैवाहिक स्थिति","Marital Status","select",["अविवाहित / Never married","विवाहित / Married","विधवा-विधुर / Widowed","तलाकशुदा / Divorced","अलग / Separated"]],
+  ["age_at_marriage",6,"शादी के समय उम्र","Age at Marriage","number"],
+  ["spouse_name",7,"पति/पत्नी का नाम","Spouse's Name","text"],
+  ["nationality",8,"घोषित राष्ट्रीयता","Declared Nationality","text"],
+  ["religion",9,"धर्म","Religion","select",["हिंदू / Hindu","मुस्लिम / Muslim","ईसाई / Christian","सिख / Sikh","बौद्ध / Buddhist","जैन / Jain","अन्य / Other"]],
+  ["caste_category",10,"SC/ST/जाति","SC / ST / Caste","castepair",["SC","ST","OBC","सामान्य / General"]],
+ ]},
+ {k:"--c2", hi:"माता-पिता व दिव्यांगता", en:"Parents & disability", f:[
+  ["father_details",11,"पिता की जानकारी","Father's Details","textarea",null,{full:1}],
+  ["mother_details",12,"मां की जानकारी","Mother's Details","textarea",null,{full:1}],
+  ["disability",13,"दिव्यांगता","Disability Status","select",["कोई नहीं / None","दृष्टि / Visual","श्रवण / Hearing","वाणी / Speech","चलने-फिरने / Locomotor","मानसिक / Mental","बहु / Multiple","अन्य / Other"]],
+ ]},
+ {k:"--c3", hi:"भाषा व शिक्षा", en:"Language & education", f:[
+  ["mother_tongue",14,"मातृभाषा","Mother Tongue","text"],
+  ["other_languages",14,"दूसरी भाषाएं","Other Languages","text"],
+  ["literacy",15,"साक्षरता और डिजिटल साक्षरता","Literacy and Digital Literacy","select",["निरक्षर / Illiterate","साक्षर / Literate","साक्षर + डिजिटल साक्षर / Literate + Digital"]],
+  ["education_attendance",16,"शैक्षणिक संस्थान में पढ़ाई","Attendance in Educational Institution","select",["पढ़ रहे हैं / Attending","पहले पढ़े / Attended before","कभी नहीं / Never attended"]],
+  ["highest_qualification",17,"उच्चतम योग्यता और स्ट्रीम/विषय","Highest Qualification & Stream","text",null,{full:1}],
+ ]},
+ {k:"--c4", hi:"काम-काज", en:"Work", f:[
+  ["worked_last_year",18,"पिछले एक साल में काम किया?","Worked in the Last Year","select",YN],
+  ["economic_activity",19,"आर्थिक गतिविधि की श्रेणी","Category of Economic Activity","select",["मुख्य कामगार / Main worker","सीमांत कामगार / Marginal worker","गैर-कामगार / Non-worker"]],
+  ["occupation",20,"व्यवसाय","Occupation","text"],
+  ["industry",21,"उद्योग, व्यापार या सेवा का प्रकार","Nature of Industry/Trade/Service","text"],
+  ["worker_class",22,"कामगार की श्रेणी","Class of Worker","select",["नियोक्ता / Employer","कर्मचारी / Employee","स्वरोजगार / Single worker","पारिवारिक कामगार / Family worker"]],
+  ["non_economic_activity",23,"गैर-आर्थिक गतिविधि","Non-Economic Activity","select",["विद्यार्थी / Student","घरेलू काम / Household duties","आश्रित / Dependent","पेंशनभोगी / Pensioner","किराया आय / Rentier","अन्य / Other"]],
+  ["seeking_work",24,"काम की तलाश या उपलब्धता","Seeking / Available for Work","select",YN],
+  ["travel_to_work",25,"काम की जगह तक यात्रा","Travel to Place of Work","text",null,{ph:"दूरी व साधन / distance & mode"}],
+ ]},
+ {k:"--c5", hi:"जन्म, प्रवास व पता", en:"Birth, migration & address", f:[
+  ["place_of_birth",26,"जन्म स्थान","Place of Birth","text"],
+  ["last_residence",27,"पिछला निवास स्थान","Place of Last Residence","text"],
+  ["migration_reason",28,"माइग्रेशन का कारण","Reason for Migration","select",["प्रवास नहीं / Not migrated","काम / Work","व्यापार / Business","शिक्षा / Education","विवाह / Marriage","जन्म के बाद / Moved after birth","परिवार के साथ / With household","अन्य / Other"]],
+  ["duration_of_stay",29,"यहां रहने की अवधि","Duration of Stay Here","text",null,{ph:"जैसे 5 साल"}],
+  ["permanent_address",30,"स्थायी निवास का पता","Permanent Residence Address","textarea",null,{full:1}],
+ ]},
+ {k:"--c6", hi:"बच्चे व टीकाकरण", en:"Children & vaccination", f:[
+  ["children_surviving",31,"जीवित बच्चों की संख्या","Surviving Children","number"],
+  ["children_ever_born",32,"अब तक जन्मे बच्चे","Children Ever Born","number"],
+  ["children_last_year",33,"पिछले एक साल में जन्मे बच्चे","Born Alive in Last Year","number"],
+  ["covid_vaccination",34,"कोविड-19 वैक्सीनेशन की जगह","Covid-19 Vaccination Details","text"],
+ ]},
+ {k:"--c7", hi:"बैंक व पहचान", en:"Bank & ID numbers", f:[
+  ["bank_accounts",35,"कुल बैंक अकाउंट","Total Bank Accounts","number"],
+  ["mobile",36,"मोबाइल नंबर","Mobile Number","tel",null,{pattern:"[0-9]{10}",max:10}],
+  ["aadhaar",37,"आधार नंबर","Aadhaar Number","tel",null,{pattern:"[0-9]{12}",max:12}],
+  ["voter_id",38,"वोटर ID नंबर","Voter ID Number","text",null,{upper:1}],
+  ["passport",39,"पासपोर्ट नंबर","Passport Number","text",null,{upper:1}],
+ ]},
+];
+const NUMERIC = new Set(["age","age_at_marriage","children_surviving","children_ever_born","children_last_year","bank_accounts"]);
+const ALL_COLS = ["entry_no","person_name","relation_to_head","gender","dob","age","marital_status","age_at_marriage","spouse_name","nationality","religion","caste_category","caste_name","father_details","mother_details","disability","mother_tongue","other_languages","literacy","education_attendance","highest_qualification","worked_last_year","economic_activity","occupation","industry","worker_class","non_economic_activity","seeking_work","travel_to_work","place_of_birth","last_residence","migration_reason","duration_of_stay","permanent_address","children_surviving","children_ever_born","children_last_year","covid_vaccination","bank_accounts","mobile","aadhaar","voter_id","passport","created_by","created_at","updated_by","updated_at"];
+const EDIT_COLS = ALL_COLS.filter(c=>!["entry_no","created_by","created_at","updated_by","updated_at"].includes(c));
+const COLORS = ["--c1","--c2","--c3","--c4","--c5","--c6","--c7"];
+
+const $ = s=>document.querySelector(s);
+const esc = s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+let me=null, role=null, rows=[], editing=null, signupMode=false;
+
+function toast(t){const el=$("#toast");el.textContent=t;el.hidden=false;clearTimeout(toast._t);toast._t=setTimeout(()=>el.hidden=true,2600)}
+function show(id){for(const v of ["vLogin","vDenied","vApp"]) $("#"+v).hidden = v!==id}
+function msg(el,t,kind){el.textContent=t;el.className="msg "+(kind||"");el.hidden=!t}
+
+/* ---------- Auth ---------- */
+$("#toggleMode").onclick=()=>{signupMode=!signupMode;
+  $("#loginTitle").textContent=signupMode?"पासवर्ड बनाएं":"लॉगिन करें";
+  $("#lBtn").textContent=signupMode?"Create password":"Sign in";
+  $("#toggleMode").textContent=signupMode?"Already have a password? Sign in":"पहली बार? Create password";
+  $("#lPass").autocomplete=signupMode?"new-password":"current-password";
+  msg($("#lMsg"),"")};
+$("#loginForm").onsubmit=async e=>{e.preventDefault();
+  const email=$("#lEmail").value.trim().toLowerCase(), password=$("#lPass").value, m=$("#lMsg");
+  if(!email||!email.includes("@")) return msg(m,"Enter a valid email.","err");
+  if(password.length<8) return msg(m,"Password must be at least 8 characters.","err");
+  $("#lBtn").disabled=true;
+  try{
+    if(signupMode){
+      const {data,error}=await sb.auth.signUp({email,password,options:{emailRedirectTo:location.href.split("#")[0]}});
+      if(error) throw error;
+      if(!data.session) msg(m,"Check your email inbox and tap the confirmation link, then sign in here.","ok");
+    }else{
+      const {error}=await sb.auth.signInWithPassword({email,password});
+      if(error) throw error;
+    }
+  }catch(err){msg(m, /invalid/i.test(err.message)?"Wrong email or password.":err.message,"err")}
+  $("#lBtn").disabled=false};
+$("#forgot").onclick=async()=>{const email=$("#lEmail").value.trim().toLowerCase();
+  if(!email) return msg($("#lMsg"),"Type your email above first, then tap Forgot password.","err");
+  const {error}=await sb.auth.resetPasswordForEmail(email,{redirectTo:location.href.split("#")[0]});
+  msg($("#lMsg"),error?error.message:"Password reset link sent to "+email+".",error?"err":"ok")};
+
+sb.auth.onAuthStateChange(async (event,session)=>{
+  if(event==="PASSWORD_RECOVERY"){
+    show("vLogin");signupMode=true;$("#toggleMode").click();signupMode=false;
+    $("#loginTitle").textContent="नया पासवर्ड";$("#lBtn").textContent="Save new password";
+    $("#loginForm").onsubmit=async e=>{e.preventDefault();const {error}=await sb.auth.updateUser({password:$("#lPass").value});
+      if(error) msg($("#lMsg"),error.message,"err"); else location.replace(location.href.split("#")[0])};
+    return;
+  }
+  setTimeout(()=>boot(session),0);
+});
+
+async function boot(session){
+  if(!session){me=null;role=null;rows=[];show("vLogin");return}
+  if(me && me===session.user.email) return;
+  me=session.user.email.toLowerCase();
+  const {data,error}=await sb.rpc("survey_role");
+  role=error?null:data;
+  if(!role){$("#deniedEmail").textContent=me;show("vDenied");return}
+  $("#whoAmI").textContent=me+" · "+(role==="admin"?"Admin":"Member");
+  $("#teamBtn").hidden=role!=="admin";
+  show("vApp");openList();loadRows();
+}
+async function logout(){await sb.auth.signOut();me=null;location.replace(location.href.split("#")[0])}
+
+/* idle auto sign-out */
+let idleT;function bump(){clearTimeout(idleT);idleT=setTimeout(()=>{if(me) logout()},IDLE_MINUTES*60000)}
+["pointerdown","keydown","scroll"].forEach(e=>addEventListener(e,bump,{passive:true}));bump();
+
+/* ---------- Menu & navigation ---------- */
+$("#menuBtn").onclick=e=>{e.stopPropagation();$("#menu").hidden=!$("#menu").hidden};
+document.addEventListener("click",e=>{if(!e.target.closest("#menu,#menuBtn")) $("#menu").hidden=true;
+  const a=e.target.closest("[data-act]");if(!a) return;$("#menu").hidden=true;
+  ({list:()=>guardLeave(openList),team:openTeam,csv:exportCsv,logout})[a.dataset.act]?.()});
+$("#backBtn").onclick=()=>guardLeave(openList);
+$("#cancelBtn").onclick=()=>guardLeave(openList);
+$("#fab").onclick=()=>openForm(null);
+let dirty=false;
+function guardLeave(fn){if(dirty && !$("#pForm").hidden){showLeave(fn)} else fn()}
+function showLeave(fn){const box=$("#delBox"),a=$("#delArea");box.hidden=false;
+  a.innerHTML='<span style="flex:1">बदलाव सेव नहीं हुए। Leave without saving?</span><button type="button" class="btn ghost" id="stay">Stay</button><button type="button" class="btn danger" id="leave">Leave</button>';
+  box.scrollIntoView({behavior:"smooth",block:"center"});
+  $("#stay").onclick=()=>{box.hidden=true;renderDelete()};$("#leave").onclick=()=>{dirty=false;fn()}}
+function setPage(p){for(const id of ["pList","pForm","pTeam"]) $("#"+id).hidden=id!==p;
+  $("#fab").hidden=p!=="pList";$("#chipWrap").hidden=p!=="pForm";$("#backBtn").hidden=p==="pList";scrollTo(0,0)}
+
+/* ---------- List ---------- */
+function openList(){dirty=false;setPage("pList");$("#barTitle").textContent="डेटा एंट्री";render()}
+async function loadRows(){
+  $("#count").textContent="Loading…";
+  let all=[],from=0;
+  while(true){const {data,error}=await sb.from("survey_entries").select("*").order("entry_no",{ascending:false}).range(from,from+999);
+    if(error){$("#count").textContent="Could not load entries: "+error.message;return}
+    all=all.concat(data);if(data.length<1000) break;from+=1000}
+  rows=all;render();
+}
+function initials(n){return (n||"?").trim().split(/\s+/).slice(0,2).map(w=>w[0]).join("").toUpperCase()}
+function short(v){return v?String(v).split(" / ").pop():""}
+function render(){
+  const q=$("#q").value.trim().toLowerCase();
+  const list=q?rows.filter(r=>[r.person_name,r.mobile,r.entry_no,r.spouse_name,r.voter_id].some(v=>String(v??"").toLowerCase().includes(q))):rows;
+  $("#count").textContent=rows.length?`${list.length} of ${rows.length} entries`:"";
+  if(!rows.length){$("#list").innerHTML='<div class="empty"><h3>अभी कोई एंट्री नहीं</h3>No entries yet. Tap <b>नई एंट्री</b> to add the first person.</div>';return}
+  if(!list.length){$("#list").innerHTML='<div class="empty">No match for “'+esc(q)+'”.</div>';return}
+  $("#list").innerHTML=list.slice(0,300).map(r=>{
+    const c=COLORS[r.entry_no%7];
+    const meta=[short(r.relation_to_head),[short(r.gender),r.age!=null?r.age+" yrs":""].filter(Boolean).join(", "),r.mobile?"📱 "+r.mobile:"",r.aadhaar?"Aadhaar ••••"+String(r.aadhaar).slice(-4):""].filter(Boolean);
+    return `<button class="item" data-id="${r.entry_no}"><span class="avatar" style="background:var(${c})">${esc(initials(r.person_name))}</span>
+      <span style="min-width:0"><div class="nm">${esc(r.person_name)}</div><div class="meta">${meta.map(m=>`<span>${esc(m)}</span>`).join("")}</div></span>
+      <span class="no">#${r.entry_no}</span></button>`}).join("")+(list.length>300?'<div class="empty">Showing first 300. Search to narrow down.</div>':"");
+}
+$("#q").oninput=render;
+$("#list").onclick=e=>{const b=e.target.closest(".item");if(b) openForm(rows.find(r=>r.entry_no==b.dataset.id))};
+
+/* ---------- Form ---------- */
+function opts(list,val){return '<option value="">— चुनें / Select —</option>'+list.map(o=>`<option${o===val?" selected":""}>${esc(o)}</option>`).join("")+(val&&!list.includes(val)?`<option selected>${esc(val)}</option>`:"")}
+function field([id,n,hi,en,type,list,o={}],r){
+  const v=r?.[id]??(id==="nationality"&&!r?"भारतीय / Indian":"");
+  const lbl=`<span class="lbl"><b>${n}.</b><span>${esc(hi)}${o.req?' *':''}<span class="en">${esc(en)}</span></span></span>`;
+  let ctl;
+  if(type==="select") ctl=`<select class="in" id="f_${id}">${opts(list,v)}</select>`;
+  else if(type==="textarea") ctl=`<textarea class="in" id="f_${id}">${esc(v)}</textarea>`;
+  else if(type==="number") ctl=`<input class="in" id="f_${id}" type="number" inputmode="numeric" min="0" max="150" value="${esc(v)}">`;
+  else if(type==="tel") ctl=`<input class="in" id="f_${id}" type="tel" inputmode="numeric" maxlength="${o.max}" value="${esc(v)}" autocomplete="off">`;
+  else if(type==="dobage") ctl=`<div class="pair"><input class="in" id="f_dob" type="date" value="${esc(r?.dob||"")}" max="${new Date().toISOString().slice(0,10)}" aria-label="Date of birth"><input class="in" id="f_age" type="number" inputmode="numeric" min="0" max="150" placeholder="उम्र" value="${esc(r?.age??"")}" aria-label="Age"></div>`;
+  else if(type==="castepair") ctl=`<div class="pair" style="grid-template-columns:1fr 1fr"><select class="in" id="f_caste_category" aria-label="Category">${opts(list,r?.caste_category||"")}</select><input class="in" id="f_caste_name" placeholder="जाति / Caste" value="${esc(r?.caste_name||"")}" aria-label="Caste name"></div>`;
+  else ctl=`<input class="in" id="f_${id}" type="text" value="${esc(v)}" ${o.ph?`placeholder="${esc(o.ph)}"`:""} ${o.upper?'style="text-transform:uppercase"':""} autocomplete="off">`;
+  return `<label class="q${o.full||type==="castepair"?" full":""}">${lbl}${ctl}</label>`;
+}
+function openForm(r){
+  editing=r;dirty=false;
+  $("#barTitle").textContent=r?`#${r.entry_no} · ${r.person_name}`:"नई एंट्री / New entry";
+  $("#chips").innerHTML=SECTIONS.map((s,i)=>`<button type="button" class="chip" style="--k:var(${s.k})" data-sec="${i}">${esc(s.hi)}</button>`).join("");
+  $("#sections").innerHTML=SECTIONS.map((s,i)=>`<section class="sec" id="sec${i}" style="--k:var(${s.k})"><div class="sec-h"><span class="sw"></span><h2>${esc(s.hi)}<small>${esc(s.en)}</small></h2></div><div class="grid">${s.f.map(f=>field(f,r)).join("")}</div></section>`).join("");
+  $("#stamp").textContent=r?`Added by ${r.created_by||"—"} on ${new Date(r.created_at).toLocaleString("en-IN")}`+(r.updated_by?` · Last edited by ${r.updated_by} on ${new Date(r.updated_at).toLocaleString("en-IN")}`:""):"";
+  renderDelete();setPage("pForm");
+  $("#f_dob").onchange=()=>{const d=new Date($("#f_dob").value);if(isNaN(d))return;const t=new Date();let a=t.getFullYear()-d.getFullYear();if(t<new Date(t.getFullYear(),d.getMonth(),d.getDate()))a--;$("#f_age").value=a};
+}
+function renderDelete(){const box=$("#delBox");
+  if(!editing||role!=="admin"){box.hidden=true;return}
+  box.hidden=false;$("#delArea").innerHTML='<span style="flex:1">Delete this entry permanently</span><button type="button" class="btn danger" id="delAsk">Delete</button>';
+  $("#delAsk").onclick=()=>{$("#delArea").innerHTML='<span style="flex:1"><b>पक्का?</b> This cannot be undone.</span><button type="button" class="btn ghost" id="delNo">Keep</button><button type="button" class="btn danger" id="delYes">Yes, delete</button>';
+    $("#delNo").onclick=renderDelete;
+    $("#delYes").onclick=async()=>{const {error}=await sb.from("survey_entries").delete().eq("entry_no",editing.entry_no);
+      if(error) return toast("Delete failed: "+error.message);
+      rows=rows.filter(x=>x.entry_no!==editing.entry_no);dirty=false;toast("Entry deleted");openList()}}}
+$("#chips").onclick=e=>{const c=e.target.closest(".chip");if(c) $("#sec"+c.dataset.sec).scrollIntoView({behavior:"smooth",block:"start"})};
+$("#pForm").addEventListener("input",()=>dirty=true);
+$("#pForm").onsubmit=async e=>{e.preventDefault();
+  const rec={};
+  for(const c of EDIT_COLS){const el=$("#f_"+c);if(!el) continue;let v=el.value.trim();
+    if(["voter_id","passport"].includes(c)) v=v.toUpperCase();
+    rec[c]=v===""?null:NUMERIC.has(c)?Number(v):v}
+  const bad=(id,t)=>{const el=$("#f_"+id);el.focus();el.scrollIntoView({block:"center"});toast(t);return true};
+  if(!rec.person_name) return bad("person_name","नाम ज़रूरी है / Name is required");
+  if(rec.mobile&&!/^[6-9]\d{9}$/.test(rec.mobile)) return bad("mobile","Mobile must be 10 digits starting 6-9");
+  if(rec.aadhaar&&!/^\d{12}$/.test(rec.aadhaar)) return bad("aadhaar","Aadhaar must be exactly 12 digits");
+  for(const c of NUMERIC) if(rec[c]!=null&&(isNaN(rec[c])||rec[c]<0)) return bad(c,"Enter a valid number");
+  $("#saveBtn").disabled=true;
+  const q=editing?sb.from("survey_entries").update(rec).eq("entry_no",editing.entry_no).select().single()
+                 :sb.from("survey_entries").insert(rec).select().single();
+  const {data,error}=await q;$("#saveBtn").disabled=false;
+  if(error) return toast("Save failed: "+error.message);
+  if(editing) rows=rows.map(x=>x.entry_no===data.entry_no?data:x); else rows.unshift(data);
+  dirty=false;toast(editing?`#${data.entry_no} updated`:`Saved as entry #${data.entry_no}`);openList();
+};
+addEventListener("beforeunload",e=>{if(dirty&&!$("#pForm").hidden){e.preventDefault();e.returnValue=""}});
+
+/* ---------- Team ---------- */
+async function openTeam(){if(role!=="admin") return;setPage("pTeam");$("#barTitle").textContent="टीम / Team";loadMembers()}
+async function loadMembers(){const {data,error}=await sb.from("survey_members").select("*").order("added_at");
+  if(error) return msg($("#teamMsg"),error.message,"err");
+  $("#members").innerHTML=data.map(m=>`<div class="mem"><span>${esc(m.email)}</span>${m.role==="admin"?'<span class="tag">Admin</span>':""}${m.email===me?"":`<button class="btn ghost" style="min-height:36px;padding:4px 12px" data-rm="${esc(m.email)}">Remove</button>`}</div>`).join("")}
+$("#members").onclick=async e=>{const b=e.target.closest("[data-rm]");if(!b) return;
+  if(b.dataset.armed!=="1"){b.dataset.armed="1";b.textContent="Tap to confirm";b.classList.add("danger");return}
+  const {error}=await sb.from("survey_members").delete().eq("email",b.dataset.rm);
+  msg($("#teamMsg"),error?error.message:b.dataset.rm+" removed. They can no longer open the data.",error?"err":"ok");loadMembers()};
+$("#addForm").onsubmit=async e=>{e.preventDefault();const email=$("#newEmail").value.trim().toLowerCase();
+  if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return msg($("#teamMsg"),"Enter a valid email.","err");
+  const {error}=await sb.from("survey_members").insert({email,role:$("#newRole").value});
+  if(error) return msg($("#teamMsg"),/duplicate/.test(error.message)?"Already on the list.":error.message,"err");
+  $("#newEmail").value="";msg($("#teamMsg"),email+" added. Send them this page's link; they tap “Create password” to start.","ok");loadMembers()};
+
+/* ---------- CSV export (opens in Excel, Hindi preserved) ---------- */
+function exportCsv(){
+  if(!rows.length) return toast("No entries to export");
+  const head=["Entry No","1. Name","2. Relation to Head","3. Gender","4a. DOB","4b. Age","5. Marital Status","6. Age at Marriage","7. Spouse Name","8. Nationality","9. Religion","10a. Category","10b. Caste","11. Father","12. Mother","13. Disability","14a. Mother Tongue","14b. Other Languages","15. Literacy","16. Education Attendance","17. Highest Qualification","18. Worked Last Year","19. Economic Activity","20. Occupation","21. Industry","22. Class of Worker","23. Non-Economic Activity","24. Seeking Work","25. Travel to Work","26. Place of Birth","27. Last Residence","28. Migration Reason","29. Duration of Stay","30. Permanent Address","31. Surviving Children","32. Children Ever Born","33. Born Last Year","34. Covid Vaccination","35. Bank Accounts","36. Mobile","37. Aadhaar","38. Voter ID","39. Passport","Added By","Added On","Edited By","Edited On"];
+  const cell=v=>{v=v==null?"":String(v);if(/^\d{10,}$/.test(v)) v="\t"+v;return '"'+v.replace(/"/g,'""')+'"'};
+  const csv="﻿"+[head.map(cell).join(","),...[...rows].reverse().map(r=>ALL_COLS.map(c=>cell(r[c])).join(","))].join("\r\n");
+  const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([csv],{type:"text/csv;charset=utf-8"}));
+  a.download="survey-data-"+new Date().toISOString().slice(0,10)+".csv";document.body.appendChild(a);a.click();a.remove();
+  toast("CSV downloaded");
+}
+</script>
+</body>
+</html>
