@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>NIOS Bridge Course Cover Page Maker | Free A4 PDF | TETTESTHUB</title>
+<meta name="description" content="Fill your NIOS Bridge Course assignment cover page online (Child Development and Educational Psychology) and download it as a print-ready A4 PDF. Free.">
+<link rel="canonical" href="https://tettesthub.in/bridge-course/cover-page/">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<meta property="og:title" content="NIOS Bridge Course Cover Page Maker — Free A4 PDF">
+<meta property="og:description" content="Type your details, preview the A4 cover page live and download the PDF.">
+<meta property="og:url" content="https://tettesthub.in/bridge-course/cover-page/">
+<meta property="og:image" content="https://tettesthub.in/bridge-course/og-image.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hind:wght@400;500;600;700&family=Source+Sans+3:wght@400;600;700&display=swap">
+<style>
+/* Layout: fill-in form on the left, live A4 sheet on the right; stacks on phones */
+:root{
+  --bg:#eef0f3; --panel:#ffffff; --fg:#1b1f27; --muted:#5f6675; --line:#d5d9e1;
+  --accent:#1f4f8f; --accent-fg:#ffffff; --field:#f7f8fa; --ok:#1d7a46; --err:#b42318;
+  --ui:"Source Sans 3",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --sheet:"Hind","Noto Sans Devanagari",Arial,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#14171d; --panel:#1d2129; --fg:#e7e9ee; --muted:#9aa1ae; --line:#323844;
+  --accent:#7fb0f0; --accent-fg:#0f1621; --field:#262b35; --ok:#5fcf8f; --err:#ff8b80; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#14171d; --panel:#1d2129; --fg:#e7e9ee; --muted:#9aa1ae; --line:#323844;
+  --accent:#7fb0f0; --accent-fg:#0f1621; --field:#262b35; --ok:#5fcf8f; --err:#ff8b80; color-scheme:dark}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--fg);font-family:var(--ui);font-size:15px;line-height:1.45;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+[hidden]{display:none!important}
+.top{max-width:1180px;margin:0 auto;padding-inline:16px;padding-block:14px 0;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:.9rem}
+.top a{color:var(--accent);font-weight:600;text-decoration:none}
+.top a:hover{text-decoration:underline}
+.wrap{max-width:1180px;margin:0 auto;padding-inline:16px;padding-block:20px 40px;display:grid;grid-template-columns:minmax(0,420px) minmax(0,1fr);gap:24px;align-items:start}
+@media (max-width:860px){.wrap{grid-template-columns:minmax(0,1fr)}}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:18px;display:flex;flex-direction:column;gap:16px;min-width:0}
+h1{font-size:1.25rem;margin:0;text-wrap:balance}
+.sub{color:var(--muted);margin:2px 0 0;font-size:.9rem}
+fieldset{border:0;padding:0;margin:0;display:flex;flex-direction:column;gap:10px;min-width:0}
+legend{font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;padding:0}
+label{display:flex;flex-direction:column;gap:4px;font-size:.85rem;font-weight:600}
+input{font:inherit;font-weight:400;color:var(--fg);background:var(--field);border:1px solid var(--line);border-radius:6px;padding:8px 10px;width:100%;min-width:0}
+input:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media (max-width:420px){.row2{grid-template-columns:1fr}}
+.actions{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+button{font:inherit;font-weight:600;border-radius:6px;padding:10px 16px;cursor:pointer;border:1px solid var(--line);background:var(--field);color:var(--fg)}
+button.primary{background:var(--accent);color:var(--accent-fg);border-color:var(--accent)}
+button:disabled{opacity:.55;cursor:default}
+.status{font-size:.85rem;color:var(--muted);min-height:1.2em}
+.status.ok{color:var(--ok)} .status.err{color:var(--err)}
+.previewcol{min-width:0;display:flex;flex-direction:column;gap:8px;position:sticky;top:calc(env(safe-area-inset-top,0px) + 12px)}
+@media (max-width:860px){.previewcol{position:static}}
+.previewlabel{font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.frame{width:100%;max-width:640px;aspect-ratio:210/297;position:relative;overflow:hidden;box-shadow:0 2px 14px rgba(0,0,0,.18);background:#fff}
+.frame .sheet{position:absolute;top:0;left:0;transform-origin:0 0}
+
+/* The A4 sheet: fixed 794 x 1123 px (A4 at 96dpi). Always black on white, like paper. */
+.sheet{width:794px;height:1123px;background:#fff;color:#111;font-family:var(--sheet);padding:22px}
+.sheet .border{border:2px solid #111;height:100%;padding:58px 38px 40px;display:flex;flex-direction:column}
+.s-title{text-align:center;font-weight:700;font-size:62px;line-height:1;margin:0}
+.s-course{text-align:center;font-weight:600;font-size:44px;line-height:1.1;margin:12px 0 0}
+.s-subject{text-align:center;font-weight:600;font-size:24px;margin:34px 0 46px}
+.s-row{display:grid;grid-template-columns:182px 1fr;align-items:end;margin-bottom:34px}
+.s-row .k{font-weight:600;font-size:19px;padding-bottom:6px}
+.s-line{border-bottom:1.6px solid #111;min-height:34px;font-size:19px;padding:0 4px 3px;line-height:1.25;overflow-wrap:anywhere}
+.s-grid{display:grid;grid-template-columns:1fr 1fr;column-gap:96px;margin-top:22px}
+.s-h{font-weight:600;font-size:19px;margin-bottom:10px}
+.s-small{font-size:17px}
+.s-inline{display:grid;grid-template-columns:auto 1fr;gap:8px;align-items:end;margin-top:12px}
+.s-inline .s-line{min-height:28px;font-size:17px}
+.s-blank{border-bottom:1.6px solid #111;min-height:40px}
+#offscreen{position:fixed;left:-10000px;top:0}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+</head>
+<body>
+<header class="top"><a href="https://tettesthub.in/">TETTESTHUB</a><a href="../">Bridge Course notes ₹199 →</a></header>
+<div class="wrap">
+  <form class="panel" id="form" autocomplete="off">
+    <div>
+      <h1>NIOS Bridge Course cover page</h1>
+      <p class="sub">Fill in your details. The A4 page updates as you type, then save it as a PDF.</p>
+    </div>
+
+    <fieldset>
+      <legend>Student</legend>
+      <label for="name">Name<input id="name" data-k="name"></label>
+      <div class="row2">
+        <label for="enroll">Enrollment No.<input id="enroll" data-k="enroll"></label>
+        <label for="reg">Registration No.<input id="reg" data-k="reg"></label>
+      </div>
+      <label for="school">School details<input id="school" data-k="school"></label>
+      <div class="row2">
+        <label for="session">Session<input id="session" data-k="session" placeholder="e.g. 2026–27"></label>
+        <label for="date">Date<input id="date" data-k="date" placeholder="DD/MM/YYYY"></label>
+      </div>
+      <label for="other">Other<input id="other" data-k="other"></label>
+    </fieldset>
+
+    <fieldset>
+      <legend>Submission</legend>
+      <div class="row2">
+        <label for="to">Submitted to<input id="to" data-k="to" placeholder="Teacher / mentor name"></label>
+        <label for="hon">Honorable (designation)<input id="hon" data-k="hon" placeholder="e.g. Principal"></label>
+      </div>
+      <div class="row2">
+        <label for="byname">Submitted by – Name<input id="byname" data-k="byname"></label>
+        <label for="uid">Unique I.D.<input id="uid" data-k="uid"></label>
+      </div>
+      <label for="verified">Verified by<input id="verified" data-k="verified" placeholder="Leave blank to sign by hand"></label>
+    </fieldset>
+
+    <fieldset>
+      <legend>Heading</legend>
+      <label for="subject">Subject<input id="subject" data-k="subject" value="Child Development and Educational Psychology"></label>
+    </fieldset>
+
+    <div class="actions">
+      <button type="submit" class="primary" id="pdfBtn">Download A4 PDF</button>
+      <button type="button" id="clearBtn">Clear form</button>
+      <button type="button" id="confirmClear" hidden>Yes, clear everything</button>
+    </div>
+    <div class="status" id="status" role="status"></div>
+  </form>
+
+  <div class="previewcol">
+    <div class="previewlabel">A4 preview</div>
+    <div class="frame" id="frame"><div class="sheet" id="sheet"></div></div>
+  </div>
+</div>
+<div id="offscreen" aria-hidden="true"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script>
+const $ = id => document.getElementById(id);
+const inputs = [...document.querySelectorAll('input[data-k]')];
+const STORE = 'nios-cover-draft';
+const esc = s => (s||'').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+function data(){ const d={}; inputs.forEach(i=>d[i.dataset.k]=i.value.trim()); return d; }
+
+function sheetHTML(d){
+  const row=(k,v)=>`<div class="s-row"><div class="k">${k} :</div><div class="s-line">${esc(v)}</div></div>`;
+  return `<div class="border">
+    <div class="s-title">NIOS</div>
+    <div class="s-course">Bridge Course</div>
+    <div class="s-subject">Subject : &ldquo;${esc(d.subject||' ')}&rdquo;</div>
+    ${row('Name',d.name)}${row('Enrollment No.',d.enroll)}${row('Registration No.',d.reg)}
+    ${row('School Details',d.school)}${row('Session',d.session)}${row('Date',d.date)}${row('Other',d.other)}
+    <div class="s-grid">
+      <div>
+        <div class="s-h">Submitted to</div>
+        <div class="s-line">${esc(d.to)}</div>
+        <div class="s-small" style="margin-top:12px">(Honorable ${d.hon?esc(d.hon):'.........................'} )</div>
+      </div>
+      <div>
+        <div class="s-h">Submitted by</div>
+        <div class="s-blank" style="min-height:24px"></div>
+        <div class="s-inline"><span class="s-small">Name :</span><div class="s-line">${esc(d.byname)}</div></div>
+        <div class="s-inline"><span class="s-small">Unique I.D :</span><div class="s-line">${esc(d.uid)}</div></div>
+      </div>
+    </div>
+    <div class="s-grid" style="margin-top:44px">
+      <div><div class="s-h">Verified by</div><div class="s-line">${esc(d.verified)}</div></div>
+      <div><div class="s-h">Sign and stamp</div><div class="s-blank"></div></div>
+    </div>
+  </div>`;
+}
+
+function render(){
+  $('sheet').innerHTML = sheetHTML(data());
+  fit();
+  try{ localStorage.setItem(STORE, JSON.stringify(data())); }catch(e){}
+}
+function fit(){ const w=$('frame').clientWidth; $('sheet').style.transform=`scale(${w/794})`; }
+
+try{ const saved=JSON.parse(localStorage.getItem(STORE)||'null');
+  if(saved) inputs.forEach(i=>{ if(saved[i.dataset.k]!=null) i.value=saved[i.dataset.k]; }); }catch(e){}
+
+inputs.forEach(i=>i.addEventListener('input',render));
+new ResizeObserver(fit).observe($('frame'));
+render();
+
+const status=(msg,cls='')=>{ const s=$('status'); s.textContent=msg; s.className='status '+cls; };
+
+$('clearBtn').onclick=()=>{ $('confirmClear').hidden=false; status('This removes everything you typed.'); };
+$('confirmClear').onclick=()=>{
+  inputs.forEach(i=>i.value = i.dataset.k==='subject' ? 'Child Development and Educational Psychology' : '');
+  $('confirmClear').hidden=true; status('Form cleared.'); render();
+};
+
+
+$('form').addEventListener('submit', async e=>{
+  e.preventDefault();
+  const btn=$('pdfBtn'); btn.disabled=true; status('Building PDF…');
+  try{
+    await document.fonts.ready;
+    const off=$('offscreen'); off.innerHTML='';
+    const page=document.createElement('div'); page.className='sheet'; page.innerHTML=sheetHTML(data());
+    off.appendChild(page);
+    const canvas=await html2canvas(page,{scale:3,backgroundColor:'#ffffff',useCORS:true,logging:false});
+    off.innerHTML='';
+    const { jsPDF } = window.jspdf;
+    const pdf=new jsPDF({unit:'mm',format:'a4',orientation:'portrait',compress:true});
+    pdf.addImage(canvas.toDataURL('image/jpeg',0.95),'JPEG',0,0,210,297);
+    const blob=pdf.output('blob');
+    const nm=(data().name||'NIOS').replace(/[^\w\- ]+/g,'').trim().replace(/\s+/g,'_')||'NIOS';
+    const filename=`${nm}_Bridge_Course_Cover.pdf`;
+    {
+      const url=URL.createObjectURL(blob); const a=document.createElement('a');
+      a.href=url; a.download=filename; document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(()=>URL.revokeObjectURL(url),4000);
+      status('PDF ready: '+filename,'ok');
+    }
+  }catch(err){
+    status('Could not create the PDF. Check your connection and try again.','err');
+  }finally{ btn.disabled=false; }
+});
+</script>
+
+</body>
+</html>
