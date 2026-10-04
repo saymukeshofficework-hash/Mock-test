@@ -66,12 +66,13 @@ button:disabled{opacity:.55;cursor:default}
 .s-subject{text-align:center;font-weight:600;font-size:24px;margin:34px 0 46px}
 .s-row{display:grid;grid-template-columns:182px 1fr;align-items:end;margin-bottom:34px}
 .s-row .k{font-weight:600;font-size:19px;padding-bottom:6px}
-.s-line{border-bottom:1.6px solid #111;min-height:34px;font-size:19px;padding:0 4px 3px;line-height:1.25;overflow-wrap:anywhere}
+.s-line{border-bottom:1.6px solid #111;min-height:34px;font-size:19px;font-weight:600;color:#111;padding:0 0 6px;line-height:1.25;overflow-wrap:anywhere}
+.s-line.filled{border-bottom-color:transparent}
 .s-grid{display:grid;grid-template-columns:1fr 1fr;column-gap:96px;margin-top:22px}
 .s-h{font-weight:600;font-size:19px;margin-bottom:10px}
 .s-small{font-size:17px}
 .s-inline{display:grid;grid-template-columns:auto 1fr;gap:8px;align-items:end;margin-top:12px}
-.s-inline .s-line{min-height:28px;font-size:17px}
+.s-inline .s-line{min-height:28px;font-size:17px;font-weight:400;padding-bottom:2px}
 .s-blank{border-bottom:1.6px solid #111;min-height:40px}
 #offscreen{position:fixed;left:-10000px;top:0}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
@@ -146,7 +147,8 @@ const esc = s => (s||'').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&
 function data(){ const d={}; inputs.forEach(i=>d[i.dataset.k]=i.value.trim()); return d; }
 
 function sheetHTML(d){
-  const row=(k,v)=>`<div class="s-row"><div class="k">${k} :</div><div class="s-line">${esc(v)}</div></div>`;
+  const L=v=>`<div class="s-line${v?' filled':''}">${esc(v)}</div>`;
+  const row=(k,v)=>`<div class="s-row"><div class="k">${k} :</div>${L(v)}</div>`;
   return `<div class="border">
     <div class="s-title">NIOS</div>
     <div class="s-course">Bridge Course</div>
@@ -156,18 +158,18 @@ function sheetHTML(d){
     <div class="s-grid">
       <div>
         <div class="s-h">Submitted to</div>
-        <div class="s-line">${esc(d.to)}</div>
+        ${L(d.to)}
         <div class="s-small" style="margin-top:12px">(Honorable ${d.hon?esc(d.hon):'.........................'} )</div>
       </div>
       <div>
         <div class="s-h">Submitted by</div>
-        <div class="s-blank" style="min-height:24px"></div>
-        <div class="s-inline"><span class="s-small">Name :</span><div class="s-line">${esc(d.byname)}</div></div>
-        <div class="s-inline"><span class="s-small">Unique I.D :</span><div class="s-line">${esc(d.uid)}</div></div>
+        <div class="s-blank" style="min-height:24px${(d.byname||d.uid)?';border-bottom-color:transparent':''}"></div>
+        <div class="s-inline"><span class="s-small">Name :</span>${L(d.byname)}</div>
+        <div class="s-inline"><span class="s-small">Unique I.D :</span>${L(d.uid)}</div>
       </div>
     </div>
     <div class="s-grid" style="margin-top:44px">
-      <div><div class="s-h">Verified by</div><div class="s-line">${esc(d.verified)}</div></div>
+      <div><div class="s-h">Verified by</div>${L(d.verified)}</div>
       <div><div class="s-h">Sign and stamp</div><div class="s-blank"></div></div>
     </div>
   </div>`;
