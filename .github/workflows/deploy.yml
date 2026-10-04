@@ -8,7 +8,10 @@ on:
   # TECH_BLOG_ADMIN_INSTRUCTIONS.md) so publishing from /tech-blog/admin/ rebuilds
   # the site without waiting for the next push to main.
   repository_dispatch:
-    types: [publish-tech-blog]
+    types: [publish-tech-blog, publish-testhub]
+  # Daily rebuild (00:15 IST) so TestHub (/testhub/) picks up its latest code and exam dates.
+  schedule:
+    - cron: "45 18 * * *"
 
 permissions:
   contents: read
@@ -119,6 +122,27 @@ jobs:
         working-directory: typing-practice
         run: npm test
 
+      # TestHub (MP exam prep site, /testhub/): Next.js static export built from the
+      # saymukeshofficework-hash/Chat-practice-121 repo. Paid notes/test papers are NOT in
+      # the build — they are served from private Supabase Storage after payment.
+      - name: Checkout TestHub source
+        uses: actions/checkout@v4
+        with:
+          repository: saymukeshofficework-hash/Chat-practice-121
+          ref: feat/exam-hub-phase-1-3
+          path: testhub-src
+
+      - name: Build TestHub
+        working-directory: testhub-src
+        env:
+          NEXT_PUBLIC_STATIC_EXPORT: "1"
+          NEXT_PUBLIC_BASE_PATH: /testhub
+          NEXT_PUBLIC_SITE_URL: https://tettesthub.in/testhub
+        run: |
+          npm ci
+          rm -rf src/app/api
+          npx next build
+
       - name: Assemble combined site
         run: |
           set -e
@@ -180,6 +204,10 @@ jobs:
           # build — it lives in private Supabase Storage)
           mkdir -p _site/bridge-course
           cp -r bridge-course/dist/. _site/bridge-course/
+
+          # TestHub (/testhub/) static export
+          mkdir -p _site/testhub
+          cp -r testhub-src/out/. _site/testhub/
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
