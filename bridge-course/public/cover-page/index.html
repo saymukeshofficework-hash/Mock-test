@@ -42,8 +42,8 @@ h1{font-size:1.25rem;margin:0;text-wrap:balance}
 fieldset{border:0;padding:0;margin:0;display:flex;flex-direction:column;gap:10px;min-width:0}
 legend{font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;padding:0}
 label{display:flex;flex-direction:column;gap:4px;font-size:.85rem;font-weight:600}
-input{font:inherit;font-weight:400;color:var(--fg);background:var(--field);border:1px solid var(--line);border-radius:6px;padding:8px 10px;width:100%;min-width:0}
-input:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+input,select{font:inherit;font-weight:400;color:var(--fg);background:var(--field);border:1px solid var(--line);border-radius:6px;padding:8px 10px;width:100%;min-width:0}
+input:focus-visible,select:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 @media (max-width:420px){.row2{grid-template-columns:1fr}}
 .actions{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
@@ -90,6 +90,22 @@ button:disabled{opacity:.55;cursor:default}
     </div>
 
     <fieldset>
+      <legend>Subject</legend>
+      <label for="subjectSel">Choose subject
+        <select id="subjectSel" data-k="subjectSel">
+          <option>Child Development and Educational Psychology</option>
+          <option>Curriculum, Pedagogy and Assessment</option>
+          <option>Pedagogy of Language-I</option>
+          <option>Pedagogy of Language-II</option>
+          <option>Pedagogy of Mathematics</option>
+          <option>Pedagogy of The World Around Us</option>
+          <option value="__other">Other (type below)</option>
+        </select>
+      </label>
+      <label for="subjectOther" id="otherWrap" hidden>Subject name<input id="subjectOther" data-k="subjectOther"></label>
+    </fieldset>
+
+    <fieldset>
       <legend>Student</legend>
       <label for="name">Name<input id="name" data-k="name"></label>
       <div class="row2">
@@ -117,10 +133,6 @@ button:disabled{opacity:.55;cursor:default}
       <label for="verified">Verified by<input id="verified" data-k="verified" placeholder="Leave blank to sign by hand"></label>
     </fieldset>
 
-    <fieldset>
-      <legend>Heading</legend>
-      <label for="subject">Subject<input id="subject" data-k="subject" value="Child Development and Educational Psychology"></label>
-    </fieldset>
 
     <div class="actions">
       <button type="submit" class="primary" id="pdfBtn">Download A4 PDF</button>
@@ -141,11 +153,13 @@ button:disabled{opacity:.55;cursor:default}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script>
 const $ = id => document.getElementById(id);
-const inputs = [...document.querySelectorAll('input[data-k]')];
+const inputs = [...document.querySelectorAll('[data-k]')];
 const STORE = 'nios-cover-draft';
 const esc = s => (s||'').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 
-function data(){ const d={}; inputs.forEach(i=>d[i.dataset.k]=i.value.trim()); return d; }
+function data(){ const d={}; inputs.forEach(i=>d[i.dataset.k]=i.value.trim());
+  d.subject = d.subjectSel==='__other' ? d.subjectOther : d.subjectSel; return d; }
+function syncOther(){ $('otherWrap').hidden = $('subjectSel').value!=='__other'; }
 
 function sheetHTML(d){
   const L=v=>`<div class="s-line${v?' filled':''}">${esc(v)}</div>`;
@@ -186,7 +200,8 @@ function fit(){ const w=$('frame').clientWidth; $('sheet').style.transform=`scal
 try{ const saved=JSON.parse(localStorage.getItem(STORE)||'null');
   if(saved) inputs.forEach(i=>{ if(saved[i.dataset.k]!=null) i.value=saved[i.dataset.k]; }); }catch(e){}
 
-inputs.forEach(i=>i.addEventListener('input',render));
+inputs.forEach(i=>{ i.addEventListener('input',render); i.addEventListener('change',()=>{syncOther();render();}); });
+syncOther();
 new ResizeObserver(fit).observe($('frame'));
 render();
 
@@ -194,7 +209,7 @@ const status=(msg,cls='')=>{ const s=$('status'); s.textContent=msg; s.className
 
 $('clearBtn').onclick=()=>{ $('confirmClear').hidden=false; status('This removes everything you typed.'); };
 $('confirmClear').onclick=()=>{
-  inputs.forEach(i=>i.value = i.dataset.k==='subject' ? 'Child Development and Educational Psychology' : '');
+  inputs.forEach(i=>{ if(i.tagName==='SELECT') i.selectedIndex=0; else i.value=''; }); syncOther();
   $('confirmClear').hidden=true; status('Form cleared.'); render();
 };
 
