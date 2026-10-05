@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bridge Course File Finder</title>
+<style>
+:root{--bg:#f4f6fb;--card:#fff;--ink:#1d2433;--muted:#667085;--brand:#2f5bea;--line:#e3e7ef;--pdf:#d92d20;--doc:#1a73e8}
+@media (prefers-color-scheme:dark){:root{--bg:#10141d;--card:#1a202c;--ink:#e8ecf5;--muted:#98a2b8;--brand:#6c8cff;--line:#2a3345;--pdf:#f97066;--doc:#7cacf8}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,"Segoe UI","Noto Sans Devanagari",sans-serif;height:100dvh;display:flex;flex-direction:column}
+header{padding:12px 16px;background:var(--card);border-bottom:1px solid var(--line)}
+header h1{font-size:1.05rem;margin:0}
+header small{color:var(--muted)}
+#log{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:12px;max-width:760px;width:100%;margin:0 auto}
+.msg{max-width:94%;padding:10px 14px;border-radius:14px;background:var(--card);border:1px solid var(--line);word-wrap:break-word}
+.msg.user{align-self:flex-end;background:var(--brand);color:#fff;border-color:transparent}
+.msg.bot{align-self:flex-start}
+.file{display:flex;gap:10px;align-items:flex-start;padding:10px 0;border-top:1px solid var(--line)}
+.file:first-of-type{border-top:0}
+.tag{flex:none;font-size:.7rem;font-weight:700;color:#fff;border-radius:6px;padding:2px 6px;margin-top:3px}
+.tag.pdf{background:var(--pdf)}.tag.doc{background:var(--doc)}
+.fi{flex:1;min-width:0}
+.ft{font-weight:600;overflow-wrap:anywhere}
+.fm{font-size:.78rem;color:var(--muted)}
+.acts{margin-top:6px;display:flex;flex-wrap:wrap;gap:6px}
+.acts a,.acts button,.chips button{font:inherit;font-size:.82rem;cursor:pointer;text-decoration:none;border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:8px;padding:4px 10px}
+.acts a.main{background:var(--brand);color:#fff;border-color:transparent}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.chips button{border-radius:999px;padding:5px 12px}
+iframe{width:100%;height:60vh;border:1px solid var(--line);border-radius:8px;margin-top:8px;background:#fff}
+mark{background:#ffe38a;color:#000;border-radius:3px}
+form{display:flex;gap:8px;padding:12px 16px;background:var(--card);border-top:1px solid var(--line);max-width:760px;width:100%;margin:0 auto}
+input{flex:1;min-width:0;font:inherit;padding:10px 12px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink)}
+form button{font:inherit;background:var(--brand);color:#fff;border:0;border-radius:10px;padding:10px 18px;cursor:pointer}
+.foot{text-align:center;color:var(--muted);font-size:.72rem;padding:0 16px 8px}
+</style>
+<script src="files.js"></script>
+</head>
+<body>
+<header><h1>📚 Bridge Course File Finder</h1><small id="info"></small></header>
+<div id="log" aria-live="polite"></div>
+<form id="f" autocomplete="off">
+  <input id="q" placeholder="जो चाहिए लिखें… जैसे: गणित, maths pdf, lesson plan class 3, TWAU unit 1" aria-label="Search">
+  <button>🔍</button>
+</form>
+<div class="foot">फ़ाइल न खुले तो ग्रुप एडमिन से Drive access माँगें · If a file doesn't open, ask the admin for Drive access</div>
+
+<script>
+(function(){
+const FILES=(window.FILES||[]).map(([title,id,type,kb,group,subject])=>({title,id,type,kb,group,subject,
+  view:type==='pdf'?`https://drive.google.com/file/d/${id}/view`:`https://docs.google.com/document/d/${id}/edit`,
+  prev:type==='pdf'?`https://drive.google.com/file/d/${id}/preview`:`https://docs.google.com/document/d/${id}/preview`,
+  dl:type==='pdf'?`https://drive.google.com/uc?export=download&id=${id}`:`https://docs.google.com/document/d/${id}/export?format=pdf`}));
+
+// synonyms: any of these words in the query also matches the listed words in the file text
+const SYN=[
+ [/गणित|ganit|math|maths|mathematics/i,'math ganit गणित mathematics'],
+ [/हिंदी|हिन्दी|hindi/i,'hindi हिंदी'],
+ [/अंग्रेज़ी|अंग्रेजी|angrezi|english/i,'english'],
+ [/भाषा|bhasha|language|lekhan|writing|लेखन/i,'language bhasha भाषा lekhan लेखन writing'],
+ [/पर्यावरण|evs|twau|duniya|दुनिया|world/i,'twau world दुनिया evs'],
+ [/बाल|bal vikas|child|vikas|psychology|मनोविज्ञान/i,'child development balyawastha बाल्यावस्था psychology'],
+ [/पाठ्यचर्या|curriculum|pathyacharya|assessment|आकलन/i,'curriculum pathyacharya पाठ्यचर्या assessment आकलन'],
+ [/lesson|पाठ योजना|path yojana|lp\b/i,'lp lesson'],
+ [/note|नोट्स|notes/i,'notes'],
+ [/study|material|किताब|book|chapter|अध्याय/i,'study material chapter'],
+];
+const norm=s=>s.toLowerCase().normalize('NFC');
+const tok=s=>norm(s).match(/[\p{L}\p{M}\p{N}]+/gu)||[];
+const STOP=new Set('the a an of in on to for me my ka ki ke ko se me mein hai chahiye do dikhao batao pdf file files का की के को से में है चाहिए दो दिखाओ बताओ'.split(' '));
+FILES.forEach(f=>f.hay=norm([f.title,f.group,f.subject,f.type==='pdf'?'pdf study material':'doc notes'].join(' ')));
+
+function search(q){
+  const wantPdf=/\bpdf\b/i.test(q), wantNotes=/note|नोट्स/i.test(q);
+  let words=tok(q).filter(w=>!STOP.has(w)&&w.length>0);
+  const extra=[];SYN.forEach(([re,add])=>{if(re.test(q))extra.push(...tok(add))});
+  const num=q.match(/(?:unit|chapter|इकाई|class|कक्षा|lp)\s*(\d+)/i);
+  const res=[];
+  FILES.forEach(f=>{
+    let sc=0,hit=0;
+    words.forEach(w=>{if(/^\d+$/.test(w))return;
+      if(f.hay.includes(w)){sc+=2;hit++} else if(w.length>=4&&f.hay.includes(w.slice(0,w.length-1))){sc+=1;hit++}});
+    extra.forEach(w=>{if(f.hay.includes(w))sc+=0.7});
+    if(num){const n=num[1];const kw=/class|कक्षा/i.test(num[0])?'class|कक्षा':/lp/i.test(num[0])?'lp':'unit|chapter|इकाई';const rx=new RegExp('('+kw+')\\s*0?'+n+'\\b','i');if(rx.test(f.title))sc+=3;}
+    if(wantPdf&&f.type==='pdf')sc+=1.5; if(wantPdf&&f.type!=='pdf')sc=0;
+    if(wantNotes&&f.type!=='pdf')sc+=1;
+    if(sc>0&&(hit>0||extra.length||num))res.push({f,sc});
+  });
+  res.sort((a,b)=>b.sc-a.sc||a.f.title.localeCompare(b.f.title));
+  const top=res[0]?.sc||0;
+  return {list:res.filter(r=>r.sc>=top*0.6).map(r=>r.f),words};
+}
+
+const log=document.getElementById('log'),q=document.getElementById('q');
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function add(cls,html){const d=document.createElement('div');d.className='msg '+cls;d.innerHTML=html;log.appendChild(d);log.scrollTop=log.scrollHeight;return d}
+function chips(el,list,fn){const c=document.createElement('div');c.className='chips';
+  list.forEach(s=>{const b=document.createElement('button');b.type='button';b.textContent=s;b.onclick=()=>fn(s);c.appendChild(b)});el.appendChild(c)}
+function hl(t,words){let h=esc(t);words.filter(w=>w.length>1&&!/^\d+$/.test(w)).forEach(w=>{
+  h=h.replace(new RegExp('('+w.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','giu'),'<mark>$1</mark>')});return h}
+
+function render(list,words,limit){
+  const shown=list.slice(0,limit);
+  const m=add('bot',`<b>${list.length}</b> फ़ाइल मिलीं / files found`);
+  shown.forEach(f=>{
+    const d=document.createElement('div');d.className='file';
+    d.innerHTML=`<span class="tag ${f.type}">${f.type.toUpperCase()}</span><div class="fi"><div class="ft">${hl(f.title,words)}</div>
+      <div class="fm">${esc(f.subject)} · ${esc(f.group)}${f.kb?' · '+f.kb+' KB':''}</div>
+      <div class="acts"><a class="main" href="${f.view}" target="_blank" rel="noopener">📖 खोलें / Open</a>
+      <button type="button" data-p>👁 Preview</button>
+      <a href="${f.dl}" target="_blank" rel="noopener">⬇ ${f.type==='pdf'?'Download':'PDF'}</a>
+      <button type="button" data-c>🔗 Copy link</button></div></div>`;
+    d.querySelector('[data-p]').onclick=e=>{const ex=d.querySelector('iframe');if(ex){ex.remove();return}
+      const i=document.createElement('iframe');i.src=f.prev;i.loading='lazy';d.querySelector('.fi').appendChild(i)};
+    d.querySelector('[data-c]').onclick=e=>{const b=e.target;(navigator.clipboard?navigator.clipboard.writeText(f.view):Promise.reject()).then(()=>{b.textContent='✓ Copied'}).catch(()=>{prompt('Link:',f.view)})};
+    m.appendChild(d);
+  });
+  if(list.length>limit){const b=document.createElement('button');b.type='button';b.textContent=`और दिखाएँ (${list.length-limit} more)`;
+    b.style.cssText='margin-top:8px;font:inherit;padding:6px 12px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--ink);cursor:pointer';
+    b.onclick=()=>{m.remove();render(list,words,limit+10)};m.appendChild(b)}
+}
+const HELP=['सभी PDF','गणित','भाषा','TWAU','बाल विकास','पाठ्यचर्या','lesson plan','Rakesh Pandey notes'];
+function ask(text){
+  text=text.trim();if(!text)return;
+  add('user',esc(text));
+  if(/^(सभी pdf|all pdf)$/i.test(text)){render(FILES.filter(f=>f.type==='pdf'),[],10);return}
+  if(/^(सब|all|list|sab)$/i.test(text)){render(FILES,[],10);return}
+  const {list,words}=search(text);
+  if(!list.length){const m=add('bot','इस नाम की कोई फ़ाइल नहीं मिली। दूसरे शब्द आज़माएँ, जैसे:<br>No match. Try:');chips(m,HELP,ask);return}
+  render(list,words,10);
+}
+document.getElementById('f').onsubmit=e=>{e.preventDefault();const v=q.value;q.value='';ask(v)};
+document.getElementById('info').textContent=`${FILES.length} files · ${FILES.filter(f=>f.type==='pdf').length} PDF`;
+const m=add('bot','नमस्ते! 👋 जो फ़ाइल चाहिए उसका नाम या विषय लिखें — मैं तुरंत लिंक दूँगा।<br>Type what you need (Hindi / English / Hinglish) and I will find the file.');
+chips(m,HELP,ask);
+})();
+</script>
+</body>
+</html>
