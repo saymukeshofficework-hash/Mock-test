@@ -205,6 +205,10 @@ jobs:
           mkdir -p _site/bridge-course
           cp -r bridge-course/dist/. _site/bridge-course/
 
+          # Bridge Course file finder (static, shared in the study group)
+          mkdir -p _site/bridge-course-chatbot
+          cp bridge-course-chatbot/index.html bridge-course-chatbot/files.js bridge-course-chatbot/Bridge-Course-Files-List.pdf _site/bridge-course-chatbot/
+
           # TestHub (/testhub/) static export
           mkdir -p _site/testhub
           cp -r testhub-src/out/. _site/testhub/
