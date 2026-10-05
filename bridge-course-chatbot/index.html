@@ -41,7 +41,7 @@ form button{font:inherit;background:var(--brand);color:#fff;border:0;border-radi
 <header><h1>📚 Bridge Course File Finder</h1><small id="info"></small></header>
 <div id="log" aria-live="polite"></div>
 <form id="f" autocomplete="off">
-  <input id="q" placeholder="जो चाहिए लिखें… जैसे: गणित, maths pdf, lesson plan class 3, TWAU unit 1" aria-label="Search">
+  <input id="q" placeholder="जो चाहिए लिखें… जैसे: गणित, भाषा, TWAU chapter 1" aria-label="Search">
   <button>🔍</button>
 </form>
 <div class="foot">फ़ाइल न खुले तो ग्रुप एडमिन से Drive access माँगें · If a file doesn't open, ask the admin for Drive access</div>
@@ -120,7 +120,7 @@ function render(list,words,limit){
     b.style.cssText='margin-top:8px;font:inherit;padding:6px 12px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--ink);cursor:pointer';
     b.onclick=()=>{m.remove();render(list,words,limit+10)};m.appendChild(b)}
 }
-const HELP=['सभी PDF','गणित','भाषा','TWAU','बाल विकास','पाठ्यचर्या','lesson plan','Rakesh Pandey notes'];
+const HELP=['सभी PDF','गणित','भाषा','TWAU','बाल विकास','पाठ्यचर्या','Chapter 1'];
 function ask(text){
   text=text.trim();if(!text)return;
   add('user',esc(text));
