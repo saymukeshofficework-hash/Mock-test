@@ -21,7 +21,7 @@ export const site = {
   siteUrl: clean(env.VITE_SITE_URL) || 'https://tettesthub.in/bridge-course/',
   // Support WhatsApp, digits only incl. country code. The repository Variable
   // VITE_WHATSAPP_NUMBER overrides this default. Set the default to '' to hide the buttons.
-  whatsappNumber: clean(env.VITE_WHATSAPP_NUMBER).replace(/\D/g, '') || '918770375866',
+  whatsappNumber: clean(env.VITE_WHATSAPP_NUMBER).replace(/\D/g, '') || '919669776027',
   supportEmail: clean(env.VITE_SUPPORT_EMAIL),
 }
 
