@@ -235,19 +235,10 @@ jobs:
                                f'<a href="{target}">Open</a>')
           PY
 
-          # tettesthub.in opens the MP High Court AG-3 special page (notes, test series).
+          # tettesthub.in homepage: course catalogue (home/index.html).
           # The previous TET home page stays available at /tet-home.html.
           mv _site/index.html _site/tet-home.html
-          cat > _site/index.html <<'HTML'
-          <!doctype html>
-          <html lang="hi"><head><meta charset="utf-8">
-          <meta name="viewport" content="width=device-width,initial-scale=1">
-          <title>TETTESTHUB – MP Exams, Notes, Test Series</title>
-          <link rel="canonical" href="https://tettesthub.in/examhelp/mp-high-court-assistant-grade-3-notes/">
-          <meta http-equiv="refresh" content="0; url=/examhelp/mp-high-court-assistant-grade-3-notes/">
-          <script>location.replace("/examhelp/mp-high-court-assistant-grade-3-notes/" + location.search + location.hash);</script>
-          </head><body><p><a href="/examhelp/mp-high-court-assistant-grade-3-notes/">TETTESTHUB खोलें / Open TETTESTHUB</a></p></body></html>
-          HTML
+          cp home/index.html _site/index.html
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
