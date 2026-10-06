@@ -9,7 +9,7 @@ on:
   # the site without waiting for the next push to main.
   repository_dispatch:
     types: [publish-tech-blog, publish-testhub]
-  # Daily rebuild (00:15 IST) so TestHub (/testhub/) picks up its latest code and exam dates.
+  # Daily rebuild (00:15 IST) so TETTESTHUB exam help (/examhelp/) picks up its latest code and exam dates.
   schedule:
     - cron: "45 18 * * *"
 
@@ -136,8 +136,8 @@ jobs:
         working-directory: testhub-src
         env:
           NEXT_PUBLIC_STATIC_EXPORT: "1"
-          NEXT_PUBLIC_BASE_PATH: /testhub
-          NEXT_PUBLIC_SITE_URL: https://tettesthub.in/testhub
+          NEXT_PUBLIC_BASE_PATH: /examhelp
+          NEXT_PUBLIC_SITE_URL: https://tettesthub.in/examhelp
         run: |
           npm ci
           rm -rf src/app/api
@@ -209,11 +209,33 @@ jobs:
           mkdir -p _site/bridge-course-chatbot
           cp bridge-course-chatbot/index.html bridge-course-chatbot/files.js bridge-course-chatbot/Bridge-Course-Files-List.pdf _site/bridge-course-chatbot/
 
-          # TestHub (/testhub/) static export
-          mkdir -p _site/testhub
-          cp -r testhub-src/out/. _site/testhub/
+          # TETTESTHUB exam help (/examhelp/) static export
+          mkdir -p _site/examhelp
+          cp -r testhub-src/out/. _site/examhelp/
 
-          # tettesthub.in opens the TETTESTHUB landing page (/testhub/).
+          # Old /testhub/ links (ads, QR codes in sample PDFs) redirect to the same page under /examhelp/.
+          python3 - <<'PY'
+          import os
+          src = "_site/examhelp"
+          for root, dirs, files in os.walk(src):
+              if "/_next" in root.replace(os.sep, "/"):
+                  continue
+              for f in files:
+                  if not f.endswith(".html"):
+                      continue
+                  rel = os.path.relpath(os.path.join(root, f), src).replace(os.sep, "/")
+                  target = "/examhelp/" + (rel[:-len("index.html")] if rel.endswith("index.html") else rel)
+                  out = os.path.join("_site/testhub", rel)
+                  os.makedirs(os.path.dirname(out), exist_ok=True)
+                  with open(out, "w") as fh:
+                      fh.write('<!doctype html><meta charset="utf-8"><meta name="robots" content="noindex">'
+                               f'<link rel="canonical" href="https://tettesthub.in{target}">'
+                               f'<meta http-equiv="refresh" content="0; url={target}">'
+                               f'<script>location.replace("{target}" + location.search + location.hash)</script>'
+                               f'<a href="{target}">Open</a>')
+          PY
+
+          # tettesthub.in opens the TETTESTHUB exam help landing page (/examhelp/).
           # The previous TET home page stays available at /tet-home.html.
           mv _site/index.html _site/tet-home.html
           cat > _site/index.html <<'HTML'
@@ -221,10 +243,10 @@ jobs:
           <html lang="hi"><head><meta charset="utf-8">
           <meta name="viewport" content="width=device-width,initial-scale=1">
           <title>TETTESTHUB – MP Exams, Notes, Test Series</title>
-          <link rel="canonical" href="https://tettesthub.in/testhub/">
-          <meta http-equiv="refresh" content="0; url=/testhub/">
-          <script>location.replace("/testhub/" + location.search + location.hash);</script>
-          </head><body><p><a href="/testhub/">TETTESTHUB खोलें / Open TETTESTHUB</a></p></body></html>
+          <link rel="canonical" href="https://tettesthub.in/examhelp/">
+          <meta http-equiv="refresh" content="0; url=/examhelp/">
+          <script>location.replace("/examhelp/" + location.search + location.hash);</script>
+          </head><body><p><a href="/examhelp/">TETTESTHUB खोलें / Open TETTESTHUB</a></p></body></html>
           HTML
 
       - name: Upload artifact
