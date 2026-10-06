@@ -93,6 +93,7 @@ nav.links a:hover,.more>button:hover,nav.links a.on{color:var(--ink);background:
 .price{font-size:24px;font-weight:800}
 .price s{font-size:16px;color:var(--muted);font-weight:500;margin-left:6px}
 .price .free{color:var(--primary)}
+.price small{font-size:14px;font-weight:600;color:var(--muted);margin-left:6px}
 .go{width:36px;height:36px;border-radius:999px;background:var(--ink);color:var(--bg);display:inline-flex;align-items:center;justify-content:center}
 .empty{display:none;text-align:center;color:var(--muted);padding:40px 0}
 
@@ -218,21 +219,9 @@ const ART = {
 };
 const EH = '/examhelp';
 const COURSES = [
-  {f:['new','hc','notes'], p:'p-teal', art:'book', kick:'MP हाई कोर्ट • 1174 पद', big:'सहायक ग्रेड-3 नोट्स', sub:['हिंदी','343 पेज','18 अध्याय'], isNew:true,
-   tags:['MP हाई कोर्ट','नया कोर्स'], meta:['📄','PDF • ','तुरंत डाउनलोड'], title:'MP हाई कोर्ट सहायक ग्रेड-3 2026 — संपूर्ण नोट्स (हिंदी PDF)',
-   desc:'✅ पूरा आधिकारिक सिलेबस ✅ सभी 5 विषय ✅ परीक्षा-केंद्रित भाषा ✅ भुगतान के तुरंत बाद डाउनलोड', price:299, href:EH+'/mp-high-court-assistant-grade-3-notes/'},
-  {f:['new','hc','tests'], p:'p-ink', art:'test', kick:'आधिकारिक पैटर्न • 100 प्रश्न • 120 मिनट', big:'20 फुल मॉक टेस्ट', sub:['हिंदी / English','टेस्ट 1 फ्री'], isNew:true,
-   tags:['MP हाई कोर्ट','टेस्ट सीरीज़'], meta:['🧾','टेस्ट: ','20 · 2,000 प्रश्न'], title:'MP हाई कोर्ट सहायक ग्रेड-3 — टेस्ट सीरीज़ (20 मॉक टेस्ट)',
-   desc:'✅ असली ऑनलाइन परीक्षा जैसी स्क्रीन ✅ हिंदी/English टॉगल ✅ तुरंत रिज़ल्ट ✅ हर प्रश्न की व्याख्या', price:199, href:EH+'/mp-high-court-assistant-grade-3-test-series/'},
-  {f:['new','hc','notes','tests'], p:'p-amber', art:'combo', kick:'सबसे ज़्यादा फ़ायदा', big:'कॉम्बो: नोट्स + 20 टेस्ट', sub:['₹49 की बचत'], isNew:true,
-   tags:['MP हाई कोर्ट','कॉम्बो'], meta:['📦','शामिल: ','PDF नोट्स + टेस्ट सीरीज़'], title:'MP हाई कोर्ट AG-3 कॉम्बो — PDF नोट्स + 20 मॉक टेस्ट',
-   desc:'✅ हिंदी या English नोट्स चुनें ✅ पूरी 20 टेस्ट सीरीज़ ✅ पढ़ें, फिर टेस्ट से जाँचें', price:449, mrp:498, href:EH+'/mp-high-court-assistant-grade-3-notes/#buy'},
-  {f:['hc','notes'], p:'p-indigo', art:'book', kick:'MP High Court • 1174 posts', big:'Assistant Grade-3 Notes', sub:['English','324 pages','18 chapters'],
-   tags:['MP हाई कोर्ट','English'], meta:['📄','PDF • ','Instant download'], title:'MP High Court Assistant Grade-3 2026 — Complete Notes (English PDF)',
-   desc:'✅ Full official syllabus ✅ All 5 subjects ✅ Exam-focused ✅ Download right after payment', price:299, href:EH+'/mp-high-court-assistant-grade-3-notes/?lang=en'},
-  {f:['hc','tests','free'], p:'p-sage', art:'test', kick:'बिना भुगतान', big:'फ्री मॉक टेस्ट 1', sub:['100 प्रश्न','120 मिनट','हिंदी / English'],
-   tags:['MP हाई कोर्ट','फ्री'], meta:['⏱️','समय: ','120 मिनट'], title:'MP हाई कोर्ट AG-3 — फ्री फुल मॉक टेस्ट (टेस्ट 1)',
-   desc:'✅ असली पैटर्न पर 100 प्रश्न ✅ तुरंत रिज़ल्ट और खंड-वार विश्लेषण ✅ हर प्रश्न की व्याख्या', price:0, href:EH+'/mock-tests/ag3/test.html?t=01'},
+  {f:['new','hc','notes','tests'], p:'p-teal', art:'combo', kick:'MP हाई कोर्ट • 1174 पद', big:'सहायक ग्रेड-3 2026', sub:['PDF नोट्स','20 मॉक टेस्ट','टेस्ट 1 फ्री'], isNew:true,
+   tags:['MP हाई कोर्ट','नया कोर्स'], meta:['📦','विकल्प: ','नोट्स ₹299 · टेस्ट ₹199 · कॉम्बो ₹449'], title:'MP हाई कोर्ट सहायक ग्रेड-3 2026 — नोट्स + टेस्ट सीरीज़',
+   desc:'✅ हिंदी/English PDF नोट्स (18 अध्याय) ✅ 20 फुल मॉक टेस्ट, टेस्ट 1 फ्री ✅ कॉम्बो में ₹49 की बचत', price:199, from:true, href:EH+'/mp-high-court-assistant-grade-3-notes/'},
   {f:['bridge','notes'], p:'p-rose', art:'book', kick:'NIOS • B.Ed ब्रिज कोर्स', big:'ब्रिज कोर्स नोट्स', sub:['डिजिटल नोट्स','तुरंत एक्सेस'],
    tags:['B.Ed ब्रिज कोर्स','PDF नोट्स'], meta:['📄','प्रकार: ','डिजिटल नोट्स'], title:'NIOS B.Ed ब्रिज कोर्स — संपूर्ण डिजिटल नोट्स',
    desc:'✅ ब्रिज कोर्स के सभी विषय ✅ परीक्षा व असाइनमेंट के लिए ✅ भुगतान के बाद तुरंत एक्सेस', price:199, href:'/bridge-course/'},
@@ -259,7 +248,7 @@ grid.innerHTML = COURSES.map((c, i) => `
       <div class="title">${esc(c.title)}</div>
       <div class="desc">${esc(c.desc)}</div>
       <div class="foot">
-        <span class="price">${c.price ? '₹' + c.price.toLocaleString('en-IN') : '<span class="free">फ्री</span>'}${c.mrp ? `<s>₹${c.mrp}</s>` : ''}</span>
+        <span class="price">${c.price ? '₹' + c.price.toLocaleString('en-IN') : '<span class="free">फ्री</span>'}${c.mrp ? `<s>₹${c.mrp}</s>` : ''}${c.from ? '<small> से शुरू</small>' : ''}</span>
         <span class="go" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
       </div>
     </div>
