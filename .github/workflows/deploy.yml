@@ -213,6 +213,20 @@ jobs:
           mkdir -p _site/testhub
           cp -r testhub-src/out/. _site/testhub/
 
+          # tettesthub.in opens the TETTESTHUB landing page (/testhub/).
+          # The previous TET home page stays available at /tet-home.html.
+          mv _site/index.html _site/tet-home.html
+          cat > _site/index.html <<'HTML'
+          <!doctype html>
+          <html lang="hi"><head><meta charset="utf-8">
+          <meta name="viewport" content="width=device-width,initial-scale=1">
+          <title>TETTESTHUB – MP Exams, Notes, Test Series</title>
+          <link rel="canonical" href="https://tettesthub.in/testhub/">
+          <meta http-equiv="refresh" content="0; url=/testhub/">
+          <script>location.replace("/testhub/" + location.search + location.hash);</script>
+          </head><body><p><a href="/testhub/">TETTESTHUB खोलें / Open TETTESTHUB</a></p></body></html>
+          HTML
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
