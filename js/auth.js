@@ -47,6 +47,15 @@ async function registerAccount(fullName,identifier,password) {
     return {ok:true,session:data.session,message:data.session?"Account created successfully.":"Account created. Please check your email to confirm your account."};
   } catch(e) { return {ok:false,message:"Unable to create account. Please try again."}; }
 }
+async function resendConfirmation(email) {
+  if(!email || !email.includes("@")) return {ok:false,message:"Please enter the registered email address."};
+  if(!supabaseClient) return {ok:false,message:"Email confirmation isn't available yet. Please try again later."};
+  try {
+    const {error}=await supabaseClient.auth.resend({type:"signup",email:email.trim().toLowerCase()});
+    if(error) return {ok:false,message:error.message||"Unable to resend the confirmation email."};
+    return {ok:true,message:"Confirmation email sent again. Please check Inbox, Spam and Promotions."};
+  } catch(e) { return {ok:false,message:"Unable to resend the confirmation email. Please try again."}; }
+}
 async function sendPasswordReset(email) {
   if(!email || !email.includes("@")) return {ok:false,message:"Please enter a valid registered email address."};
   if(!supabaseClient) return {ok:false,message:"Password reset isn't available yet. Please try again later."};
