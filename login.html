@@ -10,20 +10,35 @@
 <link rel="stylesheet" href="assets/site.css?v=2">
 <script src="js/i18n.js?v=3"></script>
 <style>
-.auth-wrap{min-height:68vh;display:grid;place-items:center;padding:40px 16px}
-.auth-card{width:min(460px,100%);background:#fff;border:1px solid #e5e7eb;border-radius:20px;padding:28px;box-shadow:0 18px 50px rgba(0,0,0,.08)}
-.auth-tabs{display:grid;grid-template-columns:1fr 1fr;margin-bottom:24px;background:#f3f4f6;border-radius:12px;padding:4px}
-.auth-tab{border:0;background:transparent;padding:11px;border-radius:9px;font-weight:700;cursor:pointer;color:#6b7280}
-.auth-tab.active{background:#fff;color:#111827;box-shadow:0 2px 8px rgba(0,0,0,.08)}
+:root{--ink:#111827;--muted:#6b7280;--line:#e5e7eb;--soft:#f8fafc;--accent:#111827}
+*{box-sizing:border-box}
+body{background:#fafafa}
+.auth-wrap{min-height:calc(100vh - 170px);display:flex;align-items:center;justify-content:center;padding:56px 20px}
+.auth-card{width:min(430px,100%);background:#fff;border:1px solid var(--line);border-radius:24px;padding:34px;box-shadow:0 20px 60px rgba(17,24,39,.07)}
+.auth-brand{text-align:center;margin-bottom:28px}
+.auth-mark{width:42px;height:42px;margin:0 auto 14px;border-radius:12px;background:#111827;color:#fff;display:grid;place-items:center;font-weight:800;font-size:18px}
+.auth-brand h1{font-size:25px;letter-spacing:-.6px;margin:0;color:var(--ink)}
+.auth-brand p{margin:7px 0 0;color:var(--muted);font-size:14px}
+.auth-tabs{display:grid;grid-template-columns:1fr 1fr;background:var(--soft);border:1px solid var(--line);padding:3px;border-radius:12px;margin-bottom:25px}
+.auth-tab{border:0;background:transparent;color:var(--muted);padding:10px;border-radius:9px;font-size:14px;font-weight:650;cursor:pointer}
+.auth-tab.active{background:#fff;color:var(--ink);box-shadow:0 1px 4px rgba(0,0,0,.07)}
 .auth-pane{display:none}.auth-pane.active{display:block}
-.auth-card h1{margin:0 0 7px}.sub{color:#6b7280;margin:0 0 22px}
-.field{margin:15px 0}.field label{display:block;font-weight:650;margin-bottom:7px}
-.password-wrap{position:relative}.password-wrap input{padding-right:48px}
-.eye{position:absolute;right:8px;top:50%;transform:translateY(-50%);border:0;background:none;cursor:pointer;padding:8px;color:#6b7280}
-.auth-links{display:flex;justify-content:space-between;align-items:center;margin-top:15px;font-size:.92rem}
-.auth-links button{border:0;background:none;color:#2563eb;cursor:pointer;padding:0}
-.alert{padding:11px 13px;border-radius:10px;margin:0 0 16px;font-size:.92rem}.alert.error{background:#fef2f2;color:#991b1b}.alert.success{background:#ecfdf5;color:#065f46}
-.auth-small{font-size:.86rem;color:#6b7280;line-height:1.5;margin-top:16px}
+.auth-pane h2{font-size:20px;letter-spacing:-.3px;margin:0 0 6px;color:var(--ink)}
+.sub{font-size:13.5px;line-height:1.5;color:var(--muted);margin:0 0 22px}
+.field{margin:16px 0}.field label{display:block;font-size:13px;font-weight:650;color:#374151;margin-bottom:7px}
+.field input{width:100%;border:1px solid #d1d5db;border-radius:10px;padding:12px 13px;font:inherit;font-size:14px;background:#fff;outline:none;transition:.15s}
+.field input:focus{border-color:#111827;box-shadow:0 0 0 3px rgba(17,24,39,.07)}
+.password-wrap{position:relative}.password-wrap input{padding-right:55px}
+.eye{position:absolute;right:5px;top:50%;transform:translateY(-50%);border:0;background:none;color:#6b7280;font-size:12px;cursor:pointer;padding:8px}
+.btn.btn-primary{background:#111827;border-color:#111827;border-radius:10px;height:45px;font-size:13px;letter-spacing:.3px;transition:.15s}
+.btn.btn-primary:hover{background:#000;transform:translateY(-1px)}
+.btn.btn-primary:disabled{opacity:.6;transform:none}
+.auth-links{display:flex;justify-content:center;gap:5px;flex-wrap:wrap;margin-top:17px;font-size:12.5px;color:var(--muted)}
+.auth-links button{border:0;background:none;color:#111827;font-weight:650;cursor:pointer;padding:0}
+.auth-small{text-align:center;font-size:11.5px;line-height:1.5;color:#9ca3af;margin:18px 0 0}
+.alert{padding:11px 13px;border-radius:10px;margin:0 0 16px;font-size:13px}.alert.error{background:#fef2f2;color:#991b1b}.alert.success{background:#ecfdf5;color:#065f46}
+.site-footer{font-size:11px}
+@media(max-width:520px){.auth-wrap{padding:30px 14px}.auth-card{padding:26px 20px;border-radius:20px;box-shadow:0 12px 40px rgba(17,24,39,.06)}}
 </style>
 </head>
 <body>
@@ -42,7 +57,7 @@
 <div id="formAlert" class="alert" style="display:none"></div>
 
 <div id="loginPane" class="auth-pane active">
-<h1>Welcome back</h1><p class="sub">Login to access your TET Test Hub dashboard.</p>
+<h2>Welcome back</h2><p class="sub">Login to access your TET Test Hub dashboard.</p>
 <form id="loginForm">
 <div class="field"><label for="loginIdentifier">Email ID / Mobile Number</label><input id="loginIdentifier" type="text" autocomplete="username" placeholder="Enter email or mobile number" required></div>
 <div class="field"><label for="loginPassword">Password</label><div class="password-wrap"><input id="loginPassword" type="password" autocomplete="current-password" required><button type="button" class="eye" data-eye="loginPassword">Show</button></div></div>
@@ -52,7 +67,7 @@
 </div>
 
 <div id="registerPane" class="auth-pane">
-<h1>Create account</h1><p class="sub">Register once and use your account for all your tests.</p>
+<h2>Create your account</h2><p class="sub">Register once and use your account for all your tests.</p>
 <form id="registerForm">
 <div class="field"><label for="regName">Full Name</label><input id="regName" type="text" autocomplete="name" placeholder="Your full name" required></div>
 <div class="field"><label for="regIdentifier">Email ID / Mobile Number</label><input id="regIdentifier" type="text" autocomplete="email" placeholder="Email address or 10-digit mobile" required></div>
@@ -65,7 +80,7 @@
 </div>
 
 <div id="forgotPane" class="auth-pane">
-<h1>Forgot password?</h1><p class="sub">Enter the email address linked to your account and we’ll send a secure reset link.</p>
+<h2>Forgot password?</h2><p class="sub">Enter the email address linked to your account and we’ll send a secure reset link.</p>
 <form id="forgotForm">
 <div class="field"><label for="forgotEmail">Registered Email</label><input id="forgotEmail" type="email" autocomplete="email" placeholder="you@example.com" required></div>
 <button class="btn btn-primary btn-block" id="forgotBtn" type="submit">SEND RESET LINK</button>
