@@ -107,12 +107,15 @@ footer a:hover{color:var(--ink)}
 @media (max-width:640px){
   .bar{flex-wrap:wrap;gap:8px;padding:10px}
   .brand{font-size:15px}.brand svg{width:30px;height:30px}
-  .auth-top{padding:8px 10px;font-size:13px}
-  #theme{margin-left:auto;width:36px;height:36px}
+  .auth-top{display:inline-flex!important;padding:7px 10px;font-size:12px;margin-left:auto;order:2}
+  #theme{margin-left:0;width:36px;height:36px;order:3}
+  .btn.solid{order:4}
+  .burger{order:5}
   .burger{width:36px;height:36px}
   .btn.solid{padding:8px 10px;font-size:13px}
   .search{order:5;flex-basis:100%}
-  .btn.ghost{display:none}
+  .btn.ghost:not(.auth-top){display:none}
+  .btn.solid{display:none}
   .grid{grid-template-columns:1fr;gap:18px}
   .head{margin-top:26px}.head h1{font-size:23px}
   .poster .big{font-size:24px}
