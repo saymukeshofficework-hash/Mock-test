@@ -51,7 +51,7 @@ async function sendPasswordReset(email) {
   if(!email || !email.includes("@")) return {ok:false,message:"Please enter a valid registered email address."};
   if(!supabaseClient) return {ok:false,message:"Password reset isn't available yet. Please try again later."};
   try {
-    const {error}=await supabaseClient.auth.resetPasswordForEmail(email.trim().toLowerCase(),{redirectTo:new URL("reset-password.html",location.href).href});
+    const {error}=await supabaseClient.auth.resetPasswordForEmail(email.trim().toLowerCase(),{redirectTo:"https://tettesthub.in/reset-password.html"});
     if(error) return {ok:false,message:error.message||"Unable to send the reset link."};
     return {ok:true,message:"Reset link sent. Please check your email inbox and spam folder."};
   } catch(e) { return {ok:false,message:"Unable to send the reset link. Please try again."}; }
