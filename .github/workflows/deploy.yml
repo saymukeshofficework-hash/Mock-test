@@ -209,7 +209,7 @@ jobs:
           mkdir -p _site/bridge-course-chatbot
           cp bridge-course-chatbot/index.html bridge-course-chatbot/files.js bridge-course-chatbot/Bridge-Course-Files-List.pdf _site/bridge-course-chatbot/
 
-          # TETTESTHUB exam help (/examhelp/) static export
+          # TETTESTHUB exam help (/examhelp/) static export — includes the latest Exam Hub source branch
           mkdir -p _site/examhelp
           cp -r testhub-src/out/. _site/examhelp/
 
