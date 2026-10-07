@@ -2,112 +2,115 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; connect-src 'self' https://*.supabase.co https://ovaubhekxjtkodkhsybg.supabase.co; img-src 'self' data:;">
-<title>Student Login — TET Test Hub</title>
-<meta name="description" content="Log in with your Student ID and password to access your purchased TET mock tests.">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; connect-src 'self' https://*.supabase.co; img-src 'self' data:;">
+<title>Login & Register — TET Test Hub</title>
+<meta name="description" content="Login or create your TET Test Hub student account.">
 <link rel="canonical" href="https://tettesthub.in/login.html">
-<meta property="og:title" content="Student Login — TET Test Hub">
-<meta property="og:description" content="Log in with your Student ID and password to access your purchased TET mock tests.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://tettesthub.in/login.html">
-<meta property="og:site_name" content="TET Test Hub">
-<link rel="icon" href="data:,">
 <link rel="stylesheet" href="assets/site.css?v=2">
 <script src="js/i18n.js?v=3"></script>
+<style>
+.auth-wrap{min-height:68vh;display:grid;place-items:center;padding:40px 16px}
+.auth-card{width:min(460px,100%);background:#fff;border:1px solid #e5e7eb;border-radius:20px;padding:28px;box-shadow:0 18px 50px rgba(0,0,0,.08)}
+.auth-tabs{display:grid;grid-template-columns:1fr 1fr;margin-bottom:24px;background:#f3f4f6;border-radius:12px;padding:4px}
+.auth-tab{border:0;background:transparent;padding:11px;border-radius:9px;font-weight:700;cursor:pointer;color:#6b7280}
+.auth-tab.active{background:#fff;color:#111827;box-shadow:0 2px 8px rgba(0,0,0,.08)}
+.auth-pane{display:none}.auth-pane.active{display:block}
+.auth-card h1{margin:0 0 7px}.sub{color:#6b7280;margin:0 0 22px}
+.field{margin:15px 0}.field label{display:block;font-weight:650;margin-bottom:7px}
+.password-wrap{position:relative}.password-wrap input{padding-right:48px}
+.eye{position:absolute;right:8px;top:50%;transform:translateY(-50%);border:0;background:none;cursor:pointer;padding:8px;color:#6b7280}
+.auth-links{display:flex;justify-content:space-between;align-items:center;margin-top:15px;font-size:.92rem}
+.auth-links button{border:0;background:none;color:#2563eb;cursor:pointer;padding:0}
+.alert{padding:11px 13px;border-radius:10px;margin:0 0 16px;font-size:.92rem}.alert.error{background:#fef2f2;color:#991b1b}.alert.success{background:#ecfdf5;color:#065f46}
+.auth-small{font-size:.86rem;color:#6b7280;line-height:1.5;margin-top:16px}
+</style>
 </head>
 <body>
+<header class="site-header">
+<a class="brand" href="index.html"><span class="logo" aria-hidden="true"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>TET Test Hub</a>
+<nav><a href="index.html" data-i18n="nav_home">Home</a><a href="tests.html" data-i18n="nav_tests">All Tests</a><a href="typing-practice/" data-i18n="nav_typing">Typing Practice</a><a href="login.html" class="active">Login</a><a href="about.html" data-i18n="nav_about">About</a><a href="contact.html" data-i18n="nav_contact">Contact</a></nav>
+<button class="lang-toggle" id="langToggle" onclick="toggleLang()">EN</button>
+</header>
 
-  <header class="site-header">
-    <a class="brand" href="index.html">
-      <span class="logo" aria-hidden="true">
-        <svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </span>
-      TET Test Hub
-    </a>
-    <nav>
-      <a href="index.html" data-i18n="nav_home">Home</a>
-      <a href="tests.html" data-i18n="nav_tests">All Tests</a>
-      <a href="typing-practice/" data-i18n="nav_typing">Typing Practice</a>
-      <a href="login.html" class="active" data-i18n="nav_login">Student Login</a>
-      <a href="about.html" data-i18n="nav_about">About</a>
-      <a href="contact.html" data-i18n="nav_contact">Contact</a>
-    </nav>
-    <button class="lang-toggle" id="langToggle" onclick="toggleLang()">EN</button>
-  </header>
+<main class="auth-wrap">
+<section class="auth-card">
+<div class="auth-tabs">
+<button class="auth-tab active" data-pane="loginPane">Login</button>
+<button class="auth-tab" data-pane="registerPane">Register</button>
+</div>
+<div id="formAlert" class="alert" style="display:none"></div>
 
-  <main>
-    <div class="form-card">
-      <h1 data-i18n="login_h1">Student Login</h1>
-      <p class="sub" data-i18n="login_sub">Log in with the Student ID and password you received after purchase.</p>
+<div id="loginPane" class="auth-pane active">
+<h1>Welcome back</h1><p class="sub">Login to access your TET Test Hub dashboard.</p>
+<form id="loginForm">
+<div class="field"><label for="loginIdentifier">Email ID / Mobile Number</label><input id="loginIdentifier" type="text" autocomplete="username" placeholder="Enter email or mobile number" required></div>
+<div class="field"><label for="loginPassword">Password</label><div class="password-wrap"><input id="loginPassword" type="password" autocomplete="current-password" required><button type="button" class="eye" data-eye="loginPassword">Show</button></div></div>
+<button class="btn btn-primary btn-block" id="loginBtn" type="submit">LOGIN</button>
+<div class="auth-links"><span>New student?</span><button type="button" data-switch="registerPane">Create account</button><button type="button" data-switch="forgotPane">Forgot password?</button></div>
+</form>
+</div>
 
-      <div id="formAlert" class="alert alert-error" style="display:none;"></div>
+<div id="registerPane" class="auth-pane">
+<h1>Create account</h1><p class="sub">Register once and use your account for all your tests.</p>
+<form id="registerForm">
+<div class="field"><label for="regName">Full Name</label><input id="regName" type="text" autocomplete="name" placeholder="Your full name" required></div>
+<div class="field"><label for="regIdentifier">Email ID / Mobile Number</label><input id="regIdentifier" type="text" autocomplete="email" placeholder="Email address or 10-digit mobile" required></div>
+<div class="field"><label for="regPassword">Password</label><div class="password-wrap"><input id="regPassword" type="password" autocomplete="new-password" minlength="6" required><button type="button" class="eye" data-eye="regPassword">Show</button></div></div>
+<div class="field"><label for="regConfirm">Confirm Password</label><div class="password-wrap"><input id="regConfirm" type="password" autocomplete="new-password" minlength="6" required><button type="button" class="eye" data-eye="regConfirm">Show</button></div></div>
+<button class="btn btn-primary btn-block" id="registerBtn" type="submit">REGISTER</button>
+<div class="auth-links"><span>Already registered?</span><button type="button" data-switch="loginPane">Login</button></div>
+</form>
+<p class="auth-small">For password recovery by email, register with an email address. Mobile-number accounts can still be used for login.</p>
+</div>
 
-      <form id="loginForm">
-        <div class="field">
-          <label for="studentId" data-i18n="login_studentid_label">Student ID</label>
-          <input type="text" id="studentId" autocomplete="username" placeholder="e.g. TET26001" data-i18n-placeholder="login_studentid_placeholder" required>
-        </div>
-        <div class="field">
-          <label for="password" data-i18n="login_password_label">Password</label>
-          <input type="password" id="password" autocomplete="current-password" required>
-        </div>
-        <button type="submit" class="btn btn-primary btn-block" id="loginBtn" data-i18n="login_btn">LOGIN</button>
-      </form>
-
-      <p class="form-note" data-i18n-html="login_note">Don't have login credentials? <a href="tests.html">Purchase a test</a> and <a href="contact.html">contact us</a> after payment.</p>
-    </div>
-  </main>
-
-  <footer class="site-footer">
-    <div class="links">
-      <a href="index.html" data-i18n="nav_home">Home</a>
-      <a href="tests.html" data-i18n="nav_tests">All Tests</a>
-      <a href="contact.html" data-i18n="nav_contact">Contact</a>
-    </div>
-    <span data-i18n="footer_tagline">TET Test Hub &mdash; free-to-browse, paid mock tests for Teacher Eligibility Test aspirants.</span>
-  </footer>
+<div id="forgotPane" class="auth-pane">
+<h1>Forgot password?</h1><p class="sub">Enter the email address linked to your account and we’ll send a secure reset link.</p>
+<form id="forgotForm">
+<div class="field"><label for="forgotEmail">Registered Email</label><input id="forgotEmail" type="email" autocomplete="email" placeholder="you@example.com" required></div>
+<button class="btn btn-primary btn-block" id="forgotBtn" type="submit">SEND RESET LINK</button>
+<div class="auth-links"><button type="button" data-switch="loginPane">Back to login</button></div>
+</form>
+</div>
+</section>
+</main>
+<footer class="site-footer"><div class="links"><a href="index.html">Home</a><a href="tests.html">All Tests</a><a href="contact.html">Contact</a></div><span>TET Test Hub — Prepare. Practice. Perform.</span></footer>
 
 <script src="assets/vendor/supabase/supabase.js"></script>
 <script src="js/site-config.js?v=2"></script>
-<script src="js/auth.js?v=2"></script>
+<script src="js/auth.js?v=3"></script>
 <script>
-  applyI18n();
+applyI18n();
+const alertBox=document.getElementById('formAlert');
+function showAlert(msg,type='error'){alertBox.textContent=msg;alertBox.className='alert '+type;alertBox.style.display='block'}
+function hideAlert(){alertBox.style.display='none'}
+function nextUrl(){const p=new URLSearchParams(location.search),n=p.get('next');return n&&/^[a-zA-Z0-9._-]+\.html$/.test(n)?n:'dashboard.html'}
+function switchPane(id){hideAlert();document.querySelectorAll('.auth-pane').forEach(x=>x.classList.toggle('active',x.id===id));document.querySelectorAll('.auth-tab').forEach(x=>x.classList.toggle('active',x.dataset.pane===id));}
+document.querySelectorAll('[data-pane]').forEach(b=>b.onclick=()=>switchPane(b.dataset.pane));
+document.querySelectorAll('[data-switch]').forEach(b=>b.onclick=()=>switchPane(b.dataset.switch));
+document.querySelectorAll('[data-eye]').forEach(b=>b.onclick=()=>{const i=document.getElementById(b.dataset.eye);i.type=i.type==='password'?'text':'password';b.textContent=i.type==='password'?'Show':'Hide'});
 
-  function nextUrl() {
-    const params = new URLSearchParams(location.search);
-    const next = params.get('next');
-    return next && /^[a-zA-Z0-9._-]+\.html$/.test(next) ? next : 'dashboard.html';
-  }
+(async()=>{const s=await getSession();if(s) location.replace(nextUrl())})();
 
-  (async () => {
-    const session = await getSession();
-    if (session) location.replace(nextUrl());
-  })();
-
-  const form = document.getElementById('loginForm');
-  const alertBox = document.getElementById('formAlert');
-  const loginBtn = document.getElementById('loginBtn');
-
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    alertBox.style.display = 'none';
-    loginBtn.disabled = true;
-    loginBtn.textContent = t('login_btn_loading');
-
-    const studentId = document.getElementById('studentId').value;
-    const password = document.getElementById('password').value;
-    const result = await loginWithStudentId(studentId, password);
-
-    if (!result.ok) {
-      alertBox.textContent = result.message;
-      alertBox.style.display = 'block';
-      loginBtn.disabled = false;
-      loginBtn.textContent = t('login_btn');
-      return;
-    }
-    location.href = nextUrl();
-  });
+document.getElementById('loginForm').addEventListener('submit',async e=>{
+ e.preventDefault();hideAlert();const btn=document.getElementById('loginBtn');btn.disabled=true;btn.textContent='LOGGING IN...';
+ const r=await loginWithIdentifier(document.getElementById('loginIdentifier').value,document.getElementById('loginPassword').value);
+ if(!r.ok){showAlert(r.message);btn.disabled=false;btn.textContent='LOGIN';return} location.href=nextUrl();
+});
+document.getElementById('registerForm').addEventListener('submit',async e=>{
+ e.preventDefault();hideAlert();const btn=document.getElementById('registerBtn');const pw=document.getElementById('regPassword').value,cp=document.getElementById('regConfirm').value;
+ if(pw!==cp){showAlert('Passwords do not match.');return}
+ btn.disabled=true;btn.textContent='CREATING ACCOUNT...';
+ const r=await registerAccount(document.getElementById('regName').value,document.getElementById('regIdentifier').value,pw);
+ if(!r.ok){showAlert(r.message);btn.disabled=false;btn.textContent='REGISTER';return}
+ if(r.session){location.href=nextUrl();return}
+ showAlert(r.message||'Account created. Please check your email to confirm your account.','success');btn.disabled=false;btn.textContent='REGISTER';
+});
+document.getElementById('forgotForm').addEventListener('submit',async e=>{
+ e.preventDefault();hideAlert();const btn=document.getElementById('forgotBtn');btn.disabled=true;btn.textContent='SENDING...';
+ const r=await sendPasswordReset(document.getElementById('forgotEmail').value);
+ showAlert(r.message,r.ok?'success':'error');btn.disabled=false;btn.textContent='SEND RESET LINK';
+});
 </script>
 </body>
 </html>
