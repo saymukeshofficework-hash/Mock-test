@@ -55,6 +55,7 @@ nav.links a:hover,.more>button:hover,nav.links a.on{color:var(--ink);background:
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;border-radius:10px;padding:9px 14px;font-weight:700;font-size:14px;white-space:nowrap;border:1px solid transparent;cursor:pointer}
 .btn.ghost{border-color:var(--primary);color:var(--primary);background:transparent}
 .btn.solid{background:var(--primary);color:var(--primary-ink)}
+.auth-top{border-color:var(--primary);color:var(--primary);background:transparent;margin-left:2px}.auth-top:hover{background:var(--primary-soft)}
 .burger{display:none}
 
 /* heading + chips */
@@ -106,6 +107,7 @@ footer a:hover{color:var(--ink)}
 @media (max-width:640px){
   .bar{flex-wrap:wrap;gap:8px;padding:10px}
   .brand{font-size:15px}.brand svg{width:30px;height:30px}
+  .auth-top{padding:8px 10px;font-size:13px}
   #theme{margin-left:auto;width:36px;height:36px}
   .burger{width:36px;height:36px}
   .btn.solid{padding:8px 10px;font-size:13px}
@@ -128,6 +130,7 @@ footer a:hover{color:var(--ink)}
       <svg viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="11" fill="#0f766e"/><path d="M8 13.5c4.2-1.4 8.2-.9 12 1.6v15c-3.8-2.5-7.8-3-12-1.6v-15Z" fill="#fff"/><path d="M32 13.5c-4.2-1.4-8.2-.9-12 1.6v15c3.8-2.5 7.8-3 12-1.6v-15Z" fill="#fff" opacity=".75"/><circle cx="29.5" cy="11" r="6.5" fill="#e8a33d" stroke="#0f766e" stroke-width="2"/><path d="m26.8 11.1 1.9 1.9 3.6-3.8" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
       <span>TETTEST<b>HUB</b></span>
     </a>
+    <a class="btn ghost auth-top" href="/login.html" aria-label="लॉगिन या रजिस्टर">लॉगिन / रजिस्टर</a>
     <nav class="links" aria-label="मुख्य">
       <a href="/" class="on">होम</a>
       <a href="#courses">कोर्स</a>
