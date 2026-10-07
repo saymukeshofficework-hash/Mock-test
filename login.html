@@ -75,6 +75,7 @@ body{background:#fafafa}
 <div class="field"><label for="regConfirm">Confirm Password</label><div class="password-wrap"><input id="regConfirm" type="password" autocomplete="new-password" minlength="6" required><button type="button" class="eye" data-eye="regConfirm">Show</button></div></div>
 <button class="btn btn-primary btn-block" id="registerBtn" type="submit">REGISTER</button>
 <div class="auth-links"><span>Already registered?</span><button type="button" data-switch="loginPane">Login</button></div>
+<div class="auth-links"><button type="button" id="resendConfirmBtn">Resend confirmation email</button></div>
 </form>
 <p class="auth-small">For password recovery by email, register with an email address. Mobile-number accounts can still be used for login.</p>
 </div>
@@ -120,6 +121,15 @@ document.getElementById('registerForm').addEventListener('submit',async e=>{
  if(!r.ok){showAlert(r.message);btn.disabled=false;btn.textContent='REGISTER';return}
  if(r.session){location.href=nextUrl();return}
  showAlert(r.message||'Account created. Please check your email to confirm your account.','success');btn.disabled=false;btn.textContent='REGISTER';
+});
+document.getElementById('resendConfirmBtn').addEventListener('click',async ()=>{
+ hideAlert();
+ const email=document.getElementById('regIdentifier').value.trim();
+ if(!email.includes('@')){showAlert('Enter the registered email address first.');return}
+ const btn=document.getElementById('resendConfirmBtn');btn.disabled=true;btn.textContent='SENDING...';
+ const r=await resendConfirmation(email);
+ showAlert(r.message,r.ok?'success':'error');
+ btn.disabled=false;btn.textContent='Resend confirmation email';
 });
 document.getElementById('forgotForm').addEventListener('submit',async e=>{
  e.preventDefault();hideAlert();const btn=document.getElementById('forgotBtn');btn.disabled=true;btn.textContent='SENDING...';
