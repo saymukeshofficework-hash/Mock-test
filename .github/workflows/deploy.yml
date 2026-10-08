@@ -10,6 +10,7 @@ on:
   repository_dispatch:
     types: [publish-tech-blog, publish-testhub]
   # Daily rebuild (00:15 IST) so TETTESTHUB exam help (/examhelp/) picks up its latest code and exam dates.
+  # Exam Hub header updates are deployed on each main push as well.
   schedule:
     - cron: "45 18 * * *"
 
