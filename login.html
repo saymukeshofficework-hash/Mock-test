@@ -15,10 +15,6 @@
 body{background:#fafafa}
 .auth-wrap{min-height:calc(100vh - 170px);display:flex;align-items:center;justify-content:center;padding:56px 20px}
 .auth-card{width:min(430px,100%);background:#fff;border:1px solid var(--line);border-radius:24px;padding:34px;box-shadow:0 20px 60px rgba(17,24,39,.07)}
-.auth-brand{text-align:center;margin-bottom:28px}
-.auth-mark{width:42px;height:42px;margin:0 auto 14px;border-radius:12px;background:#111827;color:#fff;display:grid;place-items:center;font-weight:800;font-size:18px}
-.auth-brand h1{font-size:25px;letter-spacing:-.6px;margin:0;color:var(--ink)}
-.auth-brand p{margin:7px 0 0;color:var(--muted);font-size:14px}
 .auth-tabs{display:grid;grid-template-columns:1fr 1fr;background:var(--soft);border:1px solid var(--line);padding:3px;border-radius:12px;margin-bottom:25px}
 .auth-tab{border:0;background:transparent;color:var(--muted);padding:10px;border-radius:9px;font-size:14px;font-weight:650;cursor:pointer}
 .auth-tab.active{background:#fff;color:var(--ink);box-shadow:0 1px 4px rgba(0,0,0,.07)}
@@ -75,9 +71,8 @@ body{background:#fafafa}
 <div class="field"><label for="regConfirm">Confirm Password</label><div class="password-wrap"><input id="regConfirm" type="password" autocomplete="new-password" minlength="6" required><button type="button" class="eye" data-eye="regConfirm">Show</button></div></div>
 <button class="btn btn-primary btn-block" id="registerBtn" type="submit">REGISTER</button>
 <div class="auth-links"><span>Already registered?</span><button type="button" data-switch="loginPane">Login</button></div>
-<div class="auth-links"><button type="button" id="resendConfirmBtn">Resend confirmation email</button></div>
 </form>
-<p class="auth-small">For password recovery by email, register with an email address. Mobile-number accounts can still be used for login.</p>
+<p class="auth-small">Your account is ready to use immediately after registration.</p>
 </div>
 
 <div id="forgotPane" class="auth-pane">
@@ -105,9 +100,7 @@ function switchPane(id){hideAlert();document.querySelectorAll('.auth-pane').forE
 document.querySelectorAll('[data-pane]').forEach(b=>b.onclick=()=>switchPane(b.dataset.pane));
 document.querySelectorAll('[data-switch]').forEach(b=>b.onclick=()=>switchPane(b.dataset.switch));
 document.querySelectorAll('[data-eye]').forEach(b=>b.onclick=()=>{const i=document.getElementById(b.dataset.eye);i.type=i.type==='password'?'text':'password';b.textContent=i.type==='password'?'Show':'Hide'});
-
 (async()=>{const s=await getSession();if(s) location.replace(nextUrl())})();
-
 document.getElementById('loginForm').addEventListener('submit',async e=>{
  e.preventDefault();hideAlert();const btn=document.getElementById('loginBtn');btn.disabled=true;btn.textContent='LOGGING IN...';
  const r=await loginWithIdentifier(document.getElementById('loginIdentifier').value,document.getElementById('loginPassword').value);
@@ -120,16 +113,7 @@ document.getElementById('registerForm').addEventListener('submit',async e=>{
  const r=await registerAccount(document.getElementById('regName').value,document.getElementById('regIdentifier').value,pw);
  if(!r.ok){showAlert(r.message);btn.disabled=false;btn.textContent='REGISTER';return}
  if(r.session){location.href=nextUrl();return}
- showAlert(r.message||'Account created. Please check your email to confirm your account.','success');btn.disabled=false;btn.textContent='REGISTER';
-});
-document.getElementById('resendConfirmBtn').addEventListener('click',async ()=>{
- hideAlert();
- const email=document.getElementById('regIdentifier').value.trim();
- if(!email.includes('@')){showAlert('Enter the registered email address first.');return}
- const btn=document.getElementById('resendConfirmBtn');btn.disabled=true;btn.textContent='SENDING...';
- const r=await resendConfirmation(email);
- showAlert(r.message,r.ok?'success':'error');
- btn.disabled=false;btn.textContent='Resend confirmation email';
+ showAlert(r.message||'Account created. Please log in.','success');btn.disabled=false;btn.textContent='REGISTER';
 });
 document.getElementById('forgotForm').addEventListener('submit',async e=>{
  e.preventDefault();hideAlert();const btn=document.getElementById('forgotBtn');btn.disabled=true;btn.textContent='SENDING...';
