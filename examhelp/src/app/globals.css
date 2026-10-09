@@ -1,0 +1,165 @@
+@import "tailwindcss";
+
+/*
+ * TETTESTHUB design tokens. Change colours here and they update everywhere.
+ * Primary: calm teal. Accent: warm amber (matches the tettesthub.in homepage).
+ */
+:root {
+  --brand-950: #062523;
+  --brand-900: #0b3532;
+  --brand-800: #0d5a54;
+  --brand-700: #0f766e;
+  --brand-600: #13897f;
+  --brand-500: #1fa597;
+  --brand-100: #d5ece8;
+  --brand-50: #eef7f5;
+
+  --accent-700: #8a5214;
+  --accent-600: #a8661a;
+  --accent-500: #c97b1f;
+  --accent-100: #f6e4c6;
+  --accent-50: #fbf4e8;
+
+  --success-700: #15703a;
+  --success-50: #ecf8f0;
+  --warning-700: #92500a;
+  --warning-50: #fff7e6;
+  --danger-700: #b42318;
+  --danger-50: #fef1f0;
+
+  --ink-900: #111827;
+  --ink-700: #374151;
+  --ink-500: #6b7280;
+  --ink-300: #d1d5db;
+  --ink-200: #e5e7eb;
+  --ink-100: #f3f4f6;
+
+  --surface: #ffffff;
+  --canvas: #f5f6f4;
+
+  --radius-card: 1rem;
+  --shadow-card: 0 1px 2px rgb(16 24 40 / 0.04), 0 1px 3px rgb(16 24 40 / 0.06);
+  --shadow-lift: 0 10px 24px -8px rgb(20 24 31 / 0.14);
+
+  color-scheme: light;
+}
+
+@theme inline {
+  --color-brand-950: var(--brand-950);
+  --color-brand-900: var(--brand-900);
+  --color-brand-800: var(--brand-800);
+  --color-brand-700: var(--brand-700);
+  --color-brand-600: var(--brand-600);
+  --color-brand-500: var(--brand-500);
+  --color-brand-100: var(--brand-100);
+  --color-brand-50: var(--brand-50);
+  --color-accent-700: var(--accent-700);
+  --color-accent-600: var(--accent-600);
+  --color-accent-500: var(--accent-500);
+  --color-accent-100: var(--accent-100);
+  --color-accent-50: var(--accent-50);
+  --color-success-700: var(--success-700);
+  --color-success-50: var(--success-50);
+  --color-warning-700: var(--warning-700);
+  --color-warning-50: var(--warning-50);
+  --color-danger-700: var(--danger-700);
+  --color-danger-50: var(--danger-50);
+  --color-ink-900: var(--ink-900);
+  --color-ink-700: var(--ink-700);
+  --color-ink-500: var(--ink-500);
+  --color-ink-300: var(--ink-300);
+  --color-ink-200: var(--ink-200);
+  --color-ink-100: var(--ink-100);
+  --color-surface: var(--surface);
+  --color-canvas: var(--canvas);
+
+  --font-sans: "Inter Variable", "Noto Sans Devanagari", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  --radius-card: var(--radius-card);
+  --shadow-card: var(--shadow-card);
+  --shadow-lift: var(--shadow-lift);
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-padding-top: 5rem;
+}
+
+body {
+  background: var(--canvas);
+  color: var(--ink-900);
+  font-family: var(--font-sans);
+  /* Devanagari needs extra line height to keep matras from clipping. */
+  line-height: 1.65;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+:lang(hi) h1,
+:lang(hi) h2,
+:lang(hi) h3 {
+  line-height: 1.4;
+}
+
+:focus-visible {
+  outline: 3px solid var(--accent-500);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+@utility container-page {
+  @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+}
+@utility card {
+  @apply rounded-[var(--radius-card)] border border-ink-200 bg-surface shadow-[var(--shadow-card)];
+}
+@utility card-hover {
+  @apply transition-shadow duration-200 hover:shadow-[var(--shadow-lift)];
+}
+@utility btn {
+  @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-xl px-5 py-2.5 text-sm font-semibold transition-colors duration-150 disabled:cursor-not-allowed disabled:opacity-60;
+}
+@utility btn-primary {
+  @apply btn bg-brand-700 text-white hover:bg-brand-800;
+}
+@utility btn-navy {
+  @apply btn bg-brand-700 text-white hover:bg-brand-800;
+}
+@utility btn-outline {
+  @apply btn border border-brand-100 bg-surface text-brand-700 hover:border-brand-500 hover:bg-brand-50;
+}
+@utility btn-ghost-light {
+  @apply btn border border-white/25 bg-white/10 text-white hover:bg-white/20;
+}
+@utility chip {
+  @apply inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs font-semibold whitespace-nowrap;
+}
+@utility section {
+  @apply py-12 sm:py-16;
+}
+
+@layer components {
+  .prose-page {
+    @apply max-w-3xl space-y-4 text-ink-700;
+  }
+  .prose-page h2 {
+    @apply pt-4 text-xl font-bold text-ink-900;
+  }
+  .prose-page a {
+    @apply font-medium text-brand-600 underline underline-offset-2;
+  }
+  .prose-page ul {
+    @apply list-disc space-y-1 pl-5;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

@@ -1,0 +1,321 @@
+// TestHub — planned database schema (Phase 6/7).
+// Not wired up yet: today the app reads typed seed files in src/data via src/lib/repo.ts.
+// When the database is added, only src/lib/repo.ts changes.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role { STUDENT ADMIN EDITOR }
+enum Organization { MPESB MPPSC MP_GOVT OTHER }
+enum ExamType { RECRUITMENT ELIGIBILITY ENTRANCE DEPARTMENTAL STATE_SERVICE }
+enum DateStatus { CONFIRMED TENTATIVE EXPECTED TBA CANCELLED POSTPONED COMPLETED }
+enum ExamDateKind { APPLICATION_START APPLICATION_END CORRECTION_END EXAM ADMIT_CARD ANSWER_KEY RESULT }
+enum ProductStatus { AVAILABLE COMING_SOON AVAILABLE_SOON }
+enum PublishState { DRAFT PUBLISHED UNPUBLISHED }
+enum NotificationType { NEW_RECRUITMENT APPLICATION_OPEN LAST_DATE DATE_CHANGE ADMIT_CARD ANSWER_KEY RESULT COUNSELLING IMPORTANT_NOTICE }
+enum PaymentStatus { CREATED PENDING PAID FAILED REFUNDED PARTIALLY_REFUNDED }
+enum PaymentMethod { UPI CARD NETBANKING WALLET OTHER }
+
+model User {
+  id        String   @id @default(cuid())
+  name      String?
+  email     String?  @unique
+  phone     String?  @unique
+  role      Role     @default(STUDENT)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  orders    Order[]
+  purchases Purchase[]
+  bookmarks Bookmark[]
+  attempts  UserAttempt[]
+}
+
+model ExamCategory {
+  id      String @id @default(cuid())
+  slug    String @unique
+  nameHi  String
+  nameEn  String
+  descHi  String?
+  descEn  String?
+  icon    String?
+  order   Int    @default(0)
+  exams   Exam[]
+  notes   Note[]
+}
+
+model Exam {
+  id              String        @id @default(cuid())
+  slug            String        @unique
+  nameHi          String
+  nameEn          String
+  shortName       String
+  organization    Organization
+  categoryId      String
+  category        ExamCategory  @relation(fields: [categoryId], references: [id])
+  examType        ExamType
+  descriptionHi   String?
+  descriptionEn   String?
+  posts           Int?
+  officialUrl     String
+  notificationUrl String?
+  syllabusUrl     String?
+  rulebookUrl     String?
+  applyUrl        String?
+  sourceLabel     String
+  sourceUrl       String
+  sourceCheckedOn DateTime
+  featured        Boolean       @default(false)
+  popular         Boolean       @default(false)
+  isPaid          Boolean       @default(false)
+  state           PublishState  @default(DRAFT)
+  dates           ExamDate[]
+  notifications   Notification[]
+  testSeries      TestSeries[]
+  papers          PreviousPaper[]
+  results         Result[]
+  admitCards      AdmitCard[]
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+}
+
+/// One row per date on an exam; each carries its own status and optional note.
+model ExamDate {
+  id      String       @id @default(cuid())
+  examId  String
+  exam    Exam         @relation(fields: [examId], references: [id], onDelete: Cascade)
+  kind    ExamDateKind
+  date    DateTime?
+  endDate DateTime?
+  month   String?      /// YYYY-MM when only the month is known
+  status  DateStatus
+  noteHi  String?
+  noteEn  String?
+  @@unique([examId, kind])
+}
+
+model Notification {
+  id           String           @id @default(cuid())
+  type         NotificationType
+  titleHi      String
+  titleEn      String
+  organization Organization
+  examId       String?
+  exam         Exam?            @relation(fields: [examId], references: [id])
+  publishedOn  DateTime?
+  officialUrl  String
+  sourceLabel  String
+  state        PublishState     @default(DRAFT)
+  createdAt    DateTime         @default(now())
+}
+
+model NoteCategory {
+  id    String @id @default(cuid())
+  slug  String @unique
+  name  String
+}
+
+model Note {
+  id               String        @id @default(cuid())
+  slug             String        @unique
+  titleHi          String
+  titleEn          String
+  subjectHi        String
+  subjectEn        String
+  shortDescHi      String
+  shortDescEn      String
+  categoryId       String
+  category         ExamCategory  @relation(fields: [categoryId], references: [id])
+  examSlugs        String[]
+  pages            Int?
+  languages        String[]
+  priceAmount      Int           @default(199)  /// rupees
+  originalAmount   Int?          /// only when a real discount exists
+  status           ProductStatus @default(COMING_SOON)
+  storageKey       String?       /// private object storage key — never public
+  samplePages      String[]
+  topicsHi         String[]
+  topicsEn         String[]
+  featured         Boolean       @default(false)
+  state            PublishState  @default(DRAFT)
+  purchases        Purchase[]
+  createdAt        DateTime      @default(now())
+  updatedAt        DateTime      @updatedAt
+}
+
+model Subject {
+  id        String     @id @default(cuid())
+  slug      String     @unique
+  nameHi    String
+  nameEn    String
+  questions Question[]
+}
+
+model TestSeries {
+  id          String       @id @default(cuid())
+  slug        String       @unique
+  title       String
+  examId      String?
+  exam        Exam?        @relation(fields: [examId], references: [id])
+  priceAmount Int?
+  status      ProductStatus @default(COMING_SOON)
+  tests       Test[]
+}
+
+model Test {
+  id           String        @id @default(cuid())
+  seriesId     String?
+  series       TestSeries?   @relation(fields: [seriesId], references: [id])
+  title        String
+  durationMin  Int
+  isDemo       Boolean       @default(false)
+  questions    Question[]
+  attempts     UserAttempt[]
+}
+
+model Question {
+  id           String   @id @default(cuid())
+  testId       String?
+  test         Test?    @relation(fields: [testId], references: [id])
+  subjectId    String?
+  subject      Subject? @relation(fields: [subjectId], references: [id])
+  textHi       String
+  textEn       String?
+  options      Json     /// [{ id, hi, en }]
+  correctId    String
+  explanation  String?
+}
+
+model UserAttempt {
+  id          String    @id @default(cuid())
+  userId      String
+  user        User      @relation(fields: [userId], references: [id])
+  testId      String
+  test        Test      @relation(fields: [testId], references: [id])
+  answers     Json
+  score       Float?
+  correct     Int?
+  wrong       Int?
+  skipped     Int?
+  timeTakenS  Int?
+  startedAt   DateTime  @default(now())
+  submittedAt DateTime?
+}
+
+model CurrentAffair {
+  id          String       @id @default(cuid())
+  slug        String       @unique
+  titleHi     String
+  titleEn     String?
+  bodyHi      String
+  bodyEn      String?
+  category    String
+  publishedAt DateTime?
+  state       PublishState @default(DRAFT)
+}
+
+model PreviousPaper {
+  id         String  @id @default(cuid())
+  slug       String  @unique
+  examId     String
+  exam       Exam    @relation(fields: [examId], references: [id])
+  year       Int
+  subject    String?
+  language   String
+  storageKey String?
+  officialUrl String?
+}
+
+model Result {
+  id          String    @id @default(cuid())
+  examId      String
+  exam        Exam      @relation(fields: [examId], references: [id])
+  resultDate  DateTime?
+  resultUrl   String
+  officialUrl String
+}
+
+model AdmitCard {
+  id          String    @id @default(cuid())
+  examId      String
+  exam        Exam      @relation(fields: [examId], references: [id])
+  releaseDate DateTime?
+  downloadUrl String
+}
+
+model Coupon {
+  id          String   @id @default(cuid())
+  code        String   @unique
+  percentOff  Int?
+  amountOff   Int?
+  validFrom   DateTime
+  validTo     DateTime
+  maxUses     Int?
+  usedCount   Int      @default(0)
+  orders      Order[]
+}
+
+model Order {
+  id              String        @id @default(cuid())
+  userId          String
+  user            User          @relation(fields: [userId], references: [id])
+  amountPaise     Int
+  currency        String        @default("INR")
+  status          PaymentStatus @default(CREATED)
+  method          PaymentMethod?
+  gatewayOrderId  String?       @unique
+  gatewayPaymentId String?      @unique
+  couponId        String?
+  coupon          Coupon?       @relation(fields: [couponId], references: [id])
+  invoiceNumber   String?       @unique
+  refundedPaise   Int           @default(0)
+  purchases       Purchase[]
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+}
+
+/// Grants access to a product once its order is PAID.
+model Purchase {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  orderId   String
+  order     Order    @relation(fields: [orderId], references: [id])
+  noteId    String?
+  note      Note?    @relation(fields: [noteId], references: [id])
+  createdAt DateTime @default(now())
+  @@unique([userId, noteId])
+}
+
+model Bookmark {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  kind      String   /// exam | note | article
+  refId     String
+  createdAt DateTime @default(now())
+  @@unique([userId, kind, refId])
+}
+
+model Banner {
+  id       String  @id @default(cuid())
+  titleHi  String
+  titleEn  String?
+  href     String?
+  active   Boolean @default(true)
+}
+
+model Faq {
+  id         String @id @default(cuid())
+  group      String
+  questionHi String
+  questionEn String
+  answerHi   String
+  answerEn   String
+  order      Int    @default(0)
+}
