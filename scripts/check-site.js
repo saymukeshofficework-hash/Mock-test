@@ -10,7 +10,7 @@ const ROOT = path.resolve(__dirname, "..");
 const ALL = process.argv.includes("--all");
 // Folders with their own build step (source paths differ from the deployed ones) are skipped by default.
 const SKIP_DIRS = new Set(["node_modules", ".git", ".github", "dist", "build", "out", "_site", ".claude",
-  "ludo-3d", "bulbul-bhatia", "mukesh-singh-dahiya", "tech-blog", "RAIN ALERT", "school-document-builder", "bridge-course"]);
+  "ludo-3d", "bulbul-bhatia", "mukesh-singh-dahiya", "tech-blog", "RAIN ALERT", "school-document-builder", "bridge-course", "examhelp"]);
 // URL prefixes served from other sources at deploy time (not present in this repo).
 const EXTERNAL_PREFIXES = ["/examhelp", "/testhub", "/tech-blog", "/bridge-course", "/ludo-3d", "/bulbul-bhatia",
   "/mukesh-singh-dahiya", "/rain-alert", "/school-document-builder"];
