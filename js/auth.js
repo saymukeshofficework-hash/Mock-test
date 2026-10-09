@@ -74,11 +74,11 @@ async function updatePassword(password) {
     return {ok:true,message:"Password updated successfully."};
   } catch(e) { return {ok:false,message:"Unable to update password. Please try again."}; }
 }
-async function logout(){if(!supabaseClient)return;try{await supabaseClient.auth.signOut()}catch(e){}}
+async function logout(){try{localStorage.removeItem("tth_user")}catch(e){}if(!supabaseClient)return;try{await supabaseClient.auth.signOut()}catch(e){}}
 async function getSession(){if(!supabaseClient)return null;try{const {data}=await supabaseClient.auth.getSession();return data.session||null}catch(e){return null}}
 async function getProfile(userId){
  if(!supabaseClient)return null;
- try{const {data,error}=await supabaseClient.from("profiles").select("student_id, full_name, package, purchased_tests, status").eq("id",userId).single();if(error)return null;return data}catch(e){return null}
+ try{const {data,error}=await supabaseClient.from("profiles").select("student_id, full_name, package, purchased_tests, status").eq("id",userId).single();if(error)return null;try{localStorage.setItem("tth_user",JSON.stringify({id:data.student_id,name:data.full_name}))}catch(e){}return data}catch(e){return null}
 }
 async function requireAuth(){
  const session=await getSession();
