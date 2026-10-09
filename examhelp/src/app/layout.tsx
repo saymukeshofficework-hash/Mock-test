@@ -39,13 +39,6 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   return (
     <html lang={lang}>
       <body className="min-h-dvh">
-        {/* ?code=XXXX saves owner/tester passes (orders with token XXXX-owner-<product>) on this device */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html:
-              'try{var c=new URLSearchParams(location.search).get("code");if(c&&c.length>=6){["ag3-tests","pcgd-tests","asi-tests","ca-30"].forEach(function(k){localStorage.setItem("testhub_dl_"+k,c.trim()+"-owner-"+k)})}}catch(e){}',
-          }}
-        />
         <a href="#main" className="sr-only z-[100] rounded-lg bg-brand-700 px-4 py-2 text-white focus:not-sr-only focus:fixed focus:top-3 focus:left-3">
           {tr(dict.nav.skip, lang)}
         </a>

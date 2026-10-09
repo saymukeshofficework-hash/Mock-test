@@ -34,10 +34,27 @@ export function MockTestList({ series = "ag3" }: { series?: string }) {
   const [payState, setPayState] = useState("idle");
   const [payErr, setPayErr] = useState("");
   useEffect(() => {
+    let tk: string | null = null;
     try {
-      setToken(localStorage.getItem(TOKEN_KEY));
+      tk = localStorage.getItem(TOKEN_KEY);
     } catch {
       /* ignore */
+    }
+    if (tk) {
+      // show "unlocked" only for a token the server still accepts for this series
+      const saved = tk;
+      checkout<{ product?: string }>({ action: "download", token: saved, peek: true })
+        .then((r) => {
+          if (r.product) setToken(saved);
+          else if (r.error) {
+            try {
+              localStorage.removeItem(TOKEN_KEY);
+            } catch {
+              /* ignore */
+            }
+          }
+        })
+        .catch(() => {});
     }
     checkout<{ ready: boolean; tests?: number[] }>({ action: "status", product: S.product })
       .then((r) => {
