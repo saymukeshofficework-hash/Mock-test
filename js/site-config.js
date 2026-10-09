@@ -46,7 +46,7 @@ const PAYMENT_LINKS = {
 };
 
 // Tests that are FREE for all logged-in students
-const FREE_TESTS = ["test01", "test02"];
+const FREE_TESTS = ["test01"];
 
 // One row per test. `id` must match the purchased_tests values you set in Supabase;
 // `file` must match an actual tet-mock-test-N.html page.
