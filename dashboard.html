@@ -65,7 +65,7 @@
           </div>
         </div>
         <div class="course-grid">
-          <a class="course-card" href="tet-mock-tests.html"><span class="course-icon">TET</span><strong>TET Full Mock Tests</strong><small>Teacher Eligibility Test full mock tests</small><span class="course-btn">Open Course →</span></a>
+          <a class="course-card" href="/examhelp/tet-mock-tests/"><span class="course-icon">TET</span><strong>TET Full Mock Tests</strong><small>Teacher Eligibility Test full mock tests</small><span class="course-btn">Open Course →</span></a>
           <a class="course-card" href="/examhelp/mp-high-court-assistant-grade-3-notes/"><span class="course-icon">HC</span><strong>MP High Court Assistant Grade-3</strong><small>Notes + preparation + mock tests</small><span class="course-btn">Open Course →</span></a>
           <a class="course-card" href="/examhelp/current-affairs/"><span class="course-icon">CA</span><strong>Daily Current Affairs</strong><small>Daily exam-focused current affairs</small><span class="course-btn">Open Course →</span></a>
           <a class="course-card" href="/examhelp/mp-police-constable-gd-mock-tests/"><span class="course-icon">PC</span><strong>MP Police Constable GD</strong><small>Mock tests and preparation</small><span class="course-btn">Open Course →</span></a>
@@ -105,7 +105,7 @@
   function renderTests(purchasedTests) {
     lastPurchasedTests = purchasedTests || [];
     const grid = document.getElementById('myTestsGrid');
-    if (!grid) return; // TET test list now lives on tet-mock-tests.html
+    if (!grid) return; // TET test list now lives at /examhelp/tet-mock-tests/
     grid.innerHTML = '';
     TEST_CATALOG.forEach(item => {
       const isFree = FREE_TESTS && FREE_TESTS.includes(item.id);

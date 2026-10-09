@@ -136,7 +136,12 @@ export function MockTestList({ series = "ag3" }: { series?: string }) {
           })}
         </div>
         <div className="shrink-0 sm:w-72">
-          {token ? (
+          {S.unlockHref ? (
+            <a href={S.unlockHref} className="btn-primary w-full">
+              <CreditCard className="h-4 w-4" aria-hidden="true" />
+              {S.unlockBtn[lang]}
+            </a>
+          ) : token ? (
             <>
               <p className="rounded-lg bg-success-50 px-4 py-2 text-center font-semibold text-success-700">{t("unlocked")}</p>
               <a href={downloadPath(token)} className="mt-2 block text-center text-xs text-brand-700 underline">
@@ -159,10 +164,10 @@ export function MockTestList({ series = "ag3" }: { series?: string }) {
       <ol className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {Array.from({ length: S.total }, (_, i) => i + 1).map((n) => {
           const isFree = S.free.includes(n);
-          const ready = isFree ? S.free.includes(n) : !!token && paidReady.includes(n);
+          const ready = isFree ? S.free.includes(n) : !S.unlockHref && !!token && paidReady.includes(n);
           const lockedPaid = !isFree && !token;
           const b = best[n];
-          const href = `${base}${S.enginePath}?t=${String(n).padStart(2, "0")}&lang=${lang}`;
+          const href = S.testHref ? S.testHref(n) : `${base}${S.enginePath}?t=${String(n).padStart(2, "0")}&lang=${lang}`;
           return (
             <li key={n} className="card flex flex-col p-5">
               <div className="flex items-center justify-between">
@@ -173,7 +178,7 @@ export function MockTestList({ series = "ag3" }: { series?: string }) {
                 {b ? <CheckCircle2 className="h-5 w-5 text-success-700" aria-hidden="true" /> : null}
               </div>
               <p className="mt-1 flex items-center gap-3 text-xs text-ink-500">
-                <span className="inline-flex items-center gap-1"><FileText className="h-3.5 w-3.5" aria-hidden="true" />{t("meta")}</span>
+                <span className="inline-flex items-center gap-1"><FileText className="h-3.5 w-3.5" aria-hidden="true" />{S.meta ? S.meta[lang] : t("meta")}</span>
               </p>
               {b ? (
                 <p className="mt-2 text-sm text-ink-700">
@@ -187,10 +192,17 @@ export function MockTestList({ series = "ag3" }: { series?: string }) {
                     {b ? t("again") : t("start")}
                   </a>
                 ) : (
+                  S.unlockHref ? (
+                    <a href={S.unlockHref} className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-canvas px-3 py-2 text-sm font-semibold text-ink-500 ring-1 ring-ink-200">
+                      <Lock className="h-4 w-4" aria-hidden="true" />
+                      {t("locked")}
+                    </a>
+                  ) : (
                   <span className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-canvas px-3 py-2 text-sm font-semibold text-ink-500 ring-1 ring-ink-200">
                     {lockedPaid ? <Lock className="h-4 w-4" aria-hidden="true" /> : <Unlock className="h-4 w-4" aria-hidden="true" />}
                     {lockedPaid ? t("locked") : t("soon")}
                   </span>
+                  )
                 )}
               </div>
             </li>

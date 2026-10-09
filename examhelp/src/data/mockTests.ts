@@ -22,6 +22,12 @@ export type MockSeries = {
   unlockSub: Bi;
   unlockBtn: Bi;
   links: { href: string; label: Bi; tone: "brand" | "accent" }[];
+  /** Per-test meta line, e.g. "100 Qs · 120 min" (default is the police pattern). */
+  meta?: Bi;
+  /** Series whose tests live on the main site: start link for test n (path from the site root, not under /examhelp). */
+  testHref?: (n: number) => string;
+  /** Series sold on the main site: unlock link used instead of the in-page payment button (site-root path). */
+  unlockHref?: string;
 };
 
 const POLICE_ROWS = {
@@ -109,6 +115,49 @@ export const MOCK_SERIES: Record<string, MockSeries> = {
     },
     unlockBtn: { hi: "सभी टेस्ट अनलॉक करें — ₹199", en: "Unlock all tests — ₹199" },
     links: [{ href: "/exams/mp-police-constable-2026/", label: { hi: "परीक्षा की पूरी जानकारी →", en: "Full exam details →" }, tone: "brand" }],
+  },
+  tet: {
+    id: "tet",
+    total: 25,
+    free: [1],
+    product: "tet-tests",
+    price: 199,
+    enginePath: "",
+    scorePrefix: "testhub_tet_mock_",
+    listPath: "/tet-mock-tests",
+    meta: { hi: "150 प्रश्न · 150 मिनट", en: "150 Qs · 150 min" },
+    testHref: (n) => `/tet-mock-test-${n}.html`,
+    unlockHref: "/tests.html",
+    title: { hi: "MP TET 2026 — 25 फुल मॉक टेस्ट", en: "MP TET 2026 — 25 Full Mock Tests" },
+    sub: {
+      hi: "हर टेस्ट में 150 प्रश्न, 150 मिनट, 5 खंड। हर प्रश्न हिंदी/English में। टेस्ट 1 फ्री, बाकी 24 टेस्ट ₹199 में।",
+      en: "150 questions, 150 minutes and 5 sections in every test. Every question in Hindi/English. Test 1 is free, the other 24 tests are ₹199.",
+    },
+    rows: {
+      hi: [
+        ["बाल विकास एवं शिक्षाशास्त्र", "30", "हिंदी/English"],
+        ["भाषा-1 (English)", "30", "English"],
+        ["भाषा-2 (हिंदी)", "30", "हिंदी"],
+        ["गणित", "30", "हिंदी/English"],
+        ["पर्यावरण अध्ययन", "30", "हिंदी/English"],
+      ],
+      en: [
+        ["Child Development & Pedagogy", "30", "Hindi/English"],
+        ["Language-1 (English)", "30", "English"],
+        ["Language-2 (Hindi)", "30", "Hindi"],
+        ["Mathematics", "30", "Hindi/English"],
+        ["Environmental Studies", "30", "Hindi/English"],
+      ],
+    },
+    totalLine: { hi: "कुल 150 प्रश्न · 150 अंक · 150 मिनट · प्रत्येक प्रश्न 1 अंक", en: "Total 150 questions · 150 marks · 150 minutes · 1 mark each" },
+    neg: { hi: "ऋणात्मक अंकन नहीं है।", en: "There is no negative marking." },
+    unlockTitle: { hi: "पूरी टेस्ट सीरीज़ — 25 फुल मॉक टेस्ट", en: "Full test series — 25 full mock tests" },
+    unlockSub: {
+      hi: "टेस्ट 1 फ्री है। बाकी 24 टेस्ट एक बार ₹199 देकर अनलॉक करें।",
+      en: "Test 1 is free. Unlock the other 24 tests once for ₹199.",
+    },
+    unlockBtn: { hi: "सभी टेस्ट अनलॉक करें — ₹199", en: "Unlock all tests — ₹199" },
+    links: [],
   },
   asi: {
     id: "asi",
