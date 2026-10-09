@@ -71,4 +71,9 @@ const TEST_CATALOG = [
   { id: "test18", number: 18, file: "tet-mock-test-18.html", title: "TET Full Test 18", questions: 150, minutes: 150 },
   { id: "test19", number: 19, file: "tet-mock-test-19.html", title: "TET Full Test 19", questions: 150, minutes: 150 },
   { id: "test20", number: 20, file: "tet-mock-test-20.html", title: "TET Full Test 20", questions: 150, minutes: 150 },
+  { id: "test21", number: 21, file: "tet-mock-test-21.html", title: "TET Full Test 21", questions: 150, minutes: 150 },
+  { id: "test22", number: 22, file: "tet-mock-test-22.html", title: "TET Full Test 22", questions: 150, minutes: 150 },
+  { id: "test23", number: 23, file: "tet-mock-test-23.html", title: "TET Full Test 23", questions: 150, minutes: 150 },
+  { id: "test24", number: 24, file: "tet-mock-test-24.html", title: "TET Full Test 24", questions: 150, minutes: 150 },
+  { id: "test25", number: 25, file: "tet-mock-test-25.html", title: "TET Full Test 25", questions: 150, minutes: 150 },
 ];
