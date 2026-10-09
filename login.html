@@ -55,7 +55,7 @@ body{background:#f5f5f2}
 <div id="loginPane" class="auth-pane active">
 <h2>Welcome back</h2><p class="sub">Login to access your TET Test Hub dashboard.</p>
 <form id="loginForm">
-<div class="field"><label for="loginIdentifier">Email ID / Mobile Number</label><input id="loginIdentifier" type="text" autocomplete="username" placeholder="Enter email or mobile number" required></div>
+<div class="field"><label for="loginIdentifier">Email ID</label><input id="loginIdentifier" type="email" autocomplete="email" placeholder="Enter your email ID" required></div>
 <div class="field"><label for="loginPassword">Password</label><div class="password-wrap"><input id="loginPassword" type="password" autocomplete="current-password" required><button type="button" class="eye" data-eye="loginPassword">Show</button></div></div>
 <button class="btn btn-primary btn-block" id="loginBtn" type="submit">LOGIN</button>
 <div class="auth-links"><span>New student?</span><button type="button" data-switch="registerPane">Create account</button><button type="button" data-switch="forgotPane">Forgot password?</button></div>
@@ -66,7 +66,7 @@ body{background:#f5f5f2}
 <h2>Create your account</h2><p class="sub">Register once and use your account for all your tests.</p>
 <form id="registerForm">
 <div class="field"><label for="regName">Full Name</label><input id="regName" type="text" autocomplete="name" placeholder="Your full name" required></div>
-<div class="field"><label for="regIdentifier">Email ID / Mobile Number</label><input id="regIdentifier" type="text" autocomplete="email" placeholder="Email address or 10-digit mobile" required></div>
+<div class="field"><label for="regIdentifier">Email ID</label><input id="regIdentifier" type="email" autocomplete="email" placeholder="you@example.com" required></div>
 <div class="field"><label for="regPassword">Password</label><div class="password-wrap"><input id="regPassword" type="password" autocomplete="new-password" minlength="6" required><button type="button" class="eye" data-eye="regPassword">Show</button></div></div>
 <div class="field"><label for="regConfirm">Confirm Password</label><div class="password-wrap"><input id="regConfirm" type="password" autocomplete="new-password" minlength="6" required><button type="button" class="eye" data-eye="regConfirm">Show</button></div></div>
 <button class="btn btn-primary btn-block" id="registerBtn" type="submit">REGISTER</button>

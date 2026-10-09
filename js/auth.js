@@ -18,11 +18,11 @@ function normalizeIdentifier(identifier) {
 function _authT(key, en) { return typeof t === "function" ? t(key) : en; }
 
 async function loginWithIdentifier(identifier, password) {
-  if (!identifier || !password) return {ok:false,message:"Please enter your email/mobile number and password."};
+  if (!identifier || !password) return {ok:false,message:"Please enter your email ID and password."};
   if (!supabaseClient) return {ok:false,message:"Login isn't available yet. Please try again later."};
   try {
     const {data,error}=await supabaseClient.auth.signInWithPassword({email:normalizeIdentifier(identifier),password});
-    if(error) return {ok:false,message:"Incorrect email/mobile number or password."};
+    if(error) return {ok:false,message:"Incorrect email ID or password."};
     return {ok:true,session:data.session};
   } catch(e) { return {ok:false,message:"Something went wrong. Please try again."}; }
 }
@@ -41,7 +41,7 @@ async function registerAccount(fullName,identifier,password) {
     });
     if(error) {
       const msg=(error.message||"").toLowerCase();
-      if(msg.includes("already registered")||msg.includes("already exists")) return {ok:false,message:"This email/mobile account is already registered. Please login."};
+      if(msg.includes("already registered")||msg.includes("already exists")) return {ok:false,message:"This email is already registered. Please login."};
       return {ok:false,message:error.message||"Unable to create account."};
     }
     return {ok:true,session:data.session,message:data.session?"Account created successfully.":"Account created. Please check your email to confirm your account."};
