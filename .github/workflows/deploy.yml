@@ -240,6 +240,8 @@ jobs:
           # The previous TET home page stays available at /tet-home.html.
           mv _site/index.html _site/tet-home.html
           cp home/index.html _site/index.html
+          # /examhelp/ shows the same catalogue landing page as tettesthub.in
+          cp home/index.html _site/examhelp/index.html
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
