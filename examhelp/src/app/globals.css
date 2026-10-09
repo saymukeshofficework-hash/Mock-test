@@ -6,17 +6,17 @@
  */
 :root {
   --brand-950: #062523;
-  --brand-900: #0b3532;
+  --brand-900: #0d3b35;
   --brand-800: #0d5a54;
-  --brand-700: #0f766e;
+  --brand-700: #0f6b5f;
   --brand-600: #13897f;
   --brand-500: #1fa597;
-  --brand-100: #d5ece8;
+  --brand-100: #e6f2ef;
   --brand-50: #eef7f5;
 
   --accent-700: #8a5214;
   --accent-600: #a8661a;
-  --accent-500: #c97b1f;
+  --accent-500: #c2791c;
   --accent-100: #f6e4c6;
   --accent-50: #fbf4e8;
 
@@ -35,7 +35,7 @@
   --ink-100: #f3f4f6;
 
   --surface: #ffffff;
-  --canvas: #f5f6f4;
+  --canvas: #f5f5f2;
 
   --radius-card: 1rem;
   --shadow-card: 0 1px 2px rgb(16 24 40 / 0.04), 0 1px 3px rgb(16 24 40 / 0.06);
