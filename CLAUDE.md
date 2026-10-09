@@ -12,6 +12,10 @@ Make the smallest change that does the job. Touch only the files named in the re
 - Never put passwords, API keys or the Razorpay secret in the repo. Block sales if a Razorpay key starts with `rzp_test_`.
 - All user-facing text is bilingual (Hindi + English).
 
+## Full-site check (free)
+- `node scripts/check-site.js` checks inline JS syntax, broken links/images, sitemap URLs, leaked secrets. Prints failures only. Skips separately built apps (use `--all` for them; expect noise).
+- When asked to "test the site", run it and report failures only. Do not browse pages.
+
 ## Deploy
 - Host: GitHub Pages, custom domain via `CNAME` = tettesthub.in.
 - Push to `main` runs `.github/workflows/deploy.yml` (about 2–4 min). It builds the sub-apps and copies them into `_site`.
