@@ -16,141 +16,78 @@
 <link rel="stylesheet" href="assets/site.css?v=2">
 <script src="js/i18n.js?v=3"></script>
 <style>
-  .buy-note{max-width:640px;margin:0 auto 24px;}
+:root{--brand:#0f6b5f;--brand2:#e6f2ef;--ink:#16211f;--muted:#5b6664;--line:#e5e7e4;--bg:#f5f5f2;--ok:#15803d}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans Devanagari",sans-serif}
+a{color:inherit}.wrap{max-width:1040px;margin:0 auto;padding:0 16px}
+.hdr{position:sticky;top:10px;z-index:5;margin:12px auto 0;max-width:1040px;padding:0 16px}
+.hdr .bar{display:flex;align-items:center;justify-content:space-between;gap:10px;background:#fff;border:1px solid var(--line);border-radius:22px;padding:10px 14px;box-shadow:0 4px 18px rgba(0,0,0,.05)}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;font-weight:800;font-size:20px;letter-spacing:-.3px}
+.logo i{display:grid;place-items:center;width:38px;height:38px;border-radius:11px;background:var(--brand)}.logo b{color:#c2791c}
+.chip{display:inline-flex;align-items:center;height:40px;padding:0 12px;border-radius:12px;border:1px solid #b9dcd4;background:var(--brand2);color:var(--brand);font-weight:700;font-size:14px;text-decoration:none}
+h1{font-size:clamp(28px,6vw,40px);line-height:1.2;margin:34px 0 12px;color:#0d3b35;font-weight:800}
+.sub{font-size:17px;line-height:1.7;color:#3d4745;max-width:640px;margin:0 0 22px}
+.card{background:#fff;border:1px solid var(--line);border-radius:22px;padding:22px}
+.pat h2{font-size:19px;margin:0 0 10px}.pat table{width:100%;border-collapse:collapse;font-size:15px}
+.pat td{padding:12px 4px;border-top:1px solid var(--line)}.pat td:nth-child(2){text-align:center;width:60px}
+.pat .tot{font-weight:700;margin:14px 0 0}.pat .neg{color:var(--muted);font-size:14px;margin:6px 0 0}
+.unlock{margin:20px 0;background:linear-gradient(90deg,#0b4f46,#0f766e);color:#fff;border:0}
+.unlock h2{margin:0 0 6px;font-size:20px}.unlock p{margin:0 0 14px;opacity:.9;line-height:1.6}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:11px 18px;border-radius:12px;font-weight:700;text-decoration:none;font-size:15px;border:0}
+.btn-p{background:var(--brand);color:#fff}.unlock .btn-p{background:#f59e0b;color:#1b1300}
+.btn-l{background:var(--bg);color:var(--muted);box-shadow:inset 0 0 0 1px var(--line)}.w{width:100%}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px;margin:0 0 40px}
+.t{display:flex;flex-direction:column}.t h3{margin:0;font-size:17px}.t .m{color:var(--muted);font-size:13px;margin:6px 0 16px}
+.free{margin-left:8px;background:#dcfce7;color:var(--ok);border-radius:99px;padding:2px 9px;font-size:12px}
+.t .btn{margin-top:auto}.foot{text-align:center;color:var(--muted);font-size:13px;padding:24px 0 40px}
 </style>
 </head>
 <body>
-
-  <header class="site-header">
-    <a class="brand" href="index.html">
-      <span class="logo" aria-hidden="true">
-        <svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </span>
-      TET Test Hub
-    </a>
-    <nav>
-      <a href="index.html" data-i18n="nav_home">Home</a>
-      <a href="tests.html" class="active" data-i18n="nav_tests">All Tests</a>
-      <a href="typing-practice/" data-i18n="nav_typing">Typing Practice</a>
-      <a href="login.html" data-i18n="nav_login">Login / Register</a>
-      <a href="about.html" data-i18n="nav_about">About</a>
-      <a href="contact.html" data-i18n="nav_contact">Contact</a>
-    </nav>
-    <button class="lang-toggle" id="langToggle" onclick="toggleLang()">EN</button>
-  </header>
-
-  <main class="container">
-    <section class="section">
-      <h1 data-i18n="tests_h2">All TET Mock Tests</h1>
-      <p class="lead" data-i18n-html="tests_lead">Tests 01 & 02 are <strong>FREE</strong> for all students. Tests 03-20 available in a single ₹199 bundle. Each test has 150 questions across 5 sections, bilingual (English/Hindi), 150 minutes.</p>
-
-      <div id="all18" class="card pricing-card" style="max-width:340px;margin:0 auto 36px;">
-        <span class="ribbon" data-i18n="bundle_ribbon">18 Additional Tests</span>
-        <h3 data-i18n="bundle_title">All Tests (03-20)</h3>
-        <div class="price">₹<span id="priceAll18">199</span></div>
-        <ul>
-          <li data-i18n="bundle_li1">18 additional full mock tests</li>
-          <li data-i18n="bundle_li2">2700 questions in total</li>
-          <li data-i18n="bundle_li3">Plus 2 free tests (01 & 02)</li>
-          <li data-i18n="bundle_li4">Instant results, every test</li>
-        </ul>
-        <a class="btn btn-primary btn-block" id="bundleBuyBtn" href="contact.html" target="_blank" rel="noopener" data-i18n="bundle_btn">🔓 Buy Now – ₹199</a>
-      </div>
-
-      <div class="grid" id="testGrid"></div>
-    </section>
-  </main>
-
-  <footer class="site-footer">
-    <div class="links">
-      <a href="index.html" data-i18n="nav_home">Home</a>
-      <a href="login.html" data-i18n="nav_login">Student Login</a>
-      <a href="about.html" data-i18n="nav_about">About</a>
-      <a href="contact.html" data-i18n="nav_contact">Contact</a>
-    </div>
-    <span data-i18n="footer_tagline">TET Test Hub &mdash; free-to-browse, paid mock tests for Teacher Eligibility Test aspirants.</span>
-  </footer>
+<div class="hdr"><div class="bar">
+  <a class="logo" href="/login.html"><i><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></i><span>TETTEST<b>HUB</b></span></a>
+  <a class="chip" id="userChip" href="/login.html">लॉगिन / रजिस्टर</a>
+</div></div>
+<main class="wrap">
+  <h1>MP TET 2026 — 20 फुल मॉक टेस्ट</h1>
+  <p class="sub">हर टेस्ट में 150 प्रश्न, 150 मिनट, 5 खंड। हर प्रश्न हिंदी/English में। टेस्ट 1 और 2 फ्री, बाकी 18 टेस्ट ₹<span id="priceAll18">199</span> में।</p>
+  <section class="card pat"><h2>परीक्षा पैटर्न</h2><table>
+    <tr><td>बाल विकास एवं शिक्षाशास्त्र</td><td>30</td><td>हिंदी/English</td></tr>
+    <tr><td>भाषा-1 (हिंदी)</td><td>30</td><td>हिंदी</td></tr>
+    <tr><td>भाषा-2 (English)</td><td>30</td><td>English</td></tr>
+    <tr><td>गणित</td><td>30</td><td>हिंदी/English</td></tr>
+    <tr><td>पर्यावरण अध्ययन</td><td>30</td><td>हिंदी/English</td></tr>
+  </table><p class="tot">कुल 150 प्रश्न · 150 अंक · 150 मिनट · प्रत्येक प्रश्न 1 अंक</p><p class="neg">ऋणात्मक अंकन नहीं है।</p></section>
+  <section class="card unlock" id="unlockBox"><h2>पूरी टेस्ट सीरीज़ — 20 फुल मॉक टेस्ट</h2><p>टेस्ट 1 और 2 फ्री हैं। बाकी 18 टेस्ट एक बार ₹199 देकर अनलॉक करें।</p><a class="btn btn-p" id="bundleBuyBtn" href="contact.html" target="_blank" rel="noopener">सभी टेस्ट अनलॉक करें — ₹199</a></section>
+  <div class="grid" id="testGrid"></div>
+</main>
+<div class="foot">TETTESTHUB · <a href="/contact.html">संपर्क</a></div>
 
 <script src="assets/vendor/supabase/supabase.js"></script>
 <script src="js/site-config.js?v=2"></script>
-<script src="js/auth.js?v=2"></script>
+<script src="js/auth.js?v=3"></script>
 <script>
   document.getElementById('priceAll18').textContent = PRICES.all18;
-
-  // Falls back to the Contact page if the Razorpay Payment Link hasn't been
-  // set up yet in js/site-config.js (still shows a placeholder URL).
-  function buyLinkHref() {
-    const link = PAYMENT_LINKS && PAYMENT_LINKS.all18;
-    return (link && link.indexOf('PASTE_') !== 0) ? link : 'contact.html';
-  }
+  function buyLinkHref(){const l=PAYMENT_LINKS&&PAYMENT_LINKS.all18;return (l&&l.indexOf('PASTE_')!==0)?l:'contact.html'}
   document.getElementById('bundleBuyBtn').href = buyLinkHref();
-
-  const DOC_ICON = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M6 2h9l5 5v15H6V2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 13h6M9 17h6M9 9h2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
-  const CLOCK_ICON = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/><path d="M12 7v5l3 3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
-
   const grid = document.getElementById('testGrid');
-  let lastPurchasedTests = [];
-
-  function renderCards(purchasedTests) {
-    lastPurchasedTests = purchasedTests || [];
-    grid.innerHTML = '';
-    TEST_CATALOG.forEach(item => {
+  function renderCards(owned){
+    owned = owned || []; grid.innerHTML = '';
+    TEST_CATALOG.forEach((item, i) => {
       const isFree = FREE_TESTS && FREE_TESTS.includes(item.id);
-      const owned = lastPurchasedTests.includes(item.id);
-      const hasAccess = isFree || owned;
-
-      const card = document.createElement('div');
-      card.className = 'card test-card';
-      card.innerHTML = `
-        <div class="badge">${item.number}</div>
-        <h3>${item.title}</h3>
-        <p class="desc">${t('card_full_mock')}</p>
-        <div class="meta-row">
-          <span class="meta">${DOC_ICON} ${item.questions} ${t('card_questions_suffix')}</span>
-          <span class="meta">${CLOCK_ICON} ${item.minutes} ${t('card_minutes_suffix')}</span>
-        </div>
-        <div class="${hasAccess ? 'status-owned' : 'status-locked'}">
-          ${isFree ? t('card_free_badge') : (owned ? t('card_purchased_badge') : t('card_locked_badge'))}
-        </div>
-        <div class="cta"></div>
-      `;
-
-      const cta = card.querySelector('.cta');
-      if (hasAccess) {
-        const a = document.createElement('a');
-        a.className = 'btn btn-primary btn-block';
-        a.href = item.file;
-        a.textContent = t('card_start_btn');
-        cta.appendChild(a);
-      } else {
-        // Tests 03-20: send the student straight to the Razorpay Payment Link
-        const a = document.createElement('a');
-        a.className = 'btn btn-locked btn-block';
-        a.href = buyLinkHref();
-        a.target = '_blank';
-        a.rel = 'noopener';
-        a.textContent = t('card_contact_btn');
-        cta.appendChild(a);
-      }
-      grid.appendChild(card);
+      const ok = isFree || owned.includes(item.id);
+      const c = document.createElement('div'); c.className = 'card t';
+      c.innerHTML = `<h3>टेस्ट ${i + 1}${isFree ? '<span class="free">फ्री</span>' : ''}</h3><p class="m">📄 ${item.questions} प्रश्न · ${item.minutes} मिनट</p>` +
+        (ok ? `<a class="btn btn-p w" href="${item.file}">▶ टेस्ट शुरू करें</a>` : `<a class="btn btn-l w" href="${buyLinkHref()}" target="_blank" rel="noopener">🔒 लॉक</a>`);
+      grid.appendChild(c);
     });
+    const all = TEST_CATALOG.every(it => (FREE_TESTS||[]).includes(it.id) || owned.includes(it.id));
+    document.getElementById('unlockBox').style.display = all ? 'none' : '';
   }
-
-  I18N_ONCHANGE = () => renderCards(lastPurchasedTests);
-
-  // Cards render as locked immediately (no flash of wrong state), then upgrade
-  // to "Free/Purchased" for any test the logged-in student actually has access to.
-  // This is a UX convenience only — the real access check happens server-side
-  // (Supabase Row Level Security) when a test page itself tries to fetch its questions.
   renderCards([]);
-  applyI18n();
   (async () => {
-    const session = await getSession();
-    if (!session) return;
-    const profile = await getProfile(session.user.id);
-    if (profile && profile.status === 'active') {
-      renderCards(profile.purchased_tests || []);
-    }
+    const session = await getSession(); if (!session) return;
+    const p = await getProfile(session.user.id);
+    if (p) { const ch = document.getElementById('userChip'); ch.href = 'dashboard.html'; ch.textContent = 'स्वागत है, ' + ((p.full_name||'').split(' ')[0] || p.student_id) + ' · ' + p.student_id; }
+    if (p && p.status === 'active') renderCards(p.purchased_tests || []);
   })();
 </script>
 </body>
