@@ -242,6 +242,8 @@ jobs:
           cp home/index.html _site/index.html
           # /examhelp/ shows the same catalogue landing page as tettesthub.in
           cp home/index.html _site/examhelp/index.html
+          # old cached header links: /examhelp/login.html → /login.html
+          cp home/index.html _site/examhelp/login.html
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
