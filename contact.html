@@ -45,9 +45,8 @@
         allow some time after sending your details.
       </p>
       <div class="card" id="contactCard" style="max-width:420px;">
-        <p style="margin:6px 0;"><strong data-i18n="contact_email_label">Email:</strong> <span id="cEmail">-</span></p>
-        <p style="margin:14px 0 6px;"><strong data-i18n="contact_phone_label">WhatsApp / Call:</strong></p>
-        <div id="cPhones" style="display:flex;flex-direction:column;gap:6px;margin:4px 0 0;"></div>
+        <p style="margin:6px 0 10px;"><strong data-i18n="contact_whatsapp_btn">WhatsApp</strong>: 8770375866</p>
+        <a class="btn btn-primary" href="https://wa.me/918770375866" target="_blank" rel="noopener" data-i18n="contact_whatsapp_btn">WhatsApp</a>
       </div>
     </section>
   </main>
@@ -61,37 +60,6 @@
     <span data-i18n="footer_tagline">TET Test Hub &mdash; free-to-browse, paid mock tests for Teacher Eligibility Test aspirants.</span>
   </footer>
 
-<script src="js/site-config.js?v=3"></script>
-<script>
-  function fillContact(id, value) {
-    const el = document.getElementById(id);
-    if (!value || value.indexOf('PASTE_') === 0) {
-      el.textContent = t('contact_coming_soon');
-      el.style.color = 'var(--muted)';
-    } else {
-      el.textContent = value;
-    }
-  }
-  fillContact('cEmail', SITE_CONFIG.contact.email);
-
-  const phonesEl = document.getElementById('cPhones');
-  function renderPhones() {
-    phonesEl.innerHTML = '';
-    (SITE_CONFIG.contact.phones || []).forEach((p) => {
-      const row = document.createElement('div');
-      row.style.cssText = 'display:flex;gap:8px;align-items:center;';
-      row.innerHTML = `
-        <span>${p.display}</span>
-        <a class="btn btn-secondary" style="padding:4px 12px;font-size:12px;" href="https://wa.me/${p.wa}" target="_blank" rel="noopener">${t('contact_whatsapp_btn')}</a>
-        <a class="btn btn-secondary" style="padding:4px 12px;font-size:12px;" href="tel:+${p.wa}">${t('contact_call_btn')}</a>
-      `;
-      phonesEl.appendChild(row);
-    });
-  }
-  renderPhones();
-  I18N_ONCHANGE = renderPhones;
-
-  applyI18n();
-</script>
+<script>applyI18n();</script>
 </body>
 </html>
