@@ -36,9 +36,8 @@ Make the smallest change that does the job. Touch only the files named in the re
 - `supabase/functions/` — Edge Functions (razorpay order/webhook/verify, download links). `supabase/migrations/` — SQL migrations.
 
 ## /examhelp/ (Exam Hub / TETTESTHUB platform)
-- Source is NOT in this repo. It lives in repo `saymukeshofficework-hash/Chat-practice-121`, branch `feat/exam-hub-phase-1-3` (Next.js, static export). The workflow checks it out and builds it with base path `/examhelp`.
-- Change examhelp pages in that repo, not here. Its Practice Paper Generator lives under `/practice-paper-generator/` there.
-- This repo's workflow also rebuilds daily at 00:15 IST so examhelp picks up its latest code.
+- Source is NOT in this repo. It is in repo `saymukeshofficework-hash/Chat-practice-121`, branch `feat/exam-hub-phase-1-3` (Next.js static export). That repo has its own `CLAUDE.md` with its full map. For examhelp tasks, work in that repo and read its `CLAUDE.md` first.
+- This repo's workflow checks that branch out and builds it with base path `/examhelp`. It rebuilds on every push to `main` and daily at 00:15 IST. A push to the examhelp branch goes live only after the next run here; to publish now: `gh workflow run deploy.yml -R saymukeshofficework-hash/Mock-test`.
 
 ## Supabase
 - Project `exam-hub`, ref `znulepzdihzhjmuvyroi`: tests, orders, notes, `ca_days` (daily current affairs, paid), Edge Functions `notes-checkout`, `razorpay-webhook`, `testhub-admin`.
