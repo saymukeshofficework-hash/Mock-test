@@ -18,10 +18,7 @@
 .lp-card h2{margin:0;font-size:16px}.lp-card p{margin:6px 0 0;font-size:13px;color:#475569;line-height:1.5}
 .lp-total{font-weight:600;color:#1e293b!important}
 .lp-unlock{display:flex;gap:16px;align-items:center;justify-content:space-between;flex-wrap:wrap;background:#eef2ff;border-color:#c7d2fe}
-#myTestsGrid{grid-template-columns:repeat(4,minmax(0,1fr));margin-top:28px}
-.free-tag{margin-left:8px;padding:2px 8px;border-radius:999px;background:#dcfce7;color:#15803d;font-size:11px;font-weight:700}
-@media(max-width:960px){#myTestsGrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:520px){#myTestsGrid{grid-template-columns:1fr}.lp-title{font-size:22px}}
+@media(max-width:520px){.lp-title{font-size:22px}}
 </style>
 </head>
 <body>
@@ -58,16 +55,15 @@
       <section class="card lp-card lp-unlock">
         <div>
           <h2>पूरी टेस्ट सीरीज़ / Full test series</h2>
-          <p>टेस्ट 1 फ्री है। बाकी टेस्ट अनलॉक करने के लिए नीचे बटन दबाएँ।<br>Test 1 is free. Unlock the rest from the All Tests page.</p>
+          <p>टेस्ट 1 फ्री है। सभी 25 टेस्ट देखने के लिए बटन दबाएँ।<br>Test 1 is free. Tap the button to see all 25 tests.</p>
         </div>
-        <a class="btn btn-primary" href="tests.html">सभी टेस्ट अनलॉक करें / Unlock all</a>
+        <a class="btn btn-primary" href="tests.html">टेस्ट सीरीज़ खोलें / Open test series</a>
       </section>
 
       <div id="disabledNotice" class="alert alert-error" style="display:none;" data-i18n-html="dash_disabled">
         Your account is currently disabled. Please contact support — see the <a href="contact.html">Contact page</a>.
       </div>
 
-<div class="grid" id="myTestsGrid"></div>
     </div>
   </main>
 
@@ -84,51 +80,11 @@
 <script src="js/site-config.js?v=3"></script>
 <script src="js/auth.js?v=2"></script>
 <script>
-  const DOC_ICON = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M6 2h9l5 5v15H6V2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 13h6M9 17h6M9 9h2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
-
   async function doLogout() {
     await logout();
     location.href = 'index.html';
   }
   document.getElementById('logoutLink').addEventListener('click', (e) => { e.preventDefault(); doLogout(); });
-
-  let lastPurchasedTests = [];
-
-  function renderTests(purchasedTests) {
-    lastPurchasedTests = purchasedTests || [];
-    const grid = document.getElementById('myTestsGrid');
-    grid.innerHTML = '';
-    TEST_CATALOG.forEach(item => {
-      const isFree = FREE_TESTS && FREE_TESTS.includes(item.id);
-      const owned = lastPurchasedTests.includes(item.id);
-      const hasAccess = isFree || owned;
-
-      const card = document.createElement('div');
-      card.className = 'card test-card';
-      card.innerHTML = `
-        <h3>TET Mock Test ${item.number}${isFree ? '<span class="free-tag">Free / फ्री</span>' : ''}</h3>
-        <p class="desc">${DOC_ICON} ${item.questions} ${t('card_questions_suffix')} &middot; ${item.minutes} ${t('card_minutes_suffix')}</p>
-        <div class="cta"></div>
-      `;
-      const cta = card.querySelector('.cta');
-      if (hasAccess) {
-        const a = document.createElement('a');
-        a.className = 'btn btn-primary btn-block';
-        a.href = item.file;
-        a.textContent = t('dash_start_btn');
-        cta.appendChild(a);
-      } else {
-        const a = document.createElement('a');
-        a.className = 'btn btn-locked btn-block';
-        a.href = 'tests.html';
-        a.textContent = t('dash_buy_btn');
-        cta.appendChild(a);
-      }
-      grid.appendChild(card);
-    });
-  }
-
-  I18N_ONCHANGE = () => renderTests(lastPurchasedTests);
 
   (async () => {
     const session = await requireAuth();
@@ -139,19 +95,15 @@
     document.getElementById('dashContent').style.display = 'block';
 
     if (!profile) {
-        document.getElementById('disabledNotice').style.display = 'block';
+      document.getElementById('disabledNotice').style.display = 'block';
       document.getElementById('disabledNotice').textContent = t('dash_could_not_load');
       return;
     }
 
-
     if (profile.status !== 'active') {
       document.getElementById('disabledNotice').style.display = 'block';
-      renderTests([]);
       return;
     }
-
-    renderTests(profile.purchased_tests || []);
   })();
 
   applyI18n();
