@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import { Ban, Copy, LogOut, MessageCircle, RefreshCw, RotateCcw, Search, ShieldCheck, Undo2 } from "lucide-react";
 import { adminCall, downloadPath } from "@/lib/checkout";
 import { UploadTests } from "@/components/admin/UploadTests";
+import { BridgeAdmin } from "@/components/admin/BridgeAdmin";
 
 type Order = {
   id: string;
@@ -166,10 +167,13 @@ export function AdminClient() {
           <ShieldCheck className="h-6 w-6 text-accent-600" aria-hidden="true" />
           TETTESTHUB Admin
         </h1>
+        <div className="flex gap-2">
+        <a href="#bridge" className="btn-outline">Bridge Course ↓</a>
         <button type="button" onClick={logout} className="btn-outline">
           <LogOut className="h-4 w-4" aria-hidden="true" />
           Log out
         </button>
+        </div>
       </div>
 
       {stats ? (
@@ -282,6 +286,7 @@ export function AdminClient() {
         })}
       </ul>
       <UploadTests pw={pw} />
+      <BridgeAdmin />
       <p className="mt-6 text-xs text-ink-500">Showing the latest 100 matching orders. Refunds themselves are done in the Razorpay dashboard; cancel access here after refunding.</p>
     </div>
   );
