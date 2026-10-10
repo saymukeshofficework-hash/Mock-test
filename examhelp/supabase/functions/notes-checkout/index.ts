@@ -246,18 +246,12 @@ Deno.serve(async (req) => {
     }
 
     case "ca_day": {
-      // paid: one day's current affairs for a valid 30-day pass
-      const token = body.token ?? "";
-      if (token.length < 20) return json({ error: "bad_token" }, 400);
-      const { data: ord } = await db.from("orders").select("product,status,paid_at").eq("download_token", token).eq("status", "paid").maybeSingle();
-      if (!ord || PRODUCTS[ord.product]?.kind !== "ca" || !ord.paid_at) return json({ error: "not_found" }, 404);
-      const expires = new Date(new Date(ord.paid_at).getTime() + PASS_DAYS * 86400e3);
-      if (expires.getTime() < Date.now()) return json({ error: "expired", expires_at: expires.toISOString() }, 403);
+      // free: one day's current affairs for everyone (no pass needed)
       let q = db.from("ca_days").select("day,data").order("day", { ascending: false }).limit(1);
       if (body.day && /^\d{4}-\d{2}-\d{2}$/.test(body.day)) q = db.from("ca_days").select("day,data").eq("day", body.day).limit(1);
       const { data: rows } = await q;
       const row = rows?.[0];
-      return json({ expires_at: expires.toISOString(), day: row?.day ?? null, data: row?.data ?? null });
+      return json({ day: row?.day ?? null, data: row?.data ?? null });
     }
 
     case "test": {

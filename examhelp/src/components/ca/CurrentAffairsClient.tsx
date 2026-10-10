@@ -1,13 +1,13 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { CalendarDays, Check, CreditCard, Download, Globe2, Landmark, Lock, MapPin, Newspaper, ShieldCheck, Sparkles } from "lucide-react";
-import { buyNotes, checkout, claimPurchase } from "@/lib/checkout";
+import { Download, Globe2, Landmark, MapPin, Newspaper, ShieldCheck, Sparkles } from "lucide-react";
+import { checkout } from "@/lib/checkout";
 
 /**
- * Daily current affairs (MP, India, World) behind a ₹49 / 30-day pass.
- * Content lives in Supabase (table ca_days) and is served only to valid pass holders
- * by the notes-checkout edge function (actions ca_index / ca_day).
+ * Daily current affairs (MP, India, World), free for everyone.
+ * Content lives in Supabase (table ca_days) and is served by the
+ * notes-checkout edge function (actions ca_index / ca_day).
  */
 
 type Lang = "hi" | "en";
@@ -25,8 +25,6 @@ type Quiz = { q: Bi; o: { hi: string[]; en: string[] }; a: number; exp: Bi };
 type Day = { day: string; title?: Bi; items: Item[]; oneliners?: { hi: string[]; en: string[] }; quiz?: Quiz[] };
 type IndexRow = { day: string; items: number };
 
-const PRODUCT = "ca-30";
-const TOKEN_KEY = `testhub_dl_${PRODUCT}`;
 const PDF_LIB = "https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js";
 
 const REGIONS: { key: "all" | Item["region"]; label: Bi; Icon: typeof MapPin }[] = [
@@ -77,33 +75,21 @@ function loadScript(src: string): Promise<void> {
 
 export function CurrentAffairsClient() {
   const [lang, setLang] = useState<Lang>("hi");
-  const [token, setToken] = useState<string | null>(null);
   const [index, setIndex] = useState<IndexRow[]>([]);
-  const [canBuy, setCanBuy] = useState(false);
-  const [state, setState] = useState<"loading" | "locked" | "expired" | "ready">("loading");
-  const [expires, setExpires] = useState<string | null>(null);
+  const [state, setState] = useState<"loading" | "error" | "ready">("loading");
   const [day, setDay] = useState<Day | null>(null);
   const [region, setRegion] = useState<"all" | Item["region"]>("all");
-  const [payState, setPayState] = useState("idle");
-  const [payErr, setPayErr] = useState("");
   const [pdfBusy, setPdfBusy] = useState(false);
   const [shown, setShown] = useState<Record<number, number | undefined>>({});
   const printRef = useRef<HTMLDivElement>(null);
-  const base = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
   const L = (b?: Bi) => (b ? b[lang] || b.hi : "");
 
-  const openDay = useCallback(async (tk: string, d?: string) => {
-    const r = await checkout<{ data: Day | null; day: string | null; expires_at: string }>({ action: "ca_day", token: tk, day: d });
-    if (r.error === "expired") {
-      setExpires(r.expires_at ?? null);
-      setState("expired");
-      return;
-    }
+  const openDay = useCallback(async (d?: string) => {
+    const r = await checkout<{ data: Day | null; day: string | null }>({ action: "ca_day", day: d });
     if (r.error) {
-      setState("locked");
+      setState("error");
       return;
     }
-    setExpires(r.expires_at);
     setDay(r.data ? { ...r.data, day: r.day ?? r.data.day } : null);
     setShown({});
     setState("ready");
@@ -117,51 +103,11 @@ export function CurrentAffairsClient() {
     } catch {
       /* ignore */
     }
-    checkout<{ days: IndexRow[]; ready: boolean }>({ action: "ca_index" })
-      .then((r) => {
-        setIndex(r.days ?? []);
-        setCanBuy(!!r.ready);
-      })
+    checkout<{ days: IndexRow[] }>({ action: "ca_index" })
+      .then((r) => setIndex(r.days ?? []))
       .catch(() => {});
-    let tk: string | null = null;
-    try {
-      tk = localStorage.getItem(TOKEN_KEY);
-    } catch {
-      /* ignore */
-    }
-    setToken(tk);
-    if (tk) openDay(tk);
-    else {
-      setState("locked");
-      claimPurchase(PRODUCT).then((t) => {
-        if (!t) return;
-        setToken(t);
-        openDay(t);
-      });
-    }
+    openDay();
   }, [openDay]);
-
-  const buy = () => {
-    setPayErr("");
-    buyNotes(PRODUCT, {
-      onState: setPayState,
-      onError: (e) =>
-        setPayErr(
-          e.startsWith("verify:")
-            ? (lang === "hi" ? "भुगतान हो गया पर पुष्टि अटक गई। यह Payment ID संभालकर रखें: " : "Payment received but confirmation got stuck. Keep this Payment ID: ") + e.slice(7)
-            : lang === "hi" ? "भुगतान पूरा नहीं हुआ। कृपया दोबारा प्रयास करें।" : "Payment didn't go through. Please try again.",
-        ),
-      onPaid: (tk) => {
-        try {
-          localStorage.setItem(TOKEN_KEY, tk);
-        } catch {
-          /* ignore */
-        }
-        setToken(tk);
-        openDay(tk);
-      },
-    });
-  };
 
   const items = useMemo(() => (day?.items ?? []).filter((i) => region === "all" || i.region === region), [day, region]);
 
@@ -210,87 +156,14 @@ export function CurrentAffairsClient() {
     </div>
   );
 
-  // ---------------- paywall ----------------
   if (state === "loading") return <div className="container-page py-20 text-center text-ink-500">{lang === "hi" ? "लोड हो रहा है…" : "Loading…"}</div>;
-
-  if (state === "locked" || state === "expired") {
-    const perks: Bi[] = [
-      { hi: "रोज़ाना मध्यप्रदेश, राष्ट्रीय व अंतरराष्ट्रीय करेंट अफेयर्स", en: "Daily Madhya Pradesh, national and international current affairs" },
-      { hi: "हर खबर के परीक्षा-उपयोगी मुख्य तथ्य", en: "Exam-ready key facts for every story" },
-      { hi: "एक-पंक्ति तथ्य + रोज़ का क्विज़", en: "One-liners + a daily quiz" },
-      { hi: "हर दिन की PDF डाउनलोड", en: "PDF download for every day" },
-      { hi: "पिछले दिनों का पूरा संग्रह", en: "Full archive of previous days" },
-      { hi: "हिंदी और English दोनों में", en: "In Hindi and English" },
-    ];
+  if (state === "error")
     return (
-      <div className="container-page py-10 sm:py-14">
-        <div className="flex items-start justify-between gap-4">
-          <div>
-            <p className="text-sm font-semibold text-brand-700">{lang === "hi" ? "MPPSC • MPESB • पुलिस • शिक्षक • हाई कोर्ट" : "MPPSC • MPESB • Police • Teacher • High Court"}</p>
-            <h1 className="mt-2 text-3xl font-extrabold tracking-tight text-ink-900 sm:text-4xl">{lang === "hi" ? "दैनिक करेंट अफेयर्स" : "Daily Current Affairs"}</h1>
-            <p className="mt-3 max-w-2xl text-ink-500 sm:text-lg">
-              {lang === "hi" ? "मध्यप्रदेश, भारत और दुनिया — रोज़ की ज़रूरी खबरें, परीक्षा के नज़रिए से। साथ में PDF डाउनलोड।" : "Madhya Pradesh, India and the world — the day's key news from an exam point of view, with PDF download."}
-            </p>
-          </div>
-          <LangToggle />
-        </div>
-
-        <div className="mt-8 grid gap-6 lg:grid-cols-[1.1fr_1fr]">
-          <div className="rounded-2xl border border-ink-200 bg-surface p-6">
-            {state === "expired" ? (
-              <p className="mb-4 rounded-lg bg-warning-50 px-3 py-2 text-sm font-semibold text-warning-700">
-                {lang === "hi" ? "आपका 30 दिन का पास समाप्त हो गया है। जारी रखने के लिए फिर से पास लें।" : "Your 30-day pass has ended. Get a new pass to continue."}
-              </p>
-            ) : null}
-            <p className="text-sm font-bold text-brand-700">{lang === "hi" ? "30 दिन का पास" : "30-day pass"}</p>
-            <p className="mt-1 text-5xl font-extrabold text-ink-900">
-              ₹49<span className="ml-2 text-base font-semibold text-ink-500">{lang === "hi" ? "/ 30 दिन" : "/ 30 days"}</span>
-            </p>
-            <ul className="mt-5 space-y-2.5 text-[15px] text-ink-700">
-              {perks.map((p) => (
-                <li key={p.en} className="flex gap-2">
-                  <Check className="mt-0.5 h-5 w-5 shrink-0 text-success-700" aria-hidden="true" />
-                  {L(p)}
-                </li>
-              ))}
-            </ul>
-            <button type="button" onClick={buy} disabled={!canBuy || payState !== "idle"} className="btn-primary mt-6 w-full text-base disabled:opacity-60">
-              <CreditCard className="h-4 w-4" aria-hidden="true" />
-              {payState !== "idle" ? (lang === "hi" ? "कृपया प्रतीक्षा करें…" : "Please wait…") : canBuy ? (lang === "hi" ? "पास लें — ₹49" : "Get the pass — ₹49") : lang === "hi" ? "जल्द उपलब्ध" : "Coming soon"}
-            </button>
-            {payErr ? <p role="alert" className="mt-2 text-sm text-danger-700">{payErr}</p> : null}
-            <p className="mt-3 flex items-center justify-center gap-1.5 text-xs text-ink-500">
-              <ShieldCheck className="h-3.5 w-3.5" aria-hidden="true" />
-              {lang === "hi" ? "Razorpay द्वारा सुरक्षित · UPI, कार्ड, नेट बैंकिंग · कोई ऑटो-डेबिट नहीं" : "Secured by Razorpay · UPI, cards, net banking · No auto-debit"}
-            </p>
-            <p className="mt-4 text-center text-sm text-ink-500">
-              {lang === "hi" ? "पहले पास लिया है, दूसरे फ़ोन पर हैं? " : "Already have a pass on another device? "}
-              <a href={`${base}/download/`} className="font-semibold text-brand-700 underline">{lang === "hi" ? "Payment ID से खोलें" : "Unlock with Payment ID"}</a>
-            </p>
-          </div>
-
-          <div className="rounded-2xl border border-ink-200 bg-surface p-6">
-            <p className="flex items-center gap-2 font-bold text-ink-900">
-              <CalendarDays className="h-5 w-5 text-brand-700" aria-hidden="true" />
-              {lang === "hi" ? "प्रकाशित दिन" : "Published days"}
-              <span className="ml-auto rounded-full bg-canvas px-2.5 py-0.5 text-xs text-ink-500">{index.length}</span>
-            </p>
-            <ul className="mt-4 space-y-2">
-              {index.slice(0, 7).map((d) => (
-                <li key={d.day} className="flex items-center justify-between rounded-xl border border-ink-200 bg-canvas px-4 py-3 text-sm">
-                  <span className="font-semibold text-ink-900">{fmtDay(d.day, lang, true)}</span>
-                  <span className="flex items-center gap-1.5 text-ink-500">
-                    {d.items} {lang === "hi" ? "खबरें" : "stories"} <Lock className="h-3.5 w-3.5" aria-hidden="true" />
-                  </span>
-                </li>
-              ))}
-              {index.length === 0 ? <li className="text-sm text-ink-500">{lang === "hi" ? "पहला अंक जल्द प्रकाशित होगा।" : "The first edition is coming soon."}</li> : null}
-            </ul>
-          </div>
-        </div>
+      <div className="container-page py-20 text-center">
+        <p className="text-ink-700">{lang === "hi" ? "करेंट अफेयर्स लोड नहीं हो सके। कृपया पेज दोबारा खोलें।" : "Could not load current affairs. Please reload the page."}</p>
+        <button type="button" onClick={() => openDay()} className="btn-primary mt-4">{lang === "hi" ? "फिर से कोशिश करें" : "Try again"}</button>
       </div>
     );
-  }
 
   // ---------------- subscriber view ----------------
   const allItems = day?.items ?? [];
@@ -300,7 +173,7 @@ export function CurrentAffairsClient() {
         <div>
           <p className="flex items-center gap-1.5 text-sm font-semibold text-success-700">
             <ShieldCheck className="h-4 w-4" aria-hidden="true" />
-            {lang === "hi" ? "पास सक्रिय" : "Pass active"} · {lang === "hi" ? "मान्य" : "valid till"} {expires ? fmtDay(expires.slice(0, 10), lang, false) : ""}{lang === "hi" ? " तक" : ""}
+            {lang === "hi" ? "सभी के लिए मुफ़्त" : "Free for everyone"}
           </p>
           <h1 className="mt-1 text-3xl font-extrabold tracking-tight text-ink-900">{lang === "hi" ? "दैनिक करेंट अफेयर्स" : "Daily Current Affairs"}</h1>
           {day ? <p className="mt-1 text-ink-500">{fmtDay(day.day, lang, true)}</p> : null}
@@ -317,7 +190,7 @@ export function CurrentAffairsClient() {
       {/* days */}
       <div className="-mx-1 mt-6 flex gap-2 overflow-x-auto px-1 pb-1 [scrollbar-width:none]">
         {index.slice(0, 30).map((d) => (
-          <button key={d.day} type="button" onClick={() => token && openDay(token, d.day)} aria-pressed={day?.day === d.day}
+          <button key={d.day} type="button" onClick={() => openDay(d.day)} aria-pressed={day?.day === d.day}
             className={`shrink-0 rounded-full border px-4 py-2 text-sm transition-colors ${day?.day === d.day ? "border-ink-900 bg-ink-900 text-white" : "border-ink-200 bg-surface text-ink-900 hover:border-ink-300"}`}>
             {fmtDay(d.day, lang)}
           </button>
