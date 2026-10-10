@@ -99,7 +99,7 @@ const TET_LEVELS = {
       { key: "hindi", hi: "हिंदी", en: "Hindi" },
       { key: "english", hi: "अंग्रेज़ी", en: "English" },
       { key: "sanskrit", hi: "संस्कृत", en: "Sanskrit" },
-      { key: "maths", hi: "गणित", en: "Mathematics" },
+      { key: "maths", hi: "गणित", en: "Mathematics", ready: true },
       { key: "science", hi: "विज्ञान", en: "Science" },
       { key: "sst", hi: "सामाजिक विज्ञान", en: "Social Science" },
     ],

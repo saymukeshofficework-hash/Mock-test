@@ -76,7 +76,7 @@ h1{font-size:clamp(28px,6vw,40px);line-height:1.2;margin:34px 0 12px;color:#0d3b
     const id = 'tet' + lvKey[0] + '-' + sub.key + '-' + String(n).padStart(2, '0');
     const tag = !sub.ready ? '<span class="soon">जल्द / Soon</span>' : (n === 1 ? '<span class="free">फ्री / Free</span>' : '');
     html += `<div class="card t" data-id="${id}"><h3>टेस्ट / Test ${n}${tag}</h3><p class="m">${esc(sub.en)}</p>` +
-      (sub.ready ? `<a class="btn ${n === 1 ? 'btn-p' : 'btn-l'} w" href="/login.html">${n === 1 ? '▶ शुरू करें / Start' : '🔒 लॉक / Locked'}</a>`
+      (sub.ready ? `<a class="btn ${n === 1 ? 'btn-p' : 'btn-l'} w" href="/exam-test.html?t=${id}">${n === 1 ? '▶ शुरू करें / Start' : '🔒 खरीदारों के लिए / For buyers'}</a>`
                  : `<span class="btn btn-l w">जल्द आ रहा है / Coming soon</span>`) + '</div>';
   }
   grid.innerHTML = html;
