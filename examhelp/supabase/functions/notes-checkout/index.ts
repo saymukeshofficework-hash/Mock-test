@@ -55,7 +55,7 @@ const PRODUCTS: Record<string, { amount: number; file: string; downloadName: str
     kind: "tests",
     file: "asi", // bucket "tests": asi/03.json … (tests 1–2 are free, public)
     downloadName: "",
-    title: "MP पुलिस सूबेदार (शीघ्रलेखक) / ASI 2026 — 20 फुल मॉक टेस्ट",
+    title: "MP पुलिस सूबेदार (शीघ्रलेखक) / ASI 2026 — 25 फुल मॉक टेस्ट",
   },
   "ca-30": {
     amount: 4900,
@@ -92,6 +92,22 @@ function safeEqual(a: string, b: string) {
   for (let i = 0; i < a.length; i++) r |= a.charCodeAt(i) ^ b.charCodeAt(i);
   return r === 0;
 }
+// Main-site login (tettesthub.in, Supabase project "ovaubhek…"). URL and anon key are public
+// (same values as js/site-config.js); the student's access token is checked on that project.
+const MAIN_URL = "https://ovaubhekxjtkodkhsybg.supabase.co";
+const MAIN_ANON =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im92YXViaGVreGp0a29ka2hzeWJnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODc4NTk4NDMsImV4cCI6MjEwMzQzNTg0M30.KKDmp6mt2YEIKxI0BP5I7BvAgMAStNXJiwgUy3X4b2s";
+async function loggedInUser(accessToken: string | undefined): Promise<string | null> {
+  if (!accessToken || accessToken.length < 20) return null;
+  try {
+    const r = await fetch(`${MAIN_URL}/auth/v1/user`, { headers: { apikey: MAIN_ANON, Authorization: `Bearer ${accessToken}` } });
+    if (!r.ok) return null;
+    const u = await r.json();
+    return typeof u?.id === "string" ? u.id : null;
+  } catch {
+    return null;
+  }
+}
 function newToken() {
   const b = new Uint8Array(24);
   crypto.getRandomValues(b);
@@ -101,7 +117,8 @@ function newToken() {
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: cors });
   if (req.method !== "POST") return json({ error: "method" }, 405);
-  let body: Record<string, string>;
+  // deno-lint-ignore no-explicit-any
+  let body: Record<string, any>;
   try {
     body = await req.json();
   } catch {
@@ -146,7 +163,9 @@ Deno.serve(async (req) => {
       });
       const o = await r.json();
       if (!r.ok) return json({ error: "razorpay_order_failed", detail: o?.error?.description }, 502);
-      const { error } = await db.from("orders").insert({ product: body.product, amount: p.amount, rzp_order_id: o.id });
+      // link the order to the logged-in student so it unlocks on any device, even if the payment page reloads
+      const buyer = await loggedInUser(body.access_token);
+      const { error } = await db.from("orders").insert({ product: body.product, amount: p.amount, rzp_order_id: o.id, buyer_user_id: buyer });
       if (error) return json({ error: "db" }, 500);
       return json({ order_id: o.id, key_id: keyId, amount: p.amount, currency: "INR", name: "TETTESTHUB", description: p.title });
     }
@@ -169,6 +188,26 @@ Deno.serve(async (req) => {
       await db.from("orders").update({ status: "paid", rzp_payment_id: payment_id, download_token: token, paid_at: new Date().toISOString(), email, phone })
         .eq("rzp_order_id", order_id);
       return json({ token });
+    }
+
+    case "claim": {
+      // auto-unlock after payment: a paid order this browser started (order ids saved before checkout)
+      // or one linked to the logged-in student. Covers UPI app switches that reload the page.
+      const product = String(body.product ?? "");
+      const p = PRODUCTS[product];
+      if (!p) return json({ error: "unknown_product" }, 400);
+      // a combo also unlocks the AG-3 test series
+      const products = product === "ag3-tests" ? ["ag3-tests", "ag3-combo-en", "ag3-combo-hi"] : [product];
+      const ids = (Array.isArray(body.order_ids) ? body.order_ids : []).filter((x: unknown) => typeof x === "string" && /^order_[A-Za-z0-9]{6,40}$/.test(x)).slice(0, 10);
+      const buyer = await loggedInUser(body.access_token);
+      if (!ids.length && !buyer) return json({ error: "not_found" }, 404);
+      let q = db.from("orders").select("download_token,product,paid_at").eq("status", "paid").in("product", products).not("download_token", "is", null);
+      q = buyer && ids.length ? q.or(`buyer_user_id.eq.${buyer},rzp_order_id.in.(${ids.join(",")})`) : buyer ? q.eq("buyer_user_id", buyer) : q.in("rzp_order_id", ids);
+      const { data: rows } = await q.order("paid_at", { ascending: false }).limit(5);
+      // current affairs pass: only a pass that has not expired
+      const ord = (rows ?? []).find((r) => p.kind !== "ca" || (r.paid_at && Date.now() - new Date(r.paid_at).getTime() < PASS_DAYS * 86400e3));
+      if (!ord) return json({ error: "not_found" }, 404);
+      return json({ token: ord.download_token, product: ord.product });
     }
 
     case "recover": {

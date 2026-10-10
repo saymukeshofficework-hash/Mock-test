@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { CheckCircle2, CreditCard, FileText, Lock, PlayCircle, Unlock } from "lucide-react";
 import { MOCK_SERIES } from "@/data/mockTests";
-import { buyNotes, checkout, downloadPath } from "@/lib/checkout";
+import { buyNotes, checkout, claimPurchase, downloadPath } from "@/lib/checkout";
 
 type Lang = "hi" | "en";
 type Best = { last: number; best: number; total: number; at: number };
@@ -55,6 +55,8 @@ export function MockTestList({ series = "ag3" }: { series?: string }) {
           }
         })
         .catch(() => {});
+    } else {
+      claimPurchase(S.product).then((t) => t && setToken(t));
     }
     checkout<{ ready: boolean; tests?: number[] }>({ action: "status", product: S.product })
       .then((r) => {

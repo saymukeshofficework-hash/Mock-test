@@ -59,6 +59,50 @@ function loadRazorpay(): Promise<void> {
   });
 }
 
+/** Access token of the student logged in on the main site (tettesthub.in), if any. */
+function mainSiteAccessToken(): string | undefined {
+  try {
+    const t = JSON.parse(localStorage.getItem("sb-ovaubhekxjtkodkhsybg-auth-token") || "null")?.access_token;
+    return typeof t === "string" ? t : undefined;
+  } catch {
+    return undefined;
+  }
+}
+
+const pendingKey = (product: string) => `testhub_pending_${product}`;
+function pendingOrders(product: string): string[] {
+  try {
+    const v = JSON.parse(localStorage.getItem(pendingKey(product)) || "[]");
+    return Array.isArray(v) ? v : [];
+  } catch {
+    return [];
+  }
+}
+
+/**
+ * Auto-unlock: finds a paid order for `product` that this browser started, or that belongs to the
+ * logged-in student, saves its token and returns it. Covers payments where the page reloaded
+ * (UPI app switch) before the Razorpay success handler ran, and purchases made on another device.
+ */
+export async function claimPurchase(product: string): Promise<string | null> {
+  const order_ids = pendingOrders(product);
+  const access_token = mainSiteAccessToken();
+  if (!order_ids.length && !access_token) return null;
+  try {
+    const r = await checkout<{ token?: string }>({ action: "claim", product, order_ids, access_token });
+    if (!r.token) return null;
+    try {
+      localStorage.setItem(`testhub_dl_${product}`, r.token);
+      localStorage.removeItem(pendingKey(product));
+    } catch {
+      /* private mode */
+    }
+    return r.token;
+  } catch {
+    return null;
+  }
+}
+
 export const downloadPath = (token: string) =>
   `${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/download/?t=${encodeURIComponent(token)}`;
 
@@ -77,11 +121,18 @@ export async function buyNotes(
     const order = await checkout<{ order_id: string; key_id: string; amount: number; currency: string; name: string; description: string }>({
       action: "create",
       product,
+      access_token: mainSiteAccessToken(),
     });
     if (order.error || !order.order_id) {
       onState("idle");
       onError(order.error ?? "order");
       return;
+    }
+    // remember the order so it can still unlock if the page reloads during payment
+    try {
+      localStorage.setItem(pendingKey(product), JSON.stringify([order.order_id, ...pendingOrders(product)].slice(0, 5)));
+    } catch {
+      /* private mode */
     }
     const rzp = new window.Razorpay!({
       key: order.key_id,

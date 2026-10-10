@@ -18,7 +18,7 @@ import {
   Trophy,
 } from "lucide-react";
 import { AG3_MOCK } from "@/data/mockTests";
-import { buyNotes, checkout } from "@/lib/checkout";
+import { buyNotes, checkout, claimPurchase } from "@/lib/checkout";
 import { site } from "@/lib/site";
 
 type Lang = "hi" | "en";
@@ -88,7 +88,9 @@ export function TestSeriesLanding() {
       const q = new URLSearchParams(location.search).get("lang");
       const l = (q || localStorage.getItem("testhub_lang_pref")) as Lang | null;
       if (l === "en" || l === "hi") setLang(l);
-      setToken(localStorage.getItem(TOKEN_KEY));
+      const saved = localStorage.getItem(TOKEN_KEY);
+      setToken(saved);
+      if (!saved) claimPurchase(AG3_MOCK.product).then((t) => t && setToken(t));
     } catch {
       /* ignore */
     }

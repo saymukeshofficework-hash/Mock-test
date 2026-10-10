@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { CalendarDays, Check, CreditCard, Download, Globe2, Landmark, Lock, MapPin, Newspaper, ShieldCheck, Sparkles } from "lucide-react";
-import { buyNotes, checkout } from "@/lib/checkout";
+import { buyNotes, checkout, claimPurchase } from "@/lib/checkout";
 
 /**
  * Daily current affairs (MP, India, World) behind a ₹49 / 30-day pass.
@@ -131,7 +131,14 @@ export function CurrentAffairsClient() {
     }
     setToken(tk);
     if (tk) openDay(tk);
-    else setState("locked");
+    else {
+      setState("locked");
+      claimPurchase(PRODUCT).then((t) => {
+        if (!t) return;
+        setToken(t);
+        openDay(t);
+      });
+    }
   }, [openDay]);
 
   const buy = () => {
