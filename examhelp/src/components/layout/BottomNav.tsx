@@ -2,24 +2,24 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { BookOpen, ClipboardList, Home, LayoutGrid, NotebookPen } from "lucide-react";
+import { BookOpen, ClipboardList, Home, NotebookPen, Phone } from "lucide-react";
 import { dict, tr } from "@/i18n/dictionary";
 import { isActive } from "@/lib/nav";
 import type { Lang } from "@/types";
 
-/** Mobile bottom navigation (spec §35). The "Menu" tab opens the sitemap-style menu page. */
+/** Shared fixed mobile navigation for all app pages. */
 export function BottomNav({ lang }: { lang: Lang }) {
   const pathname = usePathname();
   const items = [
     { href: "/", label: dict.nav.home, Icon: Home },
+    { href: "/test-series", label: dict.nav.tests, Icon: NotebookPen },
     { href: "/exams", label: dict.nav.exams, Icon: ClipboardList },
     { href: "/notes", label: dict.nav.notes, Icon: BookOpen },
-    { href: "/test-series", label: dict.nav.tests, Icon: NotebookPen },
-    { href: "/menu", label: dict.nav.menu, Icon: LayoutGrid },
+    { href: "/contact", label: dict.nav.contact, Icon: Phone },
   ];
   return (
     <nav
-      aria-label="Bottom"
+      aria-label="Bottom navigation"
       className="fixed inset-x-0 bottom-0 z-40 border-t border-ink-200 bg-surface/95 pb-[env(safe-area-inset-bottom)] backdrop-blur xl:hidden"
     >
       <ul className="mx-auto grid max-w-lg grid-cols-5">
