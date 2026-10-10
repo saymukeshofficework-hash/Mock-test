@@ -84,3 +84,36 @@
     .sidebar{width:100%;border-left:none;border-top:1px solid var(--border);}
   }
 
+
+
+/* ---------- Accessible exam font-size controls ---------- */
+.font-size-controls{display:inline-flex;align-items:center;gap:4px;flex-shrink:0;margin-right:2px;padding:3px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);border-radius:8px}
+.font-size-controls button{min-width:32px;padding:5px 7px;border:0;border-radius:5px;background:transparent;color:#fff;font-weight:700;line-height:1.2}
+.font-size-controls button:hover,.font-size-controls button:focus-visible{background:rgba(255,255,255,.22);outline:2px solid #fff;outline-offset:1px}
+.font-size-controls button[aria-pressed="true"]{background:#fff;color:var(--blue-dark)}
+.font-size-controls .font-size-small{font-size:12px}
+.font-size-controls .font-size-normal{font-size:15px}
+.font-size-controls .font-size-large{font-size:18px}
+.font-size-controls .font-size-larger{font-size:21px}
+html.exam-font-small .qtext{font-size:13px}
+html.exam-font-small .option{font-size:12px}
+html.exam-font-small .question-body h3{font-size:12px}
+html.exam-font-small .section-tab,html.exam-font-small .qtype-bar,html.exam-font-small .view-lang{font-size:11px}
+html.exam-font-normal .qtext{font-size:15px}
+html.exam-font-normal .option{font-size:14px}
+html.exam-font-normal .question-body h3{font-size:14px}
+html.exam-font-normal .section-tab,html.exam-font-normal .qtype-bar,html.exam-font-normal .view-lang{font-size:12px}
+html.exam-font-large .qtext{font-size:18px}
+html.exam-font-large .option{font-size:17px}
+html.exam-font-large .question-body h3{font-size:16px}
+html.exam-font-large .section-tab,html.exam-font-large .qtype-bar,html.exam-font-large .view-lang{font-size:14px}
+html.exam-font-larger .qtext{font-size:21px}
+html.exam-font-larger .option{font-size:20px}
+html.exam-font-larger .question-body h3{font-size:18px}
+html.exam-font-larger .section-tab,html.exam-font-larger .qtype-bar,html.exam-font-larger .view-lang{font-size:16px}
+@media(max-width:600px){
+  .font-size-controls{gap:2px;padding:2px}
+  .font-size-controls button{min-width:29px;padding:5px 6px}
+  header.topbar{gap:8px}
+  .topbar-left{gap:8px;flex-wrap:wrap}
+}
