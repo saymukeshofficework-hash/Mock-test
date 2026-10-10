@@ -95,7 +95,7 @@ applyI18n();
 const alertBox=document.getElementById('formAlert');
 function showAlert(msg,type='error'){alertBox.textContent=msg;alertBox.className='alert '+type;alertBox.style.display='block'}
 function hideAlert(){alertBox.style.display='none'}
-function nextUrl(){const p=new URLSearchParams(location.search),n=p.get('next');return n&&/^[a-zA-Z0-9._-]+\.html$/.test(n)?n:'dashboard.html'}
+function nextUrl(){const p=new URLSearchParams(location.search),n=p.get('next');return n&&(/^[a-zA-Z0-9._-]+\.html$/.test(n)||/^\/examhelp\/[a-zA-Z0-9._\/-]*(\?[a-zA-Z0-9=&._-]*)?$/.test(n))&&!n.includes('//')?n:'dashboard.html'}
 function switchPane(id){hideAlert();document.querySelectorAll('.auth-pane').forEach(x=>x.classList.toggle('active',x.id===id));document.querySelectorAll('.auth-tab').forEach(x=>x.classList.toggle('active',x.dataset.pane===id));}
 document.querySelectorAll('[data-pane]').forEach(b=>b.onclick=()=>switchPane(b.dataset.pane));
 document.querySelectorAll('[data-switch]').forEach(b=>b.onclick=()=>switchPane(b.dataset.switch));
