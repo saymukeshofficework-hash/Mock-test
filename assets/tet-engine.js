@@ -10,7 +10,60 @@ let state = [];
 let curSection = 0, curQuestion = 0;
 let defaultLang = 'en';
 let submitted = false;
+
 let examTestId = null;
+
+/* ---------- Accessible exam font-size controls ---------- */
+function setupFontSizeControls(){
+  const headerLeft = document.querySelector('header.topbar .topbar-left');
+  if(!headerLeft || document.getElementById('fontSizeControls')) return;
+
+  const levels = [
+    {name:'छोटा', cls:'exam-font-small', label:'छोटा फ़ॉन्ट', text:'A−', buttonClass:'font-size-small'},
+    {name:'सामान्य', cls:'exam-font-normal', label:'सामान्य फ़ॉन्ट', text:'A', buttonClass:'font-size-normal'},
+    {name:'बड़ा', cls:'exam-font-large', label:'बड़ा फ़ॉन्ट', text:'A+', buttonClass:'font-size-large'},
+    {name:'बहुत बड़ा', cls:'exam-font-larger', label:'बहुत बड़ा फ़ॉन्ट', text:'A++', buttonClass:'font-size-larger'}
+  ];
+  const controls = document.createElement('div');
+  controls.id = 'fontSizeControls';
+  controls.className = 'font-size-controls';
+  controls.setAttribute('role','group');
+  controls.setAttribute('aria-label','फ़ॉन्ट का आकार बदलें');
+
+  let current = 'exam-font-normal';
+  try{
+    const saved = localStorage.getItem('tet-exam-font-size');
+    if(levels.some(level => level.cls === saved)) current = saved;
+  }catch(_error){ /* Keep the default if storage is unavailable. */ }
+
+  function applyLevel(className){
+    levels.forEach(level => document.documentElement.classList.remove(level.cls));
+    document.documentElement.classList.add(className);
+    current = className;
+    levels.forEach(level => {
+      const button = controls.querySelector('[data-font-class="' + level.cls + '"]');
+      if(button) button.setAttribute('aria-pressed', String(level.cls === current));
+    });
+    try{ localStorage.setItem('tet-exam-font-size', className); }catch(_error){ /* Optional preference. */ }
+  }
+
+  levels.forEach(level => {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.textContent = level.text;
+    button.className = level.buttonClass;
+    button.title = level.label;
+    button.setAttribute('aria-label',level.label);
+    button.setAttribute('data-font-class',level.cls);
+    button.setAttribute('aria-pressed','false');
+    button.addEventListener('click', () => applyLevel(level.cls));
+    controls.appendChild(button);
+  });
+
+  headerLeft.insertBefore(controls, headerLeft.firstChild);
+  applyLevel(current);
+}
+
 
 // Called once the test's questions have been loaded (see the inline loader script at
 // the bottom of each tet-mock-test-N.html) — before this runs, nothing below can be
@@ -281,3 +334,7 @@ async function submitTest(autoSubmitted){
     tbody.appendChild(tr);
   });
 }
+
+
+// Add controls to every test page that uses the shared exam engine.
+setupFontSizeControls();
