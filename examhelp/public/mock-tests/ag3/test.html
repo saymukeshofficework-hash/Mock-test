@@ -618,6 +618,46 @@
 				font-size: 14px;
 				margin-top: 6px;
 			}
+		
+            .font-size-toolbar {
+                display: flex;
+                align-items: center;
+                justify-content: flex-start;
+                gap: 8px;
+                padding: 8px 12px;
+                background: #fff;
+                border-bottom: 1px solid var(--border);
+            }
+            .font-size-toolbar .font-size-label {
+                color: var(--muted);
+                font-size: 12px;
+                font-weight: 700;
+                margin-right: 2px;
+            }
+            .font-size-toolbar button {
+                min-width: 38px;
+                min-height: 34px;
+                border: 1px solid #c7d6f7;
+                border-radius: 8px;
+                background: #fff;
+                color: var(--navy);
+                font-size: 14px;
+                font-weight: 800;
+                cursor: pointer;
+            }
+            .font-size-toolbar button[aria-pressed="true"] {
+                background: var(--navy);
+                color: #fff;
+                border-color: var(--navy);
+            }
+            #qtext, #options label, .rqtext, .rsol, .ropt {
+                font-size: calc(var(--paper-font-base, 14px) * var(--paper-font-scale, 1)) !important;
+                line-height: 1.65;
+            }
+            #rules {
+                font-size: calc(12.5px * var(--paper-font-scale, 1)) !important;
+            }
+
 		</style>
 	</head>
 	<body>
@@ -669,7 +709,14 @@
 					हिंदी
 				</button>
 			</div>
-			<div class="timerbar" id="timerbar">
+			<div class="font-size-toolbar" role="group" aria-label="Font size controls">
+                <span class="font-size-label">Text size</span>
+                <button type="button" data-font-scale="0.85" aria-label="Smaller text" aria-pressed="false">A-</button>
+                <button type="button" data-font-scale="1" aria-label="Normal text" aria-pressed="true">A</button>
+                <button type="button" data-font-scale="1.15" aria-label="Larger text" aria-pressed="false">A+</button>
+                <button type="button" data-font-scale="1.3" aria-label="Largest text" aria-pressed="false">A++</button>
+            </div>
+            <div class="timerbar" id="timerbar">
 				<span id="timeLeftLabel">Time Left</span>
 				<span id="timer">120:00</span>
 			</div>
@@ -1288,6 +1335,25 @@ const UI = {
 				.addEventListener("keydown", (e) => {
 					if (e.key === "Enter") beginTest();
 				});
+
+
+            // Accessible font-size controls for the question paper and review.
+            (function initPaperFontControls() {
+                const root = document.documentElement;
+                const buttons = document.querySelectorAll("[data-font-scale]");
+                const scaleTargets = ["qtext", "options", "rules"];
+                const setScale = (scale) => {
+                    root.style.setProperty("--paper-font-scale", scale);
+                    buttons.forEach((button) => {
+                        button.setAttribute("aria-pressed", String(Number(button.dataset.fontScale) === Number(scale)));
+                    });
+                    try { localStorage.setItem("testhub_paper_font_scale", String(scale)); } catch (e) {}
+                };
+                let saved = "1";
+                try { saved = localStorage.getItem("testhub_paper_font_scale") || "1"; } catch (e) {}
+                buttons.forEach((button) => button.addEventListener("click", () => setScale(button.dataset.fontScale)));
+                setScale(saved);
+            })();
 
 			applyStaticText();
 			buildTabs();
