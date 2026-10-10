@@ -55,7 +55,7 @@ const PRODUCTS: Record<string, { amount: number; file: string; downloadName: str
     kind: "tests",
     file: "asi", // bucket "tests": asi/03.json … (tests 1–2 are free, public)
     downloadName: "",
-    title: "MP पुलिस सूबेदार (शीघ्रलेखक) / ASI 2026 — 20 फुल मॉक टेस्ट",
+    title: "MP पुलिस सूबेदार (शीघ्रलेखक) / ASI 2026 — 25 फुल मॉक टेस्ट",
   },
   "ca-30": {
     amount: 4900,
