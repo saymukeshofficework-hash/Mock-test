@@ -80,6 +80,10 @@ h1{font-size:clamp(28px,6vw,40px);line-height:1.2;margin:34px 0 12px;color:#0d3b
                  : `<span class="btn btn-l w">जल्द आ रहा है / Coming soon</span>`) + '</div>';
   }
   grid.innerHTML = html;
+  if (sub.ready) {
+    const buy = TET_SUBJECT_PAYMENT_LINK || '/contact.html';
+    grid.insertAdjacentHTML('beforebegin', `<section class="card unlock"><h2>${esc(sub.hi)} — पूरी सीरीज़ / Full series</h2><p>टेस्ट 1 फ्री। बाकी ${TET_TESTS_PER_SUBJECT - 1} टेस्ट ₹${TET_SUBJECT_PRICE} में।<br>Test 1 free. Unlock the other ${TET_TESTS_PER_SUBJECT - 1} tests for ₹${TET_SUBJECT_PRICE}.</p><a class="btn btn-p" href="${buy}" target="_blank" rel="noopener">अनलॉक करें / Unlock — ₹${TET_SUBJECT_PRICE}</a></section>`);
+  }
 })();
 </script>
 </body>

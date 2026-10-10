@@ -106,3 +106,7 @@ const TET_LEVELS = {
   },
 };
 const TET_TESTS_PER_SUBJECT = 25;
+// ₹199 per subject series (tests 2-25). Paste a Razorpay Payment Link here when ready;
+// until then the buy button opens contact.html.
+const TET_SUBJECT_PRICE = 199;
+const TET_SUBJECT_PAYMENT_LINK = "";
