@@ -96,7 +96,7 @@ const TET_LEVELS = {
   secondary: {
     hi: "माध्यमिक (MP STET)", en: "Secondary (MP STET)",
     subjects: [
-      { key: "hindi", hi: "हिंदी", en: "Hindi" },
+      { key: "hindi", hi: "हिंदी", en: "Hindi", ready: true },
       { key: "english", hi: "अंग्रेज़ी", en: "English" },
       { key: "sanskrit", hi: "संस्कृत", en: "Sanskrit" },
       { key: "maths", hi: "गणित", en: "Mathematics", ready: true },
