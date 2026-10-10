@@ -83,7 +83,7 @@ const TEST_CATALOG = [
 // Set `ready: true` on a subject once its questions are in Supabase.
 const TET_LEVELS = {
   primary: {
-    hi: "प्राथमिक (कक्षा 1-5)", en: "Primary (Class 1-5)",
+    hi: "प्राथमिक स्तर", en: "Primary Level",
     subjects: [
       { key: "cdp", hi: "बाल विकास एवं शिक्षाशास्त्र", en: "Child Development & Pedagogy" },
       { key: "hindi", hi: "हिंदी", en: "Hindi" },
@@ -94,9 +94,8 @@ const TET_LEVELS = {
     ],
   },
   secondary: {
-    hi: "माध्यमिक (कक्षा 6-8)", en: "Secondary (Class 6-8)",
+    hi: "माध्यमिक (MP STET)", en: "Secondary (MP STET)",
     subjects: [
-      { key: "cdp", hi: "बाल विकास एवं शिक्षाशास्त्र", en: "Child Development & Pedagogy" },
       { key: "hindi", hi: "हिंदी", en: "Hindi" },
       { key: "english", hi: "अंग्रेज़ी", en: "English" },
       { key: "sanskrit", hi: "संस्कृत", en: "Sanskrit" },
