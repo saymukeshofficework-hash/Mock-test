@@ -4,6 +4,7 @@
 //   login                       → stats
 //   list   {q?, status?}        → recent orders (search by payment id / order id / email / phone)
 //   update {id, op}             → op: "reset" (downloads = 0) | "cancel" (status = cancelled) | "restore" (status = paid)
+//   refund {id}                 → full refund through Razorpay (uses RAZORPAY_KEY_ID / RAZORPAY_KEY_SECRET secrets), then status = cancelled
 //   upload_test {series, n, data} → saves a mock test paper to the private bucket "tests" at <series>/NN.json
 //   list_tests {series}         → test numbers stored for a series
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
@@ -94,6 +95,26 @@ Deno.serve(async (req) => {
       const { data, error } = await db.from("orders").update(patch).eq("id", id).select(COLS).maybeSingle();
       if (error) return json({ error: "db" }, 500);
       return json({ order: data });
+    }
+    case "refund": {
+      const id = body.id ?? "";
+      if (!id) return json({ error: "bad_request" }, 400);
+      const { data: ord } = await db.from("orders").select("status,rzp_payment_id").eq("id", id).maybeSingle();
+      if (!ord) return json({ error: "not_found" }, 404);
+      if (ord.status !== "paid" || !ord.rzp_payment_id) return json({ error: "not_allowed" }, 409);
+      const keyId = (Deno.env.get("RAZORPAY_KEY_ID") ?? "").trim();
+      const keySecret = (Deno.env.get("RAZORPAY_KEY_SECRET") ?? "").trim();
+      if (!keyId || !keySecret) return json({ error: "razorpay_not_configured" }, 503);
+      const r = await fetch(`https://api.razorpay.com/v1/payments/${encodeURIComponent(ord.rzp_payment_id)}/refund`, {
+        method: "POST",
+        headers: { Authorization: "Basic " + btoa(`${keyId}:${keySecret}`), "Content-Type": "application/json" },
+        body: JSON.stringify({ notes: { reason: "Refund from TETTESTHUB admin" } }),
+      });
+      const rz = await r.json().catch(() => ({}));
+      if (!r.ok) return json({ error: "refund_failed", detail: rz?.error?.description ?? `http_${r.status}` }, 502);
+      const { data, error } = await db.from("orders").update({ status: "cancelled" }).eq("id", id).select(COLS).maybeSingle();
+      if (error) return json({ error: "db", refund_id: rz.id }, 500);
+      return json({ order: data, refund_id: rz.id });
     }
     case "upload_test": {
       const series = String(body.series ?? "");

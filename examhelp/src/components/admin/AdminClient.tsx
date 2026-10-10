@@ -110,6 +110,19 @@ export function AdminClient() {
     } else setMsg("Action failed (" + (r.error ?? "error") + ").");
   };
 
+  const refund = async (o: Order) => {
+    setConfirm(null);
+    setBusy(true);
+    const r = await adminCall<{ order: Order; refund_id?: string; detail?: string }>({ action: "refund", password: pw, id: o.id });
+    setBusy(false);
+    if (r.order) {
+      setOrders((list) => list.map((x) => (x.id === o.id ? r.order : x)));
+      setMsg(`Refund started (${r.refund_id ?? "—"}) and access cancelled. / रिफंड शुरू, एक्सेस बंद।`);
+      const s = await adminCall<{ ok: boolean; stats: Stats }>({ action: "login", password: pw });
+      if (s.stats) setStats(s.stats);
+    } else setMsg("Refund failed / रिफंड नहीं हुआ (" + (r.detail ?? r.error ?? "error") + ").");
+  };
+
   const accessLink = (o: Order) => (o.download_token ? location.origin + downloadPath(o.download_token) : "");
   const copy = async (text: string) => {
     try {
@@ -258,6 +271,20 @@ export function AdminClient() {
                       </button>
                     )
                   ) : null}
+                  {o.status === "paid" && o.rzp_payment_id ? (
+                    confirm === "refund:" + o.id ? (
+                      <>
+                        <button type="button" disabled={busy} onClick={() => refund(o)} className="inline-flex items-center gap-1.5 rounded-lg bg-danger-700 px-3 py-1.5 text-sm font-semibold text-white">
+                          <Undo2 className="h-4 w-4" aria-hidden="true" /> Yes, refund {rupees(o.amount)} / हाँ, रिफंड करें
+                        </button>
+                        <button type="button" onClick={() => setConfirm(null)} className="btn-outline px-3 py-1.5 text-sm">Keep</button>
+                      </>
+                    ) : (
+                      <button type="button" disabled={busy} onClick={() => setConfirm("refund:" + o.id)} className="inline-flex items-center gap-1.5 rounded-lg border border-danger-700/30 px-3 py-1.5 text-sm font-semibold text-danger-700">
+                        <Undo2 className="h-4 w-4" aria-hidden="true" /> Refund / रिफंड
+                      </button>
+                    )
+                  ) : null}
                   {o.status === "cancelled" ? (
                     <button type="button" disabled={busy} onClick={() => act(o, "restore")} className="btn-outline px-3 py-1.5 text-sm">
                       <Undo2 className="h-4 w-4" aria-hidden="true" /> Restore access
@@ -282,7 +309,7 @@ export function AdminClient() {
         })}
       </ul>
       <UploadTests pw={pw} />
-      <p className="mt-6 text-xs text-ink-500">Showing the latest 100 matching orders. Refunds themselves are done in the Razorpay dashboard; cancel access here after refunding.</p>
+      <p className="mt-6 text-xs text-ink-500">Showing the latest 100 matching orders. Refund gives the full amount back through Razorpay and cancels access. / रिफंड पूरा पैसा Razorpay से लौटाता है और एक्सेस बंद करता है।</p>
     </div>
   );
 }
