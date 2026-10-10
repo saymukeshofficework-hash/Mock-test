@@ -59,11 +59,32 @@ function loadRazorpay(): Promise<void> {
   });
 }
 
-/** Access token of the student logged in on the main site (tettesthub.in), if any. */
-function mainSiteAccessToken(): string | undefined {
+// Main-site login (tettesthub.in). URL and anon key are public (same as js/site-config.js).
+const MAIN_URL = "https://ovaubhekxjtkodkhsybg.supabase.co";
+const MAIN_ANON =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im92YXViaGVreGp0a29ka2hzeWJnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODc4NTk4NDMsImV4cCI6MjEwMzQzNTg0M30.KKDmp6mt2YEIKxI0BP5I7BvAgMAStNXJiwgUy3X4b2s";
+const SESSION_KEY = "sb-ovaubhekxjtkodkhsybg-auth-token";
+
+/**
+ * Access token of the student logged in on the main site, refreshed if it has expired
+ * (the saved session is updated so the main site keeps working). Undefined when logged out.
+ */
+async function mainSiteAccessToken(): Promise<string | undefined> {
   try {
-    const t = JSON.parse(localStorage.getItem("sb-ovaubhekxjtkodkhsybg-auth-token") || "null")?.access_token;
-    return typeof t === "string" ? t : undefined;
+    const sess = JSON.parse(localStorage.getItem(SESSION_KEY) || "null");
+    if (!sess?.access_token) return undefined;
+    if (!sess.expires_at || sess.expires_at * 1000 > Date.now() + 60_000) return sess.access_token;
+    if (!sess.refresh_token) return undefined;
+    const r = await fetch(`${MAIN_URL}/auth/v1/token?grant_type=refresh_token`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", apikey: MAIN_ANON },
+      body: JSON.stringify({ refresh_token: sess.refresh_token }),
+    });
+    if (!r.ok) return undefined;
+    const fresh = await r.json();
+    if (!fresh?.access_token) return undefined;
+    localStorage.setItem(SESSION_KEY, JSON.stringify({ ...sess, ...fresh, expires_at: fresh.expires_at ?? Math.floor(Date.now() / 1000) + (fresh.expires_in ?? 3600) }));
+    return fresh.access_token;
   } catch {
     return undefined;
   }
@@ -86,7 +107,7 @@ function pendingOrders(product: string): string[] {
  */
 export async function claimPurchase(product: string): Promise<string | null> {
   const order_ids = pendingOrders(product);
-  const access_token = mainSiteAccessToken();
+  const access_token = await mainSiteAccessToken();
   if (!order_ids.length && !access_token) return null;
   try {
     const r = await checkout<{ token?: string }>({ action: "claim", product, order_ids, access_token });
@@ -117,11 +138,17 @@ export async function buyNotes(
   const { onState = () => {}, onError = () => {}, onPaid } = opts;
   try {
     onState("creating");
+    // purchases belong to the student's login, so they open on any device: log in first
+    const access_token = await mainSiteAccessToken();
+    if (!access_token) {
+      window.location.href = `/login.html?next=${encodeURIComponent(location.pathname + location.search)}`;
+      return;
+    }
     await loadRazorpay();
     const order = await checkout<{ order_id: string; key_id: string; amount: number; currency: string; name: string; description: string }>({
       action: "create",
       product,
-      access_token: mainSiteAccessToken(),
+      access_token,
     });
     if (order.error || !order.order_id) {
       onState("idle");
