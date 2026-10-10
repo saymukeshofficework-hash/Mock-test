@@ -39,6 +39,38 @@ h1{font-size:clamp(28px,6vw,40px);line-height:1.2;margin:34px 0 12px;color:#0d3b
 .t{display:flex;flex-direction:column}.t h3{margin:0;font-size:17px}.t .m{color:var(--muted);font-size:13px;margin:6px 0 16px}
 .free{margin-left:8px;background:#dcfce7;color:var(--ok);border-radius:99px;padding:2px 9px;font-size:12px}
 .t .btn{margin-top:auto}.foot{text-align:center;color:var(--muted);font-size:13px;padding:24px 0 40px}
+
+/* App-inspired responsive paper catalogue */
+:root{--brand:#5b36a8;--brand2:#eee8fb;--ink:#241d35;--muted:#70677f;--line:#e7e0f0;--bg:#f7f3fc;--ok:#21834a}
+body{background:var(--bg);color:var(--ink);padding-bottom:78px}
+.hdr{top:0;max-width:none;margin:0;padding:0}
+.hdr .bar{border-radius:0;border:0;border-bottom:1px solid var(--line);box-shadow:0 2px 12px #33204a0b;padding:12px max(16px,calc((100vw - 1040px)/2));background:#fff;min-height:64px}
+.logo{font-size:19px;color:#30204f}
+.logo i{background:var(--brand);border-radius:50%}
+.chip{background:var(--brand2);border-color:#d8c9f3;color:var(--brand);white-space:nowrap}
+.wrap{max-width:1040px}
+h1{color:#352054;margin-top:24px;font-size:clamp(24px,5vw,34px)}
+.sub{font-size:15px;margin-bottom:18px}
+.card{border-radius:16px;border-color:#eee6f6;box-shadow:0 3px 14px #39214b0a}
+.pat{padding:16px}
+.unlock{background:linear-gradient(120deg,#4b278c,#7851c8);color:#fff}
+.btn-p{background:var(--brand);color:#fff}
+.btn-l{background:#f1edf7;color:#6d6280;box-shadow:inset 0 0 0 1px #e4dcef}
+.grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-bottom:24px}
+.t{padding:12px 8px;text-align:center;align-items:center;min-width:0;overflow-wrap:anywhere}
+.t:before{content:"";display:block;width:66px;height:66px;border-radius:50%;margin:0 auto 10px;background:#f0e9ff;border:2px solid #7150b6;box-shadow:inset -10px -1px 0 -7px #7150b6}
+.t h3{font-size:14px;line-height:1.35}
+.t .m{font-size:11px;line-height:1.45;margin:6px 0 12px}
+.t .btn{font-size:11px;padding:8px 5px;min-height:36px;border-radius:9px;width:100%;white-space:normal}
+.free{display:inline-block;margin:4px 0 0;background:#e2f7e8;color:#207641}
+.foot{padding:18px 0 12px}
+.mobile-bottom-nav{position:fixed;left:0;right:0;bottom:0;z-index:30;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0;padding:7px 4px calc(7px + env(safe-area-inset-bottom));background:#fff;border-top:1px solid #e5dcef;box-shadow:0 -4px 18px #24153a0c}
+.mobile-bottom-nav a{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:#6b6277;text-decoration:none;font-size:10px;line-height:1.2;min-width:0}
+.mobile-bottom-nav .nav-icon{font-size:19px;line-height:1.1}
+.mobile-bottom-nav a.active{color:var(--brand);font-weight:800}
+@media(min-width:700px){.grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}.t{padding:18px 12px}.t h3{font-size:15px}.t .m{font-size:12px}.t .btn{font-size:13px}}
+@media(max-width:360px){.t:before{width:54px;height:54px}.t h3{font-size:12px}.t .m{font-size:10px}.grid{gap:8px}.t{padding:10px 5px}}
+
 </style>
 </head>
 <body>
@@ -60,6 +92,13 @@ h1{font-size:clamp(28px,6vw,40px);line-height:1.2;margin:34px 0 12px;color:#0d3b
   <div class="grid" id="testGrid"></div>
 </main>
 <div class="foot">TETTESTHUB · <a href="/contact.html">संपर्क</a></div>
+<nav class="mobile-bottom-nav" aria-label="मुख्य नेविगेशन">
+  <a href="index.html"><span class="nav-icon" aria-hidden="true">⌂</span><span>होम</span></a>
+  <a href="dashboard.html"><span class="nav-icon" aria-hidden="true">▤</span><span>मेरे टेस्ट</span></a>
+  <a href="tests.html" class="active" aria-current="page"><span class="nav-icon" aria-hidden="true">▦</span><span>परीक्षाएँ</span></a>
+  <a href="contact.html"><span class="nav-icon" aria-hidden="true">▧</span><span>नोट्स</span></a>
+  <a href="contact.html"><span class="nav-icon" aria-hidden="true">✉</span><span>संपर्क करें</span></a>
+</nav>
 
 <script src="assets/vendor/supabase/supabase.js"></script>
 <script src="js/site-config.js?v=3"></script>
