@@ -86,7 +86,7 @@ const TET_LEVELS = {
     hi: "प्राथमिक स्तर", en: "Primary Level",
     subjects: [
       // Hindi = the original 20 full TET papers (test01..test20, pages tet-mock-test-N.html).
-      { key: "hindi", hi: "हिंदी", en: "Hindi", ready: true, legacy: 20 },
+      { key: "hindi", hi: "हिंदी", en: "Hindi", ready: true, legacy: 20, price: 99 },
       { key: "english", hi: "अंग्रेज़ी", en: "English", ready: true },
       { key: "sanskrit", hi: "संस्कृत", en: "Sanskrit", ready: true },
     ],
@@ -94,7 +94,7 @@ const TET_LEVELS = {
   secondary: {
     hi: "माध्यमिक (MP STET)", en: "Secondary (MP STET)",
     subjects: [
-      { key: "hindi", hi: "हिंदी", en: "Hindi", ready: true },
+      { key: "hindi", hi: "हिंदी", en: "Hindi", ready: true, price: 99 },
       { key: "english", hi: "अंग्रेज़ी", en: "English", ready: true },
       { key: "sanskrit", hi: "संस्कृत", en: "Sanskrit" },
       { key: "maths", hi: "गणित", en: "Mathematics", ready: true },
