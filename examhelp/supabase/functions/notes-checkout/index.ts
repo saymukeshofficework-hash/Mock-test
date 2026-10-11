@@ -31,23 +31,23 @@ const PRODUCTS: Record<string, { amount: number; file: string; downloadName: str
   "ag3-tests": {
     amount: 19900,
     kind: "tests",
-    file: "ag3", // folder in bucket "tests": ag3/02.json … ag3/20.json
+    file: "ag3", // folder in bucket "tests": ag3/02.json … ag3/25.json
     downloadName: "",
-    title: "MP High Court AG-3 2026 — 20 Full Mock Tests (Test Series)",
+    title: "MP High Court AG-3 2026 — 25 Full Mock Tests (Test Series)",
   },
   "ag3-combo-en": {
     amount: 44900,
     kind: "combo",
     file: "TESTHUB_AG3_2026_ENGLISH_COMPLETE_NOTES.pdf",
     downloadName: "TETTESTHUB-MP-High-Court-AG3-2026-English-Notes.pdf",
-    title: "Combo: MP High Court AG-3 2026 English Notes (PDF) + 20 Mock Tests",
+    title: "Combo: MP High Court AG-3 2026 English Notes (PDF) + 25 Mock Tests",
   },
   "ag3-combo-hi": {
     amount: 44900,
     kind: "combo",
     file: "TESTHUB_AG3_2026_HINDI_COMPLETE_NOTES.pdf",
     downloadName: "TETTESTHUB-MP-High-Court-AG3-2026-Hindi-Notes.pdf",
-    title: "कॉम्बो: MP हाई कोर्ट सहायक ग्रेड-3 2026 हिंदी नोट्स (PDF) + 20 मॉक टेस्ट",
+    title: "कॉम्बो: MP हाई कोर्ट सहायक ग्रेड-3 2026 हिंदी नोट्स (PDF) + 25 मॉक टेस्ट",
   },
   "pcgd-tests": {
     amount: 19900,
