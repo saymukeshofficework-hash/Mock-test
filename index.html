@@ -462,7 +462,7 @@ header.site-header nav a.active{background:var(--app-purple);color:#fff}
     const q = (examSearch.value || '').trim().toLocaleLowerCase('hi');
     let visible = 0;
     examCards.forEach(card => {
-      const categories = (card.dataset.examCats || '').split(/\\s+/);
+      const categories = (card.dataset.examCats || '').split(/\s+/);
       const searchable = ((card.innerText || '') + ' ' + (card.dataset.examSearch || '')).toLocaleLowerCase('hi');
       const show = (activeExamFilter === 'all' || categories.includes(activeExamFilter)) && (!q || searchable.includes(q));
       card.hidden = !show;
