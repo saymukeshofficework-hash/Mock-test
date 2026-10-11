@@ -1,3 +1,12 @@
+/* Load the shared signed-in account menu on pages using the site language bundle. */
+(function () {
+  if (document.querySelector('script[data-global-account-menu]')) return;
+  const script = document.createElement('script');
+  script.src = '/js/global-account-menu.js';
+  script.dataset.globalAccountMenu = 'true';
+  document.head.appendChild(script);
+})();
+
 // Bilingual (Hindi default / English) support for TET Test Hub's marketing pages.
 // A small toggle button in the header switches languages; the choice is remembered
 // in localStorage and applies across every page. Load this script early (in <head>,
