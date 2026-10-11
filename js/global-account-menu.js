@@ -14,13 +14,13 @@
     try {
       if (typeof window.logout === "function") await window.logout();
       else {
-        const cfg = window.SITE_CONFIG;
-        if (cfg && cfg.supabaseUrl && cfg.supabaseAnonKey) {
-          await fetch(cfg.supabaseUrl + "/auth/v1/logout", {
-            method: "POST",
-            headers: { apikey: cfg.supabaseAnonKey, Authorization: "Bearer " + session.access_token }
-          });
-        }
+        const cfg = window.SITE_CONFIG || {};
+        const authUrl = cfg.supabaseUrl || "https://ovaubhekxjtkodkhsybg.supabase.co";
+        const anonKey = cfg.supabaseAnonKey || "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJvdmF1Ymhla3hqdGtvZGtoc2h5YmdcIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODc4NTk4NDMsImV4cCI6MjEwMzQzNTg0M30.KKDmp6mt2YEIKxI0BP5I7BvAgMAStNXJiwgUy3X4b2s";
+        await fetch(authUrl + "/auth/v1/logout", {
+          method: "POST",
+          headers: { apikey: anonKey, Authorization: "Bearer " + session.access_token }
+        });
       }
     } catch (_) {}
     localStorage.removeItem(key);
