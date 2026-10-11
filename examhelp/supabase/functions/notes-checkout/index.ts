@@ -10,6 +10,12 @@ import { createClient } from "npm:@supabase/supabase-js@2";
 // kind "combo": the PDF in `file` + the test series (bucket "tests", folder TESTS_FOLDER)
 const TESTS_FOLDER = "ag3";
 const PRODUCTS: Record<string, { amount: number; file: string; downloadName: string; title: string; kind?: "pdf" | "tests" | "combo" | "ca" }> = {
+  "static-gk-hi-en": {
+    amount: 9900, // ₹99 in paise
+    file: "TETTestHub_Static_GK_Hindi_English.pdf",
+    downloadName: "TETTestHub_Static_GK_Hindi_English.pdf",
+    title: "Static GK — Hindi + English PDF Notes",
+  },
   "ag3-en": {
     amount: 29900, // paise
     file: "TESTHUB_AG3_2026_ENGLISH_COMPLETE_NOTES.pdf",
