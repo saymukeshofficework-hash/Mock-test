@@ -31,7 +31,7 @@ export function LoginChip({ className }: { className: string }) {
         await fetch("https://ovaubhekxjtkodkhsybg.supabase.co/auth/v1/logout", {
           method: "POST",
           headers: {
-            apikey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJvdmF1Ymhla3hqdGtvZGtoc3liZyIsInJvbGUiOiJhbm9uIiwiaWF0IjoxNzg3ODU5ODQzLCJleHAiOjIxMDM0MzU4NDN9.KKDmp6mt2YEIKxI0BP5I7BvAgMAStNXJiwgUy3X4b2s",
+            apikey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im92YXViaGVreGp0a29ka2hzeWJnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODc4NTk4NDMsImV4cCI6MjEwMzQzNTg0M30.KKDmp6mt2YEIKxI0BP5I7BvAgMAStNXJiwgUy3X4b2s",
             Authorization: `Bearer ${token}`,
           },
         });
