@@ -35,6 +35,30 @@
 @media(max-width:600px){.all-exams-heading{align-items:stretch;flex-direction:column}.all-exams-cta{align-self:flex-start}.all-exams-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.all-exam-card{padding:13px!important;min-height:200px}.all-exam-icon{width:40px;height:40px;font-size:22px}.all-exam-card h3{font-size:14px!important}.all-exam-card .desc{font-size:11.5px!important}}
 @media(max-width:360px){.all-exams-grid{grid-template-columns:1fr}}
 
+/* Homepage all-exams search and category filters */
+.exam-tools{display:grid;gap:12px;margin:18px 0 8px}
+.exam-search{display:flex;align-items:center;gap:10px;max-width:560px;padding:0 15px;height:48px;border:1px solid #e1d8ef;border-radius:14px;background:#fff;color:#6d3ac7;box-shadow:0 3px 12px #35205a08}
+.exam-search>span{font-size:25px;line-height:1}
+.exam-search input{width:100%;min-width:0;border:0;outline:0;background:transparent;color:#252139;font:inherit;font-size:14px}
+.exam-filters{display:flex;flex-wrap:wrap;gap:8px}
+.exam-filter{border:1px solid #e1d8ef;background:#fff;color:#5e5670;border-radius:999px;padding:8px 13px;font:inherit;font-size:12px;font-weight:800;cursor:pointer}
+.exam-filter:hover{border-color:#b6a0dd}
+.exam-filter.active{background:#5b36a8;color:#fff;border-color:#5b36a8}
+.exam-result-count{margin:8px 0 12px;color:#746b83;font-size:12px;font-weight:700}
+.exam-no-results{padding:22px;text-align:center;border:1px dashed #cfc3e1;border-radius:14px;color:#746b83;background:#fff}
+.all-exams-grid{grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.all-exam-card{display:flex;flex-direction:column;align-items:stretch;text-align:left;position:relative;overflow:hidden;min-height:208px;padding:18px!important;border:1px solid var(--exam-soft)!important;border-radius:16px!important;background:linear-gradient(145deg,#fff 0%,var(--exam-soft) 145%)!important;transition:transform .18s ease,box-shadow .18s ease;text-decoration:none!important}
+.all-exam-card:before{content:"";position:absolute;top:0;left:0;right:0;height:5px;background:var(--exam-color)}
+.all-exam-card:hover{transform:translateY(-4px);box-shadow:0 12px 26px #1e293b18}
+.all-exam-icon{display:grid;place-items:center;width:46px;height:46px;margin-bottom:12px;border-radius:13px;background:var(--exam-soft);font-size:25px}
+.all-exam-label{display:block;color:var(--exam-color);font-size:10px;font-weight:900;letter-spacing:.6px;margin-bottom:5px}
+.all-exam-card h3{font-size:17px!important;line-height:1.35;margin:0 0 7px!important;color:#24233a}
+.all-exam-card .desc{color:#626779!important;font-size:12.5px!important;line-height:1.55;margin:0 0 15px!important}
+.all-exam-link{display:flex;align-items:center;justify-content:space-between;gap:6px;margin-top:auto;color:var(--exam-color);font-size:12px;font-weight:900}
+.all-exam-link span{flex:0 0 auto}
+@media(max-width:600px){.all-exams-heading{align-items:stretch;flex-direction:column}.all-exams-cta{align-self:flex-start}.all-exams-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.all-exam-card{padding:13px!important;min-height:200px}.all-exam-icon{width:40px;height:40px;font-size:22px}.all-exam-card h3{font-size:14px!important}.all-exam-card .desc{font-size:11.5px!important}.exam-filter{padding:8px 10px;font-size:11px}}
+@media(max-width:360px){.all-exams-grid{grid-template-columns:1fr}}
+
 /* App-inspired mobile layout, aligned with the supplied reference */
 :root{--app-purple:#5b36a8;--app-lavender:#f6f1fc;--app-line:#e8e0f1}
 body{background:var(--app-lavender);padding-bottom:76px}
@@ -127,63 +151,64 @@ header.site-header nav a.active{background:var(--app-purple);color:#fff}
       <section class="section" id="allExams" style="padding-top:24px;">
         <div class="all-exams-heading">
           <div>
-            <span class="all-exams-kicker">🎯 तैयारी शुरू करें</span>
+            <span class="all-exams-kicker">🎯 आपकी तैयारी, एक जगह</span>
             <h2>सभी परीक्षाएँ और टेस्ट</h2>
-            <p class="lead">अपनी परीक्षा चुनें — मॉक टेस्ट, करेंट अफेयर्स, नोट्स और टाइपिंग प्रैक्टिस एक ही जगह।</p>
+            <p class="lead">अपनी परीक्षा या कोर्स चुनें। सभी उपलब्ध मॉक टेस्ट, करेंट अफेयर्स, नोट्स और प्रैक्टिस विकल्प यहाँ मिलेंगे।</p>
           </div>
-          <a class="all-exams-cta" href="/examhelp/courses/">सभी टेस्ट देखें <span aria-hidden="true">→</span></a>
+          <a class="all-exams-cta" href="/examhelp/courses/">पूरा कैटलॉग <span aria-hidden="true">→</span></a>
         </div>
-        <div class="grid all-exams-grid">
-          <a class="card test-card all-exam-card" href="/examhelp/mp-high-court-assistant-grade-3-mock-tests/" style="--exam-color:#087f8c;--exam-soft:#e1f7f7;">
-            <span class="all-exam-icon" aria-hidden="true">⚖️</span>
-            <span class="all-exam-label">MP HIGH COURT</span>
-            <h3>सहायक ग्रेड-3 2026</h3>
-            <p class="desc">20 फुल मॉक टेस्ट · टेस्ट 1 फ्री</p>
-            <span class="all-exam-link">टेस्ट देखें <span aria-hidden="true">↗</span></span>
+
+        <div class="exam-tools">
+          <label class="exam-search" for="examSearch"><span aria-hidden="true">⌕</span><input id="examSearch" type="search" placeholder="परीक्षा या कोर्स खोजें…" autocomplete="off"></label>
+          <div class="exam-filters" role="group" aria-label="परीक्षा श्रेणी चुनें">
+            <button type="button" class="exam-filter active" data-exam-filter="all">सभी</button>
+            <button type="button" class="exam-filter" data-exam-filter="test">मॉक टेस्ट</button>
+            <button type="button" class="exam-filter" data-exam-filter="notes">नोट्स / PDF</button>
+            <button type="button" class="exam-filter" data-exam-filter="free">फ्री प्रैक्टिस</button>
+            <button type="button" class="exam-filter" data-exam-filter="tet">TET</button>
+          </div>
+        </div>
+
+        <p class="exam-result-count" id="examResultCount" aria-live="polite">9 विकल्प</p>
+        <div class="grid all-exams-grid" id="allExamGrid">
+          <a class="card test-card all-exam-card" data-exam-cats="test notes" data-exam-search="mp high court सहायक grade 3 assistant 2026 20 mock test नोट्स" href="/examhelp/mp-high-court-assistant-grade-3-mock-tests/" style="--exam-color:#087f8c;--exam-soft:#e1f7f7;">
+            <span class="all-exam-icon" aria-hidden="true">⚖️</span><span class="all-exam-label">MP HIGH COURT</span>
+            <h3>सहायक ग्रेड-3 2026</h3><p class="desc">20 फुल मॉक टेस्ट · टेस्ट 1 फ्री</p><span class="all-exam-link">टेस्ट और नोट्स देखें <span aria-hidden="true">↗</span></span>
           </a>
-          <a class="card test-card all-exam-card" href="/examhelp/current-affairs/" style="--exam-color:#b45309;--exam-soft:#fff1d6;">
-            <span class="all-exam-icon" aria-hidden="true">📰</span>
-            <span class="all-exam-label">DAILY UPDATE</span>
-            <h3>दैनिक करेंट अफेयर्स</h3>
-            <p class="desc">MP, भारत और विश्व की खबरें · क्विज़ व PDF</p>
-            <span class="all-exam-link">अभी पढ़ें <span aria-hidden="true">↗</span></span>
+          <a class="card test-card all-exam-card" data-exam-cats="free" data-exam-search="daily current affairs दैनिक करेंट अफेयर्स mp भारत विश्व quiz pdf" href="/examhelp/current-affairs/" style="--exam-color:#b45309;--exam-soft:#fff1d6;">
+            <span class="all-exam-icon" aria-hidden="true">📰</span><span class="all-exam-label">DAILY UPDATE</span>
+            <h3>दैनिक करेंट अफेयर्स</h3><p class="desc">MP, भारत और विश्व की खबरें · क्विज़ व PDF</p><span class="all-exam-link">अभी पढ़ें <span aria-hidden="true">↗</span></span>
           </a>
-          <a class="card test-card all-exam-card" href="/examhelp/mp-police-constable-gd-mock-tests/" style="--exam-color:#4338ca;--exam-soft:#eeecff;">
-            <span class="all-exam-icon" aria-hidden="true">🛡️</span>
-            <span class="all-exam-label">MP POLICE</span>
-            <h3>आरक्षक (GD) 2026</h3>
-            <p class="desc">25 फुल मॉक टेस्ट · टेस्ट 1–2 फ्री</p>
-            <span class="all-exam-link">टेस्ट देखें <span aria-hidden="true">↗</span></span>
+          <a class="card test-card all-exam-card" data-exam-cats="test" data-exam-search="mp police constable आरक्षक जीडी gd 2026 25 mock tests" href="/examhelp/mp-police-constable-gd-mock-tests/" style="--exam-color:#4338ca;--exam-soft:#eeecff;">
+            <span class="all-exam-icon" aria-hidden="true">🛡️</span><span class="all-exam-label">MP POLICE</span>
+            <h3>आरक्षक (GD) 2026</h3><p class="desc">25 फुल मॉक टेस्ट · टेस्ट 1–2 फ्री</p><span class="all-exam-link">टेस्ट देखें <span aria-hidden="true">↗</span></span>
           </a>
-          <a class="card test-card all-exam-card" href="/examhelp/mp-police-subedar-asi-mock-tests/" style="--exam-color:#047857;--exam-soft:#e3f8ee;">
-            <span class="all-exam-icon" aria-hidden="true">🎖️</span>
-            <span class="all-exam-label">MP POLICE</span>
-            <h3>सूबेदार / ASI 2026</h3>
-            <p class="desc">20 फुल टेस्ट · हिंदी/English</p>
-            <span class="all-exam-link">टेस्ट देखें <span aria-hidden="true">↗</span></span>
+          <a class="card test-card all-exam-card" data-exam-cats="test" data-exam-search="mp police subedar asi सूबेदार सहायक उप निरीक्षक 2026 mock test" href="/examhelp/mp-police-subedar-asi-mock-tests/" style="--exam-color:#047857;--exam-soft:#e3f8ee;">
+            <span class="all-exam-icon" aria-hidden="true">🎖️</span><span class="all-exam-label">MP POLICE</span>
+            <h3>सूबेदार / ASI 2026</h3><p class="desc">20 फुल टेस्ट · हिंदी/English</p><span class="all-exam-link">टेस्ट देखें <span aria-hidden="true">↗</span></span>
           </a>
-          <a class="card test-card all-exam-card" href="tests.html" style="--exam-color:#0369a1;--exam-soft:#e0f2fe;">
-            <span class="all-exam-icon" aria-hidden="true">📘</span>
-            <span class="all-exam-label">TET • शिक्षक पात्रता</span>
-            <h3>TET मॉक टेस्ट सीरीज़</h3>
-            <p class="desc">20 फुल टेस्ट · पहले 2 टेस्ट फ्री</p>
-            <span class="all-exam-link">टेस्ट देखें <span aria-hidden="true">↗</span></span>
+          <a class="card test-card all-exam-card" data-exam-cats="notes" data-exam-search="nios b ed bridge course ब्रिज कोर्स digital notes pdf" href="/bridge-course/" style="--exam-color:#be185d;--exam-soft:#fce7f3;">
+            <span class="all-exam-icon" aria-hidden="true">📚</span><span class="all-exam-label">NIOS • B.Ed</span>
+            <h3>ब्रिज कोर्स नोट्स</h3><p class="desc">डिजिटल नोट्स · सभी विषय</p><span class="all-exam-link">नोट्स देखें <span aria-hidden="true">↗</span></span>
           </a>
-          <a class="card test-card all-exam-card" href="/bridge-course/" style="--exam-color:#be185d;--exam-soft:#fce7f3;">
-            <span class="all-exam-icon" aria-hidden="true">📚</span>
-            <span class="all-exam-label">NIOS • B.Ed</span>
-            <h3>ब्रिज कोर्स नोट्स</h3>
-            <p class="desc">डिजिटल नोट्स · सभी विषय</p>
-            <span class="all-exam-link">नोट्स देखें <span aria-hidden="true">↗</span></span>
+          <a class="card test-card all-exam-card" data-exam-cats="test tet" data-exam-search="tet शिक्षक पात्रता परीक्षा mock test series 20 full test" href="/tests.html" style="--exam-color:#0369a1;--exam-soft:#e0f2fe;">
+            <span class="all-exam-icon" aria-hidden="true">📘</span><span class="all-exam-label">TET • शिक्षक पात्रता</span>
+            <h3>TET मॉक टेस्ट सीरीज़</h3><p class="desc">फुल-लेंथ टेस्ट · हिंदी/English</p><span class="all-exam-link">सभी टेस्ट देखें <span aria-hidden="true">↗</span></span>
           </a>
-          <a class="card test-card all-exam-card" href="typing-practice/" style="--exam-color:#a16207;--exam-soft:#fef3c7;">
-            <span class="all-exam-icon" aria-hidden="true">⌨️</span>
-            <span class="all-exam-label">FREE PRACTICE</span>
-            <h3>टाइपिंग प्रैक्टिस</h3>
-            <p class="desc">हिंदी और English · स्पीड टेस्ट</p>
-            <span class="all-exam-link">अभ्यास करें <span aria-hidden="true">↗</span></span>
+          <a class="card test-card all-exam-card" data-exam-cats="test tet" data-exam-search="tet primary प्राथमिक स्तर subject wise हिंदी अंग्रेजी संस्कृत" href="/tet/?level=primary" style="--exam-color:#7c3aed;--exam-soft:#f1e8ff;">
+            <span class="all-exam-icon" aria-hidden="true">🎓</span><span class="all-exam-label">TET • PRIMARY</span>
+            <h3>प्राथमिक स्तर के टेस्ट</h3><p class="desc">विषयवार टेस्ट सीरीज़ · हिंदी, English, संस्कृत</p><span class="all-exam-link">विषय चुनें <span aria-hidden="true">↗</span></span>
+          </a>
+          <a class="card test-card all-exam-card" data-exam-cats="test tet" data-exam-search="mp stet secondary माध्यमिक स्तर शिक्षक हिंदी अंग्रेजी गणित विज्ञान सामाजिक विज्ञान" href="/tet/?level=secondary" style="--exam-color:#c2410c;--exam-soft:#ffedd5;">
+            <span class="all-exam-icon" aria-hidden="true">🏫</span><span class="all-exam-label">MP STET • SECONDARY</span>
+            <h3>माध्यमिक स्तर के टेस्ट</h3><p class="desc">विषयवार टेस्ट सीरीज़ · हिंदी, English, गणित, विज्ञान</p><span class="all-exam-link">विषय चुनें <span aria-hidden="true">↗</span></span>
+          </a>
+          <a class="card test-card all-exam-card" data-exam-cats="free" data-exam-search="typing practice टाइपिंग अभ्यास हिंदी english speed accuracy free" href="/typing-practice/" style="--exam-color:#a16207;--exam-soft:#fef3c7;">
+            <span class="all-exam-icon" aria-hidden="true">⌨️</span><span class="all-exam-label">FREE PRACTICE</span>
+            <h3>टाइपिंग प्रैक्टिस</h3><p class="desc">हिंदी और English · स्पीड व एक्यूरेसी टेस्ट</p><span class="all-exam-link">अभ्यास करें <span aria-hidden="true">↗</span></span>
           </a>
         </div>
+        <div class="exam-no-results" id="examNoResults" hidden>इस खोज में कोई विकल्प नहीं मिला। दूसरा नाम या श्रेणी चुनें।</div>
       </section>
 
       <section class="section" id="typingPractice" style="padding-top:8px;">
@@ -426,6 +451,35 @@ header.site-header nav a.active{background:var(--app-purple);color:#fff}
       accountMenu.hidden = true;
     }
   })();
+
+  // Search and filter every exam/course option directly from the signed-in homepage.
+  const examCards = Array.from(document.querySelectorAll('#allExamGrid [data-exam-cats]'));
+  const examSearch = document.getElementById('examSearch');
+  const examCount = document.getElementById('examResultCount');
+  const examNoResults = document.getElementById('examNoResults');
+  let activeExamFilter = 'all';
+  function filterExamCards() {
+    const q = (examSearch.value || '').trim().toLocaleLowerCase('hi');
+    let visible = 0;
+    examCards.forEach(card => {
+      const categories = (card.dataset.examCats || '').split(/\\s+/);
+      const searchable = ((card.innerText || '') + ' ' + (card.dataset.examSearch || '')).toLocaleLowerCase('hi');
+      const show = (activeExamFilter === 'all' || categories.includes(activeExamFilter)) && (!q || searchable.includes(q));
+      card.hidden = !show;
+      if (show) visible++;
+    });
+    examCount.textContent = visible + ' विकल्प';
+    examNoResults.hidden = visible !== 0;
+  }
+  document.querySelectorAll('[data-exam-filter]').forEach(button => {
+    button.addEventListener('click', () => {
+      activeExamFilter = button.dataset.examFilter;
+      document.querySelectorAll('[data-exam-filter]').forEach(b => b.classList.toggle('active', b === button));
+      filterExamCards();
+    });
+  });
+  examSearch.addEventListener('input', filterExamCards);
+  filterExamCards();
 
   function renderOverview() {
     const grid = document.getElementById('testOverviewGrid');
