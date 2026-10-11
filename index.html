@@ -31,6 +31,8 @@ header.site-header nav a.active{background:var(--app-purple);color:#fff}
 .account-menu-toggle{border:0;border-radius:8px;background:#f1ebf9;color:var(--app-purple);padding:7px 10px;font-size:12px;font-weight:700;cursor:pointer}
 .account-menu-dropdown{position:absolute;right:0;top:calc(100% + 8px);z-index:100;min-width:135px;padding:6px;background:#fff;border:1px solid var(--app-line);border-radius:12px;box-shadow:0 8px 24px #24153a1f}
 .account-menu-dropdown a,.account-menu-dropdown button{display:block;width:100%;padding:10px;border:0;border-radius:7px;background:transparent;color:#342052;text-align:left;text-decoration:none;font:inherit;font-size:13px;cursor:pointer}
+.account-student-id{padding:10px;border-top:1px solid var(--app-line);border-bottom:1px solid var(--app-line);font-size:12px;color:#70677f;white-space:nowrap}
+.account-student-id strong{display:block;margin-top:4px;color:#342052;font-size:13px;overflow-wrap:anywhere}
 .account-menu-dropdown a:hover,.account-menu-dropdown button:hover{background:#f6f1fc}
 .account-menu[hidden],.account-menu-dropdown[hidden]{display:none}
 @media(max-width:520px){.account-menu-toggle{padding:6px 7px;font-size:11px}}
@@ -80,6 +82,7 @@ header.site-header nav a.active{background:var(--app-purple);color:#fff}
         <button type="button" class="account-menu-toggle" id="accountMenuToggle" aria-expanded="false" aria-controls="accountMenuDropdown">मेरा अकाउंट <span aria-hidden="true">▾</span></button>
         <div class="account-menu-dropdown" id="accountMenuDropdown" hidden>
           <a href="dashboard.html">डैशबोर्ड</a>
+          <div class="account-student-id">छात्र की ID: <strong id="accountStudentId">लोड हो रही है…</strong></div>
           <button type="button" id="homeLogoutBtn">लॉगआउट</button>
         </div>
       </div>
@@ -354,6 +357,16 @@ header.site-header nav a.active{background:var(--app-purple);color:#fff}
     if (session) {
       navLoginLink.hidden = true;
       accountMenu.hidden = false;
+      const idEl = document.getElementById('accountStudentId');
+      let studentId = session.user?.user_metadata?.student_id || session.user?.user_metadata?.contact_identifier || '';
+      try {
+        if (typeof getProfile === 'function' && session.user?.id) {
+          const profile = await getProfile(session.user.id);
+          if (profile?.student_id) studentId = profile.student_id;
+        }
+      } catch (_) {}
+      if (!studentId && session.user?.email) studentId = session.user.email.split('@')[0];
+      idEl.textContent = studentId || 'उपलब्ध नहीं';
     } else {
       navLoginLink.hidden = false;
       accountMenu.hidden = true;
