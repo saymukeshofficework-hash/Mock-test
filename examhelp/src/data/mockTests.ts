@@ -28,6 +28,8 @@ export type MockSeries = {
   testHref?: (n: number) => string;
   /** Series sold on the main site: unlock link used instead of the in-page payment button (site-root path). */
   unlockHref?: string;
+  /** Every test opens from the list; access is enforced by the engine page (free test, or login + purchase). */
+  openAll?: boolean;
 };
 
 const POLICE_ROWS = {
@@ -183,6 +185,86 @@ export const MOCK_SERIES: Record<string, MockSeries> = {
     },
     unlockBtn: { hi: "सभी टेस्ट अनलॉक करें — ₹199", en: "Unlock all tests — ₹199" },
     links: [{ href: "/exams/mp-subedar-steno-asi-2026/", label: { hi: "परीक्षा की पूरी जानकारी →", en: "Full exam details →" }, tone: "brand" }],
+  },
+  rrbg: {
+    id: "rrbg",
+    total: 25,
+    free: [1],
+    product: "rrbg-tests",
+    price: 199,
+    enginePath: "",
+    scorePrefix: "testhub_rrbg_mock_",
+    listPath: "/rrb-ntpc-graduate-mock-tests",
+    meta: { hi: "100 प्रश्न · 90 मिनट", en: "100 Qs · 90 min" },
+    testHref: (n) => `/rrb-ntpc/?test=rrbntpc-g-full-${String(n).padStart(2, "0")}`,
+    unlockHref: "/login.html",
+    openAll: true,
+    title: { hi: "RRB NTPC ग्रेजुएट लेवल (CEN 06/2025) — 25 फुल CBT-1 मॉक टेस्ट", en: "RRB NTPC Graduate Level (CEN 06/2025) — 25 Full CBT-1 Mock Tests" },
+    sub: {
+      hi: "CBT-1 पैटर्न पर: 100 प्रश्न, 90 मिनट, 3 खंड। टेस्ट 1 फ्री है; बाकी टेस्ट लॉगिन के बाद अनलॉक होते हैं।",
+      en: "On the CBT-1 pattern: 100 questions, 90 minutes, 3 sections. Test 1 is free; the other tests open after login.",
+    },
+    rows: {
+      hi: [
+        ["सामान्य जागरूकता", "40", "English"],
+        ["गणित", "30", "English"],
+        ["सामान्य बुद्धिमत्ता एवं तर्कशक्ति", "30", "English"],
+      ],
+      en: [
+        ["General Awareness", "40", "English"],
+        ["Mathematics", "30", "English"],
+        ["General Intelligence & Reasoning", "30", "English"],
+      ],
+    },
+    totalLine: { hi: "कुल 100 प्रश्न · 100 अंक · 90 मिनट · प्रत्येक प्रश्न 1 अंक", en: "Total 100 questions · 100 marks · 90 minutes · 1 mark each" },
+    neg: { hi: "प्रत्येक गलत उत्तर पर ⅓ अंक कटेगा; छोड़े गए प्रश्न पर कोई कटौती नहीं।", en: "⅓ mark is deducted for each wrong answer; no deduction for unattempted questions." },
+    unlockTitle: { hi: "टेस्ट 1 फ्री · बाकी टेस्ट के लिए लॉगिन", en: "Test 1 is free · log in for the rest" },
+    unlockSub: {
+      hi: "लॉगिन के बाद आपके अकाउंट में जो टेस्ट अनलॉक हैं वे खुलेंगे।",
+      en: "After login, the tests unlocked on your account will open.",
+    },
+    unlockBtn: { hi: "लॉगिन करें", en: "Log in" },
+    links: [],
+  },
+  rrbu: {
+    id: "rrbu",
+    total: 25,
+    free: [1],
+    product: "rrbu-tests",
+    price: 199,
+    enginePath: "",
+    scorePrefix: "testhub_rrbu_mock_",
+    listPath: "/rrb-ntpc-undergraduate-mock-tests",
+    meta: { hi: "100 प्रश्न · 90 मिनट", en: "100 Qs · 90 min" },
+    testHref: (n) => `/rrb-ntpc/?test=rrbntpc-u-full-${String(n).padStart(2, "0")}`,
+    unlockHref: "/login.html",
+    openAll: true,
+    title: { hi: "RRB NTPC अंडरग्रेजुएट 10+2 (CEN 07/2025) — 25 फुल CBT-1 मॉक टेस्ट", en: "RRB NTPC Undergraduate 10+2 (CEN 07/2025) — 25 Full CBT-1 Mock Tests" },
+    sub: {
+      hi: "CBT-1 पैटर्न पर: 100 प्रश्न, 90 मिनट, 3 खंड। टेस्ट 1 फ्री है; बाकी टेस्ट लॉगिन के बाद अनलॉक होते हैं।",
+      en: "On the CBT-1 pattern: 100 questions, 90 minutes, 3 sections. Test 1 is free; the other tests open after login.",
+    },
+    rows: {
+      hi: [
+        ["सामान्य जागरूकता", "40", "English"],
+        ["गणित", "30", "English"],
+        ["सामान्य बुद्धिमत्ता एवं तर्कशक्ति", "30", "English"],
+      ],
+      en: [
+        ["General Awareness", "40", "English"],
+        ["Mathematics", "30", "English"],
+        ["General Intelligence & Reasoning", "30", "English"],
+      ],
+    },
+    totalLine: { hi: "कुल 100 प्रश्न · 100 अंक · 90 मिनट · प्रत्येक प्रश्न 1 अंक", en: "Total 100 questions · 100 marks · 90 minutes · 1 mark each" },
+    neg: { hi: "प्रत्येक गलत उत्तर पर ⅓ अंक कटेगा; छोड़े गए प्रश्न पर कोई कटौती नहीं।", en: "⅓ mark is deducted for each wrong answer; no deduction for unattempted questions." },
+    unlockTitle: { hi: "टेस्ट 1 फ्री · बाकी टेस्ट के लिए लॉगिन", en: "Test 1 is free · log in for the rest" },
+    unlockSub: {
+      hi: "लॉगिन के बाद आपके अकाउंट में जो टेस्ट अनलॉक हैं वे खुलेंगे।",
+      en: "After login, the tests unlocked on your account will open.",
+    },
+    unlockBtn: { hi: "लॉगिन करें", en: "Log in" },
+    links: [],
   },
 };
 
