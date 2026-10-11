@@ -1,3 +1,12 @@
+/* Keep the signed-in account/logout menu available on auth-enabled pages too. */
+(function () {
+  if (document.querySelector('script[data-global-account-menu]')) return;
+  const script = document.createElement('script');
+  script.src = '/js/global-account-menu.js';
+  script.dataset.globalAccountMenu = 'true';
+  document.head.appendChild(script);
+})();
+
 // Shared Supabase auth helpers.
 let supabaseClient = null;
 try {
