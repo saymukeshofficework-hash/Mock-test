@@ -30,9 +30,15 @@ export function DownloadClient() {
   const [recoverMsg, setRecoverMsg] = useState("");
 
   useEffect(() => {
-    const tk = new URLSearchParams(window.location.search).get("t");
+    const q = new URLSearchParams(window.location.search);
+    const tk = q.get("t");
     setToken(tk);
     if (!tk) {
+      // plain /download/ goes to the dashboard; ?t= (buyer links) and ?recover=1 (Payment ID unlock) stay here
+      if (!q.get("recover")) {
+        window.location.replace("/dashboard.html");
+        return;
+      }
       setState("notfound");
       return;
     }

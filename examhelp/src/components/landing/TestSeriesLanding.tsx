@@ -350,7 +350,7 @@ export function TestSeriesLanding() {
           </div>
           <p className="mt-4 text-sm text-ink-600">
             {lang === "hi" ? "पहले खरीदा है, दूसरे डिवाइस पर खोलना है? " : "Bought already and on another device? "}
-            <a href={`${base}/download/`} className="font-semibold text-brand-700 underline">{lang === "hi" ? "Payment ID से अनलॉक करें" : "Unlock with your Payment ID"}</a>
+            <a href={`${base}/download/?recover=1`} className="font-semibold text-brand-700 underline">{lang === "hi" ? "Payment ID से अनलॉक करें" : "Unlock with your Payment ID"}</a>
           </p>
         </div>
       </section>
