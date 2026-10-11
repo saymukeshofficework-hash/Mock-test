@@ -108,3 +108,7 @@ const TET_TESTS_PER_SUBJECT = 25;
 // until then the buy button opens contact.html.
 const TET_SUBJECT_PRICE = 199;
 const TET_SUBJECT_PAYMENT_LINK = "";
+// Test 1 of every ready TET subject series is free (same rule as test01).
+Object.values(TET_LEVELS).forEach(lv => lv.subjects.forEach(s => {
+  if (s.ready && !s.legacy) FREE_TESTS.push(`tet${lv === TET_LEVELS.primary ? "p" : "s"}-${s.key}-01`);
+}));
