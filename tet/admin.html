@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>TET Admin Upload</title>
+<link rel="icon" href="data:,">
+<style>
+body{margin:0;background:#f5f5f2;color:#16211f;font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans Devanagari",sans-serif}
+.wrap{max-width:720px;margin:0 auto;padding:24px 16px}.card{background:#fff;border:1px solid #e5e7e4;border-radius:18px;padding:20px}
+h1{font-size:22px;margin:0 0 6px}p{color:#5b6664;margin:0 0 14px;line-height:1.6}
+input{font-size:15px;padding:10px;border:1px solid #d6dbd8;border-radius:10px;width:100%;box-sizing:border-box;margin:0 0 12px}
+pre{background:#f5f5f2;border-radius:10px;padding:12px;font-size:13px;white-space:pre-wrap;max-height:360px;overflow:auto}
+</style>
+</head>
+<body><main class="wrap"><section class="card">
+<h1>TET टेस्ट अपलोड / Upload TET tests</h1>
+<p>एडमिन पासवर्ड डालें, फिर विषय की .json फ़ाइल चुनें (जैसे 1-tets-maths.json)। एक फ़ाइल में 25 टेस्ट होते हैं।<br>Enter the admin password, then pick the subject .json file(s). Each file holds 25 tests.</p>
+<input type="password" id="pw" placeholder="Admin password / एडमिन पासवर्ड" autocomplete="current-password">
+<input type="file" id="files" accept=".json,application/json" multiple>
+<pre id="log">—</pre>
+</section></main>
+<script src="../js/site-config.js?v=4"></script>
+<script>
+(function(){
+  const URL_ = SITE_CONFIG.supabaseUrl + '/functions/v1/tet-admin', KEY = SITE_CONFIG.supabaseAnonKey;
+  const log = document.getElementById('log'), add = t => { log.textContent = (log.textContent === '—' ? '' : log.textContent + '\n') + t; };
+  const call = body => fetch(URL_, { method: 'POST', headers: { 'Content-Type': 'application/json', apikey: KEY, Authorization: 'Bearer ' + KEY }, body: JSON.stringify(body) })
+    .then(r => r.json()).catch(() => ({ error: 'network' }));
+  document.getElementById('files').addEventListener('change', async e => {
+    const pw = document.getElementById('pw').value; log.textContent = '—';
+    if (!pw) { add('पहले पासवर्ड डालें / Enter the password first.'); e.target.value = ''; return; }
+    for (const f of e.target.files) {
+      let rows; try { rows = JSON.parse(await f.text()); } catch { add(f.name + ': not valid JSON ✗'); continue; }
+      if (!Array.isArray(rows)) rows = [rows];
+      add(f.name + ': ' + rows.length + ' test(s) …'); let ok = 0;
+      for (const row of rows) {
+        const r = await call({ action: 'upload_test', password: pw, row });
+        if (r.ok) { ok++; add('  ' + r.test_id + ' ✓ (' + r.questions + ' q)'); }
+        else { add('  ' + (row.test_id || '?') + ' ✗ ' + (r.error || 'error')); if (r.error === 'wrong_password') return; }
+      }
+      add(f.name + ': ' + ok + '/' + rows.length + ' uploaded / अपलोड हुए');
+    }
+    e.target.value = '';
+  });
+})();
+</script>
+</body>
+</html>

@@ -77,3 +77,36 @@ const TEST_CATALOG = [
   { id: "test24", number: 24, file: "tet-mock-test-24.html", title: "TET Full Test 24", questions: 150, minutes: 150 },
   { id: "test25", number: 25, file: "tet-mock-test-25.html", title: "TET Full Test 25", questions: 150, minutes: 150 },
 ];
+
+// TET Primary / Secondary subject-wise series (tet/index.html).
+// Each subject = one series of 25 tests; test 1 free. Ids look like "tetp-maths-01".
+// Set `ready: true` on a subject once its questions are in Supabase.
+const TET_LEVELS = {
+  primary: {
+    hi: "प्राथमिक स्तर", en: "Primary Level",
+    subjects: [
+      { key: "cdp", hi: "बाल विकास एवं शिक्षाशास्त्र", en: "Child Development & Pedagogy" },
+      { key: "hindi", hi: "हिंदी", en: "Hindi" },
+      { key: "english", hi: "अंग्रेज़ी", en: "English" },
+      { key: "sanskrit", hi: "संस्कृत", en: "Sanskrit" },
+      { key: "maths", hi: "गणित", en: "Mathematics" },
+      { key: "evs", hi: "पर्यावरण अध्ययन", en: "Environmental Studies" },
+    ],
+  },
+  secondary: {
+    hi: "माध्यमिक (MP STET)", en: "Secondary (MP STET)",
+    subjects: [
+      { key: "hindi", hi: "हिंदी", en: "Hindi", ready: true },
+      { key: "english", hi: "अंग्रेज़ी", en: "English", ready: true },
+      { key: "sanskrit", hi: "संस्कृत", en: "Sanskrit" },
+      { key: "maths", hi: "गणित", en: "Mathematics", ready: true },
+      { key: "science", hi: "विज्ञान", en: "Science", ready: true },
+      { key: "sst", hi: "सामाजिक विज्ञान", en: "Social Science", ready: true },
+    ],
+  },
+};
+const TET_TESTS_PER_SUBJECT = 25;
+// ₹199 per subject series (tests 2-25). Paste a Razorpay Payment Link here when ready;
+// until then the buy button opens contact.html.
+const TET_SUBJECT_PRICE = 199;
+const TET_SUBJECT_PAYMENT_LINK = "";

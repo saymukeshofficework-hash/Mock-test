@@ -174,5 +174,19 @@ function findCatalogTest(testId) {
       }
     }
   }
+  // TET Primary/Secondary subject series (TET_LEVELS in site-config.js): "tetp-maths-01", "tets-maths-01".
+  const m = /^tet([ps])-([a-z]+)-(\d{2})$/.exec(testId || "");
+  if (m && typeof TET_LEVELS !== "undefined") {
+    const level = m[1] === "p" ? TET_LEVELS.primary : TET_LEVELS.secondary;
+    const subject = level.subjects.find((s) => s.key === m[2]);
+    const number = Number(m[3]);
+    if (subject && number >= 1 && number <= TET_TESTS_PER_SUBJECT) {
+      return {
+        examId: "tet" + m[1], examName: "TET " + level.en, paperId: null,
+        subjectId: subject.key, subjectName: subject.en, number,
+        contentStatus: subject.ready ? "available" : "pending",
+      };
+    }
+  }
   return null;
 }
