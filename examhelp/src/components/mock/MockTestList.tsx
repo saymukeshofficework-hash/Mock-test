@@ -174,7 +174,7 @@ export function MockTestList({ series = "ag3" }: { series?: string }) {
                 {payState !== "idle" ? t("wait") : canBuy ? S.unlockBtn[lang] : t("soon")}
               </button>
               {payErr ? <p role="alert" className="mt-2 text-sm text-danger-700">{payErr}</p> : null}
-              <a href={`${base}/download/`} className="mt-2 block text-center text-xs text-brand-700 underline">{t("otherDevice")}</a>
+              <a href={`${base}/download/?recover=1`} className="mt-2 block text-center text-xs text-brand-700 underline">{t("otherDevice")}</a>
             </>
           )}
         </div>
