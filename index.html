@@ -27,6 +27,13 @@ header.site-header nav{gap:5px}
 header.site-header nav a{color:#5c4d73;background:#f1ebf9;padding:7px 10px;font-size:12px}
 header.site-header nav a.active{background:var(--app-purple);color:#fff}
 .lang-toggle{background:#f1ebf9;color:var(--app-purple);border-color:#d9cbed}
+.account-menu{position:relative}
+.account-menu-toggle{border:0;border-radius:8px;background:#f1ebf9;color:var(--app-purple);padding:7px 10px;font-size:12px;font-weight:700;cursor:pointer}
+.account-menu-dropdown{position:absolute;right:0;top:calc(100% + 8px);z-index:100;min-width:135px;padding:6px;background:#fff;border:1px solid var(--app-line);border-radius:12px;box-shadow:0 8px 24px #24153a1f}
+.account-menu-dropdown a,.account-menu-dropdown button{display:block;width:100%;padding:10px;border:0;border-radius:7px;background:transparent;color:#342052;text-align:left;text-decoration:none;font:inherit;font-size:13px;cursor:pointer}
+.account-menu-dropdown a:hover,.account-menu-dropdown button:hover{background:#f6f1fc}
+.account-menu[hidden],.account-menu-dropdown[hidden]{display:none}
+@media(max-width:520px){.account-menu-toggle{padding:6px 7px;font-size:11px}}
 .hero{margin:12px 14px 16px;padding:24px 18px;border-radius:14px;text-align:left;background:linear-gradient(135deg,#111018,#272036 72%,#4b278c);color:#fff}
 .hero::before{display:none}
 .hero .eyebrow{background:#f4e500;color:#29203b;border:0;border-radius:4px;margin-bottom:10px}
@@ -68,7 +75,14 @@ header.site-header nav a.active{background:var(--app-purple);color:#fff}
       <a href="index.html" class="active" data-i18n="nav_home">Home</a>
       <a href="/examhelp/courses/" data-i18n="nav_tests">All Tests</a>
       <a href="typing-practice/" data-i18n="nav_typing">Typing Practice</a>
-      <a href="login.html" data-i18n="nav_login">Student Login</a>
+      <a href="login.html" id="navLoginLink" data-i18n="nav_login">Student Login</a>
+      <div class="account-menu" id="accountMenu" hidden>
+        <button type="button" class="account-menu-toggle" id="accountMenuToggle" aria-expanded="false" aria-controls="accountMenuDropdown">मेरा अकाउंट <span aria-hidden="true">▾</span></button>
+        <div class="account-menu-dropdown" id="accountMenuDropdown" hidden>
+          <a href="dashboard.html">डैशबोर्ड</a>
+          <button type="button" id="homeLogoutBtn">लॉगआउट</button>
+        </div>
+      </div>
       <a href="about.html" data-i18n="nav_about">About</a>
       <a href="contact.html" data-i18n="nav_contact">Contact</a>
     </nav>
@@ -309,9 +323,42 @@ header.site-header nav a.active{background:var(--app-purple);color:#fff}
     <span data-i18n="footer_tagline">TET Test Hub &mdash; free-to-browse, paid mock tests for Teacher Eligibility Test aspirants.</span>
   </footer>
 
+<script src="assets/vendor/supabase/supabase.js"></script>
 <script src="js/site-config.js?v=3"></script>
+<script src="js/auth.js?v=2"></script>
 <script>
   document.getElementById('priceAll18').textContent = PRICES.all18;
+
+  // Show an account dropdown only after a student has signed in.
+  const accountMenu = document.getElementById('accountMenu');
+  const accountMenuToggle = document.getElementById('accountMenuToggle');
+  const accountMenuDropdown = document.getElementById('accountMenuDropdown');
+  const navLoginLink = document.getElementById('navLoginLink');
+  accountMenuToggle.addEventListener('click', () => {
+    const isOpen = accountMenuToggle.getAttribute('aria-expanded') === 'true';
+    accountMenuToggle.setAttribute('aria-expanded', String(!isOpen));
+    accountMenuDropdown.hidden = isOpen;
+  });
+  document.addEventListener('click', (event) => {
+    if (!accountMenu.contains(event.target)) {
+      accountMenuDropdown.hidden = true;
+      accountMenuToggle.setAttribute('aria-expanded', 'false');
+    }
+  });
+  document.getElementById('homeLogoutBtn').addEventListener('click', async () => {
+    await logout();
+    window.location.href = 'index.html';
+  });
+  (async () => {
+    const session = await getSession();
+    if (session) {
+      navLoginLink.hidden = true;
+      accountMenu.hidden = false;
+    } else {
+      navLoginLink.hidden = false;
+      accountMenu.hidden = true;
+    }
+  })();
 
   function renderOverview() {
     const grid = document.getElementById('testOverviewGrid');
