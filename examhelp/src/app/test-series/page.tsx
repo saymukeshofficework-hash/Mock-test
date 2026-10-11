@@ -15,6 +15,22 @@ export default async function Page() {
   return (
     <>
     <div className="container-page pt-6">
+      <Link href="/rrb-ntpc/#grad" className="card mb-4 flex flex-col gap-3 border-2 border-emerald-700 p-5 transition hover:shadow-md sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <p className="text-xs font-bold uppercase tracking-wide text-emerald-700">RRB NTPC · Graduate</p>
+          <p className="mt-1 text-lg font-extrabold text-brand-900">{lang === "hi" ? "RRB NTPC ग्रेजुएट लेवल — 25 टेस्ट" : "RRB NTPC Graduate Level — 25 tests"}</p>
+          <p className="mt-1 text-sm text-ink-600">{lang === "hi" ? "हर टेस्ट में 100 प्रश्न · हिंदी/English · 90 मिनट" : "100 questions per test · Hindi/English · 90 minutes"}</p>
+        </div>
+        <span className="btn-primary shrink-0">{lang === "hi" ? "टेस्ट चुनें →" : "Choose tests →"}</span>
+      </Link>
+      <Link href="/rrb-ntpc/#under" className="card mb-4 flex flex-col gap-3 border-2 border-violet-700 p-5 transition hover:shadow-md sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <p className="text-xs font-bold uppercase tracking-wide text-violet-700">RRB NTPC · 10+2</p>
+          <p className="mt-1 text-lg font-extrabold text-brand-900">{lang === "hi" ? "RRB NTPC 10+2 अंडरग्रेजुएट — 25 टेस्ट" : "RRB NTPC 10+2 Undergraduate — 25 tests"}</p>
+          <p className="mt-1 text-sm text-ink-600">{lang === "hi" ? "हर टेस्ट में 100 प्रश्न · हिंदी/English · 90 मिनट" : "100 questions per test · Hindi/English · 90 minutes"}</p>
+        </div>
+        <span className="btn-primary shrink-0">{lang === "hi" ? "टेस्ट चुनें →" : "Choose tests →"}</span>
+      </Link>
       <Link href="/mp-high-court-assistant-grade-3-mock-tests" className="card flex flex-col gap-3 border-2 border-brand-700 p-5 transition hover:shadow-md sm:flex-row sm:items-center sm:justify-between">
         <div>
           <p className="text-xs font-bold uppercase tracking-wide text-accent-700">{lang === "hi" ? "अभी उपलब्ध" : "Available now"}</p>
