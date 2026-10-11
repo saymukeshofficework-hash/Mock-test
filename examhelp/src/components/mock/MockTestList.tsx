@@ -183,7 +183,7 @@ export function MockTestList({ series = "ag3" }: { series?: string }) {
       <ol className="mock-test-grid mt-8 grid gap-3">
         {Array.from({ length: S.total }, (_, i) => i + 1).map((n) => {
           const isFree = S.free.includes(n);
-          const ready = isFree ? S.free.includes(n) : !S.unlockHref && !!token && paidReady.includes(n);
+          const ready = S.openAll || (isFree ? S.free.includes(n) : !S.unlockHref && !!token && paidReady.includes(n));
           const lockedPaid = !isFree && !token;
           const b = best[n];
           const href = S.testHref ? S.testHref(n) : `${base}${S.enginePath}?t=${String(n).padStart(2, "0")}&lang=${lang}`;
