@@ -229,11 +229,11 @@ jobs:
                                f'<a href="{target}">Open</a>')
           PY
 
-          # tettesthub.in homepage: course catalogue (home/index.html).
-          # The previous TET home page stays available at /tet-home.html.
-          mv _site/index.html _site/tet-home.html
-          cp home/index.html _site/index.html
-          # /examhelp/ shows the same catalogue landing page as tettesthub.in
+          # Keep the TET Test Hub homepage (index.html) at the site root.
+          # It contains the post-login account menu; home/index.html is a login redirect.
+          # Preserve a copy of the TET homepage at /tet-home.html for existing links.
+          cp _site/index.html _site/tet-home.html
+          # /examhelp/ keeps its separate catalogue/login landing page.
           cp home/index.html _site/examhelp/index.html
           # all-courses catalogue (courses, test series, current affairs) at /examhelp/courses/
           mkdir -p _site/examhelp/courses
