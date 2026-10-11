@@ -349,13 +349,13 @@ export function AG3Landing({
                   </p>
                   {n?.comboProduct && payReady[n.comboProduct] ? (
                     <a href="#buy" className="mt-4 inline-flex items-center gap-2 rounded-full bg-accent-500 px-4 py-1.5 text-sm font-bold text-white shadow">
-                      {lang === "hi" ? "कॉम्बो: नोट्स + 20 मॉक टेस्ट सिर्फ़ ₹449" : "Combo: notes + 20 mock tests just ₹449"}
+                      {lang === "hi" ? "कॉम्बो: नोट्स + 25 मॉक टेस्ट सिर्फ़ ₹449" : "Combo: notes + 25 mock tests just ₹449"}
                     </a>
                   ) : null}
                   <div className="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-sm font-semibold">
                     <Link href={`/mp-high-court-assistant-grade-3-test-series${lang === "en" ? "?lang=en" : ""}`} className="inline-flex items-center gap-1.5 rounded-lg bg-white px-4 py-2 text-brand-900 shadow hover:bg-accent-50">
                       <FileText className="h-4 w-4 text-accent-600" aria-hidden="true" />
-                      {lang === "hi" ? "टेस्ट सीरीज़: 20 मॉक टेस्ट — ₹199" : "Test series: 20 mock tests — ₹199"}
+                      {lang === "hi" ? "टेस्ट सीरीज़: 25 मॉक टेस्ट — ₹199" : "Test series: 25 mock tests — ₹199"}
                     </Link>
                     <a href="#share" className="inline-flex items-center gap-1.5 text-accent-100 underline-offset-4 hover:underline">
                       <Share2 className="h-4 w-4" aria-hidden="true" />
@@ -540,7 +540,7 @@ export function AG3Landing({
                 </span>
                 <p className="text-sm font-bold tracking-wide text-accent-700">{lang === "hi" ? "कॉम्बो ऑफ़र" : "COMBO OFFER"}</p>
                 <p className="mt-1 font-semibold text-ink-900">
-                  {lang === "hi" ? "हिंदी नोट्स PDF + 20 फुल मॉक टेस्ट" : "English notes PDF + 20 full mock tests"}
+                  {lang === "hi" ? "हिंदी नोट्स PDF + 25 फुल मॉक टेस्ट" : "English notes PDF + 25 full mock tests"}
                 </p>
                 <p className="mt-2 flex items-baseline justify-center gap-2">
                   <span className="text-4xl font-extrabold text-brand-900">₹449</span>
@@ -551,7 +551,7 @@ export function AG3Landing({
                   {payState === "idle" ? (lang === "hi" ? "कॉम्बो खरीदें — ₹449" : "Buy combo — ₹449") : t(copy.wait, lang)}
                 </button>
                 <p className="mt-3 text-xs text-ink-500">
-                  {lang === "hi" ? "भुगतान के बाद PDF डाउनलोड करें और सभी 20 टेस्ट तुरंत अनलॉक।" : "Download the PDF and unlock all 20 tests right after payment."}
+                  {lang === "hi" ? "भुगतान के बाद PDF डाउनलोड करें और सभी 25 टेस्ट तुरंत अनलॉक।" : "Download the PDF and unlock all 25 tests right after payment."}
                 </p>
               </div>
             );

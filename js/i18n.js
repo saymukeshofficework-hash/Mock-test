@@ -30,17 +30,17 @@ const I18N_DICT = {
   },
 
   // ---------- index.html ----------
-  hero_eyebrow: { hi: "20 पूर्ण-लंबाई द्विभाषी मॉक टेस्ट", en: "20 Full-Length Bilingual Mock Tests" },
+  hero_eyebrow: { hi: "25 पूर्ण-लंबाई द्विभाषी मॉक टेस्ट", en: "25 Full-Length Bilingual Mock Tests" },
   hero_h1: { hi: "टीईटी मॉक टेस्ट और ऑनलाइन प्रैक्टिस टेस्ट", en: "TET Mock Tests & Online Practice Tests" },
   hero_tagline: { hi: "तैयारी करें। अभ्यास करें। प्रदर्शन करें।", en: "Prepare. Practice. Perform." },
-  hero_intro: { hi: "वास्तविक ऑनलाइन मॉक टेस्ट, अभ्यास प्रश्नों और प्रदर्शन विश्लेषण के साथ टीईटी की तैयारी करें। 2 पूरे टेस्ट बिल्कुल मुफ्त से शुरू करें।", en: "Prepare for TET with realistic online mock tests, practice questions and performance analysis. Start with 2 full tests absolutely free." },
-  hero_cta_free: { hi: "2 मुफ्त टेस्ट आज़माएं", en: "Try 2 Free Tests" },
+  hero_intro: { hi: "वास्तविक ऑनलाइन मॉक टेस्ट, अभ्यास प्रश्नों और प्रदर्शन विश्लेषण के साथ टीईटी की तैयारी करें। पहला पूरा टेस्ट बिल्कुल मुफ्त है।", en: "Prepare for TET with realistic online mock tests, practice questions and performance analysis. Start with your first full test absolutely free." },
+  hero_cta_free: { hi: "मुफ्त टेस्ट आज़माएं", en: "Try a Free Test" },
   hero_cta_login: { hi: "छात्र लॉगिन", en: "Student Login" },
 
-  free_h2: { hi: "🎯 2 पूर्ण टेस्ट से शुरुआत करें — 100% मुफ्त", en: "🎯 Start With 2 Full Tests — 100% Free" },
+  free_h2: { hi: "🎯 पहला पूरा टेस्ट — 100% मुफ्त", en: "🎯 Start With a Full Test — 100% Free" },
   free_lead: {
-    hi: "न लॉगिन, न भुगतान — बस अपना नाम लिखें और शुरू करें। टेस्ट 01 और टेस्ट 02 दें, देखें आपका प्रदर्शन कैसा रहा, फिर तय करें कि बाकी टेस्ट चाहिए या नहीं।",
-    en: "No login, no payment — just enter your name and start. Take Test 01 & Test 02, see exactly how you perform, then decide if you want the rest.",
+    hi: "न लॉगिन, न भुगतान — बस अपना नाम लिखें और शुरू करें। टेस्ट 01 दें, देखें आपका प्रदर्शन कैसा रहा, फिर तय करें कि बाकी टेस्ट चाहिए या नहीं।",
+    en: "No login, no payment — just enter your name and start. Take Test 01, see exactly how you perform, then decide if you want the rest.",
   },
   free_test1_title: { hi: "टीईटी पूर्ण टेस्ट 01", en: "TET Full Test 01" },
   free_test2_title: { hi: "टीईटी पूर्ण टेस्ट 02", en: "TET Full Test 02" },
@@ -49,10 +49,10 @@ const I18N_DICT = {
   free_start1: { hi: "मुफ्त टेस्ट 01 शुरू करें", en: "Start Free Test 01" },
   free_start2: { hi: "मुफ्त टेस्ट 02 शुरू करें", en: "Start Free Test 02" },
   free_upsell: {
-    hi: "<strong>मुफ्त टेस्ट में अच्छा प्रदर्शन किया?</strong> <strong>18 और पूर्ण-लंबाई टेस्ट</strong> (टेस्ट 03&ndash;20 — 2700 और प्रश्न) एक बंडल में सिर्फ़ <strong>₹199</strong> में अनलॉक करें।",
-    en: "<strong>Performed well on your free tests?</strong> Unlock <strong>18 more full-length tests</strong> (Test 03&ndash;20 — 2700 more questions) in one bundle for just <strong>₹199</strong>.",
+    hi: "<strong>मुफ्त टेस्ट में अच्छा प्रदर्शन किया?</strong> <strong>24 और पूर्ण-लंबाई टेस्ट</strong> (टेस्ट 02&ndash;25 — 3600 और प्रश्न) एक बंडल में सिर्फ़ <strong>₹199</strong> में अनलॉक करें।",
+    en: "<strong>Performed well on your free test?</strong> Unlock <strong>24 more full-length tests</strong> (Test 02&ndash;25 — 3600 more questions) in one bundle for just <strong>₹199</strong>.",
   },
-  free_unlock_btn: { hi: "18 टेस्ट अनलॉक करें — ₹199", en: "Unlock All 18 Tests — ₹199" },
+  free_unlock_btn: { hi: "24 टेस्ट अनलॉक करें — ₹199", en: "Unlock All 24 Tests — ₹199" },
 
   exams_h2: { hi: "शिक्षक परीक्षाएं", en: "Teacher Exams" },
   exams_lead: {
@@ -80,8 +80,8 @@ const I18N_DICT = {
 
   about_h2: { hi: "टीईटी मॉक टेस्ट के बारे में", en: "About the TET Mock Tests" },
   about_p1: {
-    hi: "टीईटी टेस्ट हब शिक्षक पात्रता परीक्षा के उम्मीदवारों को 20 पूर्ण-लंबाई वाले अभ्यास टेस्ट देता है, जो असली परीक्षा पैटर्न से मेल खाते हैं — बाल विकास एवं शिक्षाशास्त्र, भाषा-1 (अंग्रेज़ी), भाषा-2 (हिंदी), गणित और पर्यावरण अध्ययन में कुल 150 प्रश्न, 150 मिनट में, तुरंत खंड-वार परिणाम के साथ। घर बैठे, अपनी सुविधा से, अंग्रेज़ी या हिंदी में अभ्यास करें।",
-    en: "TET Test Hub gives Teacher Eligibility Test aspirants 20 full-length practice tests built to match the real exam pattern — 150 questions across Child Development & Pedagogy, Language-1 (English), Language-2 (Hindi), Mathematics and Environmental Studies, in 150 minutes, with instant section-wise results. Practice at home, on your own schedule, in English or Hindi.",
+    hi: "टीईटी टेस्ट हब शिक्षक पात्रता परीक्षा के उम्मीदवारों को 25 पूर्ण-लंबाई वाले अभ्यास टेस्ट देता है, जो असली परीक्षा पैटर्न से मेल खाते हैं — बाल विकास एवं शिक्षाशास्त्र, भाषा-1 (अंग्रेज़ी), भाषा-2 (हिंदी), गणित और पर्यावरण अध्ययन में कुल 150 प्रश्न, 150 मिनट में, तुरंत खंड-वार परिणाम के साथ। घर बैठे, अपनी सुविधा से, अंग्रेज़ी या हिंदी में अभ्यास करें।",
+    en: "TET Test Hub gives Teacher Eligibility Test aspirants 25 full-length practice tests built to match the real exam pattern — 150 questions across Child Development & Pedagogy, Language-1 (English), Language-2 (Hindi), Mathematics and Environmental Studies, in 150 minutes, with instant section-wise results. Practice at home, on your own schedule, in English or Hindi.",
   },
 
   benefits_h2: { hi: "यहाँ अभ्यास क्यों करें", en: "Why practice here" },
@@ -94,9 +94,9 @@ const I18N_DICT = {
   benefit4_title: { hi: "किसी भी डिवाइस पर चले", en: "Works on any device" },
   benefit4_desc: { hi: "साफ़, तेज़, मोबाइल-फ्रेंडली टेस्ट स्क्रीन — कोई ऐप इंस्टॉल करने की ज़रूरत नहीं।", en: "A clean, fast, mobile-friendly test screen — no app to install." },
 
-  overview_h2: { hi: "20 पूर्ण मॉक टेस्ट", en: "20 Full Mock Tests" },
+  overview_h2: { hi: "25 पूर्ण मॉक टेस्ट", en: "25 Full Mock Tests" },
   overview_lead: { hi: "हर टेस्ट में सभी 5 खंडों के 150 अलग प्रश्न हैं — हर बार एक नया टेस्ट दें।", en: "Every test has its own set of 150 questions across all 5 sections — practice with a fresh test each time." },
-  overview_seeall_btn: { hi: "सभी 20 टेस्ट देखें", en: "See All 20 Tests" },
+  overview_seeall_btn: { hi: "सभी 25 टेस्ट देखें", en: "See All 25 Tests" },
   overview_more_suffix: { hi: "और टेस्ट", en: "more tests" },
   overview_viewall_link: { hi: "सभी देखें →", en: "View all →" },
 
@@ -114,20 +114,20 @@ const I18N_DICT = {
   help_li4: { hi: "खंड-वार अंकों से अपनी वर्तमान तैयारी का स्तर समझें", en: "Track your section-wise scores to understand your current preparation level" },
 
   pricing_h2: { hi: "मूल्य", en: "Pricing" },
-  pricing_lead: { hi: "सरल, एकमुश्त मूल्य। 2 मुफ्त टेस्ट से शुरू करें, फिर सभी 20 को ₹199 में अनलॉक करें।", en: "Simple, one-time pricing. Start free with 2 tests, then unlock all 20 for ₹199." },
+  pricing_lead: { hi: "सरल, एकमुश्त मूल्य। 1 मुफ्त टेस्ट से शुरू करें, फिर सभी 25 को ₹199 में अनलॉक करें।", en: "Simple, one-time pricing. Start free with 1 test, then unlock all 25 for ₹199." },
   pricing_free_title: { hi: "मुफ्त एक्सेस", en: "Free Access" },
-  pricing_free_li1: { hi: "2 पूर्ण मॉक टेस्ट", en: "2 full mock tests" },
-  pricing_free_li2: { hi: "टेस्ट 01 और टेस्ट 02", en: "Test 01 & Test 02" },
-  pricing_free_li3: { hi: "300 प्रश्न, हर एक 150 मिनट", en: "300 questions, 150 minutes each" },
+  pricing_free_li1: { hi: "1 पूर्ण मॉक टेस्ट", en: "1 full mock test" },
+  pricing_free_li2: { hi: "टेस्ट 01", en: "Test 01" },
+  pricing_free_li3: { hi: "150 प्रश्न, 150 मिनट", en: "150 questions, 150 minutes" },
   pricing_free_li4: { hi: "तुरंत परिणाम", en: "Instant results" },
   pricing_free_btn: { hi: "मुफ्त शुरू करें", en: "Get Started Free" },
-  pricing_paid_ribbon: { hi: "18 और टेस्ट", en: "18 More Tests" },
-  pricing_paid_title: { hi: "सभी टेस्ट (03-20)", en: "All Tests (03-20)" },
-  pricing_paid_li1: { hi: "18 अतिरिक्त टेस्ट", en: "18 additional tests" },
-  pricing_paid_li2: { hi: "टेस्ट 03-20", en: "Tests 03-20" },
-  pricing_paid_li3: { hi: "कुल 2700 प्रश्न", en: "2700 questions total" },
+  pricing_paid_ribbon: { hi: "24 और टेस्ट", en: "24 More Tests" },
+  pricing_paid_title: { hi: "सभी टेस्ट (02-25)", en: "All Tests (02-25)" },
+  pricing_paid_li1: { hi: "24 अतिरिक्त टेस्ट", en: "24 additional tests" },
+  pricing_paid_li2: { hi: "टेस्ट 02-25", en: "Tests 02-25" },
+  pricing_paid_li3: { hi: "कुल 3600 प्रश्न", en: "3600 questions total" },
   pricing_paid_li4: { hi: "हर टेस्ट में तुरंत परिणाम", en: "Instant results, every test" },
-  pricing_paid_btn: { hi: "सभी 18 अनलॉक करें", en: "Unlock All 18" },
+  pricing_paid_btn: { hi: "सभी 24 अनलॉक करें", en: "Unlock All 24" },
 
   faq_h2: { hi: "अक्सर पूछे जाने वाले प्रश्न", en: "Frequently Asked Questions" },
   faq1_q: { hi: "भुगतान के बाद एक्सेस कैसे मिलेगा?", en: "How do I get access after paying?" },
@@ -141,20 +141,20 @@ const I18N_DICT = {
   faq3_a: { hi: "हाँ। हर प्रश्न को अंग्रेज़ी या हिंदी में देखा जा सकता है — टेस्ट के दौरान कभी भी भाषा बदलें।", en: "Yes. Every question can be viewed in English or Hindi — switch languages any time during the test." },
   faq4_q: { hi: "क्या परिणाम तुरंत मिलता है?", en: "Do I get results immediately?" },
   faq4_a: { hi: "हाँ, सबमिट करते ही आपका स्कोर और खंड-वार विश्लेषण दिखाया जाता है।", en: "Yes, your score and a section-wise breakdown are shown the moment you submit the test." },
-  faq5_q: { hi: "क्या मैं सभी 18 की बजाय अलग-अलग टेस्ट खरीद सकता/सकती हूं?", en: "Can I buy tests one at a time instead of all 18?" },
-  faq5_a: { hi: "नहीं — टेस्ट 03-20 केवल एक साथ ₹199 के बंडल में मिलते हैं, अलग-अलग नहीं। टेस्ट 01 और 02 हमेशा मुफ्त हैं।", en: "No — tests 03-20 are sold together as a single ₹199 bundle, not individually. Tests 01 & 02 are always free." },
+  faq5_q: { hi: "क्या मैं सभी 24 की बजाय अलग-अलग टेस्ट खरीद सकता/सकती हूं?", en: "Can I buy tests one at a time instead of all 24?" },
+  faq5_a: { hi: "नहीं — टेस्ट 02-25 केवल एक साथ ₹199 के बंडल में मिलते हैं, अलग-अलग नहीं। टेस्ट 01 हमेशा मुफ्त है।", en: "No — tests 02-25 are sold together as a single ₹199 bundle, not individually. Test 01 is always free." },
 
   // ---------- tests.html ----------
   tests_h2: { hi: "सभी टीईटी मॉक टेस्ट", en: "All TET Mock Tests" },
   tests_lead: {
-    hi: "टेस्ट 01 और 02 सभी छात्रों के लिए <strong>मुफ्त</strong> हैं। टेस्ट 03-20 एक ही ₹199 बंडल में उपलब्ध हैं। हर टेस्ट में 5 खंडों के 150 प्रश्न हैं, द्विभाषी (अंग्रेज़ी/हिंदी), 150 मिनट।",
-    en: 'Tests 01 & 02 are <strong>FREE</strong> for all students. Tests 03-20 available in a single ₹199 bundle. Each test has 150 questions across 5 sections, bilingual (English/Hindi), 150 minutes.',
+    hi: "टेस्ट 01 सभी छात्रों के लिए <strong>मुफ्त</strong> है। टेस्ट 02-25 एक ही ₹199 बंडल में उपलब्ध हैं। हर टेस्ट में 5 खंडों के 150 प्रश्न हैं, द्विभाषी (अंग्रेज़ी/हिंदी), 150 मिनट।",
+    en: 'Test 01 is <strong>FREE</strong> for all students. Tests 02-25 available in a single ₹199 bundle. Each test has 150 questions across 5 sections, bilingual (English/Hindi), 150 minutes.',
   },
-  bundle_ribbon: { hi: "18 अतिरिक्त टेस्ट", en: "18 Additional Tests" },
-  bundle_title: { hi: "सभी टेस्ट (03-20)", en: "All Tests (03-20)" },
-  bundle_li1: { hi: "18 अतिरिक्त पूर्ण मॉक टेस्ट", en: "18 additional full mock tests" },
-  bundle_li2: { hi: "कुल 2700 प्रश्न", en: "2700 questions in total" },
-  bundle_li3: { hi: "साथ में 2 मुफ्त टेस्ट (01 और 02)", en: "Plus 2 free tests (01 & 02)" },
+  bundle_ribbon: { hi: "24 अतिरिक्त टेस्ट", en: "24 Additional Tests" },
+  bundle_title: { hi: "सभी टेस्ट (02-25)", en: "All Tests (02-25)" },
+  bundle_li1: { hi: "24 अतिरिक्त पूर्ण मॉक टेस्ट", en: "24 additional full mock tests" },
+  bundle_li2: { hi: "कुल 3600 प्रश्न", en: "3600 questions in total" },
+  bundle_li3: { hi: "साथ में 1 मुफ्त टेस्ट (01)", en: "Plus 1 free test (01)" },
   bundle_li4: { hi: "हर टेस्ट में तुरंत परिणाम", en: "Instant results, every test" },
   bundle_btn: { hi: "🔓 अभी खरीदें – ₹199", en: "🔓 Buy Now – ₹199" },
   card_full_mock: { hi: "पूर्ण मॉक टेस्ट", en: "Full Mock Test" },
@@ -177,8 +177,8 @@ const I18N_DICT = {
     en: "Every mock test follows the real TET pattern — 150 questions across Child Development & Pedagogy, Language-1 (English), Language-2 (Hindi), Mathematics and Environmental Studies, completed in 150 minutes with a live timer, a question palette, and an instant section-wise result at the end. Every question can be read in English or Hindi.",
   },
   about_page_p3: {
-    hi: "हम इसे सरल रखते हैं: टेस्ट 01 और 02 मुफ्त हैं, बाकी 18 टेस्ट एक बंडल में ₹199 में मिलते हैं। भुगतान सत्यापित होते ही आपको छात्र आईडी और पासवर्ड मिल जाता है और आप तुरंत अभ्यास शुरू कर सकते हैं।",
-    en: "We keep things simple: Test 01 & 02 are free, and the remaining 18 tests are one ₹199 bundle. Once your payment is verified you get a Student ID and password to log in and start practicing straight away.",
+    hi: "हम इसे सरल रखते हैं: टेस्ट 01 मुफ्त है, बाकी 24 टेस्ट एक बंडल में ₹199 में मिलते हैं। भुगतान सत्यापित होते ही आपको छात्र आईडी और पासवर्ड मिल जाता है और आप तुरंत अभ्यास शुरू कर सकते हैं।",
+    en: "We keep things simple: Test 01 is free, and the remaining 24 tests are one ₹199 bundle. Once your payment is verified you get a Student ID and password to log in and start practicing straight away.",
   },
 
   // ---------- contact.html ----------
@@ -224,7 +224,7 @@ const I18N_DICT = {
     en: "We could not load your account. Please contact support — see the Contact page.",
   },
   dash_start_btn: { hi: "✅ टेस्ट शुरू करें", en: "✅ START TEST" },
-  dash_buy_btn: { hi: "🔒 सभी 18 अनलॉक करें", en: "🔒 BUY ALL 18" },
+  dash_buy_btn: { hi: "🔒 सभी 24 अनलॉक करें", en: "🔒 BUY ALL 24" },
   dash_student_fallback: { hi: "छात्र", en: "Student" },
 
   // ---------- js/auth.js error messages ----------
