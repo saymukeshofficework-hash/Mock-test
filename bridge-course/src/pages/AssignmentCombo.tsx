@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import BuyDialog from '../components/BuyDialog'
+import DeadlineSection from '../components/DeadlineSection'
 import { Page } from '../components/Layout'
 import WhatsAppButton from '../components/WhatsAppButton'
 import { assignmentCombo, product } from '../config'
@@ -166,6 +167,8 @@ export default function AssignmentCombo() {
           </div>
         </div>
       </section>
+
+      <DeadlineSection variant="combo" onBuy={buy} />
 
       {/* COVERS */}
       <section className="mx-auto max-w-5xl px-4 pt-14 sm:pt-20">
