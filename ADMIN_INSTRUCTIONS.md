@@ -59,7 +59,7 @@ API key or backend involved, just a link you paste into the site.
    payments — until then, Razorpay lets you test the flow in Test Mode.
 2. In the left sidebar: **Payment Links -> + Create Payment Link**.
 3. Fill in:
-   - **Amount**: `199` (INR).
+   - **Amount**: `149` (INR).
    - **Description**: something like "TET Test Hub — Unlock 18 Mock Tests".
    - Under **Customer Details**, turn on collecting **Name**, **Email**, and **Contact
      Number** — this is how you'll know who paid, since there's no automated link back
@@ -67,10 +67,10 @@ API key or backend involved, just a link you paste into the site.
    - You can leave **Partial Payment** off and skip any redirect/webhook URL — this site
      doesn't need one; you just check the dashboard for new payments.
 4. Click **Create Link**. Razorpay gives you a URL like `https://rzp.io/l/abcd1234`.
-5. Paste that URL into `js/site-config.js`:
+5. Paste the new ₹149 link into `js/site-config.js` (the old ₹199 link has been removed so students cannot accidentally be charged the old price):
    ```js
    const PAYMENT_LINKS = {
-     all18: "https://rzp.io/l/abcd1234",
+     all18: "https://rzp.io/l/your-new-149-link",
    };
    ```
    Until you do this, the "Buy Now" buttons on `tests.html` fall back to the Contact
@@ -87,7 +87,7 @@ extra to run.
 
 ## Per-student workflow (repeat for every purchase)
 
-1. Student browses **All Tests** and clicks **🔓 Buy Now — ₹199**, which opens your
+1. Student browses **All Tests** and clicks **🔓 Buy Now — ₹149**, which opens your
    Razorpay Payment Link in a new tab and pays there.
 2. **You confirm the payment yourself** in the Razorpay dashboard (**Payment Links** or
    **Payments**) — check the customer name/email/contact you collected on the link. This
@@ -120,9 +120,7 @@ Edit their row in **Table Editor -> profiles**:
   working) without deleting their account or history.
 
 ### Changing prices
-Edit `PRICES` in `js/site-config.js` **and** the ₹199 amount on the Razorpay Payment
-Link itself (Payment Links can't be edited after creation — create a new one and update
-`PAYMENT_LINKS.all18` in `js/site-config.js` to match). Commit and push the code change.
+Edit `PRICES` in `js/site-config.js` and create a new Razorpay Payment Link with the same ₹149 amount (existing Payment Links cannot be edited). Update `PAYMENT_LINKS.all18` with the new URL only after creating it. The code currently leaves that link blank intentionally, so the Buy button falls back to the Contact page instead of opening the old ₹199 checkout. Subject-series pricing is also ₹149; its payment link remains unset until you create a matching ₹149 link. Commit and push the code change.
 
 ## Never do this
 - Never put your Supabase **service_role** key anywhere in this repository or website —
