@@ -658,7 +658,12 @@
                 font-size: calc(12.5px * var(--paper-font-scale, 1)) !important;
             }
 
-		</style>
+		
+/* Sticky homepage button for non-TET exam runners */
+.topbar{position:sticky;top:0;z-index:1000}
+.dhome{display:inline-flex!important;flex:0 0 auto;align-items:center;justify-content:center;gap:5px;background:#16856f;color:#fff;border:1px solid rgba(255,255,255,.55);border-radius:9px;padding:9px 12px;font-size:14px;font-weight:800;text-decoration:none;white-space:nowrap;box-shadow:0 2px 6px rgba(0,0,0,.18)}
+.dhome:hover{background:#0f6b5f}
+</style>
 	</head>
 	<body>
 		<div id="nameScreen">
@@ -697,7 +702,7 @@
 
 		<div id="app" style="display: none">
 			<div class="topbar">
-				<a class="dhome" href="../../mp-police-constable-gd-mock-tests/" id="dHome">&larr; Home</a>
+				<a class="dhome" href="/" id="dHome" aria-label="होम पेज पर जाएँ">🏠 होम / Home</a>
 				<div class="ttwrap">
 					<div class="ttext" data-title>MP Police Constable GD 2026 Mock Test</div>
 					<small id="subtitleText"
