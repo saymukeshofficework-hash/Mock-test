@@ -25,7 +25,6 @@ export function PurchaseButton({ productId, available, lang }: { productId: stri
   }
 
   const buy = async () => {
-    if (process.env.NEXT_PUBLIC_STATIC_EXPORT === "1") return setState("unavailable");
     setState("loading");
     await buyNotes(productId, {
       onState: (next) => {
