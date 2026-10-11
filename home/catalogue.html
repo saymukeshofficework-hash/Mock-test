@@ -94,7 +94,7 @@ nav.links a:hover,.more>button:hover,nav.links a.on{color:var(--ink);background:
 .price s{font-size:16px;color:var(--muted);font-weight:500;margin-left:6px}
 .price .free{color:var(--primary)}
 .price small{font-size:14px;font-weight:600;color:var(--muted);margin-left:6px}
-.go{width:36px;height:36px;border-radius:999px;background:var(--ink);color:var(--bg);display:inline-flex;align-items:center;justify-content:center}
+.go{margin-left:auto;width:36px;height:36px;border-radius:999px;background:var(--ink);color:var(--bg);display:inline-flex;align-items:center;justify-content:center}
 .empty{display:none;text-align:center;color:var(--muted);padding:40px 0}
 
 footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--muted);font-size:13.5px}
@@ -228,8 +228,8 @@ const COURSES = [
    tags:['MP हाई कोर्ट','टेस्ट सीरीज़'], meta:['🧾','हर टेस्ट: ','100 प्रश्न · 120 मिनट'], title:'MP हाई कोर्ट सहायक ग्रेड-3 2026 — 20 फुल मॉक टेस्ट',
    desc:'✅ आधिकारिक पैटर्न: 5 खंड, 100 प्रश्न ✅ टेस्ट 1 फ्री ✅ हिंदी/English, हर प्रश्न की व्याख्या', price:199, href:EH+'/mp-high-court-assistant-grade-3-mock-tests/'},
   {f:['new','notes'], p:'p-amber', art:'book', kick:'रोज़ अपडेट • MP + भारत + विश्व', big:'दैनिक करेंट अफेयर्स', sub:['रोज़ की खबरें','PDF डाउनलोड','क्विज़'], isNew:true,
-   tags:['करेंट अफेयर्स','नया'], meta:['🗓️','पास: ','30 दिन · ₹49'], title:'दैनिक करेंट अफेयर्स — मध्यप्रदेश, भारत व अंतरराष्ट्रीय',
-   desc:'✅ हर दिन MP, भारत व विश्व की प्रमुख खबरें ✅ वन-लाइनर व क्विज़ ✅ आज के करेंट अफेयर्स की PDF डाउनलोड', price:49, href:EH+'/current-affairs/'},
+   tags:['करेंट अफेयर्स','नया'], title:'दैनिक करेंट अफेयर्स — मध्यप्रदेश, भारत व अंतरराष्ट्रीय',
+   desc:'✅ हर दिन MP, भारत व विश्व की प्रमुख खबरें ✅ वन-लाइनर व क्विज़ ✅ आज के करेंट अफेयर्स की PDF डाउनलोड', price:0, noprice:true, href:EH+'/current-affairs/'},
   {f:['new','tests'], p:'p-indigo', art:'test', kick:'MP पुलिस • 7500 पद', big:'आरक्षक (जी.डी.) 2026', sub:['25 फुल टेस्ट','टेस्ट 1–2 फ्री'], isNew:true,
    tags:['MP पुलिस','टेस्ट सीरीज़'], meta:['🧾','हर टेस्ट: ','100 प्रश्न · 120 मिनट'], title:'MP पुलिस आरक्षक (जी.डी.) 2026 — 25 फुल मॉक टेस्ट',
    desc:'✅ MPESB पैटर्न: 3 खंड, 100 प्रश्न ✅ टेस्ट 1 व 2 फ्री ✅ हिंदी/English, हर प्रश्न की व्याख्या', price:199, href:EH+'/mp-police-constable-gd-mock-tests/'},
@@ -258,11 +258,11 @@ grid.innerHTML = COURSES.map((c, i) => `
     </div>
     <div class="body">
       <div class="tags">${c.tags.map(t => `<span class="tag">${esc(t)}</span>`).join('')}</div>
-      <div class="meta"><span aria-hidden="true">${c.meta[0]}</span>${esc(c.meta[1])}<b>${esc(c.meta[2])}</b></div>
+      ${c.meta ? `<div class="meta"><span aria-hidden="true">${c.meta[0]}</span>${esc(c.meta[1])}<b>${esc(c.meta[2])}</b></div>` : ''}
       <div class="title">${esc(c.title)}</div>
       <div class="desc">${esc(c.desc)}</div>
       <div class="foot">
-        <span class="price">${c.price ? '₹' + c.price.toLocaleString('en-IN') : '<span class="free">फ्री</span>'}${c.mrp ? `<s>₹${c.mrp}</s>` : ''}${c.from ? '<small> से शुरू</small>' : ''}</span>
+        <span class="price">${c.noprice ? '' : c.price ? '₹' + c.price.toLocaleString('en-IN') : '<span class="free">फ्री</span>'}${c.mrp ? `<s>₹${c.mrp}</s>` : ''}${c.from ? '<small> से शुरू</small>' : ''}</span>
         <span class="go" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
       </div>
     </div>
