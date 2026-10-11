@@ -1,3 +1,10 @@
+/* Load the shared account/logout menu on every TET exam screen. */
+(function(){
+  const accountScript = document.createElement("script");
+  accountScript.src = "js/global-account-menu.js";
+  document.head.appendChild(accountScript);
+})();
+
 /* ===================== CONFIG ===================== */
 const TOTAL_SECONDS = 150 * 60; // 2 hours 30 minutes (150 minutes)
 let timeLeft = TOTAL_SECONDS;
