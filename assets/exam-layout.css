@@ -35,6 +35,8 @@
 
 
 /* Home page exam list: horizontal logo-led rows */
+#teacherExams .grid{grid-template-columns:minmax(0,1fr)!important;gap:10px}
+
 #teacherExams .grid>.test-card{
  display:grid;grid-template-columns:48px minmax(0,1fr);grid-template-areas:"logo title" "logo meta";
  align-items:center;gap:2px 12px;text-align:left;min-width:0;padding:12px 14px;
