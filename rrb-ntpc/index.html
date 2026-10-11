@@ -78,7 +78,7 @@ function makeQuestions(level,num){let out=[];let seed=num+(level==='Graduate'?17
 for(let i=0;i<30;i++){let a=12+rnd(88),b=3+rnd(27),type=i%5,q,ans,opts;
 if(type===0){q={en:'What is '+a+' + '+b+'?',hi:a+' + '+b+' का मान क्या है?'};ans=a+b;opts=[ans,ans+2,ans-3,ans+5]}
 else if(type===1){q={en:'What is '+a+' × '+b+'?',hi:a+' × '+b+' का मान क्या है?'};ans=a*b;opts=[ans,ans+b,ans- a,ans+10]}
-else if(type===2){q={en:'What is '+(a*10)+'% of '+(b*10)+'?',hi,(a*10)+' का '+(b*10)+'% कितना है?'};ans=a*b;opts=[ans,ans+10,Math.max(1,ans-10),ans+5]}
+else if(type===2){q={en:'What is '+(a*10)+'% of '+(b*10)+'?',hi:(b*10)+' का '+(a*10)+'% कितना है?'};ans=a*b;opts=[ans,ans+10,Math.max(1,ans-10),ans+5]}
 else if(type===3){let start=2+rnd(20),step=2+rnd(8);q={en:'Find the next number: '+[start,start+step,start+2*step,start+3*step].join(', ')+', ?',hi:'अगली संख्या ज्ञात करें: '+[start,start+step,start+2*step,start+3*step].join(', ')+', ?'};ans=start+4*step;opts=[ans,ans+step,ans-2,ans+2]}
 else {let start=2+rnd(12);q={en:'If '+start+' notebooks cost ₹'+(start*20)+', what is the cost of one notebook?',hi:'यदि '+start+' कॉपियों की कीमत ₹'+(start*20)+' है, तो एक कॉपी की कीमत कितनी है?'};ans=20;opts=[ans,ans+5,ans-4,ans*2]}
 opts=[...new Set(opts)];while(opts.length<4)opts.push(ans+opts.length+7);let arranged=opts.sort(()=>rnd(3)-1);out.push({section:'Mathematics / गणित',en:q.en,hi:q.hi,options:arranged.map(String),answer:arranged.indexOf(ans),explain:'Correct answer / सही उत्तर: '+ans});}
