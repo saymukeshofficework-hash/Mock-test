@@ -149,6 +149,8 @@ jobs:
           cp -r assets _site/assets
           cp -r js _site/js
           cp -r tet _site/tet
+          # RRB NTPC Graduate and 10+2 Undergraduate mock tests
+          cp -r rrb-ntpc _site/rrb-ntpc
           cp saanp-seedhi-multiplayer.html _site/
           cp 404.html _site/
           cp CNAME _site/
