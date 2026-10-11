@@ -85,12 +85,10 @@ const TET_LEVELS = {
   primary: {
     hi: "प्राथमिक स्तर", en: "Primary Level",
     subjects: [
-      { key: "cdp", hi: "बाल विकास एवं शिक्षाशास्त्र", en: "Child Development & Pedagogy" },
-      { key: "hindi", hi: "हिंदी", en: "Hindi" },
-      { key: "english", hi: "अंग्रेज़ी", en: "English" },
-      { key: "sanskrit", hi: "संस्कृत", en: "Sanskrit" },
-      { key: "maths", hi: "गणित", en: "Mathematics" },
-      { key: "evs", hi: "पर्यावरण अध्ययन", en: "Environmental Studies" },
+      // Hindi = the original 20 full TET papers (test01..test20, pages tet-mock-test-N.html).
+      { key: "hindi", hi: "हिंदी", en: "Hindi", ready: true, legacy: 20 },
+      { key: "english", hi: "अंग्रेज़ी", en: "English", ready: true },
+      { key: "sanskrit", hi: "संस्कृत", en: "Sanskrit", ready: true },
     ],
   },
   secondary: {

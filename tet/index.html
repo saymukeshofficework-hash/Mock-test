@@ -49,7 +49,7 @@ h1{font-size:clamp(28px,6vw,40px);line-height:1.2;margin:34px 0 12px;color:#0d3b
   <div class="grid" id="grid"></div>
 </main>
 <div class="foot">TETTESTHUB · <a href="/contact.html">संपर्क / Contact</a></div>
-<script src="../js/site-config.js?v=4"></script>
+<script src="../js/site-config.js?v=5"></script>
 <script>
 (function(){
   const q = new URLSearchParams(location.search);
@@ -73,10 +73,12 @@ h1{font-size:clamp(28px,6vw,40px);line-height:1.2;margin:34px 0 12px;color:#0d3b
   $('sub').innerHTML = `${esc(lv.hi)} · ${TET_TESTS_PER_SUBJECT} टेस्ट, टेस्ट 1 फ्री।<br>${esc(lv.en)} · ${TET_TESTS_PER_SUBJECT} tests, test 1 free.`;
   let html = '';
   for (let n = 1; n <= TET_TESTS_PER_SUBJECT; n++) {
-    const id = 'tet' + lvKey[0] + '-' + sub.key + '-' + String(n).padStart(2, '0');
-    const tag = !sub.ready ? '<span class="soon">जल्द / Soon</span>' : (n === 1 ? '<span class="free">फ्री / Free</span>' : '');
+    const id = sub.legacy ? 'test' + String(n).padStart(2, '0') : 'tet' + lvKey[0] + '-' + sub.key + '-' + String(n).padStart(2, '0');
+    const ok = sub.ready && (!sub.legacy || n <= sub.legacy);
+    const href = sub.legacy ? '/tet-mock-test-' + n + '.html' : '/exam-test.html?t=' + id;
+    const tag = !ok ? '<span class="soon">जल्द / Soon</span>' : (n === 1 ? '<span class="free">फ्री / Free</span>' : '');
     html += `<div class="card t" data-id="${id}"><h3>टेस्ट / Test ${n}${tag}</h3><p class="m">${esc(sub.en)}</p>` +
-      (sub.ready ? `<a class="btn ${n === 1 ? 'btn-p' : 'btn-l'} w" href="/exam-test.html?t=${id}">${n === 1 ? '▶ शुरू करें / Start' : '🔒 खरीदारों के लिए / For buyers'}</a>`
+      (ok ? `<a class="btn ${n === 1 ? 'btn-p' : 'btn-l'} w" href="${href}">${n === 1 ? '▶ शुरू करें / Start' : '🔒 खरीदारों के लिए / For buyers'}</a>`
                  : `<span class="btn btn-l w">जल्द आ रहा है / Coming soon</span>`) + '</div>';
   }
   grid.innerHTML = html;
