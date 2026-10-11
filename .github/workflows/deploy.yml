@@ -238,6 +238,9 @@ jobs:
           # all-courses catalogue (courses, test series, current affairs) at /examhelp/courses/
           mkdir -p _site/examhelp/courses
           cp home/catalogue.html _site/examhelp/courses/index.html
+          # public clone of the catalogue, kept separate from /examhelp/courses/
+          mkdir -p _site/examhelp/all-courses
+          cp home/catalogue-public.html _site/examhelp/all-courses/index.html
           # old cached header links: /examhelp/login.html → /login.html
           cp home/index.html _site/examhelp/login.html
 
