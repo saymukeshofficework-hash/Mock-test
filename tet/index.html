@@ -78,7 +78,7 @@ h1{font-size:clamp(28px,6vw,40px);line-height:1.2;margin:34px 0 12px;color:#0d3b
     const href = sub.legacy ? '/tet-mock-test-' + n + '.html' : '/exam-test.html?t=' + id;
     const tag = !ok ? '<span class="soon">जल्द / Soon</span>' : (n === 1 ? '<span class="free">फ्री / Free</span>' : '');
     html += `<div class="card t" data-id="${id}"><h3>टेस्ट / Test ${n}${tag}</h3><p class="m">${esc(sub.en)}</p>` +
-      (ok ? `<a class="btn ${n === 1 ? 'btn-p' : 'btn-l'} w" href="${href}">${n === 1 ? '▶ शुरू करें / Start' : '🔒 खरीदारों के लिए / For buyers'}</a>`
+      (ok ? `<a class="btn ${n === 1 ? 'btn-p' : 'btn-l'} w" href="${href}">${n === 1 ? '▶ शुरू करें / Start' : '🔒 LOCKED'}</a>`
                  : `<span class="btn btn-l w">जल्द आ रहा है / Coming soon</span>`) + '</div>';
   }
   grid.innerHTML = html;
