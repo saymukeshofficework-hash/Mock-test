@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="TET Test Hub पर ग्राम पंचायत सचिव 2026 परीक्षा की तैयारी।">
+<title>ग्राम पंचायत सचिव 2026 | TET Test Hub</title>
+<link rel="stylesheet" href="assets/site.css?v=2">
+<link rel="stylesheet" href="assets/exam-layout.css?v=2">
+<style>
+body{margin:0;background:#f6f1fc;color:#241d35;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;padding-bottom:78px}
+.wrap{max-width:900px;margin:auto;padding:24px 16px}
+.top{background:linear-gradient(135deg,#14532d,#15803d);color:white;border-radius:22px;padding:26px 22px;margin:12px 0 18px}
+.top .eyebrow{font-size:12px;font-weight:800;letter-spacing:.8px;opacity:.9}
+h1{font-size:clamp(25px,5vw,36px);line-height:1.25;margin:10px 0}
+.top p{line-height:1.7;margin-bottom:0}
+.panel{background:white;border:1px solid #e8e0f1;border-radius:18px;padding:20px;margin:14px 0;box-shadow:0 3px 14px #39214b0a}
+.panel h2{font-size:19px;margin:0 0 10px}
+.panel p,.panel li{line-height:1.75;color:#514b60}
+.notice{background:#fef3c7;border:1px solid #fcd34d;border-radius:12px;padding:13px;color:#713f12;line-height:1.65}
+.btn{display:inline-flex;padding:11px 16px;border-radius:11px;background:#5b36a8;color:#fff;text-decoration:none;font-weight:800}
+.mobile-bottom-nav{position:fixed;left:0;right:0;bottom:0;z-index:30;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));padding:7px 4px calc(7px + env(safe-area-inset-bottom));background:#fff;border-top:1px solid #e5dcef}
+.mobile-bottom-nav a{display:flex;flex-direction:column;align-items:center;gap:3px;color:#6b6277;text-decoration:none;font-size:10px}
+.mobile-bottom-nav .nav-icon{font-size:19px}.mobile-bottom-nav a.active{color:#5b36a8;font-weight:800}
+</style>
+</head>
+<body>
+<main class="wrap">
+<a href="index.html" style="color:#5b36a8;text-decoration:none;font-weight:800">← होम / सभी परीक्षाएँ</a>
+<header class="top">
+<div class="eyebrow">TET TEST HUB · MADHYA PRADESH</div>
+<h1>ग्राम पंचायत सचिव 2026</h1>
+<p>ग्राम पंचायत सचिव भर्ती परीक्षा की तैयारी के लिए परीक्षा-विशेष अभ्यास अनुभाग।</p>
+</header>
+<section class="panel">
+<h2>परीक्षा पैटर्न</h2>
+<p>कुल 25 मॉक टेस्ट की सूची: पहला टेस्ट फ्री और बाकी 24 टेस्ट ₹199 के एकमुश्त बंडल में लॉक रहेंगे। आधिकारिक 2026 अधिसूचना से प्रश्नों और वास्तविक परीक्षा-पैटर्न का मिलान आवश्यक है।</p>
+<div class="notice"><strong>नोट:</strong> टेस्ट कैटलॉग और लॉक/कीमत का लेआउट तैयार है। सत्यापित 100-प्रश्न वाले टेस्ट सेट अभी अलग से तैयार और जाँचे जाने बाकी हैं; इसलिए अभी टेस्ट शुरू करने का बटन वास्तविक प्रश्नपत्र के रूप में नहीं दिखाया जा रहा है।</div>
+</section>
+<section class="panel">
+<div style="display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap">
+<div><h2 style="margin-bottom:4px">25 फुल मॉक टेस्ट</h2><p style="margin:0">Test 01 फ्री · Test 02–25 लॉक</p></div>
+<div style="font-size:22px;font-weight:900;color:#15803d">₹199 <span style="font-size:12px;font-weight:700;color:#514b60">एक बार</span></div>
+</div>
+<p>पहला पेपर निःशुल्क। बाकी 24 पेपर अनलॉक करने के लिए ₹199 का बंडल।</p>
+<div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px" id="sachivTestGrid"></div>
+<a class="btn" href="contact.html" style="margin-top:16px">24 लॉक टेस्ट अनलॉक करें — ₹199</a>
+</section>
+<section class="panel">
+<h2>तैयारी के विषय</h2>
+<ul>
+<li>मध्य प्रदेश सामान्य ज्ञान एवं समसामयिक घटनाएँ</li>
+<li>पंचायती राज व्यवस्था और ग्राम पंचायत के कार्य</li>
+<li>सामान्य हिंदी</li>
+<li>गणित एवं तार्किक क्षमता</li>
+<li>ग्रामीण विकास एवं सामान्य प्रशासन</li>
+</ul>
+<p>यह सामान्य तैयारी-सुझाव है, आधिकारिक पाठ्यक्रम का दावा नहीं।</p>
+<a class="btn" href="contact.html">संपर्क करें</a>
+</section>
+<script>
+(function(){
+ const grid=document.getElementById('sachivTestGrid');
+ for(let n=1;n<=25;n++){
+  const free=n===1;
+  const card=document.createElement('article');
+  card.style.cssText='border:1px solid '+(free?'#bbf7d0':'#e8e0f1')+';border-radius:13px;padding:12px 8px;text-align:center;background:'+(free?'#f0fdf4':'#faf8fd')+';min-width:0';
+  const title=document.createElement('h3');title.textContent='टेस्ट '+String(n).padStart(2,'0');title.style.cssText='font-size:14px;margin:0 0 8px';
+  const meta=document.createElement('p');meta.textContent=free?'फ्री':'🔒 लॉक';meta.style.cssText='font-size:12px;margin:0 0 10px;color:'+(free?'#15803d':'#70677f'); 
+  const link=document.createElement('a');link.textContent=free?'विवरण देखें':'₹199 बंडल';link.href=free?'#free-test-info':'contact.html';link.style.cssText='display:block;font-size:11px;font-weight:800;text-decoration:none;border-radius:8px;padding:8px 3px;background:'+(free?'#15803d':'#eee8fb')+';color:'+(free?'white':'#5b36a8');
+  card.append(title,meta,link);grid.appendChild(card);
+ }
+})();
+</script>
+<section class="panel" id="free-test-info">
+<h2>टेस्ट 01 — फ्री</h2>
+<p>पहले मॉक टेस्ट के 100 सत्यापित प्रश्न तैयार और जाँचे जाने के बाद यहीं से शुरू किया जा सकेगा। प्रश्नपत्र तैयार होने तक यह बटन प्रश्न हल करने का दावा नहीं करता।</p>
+</section>
+</main>
+<nav class="mobile-bottom-nav" aria-label="मुख्य नेविगेशन">
+<a href="index.html"><span class="nav-icon">⌂</span><span>होम</span></a>
+<a href="dashboard.html"><span class="nav-icon">▤</span><span>मेरे कोर्स</span></a>
+<a href="index.html#allExamGrid" class="active"><span class="nav-icon">▦</span><span>परीक्षाएँ</span></a>
+<a href="tests.html#testGrid"><span class="nav-icon">▧</span><span>नोट्स</span></a>
+<a href="contact.html"><span class="nav-icon">✉</span><span>संपर्क करें</span></a>
+</nav>
+</body>
+</html>
