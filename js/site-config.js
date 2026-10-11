@@ -30,19 +30,19 @@ const SITE_CONFIG = {
   studentEmailDomain: "students.tettesthub.app",
 };
 
-// Pricing: Test 01 & 02 are FREE. Tests 03-20 sold as one ₹149 bundle.
+// Pricing: Test 01 & 02 are FREE. Tests 03-20 sold as one ₹199 bundle.
 // No individual test purchases — only free access or the full ₹149 bundle.
 const PRICES = {
-  all18: 149,  // Tests 03-20 (18 tests total)
+  all18: 199,  // Tests 03-20 (18 tests total)
 };
 
-// Razorpay Payment Link for the ₹149 bundle. Create this in your Razorpay
+// Razorpay Payment Link for the ₹199 bundle. Create this in your Razorpay
 // Dashboard -> Payment Links -> Create Payment Link (see ADMIN_INSTRUCTIONS.md
 // for the exact steps), then paste the resulting https://rzp.io/... URL here.
 // Payment is still verified and Supabase accounts still created manually —
 // this only replaces "email us to arrange payment" with a proper checkout page.
 const PAYMENT_LINKS = {
-  all18: "",
+  all18: "https://rzp.io/rzp/t7ENfTq",
 };
 
 // Tests that are FREE for all logged-in students
@@ -104,9 +104,9 @@ const TET_LEVELS = {
   },
 };
 const TET_TESTS_PER_SUBJECT = 25;
-// ₹149 per subject series (tests 2-25). Paste a Razorpay Payment Link here when ready;
+// ₹199 per subject series (tests 2-25). Paste a Razorpay Payment Link here when ready;
 // until then the buy button opens contact.html.
-const TET_SUBJECT_PRICE = 149;
+const TET_SUBJECT_PRICE = 199;
 const TET_SUBJECT_PAYMENT_LINK = "";
 // Test 1 of every ready TET subject series is free (same rule as test01).
 Object.values(TET_LEVELS).forEach(lv => lv.subjects.forEach(s => {
