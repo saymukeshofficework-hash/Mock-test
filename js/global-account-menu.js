@@ -13,7 +13,15 @@
   menu.querySelector(".global-account-dropdown button").onclick = async () => {
     try {
       if (typeof window.logout === "function") await window.logout();
-      else { localStorage.removeItem(key); localStorage.removeItem("tth_user"); }
+      else {
+        const cfg = window.SITE_CONFIG;
+        if (cfg && cfg.supabaseUrl && cfg.supabaseAnonKey) {
+          await fetch(cfg.supabaseUrl + "/auth/v1/logout", {
+            method: "POST",
+            headers: { apikey: cfg.supabaseAnonKey, Authorization: "Bearer " + session.access_token }
+          });
+        }
+      }
     } catch (_) {}
     localStorage.removeItem(key);
     localStorage.removeItem("tth_user");
