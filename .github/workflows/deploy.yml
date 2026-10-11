@@ -232,21 +232,21 @@ jobs:
           # Keep the real TET homepage at /tet-home.html; the domain root must show login first.
           cp _site/index.html _site/tet-home.html
           cat > _site/index.html <<'LOGIN_REDIRECT'
-<!doctype html>
-<html lang="hi">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta http-equiv="refresh" content="0;url=/login.html">
-<title>TET Test Hub — Login</title>
-</head>
-<body>
-<p>लॉगिन पेज खोला जा रहा है…</p>
-<script>window.location.replace('/login.html');</script>
-<noscript><a href="/login.html">लॉगिन / रजिस्टर पर जाएँ</a></noscript>
-</body>
-</html>
-LOGIN_REDIRECT
+          <!doctype html>
+          <html lang="hi">
+          <head>
+          <meta charset="utf-8">
+          <meta name="viewport" content="width=device-width,initial-scale=1">
+          <meta http-equiv="refresh" content="0;url=/login.html">
+          <title>TET Test Hub — Login</title>
+          </head>
+          <body>
+          <p>लॉगिन पेज खोला जा रहा है…</p>
+          <script>window.location.replace('/login.html');</script>
+          <noscript><a href="/login.html">लॉगिन / रजिस्टर पर जाएँ</a></noscript>
+          </body>
+          </html>
+          LOGIN_REDIRECT
           # /examhelp/ keeps its separate catalogue/login landing page.
           cp home/index.html _site/examhelp/index.html
           # all-courses catalogue (courses, test series, current affairs) at /examhelp/courses/
