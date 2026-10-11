@@ -216,7 +216,7 @@ export default async function NoteProductPage({ params }: { params: Params }) {
               {note.format} · {note.languages.map(langLabel).join(" / ")}
             </p>
             <div className="mt-5">
-              <PurchaseButton productSlug={note.slug} available={available} lang={lang} />
+              <PurchaseButton productId={note.checkoutProduct ?? note.slug} available={available} lang={lang} />
             </div>
             <p className="mt-4 flex items-start gap-2 text-xs text-ink-500">
               <Lock className="mt-0.5 h-3.5 w-3.5 shrink-0" aria-hidden="true" />
