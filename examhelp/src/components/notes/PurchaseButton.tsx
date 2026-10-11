@@ -3,14 +3,16 @@
 import { useState } from "react";
 import { Loader2, ShoppingCart } from "lucide-react";
 import { dict, tr } from "@/i18n/dictionary";
+import { buyNotes } from "@/lib/checkout";
 import type { Lang } from "@/types";
 
 /**
- * Starts checkout by asking the server to create an order. The server
- * validates the product and price; the client never decides the amount.
- * Until payments are configured the server answers 503 and we say so.
+ * Starts the existing Supabase Edge Function + Razorpay checkout flow.
+ * The server owns the product price and verifies the payment before issuing a
+ * private, time-limited download token. The button is disabled until the PDF
+ * and live payment configuration are ready.
  */
-export function PurchaseButton({ productSlug, available, lang }: { productSlug: string; available: boolean; lang: Lang }) {
+export function PurchaseButton({ productId, available, lang }: { productId: string; available: boolean; lang: Lang }) {
   const [state, setState] = useState<"idle" | "loading" | "unavailable" | "error">("idle");
   const n = dict.notes;
 
@@ -25,19 +27,18 @@ export function PurchaseButton({ productSlug, available, lang }: { productSlug: 
   const buy = async () => {
     if (process.env.NEXT_PUBLIC_STATIC_EXPORT === "1") return setState("unavailable");
     setState("loading");
-    try {
-      const res = await fetch("/api/orders", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ productSlug }),
-      });
-      if (res.status === 503) return setState("unavailable");
-      if (!res.ok) return setState("error");
-      // Phase 6: open Razorpay Checkout with the returned order id here.
-      setState("unavailable");
-    } catch {
-      setState("error");
-    }
+    await buyNotes(productId, {
+      onState: (next) => {
+        setState(next === "idle" ? "idle" : "loading");
+      },
+      onError: (message) => {
+        setState(
+          ["payments_not_configured", "unknown_product", "product_file_missing", "http_503"].some((code) => message.includes(code))
+            ? "unavailable"
+            : "error",
+        );
+      },
+    });
   };
 
   return (
@@ -48,7 +49,7 @@ export function PurchaseButton({ productSlug, available, lang }: { productSlug: 
       </button>
       <p role="status" className="mt-2 min-h-5 text-sm text-ink-500">
         {state === "unavailable" && tr(n.purchaseSoon, lang)}
-        {state === "error" && (lang === "hi" ? "कुछ गलत हुआ, कृपया पुनः प्रयास करें।" : "Something went wrong, please try again.")}
+        {state === "error" && (lang === "hi" ? "भुगतान सत्यापित नहीं हो पाया। कृपया दोबारा प्रयास करें।" : "Payment could not be verified. Please try again.")}
       </p>
     </div>
   );
