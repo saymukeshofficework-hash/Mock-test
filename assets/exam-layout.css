@@ -15,7 +15,7 @@
 .section#examContainer .grid>.card .toggle-btn,#otherExamsGrid>.card .status-locked,#testGrid>.t .btn{grid-area:action;justify-self:end;align-self:center;width:auto;min-width:88px;margin:0;font-size:12px;padding:9px 11px;border-radius:10px;white-space:normal;text-align:center}
 .section#examContainer .grid>.card .test-grid{grid-column:2/-1;width:100%;grid-row:3}
 .section#examContainer .grid>.card .test-grid[style*="grid"]{padding-top:8px;border-top:1px solid var(--exam-line)}
-#testGrid>.t: nth-child(4n+1){--exam-accent:#5b36a8;--exam-tint:#eee8fb;--exam-icon:"📘"}
+#testGrid>.t:nth-child(4n+1){--exam-accent:#5b36a8;--exam-tint:#eee8fb;--exam-icon:"📘"}
 #testGrid>.t:nth-child(4n+2){--exam-accent:#07856c;--exam-tint:#e0f7ef;--exam-icon:"🧮"}
 #testGrid>.t:nth-child(4n+3){--exam-accent:#d97706;--exam-tint:#fff0d8;--exam-icon:"🏛️"}
 #testGrid>.t:nth-child(4n){--exam-accent:#2563eb;--exam-tint:#e3edff;--exam-icon:"🧪"}
