@@ -42,6 +42,9 @@ export const product = {
   linkExpiryMinutes: 5,
 }
 
+// Assignment last date (shown with a countdown; the band hides itself after this moment).
+export const deadline = { at: Date.parse('2026-11-15T23:59:59+05:30') }
+
 // Anything the buy form can sell. `slug` must exist in the products table AND in
 // productPrices (supabase/functions/_shared/config.ts); price labels here are display only.
 export type SaleItem = { slug: string; name: string; shortName: string; priceDisplay: string }

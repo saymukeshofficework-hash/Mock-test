@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import BuyDialog from '../components/BuyDialog'
+import DeadlineSection from '../components/DeadlineSection'
 import { Page } from '../components/Layout'
 import WhatsAppButton, { WhatsAppIcon } from '../components/WhatsAppButton'
 import { papers, product, samples, assignmentCombo } from '../config'
@@ -99,6 +100,8 @@ export default function Landing() {
           </div>
         </div>
       </section>
+
+      <DeadlineSection variant="notes" onBuy={buy} />
 
       {/* INTRO — who it's for + an honest pitch */}
       <section className="mx-auto max-w-5xl px-4 pt-14 sm:pt-20">
