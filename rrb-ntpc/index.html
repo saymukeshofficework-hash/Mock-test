@@ -15,8 +15,8 @@
 <div id="catalog">
 <div class="notice"><b>महत्वपूर्ण:</b> यह feature-branch पर तैयार किया गया अभ्यास मॉड्यूल है। प्रश्न अभ्यास हेतु हैं; आधिकारिक RRB प्रश्नपत्र या आधिकारिक प्रश्न-बैंक होने का दावा नहीं किया जाता। प्रत्येक टेस्ट के प्रश्नों का नया सेट बनता है।</div>
 <div class="levels">
-<section class="level" id="sec-grad"><h2>🎓 RRB NTPC GRADUATE LEVEL (CEN 06/2025)</h2><p class="muted">25 Complete CBT-1 Mock Tests + 25 tests per subject / हर विषय के 25 टेस्ट</p><div class="subjects" data-for="grad"></div><div class="papers" id="grad"></div></section>
-<section class="level" id="sec-under"><h2>📘 TETTESTHUB_RRB_NTPC_UNDERGRADUATE (CEN 07/2025)</h2><p class="muted">25 Complete CBT-1 Mock Tests + 25 tests per subject / हर विषय के 25 टेस्ट</p><div class="subjects" data-for="under"></div><div class="papers" id="under"></div></section>
+<section class="level" id="sec-grad"><h2>🎓 RRB NTPC GRADUATE LEVEL (CEN 06/2025)</h2><p class="muted">25 Complete CBT-1 Mock Tests / पूर्ण टेस्ट · 100 Q · 90 min</p><div class="papers" id="grad"></div></section>
+<section class="level" id="sec-under"><h2>📘 TETTESTHUB_RRB_NTPC_UNDERGRADUATE (CEN 07/2025)</h2><p class="muted">25 Complete CBT-1 Mock Tests / पूर्ण टेस्ट · 100 Q · 90 min</p><div class="papers" id="under"></div></section>
 </div>
 </div>
 <section id="runner" class="hidden">
@@ -37,7 +37,7 @@ const $=id=>document.getElementById(id);let questions=[],answers={},current=0,se
 const SUBJECTS=[['full','Complete CBT-1 / पूर्ण टेस्ट',100,90],['ga','General Awareness / सामान्य जागरूकता',40,36],['maths','Mathematics / गणित',30,27],['reason','Reasoning / तर्कशक्ति',30,27]];
 function addCards(id,subj='full'){const root=$(id);root.innerHTML='';const s=SUBJECTS.find(x=>x[0]===subj);for(let i=1;i<=25;i++){const nn=String(i).padStart(2,'0'),tid='rrbntpc-'+(id==='grad'?'g':'u')+'-'+subj+'-'+nn;const d=document.createElement('div');d.className='paper';d.innerHTML='<b>Test '+nn+'</b><small>'+s[2]+' Q · '+s[3]+' min'+(i===1?' · Free':'')+'</small><button class="btn" data-test="'+tid+'" data-min="'+s[3]+'">Start</button>';root.appendChild(d)}
 document.querySelectorAll('.subjects[data-for="'+id+'"] button').forEach(b=>b.classList.toggle('secondary',b.dataset.subj!==subj))}
-document.querySelectorAll('.subjects').forEach(box=>{const id=box.dataset.for;box.innerHTML=SUBJECTS.map(x=>'<button class="btn" data-subj="'+x[0]+'">'+x[1]+'</button>').join(' ');box.onclick=e=>{const b=e.target.closest('[data-subj]');if(b)addCards(id,b.dataset.subj)};addCards(id)});
+addCards('grad');addCards('under');
 document.addEventListener('click',e=>{const b=e.target.closest('[data-test]');if(b)startTest(b.dataset.test,Number(b.dataset.min),b)});
 async function startTest(tid,mins,btn){if(!supabaseClient){alert('Service unavailable / सेवा उपलब्ध नहीं');return}btn.disabled=true;const old=btn.textContent;btn.textContent='Loading…';
 const {data,error}=await supabaseClient.rpc('get_test_questions',{p_test_id:tid});btn.disabled=false;btn.textContent=old;
