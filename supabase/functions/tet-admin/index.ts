@@ -26,7 +26,7 @@ function safeEqual(a: string, b: string) {
   for (let i = 0; i < a.length; i++) r |= a.charCodeAt(i) ^ b.charCodeAt(i);
   return r === 0;
 }
-const ID = /^tet[ps]-[a-z]+-\d{2}$/;
+const ID = /^(tet[ps]-[a-z]+|rrbntpc-[gu]-(full|ga|maths|reason))-\d{2}$/;
 
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: cors });
@@ -64,7 +64,7 @@ Deno.serve(async (req) => {
     }
     case "list_tests": {
       const prefix = String(body.prefix ?? "");
-      if (!/^tet[ps]-[a-z]+$/.test(prefix)) return json({ error: "bad_request" }, 400);
+      if (!/^(tet[ps]-[a-z]+|rrbntpc-[gu]-(full|ga|maths|reason))$/.test(prefix)) return json({ error: "bad_request" }, 400);
       const { data } = await db.from("test_content").select("test_id").like("test_id", `${prefix}-%`).order("test_id");
       return json({ tests: (data ?? []).map((x) => x.test_id) });
     }
