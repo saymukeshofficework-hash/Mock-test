@@ -180,7 +180,7 @@ export function MockTestList({ series = "ag3" }: { series?: string }) {
         </div>
       </section>
 
-      <ol className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <ol className="mock-test-grid mt-8 grid gap-3">
         {Array.from({ length: S.total }, (_, i) => i + 1).map((n) => {
           const isFree = S.free.includes(n);
           const ready = isFree ? S.free.includes(n) : !S.unlockHref && !!token && paidReady.includes(n);
@@ -188,8 +188,9 @@ export function MockTestList({ series = "ag3" }: { series?: string }) {
           const b = best[n];
           const href = S.testHref ? S.testHref(n) : `${base}${S.enginePath}?t=${String(n).padStart(2, "0")}&lang=${lang}`;
           return (
-            <li key={n} className="card flex flex-col p-5">
-              <div className="flex items-center justify-between">
+            <li key={n} className={`mock-test-card card flex flex-col p-3 sm:p-4 ${isFree ? "is-free" : "is-paid"}`}>
+              <div className="mock-test-card-head flex items-center justify-between gap-1">
+                <span className="mock-test-logo" aria-hidden="true">{String(n).padStart(2, "0")}</span>
                 <h3 className="font-bold text-ink-900">
                   {t("test")} {n}
                   {isFree ? <span className="ml-2 rounded-full bg-success-50 px-2 py-0.5 text-xs font-semibold text-success-700">{t("free")}</span> : null}

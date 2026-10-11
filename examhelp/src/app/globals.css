@@ -163,3 +163,46 @@ body {
     scroll-behavior: auto !important;
   }
 }
+
+
+/* Shared colourful three-column catalogue cards for every exam series:
+   TET, MP High Court AG-III, MP Police Constable GD, and MP Police Subedar/ASI. */
+.mock-test-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: stretch;
+}
+.mock-test-card {
+  min-width: 0;
+  gap: .4rem;
+  border-color: #e9e1f3;
+  border-left: 4px solid var(--exam-accent, #5b36a8);
+  background: linear-gradient(145deg, var(--exam-tint, #f1eaff), #fff 78%);
+  box-shadow: 0 3px 12px rgb(57 33 75 / .07);
+  overflow-wrap: anywhere;
+}
+.mock-test-card:nth-child(4n + 1) { --exam-accent: #5b36a8; --exam-tint: #eee8fb; }
+.mock-test-card:nth-child(4n + 2) { --exam-accent: #07856c; --exam-tint: #e0f7ef; }
+.mock-test-card:nth-child(4n + 3) { --exam-accent: #d97706; --exam-tint: #fff0d8; }
+.mock-test-card:nth-child(4n) { --exam-accent: #2563eb; --exam-tint: #e3edff; }
+.mock-test-card.is-free { border-top-color: #22a06b; }
+.mock-test-card-head { align-items: flex-start; }
+.mock-test-logo {
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  width: 34px;
+  height: 34px;
+  border-radius: 11px;
+  color: var(--exam-accent);
+  background: var(--exam-tint);
+  border: 1px solid color-mix(in srgb, var(--exam-accent) 22%, white);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: -.03em;
+}
+.mock-test-card h3 { min-width: 0; font-size: .9rem; line-height: 1.35; }
+.mock-test-card .btn-primary { font-size: .78rem; padding: .5rem .35rem; line-height: 1.35; white-space: normal; }
+.mock-test-card p { font-size: .7rem; line-height: 1.4; }
+@media (max-width: 359px) {
+  .mock-test-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
