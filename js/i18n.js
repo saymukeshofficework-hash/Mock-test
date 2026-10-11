@@ -209,6 +209,7 @@ const I18N_DICT = {
   dash_mytests_h2: { hi: "मेरे टेस्ट", en: "My Tests" },
   dash_mytests_note: { hi: "परिणाम हर टेस्ट के अंत में दिखाए जाते हैं — फिलहाल इन्हें बाद में देखने के लिए सहेजा नहीं जाता।", en: "Results are shown at the end of each test — they aren't saved for later viewing yet." },
   dash_no_package: { hi: "कोई पैकेज असाइन नहीं", en: "No package assigned" },
+  dash_no_courses: { hi: "आपने अभी कोई कोर्स नहीं खरीदा है।", en: "You have not bought any course yet." },
   dash_could_not_load: {
     hi: 'आपका खाता लोड नहीं हो सका। कृपया सहायता के लिए संपर्क पेज देखें।',
     en: "We could not load your account. Please contact support — see the Contact page.",
