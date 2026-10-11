@@ -87,8 +87,8 @@ const TET_LEVELS = {
     subjects: [
       // Hindi = the original 20 full TET papers (test01..test20, pages tet-mock-test-N.html).
       { key: "hindi", hi: "हिंदी", en: "Hindi", ready: true, legacy: 20 },
-      { key: "english", hi: "अंग्रेज़ी", en: "English" },
-      { key: "sanskrit", hi: "संस्कृत", en: "Sanskrit" },
+      { key: "english", hi: "अंग्रेज़ी", en: "English", ready: true },
+      { key: "sanskrit", hi: "संस्कृत", en: "Sanskrit", ready: true },
     ],
   },
   secondary: {
