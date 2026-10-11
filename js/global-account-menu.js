@@ -2,7 +2,7 @@
   const key = "sb-ovaubhekxjtkodkhsybg-auth-token";
   let session = null;
   try { session = JSON.parse(localStorage.getItem(key) || "null"); } catch (_) {}
-  if (!session || !session.access_token || document.getElementById("accountMenu")) return;
+  if (!session || !session.access_token || document.getElementById("accountMenu") || document.querySelector(".global-account-menu")) return;
   const menu = document.createElement("div");
   menu.className = "global-account-menu";
   menu.innerHTML = '<button type="button" aria-expanded="false" class="global-account-toggle">मेरा अकाउंट ▾</button><div class="global-account-dropdown" hidden><a href="/dashboard.html">डैशबोर्ड</a><button type="button">लॉगआउट</button></div>';
