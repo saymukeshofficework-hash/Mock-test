@@ -37,7 +37,7 @@ const SCREENS: { src: string; cap: B }[] = [
 
 const FEATURES: { Icon: typeof FileText; title: B; body: B }[] = [
   { Icon: ListChecks, title: { hi: "आधिकारिक पैटर्न", en: "Official pattern" }, body: { hi: "100 प्रश्न · 120 मिनट · 5 खंड × 20 — विज्ञापन 614/परीक्षा/2026 के अनुसार।", en: "100 questions · 120 min · 5 sections × 20 — as per advt. 614/Exam/2026." } },
-  { Icon: FileText, title: { hi: "2,000 नए प्रश्न", en: "2,000 fresh questions" }, body: { hi: "20 फुल टेस्ट, हर टेस्ट अलग — पूरे सिलेबस से, आसान से कठिन तक।", en: "20 full tests, each one different — whole syllabus, easy to hard." } },
+  { Icon: FileText, title: { hi: "2,500 नए प्रश्न", en: "2,500 fresh questions" }, body: { hi: "25 फुल टेस्ट, हर टेस्ट अलग — पूरे सिलेबस से, आसान से कठिन तक।", en: "20 full tests, each one different — whole syllabus, easy to hard." } },
   { Icon: Languages, title: { hi: "हिंदी / English", en: "Hindi / English" }, body: { hi: "GK और गणित-रीज़निंग में एक टैप से भाषा बदलें — असली परीक्षा जैसा।", en: "Switch language in one tap for GK and Maths-Reasoning — just like the real exam." } },
   { Icon: Timer, title: { hi: "असली CBT जैसा अनुभव", en: "Real CBT feel" }, body: { hi: "टाइमर, प्रश्न पैलेट, Mark for Review, खंडों के बीच आना-जाना।", en: "Timer, question palette, mark for review, move between sections." } },
   { Icon: BarChart3, title: { hi: "तुरंत परिणाम", en: "Instant result" }, body: { hi: "कुल अंक, खंड-वार सही/गलत/छूटे — कमज़ोर विषय तुरंत पता चलें।", en: "Total score plus section-wise right/wrong/skipped — spot weak areas at once." } },
@@ -62,12 +62,12 @@ const PATTERN: Record<Lang, [string, string][]> = {
 };
 
 const FAQ: { q: B; a: B }[] = [
-  { q: { hi: "₹199 में क्या मिलेगा?", en: "What do I get for ₹199?" }, a: { hi: "20 फुल-लेंथ मॉक टेस्ट (2,000 प्रश्न), हर टेस्ट का परिणाम और हर प्रश्न का उत्तर-व्याख्या। टेस्ट 1 बिल्कुल फ्री है।", en: "20 full-length mock tests (2,000 questions), a result for every test and an explanation for every question. Test 1 is completely free." } },
+  { q: { hi: "₹199 में क्या मिलेगा?", en: "What do I get for ₹199?" }, a: { hi: "25 फुल-लेंथ मॉक टेस्ट (2,500 प्रश्न), हर टेस्ट का परिणाम और हर प्रश्न का उत्तर-व्याख्या। टेस्ट 1 बिल्कुल फ्री है।", en: "25 full-length mock tests (2,500 questions), a result for every test and an explanation for every question. Test 1 is completely free." } },
   { q: { hi: "भुगतान के बाद टेस्ट कैसे खुलेंगे?", en: "How do the tests open after payment?" }, a: { hi: "भुगतान होते ही सभी टेस्ट इसी डिवाइस पर तुरंत अनलॉक हो जाते हैं। कोई लॉगिन नहीं चाहिए।", en: "As soon as you pay, all tests unlock instantly on this device. No login needed." } },
   { q: { hi: "दूसरे फ़ोन या कंप्यूटर पर कैसे खोलें?", en: "How do I open them on another phone or computer?" }, a: { hi: "\"डाउनलोड वापस पाएँ\" पेज पर अपना Payment ID और भुगतान वाला ईमेल/मोबाइल डालें — टेस्ट उस डिवाइस पर भी खुल जाएँगे।", en: "On the \"Recover\" page enter your Payment ID and the email/mobile used to pay — the tests open on that device too." } },
   { q: { hi: "क्या टेस्ट बार-बार दे सकते हैं?", en: "Can I retake tests?" }, a: { hi: "हाँ, हर टेस्ट जितनी बार चाहें दें। आपका सर्वश्रेष्ठ स्कोर सेव रहता है।", en: "Yes, take every test as many times as you like. Your best score is saved." } },
   { q: { hi: "क्या ऋणात्मक अंकन है?", en: "Is there negative marking?" }, a: { hi: "आधिकारिक विज्ञापन में ऋणात्मक अंकन का उल्लेख नहीं है, इसलिए इन टेस्ट में अंक नहीं कटते।", en: "The official advertisement doesn't mention negative marking, so none is applied in these tests." } },
-  { q: { hi: "नोट्स भी चाहिए तो?", en: "What if I want the notes too?" }, a: { hi: "कॉम्बो लें: PDF नोट्स (हिंदी या English) + 20 मॉक टेस्ट सिर्फ़ ₹449 में — ₹49 की बचत।", en: "Take the combo: PDF notes (Hindi or English) + 20 mock tests for just ₹449 — save ₹49." } },
+  { q: { hi: "नोट्स भी चाहिए तो?", en: "What if I want the notes too?" }, a: { hi: "कॉम्बो लें: PDF नोट्स (हिंदी या English) + 25 मॉक टेस्ट सिर्फ़ ₹449 में — ₹49 की बचत।", en: "Take the combo: PDF notes (Hindi or English) + 25 mock tests for just ₹449 — save ₹49." } },
 ];
 
 export function TestSeriesLanding() {
@@ -191,7 +191,7 @@ export function TestSeriesLanding() {
               {lang === "hi" ? "MP हाई कोर्ट सहायक ग्रेड-3 • 2026" : "MP High Court Assistant Grade-3 • 2026"}
             </p>
             <h1 className="mt-4 text-3xl leading-tight font-extrabold sm:text-4xl lg:text-5xl">
-              {lang === "hi" ? "20 फुल मॉक टेस्ट — टेस्ट सीरीज़" : "20 Full Mock Tests — Test Series"}
+              {lang === "hi" ? "25 फुल मॉक टेस्ट — टेस्ट सीरीज़" : "25 Full Mock Tests — Test Series"}
             </h1>
             <p className="mt-4 max-w-xl text-base text-brand-100 sm:text-lg">
               {lang === "hi"
@@ -200,7 +200,7 @@ export function TestSeriesLanding() {
             </p>
             <p className="mt-7 flex items-baseline gap-3">
               <span className="text-5xl font-extrabold sm:text-6xl">₹199</span>
-              <span className="text-brand-100">{lang === "hi" ? "एक बार · 20 टेस्ट" : "one-time · 20 tests"}</span>
+              <span className="text-brand-100">{lang === "hi" ? "एक बार · 25 टेस्ट" : "one-time · 25 tests"}</span>
             </p>
             <div className="mt-6 flex flex-col gap-3 sm:flex-row">
               <BuyButton big />
@@ -226,7 +226,7 @@ export function TestSeriesLanding() {
             <Phone i={2} cls="absolute right-0 top-4 w-[46%] rotate-[6deg]" />
             <Phone i={1} cls="absolute left-1/2 top-0 z-10 w-[50%] -translate-x-1/2" />
             <span className="absolute bottom-0 left-1/2 z-20 -translate-x-1/2 whitespace-nowrap rounded-full bg-white px-4 py-1.5 text-sm font-bold text-ink-900 shadow-lg">
-              {lang === "hi" ? "20 टेस्ट · 2,000 प्रश्न" : "20 tests · 2,000 questions"}
+              {lang === "hi" ? "25 टेस्ट · 2,500 प्रश्न" : "25 tests · 2,500 questions"}
             </span>
           </div>
         </div>
@@ -315,7 +315,7 @@ export function TestSeriesLanding() {
               <p className="mt-2 text-4xl font-extrabold text-ink-900">₹199</p>
               <ul className="mt-4 space-y-2 text-sm text-ink-700">
                 {[
-                  { hi: "20 फुल मॉक टेस्ट (2,000 प्रश्न)", en: "20 full mock tests (2,000 questions)" },
+                  { hi: "25 फुल मॉक टेस्ट (2,500 प्रश्न)", en: "25 full mock tests (2,500 questions)" },
                   { hi: "हिंदी / English टॉगल", en: "Hindi / English toggle" },
                   { hi: "परिणाम + हर प्रश्न की व्याख्या", en: "Result + explanation for every question" },
                   { hi: "जितनी बार चाहें दोबारा दें", en: "Retake as often as you like" },
@@ -339,7 +339,7 @@ export function TestSeriesLanding() {
               <ul className="mt-4 space-y-2 text-sm text-ink-700">
                 {[
                   { hi: "संपूर्ण PDF नोट्स (हिंदी या English)", en: "Complete PDF notes (Hindi or English)" },
-                  { hi: "+ पूरी 20 टेस्ट सीरीज़", en: "+ the full 20-test series" },
+                  { hi: "+ पूरी 25 टेस्ट सीरीज़", en: "+ the full 25-test series" },
                   { hi: "पढ़ें, फिर टेस्ट से जाँचें", en: "Study, then check yourself with tests" },
                 ].map((x) => (
                   <li key={x.en} className="flex gap-2"><CheckCircle2 className="h-4 w-4 shrink-0 text-success-700" aria-hidden="true" />{L(x)}</li>

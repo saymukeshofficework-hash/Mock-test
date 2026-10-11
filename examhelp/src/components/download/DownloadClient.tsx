@@ -175,7 +175,7 @@ export function DownloadClient() {
       </p>
       {info.kind === "combo" ? (
         <a href={`${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/mp-high-court-assistant-grade-3-mock-tests/`} className="btn-outline mt-5 w-full">
-          20 मॉक टेस्ट (अनलॉक) / Go to your 20 mock tests
+          25 मॉक टेस्ट (अनलॉक) / Go to your 25 mock tests
         </a>
       ) : null}
       <Support pid={info.payment_id} />
