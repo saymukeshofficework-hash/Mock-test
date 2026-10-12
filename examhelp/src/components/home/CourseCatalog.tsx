@@ -77,15 +77,6 @@ const COURSES = (lang: Lang): Course[] => {
       price: 199, href: "/mp-police-subedar-asi-mock-tests",
     },
     {
-      f: ["tests"], tone: "ink", art: "test",
-      kick: hi ? "TET • शिक्षक पात्रता परीक्षा" : "TET • Teacher Eligibility Test", big: hi ? "TET मॉक टेस्ट सीरीज़" : "TET Mock Test Series",
-      sub: hi ? ["25 फुल टेस्ट", "टेस्ट 1 फ्री"] : ["25 full tests", "Test 1 free"],
-      tags: hi ? ["TET", "टेस्ट सीरीज़"] : ["TET", "Test series"], meta: [hi ? "हर टेस्ट" : "Each test", hi ? "150 प्रश्न · 150 मिनट" : "150 Qs · 150 min"],
-      title: hi ? "TET मॉक टेस्ट सीरीज़ — 25 फुल-लेंथ टेस्ट (हिंदी/English)" : "TET Mock Test Series — 25 full-length tests (Hindi/English)",
-      desc: hi ? "✅ टेस्ट 1 बिल्कुल फ्री ✅ बाकी 24 टेस्ट एक बंडल में ✅ असली परीक्षा जैसा इंटरफ़ेस" : "✅ Test 1 free ✅ Other 24 in one bundle ✅ Real exam interface",
-      price: 199, href: "/tests.html", abs: true,
-    },
-    {
       f: ["notes"], tone: "indigo", art: "book",
       kick: "NIOS • B.Ed", big: hi ? "ब्रिज कोर्स नोट्स" : "Bridge Course Notes", sub: hi ? ["डिजिटल नोट्स", "तुरंत एक्सेस"] : ["Digital notes", "Instant access"],
       tags: hi ? ["B.Ed ब्रिज कोर्स", "PDF नोट्स"] : ["B.Ed Bridge Course", "PDF notes"], meta: [hi ? "प्रकार" : "Type", hi ? "डिजिटल नोट्स" : "Digital notes"],
