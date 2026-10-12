@@ -63,6 +63,13 @@ const PRODUCTS: Record<string, { amount: number; file: string; downloadName: str
     downloadName: "",
     title: "MP पुलिस सूबेदार (शीघ्रलेखक) / ASI 2026 — 25 फुल मॉक टेस्ट",
   },
+  "mpgrb-tests": {
+    amount: 19900,
+    kind: "tests",
+    file: "mpgrb", // private bucket "tests": mpgrb/02.json … mpgrb/25.json; test 1 is public
+    downloadName: "",
+    title: "मध्य प्रदेश ग्रामीण बैंक — 25 मॉक टेस्ट (80 प्रश्न)",
+  },
   "rrbg-tests": {
     amount: 19900,
     // tests live in the main site's test_content (rrbntpc-g-full-NN); like TET, login required and
