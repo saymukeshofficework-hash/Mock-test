@@ -140,7 +140,9 @@ export async function buyNotes(
     onState("creating");
     // purchases belong to the student's login, so they open on any device: log in first
     const access_token = await mainSiteAccessToken();
-    if (!access_token) {
+    // Only TET series requires a student login. Public exam test-series purchases
+    // (including RRB NTPC Graduate) must work without a login.
+    if (!access_token && product.startsWith("tet-")) {
       window.location.href = `/login.html?next=${encodeURIComponent(location.pathname + location.search)}`;
       return;
     }
@@ -172,25 +174,31 @@ export async function buyNotes(
       modal: { ondismiss: () => onState("idle") },
       handler: async (res: RazorpayHandlerArgs) => {
         onState("verifying");
-        const v = await checkout<{ token: string }>({
-          action: "verify",
-          order_id: res.razorpay_order_id,
-          payment_id: res.razorpay_payment_id,
-          signature: res.razorpay_signature,
-        });
-        if (v.token) {
-          try {
-            localStorage.setItem(`testhub_dl_${product}`, v.token);
-          } catch {
-            /* private mode */
-          }
-          if (onPaid) {
+        try {
+          const v = await checkout<{ token: string }>({
+            action: "verify",
+            order_id: res.razorpay_order_id,
+            payment_id: res.razorpay_payment_id,
+            signature: res.razorpay_signature,
+          });
+          if (v.token) {
+            try {
+              localStorage.setItem(`testhub_dl_${product}`, v.token);
+              localStorage.removeItem(pendingKey(product));
+            } catch {
+              /* private mode */
+            }
+            if (onPaid) {
+              onState("idle");
+              onPaid(v.token);
+            } else window.location.href = downloadPath(v.token);
+          } else {
             onState("idle");
-            onPaid(v.token);
-          } else window.location.href = downloadPath(v.token);
-        } else {
+            onError(v.error ? `verify:${v.error}` : `verify:${res.razorpay_payment_id}`);
+          }
+        } catch {
           onState("idle");
-          onError(`verify:${res.razorpay_payment_id}`);
+          onError("verify_network");
         }
       },
     });
