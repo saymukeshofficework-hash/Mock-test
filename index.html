@@ -350,7 +350,8 @@ header.site-header nav a.active{background:var(--app-purple);color:#fff}
 <script src="js/site-config.js?v=3"></script>
 <script src="js/auth.js?v=2"></script>
 <script>
-  document.getElementById('priceAll18').textContent = PRICES.all18;
+  const priceAll18El = document.getElementById('priceAll18');
+  if (priceAll18El && typeof PRICES !== 'undefined' && PRICES.all18 != null) priceAll18El.textContent = PRICES.all18;
 
   // Show an account dropdown only after a student has signed in.
   const accountMenu = document.getElementById('accountMenu');
