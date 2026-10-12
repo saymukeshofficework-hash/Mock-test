@@ -197,12 +197,11 @@ export const MOCK_SERIES: Record<string, MockSeries> = {
     listPath: "/rrb-ntpc-graduate-mock-tests",
     meta: { hi: "100 प्रश्न · 90 मिनट", en: "100 Qs · 90 min" },
     testHref: (n) => `/rrb-ntpc/?test=rrbntpc-g-full-${String(n).padStart(2, "0")}`,
-    unlockHref: "/login.html",
-    openAll: true,
+
     title: { hi: "RRB NTPC ग्रेजुएट लेवल (CEN 06/2025) — 25 फुल CBT-1 मॉक टेस्ट", en: "RRB NTPC Graduate Level (CEN 06/2025) — 25 Full CBT-1 Mock Tests" },
     sub: {
-      hi: "CBT-1 पैटर्न पर: 100 प्रश्न, 90 मिनट, 3 खंड। टेस्ट 1 फ्री है; बाकी टेस्ट लॉगिन के बाद अनलॉक होते हैं।",
-      en: "On the CBT-1 pattern: 100 questions, 90 minutes, 3 sections. Test 1 is free; the other tests open after login.",
+      hi: "CBT-1 पैटर्न पर: 100 प्रश्न, 90 मिनट, 3 खंड। टेस्ट 1 फ्री है; टेस्ट 2–25 फिलहाल लॉक हैं। टेस्ट खोलने के लिए लॉगिन की जरूरत नहीं।",
+      en: "CBT-1 pattern: 100 questions, 90 minutes, 3 sections. Test 1 is free; tests 2–25 are locked for now. No login is required to view the test list.",
     },
     rows: {
       hi: [
@@ -218,12 +217,12 @@ export const MOCK_SERIES: Record<string, MockSeries> = {
     },
     totalLine: { hi: "कुल 100 प्रश्न · 100 अंक · 90 मिनट · प्रत्येक प्रश्न 1 अंक", en: "Total 100 questions · 100 marks · 90 minutes · 1 mark each" },
     neg: { hi: "प्रत्येक गलत उत्तर पर ⅓ अंक कटेगा; छोड़े गए प्रश्न पर कोई कटौती नहीं।", en: "⅓ mark is deducted for each wrong answer; no deduction for unattempted questions." },
-    unlockTitle: { hi: "टेस्ट 1 फ्री · बाकी टेस्ट के लिए लॉगिन", en: "Test 1 is free · log in for the rest" },
+    unlockTitle: { hi: "टेस्ट 1 फ्री · टेस्ट 2–25 लॉक", en: "Test 1 free · Tests 2–25 locked" },
     unlockSub: {
-      hi: "लॉगिन के बाद आपके अकाउंट में जो टेस्ट अनलॉक हैं वे खुलेंगे।",
-      en: "After login, the tests unlocked on your account will open.",
+      hi: "टेस्ट 1 बिना लॉगिन के खोलें। बाकी टेस्ट अभी लॉक हैं।",
+      en: "Open Test 1 without logging in. The remaining tests are locked for now.",
     },
-    unlockBtn: { hi: "लॉगिन करें", en: "Log in" },
+    unlockBtn: { hi: "लॉक", en: "Locked" },
     links: [],
   },
   rrbu: {
