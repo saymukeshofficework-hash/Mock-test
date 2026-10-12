@@ -63,6 +63,13 @@ const PRODUCTS: Record<string, { amount: number; file: string; downloadName: str
     downloadName: "",
     title: "MP पुलिस सूबेदार (शीघ्रलेखक) / ASI 2026 — 25 फुल मॉक टेस्ट",
   },
+  "rrbg-tests": {
+    amount: 19900,
+    kind: "tests",
+    file: "rrbg", // bucket "tests": rrbg/02.json … (Test 1 is free)
+    downloadName: "",
+    title: "RRB NTPC Graduate Level — 25 Full CBT-1 Mock Tests",
+  },
   "ca-30": {
     amount: 4900,
     kind: "ca",
