@@ -222,7 +222,7 @@ export const MOCK_SERIES: Record<string, MockSeries> = {
       hi: "टेस्ट 1 फ्री है। टेस्ट 2–25 खोलने के लिए एक बार ₹199 का भुगतान करें।",
       en: "Test 1 is free. Pay ₹199 once to unlock Tests 2–25.",
     },
-    unlockBtn: { hi: "₹199 देकर अनलॉक करें", en: "Pay ₹199 to unlock" },
+    unlockBtn: { hi: "अभी भुगतान करें — ₹199", en: "Pay Now — ₹199" },
     links: [],
   },
   rrbu: {
