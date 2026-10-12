@@ -17,6 +17,9 @@
 <link rel="stylesheet" href="assets/exam-layout.css?v=2">
 <script src="js/i18n.js?v=3"></script>
 <style>
+/* Keep the homepage hidden until the login check finishes. */
+html.auth-check-pending body{visibility:hidden}
+
 /* Colorful all-exams catalogue on the home page */
 .all-exams-heading{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:18px}
 .all-exams-kicker{display:inline-flex;align-items:center;padding:6px 10px;border-radius:999px;background:#eee8ff;color:#5b36a8;font-size:12px;font-weight:800;margin-bottom:8px}
@@ -368,8 +371,15 @@ header.site-header nav a.active{background:var(--app-purple);color:#fff}
     await logout();
     window.location.href = 'index.html';
   });
+  // Direct site visits must sign in first; after login, return to this homepage.
+  document.documentElement.classList.add('auth-check-pending');
   (async () => {
     const session = await getSession();
+    if (!session) {
+      window.location.replace('/login.html?next=index.html');
+      return;
+    }
+    document.documentElement.classList.remove('auth-check-pending');
     if (session) {
       navLoginLink.hidden = true;
       accountMenu.hidden = false;
