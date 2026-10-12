@@ -23,12 +23,12 @@ const json = (body: unknown, status = 200) =>
   new Response(JSON.stringify(body), { status, headers: { ...cors, "Content-Type": "application/json", "Cache-Control": "no-store" } });
 
 // Paid tests of one series: 02..25 (test 1 is free). Primary Hindi is the original
-// full-paper series with ids test01..test25.
+// full-paper series with ids test01..test25. "rrbntpc-g" is the RRB NTPC Graduate full-test series.
 function seriesTests(series: string): string[] {
   const ids: string[] = [];
   for (let n = 2; n <= TESTS_PER_SERIES; n++) {
     const nn = String(n).padStart(2, "0");
-    ids.push(series === "tetp-hindi" ? `test${nn}` : `${series}-${nn}`);
+    ids.push(series === "tetp-hindi" ? `test${nn}` : series === "rrbntpc-g" ? `rrbntpc-g-full-${nn}` : `${series}-${nn}`);
   }
   return ids;
 }
@@ -50,7 +50,7 @@ Deno.serve(async (req) => {
     });
     if (!r.ok) return json({ error: "checkout_unavailable" }, 502);
     const out = await r.json();
-    series = (Array.isArray(out?.series) ? out.series : []).filter((s: unknown) => typeof s === "string" && /^tet[ps]-[a-z]+$/.test(s));
+    series = (Array.isArray(out?.series) ? out.series : []).filter((s: unknown) => typeof s === "string" && (/^tet[ps]-[a-z]+$/.test(s) || s === "rrbntpc-g"));
   } catch {
     return json({ error: "checkout_unavailable" }, 502);
   }

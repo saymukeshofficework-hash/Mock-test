@@ -65,8 +65,10 @@ const PRODUCTS: Record<string, { amount: number; file: string; downloadName: str
   },
   "rrbg-tests": {
     amount: 19900,
-    kind: "tests",
-    file: "rrbg", // bucket "tests": rrbg/02.json … (Test 1 is free)
+    // tests live in the main site's test_content (rrbntpc-g-full-NN); like TET, login required and
+    // the main site's tet-unlock function adds Tests 02–25 to the buyer's profile via "tet_paid"
+    kind: "tet",
+    file: "",
     downloadName: "",
     title: "RRB NTPC Graduate Level — 25 Full CBT-1 Mock Tests",
   },
@@ -235,8 +237,9 @@ Deno.serve(async (req) => {
       // TET series the logged-in student has paid for (read by the main site's tet-unlock function)
       const buyer = await loggedInUser(body.access_token);
       if (!buyer) return json({ error: "login_required" }, 401);
-      const { data: rows } = await db.from("orders").select("product").eq("status", "paid").eq("buyer_user_id", buyer).like("product", "tet-%");
-      const series = [...new Set((rows ?? []).map((r) => String(r.product).slice(4)))].filter((s) => TET_SERIES.includes(s));
+      const { data: rows } = await db.from("orders").select("product").eq("status", "paid").eq("buyer_user_id", buyer).or("product.like.tet-%,product.eq.rrbg-tests");
+      // RRB NTPC Graduate series is reported as "rrbntpc-g"
+      const series = [...new Set((rows ?? []).map((r) => (r.product === "rrbg-tests" ? "rrbntpc-g" : String(r.product).slice(4))))].filter((s) => TET_SERIES.includes(s) || s === "rrbntpc-g");
       return json({ series });
     }
 

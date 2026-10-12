@@ -90,6 +90,24 @@ async function mainSiteAccessToken(): Promise<string | undefined> {
   }
 }
 
+/** Products whose tests open on the main site (profiles.purchased_tests via tet-unlock). */
+const needsLogin = (product: string) => product.startsWith("tet-") || product === "rrbg-tests";
+
+/** Asks the main site to add every paid TET / RRB series to the logged-in student's tests. */
+export async function mainSiteUnlock(): Promise<boolean> {
+  const access_token = await mainSiteAccessToken();
+  if (!access_token) return false;
+  try {
+    const r = await fetch(`${MAIN_URL}/functions/v1/tet-unlock`, {
+      method: "POST",
+      headers: { apikey: MAIN_ANON, Authorization: `Bearer ${access_token}` },
+    });
+    return r.ok;
+  } catch {
+    return false;
+  }
+}
+
 const pendingKey = (product: string) => `testhub_pending_${product}`;
 function pendingOrders(product: string): string[] {
   try {
@@ -140,9 +158,9 @@ export async function buyNotes(
     onState("creating");
     // purchases belong to the student's login, so they open on any device: log in first
     const access_token = await mainSiteAccessToken();
-    // Only TET series requires a student login. Public exam test-series purchases
-    // (including RRB NTPC Graduate) must work without a login.
-    if (!access_token && product.startsWith("tet-")) {
+    // TET and RRB NTPC series unlock on the student's main-site profile, so they need a login.
+    // Other test series and notes work without one.
+    if (!access_token && needsLogin(product)) {
       window.location.href = `/login.html?next=${encodeURIComponent(location.pathname + location.search)}`;
       return;
     }

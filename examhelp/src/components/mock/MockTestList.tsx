@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { CheckCircle2, CreditCard, FileText, Lock, PlayCircle, Unlock } from "lucide-react";
 import { MOCK_SERIES } from "@/data/mockTests";
-import { buyNotes, checkout, claimPurchase, downloadPath } from "@/lib/checkout";
+import { buyNotes, checkout, claimPurchase, downloadPath, mainSiteUnlock } from "@/lib/checkout";
 
 type Lang = "hi" | "en";
 type Best = { last: number; best: number; total: number; at: number };
@@ -20,6 +20,7 @@ const T = {
   unlocked: { hi: "टेस्ट सीरीज़ अनलॉक है ✓", en: "Test series unlocked ✓" },
   wait: { hi: "कृपया प्रतीक्षा करें…", en: "Please wait…" },
   payErr: { hi: "भुगतान पूरा नहीं हुआ। कृपया दोबारा प्रयास करें।", en: "Payment didn't go through. Please try again." },
+  loginErr: { hi: "भुगतान से पहले कृपया लॉगिन करें।", en: "Please log in before paying." },
   otherDevice: { hi: "दूसरे फ़ोन/कंप्यूटर पर? Payment ID से यहाँ अनलॉक करें", en: "On another device? Unlock with your Payment ID here" },
   pattern: { hi: "परीक्षा पैटर्न", en: "Exam pattern" },
 };
@@ -33,6 +34,11 @@ export function MockTestList({ series = "ag3" }: { series?: string }) {
   const [canBuy, setCanBuy] = useState(false);
   const [payState, setPayState] = useState("idle");
   const [payErr, setPayErr] = useState("");
+  // RRB NTPC Graduate tests open on the main site: a paid token adds them to the student's profile
+  const mainSite = S.product === "rrbg-tests";
+  useEffect(() => {
+    if (mainSite && token) mainSiteUnlock();
+  }, [mainSite, token]);
   useEffect(() => {
     let tk: string | null = null;
     try {
@@ -70,7 +76,7 @@ export function MockTestList({ series = "ag3" }: { series?: string }) {
     setPayErr("");
     buyNotes(S.product, {
       onState: setPayState,
-      onError: () => setPayErr(t("payErr")),
+      onError: (e) => setPayErr(e === "login_required" ? t("loginErr") : t("payErr")),
       onPaid: (tk) => {
         try {
           localStorage.setItem(TOKEN_KEY, tk);
@@ -184,7 +190,7 @@ export function MockTestList({ series = "ag3" }: { series?: string }) {
       <ol className="mock-test-grid mt-8 grid gap-3">
         {Array.from({ length: S.total }, (_, i) => i + 1).map((n) => {
           const isFree = S.free.includes(n);
-          const ready = S.openAll || (isFree ? S.free.includes(n) : !S.unlockHref && !!token && paidReady.includes(n));
+          const ready = S.openAll || (isFree ? S.free.includes(n) : !S.unlockHref && !!token && (mainSite || paidReady.includes(n)));
           const lockedPaid = !isFree && !token;
           const b = best[n];
           const href = S.testHref ? S.testHref(n) : `${base}${S.enginePath}?t=${String(n).padStart(2, "0")}&lang=${lang}`;
