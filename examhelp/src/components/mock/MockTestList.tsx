@@ -169,9 +169,9 @@ export function MockTestList({ series = "ag3" }: { series?: string }) {
             </>
           ) : (
             <>
-              <button type="button" onClick={unlock} disabled={!canBuy || payState !== "idle"} className="btn-primary w-full disabled:opacity-60">
+              <button type="button" onClick={unlock} disabled={(!canBuy && series !== "rrbg") || payState !== "idle"} className="btn-primary w-full disabled:opacity-60">
                 <CreditCard className="h-4 w-4" aria-hidden="true" />
-                {payState !== "idle" ? t("wait") : canBuy ? S.unlockBtn[lang] : t("soon")}
+                {payState !== "idle" ? t("wait") : (canBuy || series === "rrbg") ? S.unlockBtn[lang] : t("soon")}
               </button>
               {payErr ? <p role="alert" className="mt-2 text-sm text-danger-700">{payErr}</p> : null}
               <a href={`${base}/download/?recover=1`} className="mt-2 block text-center text-xs text-brand-700 underline">{t("otherDevice")}</a>
