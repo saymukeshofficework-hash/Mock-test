@@ -141,6 +141,7 @@ export function MockTestList({ series = "ag3" }: { series?: string }) {
         <p className="mt-1 text-xs text-ink-500">{S.neg[lang]}</p>
       </section>
 
+      {series !== "rrbg" ? (
       <section className="card mt-6 flex flex-col gap-4 border-accent-100 bg-accent-50 p-5 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h2 className="font-bold text-ink-900">{S.unlockTitle[lang]}</h2>
@@ -179,6 +180,7 @@ export function MockTestList({ series = "ag3" }: { series?: string }) {
           )}
         </div>
       </section>
+      ) : null}
 
       <ol className="mock-test-grid mt-8 grid gap-3">
         {Array.from({ length: S.total }, (_, i) => i + 1).map((n) => {
