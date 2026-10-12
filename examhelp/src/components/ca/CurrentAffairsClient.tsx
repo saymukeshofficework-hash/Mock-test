@@ -1,8 +1,8 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { Download, Globe2, Landmark, MapPin, Newspaper, ShieldCheck, Sparkles } from "lucide-react";
-import { checkout } from "@/lib/checkout";
+import { Download, FileText, Globe2, Landmark, MapPin, Newspaper, ShieldCheck, Sparkles } from "lucide-react";
+import { buyNotes, checkout, claimPurchase, downloadPath } from "@/lib/checkout";
 
 /**
  * Daily current affairs (MP, India, World), free for everyone.
@@ -25,6 +25,8 @@ type Quiz = { q: Bi; o: { hi: string[]; en: string[] }; a: number; exp: Bi };
 type Day = { day: string; title?: Bi; items: Item[]; oneliners?: { hi: string[]; en: string[] }; quiz?: Quiz[] };
 type IndexRow = { day: string; items: number };
 
+// 6-month current affairs notes PDF (₹99, product in notes-checkout); price shown only after a click
+const NOTES_6M = "ca-6m";
 const PDF_LIB = "https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js";
 
 const REGIONS: { key: "all" | Item["region"]; label: Bi; Icon: typeof MapPin }[] = [
@@ -81,6 +83,7 @@ export function CurrentAffairsClient() {
   const [region, setRegion] = useState<"all" | Item["region"]>("all");
   const [pdfBusy, setPdfBusy] = useState(false);
   const [shown, setShown] = useState<Record<number, number | undefined>>({});
+  const [notesBusy, setNotesBusy] = useState(false);
   const printRef = useRef<HTMLDivElement>(null);
   const L = (b?: Bi) => (b ? b[lang] || b.hi : "");
 
@@ -136,6 +139,36 @@ export function CurrentAffairsClient() {
     }
   };
 
+  const openNotes6m = async () => {
+    if (notesBusy) return;
+    setNotesBusy(true);
+    const hi = lang === "hi";
+    try {
+      const owned = await claimPurchase(NOTES_6M);
+      if (owned) {
+        window.location.href = downloadPath(owned);
+        return;
+      }
+      const st = await checkout<{ ready: boolean }>({ action: "status", product: NOTES_6M });
+      if (!st.ready) {
+        alert(hi ? "6 माह के करेंट अफेयर्स नोट्स जल्द उपलब्ध होंगे।" : "6-month current affairs notes are coming soon.");
+        return;
+      }
+      if (!confirm(hi ? "6 माह के करेंट अफेयर्स नोट्स (PDF) की कीमत ₹99 है। भुगतान करें?" : "6-month current affairs notes (PDF) cost ₹99. Pay now?")) return;
+      await buyNotes(NOTES_6M, {
+        onState: (s) => setNotesBusy(s !== "idle"),
+        onError: (m) => {
+          if (!m.startsWith("verify")) alert(hi ? "भुगतान शुरू नहीं हो सका। कृपया फिर से कोशिश करें।" : "Could not start payment. Please try again.");
+          else alert(hi ? `भुगतान हो गया पर पुष्टि नहीं हुई। Payment ID: ${m.slice(7)} — सहायता से संपर्क करें।` : `Payment done but not verified. Payment ID: ${m.slice(7)} — please contact support.`);
+        },
+      });
+      return;
+    } catch {
+      /* network */
+    }
+    setNotesBusy(false);
+  };
+
   const switchLang = (l: Lang) => {
     setLang(l);
     try {
@@ -177,6 +210,11 @@ export function CurrentAffairsClient() {
           </p>
           <h1 className="mt-1 text-3xl font-extrabold tracking-tight text-ink-900">{lang === "hi" ? "दैनिक करेंट अफेयर्स" : "Daily Current Affairs"}</h1>
           {day ? <p className="mt-1 text-ink-500">{fmtDay(day.day, lang, true)}</p> : null}
+          <button type="button" onClick={openNotes6m} disabled={notesBusy}
+            className="mt-2 inline-flex items-center gap-1.5 rounded-lg border border-ink-200 bg-surface px-3 py-1.5 text-sm font-semibold text-brand-800 hover:border-ink-300 disabled:opacity-60">
+            <FileText className="h-4 w-4" aria-hidden="true" />
+            {notesBusy ? (lang === "hi" ? "कृपया प्रतीक्षा करें…" : "Please wait…") : lang === "hi" ? "6 माह के करेंट अफेयर्स नोट्स" : "6-month current affairs notes"}
+          </button>
         </div>
         <div className="flex flex-wrap items-center gap-2">
           <LangToggle />
