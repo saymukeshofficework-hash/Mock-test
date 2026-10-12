@@ -121,6 +121,35 @@ header.site-header nav a.active{background:var(--app-purple);color:#fff}
 .mobile-bottom-nav a.active{color:var(--app-purple);font-weight:800}
 @media(min-width:700px){.grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}.test-card{padding:18px 12px}.test-card h3{font-size:15px}.test-card .desc{font-size:12px}.test-card .btn{font-size:12px}}
 @media(max-width:380px){header.site-header nav a{padding:6px 7px;font-size:11px}.hero{margin:8px 8px 12px;padding:18px 14px}.grid{gap:7px}.test-card .badge{width:54px;height:54px}.test-card h3{font-size:11px}.test-card .desc{font-size:10px}}
+
+/* 2026 colourful, conversion-focused homepage refresh */
+:root{--app-purple:#5632b5;--app-lavender:#f7f5ff;--app-line:#e8e2f5}
+.hero{position:relative;isolation:isolate;overflow:hidden;margin:16px auto 18px;max-width:1100px;padding:clamp(26px,5vw,52px) clamp(20px,5vw,48px);border-radius:24px;background:radial-gradient(circle at 88% 12%,#ffcf70 0,transparent 26%),radial-gradient(circle at 8% 100%,#36d7c3 0,transparent 34%),linear-gradient(120deg,#33207f 0%,#673bd2 52%,#8b5cf6 100%);box-shadow:0 18px 45px #4c2ba526}
+.hero:after{content:"✦  ✧  ✦";position:absolute;right:5%;bottom:10%;font-size:clamp(30px,6vw,68px);letter-spacing:10px;color:#ffffff30;z-index:-1;transform:rotate(-10deg)}
+.hero .eyebrow{display:inline-flex;align-items:center;gap:6px;background:#fff4c4;color:#593b00;border:1px solid #ffe08a;border-radius:999px;padding:8px 12px;font-weight:900}
+.hero h1{max-width:760px;font-size:clamp(28px,5vw,48px);line-height:1.14;letter-spacing:-.5px;text-wrap:balance}
+.hero p.tagline{font-size:clamp(16px,2vw,20px);font-weight:800;color:#ffedab;margin:12px 0}
+.hero p.intro{max-width:650px;font-size:clamp(14px,1.8vw,17px);line-height:1.75;color:#f4efff}
+.hero .hero-actions{gap:10px;margin-top:20px}
+.hero .hero-actions .btn{min-height:48px;padding:13px 19px;border-radius:13px;font-weight:900;box-shadow:0 6px 18px #170d3a24}
+.hero .hero-actions .btn-primary{background:#ffcf45;color:#2f205c;border:1px solid #ffdf82}
+.hero .hero-actions .btn-primary:hover{background:#ffe17d;transform:translateY(-1px)}
+.hero .hero-actions .btn-secondary{background:#ffffff18;color:#fff;border:1px solid #ffffff80}
+.home-quick-start{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:0 auto 12px;max-width:1100px;padding:0 14px}
+.home-quick-link{display:flex;align-items:center;gap:12px;min-width:0;padding:14px;border:1px solid #e9e3f6;border-radius:16px;background:#fff;color:#31204f;text-decoration:none;box-shadow:0 5px 18px #39214b08;transition:transform .18s ease,box-shadow .18s ease}
+.home-quick-link:hover{transform:translateY(-3px);box-shadow:0 12px 24px #39214b12}
+.home-quick-icon{display:grid;place-items:center;flex:0 0 44px;width:44px;height:44px;border-radius:13px;font-size:23px}
+.home-quick-link strong{display:block;font-size:14px;line-height:1.3}
+.home-quick-link small{display:block;margin-top:4px;color:#777087;font-size:11px;line-height:1.4}
+.home-quick-link .quick-arrow{margin-left:auto;color:#7b61bc;font-size:20px}
+.home-first-visit{max-width:1072px;margin:12px auto 4px;padding:0 14px}
+.home-first-visit-inner{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:14px 16px;border:1px solid #d9f3e8;border-radius:14px;background:linear-gradient(100deg,#ecfdf5,#f0fdfa);color:#145b48}
+.home-first-visit-inner strong{display:block;font-size:14px}
+.home-first-visit-inner p{margin:4px 0 0;font-size:12px;line-height:1.5;color:#357765}
+.home-first-visit-inner .btn{flex:0 0 auto;background:#0f9f75;color:#fff;border-radius:10px;font-size:12px;font-weight:900;padding:11px 14px}
+@media(max-width:700px){.hero{margin:9px 9px 14px;padding:24px 18px;border-radius:20px}.hero:after{right:1%;bottom:4%;font-size:34px}.home-quick-start{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;padding:0 10px}.home-quick-link{gap:9px;padding:11px 9px;border-radius:13px}.home-quick-icon{flex-basis:37px;width:37px;height:37px;font-size:20px}.home-quick-link strong{font-size:12px}.home-quick-link small{font-size:10px}.home-first-visit{padding:0 10px}.home-first-visit-inner{align-items:flex-start;flex-direction:column}.home-first-visit-inner .btn{width:100%;text-align:center}.hero .hero-actions .btn{flex:1;text-align:center;padding:12px 10px}}
+@media(prefers-reduced-motion:reduce){.home-quick-link,.hero .hero-actions .btn{transition:none}.home-quick-link:hover,.hero .hero-actions .btn-primary:hover{transform:none}}
+
 </style>
 </head>
 <body>
@@ -162,6 +191,16 @@ header.site-header nav a.active{background:var(--app-purple);color:#fff}
         <a class="btn btn-secondary" href="login.html" data-i18n="hero_cta_login">Student Login</a>
       </div>
     </div>
+
+    <section class="home-quick-start" aria-label="लोकप्रिय परीक्षाएँ">
+      <a class="home-quick-link" href="/examhelp/mp-police-constable-gd-mock-tests/"><span class="home-quick-icon" style="background:#dcfce7;color:#166534">🛡️</span><span><strong>MP पुलिस</strong><small>कॉन्स्टेबल मॉक टेस्ट</small></span><span class="quick-arrow" aria-hidden="true">›</span></a>
+      <a class="home-quick-link" href="/examhelp/rrb-ntpc-graduate-mock-tests/"><span class="home-quick-icon" style="background:#dbeafe;color:#1d4ed8">🚆</span><span><strong>RRB NTPC</strong><small>ग्रेजुएट लेवल</small></span><span class="quick-arrow" aria-hidden="true">›</span></a>
+      <a class="home-quick-link" href="/examhelp/mp-high-court-assistant-grade-3-mock-tests/"><span class="home-quick-icon" style="background:#fce7f3;color:#9d174d">⚖️</span><span><strong>हाईकोर्ट</strong><small>असिस्टेंट ग्रेड-3</small></span><span class="quick-arrow" aria-hidden="true">›</span></a>
+      <a class="home-quick-link" href="#freeTests"><span class="home-quick-icon" style="background:#fef3c7;color:#92400e">🎯</span><span><strong>फ्री टेस्ट</strong><small>अभी अभ्यास शुरू करें</small></span><span class="quick-arrow" aria-hidden="true">›</span></a>
+    </section>
+    <section class="home-first-visit" aria-label="फ्री टेस्ट ऑफर">
+      <div class="home-first-visit-inner"><div><strong>पहली बार आए हैं? पहला TET मॉक टेस्ट बिल्कुल मुफ़्त है।</strong><p>लॉगिन या भुगतान के बिना टेस्ट शुरू करें और अपनी तैयारी का स्तर जानें।</p></div><a class="btn" href="#freeTests">फ्री टेस्ट शुरू करें →</a></div>
+    </section>
 
     <div class="container">
 
