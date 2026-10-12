@@ -28,7 +28,7 @@ function safeEqual(a: string, b: string) {
   for (let i = 0; i < a.length; i++) r |= a.charCodeAt(i) ^ b.charCodeAt(i);
   return r === 0;
 }
-const SERIES = ["ag3", "pcgd", "asi"];
+const SERIES = ["ag3", "pcgd", "asi", "mpgrb"];
 const COLS = "id,product,amount,status,rzp_order_id,rzp_payment_id,email,phone,downloads,download_token,created_at,paid_at";
 
 Deno.serve(async (req) => {
