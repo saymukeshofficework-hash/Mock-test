@@ -104,10 +104,15 @@ const TET_LEVELS = {
   },
 };
 const TET_TESTS_PER_SUBJECT = 25;
-// ₹199 per subject series (tests 2-25). Paste a Razorpay Payment Link here when ready;
-// until then the buy button opens contact.html.
+// ₹199 per subject series (tests 2-25).
 const TET_SUBJECT_PRICE = 199;
-const TET_SUBJECT_PAYMENT_LINK = "";
+// TET-only Razorpay: one TETTESTHUB Payment Link per price (Razorpay Dashboard ->
+// Payment Links -> Create, live mode). Used by tet/index.html and tests.html.
+// Empty link = buy button opens contact.html (tests.html keeps PAYMENT_LINKS.all18).
+const TET_PAYMENT_LINKS = {
+  99: "",   // Hindi series (primary + secondary)
+  199: "",  // all other subject series
+};
 // Test 1 of every ready TET subject series is free (same rule as test01).
 Object.values(TET_LEVELS).forEach(lv => lv.subjects.forEach(s => {
   if (s.ready && !s.legacy) FREE_TESTS.push(`tet${lv === TET_LEVELS.primary ? "p" : "s"}-${s.key}-01`);
