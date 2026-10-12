@@ -219,10 +219,10 @@ export const MOCK_SERIES: Record<string, MockSeries> = {
     neg: { hi: "प्रत्येक गलत उत्तर पर ⅓ अंक कटेगा; छोड़े गए प्रश्न पर कोई कटौती नहीं।", en: "⅓ mark is deducted for each wrong answer; no deduction for unattempted questions." },
     unlockTitle: { hi: "टेस्ट 2–25 अनलॉक करें — ₹199", en: "Unlock Tests 2–25 — ₹199" },
     unlockSub: {
-      hi: "टेस्ट 1 बिना लॉगिन के खोलें। बाकी टेस्ट अभी लॉक हैं।",
-      en: "Open Test 1 without logging in. The remaining tests are locked for now.",
+      hi: "टेस्ट 1 फ्री है। टेस्ट 2–25 खोलने के लिए एक बार ₹199 का भुगतान करें।",
+      en: "Test 1 is free. Pay ₹199 once to unlock Tests 2–25.",
     },
-    unlockBtn: { hi: "लॉक", en: "Locked" },
+    unlockBtn: { hi: "₹199 देकर अनलॉक करें", en: "Pay ₹199 to unlock" },
     links: [],
   },
   rrbu: {
