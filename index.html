@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>document.documentElement.classList.add('auth-check-pending');</script>
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; connect-src 'self' https://*.supabase.co https://ovaubhekxjtkodkhsybg.supabase.co; img-src 'self' data:;">
 <title>TET Mock Test 2026 – Free Online TET Practice Tests | TET Test Hub</title>
 <meta name="description" content="Practice for the Teacher Eligibility Test (TET) online with 25 full-length bilingual mock tests. Try 1 test free, then unlock all 25 for ₹199.">
@@ -372,9 +373,13 @@ header.site-header nav a.active{background:var(--app-purple);color:#fff}
     window.location.href = 'index.html';
   });
   // Direct site visits must sign in first; after login, return to this homepage.
-  document.documentElement.classList.add('auth-check-pending');
   (async () => {
-    const session = await getSession();
+    let session = null;
+    try {
+      session = await getSession();
+    } catch (error) {
+      console.error('Unable to verify login session:', error);
+    }
     if (!session) {
       window.location.replace('/login.html?next=index.html');
       return;
