@@ -240,22 +240,8 @@ jobs:
           <script>location.replace('/examhelp/courses/')</script>
           <a href="/examhelp/courses/">कोर्स देखें / View courses</a>
           TET_HOME_REDIRECT
-          cat > _site/index.html <<'LOGIN_REDIRECT'
-          <!doctype html>
-          <html lang="hi">
-          <head>
-          <meta charset="utf-8">
-          <meta name="viewport" content="width=device-width,initial-scale=1">
-          <meta http-equiv="refresh" content="0;url=/login.html">
-          <title>TET Test Hub — Login</title>
-          </head>
-          <body>
-          <p>लॉगिन पेज खोला जा रहा है…</p>
-          <script>window.location.replace('/login.html');</script>
-          <noscript><a href="/login.html">लॉगिन / रजिस्टर पर जाएँ</a></noscript>
-          </body>
-          </html>
-          LOGIN_REDIRECT
+          # Keep the colourful marketing homepage from the repository root at /.
+          # The login page remains available directly at /login.html.
           # /examhelp/ keeps its separate catalogue/login landing page.
           cp home/index.html _site/examhelp/index.html
           # all-courses catalogue (courses, test series, current affairs) at /examhelp/courses/
