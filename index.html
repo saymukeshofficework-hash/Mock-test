@@ -35,6 +35,23 @@
 @media(max-width:600px){.all-exams-heading{align-items:stretch;flex-direction:column}.all-exams-cta{align-self:flex-start}.all-exams-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.all-exam-card{padding:13px!important;min-height:200px}.all-exam-icon{width:40px;height:40px;font-size:22px}.all-exam-card h3{font-size:14px!important}.all-exam-card .desc{font-size:11.5px!important}}
 @media(max-width:360px){.all-exams-grid{grid-template-columns:1fr}}
 
+/* Homepage category navigation: paid courses, test series and e-books */
+.learning-category-grid{align-items:start}
+.learning-category{display:block;min-width:0;padding:0!important;overflow:hidden}
+.learning-category summary{display:flex;align-items:center;gap:11px;padding:15px;cursor:pointer;list-style:none}
+.learning-category summary::-webkit-details-marker{display:none}
+.learning-category summary .all-exam-icon{flex:0 0 46px;margin:0;background:#f1eaff}
+.learning-category summary strong{display:block;color:#342052;font-size:15px;line-height:1.4}
+.learning-category summary small{display:block;color:#777087;font-size:11px;line-height:1.4;margin-top:3px}
+.category-chevron{margin-left:auto;color:#6d3ac7;font-size:20px;transition:transform .2s}
+.learning-category[open] .category-chevron{transform:rotate(180deg)}
+.category-links{display:grid;gap:0;padding:0 13px 12px}
+.category-links a{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:10px 2px;border-top:1px solid #eee7f5;color:#4b3471;text-decoration:none;font-size:12px;font-weight:700;line-height:1.45}
+.category-links a:hover{color:#6d3ac7}
+.category-links a span{flex:0 0 auto;color:#8c70bd}
+.category-note{margin:9px 0 0;padding:10px;border-radius:9px;background:#faf7ff;color:#766c83;font-size:11px;line-height:1.6}
+@media(max-width:600px){.learning-category summary{gap:8px;padding:12px 10px}.learning-category summary .all-exam-icon{flex-basis:38px;width:38px;height:38px;font-size:20px}.learning-category summary strong{font-size:13px}.learning-category summary small{font-size:10px}.category-links{padding:0 10px 10px}.category-links a{font-size:11px}}
+
 /* Homepage all-exams search and category filters */
 .exam-tools{display:grid;gap:12px;margin:18px 0 8px}
 .exam-search{display:flex;align-items:center;gap:10px;max-width:560px;padding:0 15px;height:48px;border:1px solid #e1d8ef;border-radius:14px;background:#fff;color:#6d3ac7;box-shadow:0 3px 12px #35205a08}
@@ -147,6 +164,53 @@ header.site-header nav a.active{background:var(--app-purple);color:#fff}
     </div>
 
     <div class="container">
+
+      <section class="section" id="learningCategories" style="padding-top:8px;">
+        <div class="all-exams-heading">
+          <div>
+            <span class="all-exams-kicker">📚 कोर्स, टेस्ट और ई-बुक</span>
+            <h2>अपनी तैयारी की श्रेणी चुनें</h2>
+            <p class="lead">किसी श्रेणी पर टैप करें और अपनी परीक्षा के उपलब्ध कोर्स, टेस्ट सीरीज़ या नोट्स खोलें।</p>
+          </div>
+        </div>
+        <div class="grid all-exams-grid learning-category-grid">
+          <details class="card learning-category" open>
+            <summary><span class="all-exam-icon" aria-hidden="true">🎓</span><span><strong>पेड कोर्स</strong><small>परीक्षा के अनुसार कोर्स</small></span><span class="category-chevron" aria-hidden="true">⌄</span></summary>
+            <div class="category-links">
+              <a href="/examhelp/mp-police-subedar-asi-mock-tests/">सूबेदार / ASI <span>→</span></a>
+              <a href="/examhelp/mp-police-constable-gd-mock-tests/">कॉन्स्टेबल (GD) <span>→</span></a>
+              <a href="/examhelp/mp-high-court-assistant-grade-3-mock-tests/">MP हाईकोर्ट सहायक ग्रेड-3 <span>→</span></a>
+              <a href="/examhelp/rrb-ntpc-graduate-mock-tests/">RRB NTPC ग्रेजुएट <span>→</span></a>
+              <a href="/examhelp/rrb-ntpc-undergraduate-mock-tests/">RRB NTPC 10+2 <span>→</span></a>
+              <a href="/tet/">TET / शिक्षक पात्रता <span>→</span></a>
+              <a href="/typing-practice/">स्टेनो / टाइपिंग अभ्यास <span>→</span></a>
+            </div>
+          </details>
+          <details class="card learning-category">
+            <summary><span class="all-exam-icon" aria-hidden="true">📝</span><span><strong>टेस्ट सीरीज़</strong><small>परीक्षा चुनें और मॉक टेस्ट दें</small></span><span class="category-chevron" aria-hidden="true">⌄</span></summary>
+            <div class="category-links">
+              <a href="/examhelp/mp-police-subedar-asi-mock-tests/">सूबेदार / ASI के टेस्ट <span>→</span></a>
+              <a href="/examhelp/mp-police-constable-gd-mock-tests/">कॉन्स्टेबल के टेस्ट <span>→</span></a>
+              <a href="/examhelp/mp-high-court-assistant-grade-3-mock-tests/">MP हाईकोर्ट के टेस्ट <span>→</span></a>
+              <a href="/examhelp/rrb-ntpc-graduate-mock-tests/">RRB NTPC ग्रेजुएट टेस्ट <span>→</span></a>
+              <a href="/examhelp/rrb-ntpc-undergraduate-mock-tests/">RRB NTPC 10+2 टेस्ट <span>→</span></a>
+              <a href="/tests.html">TET टेस्ट सीरीज़ <span>→</span></a>
+              <a href="/examhelp/current-affairs/">डेली करेंट अफेयर्स क्विज़ <span>→</span></a>
+            </div>
+          </details>
+          <details class="card learning-category">
+            <summary><span class="all-exam-icon" aria-hidden="true">📖</span><span><strong>ई-बुक / PDF नोट्स</strong><small>डिजिटल अध्ययन सामग्री</small></span><span class="category-chevron" aria-hidden="true">⌄</span></summary>
+            <div class="category-links">
+              <a href="/bridge-course/">ब्रिज कोर्स नोट्स <span>→</span></a>
+              <a href="/examhelp/current-affairs/">करेंट अफेयर्स और PDF <span>→</span></a>
+              <a href="/examhelp/mp-high-court-assistant-grade-3-mock-tests/">MP हाईकोर्ट अध्ययन सामग्री <span>→</span></a>
+              <a href="/examhelp/mp-police-subedar-asi-mock-tests/">सूबेदार / ASI अध्ययन सामग्री <span>→</span></a>
+              <a href="/examhelp/mp-police-constable-gd-mock-tests/">कॉन्स्टेबल अध्ययन सामग्री <span>→</span></a>
+              <p class="category-note">नोट: जहाँ ई-बुक/PDF उपलब्ध है, वहीं से उसे खोलें। भुगतान वाले PDF के लिए सुरक्षित खरीद और डाउनलोड व्यवस्था अलग से जुड़ी होनी चाहिए।</p>
+            </div>
+          </details>
+        </div>
+      </section>
 
       <section class="section" id="allExams" style="padding-top:24px;">
         <div class="all-exams-heading">
