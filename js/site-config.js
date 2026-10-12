@@ -86,7 +86,7 @@ const TET_LEVELS = {
     hi: "प्राथमिक स्तर", en: "Primary Level",
     subjects: [
       // Hindi = the original 20 full TET papers (test01..test20, pages tet-mock-test-N.html).
-      { key: "hindi", hi: "हिंदी", en: "Hindi", ready: true, legacy: 20, price: 99 },
+      { key: "hindi", hi: "हिंदी", en: "Hindi", ready: true, legacy: 20 },
       { key: "english", hi: "अंग्रेज़ी", en: "English", ready: true },
       { key: "sanskrit", hi: "संस्कृत", en: "Sanskrit", ready: true },
     ],
@@ -94,7 +94,7 @@ const TET_LEVELS = {
   secondary: {
     hi: "माध्यमिक (MP STET)", en: "Secondary (MP STET)",
     subjects: [
-      { key: "hindi", hi: "हिंदी", en: "Hindi", ready: true, price: 99 },
+      { key: "hindi", hi: "हिंदी", en: "Hindi", ready: true },
       { key: "english", hi: "अंग्रेज़ी", en: "English", ready: true },
       { key: "sanskrit", hi: "संस्कृत", en: "Sanskrit" },
       { key: "maths", hi: "गणित", en: "Mathematics", ready: true },
@@ -104,10 +104,10 @@ const TET_LEVELS = {
   },
 };
 const TET_TESTS_PER_SUBJECT = 25;
-// ₹199 per subject series (tests 2-25). Paste a Razorpay Payment Link here when ready;
-// until then the buy button opens contact.html.
+// ₹199 per subject series (tests 2-25). tet/index.html sells it through the TETTESTHUB
+// Razorpay checkout (exam-hub notes-checkout, products "tet-<series>"; keep the amount there
+// in sync) and the tet-unlock Edge Function adds the tests to the buyer's profile.
 const TET_SUBJECT_PRICE = 199;
-const TET_SUBJECT_PAYMENT_LINK = "";
 // Test 1 of every ready TET subject series is free (same rule as test01).
 Object.values(TET_LEVELS).forEach(lv => lv.subjects.forEach(s => {
   if (s.ready && !s.legacy) FREE_TESTS.push(`tet${lv === TET_LEVELS.primary ? "p" : "s"}-${s.key}-01`);

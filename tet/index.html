@@ -49,7 +49,9 @@ h1{font-size:clamp(28px,6vw,40px);line-height:1.2;margin:34px 0 12px;color:#0d3b
   <div class="grid" id="grid"></div>
 </main>
 <div class="foot">TETTESTHUB · <a href="/contact.html">संपर्क / Contact</a></div>
-<script src="../js/site-config.js?v=6"></script>
+<script src="../assets/vendor/supabase/supabase.js"></script>
+<script src="../js/site-config.js?v=7"></script>
+<script src="../js/auth.js?v=2"></script>
 <script>
 (function(){
   const q = new URLSearchParams(location.search);
@@ -83,9 +85,70 @@ h1{font-size:clamp(28px,6vw,40px);line-height:1.2;margin:34px 0 12px;color:#0d3b
   }
   grid.innerHTML = html;
   if (sub.ready) {
-    const price = Number.isFinite(Number(sub.price)) ? Number(sub.price) : TET_SUBJECT_PRICE;
-    const buy = TET_SUBJECT_PAYMENT_LINK || '/contact.html';
-    grid.insertAdjacentHTML('beforebegin', `<section class="card unlock"><h2>${esc(sub.hi)} — पूरी सीरीज़ / Full series</h2><p>टेस्ट 1 फ्री। बाकी ${TET_TESTS_PER_SUBJECT - 1} टेस्ट ₹${price} में।<br>Test 1 free. Unlock the other ${TET_TESTS_PER_SUBJECT - 1} tests for ₹${price}.</p><a class="btn btn-p" href="${buy}" target="_blank" rel="noopener">अनलॉक करें / Unlock — ₹${price}</a></section>`);
+    const price = TET_SUBJECT_PRICE;
+    grid.insertAdjacentHTML('beforebegin', `<section class="card unlock" id="unlockBox"><h2>${esc(sub.hi)} — पूरी सीरीज़ / Full series</h2><p>टेस्ट 1 फ्री। बाकी ${TET_TESTS_PER_SUBJECT - 1} टेस्ट ₹${price} में।<br>Test 1 free. Unlock the other ${TET_TESTS_PER_SUBJECT - 1} tests for ₹${price}.</p><button class="btn btn-p" id="buyBtn" type="button">अनलॉक करें / Unlock — ₹${price}</button><p id="buyMsg" style="margin:10px 0 0"></p></section>`);
+    setupCheckout(sub.legacy ? 'tetp-hindi' : 'tet' + lvKey[0] + '-' + sub.key);
+  }
+
+  // Razorpay checkout (TETTESTHUB account, exam-hub notes-checkout) + auto-unlock (tet-unlock).
+  function setupCheckout(series) {
+    const CHECKOUT_URL = 'https://znulepzdihzhjmuvyroi.supabase.co/functions/v1/notes-checkout';
+    const CHECKOUT_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpudWxlcHpkaWh6aGptdXZ5cm9pIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTExMjE5MjIsImV4cCI6MjEwNjY5NzkyMn0.XoqC6vNDJkEAxgtXLVPCpTxocv3lAa-ZBeg69OdbhdU';
+    const btn = $('buyBtn'), msg = $('buyMsg');
+    const say = t => { msg.textContent = t; };
+    const hub = body => fetch(CHECKOUT_URL, { method: 'POST', headers: { 'Content-Type': 'application/json', apikey: CHECKOUT_ANON, Authorization: 'Bearer ' + CHECKOUT_ANON }, body: JSON.stringify(body) }).then(r => r.json());
+
+    // Ask the main site to add every paid TET series to this student's tests, then show what is open.
+    async function unlock(session) {
+      try {
+        await fetch(SITE_CONFIG.supabaseUrl + '/functions/v1/tet-unlock', { method: 'POST', headers: { apikey: SITE_CONFIG.supabaseAnonKey, Authorization: 'Bearer ' + session.access_token } });
+      } catch (e) {}
+      const prof = await getProfile(session.user.id);
+      if (!prof || prof.status !== 'active') return false;
+      const owned = new Set(prof.purchased_tests || []);
+      let all = true;
+      grid.querySelectorAll('.card.t[data-id]').forEach(c => {
+        const a = c.querySelector('a.btn');
+        if (!a) return;
+        if (owned.has(c.dataset.id)) { a.className = 'btn btn-p w'; a.textContent = '▶ शुरू करें / Start'; }
+        else if (!/-01$|^test01$/.test(c.dataset.id)) all = false;
+      });
+      if (all) { btn.style.display = 'none'; say('✅ सीरीज़ अनलॉक है। / Series unlocked.'); }
+      return all;
+    }
+
+    function loadRzp() {
+      return window.Razorpay ? Promise.resolve() : new Promise((ok, bad) => {
+        const s = document.createElement('script'); s.src = 'https://checkout.razorpay.com/v1/checkout.js'; s.onload = ok; s.onerror = bad; document.head.appendChild(s);
+      });
+    }
+
+    btn.addEventListener('click', async () => {
+      const session = await getSession();
+      if (!session) { say('पहले लॉगिन करें। / Please log in first.'); setTimeout(() => { location.href = '/login.html'; }, 900); return; }
+      btn.disabled = true; say('पेमेंट खुल रहा है… / Opening payment…');
+      try {
+        const o = await hub({ action: 'create', product: 'tet-' + series, access_token: session.access_token });
+        if (!o.order_id) throw new Error(o.error || 'order');
+        await loadRzp();
+        new Razorpay({
+          key: o.key_id, order_id: o.order_id, amount: o.amount, currency: o.currency, name: o.name, description: o.description,
+          prefill: { email: session.user.email || '' },
+          handler: async res => {
+            say('पेमेंट जाँच रहे हैं… / Checking payment…');
+            await hub({ action: 'verify', order_id: res.razorpay_order_id, payment_id: res.razorpay_payment_id, signature: res.razorpay_signature });
+            say(await unlock(session) ? '✅ सीरीज़ अनलॉक हो गई। / Series unlocked.' : 'पेमेंट मिल गया, कुछ सेकंड में पेज रीलोड करें। / Payment received, reload the page in a few seconds.');
+          },
+          modal: { ondismiss: () => { btn.disabled = false; say(''); } },
+        }).open();
+      } catch (e) {
+        btn.disabled = false;
+        say('पेमेंट शुरू नहीं हुआ, फिर से कोशिश करें। / Could not start payment, please try again.');
+      }
+    });
+
+    // Already paid (other device, or UPI app reloaded the page)? Unlock on load.
+    getSession().then(s => { if (s) unlock(s); });
   }
 })();
 </script>
