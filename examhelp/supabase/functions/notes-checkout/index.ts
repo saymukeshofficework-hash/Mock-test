@@ -9,7 +9,7 @@ import { createClient } from "npm:@supabase/supabase-js@2";
 // kind "pdf": one private file in bucket "notes"; kind "tests": unlocks private test files in bucket "tests";
 // kind "combo": the PDF in `file` + the test series (bucket "tests", folder TESTS_FOLDER)
 const TESTS_FOLDER = "ag3";
-const PRODUCTS: Record<string, { amount: number; file: string; downloadName: string; title: string; kind?: "pdf" | "tests" | "combo" | "ca" }> = {
+const PRODUCTS: Record<string, { amount: number; file: string; downloadName: string; title: string; kind?: "pdf" | "tests" | "combo" | "ca" | "tet" }> = {
   "static-gk-hi-en": {
     amount: 9900, // ₹99 in paise
     file: "TETTestHub_Static_GK_Hindi_English.pdf",
@@ -71,6 +71,12 @@ const PRODUCTS: Record<string, { amount: number; file: string; downloadName: str
     title: "करेंट अफेयर्स — 30 दिन का पास (MP, भारत, अंतरराष्ट्रीय)",
   },
 };
+// TET subject series sold on tettesthub.in/tet/ (₹199 each, login required). The main site's
+// tet-unlock function reads paid orders via "tet_paid" and adds the tests to the student's profile.
+const TET_SERIES = ["tetp-hindi", "tetp-english", "tetp-sanskrit", "tets-hindi", "tets-english", "tets-sanskrit", "tets-maths", "tets-science", "tets-sst"];
+for (const s of TET_SERIES) {
+  PRODUCTS[`tet-${s}`] = { amount: 19900, file: "", downloadName: "", title: `TET टेस्ट सीरीज़ / Test Series (${s})`, kind: "tet" };
+}
 const PASS_DAYS = 30; // current affairs pass length
 const MAX_DOWNLOADS = 10;
 const LINK_SECONDS = 600;
@@ -148,6 +154,7 @@ Deno.serve(async (req) => {
       const p = PRODUCTS[body.product ?? ""];
       if (!p) return json({ ready: false });
       if (p.kind === "ca") return json({ ready, amount: p.amount, days: PASS_DAYS });
+      if (p.kind === "tet") return json({ ready, amount: p.amount });
       if (p.kind === "tests") {
         const { data } = await db.storage.from("tests").list(p.file, { limit: 100 });
         const files = (data ?? []).filter((f) => f.name.endsWith(".json")).map((f) => parseInt(f.name, 10)).filter((n) => n > 0).sort((a, b) => a - b);
@@ -162,6 +169,9 @@ Deno.serve(async (req) => {
       const p = PRODUCTS[body.product ?? ""];
       if (!p) return json({ error: "unknown_product" }, 400);
       if (!ready) return json({ error: "payments_not_configured" }, 503);
+      // link the order to the logged-in student so it unlocks on any device, even if the payment page reloads
+      const buyer = await loggedInUser(body.access_token);
+      if (p.kind === "tet" && !buyer) return json({ error: "login_required" }, 401);
       const r = await fetch("https://api.razorpay.com/v1/orders", {
         method: "POST",
         headers: { "Content-Type": "application/json", Authorization: "Basic " + btoa(`${keyId}:${keySecret}`) },
@@ -169,8 +179,6 @@ Deno.serve(async (req) => {
       });
       const o = await r.json();
       if (!r.ok) return json({ error: "razorpay_order_failed", detail: o?.error?.description }, 502);
-      // link the order to the logged-in student so it unlocks on any device, even if the payment page reloads
-      const buyer = await loggedInUser(body.access_token);
       const { error } = await db.from("orders").insert({ product: body.product, amount: p.amount, rzp_order_id: o.id, buyer_user_id: buyer });
       if (error) return json({ error: "db" }, 500);
       return json({ order_id: o.id, key_id: keyId, amount: p.amount, currency: "INR", name: "TETTESTHUB", description: p.title });
@@ -216,6 +224,15 @@ Deno.serve(async (req) => {
       return json({ token: ord.download_token, product: ord.product });
     }
 
+    case "tet_paid": {
+      // TET series the logged-in student has paid for (read by the main site's tet-unlock function)
+      const buyer = await loggedInUser(body.access_token);
+      if (!buyer) return json({ error: "login_required" }, 401);
+      const { data: rows } = await db.from("orders").select("product").eq("status", "paid").eq("buyer_user_id", buyer).like("product", "tet-%");
+      const series = [...new Set((rows ?? []).map((r) => String(r.product).slice(4)))].filter((s) => TET_SERIES.includes(s));
+      return json({ series });
+    }
+
     case "recover": {
       // buyer lost the page: payment id + email or phone used at checkout
       const pid = (body.payment_id ?? "").trim();
@@ -237,7 +254,7 @@ Deno.serve(async (req) => {
         const expires_at = p.kind === "ca" && ord.paid_at ? new Date(new Date(ord.paid_at).getTime() + PASS_DAYS * 86400e3).toISOString() : undefined;
         return json({ product: ord.product, kind: p.kind ?? "pdf", title: p.title, downloads: ord.downloads, max: MAX_DOWNLOADS, payment_id: ord.rzp_payment_id, expires_at });
       }
-      if (p.kind === "tests" || p.kind === "ca") return json({ error: "not_a_pdf" }, 400);
+      if (p.kind === "tests" || p.kind === "ca" || p.kind === "tet") return json({ error: "not_a_pdf" }, 400);
       if (ord.downloads >= MAX_DOWNLOADS) return json({ error: "limit", max: MAX_DOWNLOADS }, 429);
       const { data, error } = await db.storage.from("notes").createSignedUrl(p.file, LINK_SECONDS, { download: p.downloadName });
       if (error || !data) return json({ error: "storage" }, 500);
