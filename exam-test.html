@@ -204,6 +204,17 @@
     const li = document.querySelectorAll('ol li');
     if (li[0]) li[0].innerHTML = 'Total duration of examination is <strong>75 minutes</strong>. / कुल समय <strong>75 मिनट</strong>।';
     if (li[1]) li[1].innerHTML = 'The test has <strong>75 questions</strong>, <strong>1 mark per question, no negative marking</strong>. / 75 प्रश्न, हर प्रश्न 1 अंक, कोई ऋणात्मक अंकन नहीं।';
+    // A CPCT paper continues with English typing, then Hindi typing (cpct/typing.html).
+    // Remember the MCQ score for the paper summary shown after Hindi typing.
+    const nn = TEST_ID.slice(-2), res = document.getElementById('resultScreen');
+    new MutationObserver((_, obs) => {
+      const score = document.getElementById('resScore').textContent.trim();
+      if (res.style.display !== 'block' || !/^\d+$/.test(score)) return;
+      obs.disconnect();
+      try { sessionStorage.setItem('cpct-paper-' + nn, JSON.stringify({ mcq: +score })); } catch (e) {}
+      res.querySelector('h2').insertAdjacentHTML('afterend',
+        `<p style="margin:12px 0"><a href="/cpct/typing.html?t=cpct-typing-${nn}&lang=en" style="display:inline-block;background:#0f6b5f;color:#fff;padding:12px 18px;border-radius:12px;font-weight:700;text-decoration:none">अगला: भाग 2, अंग्रेज़ी टाइपिंग → / Next: Part 2, English typing →</a></p>`);
+    }).observe(res, { attributes: true, subtree: true, childList: true, characterData: true });
   }
   loadingEl.style.display = 'none';
   const nameScreen = document.getElementById('nameScreen');

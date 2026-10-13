@@ -22,6 +22,12 @@
 .stats{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}.stats div{background:var(--brand2);border-radius:12px;padding:12px}
 .stats b{display:block;font-size:24px;color:var(--brand)}.pass{color:var(--ok);font-weight:800}.fail{color:var(--bad);font-weight:800}
 .hidden{display:none!important}
+select{font:inherit;font-size:16px;padding:10px 12px;border-radius:12px;border:1px solid #b9dcd4;background:#fff;margin:6px 0 4px;max-width:100%}
+.warn{background:#fef3c7;color:#92400e;border-radius:12px;padding:10px 12px;font-size:14px;line-height:1.6}
+/* Hindi fonts: Mangal is Unicode (falls back to Noto Sans Devanagari); Kruti Dev 010 is a legacy
+   font that draws Hindi on ASCII keys, so it must be installed on the student's computer. */
+@font-face{font-family:"TTH Kruti Dev 010";src:local("Kruti Dev 010"),local("KrutiDev010"),local("Kruti Dev 010 Regular")}
+.f-mangal{font-family:Mangal,"Noto Sans Devanagari",sans-serif}.f-kd{font-family:"TTH Kruti Dev 010",monospace;font-size:21px}
 </style>
 </head>
 <body>
@@ -30,10 +36,15 @@
   <section class="card" id="msg">जाँच हो रही है… / Checking your access…</section>
 
   <section class="card hidden" id="pick">
-    <h2 style="margin:0 0 8px">भाषा चुनें / Choose language</h2>
+    <h2 style="margin:0 0 8px" id="pickTtl"></h2>
     <p class="muted">15 मिनट। पहला अक्षर टाइप करते ही समय शुरू होगा। कॉपी-पेस्ट बंद है।<br>15 minutes. The timer starts at your first keystroke. Copy-paste is off.</p>
-    <p class="muted">हिंदी के लिए अपने कंप्यूटर का यूनिकोड कीबोर्ड (Inscript या Remington GAIL) चालू करें।<br>For Hindi, switch on your computer's Unicode keyboard (Inscript or Remington GAIL).</p>
-    <div class="row"><button class="btn btn-p" data-lang="en">English (30 NWPM)</button><button class="btn btn-p" data-lang="hi">हिंदी / Hindi (20 NWPM)</button></div>
+    <div id="fontRow" class="hidden">
+      <label for="font"><b>हिंदी फ़ॉन्ट चुनें / Choose Hindi font</b></label><br>
+      <select id="font"><option value="mangal">मंगल (यूनिकोड) / Mangal (Unicode)</option><option value="kd">कृतिदेव 010 / Krutidev 010</option></select>
+      <p class="muted" id="fontHelp"></p>
+      <p class="warn hidden" id="kdMissing">इस कंप्यूटर में Kruti Dev 010 फ़ॉन्ट नहीं मिला, इसलिए हिंदी की जगह अंग्रेज़ी अक्षर दिखेंगे। फ़ॉन्ट install करें या मंगल चुनें।<br>Kruti Dev 010 font was not found on this computer, so you will see English letters instead of Hindi. Install the font or choose Mangal.</p>
+    </div>
+    <div class="row" style="margin-top:10px"><button class="btn btn-p" id="start">▶ शुरू करें / Start</button></div>
   </section>
 
   <section class="card hidden" id="run">
@@ -47,40 +58,73 @@
 <script src="../assets/vendor/supabase/supabase.js"></script>
 <script src="../js/site-config.js?v=10"></script>
 <script src="../js/auth.js?v=2"></script>
-<script>
+<script type="module">
+// Unicode → Kruti Dev 010 converter shared with /typing-practice/.
+import { unicodeToKrutidev } from '/typing-practice/js/engine/krutidev.js';
 (async () => {
   const $ = id => document.getElementById(id);
   const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-  const TEST_ID = new URLSearchParams(location.search).get('t') || '';
-  const back = '<a class="btn btn-l" href="/cpct/?kind=typing">← सभी टाइपिंग टेस्ट / All typing tests</a>';
+  const q = new URLSearchParams(location.search);
+  const TEST_ID = q.get('t') || '';
+  const lang = q.get('lang') === 'hi' ? 'hi' : 'en';
+  // A CPCT paper: Part 1 MCQ (exam-test.html) → Part 2 English typing → Part 3 Hindi typing.
+  const PART = { en: 'भाग 2: अंग्रेज़ी टाइपिंग / Part 2: English typing', hi: 'भाग 3: हिंदी टाइपिंग / Part 3: Hindi typing' };
+  const back = '<a class="btn btn-l" href="/cpct/">← सभी पेपर / All papers</a>';
   if (!/^cpct-typing-\d{2}$/.test(TEST_ID)) { $('msg').innerHTML = 'टेस्ट नहीं मिला। / Test not found.<br><br>' + back; return; }
-  $('ttl').textContent = 'CPCT टाइपिंग टेस्ट / Typing Test ' + TEST_ID.slice(-2);
+  const nn = TEST_ID.slice(-2), KEY = 'cpct-paper-' + nn;
+  $('ttl').textContent = 'CPCT पेपर / Paper ' + nn + ' · ' + (lang === 'en' ? 'English' : 'हिंदी / Hindi');
 
   const session = await requireAuth();
   if (!session) return;
   // Passages live in Supabase test_content (paid content); RLS returns nothing until the series is bought.
   const { data, error } = await supabaseClient.rpc('get_test_questions', { p_test_id: TEST_ID });
   if (error || !data) {
-    $('msg').innerHTML = 'यह टेस्ट लॉक है। ₹' + CPCT_SERIES.price + ' में पूरी CPCT सीरीज़ अनलॉक करें।<br>This test is locked. Unlock the full CPCT series for ₹' + CPCT_SERIES.price + '.<br><br>' +
-      '<a class="btn btn-p" href="/cpct/?kind=typing">अनलॉक करें / Unlock</a> ' + back;
+    $('msg').innerHTML = 'यह पेपर लॉक है। ₹' + CPCT_SERIES.price + ' में पूरी CPCT सीरीज़ अनलॉक करें।<br>This paper is locked. Unlock the full CPCT series for ₹' + CPCT_SERIES.price + '.<br><br>' +
+      '<a class="btn btn-p" href="/cpct/">अनलॉक करें / Unlock</a> ' + back;
     return;
   }
   const passages = {};
-  data.forEach(sec => (sec.questions || []).forEach(q => {
-    if (q.en && q.en.q) passages.en = q.en.q;
-    if (q.hi && q.hi.q) passages.hi = q.hi.q;
+  data.forEach(sec => (sec.questions || []).forEach(x => {
+    if (x.en && x.en.q) passages.en = x.en.q;
+    if (x.hi && x.hi.q) passages.hi = x.hi.q;
   }));
+  if (!passages[lang]) { $('msg').innerHTML = 'पैसेज नहीं मिला। / Passage not found.<br><br>' + back; return; }
   $('msg').classList.add('hidden');
   $('pick').classList.remove('hidden');
+  $('pickTtl').textContent = PART[lang];
+
+  // Hindi: Mangal (Unicode, the computer's Inscript / Remington GAIL keyboard) or Kruti Dev 010
+  // (Remington keys typed in English mode; passage and typing are compared as Kruti Dev text).
+  const HELP = {
+    mangal: 'अपने कंप्यूटर का हिंदी यूनिकोड कीबोर्ड (Inscript या Remington GAIL) चालू करें।<br>Switch on your computer\'s Hindi Unicode keyboard (Inscript or Remington GAIL).',
+    kd: 'कीबोर्ड English में ही रखें। कृतिदेव Remington लेआउट में English keys से टाइप होता है।<br>Keep the keyboard in English. Krutidev is typed on English keys with the Remington layout.',
+  };
+  let kdFont = null;
+  const kdCheck = async () => {
+    if (kdFont === null) { try { kdFont = (await document.fonts.load('20px "TTH Kruti Dev 010"', 'dfr')).length > 0; } catch (e) { kdFont = false; } }
+    return kdFont;
+  };
+  const font = $('font');
+  const showFont = async () => {
+    $('fontHelp').innerHTML = HELP[font.value];
+    $('kdMissing').classList.toggle('hidden', font.value !== 'kd' || await kdCheck());
+  };
+  if (lang === 'hi') {
+    try { font.value = localStorage.getItem('cpct-font') === 'kd' ? 'kd' : 'mangal'; } catch (e) {}
+    $('fontRow').classList.remove('hidden');
+    font.addEventListener('change', () => { try { localStorage.setItem('cpct-font', font.value); } catch (e) {} showFont(); });
+    showFont();
+  }
 
   const MIN = 15, NEED = { en: 30, hi: 20 };
-  let lang, words, start = 0, clock = null, done = false;
+  let words, mode = 'en', start = 0, clock = null, done = false;
 
-  $('pick').addEventListener('click', e => {
-    const b = e.target.closest('[data-lang]');
-    if (!b || !passages[b.dataset.lang]) return;
-    lang = b.dataset.lang;
-    words = passages[lang].trim().split(/\s+/);
+  $('start').addEventListener('click', () => {
+    mode = lang === 'en' ? 'en' : font.value;
+    const text = mode === 'kd' ? unicodeToKrutidev(passages.hi) : passages[lang];
+    words = text.trim().split(/\s+/);
+    const cls = mode === 'kd' ? 'f-kd' : mode === 'mangal' ? 'f-mangal' : '';
+    if (cls) { $('passage').classList.add(cls); $('box').classList.add(cls); }
     $('pick').classList.add('hidden');
     $('run').classList.remove('hidden');
     paint([]);
@@ -112,6 +156,8 @@
     if (cur) cur.scrollIntoView({ block: 'nearest' });
   }
 
+  function paper() { try { return JSON.parse(sessionStorage.getItem(KEY)) || {}; } catch (e) { return {}; } }
+
   // CPCT style: Gross WPM = (keystrokes ÷ 5) ÷ minutes; Net WPM = Gross − (wrong words ÷ minutes).
   function finish() {
     if (done) return;
@@ -125,14 +171,28 @@
     const net = Math.max(0, gross - wrong / mins);
     const acc = typed.length ? right * 100 / typed.length : 0;
     const ok = net >= NEED[lang];
+    const p = paper(); p[lang] = +net.toFixed(1);
+    try { sessionStorage.setItem(KEY, JSON.stringify(p)); } catch (e) {}
+    const fontName = mode === 'kd' ? ' · कृतिदेव / Krutidev' : mode === 'mangal' ? ' · मंगल / Mangal' : '';
+    let next = '';
+    if (lang === 'en') {
+      next = `<a class="btn btn-p" href="?t=${TEST_ID}&lang=hi">अगला: भाग 3, हिंदी टाइपिंग → / Next: Part 3, Hindi typing →</a>`;
+    } else {
+      const row = (label, v, need) => v === undefined ? '' :
+        `<tr><td>${label}</td><td><b>${v}</b></td><td class="${v >= need ? 'pass' : 'fail'}">${v >= need ? '✅ उत्तीर्ण / Pass' : '❌ अनुत्तीर्ण / Fail'}</td></tr>`;
+      next = `<h3 style="margin:16px 0 8px">पेपर ${nn} सारांश / Paper ${nn} summary</h3><table style="width:100%;border-collapse:collapse" cellpadding="6">` +
+        row('भाग 1: MCQ (पास 38/75) / Part 1: MCQ (pass 38/75)', p.mcq, 38) +
+        row('भाग 2: अंग्रेज़ी Net WPM (30) / Part 2: English Net WPM (30)', p.en, 30) +
+        row('भाग 3: हिंदी Net WPM (20) / Part 3: Hindi Net WPM (20)', p.hi, 20) + '</table>';
+    }
     $('run').classList.add('hidden');
     $('result').classList.remove('hidden');
-    $('result').innerHTML = `<h2 style="margin:0 0 10px">परिणाम / Result (${lang === 'en' ? 'English' : 'हिंदी / Hindi'})</h2>
+    $('result').innerHTML = `<h2 style="margin:0 0 10px">परिणाम / Result: ${PART[lang]}${fontName}</h2>
       <div class="stats"><div><b>${net.toFixed(1)}</b>Net WPM</div><div><b>${gross.toFixed(1)}</b>Gross WPM</div>
       <div><b>${acc.toFixed(1)}%</b>शुद्धता / Accuracy</div><div><b>${right}/${typed.length}</b>सही शब्द / Correct words</div>
       <div><b>${wrong}</b>गलत शब्द / Wrong words</div><div><b>${mins.toFixed(1)}</b>मिनट / Minutes</div></div>
-      <p class="${ok ? 'pass' : 'fail'}" style="margin:14px 0">${ok ? '✅ उत्तीर्ण' : '❌ अनुत्तीर्ण'} — न्यूनतम ${NEED[lang]} Net WPM / ${ok ? 'Qualified' : 'Not qualified'}: minimum ${NEED[lang]} Net WPM</p>
-      <div class="row"><a class="btn btn-p" href="">फिर से / Try again</a> ${back}</div>`;
+      <p class="${ok ? 'pass' : 'fail'}" style="margin:14px 0">${ok ? '✅ उत्तीर्ण' : '❌ अनुत्तीर्ण'}: न्यूनतम ${NEED[lang]} Net WPM / ${ok ? 'Qualified' : 'Not qualified'}: minimum ${NEED[lang]} Net WPM</p>
+      ${next}<div class="row" style="margin-top:12px"><a class="btn btn-l" href="">फिर से / Try again</a> ${back}</div>`;
   }
 })();
 </script>
