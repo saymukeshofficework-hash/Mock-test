@@ -119,5 +119,5 @@ Object.values(TET_LEVELS).forEach(lv => lv.subjects.forEach(s => {
 // ₹199 for the whole series, sold like TET (exam-hub notes-checkout product "tet-cpct");
 // tet-unlock adds exam tests 02-25 and typing tests 01-25 to the buyer's profile.
 // Set `ready: true` once the questions are uploaded to Supabase test_content.
-const CPCT_SERIES = { tests: 25, price: 199, exam: { ready: false }, typing: { ready: false } };
+const CPCT_SERIES = { tests: 25, price: 199, exam: { ready: true }, typing: { ready: true } };
 FREE_TESTS.push("cpct-exam-01");

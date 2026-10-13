@@ -1,8 +1,7 @@
-// TETTESTHUB — admin upload for TET Primary/Secondary subject tests (tet/admin.html).
+// TETTESTHUB — admin upload for TET Primary/Secondary subject tests, RRB NTPC tests and MP CPCT tests (tet/admin.html).
 // Secret (Supabase → Edge Functions → Secrets): ADMIN_PASSWORD  (at least 10 characters)
-// Deploy with verify_jwt false (the page calls it with the anon key).
 // Actions (POST JSON, every call carries {password}):
-//   upload_test {row}   → upserts one row into test_content (test_id like "tets-maths-01")
+//   upload_test {row}   → upserts one row into test_content (test_id like "tets-maths-01", "rrbntpc-g-full-01" or "cpct-exam-01")
 //   list_tests {prefix} → test_ids already stored that start with prefix
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import { createClient } from "npm:@supabase/supabase-js@2";
