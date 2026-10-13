@@ -95,6 +95,12 @@ const PRODUCTS: Record<string, { amount: number; file: string; downloadName: str
     downloadName: "",
     title: "करेंट अफेयर्स — 30 दिन का पास (MP, भारत, अंतरराष्ट्रीय)",
   },
+  "ca-6m": {
+    amount: 9900, // ₹99 in paise
+    file: "TETTESTHUB_6_Month_Current_Affairs_Apr-Sep_2026.pdf",
+    downloadName: "TETTESTHUB-6-Month-Current-Affairs-Apr-Sep-2026.pdf",
+    title: "6 माह करेंट अफेयर्स नोट्स (अप्रैल–सितंबर 2026) — PDF",
+  },
 };
 // TET subject series sold on tettesthub.in/tet/ (₹199 each, login required). The main site's
 // tet-unlock function reads paid orders via "tet_paid" and adds the tests to the student's profile.
