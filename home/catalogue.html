@@ -65,7 +65,8 @@ nav.links a:hover,.more>button:hover,nav.links a.on{color:var(--ink);background:
 .burger{display:none}
 
 /* heading + chips */
-.head{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin:38px 0 18px}
+.head{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.chips{margin-top:22px}
 .head h1{font-size:28px;line-height:1.25;margin:0;font-weight:800;letter-spacing:-.3px}
 .head p{margin:6px 0 0;color:var(--muted);font-size:15px}
 .count{color:var(--muted);font-size:14px;white-space:nowrap}
@@ -124,7 +125,7 @@ footer a:hover{color:var(--ink)}
   .btn.out{padding:7px 10px;font-size:13px}
   .bar.in .btn.solid{display:none}
   .grid{grid-template-columns:1fr;gap:18px}
-  .head{margin-top:26px}.head h1{font-size:23px}
+  .head h1{font-size:23px}
   .poster .big{font-size:24px}
 }
 .drawer{display:none;margin-top:8px;background:var(--surface);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:8px}
