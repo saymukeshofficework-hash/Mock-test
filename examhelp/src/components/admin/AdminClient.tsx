@@ -32,6 +32,7 @@ const PRODUCT: Record<string, string> = {
   "asi-tests": "Police Subedar/ASI — 25 tests",
   "mpgrb-tests": "MP Gramin Bank — 25 tests",
   "ca-30": "Current affairs — 30-day pass",
+  "ca-6m": "Current affairs — 6-month notes PDF",
 };
 const hasPdf = (p: string) => !p.endsWith("-tests") && p !== "ca-30";
 const MAX_DL = 10;
