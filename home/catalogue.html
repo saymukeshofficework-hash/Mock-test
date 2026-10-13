@@ -65,7 +65,8 @@ nav.links a:hover,.more>button:hover,nav.links a.on{color:var(--ink);background:
 .burger{display:none}
 
 /* heading + chips */
-.head{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin:38px 0 18px}
+.head{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.chips{margin-top:22px}
 .head h1{font-size:28px;line-height:1.25;margin:0;font-weight:800;letter-spacing:-.3px}
 .head p{margin:6px 0 0;color:var(--muted);font-size:15px}
 .count{color:var(--muted);font-size:14px;white-space:nowrap}
@@ -124,7 +125,7 @@ footer a:hover{color:var(--ink)}
   .btn.out{padding:7px 10px;font-size:13px}
   .bar.in .btn.solid{display:none}
   .grid{grid-template-columns:1fr;gap:18px}
-  .head{margin-top:26px}.head h1{font-size:23px}
+  .head h1{font-size:23px}
   .poster .big{font-size:24px}
 }
 .drawer{display:none;margin-top:8px;background:var(--surface);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:8px}
@@ -243,32 +244,32 @@ const ART = {
 };
 const EH = '/examhelp';
 const COURSES = [
-  {f:['new','hc','tests'], p:'p-teal', art:'test', kick:'MP हाई कोर्ट • 1174 पद', big:'सहायक ग्रेड-3 2026', sub:['25 फुल टेस्ट','हिंदी/English'], isNew:true,
-   tags:['MP हाई कोर्ट','टेस्ट सीरीज़'], meta:['🧾','हर टेस्ट: ','100 प्रश्न · 120 मिनट'], title:'MP हाई कोर्ट सहायक ग्रेड-3 2026 — 25 फुल मॉक टेस्ट',
+  {f:['new','hc','tests'], p:'p-teal', art:'test', kick:'MP हाई कोर्ट • 1174 पद', big:'सहायक ग्रेड-3 2026', sub:['फुल मॉक टेस्ट','हिंदी/English'], isNew:true,
+   tags:['MP हाई कोर्ट','टेस्ट सीरीज़'], meta:['🧾','हर टेस्ट: ','100 प्रश्न · 120 मिनट'], title:'MP हाई कोर्ट सहायक ग्रेड-3 2026 — फुल मॉक टेस्ट',
    desc:'आधिकारिक पैटर्न: 5 खंड, 100 प्रश्न · हिंदी/English · हर प्रश्न की व्याख्या', img:'hc-ag3', href:EH+'/mp-high-court-assistant-grade-3-mock-tests/'},
   {f:['new','notes'], p:'p-amber', art:'book', kick:'रोज़ अपडेट • MP + भारत + विश्व', big:'दैनिक करेंट अफेयर्स', sub:['रोज़ की खबरें','PDF डाउनलोड','क्विज़'], isNew:true,
    tags:['करेंट अफेयर्स','नया'], title:'दैनिक करेंट अफेयर्स — मध्यप्रदेश, भारत व अंतरराष्ट्रीय',
    desc:'हर दिन MP, भारत व विश्व की प्रमुख खबरें · वन-लाइनर व क्विज़ · PDF डाउनलोड', img:'current-affairs', href:EH+'/current-affairs/'},
-  {f:['new','tests'], p:'p-indigo', art:'test', kick:'MP पुलिस • 7500 पद', big:'आरक्षक (जी.डी.) 2026', sub:['25 फुल टेस्ट','हिंदी/English'], isNew:true,
-   tags:['MP पुलिस','टेस्ट सीरीज़'], meta:['🧾','हर टेस्ट: ','100 प्रश्न · 120 मिनट'], title:'MP पुलिस आरक्षक (जी.डी.) 2026 — 25 फुल मॉक टेस्ट',
+  {f:['new','tests'], p:'p-indigo', art:'test', kick:'MP पुलिस • 7500 पद', big:'आरक्षक (जी.डी.) 2026', sub:['फुल मॉक टेस्ट','हिंदी/English'], isNew:true,
+   tags:['MP पुलिस','टेस्ट सीरीज़'], meta:['🧾','हर टेस्ट: ','100 प्रश्न · 120 मिनट'], title:'MP पुलिस आरक्षक (जी.डी.) 2026 — फुल मॉक टेस्ट',
    desc:'MPESB पैटर्न: 3 खंड, 100 प्रश्न · हिंदी/English · हर प्रश्न की व्याख्या', img:'mp-police-gd', href:EH+'/mp-police-constable-gd-mock-tests/'},
-  {f:['new','tests'], p:'p-sage', art:'test', kick:'MP पुलिस • 655 पद', big:'सूबेदार / ASI 2026', sub:['25 फुल टेस्ट','हिंदी/English'], isNew:true,
-   tags:['MP पुलिस','टेस्ट सीरीज़'], meta:['🧾','हर टेस्ट: ','100 प्रश्न · 120 मिनट'], title:'MP पुलिस सूबेदार (शीघ्रलेखक) / ASI 2026 — 25 फुल मॉक टेस्ट',
+  {f:['new','tests'], p:'p-sage', art:'test', kick:'MP पुलिस • 655 पद', big:'सूबेदार / ASI 2026', sub:['फुल मॉक टेस्ट','हिंदी/English'], isNew:true,
+   tags:['MP पुलिस','टेस्ट सीरीज़'], meta:['🧾','हर टेस्ट: ','100 प्रश्न · 120 मिनट'], title:'MP पुलिस सूबेदार (शीघ्रलेखक) / ASI 2026 — फुल मॉक टेस्ट',
    desc:'MPESB पैटर्न: 3 खंड, 100 प्रश्न · 12वीं स्तर · हिंदी/English व्याख्या सहित', img:'mp-police-asi', href:EH+'/mp-police-subedar-asi-mock-tests/'},
-  {f:['new','tests'], p:'p-teal', art:'test', kick:'RRB NTPC • Graduate', big:'RRB NTPC ग्रेजुएट लेवल', sub:['25 टेस्ट','हिंदी/English'], isNew:true,
-   tags:['RRB NTPC','रेलवे','टेस्ट सीरीज़'], meta:['🧾','हर टेस्ट: ','100 प्रश्न · 90 मिनट'], title:'RRB NTPC Graduate Level — 25 अभ्यास टेस्ट',
-   desc:'25 अभ्यास टेस्ट · प्रत्येक में 100 प्रश्न · हिंदी/English · 90 मिनट', img:'rrb-ntpc-graduate', href:'/examhelp/rrb-ntpc-graduate-mock-tests/'},
-  {f:['new','tests'], p:'p-indigo', art:'test', kick:'RRB NTPC • 10+2', big:'RRB NTPC 10+2 अंडरग्रेजुएट', sub:['25 टेस्ट','हिंदी/English'], isNew:true,
-   tags:['RRB NTPC','रेलवे','टेस्ट सीरीज़'], meta:['🧾','हर टेस्ट: ','100 प्रश्न · 90 मिनट'], title:'RRB NTPC 10+2 Undergraduate — 25 अभ्यास टेस्ट',
-   desc:'25 अभ्यास टेस्ट · प्रत्येक में 100 प्रश्न · हिंदी/English · 90 मिनट', img:'rrb-ntpc-12th', href:'/examhelp/rrb-ntpc-undergraduate-mock-tests/'},
-  {f:['new','tests','typing'], p:'p-sky', art:'keys', kick:'MP CPCT • MAP_IT', big:'MP CPCT पूरे पेपर', sub:['25 पेपर','MCQ + टाइपिंग'], isNew:true,
-   tags:['CPCT','टाइपिंग','टेस्ट सीरीज़'], meta:['🧾','हर पेपर: ','75 MCQ + अंग्रेज़ी व हिंदी टाइपिंग'], title:'MP CPCT — 25 पूरे पेपर / 25 Full Papers (MCQ + Typing)',
+  {f:['new','tests'], p:'p-teal', art:'test', kick:'RRB NTPC • Graduate', big:'RRB NTPC ग्रेजुएट लेवल', sub:['मॉक टेस्ट','हिंदी/English'], isNew:true,
+   tags:['RRB NTPC','रेलवे','टेस्ट सीरीज़'], meta:['🧾','हर टेस्ट: ','100 प्रश्न · 90 मिनट'], title:'RRB NTPC Graduate Level — मॉक टेस्ट',
+   desc:'प्रत्येक में 100 प्रश्न · हिंदी/English · 90 मिनट', img:'rrb-ntpc-graduate', href:'/examhelp/rrb-ntpc-graduate-mock-tests/'},
+  {f:['new','tests'], p:'p-indigo', art:'test', kick:'RRB NTPC • 10+2', big:'RRB NTPC 10+2 अंडरग्रेजुएट', sub:['मॉक टेस्ट','हिंदी/English'], isNew:true,
+   tags:['RRB NTPC','रेलवे','टेस्ट सीरीज़'], meta:['🧾','हर टेस्ट: ','100 प्रश्न · 90 मिनट'], title:'RRB NTPC 10+2 Undergraduate — मॉक टेस्ट',
+   desc:'प्रत्येक में 100 प्रश्न · हिंदी/English · 90 मिनट', img:'rrb-ntpc-12th', href:'/examhelp/rrb-ntpc-undergraduate-mock-tests/'},
+  {f:['new','tests','typing'], p:'p-sky', art:'keys', kick:'MP CPCT • MAP_IT', big:'MP CPCT पूरे पेपर', sub:['पूरे पेपर','MCQ + टाइपिंग'], isNew:true,
+   tags:['CPCT','टाइपिंग','टेस्ट सीरीज़'], meta:['🧾','हर पेपर: ','75 MCQ + अंग्रेज़ी व हिंदी टाइपिंग'], title:'MP CPCT — पूरे पेपर / Full Papers (MCQ + Typing)',
    desc:'75 MCQ, 75 मिनट · अंग्रेज़ी व हिंदी टाइपिंग (मंगल/कृतिदेव) · असली CPCT जैसा इंटरफ़ेस', img:'mp-cpct', href:'/cpct/'},
   {f:['bridge','notes'], p:'p-rose', art:'book', kick:'NIOS • B.Ed ब्रिज कोर्स', big:'ब्रिज कोर्स नोट्स', sub:['डिजिटल नोट्स','तुरंत एक्सेस'],
    tags:['B.Ed ब्रिज कोर्स','PDF नोट्स'], meta:['📄','प्रकार: ','डिजिटल नोट्स'], title:'NIOS B.Ed ब्रिज कोर्स — संपूर्ण डिजिटल नोट्स',
    desc:'ब्रिज कोर्स के सभी विषय · परीक्षा व असाइनमेंट के लिए · तुरंत एक्सेस', img:'bridge-course', href:'/bridge-course/'},
-  {f:['tet','tests'], p:'p-sky', art:'test', kick:'TET • शिक्षक पात्रता परीक्षा', big:'TET मॉक टेस्ट सीरीज़', sub:['25 फुल टेस्ट','हिंदी/English'],
-   tags:['TET','टेस्ट सीरीज़'], meta:['🧾','हर टेस्ट: ','150 प्रश्न · 150 मिनट'], title:'TET मॉक टेस्ट सीरीज़ — 25 फुल-लेंथ टेस्ट (हिंदी/English)',
+  {f:['tet','tests'], p:'p-sky', art:'test', kick:'TET • शिक्षक पात्रता परीक्षा', big:'TET मॉक टेस्ट सीरीज़', sub:['फुल मॉक टेस्ट','हिंदी/English'],
+   tags:['TET','टेस्ट सीरीज़'], meta:['🧾','हर टेस्ट: ','150 प्रश्न · 150 मिनट'], title:'TET मॉक टेस्ट सीरीज़ — फुल-लेंथ मॉक टेस्ट (हिंदी/English)',
    desc:'CDP, भाषा, गणित, पर्यावरण · हिंदी/English · असली परीक्षा जैसा इंटरफ़ेस', img:'tet-series', href:'/tests.html'},
   {f:['typing','free'], p:'p-sand', art:'keys', kick:'हाई कोर्ट • सरकारी नौकरी', big:'टाइपिंग प्रैक्टिस', sub:['हिंदी','English','स्पीड टेस्ट'],
    tags:['टाइपिंग','फ्री'], meta:['⌨️','भाषा: ','हिंदी व English'], title:'टाइपिंग प्रैक्टिस — हिंदी व English टाइपिंग टेस्ट',
