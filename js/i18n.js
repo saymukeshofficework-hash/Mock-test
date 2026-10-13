@@ -169,23 +169,23 @@ const I18N_DICT = {
   // ---------- about.html ----------
   about_page_h2: { hi: "टीईटी टेस्ट हब के बारे में", en: "About TET Test Hub" },
   about_page_p1: {
-    hi: "टीईटी टेस्ट हब एक ही उद्देश्य से बनाया गया है: शिक्षक पात्रता परीक्षा के उम्मीदवारों को असली परीक्षा जैसी परिस्थितियों में यथार्थवादी, पूर्ण-लंबाई का अभ्यास देना।",
-    en: "TET Test Hub was built for one purpose: to give Teacher Eligibility Test aspirants realistic, full-length practice under exam-like conditions.",
+    hi: "हमने टीईटी टेस्ट हब एक ही मकसद से बनाया है: TET की तैयारी करने वालों को पूरे पेपर का ऐसा अभ्यास देना जो असली परीक्षा जैसा लगे।",
+    en: "We built TET Test Hub for one reason: to give TET aspirants full-length practice that feels like the real exam.",
   },
   about_page_p2: {
-    hi: "हर मॉक टेस्ट असली टीईटी पैटर्न का पालन करता है — बाल विकास एवं शिक्षाशास्त्र, भाषा-1 (अंग्रेज़ी), भाषा-2 (हिंदी), गणित और पर्यावरण अध्ययन में 150 प्रश्न, 150 मिनट में लाइव टाइमर, प्रश्न पैलेट और अंत में तुरंत खंड-वार परिणाम के साथ पूरे होते हैं। हर प्रश्न अंग्रेज़ी या हिंदी में पढ़ा जा सकता है।",
-    en: "Every mock test follows the real TET pattern — 150 questions across Child Development & Pedagogy, Language-1 (English), Language-2 (Hindi), Mathematics and Environmental Studies, completed in 150 minutes with a live timer, a question palette, and an instant section-wise result at the end. Every question can be read in English or Hindi.",
+    hi: "हर मॉक टेस्ट असली TET पैटर्न पर है: बाल विकास एवं शिक्षाशास्त्र, भाषा-1 (अंग्रेज़ी), भाषा-2 (हिंदी), गणित और पर्यावरण अध्ययन से 150 प्रश्न। आपको 150 मिनट, लाइव टाइमर, प्रश्न पैलेट और सबमिट करते ही खंड-वार रिज़ल्ट मिलता है। हर प्रश्न अंग्रेज़ी या हिंदी में पढ़ सकते हैं।",
+    en: "Each mock test follows the real TET pattern: 150 questions from Child Development & Pedagogy, Language-1 (English), Language-2 (Hindi), Mathematics and Environmental Studies. You get 150 minutes, a live timer, a question palette and a section-wise result as soon as you submit. You can read every question in English or Hindi.",
   },
   about_page_p3: {
-    hi: "हम इसे सरल रखते हैं: टेस्ट 01 मुफ्त है, बाकी 24 टेस्ट एक बंडल में ₹199 में मिलते हैं। भुगतान सत्यापित होते ही आपको छात्र आईडी और पासवर्ड मिल जाता है और आप तुरंत अभ्यास शुरू कर सकते हैं।",
-    en: "We keep things simple: Test 01 is free, and the remaining 24 tests are one ₹199 bundle. Once your payment is verified you get a Student ID and password to log in and start practicing straight away.",
+    hi: "सीधी बात: टेस्ट 01 फ्री है, बाकी 24 टेस्ट एक साथ ₹199 में। भुगतान की जाँच होते ही आपको स्टूडेंट आईडी और पासवर्ड मिल जाता है, फिर लॉगिन करके तुरंत अभ्यास शुरू करें।",
+    en: "It's simple: Test 01 is free, and the other 24 tests come together for ₹199. Once your payment is verified, you get a Student ID and password, so you can log in and start practising right away.",
   },
 
   // ---------- contact.html ----------
   contact_h2: { hi: "संपर्क और भुगतान सहायता", en: "Contact & Payment Support" },
   contact_lead: {
-    hi: "भुगतान के बाद, अपने भुगतान विवरण (स्क्रीनशॉट या ऑर्डर आईडी) के साथ हमसे संपर्क करें ताकि आपको छात्र आईडी और पासवर्ड मिल सके। हम हर भुगतान की मैन्युअल जांच करते हैं, इसलिए विवरण भेजने के बाद कृपया थोड़ा समय दें।",
-    en: "After payment, contact us with your payment details (screenshot or order ID) to receive your Student ID and Password. We verify each payment manually, so please allow some time after sending your details.",
+    hi: "भुगतान के बाद हमें भुगतान का विवरण (स्क्रीनशॉट या ऑर्डर आईडी) भेजें, हम आपको स्टूडेंट आईडी और पासवर्ड भेज देंगे। हर भुगतान हम खुद जाँचते हैं, इसलिए थोड़ा समय लग सकता है।",
+    en: "After paying, send us your payment details (a screenshot or order ID) and we'll send you your Student ID and password. We check every payment by hand, so it can take a little while.",
   },
   contact_email_label: { hi: "ईमेल:", en: "Email:" },
   contact_phone_label: { hi: "व्हाट्सएप / कॉल:", en: "WhatsApp / Call:" },
