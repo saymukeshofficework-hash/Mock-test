@@ -43,14 +43,14 @@ h1{font-size:clamp(28px,6vw,40px);line-height:1.2;margin:34px 0 12px;color:#0d3b
 </div></div>
 <main class="wrap">
   <h1 id="ttl">MP CPCT टेस्ट सीरीज़ / Test Series</h1>
-  <p class="sub" id="sub">25 मॉक टेस्ट और 25 टाइपिंग टेस्ट, ₹199 में पूरी सीरीज़। मॉक टेस्ट 1 फ्री।<br>25 mock tests and 25 typing tests, full series ₹199. Mock test 1 free.</p>
+  <p class="sub" id="sub">25 मॉक टेस्ट और 25 टाइपिंग टेस्ट, ₹199 में पूरी सीरीज़। मॉक टेस्ट 1 और टाइपिंग टेस्ट 1 फ्री।<br>25 mock tests and 25 typing tests, full series ₹199. Mock test 1 and typing test 1 free.</p>
   <div class="tabs" id="tabs"></div>
   <section class="card pat" id="pat"></section>
   <div class="grid" id="grid" style="margin-top:18px"></div>
 </main>
 <div class="foot">TETTESTHUB · <a href="/contact.html">संपर्क / Contact</a></div>
 <script src="../assets/vendor/supabase/supabase.js"></script>
-<script src="../js/site-config.js?v=9"></script>
+<script src="../js/site-config.js?v=10"></script>
 <script src="../js/auth.js?v=2"></script>
 <script>
 (function(){
@@ -95,7 +95,7 @@ h1{font-size:clamp(28px,6vw,40px);line-height:1.2;margin:34px 0 12px;color:#0d3b
   grid.innerHTML = html;
   // Sell only once the exam tests are live.
   if (!CPCT_SERIES.exam.ready) return;
-  $('pat').insertAdjacentHTML('afterend', `<section class="card unlock" id="unlockBox"><h2>MP CPCT — पूरी सीरीज़ / Full series</h2><p>25 मॉक टेस्ट + 25 टाइपिंग टेस्ट ₹${price} में। मॉक टेस्ट 1 फ्री।<br>25 mock tests + 25 typing tests for ₹${price}. Mock test 1 is free.</p><button class="btn btn-p" id="buyBtn" type="button">अनलॉक करें / Unlock — ₹${price}</button><p id="buyMsg" style="margin:10px 0 0"></p></section>`);
+  $('pat').insertAdjacentHTML('afterend', `<section class="card unlock" id="unlockBox"><h2>MP CPCT — पूरी सीरीज़ / Full series</h2><p>25 मॉक टेस्ट + 25 टाइपिंग टेस्ट ₹${price} में। मॉक टेस्ट 1 और टाइपिंग टेस्ट 1 फ्री।<br>25 mock tests + 25 typing tests for ₹${price}. Mock test 1 and typing test 1 are free.</p><button class="btn btn-p" id="buyBtn" type="button">अनलॉक करें / Unlock — ₹${price}</button><p id="buyMsg" style="margin:10px 0 0"></p></section>`);
   setupCheckout('cpct');
   // Razorpay checkout (TETTESTHUB account, exam-hub notes-checkout) + auto-unlock (tet-unlock).
   function setupCheckout(series) {

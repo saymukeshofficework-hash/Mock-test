@@ -114,10 +114,10 @@ Object.values(TET_LEVELS).forEach(lv => lv.subjects.forEach(s => {
 }));
 
 // MP CPCT series (cpct/index.html): 25 exam tests (75 MCQ, 75 min, ids "cpct-exam-NN") and
-// 25 typing tests (English + Hindi passage, ids "cpct-typing-NN"). Only exam test 1 is free
-// (owner rule: one free test per series).
+// 25 typing tests (English + Hindi passage, ids "cpct-typing-NN"). Exam test 1 and typing
+// test 1 are free (owner asked for one free typing test too, 2026-10-13).
 // ₹199 for the whole series, sold like TET (exam-hub notes-checkout product "tet-cpct");
-// tet-unlock adds exam tests 02-25 and typing tests 01-25 to the buyer's profile.
+// tet-unlock adds exam tests 02-25 and typing tests 01-25 (01 is free anyway) to the buyer's profile.
 // Set `ready: true` once the questions are uploaded to Supabase test_content.
 const CPCT_SERIES = { tests: 25, price: 199, exam: { ready: true }, typing: { ready: true } };
-FREE_TESTS.push("cpct-exam-01");
+FREE_TESTS.push("cpct-exam-01", "cpct-typing-01");
