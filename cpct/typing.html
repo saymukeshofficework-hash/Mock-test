@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>CPCT टाइपिंग टेस्ट / Typing Test | TETTESTHUB</title>
+<link rel="icon" href="data:,">
+<style>
+:root{--brand:#0f6b5f;--brand2:#e6f2ef;--ink:#16211f;--muted:#5b6664;--line:#e5e7e4;--bg:#f5f5f2;--ok:#15803d;--bad:#b91c1c}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans Devanagari",sans-serif}
+.wrap{max-width:900px;margin:0 auto;padding:16px}
+.bar{display:flex;align-items:center;justify-content:space-between;gap:10px;background:#fff;border:1px solid var(--line);border-radius:18px;padding:10px 14px}
+.bar b{font-size:17px}.timer{font-weight:800;font-size:22px;color:var(--brand)}
+.card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px;margin-top:14px}
+.btn{display:inline-flex;align-items:center;justify-content:center;padding:11px 18px;border-radius:12px;font-weight:700;font-size:15px;border:0;cursor:pointer;text-decoration:none}
+.btn-p{background:var(--brand);color:#fff}.btn-l{background:var(--bg);color:var(--muted);box-shadow:inset 0 0 0 1px var(--line)}
+.row{display:flex;gap:10px;flex-wrap:wrap}.muted{color:var(--muted);font-size:14px;line-height:1.6}
+#passage{font-size:18px;line-height:1.9;max-height:230px;overflow:auto;padding:12px;border:1px solid var(--line);border-radius:12px;background:#fbfbf9}
+#passage .ok{color:var(--ok)}#passage .bad{color:var(--bad);text-decoration:underline}#passage .cur{background:#fde68a;border-radius:4px}
+#box{width:100%;min-height:170px;margin-top:12px;font-size:18px;line-height:1.7;padding:12px;border:1px solid #b9dcd4;border-radius:12px;font-family:inherit}
+.stats{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}.stats div{background:var(--brand2);border-radius:12px;padding:12px}
+.stats b{display:block;font-size:24px;color:var(--brand)}.pass{color:var(--ok);font-weight:800}.fail{color:var(--bad);font-weight:800}
+.hidden{display:none!important}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="bar"><b id="ttl">CPCT टाइपिंग टेस्ट / Typing Test</b><span class="timer" id="timer">15:00</span></div>
+  <section class="card" id="msg">जाँच हो रही है… / Checking your access…</section>
+
+  <section class="card hidden" id="pick">
+    <h2 style="margin:0 0 8px">भाषा चुनें / Choose language</h2>
+    <p class="muted">15 मिनट। पहला अक्षर टाइप करते ही समय शुरू होगा। कॉपी-पेस्ट बंद है।<br>15 minutes. The timer starts at your first keystroke. Copy-paste is off.</p>
+    <p class="muted">हिंदी के लिए अपने कंप्यूटर का यूनिकोड कीबोर्ड (Inscript या Remington GAIL) चालू करें।<br>For Hindi, switch on your computer's Unicode keyboard (Inscript or Remington GAIL).</p>
+    <div class="row"><button class="btn btn-p" data-lang="en">English (30 NWPM)</button><button class="btn btn-p" data-lang="hi">हिंदी / Hindi (20 NWPM)</button></div>
+  </section>
+
+  <section class="card hidden" id="run">
+    <div id="passage"></div>
+    <textarea id="box" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" placeholder="यहाँ टाइप करें / Type here"></textarea>
+    <div class="row" style="margin-top:10px"><button class="btn btn-p" id="submit">जमा करें / Submit</button></div>
+  </section>
+
+  <section class="card hidden" id="result"></section>
+</div>
+<script src="../assets/vendor/supabase/supabase.js"></script>
+<script src="../js/site-config.js?v=8"></script>
+<script src="../js/auth.js?v=2"></script>
+<script>
+(async () => {
+  const $ = id => document.getElementById(id);
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  const TEST_ID = new URLSearchParams(location.search).get('t') || '';
+  const back = '<a class="btn btn-l" href="/cpct/?kind=typing">← सभी टाइपिंग टेस्ट / All typing tests</a>';
+  if (!/^cpct-typing-\d{2}$/.test(TEST_ID)) { $('msg').innerHTML = 'टेस्ट नहीं मिला। / Test not found.<br><br>' + back; return; }
+  $('ttl').textContent = 'CPCT टाइपिंग टेस्ट / Typing Test ' + TEST_ID.slice(-2);
+
+  const session = await requireAuth();
+  if (!session) return;
+  // Passages live in Supabase test_content (paid content); RLS returns nothing until the series is bought.
+  const { data, error } = await supabaseClient.rpc('get_test_questions', { p_test_id: TEST_ID });
+  if (error || !data) {
+    $('msg').innerHTML = 'यह टेस्ट लॉक है। ₹' + CPCT_SERIES.price + ' में पूरी CPCT सीरीज़ अनलॉक करें।<br>This test is locked. Unlock the full CPCT series for ₹' + CPCT_SERIES.price + '.<br><br>' +
+      '<a class="btn btn-p" href="/cpct/?kind=typing">अनलॉक करें / Unlock</a> ' + back;
+    return;
+  }
+  const passages = {};
+  data.forEach(sec => (sec.questions || []).forEach(q => {
+    if (q.en && q.en.q) passages.en = q.en.q;
+    if (q.hi && q.hi.q) passages.hi = q.hi.q;
+  }));
+  $('msg').classList.add('hidden');
+  $('pick').classList.remove('hidden');
+
+  const MIN = 15, NEED = { en: 30, hi: 20 };
+  let lang, words, start = 0, clock = null, done = false;
+
+  $('pick').addEventListener('click', e => {
+    const b = e.target.closest('[data-lang]');
+    if (!b || !passages[b.dataset.lang]) return;
+    lang = b.dataset.lang;
+    words = passages[lang].trim().split(/\s+/);
+    $('pick').classList.add('hidden');
+    $('run').classList.remove('hidden');
+    paint([]);
+    $('box').focus();
+  });
+
+  const box = $('box');
+  ['paste', 'drop', 'copy', 'cut'].forEach(ev => box.addEventListener(ev, e => e.preventDefault()));
+  box.addEventListener('input', () => {
+    if (done) return;
+    if (!start) { start = Date.now(); clock = setInterval(tick, 500); }
+    paint(box.value.split(/\s+/).filter(Boolean));
+  });
+  $('submit').addEventListener('click', () => { if (confirm('टेस्ट जमा करें? / Submit test?')) finish(); });
+
+  function tick() {
+    const left = Math.max(0, MIN * 60 - Math.floor((Date.now() - start) / 1000));
+    $('timer').textContent = String(Math.floor(left / 60)).padStart(2, '0') + ':' + String(left % 60).padStart(2, '0');
+    if (left <= 0) finish();
+  }
+
+  // Colour the passage word by word: green = typed right, red = typed wrong, yellow = next word.
+  function paint(typed) {
+    $('passage').innerHTML = words.map((w, i) => {
+      const cls = i < typed.length ? (typed[i] === w ? 'ok' : 'bad') : (i === typed.length ? 'cur' : '');
+      return cls ? `<span class="${cls}">${esc(w)}</span>` : esc(w);
+    }).join(' ');
+    const cur = $('passage').querySelector('.cur');
+    if (cur) cur.scrollIntoView({ block: 'nearest' });
+  }
+
+  // CPCT style: Gross WPM = (keystrokes ÷ 5) ÷ minutes; Net WPM = Gross − (wrong words ÷ minutes).
+  function finish() {
+    if (done) return;
+    done = true; clearInterval(clock); box.disabled = true;
+    const typed = box.value.split(/\s+/).filter(Boolean);
+    const mins = start ? Math.max((Date.now() - start) / 60000, 0.5) : MIN;
+    const wrong = typed.filter((w, i) => w !== words[i]).length;
+    const right = typed.length - wrong;
+    const keys = box.value.trim().length;
+    const gross = keys / 5 / mins;
+    const net = Math.max(0, gross - wrong / mins);
+    const acc = typed.length ? right * 100 / typed.length : 0;
+    const ok = net >= NEED[lang];
+    $('run').classList.add('hidden');
+    $('result').classList.remove('hidden');
+    $('result').innerHTML = `<h2 style="margin:0 0 10px">परिणाम / Result (${lang === 'en' ? 'English' : 'हिंदी / Hindi'})</h2>
+      <div class="stats"><div><b>${net.toFixed(1)}</b>Net WPM</div><div><b>${gross.toFixed(1)}</b>Gross WPM</div>
+      <div><b>${acc.toFixed(1)}%</b>शुद्धता / Accuracy</div><div><b>${right}/${typed.length}</b>सही शब्द / Correct words</div>
+      <div><b>${wrong}</b>गलत शब्द / Wrong words</div><div><b>${mins.toFixed(1)}</b>मिनट / Minutes</div></div>
+      <p class="${ok ? 'pass' : 'fail'}" style="margin:14px 0">${ok ? '✅ उत्तीर्ण' : '❌ अनुत्तीर्ण'} — न्यूनतम ${NEED[lang]} Net WPM / ${ok ? 'Qualified' : 'Not qualified'}: minimum ${NEED[lang]} Net WPM</p>
+      <div class="row"><a class="btn btn-p" href="">फिर से / Try again</a> ${back}</div>`;
+  }
+})();
+</script>
+</body>
+</html>

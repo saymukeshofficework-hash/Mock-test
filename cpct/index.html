@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MP CPCT मॉक टेस्ट और टाइपिंग टेस्ट | CPCT Mock & Typing Tests</title>
+<meta name="description" content="MP CPCT 2026: 25 मॉक टेस्ट (75 प्रश्न, 75 मिनट) और 25 हिंदी-अंग्रेज़ी टाइपिंग टेस्ट। 25 CPCT mock tests and 25 English + Hindi typing tests.">
+<link rel="canonical" href="https://tettesthub.in/cpct/">
+<link rel="icon" href="data:,">
+<style>
+:root{--brand:#0f6b5f;--brand2:#e6f2ef;--ink:#16211f;--muted:#5b6664;--line:#e5e7e4;--bg:#f5f5f2;--ok:#15803d}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans Devanagari",sans-serif}
+a{color:inherit}.wrap{max-width:1040px;margin:0 auto;padding:0 16px}
+.hdr{position:sticky;top:10px;z-index:5;margin:12px auto 0;max-width:1040px;padding:0 16px}
+.hdr .bar{display:flex;align-items:center;justify-content:space-between;gap:10px;background:#fff;border:1px solid var(--line);border-radius:22px;padding:10px 14px;box-shadow:0 4px 18px rgba(0,0,0,.05)}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;font-weight:800;font-size:20px;letter-spacing:-.3px}
+.logo i{display:grid;place-items:center;width:38px;height:38px;border-radius:11px;background:var(--brand)}.logo b{color:#c2791c}
+.chip{display:inline-flex;align-items:center;height:40px;padding:0 12px;border-radius:12px;border:1px solid #b9dcd4;background:var(--brand2);color:var(--brand);font-weight:700;font-size:14px;text-decoration:none}
+h1{font-size:clamp(28px,6vw,40px);line-height:1.2;margin:34px 0 12px;color:#0d3b35;font-weight:800}
+.sub{font-size:17px;line-height:1.7;color:#3d4745;max-width:640px;margin:0 0 22px}
+.card{background:#fff;border:1px solid var(--line);border-radius:22px;padding:22px}
+.pat h2{font-size:19px;margin:0 0 10px}.pat table{width:100%;border-collapse:collapse;font-size:15px}
+.pat td{padding:12px 4px;border-top:1px solid var(--line)}.pat td:nth-child(2){text-align:center;width:60px}
+.pat .tot{font-weight:700;margin:14px 0 0}.pat .neg{color:var(--muted);font-size:14px;margin:6px 0 0}
+.unlock{margin:20px 0;background:linear-gradient(90deg,#0b4f46,#0f766e);color:#fff;border:0}
+.unlock h2{margin:0 0 6px;font-size:20px}.unlock p{margin:0 0 14px;opacity:.9;line-height:1.6}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:11px 18px;border-radius:12px;font-weight:700;text-decoration:none;font-size:15px;border:0}
+.btn-p{background:var(--brand);color:#fff}.unlock .btn-p{background:#f59e0b;color:#1b1300}
+.btn-l{background:var(--bg);color:var(--muted);box-shadow:inset 0 0 0 1px var(--line)}.w{width:100%}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px;margin:0 0 40px}
+.t{display:flex;flex-direction:column}.t h3{margin:0;font-size:17px}.t .m{color:var(--muted);font-size:13px;margin:6px 0 16px}
+.free{margin-left:8px;background:#dcfce7;color:var(--ok);border-radius:99px;padding:2px 9px;font-size:12px}
+.t .btn{margin-top:auto}.foot{text-align:center;color:var(--muted);font-size:13px;padding:24px 0 40px}
+.tabs{display:flex;gap:10px;flex-wrap:wrap;margin:0 0 18px}.tabs a{flex:1;min-width:150px;text-align:center}
+.on{background:var(--brand)!important;color:#fff!important}.crumb{font-size:14px;color:var(--muted);margin:20px 0 0}.crumb a{color:var(--brand)}
+.soon{margin-left:8px;background:#fef3c7;color:#92400e;border-radius:99px;padding:2px 9px;font-size:12px}
+</style>
+</head>
+<body>
+<div class="hdr"><div class="bar">
+  <a class="logo" href="/login.html"><span>TETTEST<b>HUB</b></span></a>
+  <a class="chip" href="/tests.html">सभी टेस्ट / All Tests</a>
+</div></div>
+<main class="wrap">
+  <h1 id="ttl">MP CPCT टेस्ट सीरीज़ / Test Series</h1>
+  <p class="sub" id="sub">25 मॉक टेस्ट और 25 टाइपिंग टेस्ट, ₹199 में पूरी सीरीज़। मॉक टेस्ट 1 फ्री।<br>25 mock tests and 25 typing tests, full series ₹199. Mock test 1 free.</p>
+  <div class="tabs" id="tabs"></div>
+  <section class="card pat" id="pat"></section>
+  <div class="grid" id="grid" style="margin-top:18px"></div>
+</main>
+<div class="foot">TETTESTHUB · <a href="/contact.html">संपर्क / Contact</a></div>
+<script src="../assets/vendor/supabase/supabase.js"></script>
+<script src="../js/site-config.js?v=8"></script>
+<script src="../js/auth.js?v=2"></script>
+<script>
+(function(){
+  const q = new URLSearchParams(location.search);
+  const kind = q.get('kind') === 'typing' ? 'typing' : 'exam';
+  const $ = id => document.getElementById(id);
+  const KINDS = {
+    exam: { hi: 'मॉक टेस्ट (परीक्षा)', en: 'Mock Tests (Exam)' },
+    typing: { hi: 'टाइपिंग टेस्ट', en: 'Typing Tests' },
+  };
+  $('tabs').innerHTML = Object.keys(KINDS).map(k =>
+    `<a class="btn btn-l${k === kind ? ' on' : ''}" href="?kind=${k}">${KINDS[k].hi}<br><small>${KINDS[k].en}</small></a>`).join('');
+
+  // Official pattern (MAP_IT, cpct.mp.gov.in): 75 MCQ in 75 min, +1 each, no negative marking;
+  // English typing 15 min (30 NWPM) and Hindi typing 15 min (20 NWPM).
+  $('pat').innerHTML = kind === 'exam'
+    ? '<h2>परीक्षा पैटर्न / Exam pattern</h2><table>' +
+      [['कंप्यूटर दक्षता / Computer Proficiency & IT', 52], ['अपठित गद्यांश / Reading Comprehension', 5], ['गणित / Quantitative Aptitude', 6],
+       ['तर्कशक्ति / Mental Ability & Reasoning', 6], ['सामान्य ज्ञान / General Awareness', 6]]
+        .map(r => `<tr><td>${r[0]}</td><td>${r[1]}</td></tr>`).join('') +
+      '</table><p class="tot">कुल 75 प्रश्न · 75 अंक · 75 मिनट / 75 questions · 75 marks · 75 minutes</p>' +
+      '<p class="neg">गलत उत्तर पर अंक नहीं कटते। पास: 38/75 (50%)। / No negative marking. Pass: 38/75 (50%).</p>'
+    : '<h2>टाइपिंग टेस्ट पैटर्न / Typing test pattern</h2><table>' +
+      '<tr><td>अंग्रेज़ी टाइपिंग / English typing (QWERTY)</td><td>15 मि.</td></tr>' +
+      '<tr><td>हिंदी टाइपिंग / Hindi typing (Unicode: Inscript / Remington GAIL)</td><td>15 मि.</td></tr></table>' +
+      '<p class="tot">न्यूनतम गति: अंग्रेज़ी 30 NWPM, हिंदी 20 NWPM / Minimum speed: English 30 NWPM, Hindi 20 NWPM</p>' +
+      '<p class="neg">Net WPM = (सही की-स्ट्रोक ÷ 5 − गलतियाँ) ÷ मिनट / (correct keystrokes ÷ 5 − errors) ÷ minutes</p>';
+
+  const ready = CPCT_SERIES[kind].ready, N = CPCT_SERIES.tests, price = CPCT_SERIES.price;
+  let html = '';
+  for (let n = 1; n <= N; n++) {
+    const nn = String(n).padStart(2, '0'), id = 'cpct-' + kind + '-' + nn;
+    const free = FREE_TESTS.includes(id);
+    const href = kind === 'exam' ? '/exam-test.html?t=' + id : '/cpct/typing.html?t=' + id;
+    const tag = !ready ? '<span class="soon">जल्द / Soon</span>' : (free ? '<span class="free">फ्री / Free</span>' : '');
+    const m = kind === 'exam' ? '75 प्रश्न · 75 मिनट / 75 Q · 75 min' : 'अंग्रेज़ी + हिंदी · 15 मिनट / English + Hindi · 15 min';
+    html += `<div class="card t" data-id="${id}"><h3>टेस्ट / Test ${n}${tag}</h3><p class="m">${m}</p>` +
+      (ready ? `<a class="btn ${free ? 'btn-p' : 'btn-l'} w" href="${href}">${free ? '▶ शुरू करें / Start' : '🔒 LOCKED'}</a>`
+             : `<span class="btn btn-l w">जल्द आ रहा है / Coming soon</span>`) + '</div>';
+  }
+  const grid = $('grid');
+  grid.innerHTML = html;
+  // Sell only once the exam tests are live.
+  if (!CPCT_SERIES.exam.ready) return;
+  $('pat').insertAdjacentHTML('afterend', `<section class="card unlock" id="unlockBox"><h2>MP CPCT — पूरी सीरीज़ / Full series</h2><p>25 मॉक टेस्ट + 25 टाइपिंग टेस्ट ₹${price} में। मॉक टेस्ट 1 फ्री।<br>25 mock tests + 25 typing tests for ₹${price}. Mock test 1 is free.</p><button class="btn btn-p" id="buyBtn" type="button">अनलॉक करें / Unlock — ₹${price}</button><p id="buyMsg" style="margin:10px 0 0"></p></section>`);
+  setupCheckout('cpct');
+  // Razorpay checkout (TETTESTHUB account, exam-hub notes-checkout) + auto-unlock (tet-unlock).
+  function setupCheckout(series) {
+    const CHECKOUT_URL = 'https://znulepzdihzhjmuvyroi.supabase.co/functions/v1/notes-checkout';
+    const CHECKOUT_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpudWxlcHpkaWh6aGptdXZ5cm9pIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTExMjE5MjIsImV4cCI6MjEwNjY5NzkyMn0.XoqC6vNDJkEAxgtXLVPCpTxocv3lAa-ZBeg69OdbhdU';
+    const btn = $('buyBtn'), msg = $('buyMsg');
+    const say = t => { msg.textContent = t; };
+    const hub = body => fetch(CHECKOUT_URL, { method: 'POST', headers: { 'Content-Type': 'application/json', apikey: CHECKOUT_ANON, Authorization: 'Bearer ' + CHECKOUT_ANON }, body: JSON.stringify(body) }).then(r => r.json());
+
+    // Ask the main site to add every paid series (CPCT too) to this student's tests, then show what is open.
+    async function unlock(session) {
+      try {
+        await fetch(SITE_CONFIG.supabaseUrl + '/functions/v1/tet-unlock', { method: 'POST', headers: { apikey: SITE_CONFIG.supabaseAnonKey, Authorization: 'Bearer ' + session.access_token } });
+      } catch (e) {}
+      const prof = await getProfile(session.user.id);
+      if (!prof || prof.status !== 'active') return false;
+      const owned = new Set(prof.purchased_tests || []);
+      let all = true;
+      grid.querySelectorAll('.card.t[data-id]').forEach(c => {
+        const a = c.querySelector('a.btn');
+        if (!a) return;
+        if (owned.has(c.dataset.id)) { a.className = 'btn btn-p w'; a.textContent = '▶ शुरू करें / Start'; }
+        else if (!FREE_TESTS.includes(c.dataset.id)) all = false;
+      });
+      if (all) { btn.style.display = 'none'; say('✅ सीरीज़ अनलॉक है। / Series unlocked.'); }
+      return all;
+    }
+
+    function loadRzp() {
+      return window.Razorpay ? Promise.resolve() : new Promise((ok, bad) => {
+        const s = document.createElement('script'); s.src = 'https://checkout.razorpay.com/v1/checkout.js'; s.onload = ok; s.onerror = bad; document.head.appendChild(s);
+      });
+    }
+
+    btn.addEventListener('click', async () => {
+      const session = await getSession();
+      if (!session) { say('पहले लॉगिन करें। / Please log in first.'); setTimeout(() => { location.href = '/login.html'; }, 900); return; }
+      btn.disabled = true; say('पेमेंट खुल रहा है… / Opening payment…');
+      try {
+        const o = await hub({ action: 'create', product: 'tet-' + series, access_token: session.access_token });
+        if (!o.order_id) throw new Error(o.error || 'order');
+        await loadRzp();
+        new Razorpay({
+          key: o.key_id, order_id: o.order_id, amount: o.amount, currency: o.currency, name: o.name, description: o.description,
+          prefill: { email: session.user.email || '' },
+          handler: async res => {
+            say('पेमेंट जाँच रहे हैं… / Checking payment…');
+            await hub({ action: 'verify', order_id: res.razorpay_order_id, payment_id: res.razorpay_payment_id, signature: res.razorpay_signature });
+            say(await unlock(session) ? '✅ सीरीज़ अनलॉक हो गई। / Series unlocked.' : 'पेमेंट मिल गया, कुछ सेकंड में पेज रीलोड करें। / Payment received, reload the page in a few seconds.');
+          },
+          modal: { ondismiss: () => { btn.disabled = false; say(''); } },
+        }).open();
+      } catch (e) {
+        btn.disabled = false;
+        say('पेमेंट शुरू नहीं हुआ, फिर से कोशिश करें। / Could not start payment, please try again.');
+      }
+    });
+
+    // Already paid (other device, or UPI app reloaded the page)? Unlock on load.
+    getSession().then(s => { if (s) unlock(s); });
+  }
+})();
+</script>
+
+<script src="../js/global-account-menu.js"></script>
+</body>
+</html>

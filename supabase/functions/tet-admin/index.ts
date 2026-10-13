@@ -26,7 +26,7 @@ function safeEqual(a: string, b: string) {
   for (let i = 0; i < a.length; i++) r |= a.charCodeAt(i) ^ b.charCodeAt(i);
   return r === 0;
 }
-const ID = /^(tet[ps]-[a-z]+|rrbntpc-[gu]-(full|ga|maths|reason))-\d{2}$/;
+const ID = /^(tet[ps]-[a-z]+|rrbntpc-[gu]-(full|ga|maths|reason)|cpct-(exam|typing))-\d{2}$/;
 
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: cors });
@@ -52,7 +52,9 @@ Deno.serve(async (req) => {
       // deno-lint-ignore no-explicit-any
       const okSecs = Array.isArray(secs) && secs.length > 0 && secs.every((s: any) =>
         typeof s?.name === "string" && Array.isArray(s.questions) && s.questions.every((q: any) =>
-          [0, 1, 2, 3].includes(q?.answer) && (q.hi?.options?.length === 4 || q.en?.options?.length === 4)));
+          // CPCT typing sections hold one passage (q.en.q or q.hi.q) and no options
+          s.mode === "typing" ? typeof (q?.en?.q ?? q?.hi?.q) === "string"
+            : [0, 1, 2, 3].includes(q?.answer) && (q.hi?.options?.length === 4 || q.en?.options?.length === 4)));
       const count = okSecs ? secs.reduce((n: number, s: { questions: unknown[] }) => n + s.questions.length, 0) : 0;
       if (!ID.test(String(r.test_id ?? "")) || !okSecs || count < 1) return json({ error: "bad_test_file" }, 400);
       const { error } = await db.from("test_content").upsert({
@@ -64,7 +66,7 @@ Deno.serve(async (req) => {
     }
     case "list_tests": {
       const prefix = String(body.prefix ?? "");
-      if (!/^(tet[ps]-[a-z]+|rrbntpc-[gu]-(full|ga|maths|reason))$/.test(prefix)) return json({ error: "bad_request" }, 400);
+      if (!/^(tet[ps]-[a-z]+|rrbntpc-[gu]-(full|ga|maths|reason)|cpct-(exam|typing))$/.test(prefix)) return json({ error: "bad_request" }, 400);
       const { data } = await db.from("test_content").select("test_id").like("test_id", `${prefix}-%`).order("test_id");
       return json({ tests: (data ?? []).map((x) => x.test_id) });
     }
