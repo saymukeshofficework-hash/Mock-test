@@ -79,6 +79,15 @@ const PRODUCTS: Record<string, { amount: number; file: string; downloadName: str
     downloadName: "",
     title: "RRB NTPC Graduate Level — 25 Full CBT-1 Mock Tests",
   },
+  "tet-cpct": {
+    amount: 19900,
+    // MP CPCT exam + typing tests (main site test_content cpct-exam-NN / cpct-typing-NN), sold on
+    // tettesthub.in/cpct/; tet-unlock adds tests 02–25 via "tet_paid" (series "cpct")
+    kind: "tet",
+    file: "",
+    downloadName: "",
+    title: "MP CPCT — 25 मॉक टेस्ट + 25 टाइपिंग टेस्ट / Mock + Typing Tests",
+  },
   "ca-30": {
     amount: 4900,
     kind: "ca",
@@ -252,7 +261,7 @@ Deno.serve(async (req) => {
       if (!buyer) return json({ error: "login_required" }, 401);
       const { data: rows } = await db.from("orders").select("product").eq("status", "paid").eq("buyer_user_id", buyer).or("product.like.tet-%,product.eq.rrbg-tests");
       // RRB NTPC Graduate series is reported as "rrbntpc-g"
-      const series = [...new Set((rows ?? []).map((r) => (r.product === "rrbg-tests" ? "rrbntpc-g" : String(r.product).slice(4))))].filter((s) => TET_SERIES.includes(s) || s === "rrbntpc-g");
+      const series = [...new Set((rows ?? []).map((r) => (r.product === "rrbg-tests" ? "rrbntpc-g" : String(r.product).slice(4))))].filter((s) => TET_SERIES.includes(s) || s === "rrbntpc-g" || s === "cpct");
       return json({ series });
     }
 

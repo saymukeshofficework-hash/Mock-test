@@ -188,5 +188,13 @@ function findCatalogTest(testId) {
       };
     }
   }
+  // MP CPCT exam series (CPCT_SERIES in site-config.js): "cpct-exam-01".
+  const c = /^cpct-exam-(\d{2})$/.exec(testId || "");
+  if (c && typeof CPCT_SERIES !== "undefined" && Number(c[1]) >= 1 && Number(c[1]) <= CPCT_SERIES.tests) {
+    return {
+      examId: "cpct", examName: "MP CPCT", paperId: null, subjectId: "exam", subjectName: "Mock Test",
+      number: Number(c[1]), contentStatus: CPCT_SERIES.exam.ready ? "available" : "pending",
+    };
+  }
   return null;
 }

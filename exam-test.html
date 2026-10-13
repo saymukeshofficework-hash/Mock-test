@@ -150,8 +150,8 @@
 </div>
 
 <script src="assets/vendor/supabase/supabase.js"></script>
-<script src="js/site-config.js?v=6"></script>
-<script src="js/exam-catalog.js?v=3"></script>
+<script src="js/site-config.js?v=9"></script>
+<script src="js/exam-catalog.js?v=4"></script>
 <script src="js/auth.js?v=2"></script>
 <script src="assets/tet-engine.js?v=2"></script>
 <script>
@@ -197,6 +197,14 @@
   }
 
   initExam(data, TEST_ID);
+  // MP CPCT: 75 questions in 75 minutes (the engine defaults to 150).
+  if (TEST_ID.startsWith('cpct-')) {
+    timeLeft = 75 * 60;
+    document.getElementById('timerDisplay').textContent = 'Time Left : 75:00';
+    const li = document.querySelectorAll('ol li');
+    if (li[0]) li[0].innerHTML = 'Total duration of examination is <strong>75 minutes</strong>. / कुल समय <strong>75 मिनट</strong>।';
+    if (li[1]) li[1].innerHTML = 'The test has <strong>75 questions</strong>, <strong>1 mark per question, no negative marking</strong>. / 75 प्रश्न, हर प्रश्न 1 अंक, कोई ऋणात्मक अंकन नहीं।';
+  }
   loadingEl.style.display = 'none';
   const nameScreen = document.getElementById('nameScreen');
   nameScreen.style.display = 'block';
