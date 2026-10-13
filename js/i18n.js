@@ -177,15 +177,15 @@ const I18N_DICT = {
     en: "Each mock test follows the real TET pattern: 150 questions from Child Development & Pedagogy, Language-1 (English), Language-2 (Hindi), Mathematics and Environmental Studies. You get 150 minutes, a live timer, a question palette and a section-wise result as soon as you submit. You can read every question in English or Hindi.",
   },
   about_page_p3: {
-    hi: "सीधी बात: टेस्ट 01 फ्री है, बाकी 24 टेस्ट एक साथ ₹199 में। भुगतान की जाँच होते ही आपको स्टूडेंट आईडी और पासवर्ड मिल जाता है, फिर लॉगिन करके तुरंत अभ्यास शुरू करें।",
-    en: "It's simple: Test 01 is free, and the other 24 tests come together for ₹199. Once your payment is verified, you get a Student ID and password, so you can log in and start practising right away.",
+    hi: "सीधी बात: हर सीरीज़ का टेस्ट 01 फ्री है। बाकी 24 टेस्ट खोलने के लिए लॉगिन करें और साइट पर ही ₹199 का भुगतान करें। भुगतान होते ही टेस्ट आपके अकाउंट में तुरंत खुल जाते हैं।",
+    en: "It's simple: Test 01 is free in every series. To unlock the other 24 tests, log in and pay ₹199 on the site. They unlock on your account straight away, with no waiting.",
   },
 
   // ---------- contact.html ----------
   contact_h2: { hi: "संपर्क और भुगतान सहायता", en: "Contact & Payment Support" },
   contact_lead: {
-    hi: "भुगतान के बाद हमें भुगतान का विवरण (स्क्रीनशॉट या ऑर्डर आईडी) भेजें, हम आपको स्टूडेंट आईडी और पासवर्ड भेज देंगे। हर भुगतान हम खुद जाँचते हैं, इसलिए थोड़ा समय लग सकता है।",
-    en: "After paying, send us your payment details (a screenshot or order ID) and we'll send you your Student ID and password. We check every payment by hand, so it can take a little while.",
+    hi: "लॉगिन करके साइट पर ही भुगतान करें, टेस्ट आपके अकाउंट में अपने आप खुल जाते हैं। अगर भुगतान के बाद भी टेस्ट लॉक दिखें, तो ऑर्डर आईडी या भुगतान का स्क्रीनशॉट व्हाट्सएप पर भेजें, हम ठीक कर देंगे।",
+    en: "Log in and pay on the site, and your tests unlock on your account automatically. If you've paid and the tests still show as locked, message us on WhatsApp with your order ID or a payment screenshot and we'll sort it out.",
   },
   contact_email_label: { hi: "ईमेल:", en: "Email:" },
   contact_phone_label: { hi: "व्हाट्सएप / कॉल:", en: "WhatsApp / Call:" },
