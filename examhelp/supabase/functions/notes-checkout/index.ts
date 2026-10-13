@@ -71,7 +71,7 @@ const PRODUCTS: Record<string, { amount: number; file: string; downloadName: str
     title: "मध्य प्रदेश ग्रामीण बैंक — 25 मॉक टेस्ट (80 प्रश्न)",
   },
   "rrbg-tests": {
-    amount: 19900,
+    amount: 9900,
     // tests live in the main site's test_content (rrbntpc-g-full-NN); like TET, login required and
     // the main site's tet-unlock function adds Tests 02–25 to the buyer's profile via "tet_paid"
     kind: "tet",
