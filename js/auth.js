@@ -73,6 +73,13 @@ async function registerAccount(fullName,identifier,password) {
       if(msg.includes("already registered")||msg.includes("already exists")) return {ok:false,message:"This email is already registered. Please login."};
       return {ok:false,message:error.message||"Unable to create account."};
     }
+    if(data.session) {
+      const claim=await claimActiveLoginSession();
+      if(!claim.ok) {
+        await supabaseClient.auth.signOut();
+        return {ok:false,message:claim.unavailable?"Single-device security is not ready yet. Please try again later.":"यह अकाउंट किसी दूसरे डिवाइस पर पहले से लॉगिन है। पहले वहाँ लॉगआउट करें।"};
+      }
+    }
     return {ok:true,session:data.session,message:data.session?"Account created successfully.":"Account created. Please check your email to confirm your account."};
   } catch(e) { return {ok:false,message:"Unable to create account. Please try again."}; }
 }
