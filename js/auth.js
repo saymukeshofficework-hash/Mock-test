@@ -26,12 +26,32 @@ function normalizeIdentifier(identifier) {
 }
 function _authT(key, en) { return typeof t === "function" ? t(key) : en; }
 
+async function claimActiveLoginSession() {
+  if (!supabaseClient) return {ok:false, unavailable:true};
+  try {
+    const {data,error}=await supabaseClient.rpc("claim_my_login_session");
+    if (error) {
+      console.error("Single-device login check failed:", error.message);
+      return {ok:false, unavailable:true};
+    }
+    return {ok:data===true, unavailable:false};
+  } catch(e) {
+    console.error("Single-device login check failed.",e);
+    return {ok:false, unavailable:true};
+  }
+}
 async function loginWithIdentifier(identifier, password) {
   if (!identifier || !password) return {ok:false,message:"Please enter your email ID and password."};
   if (!supabaseClient) return {ok:false,message:"Login isn't available yet. Please try again later."};
   try {
     const {data,error}=await supabaseClient.auth.signInWithPassword({email:normalizeIdentifier(identifier),password});
     if(error) return {ok:false,message:"Incorrect email ID or password."};
+    const claim=await claimActiveLoginSession();
+    if(!claim.ok) {
+      await supabaseClient.auth.signOut();
+      if(claim.unavailable) return {ok:false,message:"Single-device security is not ready yet. Please try again later."};
+      return {ok:false,message:"यह अकाउंट किसी दूसरे डिवाइस पर पहले से लॉगिन है। पहले उस डिवाइस से लॉगआउट करें, फिर यहाँ लॉगिन करें।"};
+    }
     return {ok:true,session:data.session};
   } catch(e) { return {ok:false,message:"Something went wrong. Please try again."}; }
 }
@@ -52,6 +72,13 @@ async function registerAccount(fullName,identifier,password) {
       const msg=(error.message||"").toLowerCase();
       if(msg.includes("already registered")||msg.includes("already exists")) return {ok:false,message:"This email is already registered. Please login."};
       return {ok:false,message:error.message||"Unable to create account."};
+    }
+    if(data.session) {
+      const claim=await claimActiveLoginSession();
+      if(!claim.ok) {
+        await supabaseClient.auth.signOut();
+        return {ok:false,message:claim.unavailable?"Single-device security is not ready yet. Please try again later.":"यह अकाउंट किसी दूसरे डिवाइस पर पहले से लॉगिन है। पहले वहाँ लॉगआउट करें।"};
+      }
     }
     return {ok:true,session:data.session,message:data.session?"Account created successfully.":"Account created. Please check your email to confirm your account."};
   } catch(e) { return {ok:false,message:"Unable to create account. Please try again."}; }
@@ -83,7 +110,18 @@ async function updatePassword(password) {
     return {ok:true,message:"Password updated successfully."};
   } catch(e) { return {ok:false,message:"Unable to update password. Please try again."}; }
 }
-async function logout(){try{localStorage.removeItem("tth_user")}catch(e){}if(!supabaseClient)return;try{await supabaseClient.auth.signOut()}catch(e){}}
+async function logout(){
+  try{localStorage.removeItem("tth_user")}catch(e){}
+  if(!supabaseClient)return;
+  try {
+    const session=await getSession();
+    if(session) {
+      // Release only this JWT session's reservation; another device's reservation is untouched.
+      await supabaseClient.rpc("release_my_login_session");
+    }
+  } catch(e) { console.warn("Could not release active login reservation.",e); }
+  try{await supabaseClient.auth.signOut()}catch(e){}
+}
 async function getSession(){if(!supabaseClient)return null;try{const {data}=await supabaseClient.auth.getSession();return data.session||null}catch(e){return null}}
 async function getProfile(userId){
  if(!supabaseClient)return null;
@@ -91,7 +129,15 @@ async function getProfile(userId){
 }
 async function requireAuth(){
  const session=await getSession();
- if(!session){const next=encodeURIComponent(location.pathname.split("/").pop()||"dashboard.html");location.replace(`login.html?next=${next}`);return null}
+ const next=encodeURIComponent(location.pathname.split("/").pop()||"dashboard.html");
+ if(!session){location.replace(`login.html?next=${next}`);return null}
+ const claim=await claimActiveLoginSession();
+ if(!claim.ok){
+   try{await supabaseClient.auth.signOut()}catch(e){}
+   const reason=claim.unavailable?"security_setup":"other_device";
+   location.replace(`login.html?next=${next}&session_error=${reason}`);
+   return null;
+ }
  return session;
 }
 function canAccessTest(testId,profile){
