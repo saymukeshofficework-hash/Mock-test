@@ -196,5 +196,14 @@ function findCatalogTest(testId) {
       number: Number(c[1]), contentStatus: CPCT_SERIES.exam.ready ? "available" : "pending",
     };
   }
+  // RRB NTPC (rrb-ntpc/index.html): "rrbntpc-g-full-01", "rrbntpc-u-maths-12".
+  const r = /^rrbntpc-([gu])-(full|ga|maths|reason)-(\d{2})$/.exec(testId || "");
+  if (r && Number(r[3]) >= 1 && Number(r[3]) <= 25) {
+    const subj = { full: "Full Mock Test", ga: "General Awareness", maths: "Mathematics", reason: "Reasoning" }[r[2]];
+    return {
+      examId: "rrbntpc", examName: "RRB NTPC " + (r[1] === "g" ? "Graduate" : "Undergraduate"), paperId: null,
+      subjectId: r[2], subjectName: subj, number: Number(r[3]), contentStatus: "available",
+    };
+  }
   return null;
 }
