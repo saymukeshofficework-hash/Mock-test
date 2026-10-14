@@ -156,6 +156,12 @@ header.site-header nav{padding-right:145px}
 @media(max-width:700px){.hero{margin:9px 9px 14px;padding:24px 18px;border-radius:20px}.hero:after{right:1%;bottom:4%;font-size:34px}.home-quick-start{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;padding:0 10px}.home-quick-link{gap:9px;padding:11px 9px;border-radius:13px}.home-quick-icon{flex-basis:37px;width:37px;height:37px;font-size:20px}.home-quick-link strong{font-size:12px}.home-quick-link small{font-size:10px}.home-first-visit{padding:0 10px}.home-first-visit-inner{align-items:flex-start;flex-direction:column}.home-first-visit-inner .btn{width:100%;text-align:center}.hero .hero-actions .btn{flex:1;text-align:center;padding:12px 10px}}
 @media(prefers-reduced-motion:reduce){.home-quick-link,.hero .hero-actions .btn{transition:none}.home-quick-link:hover,.hero .hero-actions .btn-primary:hover{transform:none}}
 
+
+/* Homepage folders: one entry point per learning category, no repeated exam shortcuts. */
+.home-folder-grid{grid-template-columns:repeat(4,minmax(0,1fr));margin:0;padding:0;max-width:none}
+.home-folder-grid .home-quick-link{min-height:96px}
+@media(max-width:700px){.home-folder-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.home-folder-grid .home-quick-link{min-height:94px}}
+@media(max-width:360px){.home-folder-grid{grid-template-columns:1fr}}
 </style>
 <!-- Require student authentication before showing the homepage. -->
 <script>document.documentElement.classList.add('auth-gate-pending');</script>
@@ -201,62 +207,21 @@ header.site-header nav{padding-right:145px}
       </div>
     </div>
 
-    <section class="home-quick-start" aria-label="लोकप्रिय परीक्षाएँ">
-      <a class="home-quick-link" href="/examhelp/mp-police-constable-gd-mock-tests/"><span class="home-quick-icon" style="background:#dcfce7;color:#166534">🛡️</span><span><strong>MP पुलिस</strong><small>कॉन्स्टेबल मॉक टेस्ट</small></span><span class="quick-arrow" aria-hidden="true">›</span></a>
-      <a class="home-quick-link" href="/examhelp/rrb-ntpc-graduate-mock-tests/"><span class="home-quick-icon" style="background:#dbeafe;color:#1d4ed8">🚆</span><span><strong>RRB NTPC</strong><small>ग्रेजुएट लेवल</small></span><span class="quick-arrow" aria-hidden="true">›</span></a>
-      <a class="home-quick-link" href="/examhelp/mp-high-court-assistant-grade-3-mock-tests/"><span class="home-quick-icon" style="background:#fce7f3;color:#9d174d">⚖️</span><span><strong>हाईकोर्ट</strong><small>असिस्टेंट ग्रेड-3</small></span><span class="quick-arrow" aria-hidden="true">›</span></a>
-      <a class="home-quick-link" href="/examhelp/courses/"><span class="home-quick-icon" style="background:#fef3c7;color:#92400e">📚</span><span><strong>सभी टेस्ट</strong><small>अपनी परीक्षा चुनें</small></span><span class="quick-arrow" aria-hidden="true">›</span></a>
-    </section>
-
-
     <div class="container">
 
       <section class="section" id="learningCategories" style="padding-top:8px;">
         <div class="all-exams-heading">
           <div>
-            <span class="all-exams-kicker">📚 कोर्स, टेस्ट और ई-बुक</span>
-            <h2>अपनी तैयारी की श्रेणी चुनें</h2>
-            <p class="lead">किसी श्रेणी पर टैप करें और अपनी परीक्षा के उपलब्ध कोर्स, टेस्ट सीरीज़ या नोट्स खोलें।</p>
+            <span class="all-exams-kicker">📚 साफ़ और व्यवस्थित होमपेज</span>
+            <h2>अपनी ज़रूरत का फ़ोल्डर चुनें</h2>
+            <p class="lead">हर विकल्प एक अलग श्रेणी में ले जाएगा। सभी परीक्षाओं की सूची नीचे एक ही जगह है, इसलिए वही टेस्ट बार-बार नहीं दिखेंगे।</p>
           </div>
         </div>
-        <div class="grid all-exams-grid learning-category-grid">
-          <details class="card learning-category" open>
-            <summary><span class="all-exam-icon" aria-hidden="true">🎓</span><span><strong>पेड कोर्स</strong><small>परीक्षा के अनुसार कोर्स</small></span><span class="category-chevron" aria-hidden="true">⌄</span></summary>
-            <div class="category-links">
-              <a href="/examhelp/mp-police-subedar-asi-mock-tests/">सूबेदार / ASI <span>→</span></a>
-              <a href="/examhelp/mp-police-constable-gd-mock-tests/">कॉन्स्टेबल (GD) <span>→</span></a>
-              <a href="/examhelp/mp-high-court-assistant-grade-3-mock-tests/">MP हाईकोर्ट सहायक ग्रेड-3 <span>→</span></a>
-              <a href="/examhelp/courses/">DVT परीक्षा (कोर्स कैटलॉग) <span>→</span></a>
-              <a href="/examhelp/rrb-ntpc-graduate-mock-tests/">RRB NTPC ग्रेजुएट <span>→</span></a>
-              <a href="/examhelp/rrb-ntpc-undergraduate-mock-tests/">RRB NTPC 10+2 <span>→</span></a>
-              <a href="/cpct/">MP CPCT (MCQ + टाइपिंग) <span>→</span></a>
-              <a href="/typing-practice/">स्टेनो / टाइपिंग अभ्यास <span>→</span></a>
-            </div>
-          </details>
-          <details class="card learning-category">
-            <summary><span class="all-exam-icon" aria-hidden="true">📝</span><span><strong>टेस्ट सीरीज़</strong><small>परीक्षा चुनें और मॉक टेस्ट दें</small></span><span class="category-chevron" aria-hidden="true">⌄</span></summary>
-            <div class="category-links">
-              <a href="/examhelp/mp-police-subedar-asi-mock-tests/">सूबेदार / ASI के टेस्ट <span>→</span></a>
-              <a href="/examhelp/mp-police-constable-gd-mock-tests/">कॉन्स्टेबल के टेस्ट <span>→</span></a>
-              <a href="/examhelp/mp-high-court-assistant-grade-3-mock-tests/">MP हाईकोर्ट के टेस्ट <span>→</span></a>
-              <a href="/examhelp/rrb-ntpc-graduate-mock-tests/">RRB NTPC ग्रेजुएट टेस्ट <span>→</span></a>
-              <a href="/examhelp/rrb-ntpc-undergraduate-mock-tests/">RRB NTPC 10+2 टेस्ट <span>→</span></a>
-              <a href="/cpct/">MP CPCT के पेपर <span>→</span></a>
-              <a href="/tet/">MP TET (शिक्षक) प्राथमिक / माध्यमिक टेस्ट <span>→</span></a>
-              <a href="/examhelp/current-affairs/">डेली करेंट अफेयर्स क्विज़ <span>→</span></a>
-            </div>
-          </details>
-          <details class="card learning-category">
-            <summary><span class="all-exam-icon" aria-hidden="true">📖</span><span><strong>ई-बुक / PDF नोट्स</strong><small>डिजिटल अध्ययन सामग्री</small></span><span class="category-chevron" aria-hidden="true">⌄</span></summary>
-            <div class="category-links">
-              <a href="/bridge-course/">ब्रिज कोर्स नोट्स <span>→</span></a>
-              <a href="/examhelp/current-affairs/">करेंट अफेयर्स और PDF <span>→</span></a>
-              <a href="/examhelp/mp-high-court-assistant-grade-3-mock-tests/">MP हाईकोर्ट अध्ययन सामग्री <span>→</span></a>
-              <a href="/examhelp/mp-police-subedar-asi-mock-tests/">सूबेदार / ASI अध्ययन सामग्री <span>→</span></a>
-              <a href="/examhelp/mp-police-constable-gd-mock-tests/">कॉन्स्टेबल अध्ययन सामग्री <span>→</span></a>
-              <p class="category-note">नोट: जहाँ ई-बुक/PDF उपलब्ध है, वहीं से उसे खोलें। भुगतान वाले PDF के लिए सुरक्षित खरीद और डाउनलोड व्यवस्था अलग से जुड़ी होनी चाहिए।</p>
-            </div>
-          </details>
+        <div class="home-quick-start home-folder-grid" aria-label="तैयारी के मुख्य फ़ोल्डर">
+          <a class="home-quick-link" href="/examhelp/courses/" style="border-top:4px solid #7c3aed;"><span class="home-quick-icon" style="background:#f1eaff;color:#6d28d9">🎓</span><span><strong>पेड कोर्स</strong><small>कोर्स कैटलॉग और उपलब्ध टेस्ट सीरीज़</small></span><span class="quick-arrow" aria-hidden="true">›</span></a>
+          <a class="home-quick-link" href="dashboard.html" style="border-top:4px solid #0f766e;"><span class="home-quick-icon" style="background:#ddf7f2;color:#0f766e">📝</span><span><strong>मेरे टेस्ट</strong><small>डैशबोर्ड और अपनी तैयारी</small></span><span class="quick-arrow" aria-hidden="true">›</span></a>
+          <a class="home-quick-link" href="/bridge-course/" style="border-top:4px solid #be185d;"><span class="home-quick-icon" style="background:#fce7f3;color:#be185d">📖</span><span><strong>ई-बुक / PDF नोट्स</strong><small>उपलब्ध डिजिटल अध्ययन सामग्री</small></span><span class="quick-arrow" aria-hidden="true">›</span></a>
+          <a class="home-quick-link" href="/examhelp/current-affairs/" style="border-top:4px solid #b45309;"><span class="home-quick-icon" style="background:#fff1d6;color:#b45309">📰</span><span><strong>फ्री प्रैक्टिस</strong><small>डेली करेंट अफेयर्स क्विज़</small></span><span class="quick-arrow" aria-hidden="true">›</span></a>
         </div>
       </section>
 
@@ -328,19 +293,6 @@ header.site-header nav{padding-right:145px}
         </div>
         <div class="exam-no-results" id="examNoResults" hidden>इस खोज में कोई विकल्प नहीं मिला। दूसरा नाम या श्रेणी चुनें।</div>
       </section>
-
-      <section class="section" id="typingPractice" style="padding-top:8px;">
-        <a class="card test-card" href="typing-practice/" style="text-decoration:none;color:inherit;max-width:640px;margin:0 auto;flex-direction:row;flex-wrap:wrap;align-items:center;gap:12px 16px;">
-          <div class="badge" aria-hidden="true" style="margin-bottom:0;">⌨</div>
-          <div style="flex:1;min-width:0;">
-            <h3 data-i18n="home_typing_h">Typing Practice</h3>
-            <p class="desc" style="margin:0;" data-i18n="home_typing_desc">English और Hindi typing की speed और accuracy बढ़ाएँ।</p>
-          </div>
-          <span class="btn btn-primary" data-i18n="home_typing_btn">Practice Now</span>
-        </a>
-      </section>
-
-
 
     </div>
   </main>
