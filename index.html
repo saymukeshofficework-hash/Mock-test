@@ -151,6 +151,9 @@ header.site-header nav a.active{background:var(--app-purple);color:#fff}
 @media(prefers-reduced-motion:reduce){.home-quick-link,.hero .hero-actions .btn{transition:none}.home-quick-link:hover,.hero .hero-actions .btn-primary:hover{transform:none}}
 
 </style>
+<!-- Require student authentication before showing the homepage. -->
+<script>document.documentElement.classList.add('auth-gate-pending');</script>
+<style>html.auth-gate-pending body{visibility:hidden!important}</style>
 </head>
 <body>
 
@@ -380,10 +383,15 @@ header.site-header nav a.active{background:var(--app-purple);color:#fff}
     await logout();
     window.location.href = 'index.html';
   });
-  // Keep the homepage public; a missing auth session must never blank the page.
+  // Login/register is the mandatory entry point. Do not show the homepage until a valid session exists.
   (async () => {
     let session = null;
     try { session = await getSession(); } catch (error) { console.error('Unable to verify login session:', error); }
+    if (!session) {
+      window.location.replace('login.html?next=index.html');
+      return;
+    }
+    document.documentElement.classList.remove('auth-gate-pending');
     if (session) {
       navLoginLink.hidden = true;
       accountMenu.hidden = false;
