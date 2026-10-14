@@ -30,13 +30,13 @@ const SITE_CONFIG = {
   studentEmailDomain: "students.tettesthub.app",
 };
 
-// Pricing: Test 01 & 02 are FREE. Tests 03-20 sold as one ₹199 bundle.
+// Pricing: Test 01 & 02 are FREE. Tests 03-20 sold as one ₹99 bundle.
 // No individual test purchases — only free access or the full ₹149 bundle.
 const PRICES = {
-  all18: 199,  // Tests 03-20 (18 tests total)
+  all18: 99,  // Tests 03-20 (18 tests total)
 };
 
-// Razorpay Payment Link for the ₹199 bundle. Create this in your Razorpay
+// Razorpay Payment Link for the ₹99 bundle. Create this in your Razorpay
 // Dashboard -> Payment Links -> Create Payment Link (see ADMIN_INSTRUCTIONS.md
 // for the exact steps), then paste the resulting https://rzp.io/... URL here.
 // Payment is still verified and Supabase accounts still created manually —
@@ -104,10 +104,10 @@ const TET_LEVELS = {
   },
 };
 const TET_TESTS_PER_SUBJECT = 25;
-// ₹199 per subject series (tests 2-25). tet/index.html sells it through the TETTESTHUB
+// ₹99 per subject series (tests 2-25). tet/index.html sells it through the TETTESTHUB
 // Razorpay checkout (exam-hub notes-checkout, products "tet-<series>"; keep the amount there
 // in sync) and the tet-unlock Edge Function adds the tests to the buyer's profile.
-const TET_SUBJECT_PRICE = 199;
+const TET_SUBJECT_PRICE = 99;
 // Test 1 of every ready TET subject series is free (same rule as test01).
 Object.values(TET_LEVELS).forEach(lv => lv.subjects.forEach(s => {
   if (s.ready && !s.legacy) FREE_TESTS.push(`tet${lv === TET_LEVELS.primary ? "p" : "s"}-${s.key}-01`);
@@ -116,8 +116,8 @@ Object.values(TET_LEVELS).forEach(lv => lv.subjects.forEach(s => {
 // MP CPCT series (cpct/index.html): 25 exam tests (75 MCQ, 75 min, ids "cpct-exam-NN") and
 // 25 typing tests (English + Hindi passage, ids "cpct-typing-NN"). Exam test 1 and typing
 // test 1 are free (owner asked for one free typing test too, 2026-10-13).
-// ₹199 for the whole series, sold like TET (exam-hub notes-checkout product "tet-cpct");
+// ₹99 for the whole series, sold like TET (exam-hub notes-checkout product "tet-cpct");
 // tet-unlock adds exam tests 02-25 and typing tests 01-25 (01 is free anyway) to the buyer's profile.
 // Set `ready: true` once the questions are uploaded to Supabase test_content.
-const CPCT_SERIES = { tests: 25, price: 199, exam: { ready: true }, typing: { ready: true } };
+const CPCT_SERIES = { tests: 25, price: 99, exam: { ready: true }, typing: { ready: true } };
 FREE_TESTS.push("cpct-exam-01", "cpct-typing-01");

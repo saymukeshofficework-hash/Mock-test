@@ -53,7 +53,7 @@ export const MOCK_SERIES: Record<string, MockSeries> = {
     total: 25,
     free: [1],
     product: "ag3-tests",
-    price: 199,
+    price: 99,
     enginePath: "/mock-tests/ag3/test.html",
     scorePrefix: "testhub_ag3_mock_",
     listPath: "/mp-high-court-assistant-grade-3-mock-tests",
@@ -85,10 +85,10 @@ export const MOCK_SERIES: Record<string, MockSeries> = {
     },
     unlockTitle: { hi: "पूरी टेस्ट सीरीज़ — 25 फुल मॉक टेस्ट", en: "Full test series — 25 full mock tests" },
     unlockSub: {
-      hi: "टेस्ट 1 फ्री है। बाकी 24 टेस्ट एक बार ₹199 देकर अनलॉक करें — इसी डिवाइस पर तुरंत खुल जाएंगे।",
-      en: "Test 1 is free. Unlock the other 24 tests once for ₹199 — they open instantly on this device.",
+      hi: "टेस्ट 1 फ्री है। बाकी 24 टेस्ट एक बार ₹99 देकर अनलॉक करें — इसी डिवाइस पर तुरंत खुल जाएंगे।",
+      en: "Test 1 is free. Unlock the other 24 tests once for ₹99 — they open instantly on this device.",
     },
-    unlockBtn: { hi: "सभी टेस्ट अनलॉक करें — ₹199", en: "Unlock all tests — ₹199" },
+    unlockBtn: { hi: "सभी टेस्ट अनलॉक करें — ₹99", en: "Unlock all tests — ₹99" },
     links: [
       { href: "/exams/mp-high-court-assistant-grade-3-2026/", label: { hi: "परीक्षा की पूरी जानकारी →", en: "Full exam details →" }, tone: "brand" },
     ],
@@ -98,7 +98,7 @@ export const MOCK_SERIES: Record<string, MockSeries> = {
     total: 25,
     free: [1],
     product: "pcgd-tests",
-    price: 199,
+    price: 99,
     enginePath: "/mock-tests/pcgd/test.html",
     scorePrefix: "testhub_pcgd_mock_",
     listPath: "/mp-police-constable-gd-mock-tests",
@@ -112,10 +112,10 @@ export const MOCK_SERIES: Record<string, MockSeries> = {
     neg: POLICE_NEG,
     unlockTitle: { hi: "पूरी टेस्ट सीरीज़ — 25 फुल मॉक टेस्ट", en: "Full test series — 25 full mock tests" },
     unlockSub: {
-      hi: "टेस्ट 1 फ्री है। बाकी 24 टेस्ट एक बार ₹199 देकर अनलॉक करें — इसी डिवाइस पर तुरंत खुल जाएंगे।",
-      en: "Test 1 is free. Unlock the other 24 tests once for ₹199 — they open instantly on this device.",
+      hi: "टेस्ट 1 फ्री है। बाकी 24 टेस्ट एक बार ₹99 देकर अनलॉक करें — इसी डिवाइस पर तुरंत खुल जाएंगे।",
+      en: "Test 1 is free. Unlock the other 24 tests once for ₹99 — they open instantly on this device.",
     },
-    unlockBtn: { hi: "सभी टेस्ट अनलॉक करें — ₹199", en: "Unlock all tests — ₹199" },
+    unlockBtn: { hi: "सभी टेस्ट अनलॉक करें — ₹99", en: "Unlock all tests — ₹99" },
     links: [{ href: "/exams/mp-police-constable-2026/", label: { hi: "परीक्षा की पूरी जानकारी →", en: "Full exam details →" }, tone: "brand" }],
   },
   tet: {
@@ -123,7 +123,7 @@ export const MOCK_SERIES: Record<string, MockSeries> = {
     total: 25,
     free: [1],
     product: "tet-tests",
-    price: 199,
+    price: 99,
     enginePath: "",
     scorePrefix: "testhub_tet_mock_",
     listPath: "/tet-mock-tests",
@@ -132,8 +132,8 @@ export const MOCK_SERIES: Record<string, MockSeries> = {
     unlockHref: "/tests.html",
     title: { hi: "MP TET 2026 — 25 फुल मॉक टेस्ट", en: "MP TET 2026 — 25 Full Mock Tests" },
     sub: {
-      hi: "हर टेस्ट में 150 प्रश्न, 150 मिनट, 5 खंड। हर प्रश्न हिंदी/English में। टेस्ट 1 फ्री, बाकी 24 टेस्ट ₹199 में।",
-      en: "150 questions, 150 minutes and 5 sections in every test. Every question in Hindi/English. Test 1 is free, the other 24 tests are ₹199.",
+      hi: "हर टेस्ट में 150 प्रश्न, 150 मिनट, 5 खंड। हर प्रश्न हिंदी/English में। टेस्ट 1 फ्री, बाकी 24 टेस्ट ₹99 में।",
+      en: "150 questions, 150 minutes and 5 sections in every test. Every question in Hindi/English. Test 1 is free, the other 24 tests are ₹99.",
     },
     rows: {
       hi: [
@@ -155,10 +155,10 @@ export const MOCK_SERIES: Record<string, MockSeries> = {
     neg: { hi: "ऋणात्मक अंकन नहीं है।", en: "There is no negative marking." },
     unlockTitle: { hi: "पूरी टेस्ट सीरीज़ — 25 फुल मॉक टेस्ट", en: "Full test series — 25 full mock tests" },
     unlockSub: {
-      hi: "टेस्ट 1 फ्री है। बाकी 24 टेस्ट एक बार ₹199 देकर अनलॉक करें।",
-      en: "Test 1 is free. Unlock the other 24 tests once for ₹199.",
+      hi: "टेस्ट 1 फ्री है। बाकी 24 टेस्ट एक बार ₹99 देकर अनलॉक करें।",
+      en: "Test 1 is free. Unlock the other 24 tests once for ₹99.",
     },
-    unlockBtn: { hi: "सभी टेस्ट अनलॉक करें — ₹199", en: "Unlock all tests — ₹199" },
+    unlockBtn: { hi: "सभी टेस्ट अनलॉक करें — ₹99", en: "Unlock all tests — ₹99" },
     links: [],
   },
   asi: {
@@ -166,7 +166,7 @@ export const MOCK_SERIES: Record<string, MockSeries> = {
     total: 25,
     free: [1],
     product: "asi-tests",
-    price: 199,
+    price: 99,
     enginePath: "/mock-tests/asi/test.html",
     scorePrefix: "testhub_asi_mock_",
     listPath: "/mp-police-subedar-asi-mock-tests",
@@ -180,10 +180,10 @@ export const MOCK_SERIES: Record<string, MockSeries> = {
     neg: POLICE_NEG,
     unlockTitle: { hi: "पूरी टेस्ट सीरीज़ — 25 फुल मॉक टेस्ट", en: "Full test series — 25 full mock tests" },
     unlockSub: {
-      hi: "टेस्ट 1 फ्री है। बाकी 24 टेस्ट एक बार ₹199 देकर अनलॉक करें — इसी डिवाइस पर तुरंत खुल जाएंगे।",
-      en: "Test 1 is free. Unlock the other 24 tests once for ₹199 — they open instantly on this device.",
+      hi: "टेस्ट 1 फ्री है। बाकी 24 टेस्ट एक बार ₹99 देकर अनलॉक करें — इसी डिवाइस पर तुरंत खुल जाएंगे।",
+      en: "Test 1 is free. Unlock the other 24 tests once for ₹99 — they open instantly on this device.",
     },
-    unlockBtn: { hi: "सभी टेस्ट अनलॉक करें — ₹199", en: "Unlock all tests — ₹199" },
+    unlockBtn: { hi: "सभी टेस्ट अनलॉक करें — ₹99", en: "Unlock all tests — ₹99" },
     links: [{ href: "/exams/mp-subedar-steno-asi-2026/", label: { hi: "परीक्षा की पूरी जानकारी →", en: "Full exam details →" }, tone: "brand" }],
   },
   mpgrb: {
@@ -191,7 +191,7 @@ export const MOCK_SERIES: Record<string, MockSeries> = {
     total: 25,
     free: [1],
     product: "mpgrb-tests",
-    price: 199,
+    price: 99,
     enginePath: "",
     scorePrefix: "testhub_mpgrb_mock_",
     listPath: "/mp-grameen-bank-mock-tests",
@@ -199,8 +199,8 @@ export const MOCK_SERIES: Record<string, MockSeries> = {
     testHref: (n) => `/examhelp/mock-tests/mpgrb/test.html?t=${String(n).padStart(2, "0")}&lang=hi`,
     title: { hi: "मध्य प्रदेश ग्रामीण बैंक — 25 मॉक टेस्ट", en: "Madhya Pradesh Gramin Bank — 25 Mock Tests" },
     sub: {
-      hi: "IBPS RRB प्रारंभिक परीक्षा के अभ्यास पैटर्न पर: 80 प्रश्न, 45 मिनट, रीजनिंग और संख्यात्मक योग्यता। टेस्ट 1 फ्री; बाकी 24 टेस्ट ₹199 में।",
-      en: "Practice series based on the IBPS RRB preliminary pattern: 80 questions, 45 minutes, Reasoning and Numerical Ability. Test 1 is free; the other 24 tests cost ₹199.",
+      hi: "IBPS RRB प्रारंभिक परीक्षा के अभ्यास पैटर्न पर: 80 प्रश्न, 45 मिनट, रीजनिंग और संख्यात्मक योग्यता। टेस्ट 1 फ्री; बाकी 24 टेस्ट ₹99 में।",
+      en: "Practice series based on the IBPS RRB preliminary pattern: 80 questions, 45 minutes, Reasoning and Numerical Ability. Test 1 is free; the other 24 tests cost ₹99.",
     },
     rows: {
       hi: [
@@ -214,9 +214,9 @@ export const MOCK_SERIES: Record<string, MockSeries> = {
     },
     totalLine: { hi: "कुल 80 प्रश्न · 80 अंक · 45 मिनट", en: "Total 80 questions · 80 marks · 45 minutes" },
     neg: { hi: "प्रत्येक गलत उत्तर पर ¼ अंक कटेगा; छोड़े गए प्रश्न पर अंक नहीं कटेंगे।", en: "¼ mark is deducted for each wrong answer; unattempted questions carry no penalty." },
-    unlockTitle: { hi: "टेस्ट 2–25 अनलॉक करें — ₹199", en: "Unlock Tests 2–25 — ₹199" },
-    unlockSub: { hi: "पहला टेस्ट फ्री है। बाकी 24 टेस्ट एक बार ₹199 देकर अनलॉक करें।", en: "Test 1 is free. Unlock the other 24 tests with a one-time ₹199 payment." },
-    unlockBtn: { hi: "अभी भुगतान करें — ₹199", en: "Pay Now — ₹199" },
+    unlockTitle: { hi: "टेस्ट 2–25 अनलॉक करें — ₹99", en: "Unlock Tests 2–25 — ₹99" },
+    unlockSub: { hi: "पहला टेस्ट फ्री है। बाकी 24 टेस्ट एक बार ₹99 देकर अनलॉक करें।", en: "Test 1 is free. Unlock the other 24 tests with a one-time ₹99 payment." },
+    unlockBtn: { hi: "अभी भुगतान करें — ₹99", en: "Pay Now — ₹99" },
     links: [],
   },
   rrbg: {
