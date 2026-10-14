@@ -221,6 +221,7 @@
   if (rrb) {
     const [qs, mins] = { full: [100, 90], ga: [40, 36], maths: [30, 27], reason: [30, 27] }[rrb[1]];
     timeLeft = mins * 60;
+    document.getElementById('qMeta').textContent = 'Marks for correct answer: 1 | Negative Marks: 1/3';
     document.getElementById('timerDisplay').textContent = `Time Left : ${mins}:00`;
     const li = document.querySelectorAll('ol li');
     if (li[0]) li[0].innerHTML = `Total duration of examination is <strong>${mins} minutes</strong>. / कुल समय <strong>${mins} मिनट</strong>।`;
