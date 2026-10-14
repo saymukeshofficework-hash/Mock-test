@@ -5,7 +5,7 @@
 | English | Site font (Segoe UI / Arial) | System |
 | Hindi Unicode | Noto Sans Devanagari | Google Fonts (`display=swap`, Devanagari subset downloaded only when Hindi is on screen) |
 | Mangal | Mangal → Noto Sans Devanagari fallback | Installed on Windows; everyone else sees Noto Sans Devanagari |
-| Krutidev | Kruti Dev 010 | **Not bundled** — see below |
+| Krutidev | Kruti Dev 010 → `tth-krutidev.woff2` fallback | Installed copy first; phones/Macs get the bundled free font (below) |
 
 ## Kruti Dev 010
 
@@ -15,16 +15,16 @@ this: it detects whether the font is available (`document.fonts.load`) and, if n
 shows the key codes in a monospace font, a notice, and the Unicode Hindi text for
 reference. Typing and scoring work either way, because comparison is on the key codes.
 
-Right now the `@font-face` in `../css/typing.css` only uses a copy **installed on the
-student's device** (`local("Kruti Dev 010")`), because no font file is committed —
-check the licence of your copy before publishing it.
+The `@font-face` in `../css/typing.css` (and in `/cpct/typing.html`) uses a copy
+**installed on the student's device** first (`local("Kruti Dev 010")`). Android and iOS
+have none, so it falls back to `tth-krutidev.woff2` (8 KB) in this folder.
 
-To serve the font to every visitor:
+`tth-krutidev.woff2` is **not** the Kruti Dev font. It is built from Noto Sans Devanagari
+(SIL Open Font License 1.1, see `OFL.txt`) by `scripts/build-krutidev-font.py`, which maps
+each Kruti Dev key code (the same table as `js/engine/krutidev.js`) to the matching
+Devanagari glyph. So `f'k{kk` draws as शिक्षा on every device, free to redistribute.
+Characters it does not cover fall back to the next font in the stack.
 
-1. Put `KrutiDev010.woff2` (and optionally `KrutiDev010.ttf`) in this folder.
-2. In `../css/typing.css`, replace the `src:` line of the `"TTH Kruti Dev 010"`
-   `@font-face` with the commented-out version right below it (it adds the `url()`s).
-3. Bump `css/typing.css?v=` in `../index.html`.
-
-The font is only requested when Krutidev mode is used (`.font-krutidev`), and uses
-`font-display: swap`, so it never slows down the initial page load.
+To rebuild it: `pip install fonttools brotli uharfbuzz`, get `NotoSansDevanagari-Regular.ttf`, run
+`python3 scripts/build-krutidev-font.py NotoSansDevanagari-Regular.ttf typing-practice/fonts/tth-krutidev.woff2`,
+then bump `css/typing.css?v=` in `../index.html`.
