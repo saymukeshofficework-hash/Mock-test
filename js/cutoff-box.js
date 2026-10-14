@@ -10,8 +10,6 @@
     cutoff: { UR: 90, EWS: 75, OBC: 75, SC: 75, ST: 75 },
     // Estimated safe score for merit (owner-supplied, not official).
     safe: { UR: 110, EWS: 104, OBC: 105, SC: 95, ST: 90 },
-    lockedHi: 'बाकी 24 फुल मॉक टेस्ट (3,600 प्रश्न)',
-    lockedEn: 'the other 24 full mock tests (3,600 questions)',
     price: typeof TET_SUBJECT_PRICE !== 'undefined' ? TET_SUBJECT_PRICE : 199,
   };
   const NTPC = {
@@ -20,15 +18,11 @@
     // Previous CBT-1 cut-offs, RRB Bhopal / Bilaspur zones (owner-supplied).
     cutoff: { UR: 84, EWS: 80, OBC: 81, SC: 77, ST: 69 },
     safe: { UR: 86, EWS: 83, OBC: 84, SC: 79, ST: 73 },
-    lockedHi: 'बाकी 24 फुल CBT-1 मॉक टेस्ट (2,400 प्रश्न)',
-    lockedEn: 'the other 24 full CBT-1 mock tests (2,400 questions)',
     price: 99, // keep in sync with notes-checkout products rrbg-tests / rrbu-tests
   };
   const CPCT = {
     max: 75,
     cutoff: null, // no reliable cut-off yet: show the unlock offer only
-    lockedHi: 'बाकी 24 CPCT टेस्ट + 24 टाइपिंग टेस्ट',
-    lockedEn: 'the other 24 CPCT tests + 24 typing tests',
     price: typeof CPCT_SERIES !== 'undefined' ? CPCT_SERIES.price : 199,
   };
 
@@ -51,14 +45,12 @@
     '.cutoff-cats button[aria-pressed="true"]{background:#111827;border-color:#111827;color:#fff}' +
     '.cutoff-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;background:#fff;padding:10px;border-radius:8px;border:1px solid #e5e7eb;margin-bottom:12px;text-align:center}' +
     '.cutoff-grid small{display:block;font-size:12px;color:#6b7280}.cutoff-grid b{font-size:19px}' +
-    '.cutoff-box p{margin:0 0 12px;font-size:14px}' +
+    '' +
     '.cutoff-buy{display:block;text-align:center;background:#16a34a;color:#fff!important;font-size:16px;font-weight:700;padding:13px 16px;border-radius:8px;text-decoration:none}' +
     '@media(max-width:480px){.cutoff-grid b{font-size:16px}}';
 
   function render(box, exam, score, cat) {
-    const offer = '<p>🔒 ' + exam.lockedHi + ' सिर्फ ₹' + exam.price + ' में अनलॉक करें। पेमेंट के बाद टेस्ट अपने-आप खुल जाते हैं।<br>' +
-      'Unlock ' + exam.lockedEn + ' for ₹' + exam.price + '. Tests unlock automatically after payment.</p>' +
-      '<a class="cutoff-buy" href="' + exam.buy + '">अभी ₹' + exam.price + ' में अनलॉक करें / Unlock now →</a>';
+    const offer = '<a class="cutoff-buy" href="' + exam.buy + '">अभी ₹' + exam.price + ' में अनलॉक करें / Unlock now →</a>';
     if (!exam.cutoff) {
       box.style.cssText = '--cb:#5936a5;--cbg:#f5f3ff';
       box.innerHTML = '<h3>आपका स्कोर / Your score: ' + score + ' / ' + exam.max + '</h3>' + offer;
