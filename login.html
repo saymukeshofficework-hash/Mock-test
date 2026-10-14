@@ -105,15 +105,9 @@ function switchPane(id){hideAlert();document.querySelectorAll('.auth-pane').forE
 document.querySelectorAll('[data-pane]').forEach(b=>b.onclick=()=>switchPane(b.dataset.pane));
 document.querySelectorAll('[data-switch]').forEach(b=>b.onclick=()=>switchPane(b.dataset.switch));
 document.querySelectorAll('[data-eye]').forEach(b=>b.onclick=()=>{const i=document.getElementById(b.dataset.eye);i.type=i.type==='password'?'text':'password';b.textContent=i.type==='password'?'Show':'Hide'});
-(async()=>{const s=await getSession();if(!s)return;
- // a page that sent the student here (buy flow etc.) gets them straight back; opening tettesthub.in asks first
- if(new URLSearchParams(location.search).get('next')){location.replace(nextUrl());return}
- const box=document.createElement('div');box.className='alert success';box.style.display='block';
- box.innerHTML='<div style="margin-bottom:10px">आप पहले से लॉगिन हैं / You are already logged in.</div><button type="button" class="btn btn-primary btn-block" id="contBtn">जारी रखें / Continue</button><button type="button" class="btn btn-secondary btn-block" id="otherBtn" style="margin-top:8px">दूसरे खाते से लॉगिन / Use another account</button>';
- document.querySelector('.auth-card').prepend(box);
- document.getElementById('contBtn').onclick=()=>location.replace(nextUrl());
- document.getElementById('otherBtn').onclick=async()=>{await logout();location.reload()};
-})();
+// Opening the Login option always starts a fresh sign-in: clear any existing session
+// so the student must enter their email ID and password instead of seeing Continue.
+(async()=>{await logout()})();
 document.getElementById('loginForm').addEventListener('submit',async e=>{
  e.preventDefault();hideAlert();const btn=document.getElementById('loginBtn');btn.disabled=true;btn.textContent='LOGGING IN...';
  const r=await loginWithIdentifier(document.getElementById('loginIdentifier').value,document.getElementById('loginPassword').value);
