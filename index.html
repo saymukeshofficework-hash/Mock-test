@@ -233,6 +233,7 @@ header.site-header nav a.active{background:var(--app-purple);color:#fff}
               <a href="/examhelp/rrb-ntpc-graduate-mock-tests/">RRB NTPC ग्रेजुएट टेस्ट <span>→</span></a>
               <a href="/examhelp/rrb-ntpc-undergraduate-mock-tests/">RRB NTPC 10+2 टेस्ट <span>→</span></a>
               <a href="/cpct/">MP CPCT के पेपर <span>→</span></a>
+              <a href="/tet/">MP TET (शिक्षक) प्राथमिक / माध्यमिक टेस्ट <span>→</span></a>
               <a href="/examhelp/current-affairs/">डेली करेंट अफेयर्स क्विज़ <span>→</span></a>
             </div>
           </details>
@@ -270,7 +271,7 @@ header.site-header nav a.active{background:var(--app-purple);color:#fff}
           </div>
         </div>
 
-        <p class="exam-result-count" id="examResultCount" aria-live="polite">11 विकल्प</p>
+        <p class="exam-result-count" id="examResultCount" aria-live="polite">12 विकल्प</p>
         <div class="grid all-exams-grid" id="allExamGrid">
           <a class="card test-card all-exam-card" data-exam-cats="test notes" data-exam-search="mp high court सहायक grade 3 assistant 2026 25 mock test नोट्स" href="/examhelp/mp-high-court-assistant-grade-3-mock-tests/" style="--exam-color:#087f8c;--exam-soft:#e1f7f7;">
             <span class="all-exam-icon" aria-hidden="true">⚖️</span><span class="all-exam-label">MP HIGH COURT</span>
@@ -299,6 +300,10 @@ header.site-header nav a.active{background:var(--app-purple);color:#fff}
           <a class="card test-card all-exam-card" data-exam-cats="test" data-exam-search="mp cpct सीपीसीटी computer proficiency typing टाइपिंग mangal krutidev मंगल कृतिदेव mock test 25 paper" href="/cpct/" style="--exam-color:#1d4ed8;--exam-soft:#dbeafe;">
             <span class="all-exam-icon" aria-hidden="true">⌨️</span><span class="all-exam-label">MP CPCT</span>
             <h3>25 पूरे पेपर / 25 Full Papers</h3><p class="desc">MCQ + अंग्रेज़ी व हिंदी टाइपिंग · पेपर 1 फ्री<br>MCQ + English & Hindi typing · Paper 1 free</p><span class="all-exam-link">पेपर देखें / View papers <span aria-hidden="true">↗</span></span>
+          </a>
+          <a class="card test-card all-exam-card" data-exam-cats="test" data-exam-search="tet mp tet stet शिक्षक पात्रता teacher eligibility primary secondary प्राथमिक माध्यमिक teaching mock test" href="/tet/" style="--exam-color:#7c3aed;--exam-soft:#f1ebf9;">
+            <span class="all-exam-icon" aria-hidden="true">👩‍🏫</span><span class="all-exam-label">TEACHING • MP TET</span>
+            <h3>प्राथमिक व माध्यमिक शिक्षक / Primary & Secondary Teacher</h3><p class="desc">विषयवार टेस्ट सीरीज़ · हर विषय में टेस्ट 1 फ्री<br>Subject-wise test series · Test 1 free in each subject</p><span class="all-exam-link">टेस्ट देखें / View tests <span aria-hidden="true">↗</span></span>
           </a>
           <a class="card test-card all-exam-card" data-exam-cats="notes" data-exam-search="nios b ed bridge course ब्रिज कोर्स digital notes pdf" href="/bridge-course/" style="--exam-color:#be185d;--exam-soft:#fce7f3;">
             <span class="all-exam-icon" aria-hidden="true">📚</span><span class="all-exam-label">NIOS • B.Ed</span>
@@ -427,7 +432,7 @@ header.site-header nav a.active{background:var(--app-purple);color:#fff}
   examSearch.addEventListener('input', filterExamCards);
   filterExamCards();
 
-  // TET mock-test overview is intentionally omitted from the homepage.
+  // TET is listed as a normal "Teaching" exam card above, like other exams.
   I18N_ONCHANGE = () => {};
   applyI18n();
 </script>
