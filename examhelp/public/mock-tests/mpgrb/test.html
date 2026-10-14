@@ -860,7 +860,7 @@ function loadTest() {
 loadTest()
   .then((d) => { SECTIONS = d.sections; Q = d.questions; boot(); })
   .catch((e) => {
-    if (e.message === "locked") showMsg("यह टेस्ट, टेस्ट सीरीज़ (₹199) का हिस्सा है। सभी टेस्ट अनलॉक करने के लिए वापस जाएँ।", "This test is part of the test series (₹199). Go back to unlock all tests.");
+    if (e.message === "locked") showMsg("यह टेस्ट, टेस्ट सीरीज़ (₹99) का हिस्सा है। सभी टेस्ट अनलॉक करने के लिए वापस जाएँ।", "This test is part of the test series (₹99). Go back to unlock all tests.");
     else showMsg("यह टेस्ट अभी उपलब्ध नहीं है।", "This test is not available yet.");
   });
 function boot() {

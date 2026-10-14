@@ -49,10 +49,10 @@ const I18N_DICT = {
   free_start1: { hi: "मुफ्त टेस्ट 01 शुरू करें", en: "Start Free Test 01" },
   free_start2: { hi: "मुफ्त टेस्ट 02 शुरू करें", en: "Start Free Test 02" },
   free_upsell: {
-    hi: "<strong>मुफ्त टेस्ट में अच्छा प्रदर्शन किया?</strong> <strong>24 और पूर्ण-लंबाई टेस्ट</strong> (टेस्ट 02&ndash;25 — 3600 और प्रश्न) एक बंडल में सिर्फ़ <strong>₹199</strong> में अनलॉक करें।",
-    en: "<strong>Performed well on your free test?</strong> Unlock <strong>24 more full-length tests</strong> (Test 02&ndash;25 — 3600 more questions) in one bundle for just <strong>₹199</strong>.",
+    hi: "<strong>मुफ्त टेस्ट में अच्छा प्रदर्शन किया?</strong> <strong>24 और पूर्ण-लंबाई टेस्ट</strong> (टेस्ट 02&ndash;25 — 3600 और प्रश्न) एक बंडल में सिर्फ़ <strong>₹99</strong> में अनलॉक करें।",
+    en: "<strong>Performed well on your free test?</strong> Unlock <strong>24 more full-length tests</strong> (Test 02&ndash;25 — 3600 more questions) in one bundle for just <strong>₹99</strong>.",
   },
-  free_unlock_btn: { hi: "24 टेस्ट अनलॉक करें — ₹199", en: "Unlock All 24 Tests — ₹199" },
+  free_unlock_btn: { hi: "24 टेस्ट अनलॉक करें — ₹99", en: "Unlock All 24 Tests — ₹99" },
 
   exams_h2: { hi: "शिक्षक परीक्षाएं", en: "Teacher Exams" },
   exams_lead: {
@@ -114,7 +114,7 @@ const I18N_DICT = {
   help_li4: { hi: "खंड-वार अंकों से अपनी वर्तमान तैयारी का स्तर समझें", en: "Track your section-wise scores to understand your current preparation level" },
 
   pricing_h2: { hi: "मूल्य", en: "Pricing" },
-  pricing_lead: { hi: "सरल, एकमुश्त मूल्य। 1 मुफ्त टेस्ट से शुरू करें, फिर सभी 25 को ₹199 में अनलॉक करें।", en: "Simple, one-time pricing. Start free with 1 test, then unlock all 25 for ₹199." },
+  pricing_lead: { hi: "सरल, एकमुश्त मूल्य। 1 मुफ्त टेस्ट से शुरू करें, फिर सभी 25 को ₹99 में अनलॉक करें।", en: "Simple, one-time pricing. Start free with 1 test, then unlock all 25 for ₹99." },
   pricing_free_title: { hi: "मुफ्त एक्सेस", en: "Free Access" },
   pricing_free_li1: { hi: "1 पूर्ण मॉक टेस्ट", en: "1 full mock test" },
   pricing_free_li2: { hi: "टेस्ट 01", en: "Test 01" },
@@ -142,13 +142,13 @@ const I18N_DICT = {
   faq4_q: { hi: "क्या परिणाम तुरंत मिलता है?", en: "Do I get results immediately?" },
   faq4_a: { hi: "हाँ, सबमिट करते ही आपका स्कोर और खंड-वार विश्लेषण दिखाया जाता है।", en: "Yes, your score and a section-wise breakdown are shown the moment you submit the test." },
   faq5_q: { hi: "क्या मैं सभी 24 की बजाय अलग-अलग टेस्ट खरीद सकता/सकती हूं?", en: "Can I buy tests one at a time instead of all 24?" },
-  faq5_a: { hi: "नहीं — टेस्ट 02-25 केवल एक साथ ₹199 के बंडल में मिलते हैं, अलग-अलग नहीं। टेस्ट 01 हमेशा मुफ्त है।", en: "No — tests 02-25 are sold together as a single ₹199 bundle, not individually. Test 01 is always free." },
+  faq5_a: { hi: "नहीं — टेस्ट 02-25 केवल एक साथ ₹99 के बंडल में मिलते हैं, अलग-अलग नहीं। टेस्ट 01 हमेशा मुफ्त है।", en: "No — tests 02-25 are sold together as a single ₹99 bundle, not individually. Test 01 is always free." },
 
   // ---------- tests.html ----------
   tests_h2: { hi: "सभी टीईटी मॉक टेस्ट", en: "All TET Mock Tests" },
   tests_lead: {
-    hi: "टेस्ट 01 सभी छात्रों के लिए <strong>मुफ्त</strong> है। टेस्ट 02-25 एक ही ₹199 बंडल में उपलब्ध हैं। हर टेस्ट में 5 खंडों के 150 प्रश्न हैं, द्विभाषी (अंग्रेज़ी/हिंदी), 150 मिनट।",
-    en: 'Test 01 is <strong>FREE</strong> for all students. Tests 02-25 available in a single ₹199 bundle. Each test has 150 questions across 5 sections, bilingual (English/Hindi), 150 minutes.',
+    hi: "टेस्ट 01 सभी छात्रों के लिए <strong>मुफ्त</strong> है। टेस्ट 02-25 एक ही ₹99 बंडल में उपलब्ध हैं। हर टेस्ट में 5 खंडों के 150 प्रश्न हैं, द्विभाषी (अंग्रेज़ी/हिंदी), 150 मिनट।",
+    en: 'Test 01 is <strong>FREE</strong> for all students. Tests 02-25 available in a single ₹99 bundle. Each test has 150 questions across 5 sections, bilingual (English/Hindi), 150 minutes.',
   },
   bundle_ribbon: { hi: "24 अतिरिक्त टेस्ट", en: "24 Additional Tests" },
   bundle_title: { hi: "सभी टेस्ट (02-25)", en: "All Tests (02-25)" },
@@ -156,7 +156,7 @@ const I18N_DICT = {
   bundle_li2: { hi: "कुल 3600 प्रश्न", en: "3600 questions in total" },
   bundle_li3: { hi: "साथ में 1 मुफ्त टेस्ट (01)", en: "Plus 1 free test (01)" },
   bundle_li4: { hi: "हर टेस्ट में तुरंत परिणाम", en: "Instant results, every test" },
-  bundle_btn: { hi: "🔓 अभी खरीदें – ₹199", en: "🔓 Buy Now – ₹199" },
+  bundle_btn: { hi: "🔓 अभी खरीदें – ₹99", en: "🔓 Buy Now – ₹99" },
   card_full_mock: { hi: "पूर्ण मॉक टेस्ट", en: "Full Mock Test" },
   card_questions_suffix: { hi: "प्रश्न", en: "Questions" },
   card_minutes_suffix: { hi: "मिनट", en: "Minutes" },
@@ -177,8 +177,8 @@ const I18N_DICT = {
     en: "Every mock test follows the real TET pattern — 150 questions across Child Development & Pedagogy, Language-1 (English), Language-2 (Hindi), Mathematics and Environmental Studies, completed in 150 minutes with a live timer, a question palette, and an instant section-wise result at the end. Every question can be read in English or Hindi.",
   },
   about_page_p3: {
-    hi: "हम इसे सरल रखते हैं: टेस्ट 01 मुफ्त है, बाकी 24 टेस्ट एक बंडल में ₹199 में मिलते हैं। भुगतान सत्यापित होते ही आपको छात्र आईडी और पासवर्ड मिल जाता है और आप तुरंत अभ्यास शुरू कर सकते हैं।",
-    en: "We keep things simple: Test 01 is free, and the remaining 24 tests are one ₹199 bundle. Once your payment is verified you get a Student ID and password to log in and start practicing straight away.",
+    hi: "हम इसे सरल रखते हैं: टेस्ट 01 मुफ्त है, बाकी 24 टेस्ट एक बंडल में ₹99 में मिलते हैं। भुगतान सत्यापित होते ही आपको छात्र आईडी और पासवर्ड मिल जाता है और आप तुरंत अभ्यास शुरू कर सकते हैं।",
+    en: "We keep things simple: Test 01 is free, and the remaining 24 tests are one ₹99 bundle. Once your payment is verified you get a Student ID and password to log in and start practicing straight away.",
   },
 
   // ---------- contact.html ----------

@@ -62,12 +62,12 @@ const PATTERN: Record<Lang, [string, string][]> = {
 };
 
 const FAQ: { q: B; a: B }[] = [
-  { q: { hi: "₹199 में क्या मिलेगा?", en: "What do I get for ₹199?" }, a: { hi: "25 फुल-लेंथ मॉक टेस्ट (2,500 प्रश्न), हर टेस्ट का परिणाम और हर प्रश्न का उत्तर-व्याख्या। टेस्ट 1 बिल्कुल फ्री है।", en: "25 full-length mock tests (2,500 questions), a result for every test and an explanation for every question. Test 1 is completely free." } },
+  { q: { hi: "₹99 में क्या मिलेगा?", en: "What do I get for ₹99?" }, a: { hi: "25 फुल-लेंथ मॉक टेस्ट (2,500 प्रश्न), हर टेस्ट का परिणाम और हर प्रश्न का उत्तर-व्याख्या। टेस्ट 1 बिल्कुल फ्री है।", en: "25 full-length mock tests (2,500 questions), a result for every test and an explanation for every question. Test 1 is completely free." } },
   { q: { hi: "भुगतान के बाद टेस्ट कैसे खुलेंगे?", en: "How do the tests open after payment?" }, a: { hi: "भुगतान होते ही सभी टेस्ट इसी डिवाइस पर तुरंत अनलॉक हो जाते हैं। कोई लॉगिन नहीं चाहिए।", en: "As soon as you pay, all tests unlock instantly on this device. No login needed." } },
   { q: { hi: "दूसरे फ़ोन या कंप्यूटर पर कैसे खोलें?", en: "How do I open them on another phone or computer?" }, a: { hi: "\"डाउनलोड वापस पाएँ\" पेज पर अपना Payment ID और भुगतान वाला ईमेल/मोबाइल डालें — टेस्ट उस डिवाइस पर भी खुल जाएँगे।", en: "On the \"Recover\" page enter your Payment ID and the email/mobile used to pay — the tests open on that device too." } },
   { q: { hi: "क्या टेस्ट बार-बार दे सकते हैं?", en: "Can I retake tests?" }, a: { hi: "हाँ, हर टेस्ट जितनी बार चाहें दें। आपका सर्वश्रेष्ठ स्कोर सेव रहता है।", en: "Yes, take every test as many times as you like. Your best score is saved." } },
   { q: { hi: "क्या ऋणात्मक अंकन है?", en: "Is there negative marking?" }, a: { hi: "आधिकारिक विज्ञापन में ऋणात्मक अंकन का उल्लेख नहीं है, इसलिए इन टेस्ट में अंक नहीं कटते।", en: "The official advertisement doesn't mention negative marking, so none is applied in these tests." } },
-  { q: { hi: "नोट्स भी चाहिए तो?", en: "What if I want the notes too?" }, a: { hi: "कॉम्बो लें: PDF नोट्स (हिंदी या English) + 25 मॉक टेस्ट सिर्फ़ ₹449 में — ₹49 की बचत।", en: "Take the combo: PDF notes (Hindi or English) + 25 mock tests for just ₹449 — save ₹49." } },
+  { q: { hi: "नोट्स भी चाहिए तो?", en: "What if I want the notes too?" }, a: { hi: "कॉम्बो लें: PDF नोट्स (हिंदी या English) + 25 मॉक टेस्ट सिर्फ़ ₹349 में — ₹49 की बचत।", en: "Take the combo: PDF notes (Hindi or English) + 25 mock tests for just ₹349 — save ₹49." } },
 ];
 
 export function TestSeriesLanding() {
@@ -148,7 +148,7 @@ export function TestSeriesLanding() {
         {payState !== "idle"
           ? lang === "hi" ? "कृपया प्रतीक्षा करें…" : "Please wait…"
           : canBuy
-            ? lang === "hi" ? "अभी खरीदें — ₹199" : "Buy now — ₹199"
+            ? lang === "hi" ? "अभी खरीदें — ₹99" : "Buy now — ₹99"
             : lang === "hi" ? "जल्द उपलब्ध" : "Coming soon"}
       </button>
     );
@@ -168,7 +168,7 @@ export function TestSeriesLanding() {
         <div className="flex h-12 items-center justify-between gap-3 rounded-xl border border-ink-200 bg-surface/95 px-3 shadow-sm backdrop-blur sm:px-4">
           <span className="truncate text-sm font-semibold text-brand-900">
             {lang === "hi" ? "AG-3 टेस्ट सीरीज़ " : "AG-3 Test Series "}
-            <span className="text-accent-700">• ₹199</span>
+            <span className="text-accent-700">• ₹99</span>
           </span>
           <div role="group" aria-label="भाषा / Language" className="inline-flex shrink-0 rounded-lg border border-ink-200 bg-canvas p-0.5">
             {(["hi", "en"] as Lang[]).map((l) => (
@@ -199,7 +199,7 @@ export function TestSeriesLanding() {
                 : "The real online exam experience — 100 questions, 120 minutes, 5 sections. In Hindi and English, with an explanation for every question."}
             </p>
             <p className="mt-7 flex items-baseline gap-3">
-              <span className="text-5xl font-extrabold sm:text-6xl">₹199</span>
+              <span className="text-5xl font-extrabold sm:text-6xl">₹99</span>
               <span className="text-brand-100">{lang === "hi" ? "एक बार · 25 टेस्ट" : "one-time · 25 tests"}</span>
             </p>
             <div className="mt-6 flex flex-col gap-3 sm:flex-row">
@@ -312,7 +312,7 @@ export function TestSeriesLanding() {
           <div className="mt-6 grid gap-5 lg:grid-cols-2">
             <div className="card border-2 border-brand-700 p-6">
               <p className="text-sm font-bold text-brand-700">{lang === "hi" ? "टेस्ट सीरीज़" : "Test series"}</p>
-              <p className="mt-2 text-4xl font-extrabold text-ink-900">₹199</p>
+              <p className="mt-2 text-4xl font-extrabold text-ink-900">₹99</p>
               <ul className="mt-4 space-y-2 text-sm text-ink-700">
                 {[
                   { hi: "25 फुल मॉक टेस्ट (2,500 प्रश्न)", en: "25 full mock tests (2,500 questions)" },
@@ -334,7 +334,7 @@ export function TestSeriesLanding() {
               <span className="absolute right-4 top-4 rounded-full bg-accent-500 px-3 py-1 text-xs font-bold text-white">{lang === "hi" ? "₹49 की बचत" : "Save ₹49"}</span>
               <p className="text-sm font-bold text-accent-700">{lang === "hi" ? "कॉम्बो" : "Combo"}</p>
               <p className="mt-2 text-4xl font-extrabold text-ink-900">
-                ₹449 <span className="text-lg font-semibold text-ink-400 line-through">₹498</span>
+                ₹349 <span className="text-lg font-semibold text-ink-400 line-through">₹398</span>
               </p>
               <ul className="mt-4 space-y-2 text-sm text-ink-700">
                 {[
@@ -345,7 +345,7 @@ export function TestSeriesLanding() {
                   <li key={x.en} className="flex gap-2"><CheckCircle2 className="h-4 w-4 shrink-0 text-success-700" aria-hidden="true" />{L(x)}</li>
                 ))}
               </ul>
-              <a href={notesHref} className="btn-outline mt-6 w-full">{lang === "hi" ? "कॉम्बो लें — ₹449" : "Get the combo — ₹449"}</a>
+              <a href={notesHref} className="btn-outline mt-6 w-full">{lang === "hi" ? "कॉम्बो लें — ₹349" : "Get the combo — ₹349"}</a>
             </div>
           </div>
           <p className="mt-4 text-sm text-ink-600">
@@ -387,7 +387,7 @@ export function TestSeriesLanding() {
       {/* Mobile sticky buy bar */}
       <div className="fixed inset-x-0 bottom-[64px] z-40 border-t border-ink-200 bg-surface/95 p-3 backdrop-blur lg:hidden">
         <div className="flex items-center gap-3">
-          <p className="shrink-0 text-lg font-extrabold text-ink-900">₹199</p>
+          <p className="shrink-0 text-lg font-extrabold text-ink-900">₹99</p>
           <div className="flex-1"><BuyButton /></div>
         </div>
       </div>

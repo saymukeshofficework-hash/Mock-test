@@ -29,42 +29,42 @@ const PRODUCTS: Record<string, { amount: number; file: string; downloadName: str
     title: "MP हाई कोर्ट सहायक ग्रेड-3 2026 — हिंदी नोट्स (PDF)",
   },
   "ag3-tests": {
-    amount: 19900,
+    amount: 9900,
     kind: "tests",
     file: "ag3", // folder in bucket "tests": ag3/02.json … ag3/25.json
     downloadName: "",
     title: "MP High Court AG-3 2026 — 25 Full Mock Tests (Test Series)",
   },
   "ag3-combo-en": {
-    amount: 44900,
+    amount: 34900,
     kind: "combo",
     file: "TESTHUB_AG3_2026_ENGLISH_COMPLETE_NOTES.pdf",
     downloadName: "TETTESTHUB-MP-High-Court-AG3-2026-English-Notes.pdf",
     title: "Combo: MP High Court AG-3 2026 English Notes (PDF) + 25 Mock Tests",
   },
   "ag3-combo-hi": {
-    amount: 44900,
+    amount: 34900,
     kind: "combo",
     file: "TESTHUB_AG3_2026_HINDI_COMPLETE_NOTES.pdf",
     downloadName: "TETTESTHUB-MP-High-Court-AG3-2026-Hindi-Notes.pdf",
     title: "कॉम्बो: MP हाई कोर्ट सहायक ग्रेड-3 2026 हिंदी नोट्स (PDF) + 25 मॉक टेस्ट",
   },
   "pcgd-tests": {
-    amount: 19900,
+    amount: 9900,
     kind: "tests",
     file: "pcgd", // bucket "tests": pcgd/03.json … (tests 1–2 are free, public)
     downloadName: "",
     title: "MP पुलिस आरक्षक (जी.डी.) 2026 — 25 फुल मॉक टेस्ट",
   },
   "asi-tests": {
-    amount: 19900,
+    amount: 9900,
     kind: "tests",
     file: "asi", // bucket "tests": asi/03.json … (tests 1–2 are free, public)
     downloadName: "",
     title: "MP पुलिस सूबेदार (शीघ्रलेखक) / ASI 2026 — 25 फुल मॉक टेस्ट",
   },
   "mpgrb-tests": {
-    amount: 19900,
+    amount: 9900,
     kind: "tests",
     file: "mpgrb", // private bucket "tests": mpgrb/02.json … mpgrb/25.json; test 1 is public
     downloadName: "",
@@ -88,7 +88,7 @@ const PRODUCTS: Record<string, { amount: number; file: string; downloadName: str
     title: "RRB NTPC Undergraduate 10+2 — 25 Full CBT-1 Mock Tests",
   },
   "tet-cpct": {
-    amount: 19900,
+    amount: 9900,
     // MP CPCT exam + typing tests (main site test_content cpct-exam-NN / cpct-typing-NN), sold on
     // tettesthub.in/cpct/; tet-unlock adds tests 02–25 via "tet_paid" (series "cpct")
     kind: "tet",
@@ -110,11 +110,11 @@ const PRODUCTS: Record<string, { amount: number; file: string; downloadName: str
     title: "6 माह करेंट अफेयर्स नोट्स (अप्रैल–सितंबर 2026) — PDF",
   },
 };
-// TET subject series sold on tettesthub.in/tet/ (₹199 each, login required). The main site's
+// TET subject series sold on tettesthub.in/tet/ (₹99 each, login required). The main site's
 // tet-unlock function reads paid orders via "tet_paid" and adds the tests to the student's profile.
 const TET_SERIES = ["tetp-hindi", "tetp-english", "tetp-sanskrit", "tets-hindi", "tets-english", "tets-sanskrit", "tets-maths", "tets-science", "tets-sst"];
 for (const s of TET_SERIES) {
-  PRODUCTS[`tet-${s}`] = { amount: 19900, file: "", downloadName: "", title: `TET टेस्ट सीरीज़ / Test Series (${s})`, kind: "tet" };
+  PRODUCTS[`tet-${s}`] = { amount: 9900, file: "", downloadName: "", title: `TET टेस्ट सीरीज़ / Test Series (${s})`, kind: "tet" };
 }
 const PASS_DAYS = 30; // current affairs pass length
 const MAX_DOWNLOADS = 10;

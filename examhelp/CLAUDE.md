@@ -36,6 +36,6 @@ Make the smallest change that does the job. Touch only the files named in the re
 
 ## Business rules (set by the owner)
 - Exactly one free test per series. Series are 25 tests each.
-- Products: PDF notes ₹299 (MP High Court Assistant Grade-3), test series ₹199, daily current affairs ₹49/month.
+- Products: PDF notes ₹299 (MP High Court Assistant Grade-3), test series ₹99, daily current affairs ₹49/month.
 - Exam dates: verify against official MPESB / MPPSC pages. Never trust third-party aggregators. Mark tentative vs confirmed.
 - Homepage at tettesthub.in is a login-gated page; `/examhelp/` shows the same catalogue landing page.
