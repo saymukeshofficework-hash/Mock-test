@@ -79,6 +79,14 @@ const PRODUCTS: Record<string, { amount: number; file: string; downloadName: str
     downloadName: "",
     title: "RRB NTPC Graduate Level — 25 Full CBT-1 Mock Tests",
   },
+  "rrbu-tests": {
+    amount: 9900,
+    // RRB NTPC Undergraduate (10+2): same flow as rrbg-tests, series "rrbntpc-u" (rrbntpc-u-full-NN)
+    kind: "tet",
+    file: "",
+    downloadName: "",
+    title: "RRB NTPC Undergraduate 10+2 — 25 Full CBT-1 Mock Tests",
+  },
   "tet-cpct": {
     amount: 19900,
     // MP CPCT exam + typing tests (main site test_content cpct-exam-NN / cpct-typing-NN), sold on
@@ -259,9 +267,9 @@ Deno.serve(async (req) => {
       // TET series the logged-in student has paid for (read by the main site's tet-unlock function)
       const buyer = await loggedInUser(body.access_token);
       if (!buyer) return json({ error: "login_required" }, 401);
-      const { data: rows } = await db.from("orders").select("product").eq("status", "paid").eq("buyer_user_id", buyer).or("product.like.tet-%,product.eq.rrbg-tests");
-      // RRB NTPC Graduate series is reported as "rrbntpc-g"
-      const series = [...new Set((rows ?? []).map((r) => (r.product === "rrbg-tests" ? "rrbntpc-g" : String(r.product).slice(4))))].filter((s) => TET_SERIES.includes(s) || s === "rrbntpc-g" || s === "cpct");
+      const { data: rows } = await db.from("orders").select("product").eq("status", "paid").eq("buyer_user_id", buyer).or("product.like.tet-%,product.eq.rrbg-tests,product.eq.rrbu-tests");
+      // RRB NTPC series are reported as "rrbntpc-g" (Graduate) and "rrbntpc-u" (10+2)
+      const series = [...new Set((rows ?? []).map((r) => (r.product === "rrbg-tests" ? "rrbntpc-g" : r.product === "rrbu-tests" ? "rrbntpc-u" : String(r.product).slice(4))))].filter((s) => TET_SERIES.includes(s) || s === "rrbntpc-g" || s === "rrbntpc-u" || s === "cpct");
       return json({ series });
     }
 

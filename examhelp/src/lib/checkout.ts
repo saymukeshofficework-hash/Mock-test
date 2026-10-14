@@ -91,7 +91,7 @@ async function mainSiteAccessToken(): Promise<string | undefined> {
 }
 
 /** Products whose tests open on the main site (profiles.purchased_tests via tet-unlock). */
-const needsLogin = (product: string) => product.startsWith("tet-") || product === "rrbg-tests";
+const needsLogin = (product: string) => product.startsWith("tet-") || product === "rrbg-tests" || product === "rrbu-tests";
 
 /** Asks the main site to add every paid TET / RRB series to the logged-in student's tests. */
 export async function mainSiteUnlock(): Promise<boolean> {

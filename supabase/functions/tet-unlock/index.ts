@@ -23,14 +23,14 @@ const json = (body: unknown, status = 200) =>
   new Response(JSON.stringify(body), { status, headers: { ...cors, "Content-Type": "application/json", "Cache-Control": "no-store" } });
 
 // Paid tests of one series: 02..25 (test 1 is free). Primary Hindi is the original
-// full-paper series with ids test01..test25. "rrbntpc-g" is the RRB NTPC Graduate full-test series.
+// full-paper series with ids test01..test25. "rrbntpc-g" / "rrbntpc-u" are the RRB NTPC Graduate / 10+2 full-test series.
 // "cpct" (MP CPCT) unlocks exam tests 02..25 and all typing tests 01..25 (only exam test 1 is free).
 function seriesTests(series: string): string[] {
   const ids: string[] = series === "cpct" ? ["cpct-typing-01"] : [];
   for (let n = 2; n <= TESTS_PER_SERIES; n++) {
     const nn = String(n).padStart(2, "0");
     if (series === "cpct") { ids.push(`cpct-exam-${nn}`, `cpct-typing-${nn}`); continue; }
-    ids.push(series === "tetp-hindi" ? `test${nn}` : series === "rrbntpc-g" ? `rrbntpc-g-full-${nn}` : `${series}-${nn}`);
+    ids.push(series === "tetp-hindi" ? `test${nn}` : series === "rrbntpc-g" || series === "rrbntpc-u" ? `${series}-full-${nn}` : `${series}-${nn}`);
   }
   return ids;
 }
@@ -52,7 +52,7 @@ Deno.serve(async (req) => {
     });
     if (!r.ok) return json({ error: "checkout_unavailable" }, 502);
     const out = await r.json();
-    series = (Array.isArray(out?.series) ? out.series : []).filter((s: unknown) => typeof s === "string" && (/^tet[ps]-[a-z]+$/.test(s) || s === "rrbntpc-g" || s === "cpct"));
+    series = (Array.isArray(out?.series) ? out.series : []).filter((s: unknown) => typeof s === "string" && (/^tet[ps]-[a-z]+$/.test(s) || s === "rrbntpc-g" || s === "rrbntpc-u" || s === "cpct"));
   } catch {
     return json({ error: "checkout_unavailable" }, 502);
   }
