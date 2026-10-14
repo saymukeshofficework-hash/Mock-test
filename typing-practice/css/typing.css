@@ -27,13 +27,14 @@
       url("../fonts/tth-krutidev.woff2") format("woff2");
   font-display:swap;
 }
+/* Must stay above the font classes: <html lang="hi"> made it override .font-krutidev. */
+:lang(hi){font-family:"Noto Sans Devanagari","Segoe UI",Arial,sans-serif;}
 .font-english{font-family:"Segoe UI",Arial,Helvetica,sans-serif;}
 .font-devanagari{font-family:"Noto Sans Devanagari","Nirmala UI","Mangal",sans-serif;}
 .font-mangal{font-family:"Mangal","Noto Sans Devanagari","Nirmala UI",sans-serif;}
 .font-krutidev{font-family:"TTH Kruti Dev 010",monospace;}
 /* Font not available: show the raw key codes legibly instead of fallback glyphs. */
 .kd-missing .font-krutidev,.font-krutidev.kd-missing{font-family:ui-monospace,"Cascadia Mono",Consolas,monospace;letter-spacing:.02em;}
-:lang(hi){font-family:"Noto Sans Devanagari","Segoe UI",Arial,sans-serif;}
 
 /* ---------- home ---------- */
 .tp-hero{padding:34px 16px 22px;}
