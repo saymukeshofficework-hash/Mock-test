@@ -88,16 +88,16 @@ export function CurrentAffairsClient() {
       const base = process.env.NEXT_PUBLIC_SUPABASE_URL ?? "https://znulepzdihzhjmuvyroi.supabase.co";
       const anon = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpudWxlcHpkaWh6aGptdXZ5cm9pIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTExMjE5MjIsImV4cCI6MjEwNjY5NzkyMn0.XoqC6vNDJkEAxgtXLVPCpTxocv3lAa-ZBeg69OdbhdU";
       const url = new URL(`${base}/rest/v1/daily_current_affairs`);
-      url.searchParams.set("select", "day,content");
+      url.searchParams.set("select", "day,data");
       url.searchParams.set("order", "day.desc");
       url.searchParams.set("limit", "30");
       if (d) url.searchParams.set("day", `eq.${d}`);
       const response = await fetch(url.toString(), { headers: { apikey: anon, Authorization: `Bearer ${anon}` } });
       if (!response.ok) throw new Error("current_affairs_fetch_failed");
-      const rows = await response.json() as { day: string; content: Day }[];
-      setIndex(rows.map((row) => ({ day: row.day, items: row.content?.items?.length ?? 0 })));
+      const rows = await response.json() as { day: string; data: Day }[];
+      setIndex(rows.map((row) => ({ day: row.day, items: row.data?.items?.length ?? 0 })));
       const row = d ? rows.find((item) => item.day === d) : rows[0];
-      setDay(row?.content ? { ...row.content, day: row.day } : null);
+      setDay(row?.data ? { ...row.data, day: row.day } : null);
       setShown({});
       setState("ready");
     } catch {
