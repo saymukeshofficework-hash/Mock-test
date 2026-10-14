@@ -33,6 +33,8 @@
 .font-devanagari{font-family:"Noto Sans Devanagari","Nirmala UI","Mangal",sans-serif;}
 .font-mangal{font-family:"Mangal","Noto Sans Devanagari","Nirmala UI",sans-serif;}
 .font-krutidev{font-family:"TTH Kruti Dev 010",monospace;}
+/* The passage is drawn as one <span> per character; :lang(hi) would give each span its own font. */
+.font-english *,.font-devanagari *,.font-mangal *,.font-krutidev *{font-family:inherit;}
 /* Font not available: show the raw key codes legibly instead of fallback glyphs. */
 .kd-missing .font-krutidev,.font-krutidev.kd-missing{font-family:ui-monospace,"Cascadia Mono",Consolas,monospace;letter-spacing:.02em;}
 
