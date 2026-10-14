@@ -113,9 +113,6 @@ export function CurrentAffairsClient() {
     } catch {
       /* ignore */
     }
-    checkout<{ days: IndexRow[] }>({ action: "ca_index" })
-      .then((r) => setIndex(r.days ?? []))
-      .catch(() => {});
     openDay();
   }, [openDay]);
 
