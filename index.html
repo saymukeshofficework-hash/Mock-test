@@ -87,6 +87,12 @@ header.site-header nav a{color:#5c4d73;background:#f1ebf9;padding:7px 10px;font-
 header.site-header nav a.active{background:var(--app-purple);color:#fff}
 .lang-toggle{background:#f1ebf9;color:var(--app-purple);border-color:#d9cbed}
 .account-menu{position:relative}
+/* My Account is a separate, prominent control in the header's top-right corner. */
+header.site-header .top-account-menu{position:absolute;top:8px;right:14px;z-index:120}
+header.site-header .top-account-menu .account-menu-toggle{padding:10px 13px;font-size:16px;font-weight:900;letter-spacing:.35px;border:1px solid #d9cbed;box-shadow:0 3px 10px #39214b12}
+header.site-header nav{padding-right:145px}
+@media(max-width:600px){header.site-header nav{padding-right:0;padding-top:42px;flex-wrap:wrap}header.site-header .top-account-menu{top:7px;right:10px}header.site-header .top-account-menu .account-menu-toggle{padding:8px 11px;font-size:15px}}
+
 .account-menu-toggle{border:0;border-radius:8px;background:#f1ebf9;color:var(--app-purple);padding:7px 10px;font-size:12px;font-weight:700;cursor:pointer}
 .account-menu-dropdown{position:absolute;right:0;top:calc(100% + 8px);z-index:100;min-width:135px;padding:6px;background:#fff;border:1px solid var(--app-line);border-radius:12px;box-shadow:0 8px 24px #24153a1f}
 .account-menu-dropdown a,.account-menu-dropdown button{display:block;width:100%;padding:10px;border:0;border-radius:7px;background:transparent;color:#342052;text-align:left;text-decoration:none;font:inherit;font-size:13px;cursor:pointer}
@@ -169,18 +175,18 @@ header.site-header nav a.active{background:var(--app-purple);color:#fff}
       <a href="/examhelp/courses/" data-i18n="nav_tests">All Tests</a>
       <a href="typing-practice/" data-i18n="nav_typing">Typing Practice</a>
 
-      <div class="account-menu" id="accountMenu" hidden>
-        <button type="button" class="account-menu-toggle" id="accountMenuToggle" aria-expanded="false" aria-controls="accountMenuDropdown">मेरा अकाउंट <span aria-hidden="true">▾</span></button>
-        <div class="account-menu-dropdown" id="accountMenuDropdown" hidden>
-          <a href="dashboard.html">डैशबोर्ड</a>
-          <div class="account-student-id">छात्र की ID: <strong id="accountStudentId">लोड हो रही है…</strong></div>
-          <button type="button" id="homeLogoutBtn">लॉगआउट</button>
-        </div>
-      </div>
       <a href="about.html" data-i18n="nav_about">About</a>
       <a href="contact.html" data-i18n="nav_contact">Contact</a>
     </nav>
     <button class="lang-toggle" id="langToggle" onclick="toggleLang()">EN</button>
+    <div class="account-menu top-account-menu" id="accountMenu" hidden>
+      <button type="button" class="account-menu-toggle" id="accountMenuToggle" aria-expanded="false" aria-controls="accountMenuDropdown">MY ACCOUNT <span aria-hidden="true">▾</span></button>
+      <div class="account-menu-dropdown" id="accountMenuDropdown" hidden>
+        <a href="dashboard.html">डैशबोर्ड</a>
+        <div class="account-student-id">छात्र की ID: <strong id="accountStudentId">लोड हो रही है…</strong></div>
+        <button type="button" id="homeLogoutBtn">लॉगआउट</button>
+      </div>
+    </div>
   </header>
 
   <main>
