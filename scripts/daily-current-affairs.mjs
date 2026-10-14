@@ -18,7 +18,7 @@ const d=JSON.parse(raw);
 if(d.day!==today||d.items?.length<10||d.items?.length>15||d.quiz?.length<10||d.quiz?.length>15)throw Error("Invalid date or item/question count");
 for(const q of d.quiz)if(!q.q?.hi||!q.q?.en||q.o?.hi?.length!==4||q.o?.en?.length!==4||!Number.isInteger(q.a)||q.a<0||q.a>3||!q.exp?.hi||!q.exp?.en)throw Error("Invalid quiz item");
 for(const i of d.items)if(!["mp","india","world"].includes(i.region)||!i.title?.hi||!i.summary?.hi||!i.sources?.length||i.sources.some(s=>!headlines.some(h=>h.link===s.url)))throw Error("News item missing valid source");
-const base=process.env.SUPABASE_URL.replace(/\\/$/,""), key=process.env.SUPABASE_SERVICE_ROLE_KEY;
+const base=process.env.SUPABASE_URL.replace(/\/$/,""), key=process.env.SUPABASE_SERVICE_ROLE_KEY;
 const saved=await fetch(base+"/rest/v1/daily_current_affairs?on_conflict=day",{method:"POST",headers:{apikey:key,Authorization:"Bearer "+key,"Content-Type":"application/json",Prefer:"resolution=merge-duplicates,return=minimal"},body:JSON.stringify({day:today,content:d,published:true,updated_at:new Date().toISOString()})});
 if(!saved.ok)throw Error("Supabase save HTTP "+saved.status+" "+(await saved.text()).slice(0,500));
 console.log("Published "+today+": "+d.items.length+" news items, "+d.quiz.length+" free MCQs.");
