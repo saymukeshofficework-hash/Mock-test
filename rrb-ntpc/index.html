@@ -31,6 +31,7 @@
 <script src="/assets/vendor/supabase/supabase.js"></script>
 <script src="/js/site-config.js"></script>
 <script src="/js/auth.js"></script>
+<script src="/js/cutoff-box.js"></script>
 <script>
 const $=id=>document.getElementById(id);let autoTest=false,questions=[],answers={},current=0,seconds=0,clock=null,testLabel='',testId='',secCounts=[];
 // Tests live in Supabase test_content (ids rrbntpc-<g|u>-<full|ga|maths|reason>-NN). Test 01 of each series is free; others need login + purchase.
@@ -50,7 +51,7 @@ $('runner').classList.add('hidden');$('results').classList.remove('hidden');$('r
 const {data,error}=await supabaseClient.rpc('score_test_attempt',{p_test_id:testId,p_answers:payload});
 if(error||!data){$('results').innerHTML='<div class="result"><h2>Could not score / स्कोर नहीं हो पाया</h2><p class="muted">Please try again. / कृपया दोबारा प्रयास करें।</p><button class="btn secondary" id="backBtn">All tests / सभी टेस्ट</button></div>'}
 else{const c=data.totalCorrect,w=data.totalIncorrect,u=data.totalUnattempted,score=c-w/3;
-$('results').innerHTML='<div class="result"><h2>'+(auto?'Time is up / समय समाप्त':'Test submitted / टेस्ट जमा हुआ')+'</h2><p class="muted">'+testLabel+'</p><div class="score">'+score.toFixed(2)+' / '+questions.length+'</div><p>Correct / सही: <b class="correct">'+c+'</b> · Wrong / गलत: <b class="wrong">'+w+'</b> · Unanswered / छोड़े: <b>'+u+'</b></p>'+data.rows.map(r=>'<p class="muted">'+r.name+': '+r.c+' / '+r.total+'</p>').join('')+'<p class="muted">Score = correct − (wrong ÷ 3). / स्कोर = सही − (गलत ÷ 3)।</p><button class="btn secondary" id="backBtn">All tests / सभी टेस्ट</button></div>'}
+$('results').innerHTML='<div class="result"><h2>'+(auto?'Time is up / समय समाप्त':'Test submitted / टेस्ट जमा हुआ')+'</h2><p class="muted">'+testLabel+'</p><div class="score">'+score.toFixed(2)+' / '+questions.length+'</div><p>Correct / सही: <b class="correct">'+c+'</b> · Wrong / गलत: <b class="wrong">'+w+'</b> · Unanswered / छोड़े: <b>'+u+'</b></p>'+data.rows.map(r=>'<p class="muted">'+r.name+': '+r.c+' / '+r.total+'</p>').join('')+'<p class="muted">Score = correct − (wrong ÷ 3). / स्कोर = सही − (गलत ÷ 3)।</p><button class="btn secondary" id="backBtn">All tests / सभी टेस्ट</button></div>';if(window.showCutoffBox)showCutoffBox(testId,score,$('backBtn').previousElementSibling)}
 $('backBtn').onclick=()=>{if(autoTest){location.href='/examhelp/'+(testId.includes('-g-')?'rrb-ntpc-graduate-mock-tests/':'rrb-ntpc-undergraduate-mock-tests/');return}$('results').classList.add('hidden');$('catalog').classList.remove('hidden');window.scrollTo(0,0)};window.scrollTo(0,0)}
 function updateTimer(){$('timer').textContent=String(Math.floor(seconds/60)).padStart(2,'0')+':'+String(seconds%60).padStart(2,'0');if(seconds<300)$('timer').style.color='#d00000'}
 const esc=t=>String(t??'').replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));

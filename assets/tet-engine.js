@@ -3,7 +3,19 @@
   const accountScript = document.createElement("script");
   accountScript.src = "js/global-account-menu.js";
   document.head.appendChild(accountScript);
+  // Cut-off gap + unlock box on the free test 01 result (js/cutoff-box.js).
+  const cutoffScript = document.createElement("script");
+  cutoffScript.src = "js/cutoff-box.js";
+  document.head.appendChild(cutoffScript);
 })();
+
+// Keep the profile the page loader fetches, so the cut-off box can skip buyers
+// without another Supabase query.
+let examProfile = null;
+if (typeof getProfile === 'function') {
+  const loadProfile = getProfile;
+  getProfile = async (...args) => (examProfile = await loadProfile(...args));
+}
 
 /* ===================== CONFIG ===================== */
 const TOTAL_SECONDS = 150 * 60; // 2 hours 30 minutes (150 minutes)
@@ -340,6 +352,8 @@ async function submitTest(autoSubmitted){
     });
     tbody.appendChild(tr);
   });
+
+  if (window.showCutoffBox) showCutoffBox(examTestId, Number(data.score), document.getElementById('secBreakdownTable'), examProfile);
 }
 
 
