@@ -35,8 +35,9 @@
 select{font:inherit;font-size:16px;padding:10px 12px;border-radius:12px;border:1px solid #b9dcd4;background:#fff;margin:6px 0 4px;max-width:100%}
 .warn{background:#fef3c7;color:#92400e;border-radius:12px;padding:10px 12px;font-size:14px;line-height:1.6}
 /* Hindi fonts: Mangal is Unicode (falls back to Noto Sans Devanagari); Kruti Dev 010 is a legacy
-   font that draws Hindi on ASCII keys, so it must be installed on the student's computer. */
-@font-face{font-family:"TTH Kruti Dev 010";src:local("Kruti Dev 010"),local("KrutiDev010"),local("Kruti Dev 010 Regular")}
+   font that draws Hindi on ASCII keys. An installed copy is used first; phones have none, so the free
+   web font built from Noto Sans Devanagari (typing-practice/fonts/README.md) is the fallback. */
+@font-face{font-family:"TTH Kruti Dev 010";src:local("Kruti Dev 010"),local("KrutiDev010"),local("Kruti Dev 010 Regular"),url("/typing-practice/fonts/tth-krutidev.woff2") format("woff2");font-display:swap}
 .f-mangal{font-family:Mangal,"Noto Sans Devanagari",sans-serif}.f-kd{font-family:"TTH Kruti Dev 010",monospace;font-size:21px}
 </style>
 </head>
