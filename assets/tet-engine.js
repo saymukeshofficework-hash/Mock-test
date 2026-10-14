@@ -321,6 +321,7 @@ async function submitTest(autoSubmitted){
     return;
   }
 
+  window.lastScoreData = data; // pages that add an answer review (CPCT) read data.key from here
   document.getElementById('resultSummaryLine').textContent = autoSubmitted
     ? 'Time is up — your test was submitted automatically.'
     : 'Your test has been submitted successfully.';
