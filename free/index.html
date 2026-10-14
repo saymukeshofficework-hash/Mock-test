@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>फ्री मॉक टेस्ट | Free Mock Tests | TETTESTHUB</title>
+<meta name="description" content="MP TET, RRB NTPC और MP CPCT के फ्री मॉक टेस्ट, बिना लॉगिन। Free mock tests, no login.">
+<link rel="canonical" href="https://tettesthub.in/free/">
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="free.css?v=1">
+</head>
+<body>
+<div class="wrap">
+<div class="bar"><a class="logo" href="/">TETTEST<b>HUB</b></a><span class="tag">फ्री / Free</span></div>
+<h1>फ्री मॉक टेस्ट</h1>
+<p class="sub">अपनी परीक्षा चुनें, बिना लॉगिन टेस्ट दें।<br>Pick your exam and take a free test, no login.</p>
+<div id="list"></div>
+<div class="foot">TETTESTHUB · <a href="/contact.html">संपर्क / Contact</a></div>
+</div>
+<script>
+const src = new URLSearchParams(location.search).get('src');
+const q = src ? '?' + new URLSearchParams({ src }) : '';
+document.getElementById('list').innerHTML = [
+  ['tet-primary', 'MP TET प्राथमिक (वर्ग 3)', 'TET Primary · Hindi, English, Sanskrit'],
+  ['tet-secondary', 'MP TET माध्यमिक (वर्ग 2)', 'TET Secondary · 5 subjects'],
+  ['rrb-ntpc-graduate', 'RRB NTPC ग्रेजुएट लेवल', 'RRB NTPC Graduate'],
+  ['rrb-ntpc-12th', 'RRB NTPC 12वीं लेवल', 'RRB NTPC 10+2 Undergraduate'],
+  ['cpct', 'MP CPCT', 'MP CPCT'],
+].map(([s, h, e]) => `<div class="card"><div><h3>${h}</h3><p>${e}</p></div><a class="btn" href="${s}.html${q}">खोलें / Open</a></div>`).join('');
+</script>
+</body>
+</html>

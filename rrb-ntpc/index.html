@@ -32,6 +32,7 @@
 <script src="/js/site-config.js"></script>
 <script src="/js/auth.js"></script>
 <script src="/js/cutoff-box.js"></script>
+<script src="/js/lead-gate.js?v=1"></script>
 <script>
 const $=id=>document.getElementById(id);let autoTest=false,questions=[],answers={},current=0,seconds=0,clock=null,testLabel='',testId='',secCounts=[];
 // Tests live in Supabase test_content (ids rrbntpc-<g|u>-<full|ga|maths|reason>-NN). Test 01 of each series is free; others need login + purchase.
@@ -61,4 +62,6 @@ $('prev').onclick=()=>{if(current>0){current--;renderQ()}};$('next').onclick=()=
 // Opened from the exam page (?test=rrbntpc-g-full-NN): start that test directly.
 (function(){const tid=new URLSearchParams(location.search).get('test');if(!/^rrbntpc-[gu]-full-\d{2}$/.test(tid||''))return;autoTest=true;$('catalog').classList.add('hidden');
 const stub={disabled:false,textContent:''};startTest(tid,90,stub).then(()=>{if($('runner').classList.contains('hidden')&&$('results').classList.contains('hidden'))location.href='/examhelp/'+(tid.includes('-g-')?'rrb-ntpc-graduate-mock-tests/':'rrb-ntpc-undergraduate-mock-tests/')})})();
+// From a group landing page (/free/, ?lead=1): free test 01 asks name + WhatsApp number before the result.
+if(new URLSearchParams(location.search).get('lead')==='1'&&window.leadGate){const showResult=finish;let asked=false;finish=function(auto){if(!testId.endsWith('-01'))return showResult(auto);if(asked)return;asked=true;clearInterval(clock);leadGate(testId.includes('-g-')?'rrb-ntpc-graduate':'rrb-ntpc-12th',testId,'',()=>showResult(auto))}}
 </script></body></html>
