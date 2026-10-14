@@ -22,9 +22,9 @@
 <section id="runner" class="hidden">
 <div class="testhead"><div><b id="testTitle">RRB NTPC</b><div class="muted">प्रत्येक सही उत्तर +1 · गलत उत्तर −⅓ · छोड़ा हुआ 0</div></div><div style="display:flex;gap:8px;align-items:center"><button class="btn secondary" id="langBtn" type="button" hidden onclick="toggleLang()">हिंदी</button><div class="timer" id="timer">--:--</div></div></div>
 <div class="progress"><div id="progressBar"></div></div>
-<div class="qnums" id="qnums"></div>
 <div class="qbox"><div class="qmeta" id="qmeta"></div><div class="question" id="question"></div><div class="opts" id="opts"></div>
 <div class="controls"><button class="btn secondary" id="prev">← Previous</button><button class="btn secondary" id="clear">Clear answer</button><button class="btn" id="next">Next →</button><button class="btn" id="submit">Submit test</button></div></div>
+<div class="qnums" id="qnums"></div>
 </section>
 <section id="results" class="hidden"></section>
 </main><footer>Practice with TET TasteHub.in · RRB NTPC preparation</footer>
@@ -42,6 +42,7 @@ document.addEventListener('click',e=>{const b=e.target.closest('[data-test]');if
 async function startTest(tid,mins,btn){if(!supabaseClient){alert('Service unavailable / सेवा उपलब्ध नहीं');return}btn.disabled=true;const old=btn.textContent;btn.textContent='Loading…';
 const {data,error}=await supabaseClient.rpc('get_test_questions',{p_test_id:tid});btn.disabled=false;btn.textContent=old;
 if(error||!data){alert(tid.endsWith('-01')?'यह फ्री टेस्ट अभी उपलब्ध नहीं हो पाया। कृपया थोड़ी देर बाद फिर प्रयास करें। / Free test is temporarily unavailable. Please try again later.':'यह टेस्ट लॉक है। ₹99 सीरीज़ खरीदने वाले अकाउंट से लॉगिन करें। / This test is locked. Log in with the account that bought the ₹99 series.');return}
+location.href='/exam-test.html?t='+tid;return;
 questions=[];secCounts=[];data.forEach((sec,si)=>{secCounts.push(sec.questions.length);sec.questions.forEach((q,qi)=>questions.push({...q,section:sec.name,si,qi}))});
 testId=tid;testLabel='RRB NTPC '+(tid.includes('-g-')?'Graduate':'Undergraduate')+' · '+tid.split('-')[2].toUpperCase()+' · Test '+tid.slice(-2);answers={};current=0;seconds=mins*60;
 $('catalog').classList.add('hidden');$('results').classList.add('hidden');$('runner').classList.remove('hidden');$('testTitle').textContent=testLabel;$('timer').style.color='';updateTimer();renderQ();clearInterval(clock);clock=setInterval(()=>{seconds--;updateTimer();if(seconds<=0)finish(true)},1000);window.scrollTo(0,0)}
@@ -55,7 +56,7 @@ $('backBtn').onclick=()=>{if(autoTest){location.href='/examhelp/'+(testId.includ
 function updateTimer(){$('timer').textContent=String(Math.floor(seconds/60)).padStart(2,'0')+':'+String(seconds%60).padStart(2,'0');if(seconds<300)$('timer').style.color='#d00000'}
 const esc=t=>String(t??'').replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
 let lang=(()=>{try{return localStorage.getItem('rrbLang')||'en'}catch(e){return 'en'}})();function toggleLang(){lang=lang==='hi'?'en':'hi';try{localStorage.setItem('rrbLang',lang)}catch(e){}renderQ()}
-function renderQ(){const q=questions[current],n=questions.length;$('qmeta').textContent='Question '+(current+1)+' of '+n+' · '+q.section;const L=(lang==='hi'&&q.hi)||q.en||q.hi;$('langBtn').hidden=!questions.some(x=>x.en&&x.hi);$('langBtn').textContent=lang==='hi'?'English':'हिंदी';$('question').innerHTML='<div>'+esc(L.q)+'</div>';$('opts').innerHTML='';L.options.forEach((op,i)=>{const btn=document.createElement('button');btn.className='opt'+(answers[current]===i?' selected':'');btn.innerHTML='<b>'+String.fromCharCode(65+i)+'.</b><span>'+esc(op)+'</span>';btn.onclick=()=>{answers[current]=i;renderQ()};$('opts').appendChild(btn)});$('qnums').innerHTML='';questions.forEach((_,i)=>{const b=document.createElement('button');b.className='qnum'+(answers[i]!==undefined?' answered':'')+(i===current?' current':'');b.textContent=i+1;b.onclick=()=>{current=i;renderQ()};$('qnums').appendChild(b)});$('progressBar').style.width=((current+1)/n*100)+'%';$('prev').disabled=current===0;$('next').disabled=current===n-1}
+function renderQ(){const q=questions[current],n=questions.length;$('qmeta').textContent='Question '+(current+1)+' of '+n+' · '+q.section;const L=(lang==='hi'&&q.hi)||q.en||q.hi;$('langBtn').hidden=!questions.some(x=>x.en&&x.hi);$('langBtn').textContent=lang==='hi'?'English':'हिंदी';$('question').innerHTML='<div>'+esc(L.q)+'</div>';$('opts').innerHTML='';L.options.forEach((op,i)=>{const btn=document.createElement('button');btn.className='opt'+(answers[current]===i?' selected':'');btn.innerHTML='<b>'+String.fromCharCode(65+i)+'.</b><span>'+esc(op)+'</span>';btn.onclick=()=>{answers[current]=i;renderQ()};$('opts').appendChild(btn)});$('qnums').innerHTML='';questions.forEach((_,i)=>{const b=document.createElement('button');b.className='qnum'+(answers[i]!==undefined?' answered':'')+(i===current?' current':'');b.textContent=i+1;b.onclick=()=>{current=i;renderQ();document.querySelector('.qbox').scrollIntoView({behavior:'smooth'})};$('qnums').appendChild(b)});$('progressBar').style.width=((current+1)/n*100)+'%';$('prev').disabled=current===0;$('next').disabled=current===n-1}
 $('prev').onclick=()=>{if(current>0){current--;renderQ()}};$('next').onclick=()=>{if(current<questions.length-1){current++;renderQ()}};$('clear').onclick=()=>{delete answers[current];renderQ()};$('submit').onclick=()=>{if(confirm('Submit test now? / क्या आप टेस्ट जमा करना चाहते हैं?'))finish(false)};
 
 // Opened from the exam page (?test=rrbntpc-g-full-NN): start that test directly.

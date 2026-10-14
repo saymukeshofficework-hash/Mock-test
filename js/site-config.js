@@ -121,3 +121,5 @@ Object.values(TET_LEVELS).forEach(lv => lv.subjects.forEach(s => {
 // Set `ready: true` once the questions are uploaded to Supabase test_content.
 const CPCT_SERIES = { tests: 25, price: 99, exam: { ready: true }, typing: { ready: true } };
 FREE_TESTS.push("cpct-exam-01", "cpct-typing-01");
+// RRB NTPC (/rrb-ntpc/): test 01 of each series is free; tests open in exam-test.html.
+for (const l of ["g", "u"]) for (const s of ["full", "ga", "maths", "reason"]) FREE_TESTS.push(`rrbntpc-${l}-${s}-01`);

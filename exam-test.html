@@ -150,8 +150,8 @@
 </div>
 
 <script src="assets/vendor/supabase/supabase.js"></script>
-<script src="js/site-config.js?v=10"></script>
-<script src="js/exam-catalog.js?v=4"></script>
+<script src="js/site-config.js?v=11"></script>
+<script src="js/exam-catalog.js?v=5"></script>
 <script src="js/auth.js?v=2"></script>
 <script src="assets/tet-engine.js?v=2"></script>
 <script>
@@ -214,6 +214,24 @@
       try { sessionStorage.setItem('cpct-paper-' + nn, JSON.stringify({ mcq: +score })); } catch (e) {}
       res.querySelector('h2').insertAdjacentHTML('afterend',
         `<p style="margin:12px 0"><a href="/cpct/typing.html?t=cpct-typing-${nn}&lang=en" style="display:inline-block;background:#0f6b5f;color:#fff;padding:12px 18px;border-radius:12px;font-weight:700;text-decoration:none">अगला: भाग 2, अंग्रेज़ी टाइपिंग → / Next: Part 2, English typing →</a></p>`);
+    }).observe(res, { attributes: true, subtree: true, childList: true, characterData: true });
+  }
+  // RRB NTPC: time and question count per paper, −1/3 for each wrong answer.
+  const rrb = /^rrbntpc-[gu]-(full|ga|maths|reason)-/.exec(TEST_ID);
+  if (rrb) {
+    const [qs, mins] = { full: [100, 90], ga: [40, 36], maths: [30, 27], reason: [30, 27] }[rrb[1]];
+    timeLeft = mins * 60;
+    document.getElementById('qMeta').textContent = 'Marks for correct answer: 1 | Negative Marks: 1/3';
+    document.getElementById('timerDisplay').textContent = `Time Left : ${mins}:00`;
+    const li = document.querySelectorAll('ol li');
+    if (li[0]) li[0].innerHTML = `Total duration of examination is <strong>${mins} minutes</strong>. / कुल समय <strong>${mins} मिनट</strong>।`;
+    if (li[1]) li[1].innerHTML = `The test has <strong>${qs} questions</strong>, <strong>+1 for correct, −1/3 for wrong</strong>. / ${qs} प्रश्न, सही उत्तर +1, गलत उत्तर −1/3।`;
+    const res = document.getElementById('resultScreen');
+    new MutationObserver((_, obs) => {
+      const c = document.getElementById('resCorrect').textContent.trim(), w = document.getElementById('resIncorrect').textContent.trim();
+      if (res.style.display !== 'block' || !/^\d+$/.test(c) || !/^\d+$/.test(w)) return;
+      obs.disconnect();
+      document.getElementById('resScore').textContent = (+c - w / 3).toFixed(2);
     }).observe(res, { attributes: true, subtree: true, childList: true, characterData: true });
   }
   loadingEl.style.display = 'none';
