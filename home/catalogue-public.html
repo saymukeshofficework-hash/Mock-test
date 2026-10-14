@@ -192,7 +192,7 @@ body{padding-bottom:70px}
 
   <div class="chips" role="tablist" aria-label="श्रेणी">
     <button class="chip on" data-f="all">सभी</button>
-    <button class="chip" data-f="new">नए कोर्स</button>
+    <button class="chip" data-f="police">पुलिस</button>
     <button class="chip" data-f="hc">MP हाई कोर्ट</button>
     <button class="chip" data-f="tests">टेस्ट सीरीज़</button>
     <button class="chip" data-f="notes">PDF नोट्स</button>
@@ -241,10 +241,10 @@ const COURSES = [
   {f:['new','notes'], p:'p-amber', art:'book', kick:'रोज़ अपडेट • MP + भारत + विश्व', big:'दैनिक करेंट अफेयर्स', sub:['रोज़ की खबरें','PDF डाउनलोड','क्विज़'], isNew:true,
    tags:['करेंट अफेयर्स','नया'], title:'दैनिक करेंट अफेयर्स — मध्यप्रदेश, भारत व अंतरराष्ट्रीय',
    desc:'✅ हर दिन MP, भारत व विश्व की प्रमुख खबरें ✅ वन-लाइनर व क्विज़ ✅ आज के करेंट अफेयर्स की PDF डाउनलोड', price:0, noprice:true, href:EH+'/current-affairs/'},
-  {f:['new','tests'], p:'p-indigo', art:'test', kick:'MP पुलिस • 7500 पद', big:'आरक्षक (जी.डी.) 2026', sub:['25 फुल टेस्ट','टेस्ट 1 फ्री'], isNew:true,
+  {f:['new','tests','police'], p:'p-indigo', art:'test', kick:'MP पुलिस • 7500 पद', big:'आरक्षक (जी.डी.) 2026', sub:['25 फुल टेस्ट','टेस्ट 1 फ्री'], isNew:true,
    tags:['MP पुलिस','टेस्ट सीरीज़'], meta:['🧾','हर टेस्ट: ','100 प्रश्न · 120 मिनट'], title:'MP पुलिस आरक्षक (जी.डी.) 2026 — 25 फुल मॉक टेस्ट',
    desc:'✅ MPESB पैटर्न: 3 खंड, 100 प्रश्न ✅ टेस्ट 1 फ्री ✅ हिंदी/English, हर प्रश्न की व्याख्या', price:99, href:EH+'/mp-police-constable-gd-mock-tests/'},
-  {f:['new','tests'], p:'p-sage', art:'test', kick:'MP पुलिस • 655 पद', big:'सूबेदार / ASI 2026', sub:['25 फुल टेस्ट','टेस्ट 1 फ्री'], isNew:true,
+  {f:['new','tests','police'], p:'p-sage', art:'test', kick:'MP पुलिस • 655 पद', big:'सूबेदार / ASI 2026', sub:['25 फुल टेस्ट','टेस्ट 1 फ्री'], isNew:true,
    tags:['MP पुलिस','टेस्ट सीरीज़'], meta:['🧾','हर टेस्ट: ','100 प्रश्न · 120 मिनट'], title:'MP पुलिस सूबेदार (शीघ्रलेखक) / ASI 2026 — 25 फुल मॉक टेस्ट',
    desc:'✅ MPESB पैटर्न: 3 खंड, 100 प्रश्न ✅ टेस्ट 1 फ्री ✅ 12वीं स्तर, हिंदी/English व्याख्या सहित', price:99, href:EH+'/mp-police-subedar-asi-mock-tests/'},
   {f:['bridge','notes'], p:'p-rose', art:'book', kick:'NIOS • B.Ed ब्रिज कोर्स', big:'ब्रिज कोर्स नोट्स', sub:['डिजिटल नोट्स','तुरंत एक्सेस'],
