@@ -138,5 +138,5 @@ for (const l of ["g", "u"]) for (const s of ["full", "ga", "maths", "reason"]) F
   link.setAttribute("aria-label", "होम पेज पर जाएँ");
   link.title = "होम";
   link.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 10 9-7 9 7"/><path d="M5 9v11h14V9"/><path d="M9 20v-7h6v7"/></svg>';
-  document.body.appendChild(link);
+  if (document.body) document.body.appendChild(link); else document.addEventListener("DOMContentLoaded", () => document.body.appendChild(link), { once: true });
 })();
