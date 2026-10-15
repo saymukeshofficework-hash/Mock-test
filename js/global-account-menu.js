@@ -5,13 +5,18 @@
   if (path === "/" || path === "/index.html") return;
 
   function addTestHeader() {
-    const header = document.querySelector("header.topbar");
+    // Remove legacy floating house icons across all pages, not only exam headers.
+    document.querySelectorAll(".home-link, #tth-floating-home, .floating-home, .home-icon-button, .home-icon, .home-button, .floating-home-button").forEach((link) => link.remove());
+    document.querySelectorAll('a[aria-label*="होम"], a[title="होम"], a[aria-label*="home" i], a[title*="home" i]').forEach((link) => {
+      if (link.querySelector("svg") && !link.textContent.trim()) link.remove();
+    });
+
+    const header = document.querySelector("header.topbar") || document.querySelector(".hdr .bar") || document.querySelector(".tbar");
     if (!header || header.dataset.tthHeaderReady === "true") return;
     header.dataset.tthHeaderReady = "true";
 
+    const isExamTopbar = header.matches("header.topbar");
     const left = header.querySelector(".topbar-left") || header;
-    // Replace floating/home-icon controls with one clear text option in the top bar.
-    header.querySelectorAll(".home-link, #tth-floating-home, .floating-home, .home-icon-button").forEach((link) => link.remove());
     let home = header.querySelector("#tthTopHomeLink");
     if (!home) {
       home = document.createElement("a");
@@ -22,6 +27,14 @@
       home.setAttribute("aria-label", "होमपेज पर जाएँ");
       const leftSide = header.querySelector(".topbar-left") || header;
       leftSide.insertBefore(home, leftSide.firstChild);
+    }
+
+    // CPCT/TET catalogue headers use .hdr .bar rather than header.topbar.
+    // Their logo was incorrectly linked to login; make it point to the homepage.
+    if (!isExamTopbar) {
+      const logo = header.querySelector("a.logo");
+      if (logo) logo.href = "/index.html";
+      return;
     }
 
     let brand = header.querySelector(".tth-header-brand");
@@ -87,8 +100,12 @@
     style.id = "tth-mobile-header-style";
     style.textContent = `
       header.topbar .topbar-left { display:flex; align-items:center; flex-wrap:wrap; gap:8px; min-width:0; flex:1 1 100%; }
-      header.topbar .tth-top-home-link { display:inline-flex; align-items:center; justify-content:center; padding:6px 11px; border-radius:8px; background:#16856f; border:1px solid #8abbb0; color:#fff; font-size:13px; font-weight:800; text-decoration:none; white-space:nowrap; }
-      header.topbar .tth-top-home-link:hover { background:#0f6b5f; }
+      header.topbar .tth-top-home-link, .hdr .bar .tth-top-home-link, .tbar .tth-top-home-link { display:inline-flex; align-items:center; justify-content:center; padding:6px 11px; border-radius:8px; background:#16856f; border:1px solid #8abbb0; color:#fff; font-size:13px; font-weight:800; text-decoration:none; white-space:nowrap; }
+      header.topbar .tth-top-home-link:hover, .hdr .bar .tth-top-home-link:hover, .tbar .tth-top-home-link:hover { background:#0f6b5f; }
+      .hdr .bar { justify-content:flex-start; flex-wrap:wrap; }
+      .tbar { justify-content:space-between !important; }
+      .tbar .tth-top-home-link { margin-right:auto; }
+      .hdr .bar .logo { margin-right:auto; }
       header.topbar .tth-header-brand { color:#fff; font-size:16px; font-weight:700; white-space:nowrap; }
       header.topbar .tth-student-account-menu { position:relative; flex:0 0 auto; z-index:1002; color:#fff; font-size:12px; }
       header.topbar .tth-student-account-menu summary { list-style:none; cursor:pointer; border:1px solid #8abbb0; background:#ffffff18; border-radius:8px; padding:6px 10px; white-space:nowrap; font-weight:700; }
