@@ -126,7 +126,7 @@ export function MockTestList({ series = "ag3" }: { series?: string }) {
           <p className="mt-2 max-w-2xl text-ink-600">{S.sub[lang]}</p>
         </div>
         <div className="flex shrink-0 flex-col items-end gap-2">
-          <Link href="/index.html" className="inline-flex min-h-8 items-center justify-center rounded-lg border border-brand-200 bg-white px-3 py-1 text-sm font-semibold text-brand-700 shadow-sm hover:bg-brand-50">{lang === "hi" ? "होम" : "Home"}</Link>
+          
           <div className="inline-flex rounded-full border border-ink-200 bg-white p-0.5 text-sm font-semibold" role="group" aria-label="भाषा / Language">
           {(["hi", "en"] as Lang[]).map((l) => (
             <button key={l} type="button" onClick={() => switchLang(l)} aria-pressed={lang === l}
