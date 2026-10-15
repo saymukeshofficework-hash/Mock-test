@@ -108,7 +108,7 @@
       .tbar { justify-content:space-between !important; }
       .tbar .tth-top-home-link { margin-right:auto; }
       .hdr .bar .logo { margin-right:auto; }
-      header.topbar .tth-header-brand { color:#fff; font-size:16px; font-weight:700; white-space:nowrap; }
+      .tth-header-brand { color:#fff; font-size:16px; font-weight:700; white-space:nowrap; }
       header.topbar .tth-student-account-menu { position:relative; flex:0 0 auto; z-index:1002; color:#fff; font-size:12px; }
       header.topbar .tth-student-account-menu summary { list-style:none; cursor:pointer; border:1px solid #8abbb0; background:#ffffff18; border-radius:8px; padding:6px 10px; white-space:nowrap; font-weight:700; }
       header.topbar .tth-student-account-menu summary::-webkit-details-marker { display:none; }
