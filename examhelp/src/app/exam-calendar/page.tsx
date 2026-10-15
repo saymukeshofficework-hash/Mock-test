@@ -28,8 +28,13 @@ export default async function ExamCalendarPage() {
         <Breadcrumbs items={[{ label: tr(dict.nav.home, lang), href: "/" }, { label: tr(dict.nav.calendar, lang), href: "/exam-calendar" }]} />
       </PageHeader>
       <div className="container-page py-8">
-        <div className="mb-5">
+        <div className="mb-5 space-y-2">
           <DateStatusLegend lang={lang} />
+          <p className="text-xs text-ink-500">
+            {lang === "hi"
+              ? "अंतिम समीक्षा: 15 अक्टूबर 2026। उपलब्ध आधिकारिक स्रोतों से तिथियाँ जाँची गई हैं; संभावित/अपेक्षित तिथियाँ अलग चिह्नित हैं।"
+              : "Last reviewed: 15 October 2026. Dates were checked against available official sources; tentative/expected dates are labelled separately."}
+          </p>
         </div>
         <ExamCalendar exams={exams} phases={phases} categories={categories} lang={lang} initialMonth={istMonth} />
         <p className="mt-8 text-xs text-ink-500">{tr(dict.disclaimer.info, lang)}</p>
