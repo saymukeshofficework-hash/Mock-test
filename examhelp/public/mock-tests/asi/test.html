@@ -659,10 +659,12 @@
             }
 
 		
-/* Sticky homepage button for non-TET exam runners */
+/* Single text Home option in the top bar; no floating home icon */
 .topbar{position:sticky;top:0;z-index:1000}
-.dhome{display:inline-flex!important;flex:0 0 auto;align-items:center;justify-content:center;gap:5px;background:#16856f;color:#fff;border:1px solid rgba(255,255,255,.55);border-radius:9px;padding:9px 12px;font-size:14px;font-weight:800;text-decoration:none;white-space:nowrap;box-shadow:0 2px 6px rgba(0,0,0,.18)}
+.dhome{display:none!important;flex:0 0 auto;align-items:center;justify-content:center;gap:5px;background:#16856f;color:#fff;border:1px solid rgba(255,255,255,.55);border-radius:9px;padding:9px 12px;font-size:14px;font-weight:800;text-decoration:none;white-space:nowrap;box-shadow:0 2px 6px rgba(0,0,0,.18)}
 .dhome:hover{background:#0f6b5f}
+.tth-top-home-option{display:inline-flex!important;align-items:center;justify-content:center;flex:0 0 auto;background:#16856f;color:#fff;border:1px solid rgba(255,255,255,.55);border-radius:9px;padding:8px 12px;font-size:14px;font-weight:800;text-decoration:none;white-space:nowrap}
+.tth-top-home-option:hover{background:#0f6b5f}
 </style>
 	</head>
 	<body>
@@ -702,6 +704,7 @@
 
 		<div id="app" style="display: none">
 			<div class="topbar">
+				<a class="dhome tth-top-home-option" href="/index.html" aria-label="होमपेज पर जाएँ">⌂ होम</a>
 				<div class="ttwrap">
 					<div class="ttext" data-title>MP Police Subedar / ASI 2026 Mock Test</div>
 					<small id="subtitleText"

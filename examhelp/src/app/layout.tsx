@@ -44,9 +44,6 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           {tr(dict.nav.skip, lang)}
         </a>
         <Header lang={lang} />
-        <Link href="/" aria-label="होम पेज पर जाएँ" title="होम" className="fixed bottom-24 right-3 z-[100] flex h-11 w-11 items-center justify-center rounded-full border-2 border-white bg-teal-700 text-white shadow-lg hover:bg-teal-800 focus-visible:outline focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-amber-500 sm:bottom-5 sm:right-5" style={{ paddingBottom: "env(safe-area-inset-bottom)" }}>
-          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="m3 10 9-7 9 7" /><path d="M5 9v11h14V9" /><path d="M9 20v-7h6v7" /></svg>
-        </Link>
         <main id="main" className="min-h-[60vh]">
           {children}
         </main>
