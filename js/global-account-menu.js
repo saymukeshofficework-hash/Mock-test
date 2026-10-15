@@ -163,7 +163,27 @@
     "Show Tests":"टेस्ट दिखाएँ","Hide Tests":"टेस्ट छिपाएँ","Full Mock Tests":"पूर्ण मॉक टेस्ट",
     "Paper 1":"पेपर 1","Paper 2":"पेपर 2","Exam not found.":"परीक्षा नहीं मिली।","Content coming soon":"सामग्री जल्द उपलब्ध होगी",
     "TET Test Hub":"TET टेस्ट हब","डैशबोर्ड / Dashboard":"डैशबोर्ड","लॉगआउट / Logout":"लॉगआउट",
-    "You have not purchased this test.":"आपने यह टेस्ट नहीं खरीदा है।","Could not load this test right now. Please try again in a moment.":"यह टेस्ट अभी लोड नहीं हो सका। कृपया थोड़ी देर बाद पुनः प्रयास करें।"
+    "You have not purchased this test.":"आपने यह टेस्ट नहीं खरीदा है।","Could not load this test right now. Please try again in a moment.":"यह टेस्ट अभी लोड नहीं हो सका। कृपया थोड़ी देर बाद पुनः प्रयास करें।",
+    "you@example.com":"आपका@email.com","Passwords do not match.":"पासवर्ड मेल नहीं खाते।","Please enter your name to continue.":"आगे बढ़ने के लिए अपना नाम दर्ज करें।",
+    "LOGGING IN...":"लॉगिन हो रहा है…","CREATING ACCOUNT...":"खाता बनाया जा रहा है…","SENDING...":"भेजा जा रहा है…",
+    "Passwords do not match.":"पासवर्ड मेल नहीं खाते।","Account created. Please log in.":"खाता बन गया है। कृपया लॉगिन करें।",
+    "Already registered?":"पहले से रजिस्टर हैं?","Your account is ready to use immediately after registration.":"रजिस्ट्रेशन के बाद आपका खाता तुरंत उपयोग के लिए तैयार है।",
+    "Total duration of examination is":"परीक्षा की कुल अवधि है","minutes (2 Hours 30 Minutes)":"मिनट (2 घंटे 30 मिनट)",
+    "The test has":"इस टेस्ट में","questions":"प्रश्न हैं","1 mark per question, no negative marking":"प्रत्येक प्रश्न के लिए 1 अंक, नकारात्मक अंकन नहीं",
+    "The clock will be set at the server. The countdown timer will display the remaining time. When the timer reaches zero, the examination will end and auto-submit.":"घड़ी सर्वर के अनुसार चलेगी। टाइमर शेष समय दिखाएगा। समय शून्य होने पर परीक्षा समाप्त होकर अपने आप जमा हो जाएगी।",
+    "The Question Palette on the right will show the status of each question using the symbols below:":"दाईं ओर प्रश्न पैलेट नीचे दिए गए चिह्नों से हर प्रश्न की स्थिति दिखाएगा:",
+    "You have not visited the question yet.":"आपने अभी तक यह प्रश्न नहीं देखा है।","You have not answered the question.":"आपने इस प्रश्न का उत्तर नहीं दिया है।",
+    "You have answered the question.":"आपने इस प्रश्न का उत्तर दिया है।","You have marked the question for review.":"आपने प्रश्न को समीक्षा के लिए चिह्नित किया है।",
+    "The \"Mark for Review\" status simply means you would like to look at that question again.":"\"समीक्षा के लिए चिह्नित\" का अर्थ है कि आप इस प्रश्न को फिर से देखना चाहते हैं।",
+    "To answer a question, select an option and click \"Save & Next\".":"उत्तर देने के लिए विकल्प चुनें और \"सहेजें और आगे बढ़ें\" पर क्लिक करें।",
+    "To deselect a chosen answer, click \"Clear Response\".":"चुना हुआ उत्तर हटाने के लिए \"उत्तर हटाएँ\" पर क्लिक करें।",
+    "To change your answer, select another option and click \"Save & Next\".":"उत्तर बदलने के लिए दूसरा विकल्प चुनें और \"सहेजें और आगे बढ़ें\" पर क्लिक करें।",
+    "Sections in this test will be displayed as tabs at the top. Questions in a section can be viewed by clicking the section name.":"इस टेस्ट के खंड ऊपर टैब के रूप में दिखेंगे। खंड का नाम चुनकर उसके प्रश्न देखें।",
+    "You can navigate between sections and questions anytime during the test, subject to the time constraint.":"समय सीमा के भीतर आप कभी भी खंडों और प्रश्नों के बीच जा सकते हैं।",
+    "Marks for correct answer: 1 | Negative Marks: 0":"सही उत्तर के अंक: 1 | गलत उत्तर के अंक: 0",
+    "Please enter your email ID and password.":"कृपया ईमेल आईडी और पासवर्ड दर्ज करें।",
+    "Incorrect email ID or password.":"ईमेल आईडी या पासवर्ड गलत है।","Something went wrong. Please try again.":"कुछ गलत हो गया। कृपया पुनः प्रयास करें।",
+    "Account created successfully.":"खाता सफलतापूर्वक बन गया।","Send reset link":"रीसेट लिंक भेजें"
   };
   const TTH_ORIGINALS = new WeakMap();
   let tthObserver = null;
@@ -178,9 +198,17 @@
     let translated=trimmed;
     if(lang==="hi"){
       translated=TTH_TEXT[trimmed] || trimmed;
+      const q=trimmed.match(/^Question No\\.\\s*(\\d+)$/i); if(q) translated="प्रश्न संख्या "+q[1];
+      const timer=trimmed.match(/^Time Left\\s*:\\s*(.*)$/i); if(timer) translated="शेष समय : "+timer[1];
+      const candidate=trimmed.match(/^Candidate:\\s*(.*)$/i); if(candidate) translated="उम्मीदवार: "+candidate[1];
+      const marks=trimmed.match(/^Marks for correct answer:\\s*(\\d+)\\s*\\|\\s*Negative Marks:\\s*(.*)$/i); if(marks) translated="सही उत्तर के अंक: "+marks[1]+" | गलत उत्तर के अंक: "+marks[2];
     } else {
       const reverse=Object.entries(TTH_TEXT).find(([en,hi])=>hi===trimmed);
       translated=reverse ? reverse[0] : trimmed;
+      const q=trimmed.match(/^प्रश्न संख्या\\s*(\\d+)$/); if(q) translated="Question No. "+q[1];
+      const timer=trimmed.match(/^शेष समय\\s*:\\s*(.*)$/); if(timer) translated="Time Left : "+timer[1];
+      const candidate=trimmed.match(/^उम्मीदवार:\\s*(.*)$/); if(candidate) translated="Candidate: "+candidate[1];
+      const marks=trimmed.match(/^सही उत्तर के अंक:\\s*(\\d+)\\s*\\|\\s*गलत उत्तर के अंक:\\s*(.*)$/); if(marks) translated="Marks for correct answer: "+marks[1]+" | Negative Marks: "+marks[2];
     }
     if(translated!==trimmed){
       const lead=original.match(/^\\s*/)?.[0]||"";
