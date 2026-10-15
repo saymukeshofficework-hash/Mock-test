@@ -23,6 +23,8 @@ type Item = {
 type Quiz = { q: Bi; o: { hi: string[]; en: string[] }; a: number; exp: Bi };
 type Day = { day: string; title?: Bi; items: Item[]; oneliners?: { hi: string[]; en: string[] }; quiz?: Quiz[] };
 type IndexRow = { day: string; items: number };
+const MIN_CURRENT_AFFAIRS_DATE = "2026-01-01";
+const todayInIndia = () => new Intl.DateTimeFormat("en-CA", { timeZone: "Asia/Kolkata", year: "numeric", month: "2-digit", day: "2-digit" }).format(new Date());
 
 const PDF_LIB = "https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js";
 
@@ -77,6 +79,7 @@ export function CurrentAffairsClient() {
   const [index, setIndex] = useState<IndexRow[]>([]);
   const [state, setState] = useState<"loading" | "error" | "ready">("loading");
   const [day, setDay] = useState<Day | null>(null);
+  const [selectedDate, setSelectedDate] = useState(todayInIndia());
   const [region, setRegion] = useState<"all" | Item["region"]>("all");
   const [pdfBusy, setPdfBusy] = useState(false);
   const [shown, setShown] = useState<Record<number, number | undefined>>({});
@@ -88,16 +91,17 @@ export function CurrentAffairsClient() {
       const base = process.env.NEXT_PUBLIC_SUPABASE_URL ?? "https://znulepzdihzhjmuvyroi.supabase.co";
       const anon = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpudWxlcHpkaWh6aGptdXZ5cm9pIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTExMjE5MjIsImV4cCI6MjEwNjY5NzkyMn0.XoqC6vNDJkEAxgtXLVPCpTxocv3lAa-ZBeg69OdbhdU";
       const url = new URL(`${base}/rest/v1/daily_current_affairs`);
-      url.searchParams.set("select", "day,data");
+      url.searchParams.set("select", "day,content");
       url.searchParams.set("order", "day.desc");
-      url.searchParams.set("limit", "30");
-      if (d) url.searchParams.set("day", `eq.${d}`);
+      url.searchParams.set("limit", "400");
       const response = await fetch(url.toString(), { headers: { apikey: anon, Authorization: `Bearer ${anon}` } });
       if (!response.ok) throw new Error("current_affairs_fetch_failed");
-      const rows = await response.json() as { day: string; data: Day }[];
-      setIndex(rows.map((row) => ({ day: row.day, items: row.data?.items?.length ?? 0 })));
-      const row = d ? rows.find((item) => item.day === d) : rows[0];
-      setDay(row?.data ? { ...row.data, day: row.day } : null);
+      const rows = await response.json() as { day: string; content: Day }[];
+      setIndex(rows.map((row) => ({ day: row.day, items: row.content?.items?.length ?? 0 })));
+      const target = d || rows[0]?.day || todayInIndia();
+      setSelectedDate(target);
+      const row = rows.find((item) => item.day === target);
+      setDay(row?.content ? { ...row.content, day: row.day } : null);
       setShown({});
       setState("ready");
     } catch {
@@ -194,9 +198,17 @@ export function CurrentAffairsClient() {
         </div>
       </div>
 
-      {/* days */}
-      <div className="-mx-1 mt-6 flex gap-2 overflow-x-auto px-1 pb-1 [scrollbar-width:none]">
-        {index.slice(0, 30).map((d) => (
+      {/* Select any date in the historical range. */}
+      <div className="mt-6 flex flex-wrap items-end gap-3 rounded-2xl border border-ink-200 bg-surface p-4">
+        <label className="grid gap-1 text-sm font-semibold text-ink-700">
+          {lang === "hi" ? "तारीख चुनें" : "Choose a date"}
+          <input type="date" value={selectedDate} min={MIN_CURRENT_AFFAIRS_DATE} max={todayInIndia()} onChange={(event) => setSelectedDate(event.target.value)} className="rounded-lg border border-ink-200 bg-white px-3 py-2 text-ink-900" />
+        </label>
+        <button type="button" onClick={() => openDay(selectedDate)} className="btn-primary">{lang === "hi" ? "उस दिन का टेस्ट खोलें" : "Open daily test"}</button>
+        <span className="text-xs text-ink-500">{lang === "hi" ? `${index.length} दिन उपलब्ध` : `${index.length} dates available`}</span>
+      </div>
+      <div className="-mx-1 mt-3 flex gap-2 overflow-x-auto px-1 pb-1 [scrollbar-width:none]">
+        {index.slice(0, 7).map((d) => (
           <button key={d.day} type="button" onClick={() => openDay(d.day)} aria-pressed={day?.day === d.day}
             className={`shrink-0 rounded-full border px-4 py-2 text-sm transition-colors ${day?.day === d.day ? "border-ink-900 bg-ink-900 text-white" : "border-ink-200 bg-surface text-ink-900 hover:border-ink-300"}`}>
             {fmtDay(d.day, lang)}
@@ -205,7 +217,7 @@ export function CurrentAffairsClient() {
       </div>
 
       {!day ? (
-        <p className="mt-10 rounded-2xl border border-ink-200 bg-surface p-8 text-center text-ink-500">{lang === "hi" ? "पहला अंक जल्द प्रकाशित होगा।" : "The first edition is coming soon."}</p>
+        <p className="mt-10 rounded-2xl border border-ink-200 bg-surface p-8 text-center text-ink-500">{lang === "hi" ? `${fmtDay(selectedDate, lang, true)} का अंक अभी उपलब्ध नहीं है। कृपया दूसरी तारीख चुनें।` : `No edition is available for ${fmtDay(selectedDate, lang, true)} yet. Please choose another date.`}</p>
       ) : (
         <>
           {/* regions */}
