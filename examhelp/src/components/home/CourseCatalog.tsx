@@ -188,7 +188,7 @@ export function CourseCatalog({ lang }: { lang: Lang }) {
                 <p className="mt-2 text-lg leading-snug font-bold text-ink-900">{c.title}</p>
                 <p className="mt-1.5 line-clamp-2 text-sm text-ink-500">{c.desc}</p>
                 <div className="mt-auto flex items-center justify-between border-t border-ink-200 pt-4">
-                  <span className="text-2xl font-extrabold text-ink-900">
+                  <span data-sale={c.price ? "" : undefined} className="text-2xl font-extrabold text-ink-900">
                     {c.price ? `₹${c.price}` : <span className="text-brand-700">{lang === "hi" ? "फ्री" : "Free"}</span>}
                     {c.mrp ? <s className="ml-1.5 text-base font-medium text-ink-500">₹{c.mrp}</s> : null}
                     {c.from ? <small className="ml-1.5 text-sm font-semibold text-ink-500">{lang === "hi" ? "से शुरू" : "onwards"}</small> : null}

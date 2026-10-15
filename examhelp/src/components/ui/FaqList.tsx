@@ -17,7 +17,7 @@ export function FaqList({ faqs, lang, withSchema = true }: { faqs: Faq[]; lang: 
   return (
     <div className="space-y-3">
       {faqs.map((f) => (
-        <details key={f.id} className="group card open:shadow-[var(--shadow-lift)]">
+        <details key={f.id} data-sale={/₹/.test(tr(f.question, lang) + tr(f.answer, lang)) ? "" : undefined} className="group card open:shadow-[var(--shadow-lift)]">
           <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 font-semibold text-ink-900 [&::-webkit-details-marker]:hidden">
             {tr(f.question, lang)}
             <ChevronDown className="h-5 w-5 shrink-0 text-ink-500 transition-transform group-open:rotate-180" aria-hidden="true" />

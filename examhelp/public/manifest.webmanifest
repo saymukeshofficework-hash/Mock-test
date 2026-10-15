@@ -1,0 +1,18 @@
+{
+  "name": "TETTESTHUB – Mock Tests & Exam Prep",
+  "short_name": "TETTESTHUB",
+  "description": "MP TET, RRB NTPC, High Court and Police exam mock tests, notes and current affairs.",
+  "lang": "hi",
+  "id": "/examhelp/",
+  "start_url": "/examhelp/?source=android",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#ffffff",
+  "theme_color": "#163377",
+  "icons": [
+    { "src": "/examhelp/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/examhelp/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/examhelp/icons/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

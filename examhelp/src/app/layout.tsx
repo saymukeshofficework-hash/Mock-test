@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import Link from "next/link";
+import Script from "next/script";
 import "@fontsource-variable/inter";
 import "@fontsource/noto-sans-devanagari/devanagari-400.css";
 import "@fontsource/noto-sans-devanagari/devanagari-500.css";
@@ -37,8 +37,13 @@ export const viewport: Viewport = {
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const lang = await getLang();
+  const base = process.env.NEXT_PUBLIC_BASE_PATH || "";
   return (
     <html lang={lang}>
+      <head>
+        <link rel="manifest" href={`${base}/manifest.webmanifest`} />
+        <Script src={`${base}/app-mode.js`} strategy="beforeInteractive" />
+      </head>
       <body className="min-h-dvh">
         <a href="#main" className="sr-only z-[100] rounded-lg bg-brand-700 px-4 py-2 text-white focus:not-sr-only focus:fixed focus:top-3 focus:left-3">
           {tr(dict.nav.skip, lang)}

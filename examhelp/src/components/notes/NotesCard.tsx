@@ -6,7 +6,7 @@ import type { Lang, NoteProduct, ProductStatus } from "@/types";
 
 export function PriceBadge({ price, lang }: { price: NoteProduct["price"]; lang: Lang }) {
   return (
-    <span className="inline-flex items-baseline gap-2">
+    <span data-sale className="inline-flex items-baseline gap-2">
       <span className="text-2xl font-extrabold text-brand-900">{formatINR(price.amount, lang)}</span>
       {price.originalAmount && price.originalAmount > price.amount && (
         <span className="text-sm text-ink-500 line-through">{formatINR(price.originalAmount, lang)}</span>
@@ -60,7 +60,7 @@ export function NotesCard({ note, lang }: { note: NoteProduct; lang: Lang }) {
         <div className="mt-auto flex items-center justify-between gap-3 pt-5">
           <PriceBadge price={note.price} lang={lang} />
           {available ? (
-            <Link href={`${href}#buy`} className="btn-primary">
+            <Link href={`${href}#buy`} data-sale className="btn-primary">
               {tr(n.buyNow, lang)}
             </Link>
           ) : (

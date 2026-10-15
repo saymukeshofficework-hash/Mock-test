@@ -149,6 +149,7 @@ jobs:
           cp -r assets _site/assets
           cp -r js _site/js
           cp -r tet _site/tet
+          cp -r .well-known _site/.well-known
           # MP CPCT mock + typing tests
           cp -r cpct _site/cpct
           # RRB NTPC Graduate and 10+2 Undergraduate mock tests
