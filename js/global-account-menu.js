@@ -206,7 +206,26 @@
     "कंप्यूटर ज्ञान":"Computer Knowledge","सामान्य विज्ञान":"General Science","सामान्य अध्ययन":"General Studies",
     "मात्रात्मक योग्यता":"Quantitative Aptitude","करंट अफेयर्स":"Current Affairs","मध्यप्रदेश सामान्य ज्ञान":"MP GK",
     "सामान्य हिंदी":"General Hindi","सामान्य अंग्रेज़ी":"General English","बाल विकास एवं शिक्षाशास्त्र":"Child Development and Pedagogy",
-    "सामाजिक विज्ञान":"Social Science","पर्यावरण अध्ययन":"Environmental Studies","शिक्षण अभिरुचि":"Teaching Aptitude","कंप्यूटर जागरूकता":"Computer Awareness"
+    "सामाजिक विज्ञान":"Social Science","पर्यावरण अध्ययन":"Environmental Studies","शिक्षण अभिरुचि":"Teaching Aptitude","कंप्यूटर जागरूकता":"Computer Awareness",
+    "MP CPCT टेस्ट सीरीज़":"MP CPCT Test Series","MP CPCT — पूरी सीरीज़":"MP CPCT — Full Series",
+    "पेपर पैटर्न":"Paper Pattern","पेपर शुरू करें":"Start Paper","पेपर":"Paper","टेस्ट सीरीज़":"Test Series",
+    "पूरी सीरीज़":"Full Series","अनलॉक करें":"Unlock","फ्री":"Free","जल्द आ रहा है":"Coming Soon",
+    "जल्द उपलब्ध होगा":"Coming Soon","सभी पेपर":"All Papers","सिर्फ टाइपिंग":"Typing Only",
+    "छात्र ID":"Student ID","डैशबोर्ड":"Dashboard","लॉगआउट":"Logout","संपर्क":"Contact",
+    "स्तर चुनें, फिर विषय चुनें। हर विषय में 25 टेस्ट, टेस्ट 1 फ्री।":"Choose a level, then a subject. 25 tests per subject; test 1 is free.",
+    "TET — प्राथमिक और माध्यमिक":"TET — Primary and Secondary",
+    "प्राथमिक और माध्यमिक":"Primary and Secondary","विषयवार टेस्ट सीरीज़":"Subject-wise Test Series",
+    "विषय खोलें":"Open Subject","टेस्ट":"Test","अगला":"Next","शुरू करें":"Start",
+    "आपकी पहुँच जाँची जा रही है…":"Checking your access…","पेमेंट खुल रहा है…":"Opening payment…",
+    "पेमेंट जाँच रहे हैं…":"Checking payment…","पेमेंट शुरू नहीं हुआ, फिर से कोशिश करें।":"Payment could not start. Please try again.",
+    "यह पेपर लॉक है।":"This paper is locked.","यह टेस्ट अभी लोड नहीं हो सका। कृपया थोड़ी देर बाद पुनः प्रयास करें।":"This test could not load. Please try again shortly.",
+    "प्रश्न":"Questions","मिनट":"Minutes","अंक":"Marks","सही":"Correct","गलत":"Incorrect","अनुत्तरित":"Unattempted",
+    "समय शेष":"Time Left","हिंदी टाइपिंग":"Hindi Typing","अंग्रेज़ी टाइपिंग":"English Typing",
+    "कंप्यूटर दक्षता":"Computer Proficiency","अपठित गद्यांश":"Reading Comprehension","तर्कशक्ति":"Reasoning",
+    "सामान्य ज्ञान":"General Awareness","गणित":"Mathematics","पहले लॉगिन करें।":"Please log in first.",
+    "सीरीज़ अनलॉक है।":"Series unlocked.","सीरीज़ अनलॉक हो गई।":"Series unlocked.",
+    "25 पूरे पेपर":"25 full papers","पेपर 1 फ्री।":"Paper 1 is free.",
+    "स्तर चुनें":"Choose a level","विषय चुनें":"Choose a subject","प्राथमिक":"Primary","माध्यमिक":"Secondary"
   };
   const TTH_ORIGINALS = new WeakMap();
   let tthObserver = null;
@@ -223,6 +242,17 @@
     if(original===undefined){original=node.nodeValue;TTH_ORIGINALS.set(node,original);}
     const trimmed=original.trim();
     if(!trimmed) return;
+    // Prefer the matching half of an explicitly bilingual label such as "हिंदी / English".
+    // This lets one switch translate titles and card labels without changing question content.
+    const paired=trimmed.split(/\s+[\/|｜]\s+/);
+    if(paired.length>1){
+      const scoreHindi=x=>(x.match(/[\u0900-\u097F]/g)||[]).length;
+      const scoreLatin=x=>(x.match(/[A-Za-z]/g)||[]).length;
+      const hiPart=paired.filter(x=>scoreHindi(x)>0).sort((a,b)=>scoreHindi(b)-scoreHindi(a))[0];
+      const enPart=paired.filter(x=>scoreLatin(x)>0).sort((a,b)=>scoreLatin(b)-scoreLatin(a))[0];
+      if(lang==="hi"&&hiPart&&scoreHindi(hiPart)>=scoreLatin(hiPart)) { node.nodeValue=original.replace(trimmed,hiPart); return; }
+      if(lang==="en"&&enPart&&scoreLatin(enPart)>=scoreHindi(enPart)) { node.nodeValue=original.replace(trimmed,enPart); return; }
+    }
     let translated=trimmed;
     if(lang==="hi"){
       translated=TTH_TEXT[trimmed] || Object.entries(TTH_TEXT).find(([en])=>en.toLowerCase()===trimmed.toLowerCase())?.[1] || trimmed;
