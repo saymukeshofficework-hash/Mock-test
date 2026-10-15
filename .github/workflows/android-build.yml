@@ -22,6 +22,11 @@ jobs:
           [ -n "$KEYSTORE_B64" ] || { echo "Missing ANDROID_KEYSTORE_BASE64 secret"; exit 1; }
           echo "$KEYSTORE_B64" | base64 -d > upload-keystore.jks
           npm i -g @bubblewrap/cli@1.22.4
+          # Bubblewrap expects <sdk>/tools; the runner SDK ships cmdline-tools/latest instead.
+          SDKM="$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager"
+          [ -e "$ANDROID_HOME/tools" ] || sudo ln -s "$ANDROID_HOME/cmdline-tools/latest" "$ANDROID_HOME/tools"
+          yes | sudo env JAVA_HOME="$JAVA_HOME" "$SDKM" --licenses >/dev/null || true
+          sudo env JAVA_HOME="$JAVA_HOME" "$SDKM" --install "build-tools;34.0.0" "platforms;android-35"
           mkdir -p ~/.bubblewrap
           echo "{\"jdkPath\":\"$JAVA_HOME\",\"androidSdkPath\":\"$ANDROID_HOME\"}" > ~/.bubblewrap/config.json
           bubblewrap update --manifest=twa-manifest.json --skipVersionUpgrade || true
