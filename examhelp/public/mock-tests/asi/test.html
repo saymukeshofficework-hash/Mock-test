@@ -1291,7 +1291,7 @@ const UI = {
 				document.getElementById("submitBtn").textContent = u.submit;
 				document.getElementById("langBtn").textContent = u.langBtn;
 				document.getElementById("langSel").value = lang;
-				document.getElementById("dHome").innerHTML = u.dHome;
+				{ const dh = document.getElementById("dHome"); if (dh) dh.innerHTML = u.dHome; }
 				document.getElementById("dTimeLbl").textContent = u.dTimeLbl;
 				document.getElementById("dQType").textContent = u.dQType;
 				document.getElementById("dMarks").textContent = u.dMarks;
