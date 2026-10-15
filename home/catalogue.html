@@ -396,21 +396,44 @@ Object.assign(T,{
 const KEY='tetLang'; let lang='hi';
 try { lang=localStorage.getItem(KEY)==='en'?'en':'hi'; } catch(e){}
 const originalNodes=new WeakMap();
+function translateText(original){
+  const trimmed=original.trim();
+  if(!trimmed) return original;
+  if(lang!=='en') return original;
+  const normalized=trimmed.replace(/\\s+/g,' ').trim();
+  if(T[normalized]) return original.replace(trimmed,T[normalized]);
+  let translated=trimmed;
+  const keys=Object.keys(T).filter(k=>k.trim().length>=5).sort((a,b)=>b.length-a.length);
+  for(const key of keys){
+    if(translated.includes(key)) translated=translated.split(key).join(T[key]);
+  }
+  return original.replace(trimmed,translated);
+}
 function translateTree(){
  const walker=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);
- let node; while((node=walker.nextNode())){
+ let node;
+ while((node=walker.nextNode())){
+  const parent=node.parentElement;
+  if(parent && parent.closest('script,style,noscript,#languageSwitch')) continue;
   if(!originalNodes.has(node)) originalNodes.set(node,node.nodeValue);
-  const original=originalNodes.get(node), trimmed=original.trim();
-  if(!trimmed) continue;
-  const value=lang==='en'?(T[trimmed]||trimmed):trimmed;
-  const leading=original.match(/^\\s*/)[0], trailing=original.match(/\\s*$/)[0];
-  node.nodeValue=leading+value+trailing;
+  const original=originalNodes.get(node);
+  node.nodeValue=lang==='en'?translateText(original):original;
  }
- const q=document.getElementById('q'); if(q) q.placeholder=lang==='en'?'Search notes, tests, High Court…':'खोजें — नोट्स, टेस्ट, हाई कोर्ट…';
- document.querySelectorAll('#languageSwitch [data-lang]').forEach(b=>{const active=b.dataset.lang===lang;b.setAttribute('aria-pressed',String(active));b.classList.toggle('active',active);});
+ const q=document.getElementById('q');
+ if(q) q.placeholder=lang==='en'?'Search notes, tests, High Court…':'खोजें — नोट्स, टेस्ट, हाई कोर्ट…';
+ document.querySelectorAll('#languageSwitch [data-lang]').forEach(b=>{
+  const active=b.dataset.lang===lang;
+  b.setAttribute('aria-pressed',String(active));
+  b.classList.toggle('active',active);
+ });
  document.documentElement.lang=lang;
- const title=document.querySelector('title'); if(title) title.textContent=lang==='en'?'Courses & Test Series | MP Govt Exams, TET, RRB NTPC, CPCT – TETTESTHUB':'कोर्स और टेस्ट सीरीज़ | MP सरकारी परीक्षा, TET, RRB NTPC, CPCT – TETTESTHUB';
- const count=document.getElementById('count'); if(count){const n=[...document.querySelectorAll('#grid > a')].filter(x=>x.style.display!=='none').length;count.textContent=n+(lang==='en'?' courses':' कोर्स / courses');}
+ const title=document.querySelector('title');
+ if(title) title.textContent=lang==='en'?'Courses & Test Series | MP Govt Exams, TET, RRB NTPC, CPCT – TETTESTHUB':'कोर्स और टेस्ट सीरीज़ | MP सरकारी परीक्षा, TET, RRB NTPC, CPCT – TETTESTHUB';
+ const count=document.getElementById('count');
+ if(count){
+  const n=[...document.querySelectorAll('#grid > a')].filter(x=>x.style.display!=='none').length;
+  count.textContent=n+(lang==='en'?' courses':' कोर्स / courses');
+ }
 }
 document.querySelectorAll('#languageSwitch [data-lang]').forEach(btn=>btn.addEventListener('click',()=>{lang=btn.dataset.lang==='en'?'en':'hi';try{localStorage.setItem(KEY,lang)}catch(e){};translateTree();}));
 window.addEventListener('DOMContentLoaded',translateTree);
