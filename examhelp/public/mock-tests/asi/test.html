@@ -803,7 +803,7 @@ function showMsg(hi, en) {
   const back = document.getElementById("backLink"); if (back) back.textContent = L === "en" ? "\u2190 Back to all tests" : "\u2190 सभी टेस्ट पर वापस जाएँ";
 }
 function loadTest() {
-  if (TEST_NO === "01") return fetch("tests/" + TEST_NO + ".json").then((r) => { if (!r.ok) throw new Error("x"); return r.json(); });
+  if (TEST_NO === "01") return fetch("/examhelp/mock-tests/asi/tests/01.json").then((r) => { if (!r.ok) throw new Error("x"); return r.json(); });
   let tok = null; try { tok = localStorage.getItem("testhub_dl_asi-tests"); } catch (e) {}
   if (!tok) return Promise.reject(new Error("locked"));
   return fetch(CHECKOUT_URL, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ action: "test", token: tok, n: +TEST_NO, series: "asi" }) })
