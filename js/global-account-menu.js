@@ -222,6 +222,7 @@
   }
   function installLanguageToggle(){
     let btn=document.getElementById("langToggle")||document.getElementById("tthLanguageToggle");
+    const hadExistingToggle=!!btn;
     if(!btn){
       btn=document.createElement("button");btn.type="button";btn.id="tthLanguageToggle";btn.className="tth-language-toggle";
       btn.style.cssText="border:1px solid #8abbb0;background:#fff;color:#155e55;border-radius:8px;padding:6px 10px;font-weight:800;cursor:pointer;white-space:nowrap;";
@@ -232,7 +233,9 @@
       btn.dataset.tthLangBound="true";
       // Existing login button calls toggleLang(); apply the page-wide dictionary afterwards.
       btn.addEventListener("click",()=>{setTimeout(()=>{
-        try{localStorage.setItem("tetLang",tthLang()==="hi"?"en":"hi");}catch(_){}
+        if(!hadExistingToggle){
+          try{localStorage.setItem("tetLang",tthLang()==="hi"?"en":"hi");}catch(_){}
+        }
         tthApplyLanguage();
       },0);});
     }
