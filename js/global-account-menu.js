@@ -184,6 +184,18 @@
     "Please enter your email ID and password.":"कृपया ईमेल आईडी और पासवर्ड दर्ज करें।",
     "Incorrect email ID or password.":"ईमेल आईडी या पासवर्ड गलत है।","Something went wrong. Please try again.":"कुछ गलत हो गया। कृपया पुनः प्रयास करें।",
     "Account created successfully.":"खाता सफलतापूर्वक बन गया।","Send reset link":"रीसेट लिंक भेजें",
+    "Login isn't available yet. Please try again later.":"लॉगिन अभी उपलब्ध नहीं है। कृपया बाद में फिर प्रयास करें।",
+    "Please fill all fields.":"कृपया सभी फ़ील्ड भरें।","Password must be at least 6 characters.":"पासवर्ड कम से कम 6 अक्षरों का होना चाहिए।",
+    "This email is already registered. Please login.":"यह ईमेल पहले से रजिस्टर है। कृपया लॉगिन करें।",
+    "Unable to create account.":"खाता नहीं बन सका।","Account created. Please check your email to confirm your account.":"खाता बन गया है। पुष्टि के लिए अपना ईमेल देखें।",
+    "Please enter the registered email address.":"कृपया रजिस्टर्ड ईमेल दर्ज करें।",
+    "Email confirmation isn't available yet. Please try again later.":"ईमेल पुष्टि अभी उपलब्ध नहीं है। कृपया बाद में प्रयास करें।",
+    "Unable to resend the confirmation email.":"पुष्टि ईमेल दोबारा नहीं भेजा जा सका।",
+    "Confirmation email sent again. Please check Inbox, Spam and Promotions.":"पुष्टि ईमेल फिर से भेज दिया गया है। इनबॉक्स, स्पैम और प्रमोशन देखें।",
+    "Please enter a valid registered email address.":"कृपया मान्य रजिस्टर्ड ईमेल दर्ज करें।",
+    "Password reset isn't available yet. Please try again later.":"पासवर्ड रीसेट अभी उपलब्ध नहीं है। कृपया बाद में प्रयास करें।",
+    "Unable to send the reset link.":"रीसेट लिंक नहीं भेजा जा सका।",
+    "Reset link sent. Please check your email inbox and spam folder.":"रीसेट लिंक भेज दिया गया है। इनबॉक्स और स्पैम फ़ोल्डर देखें।",
     "General Knowledge":"सामान्य ज्ञान","General Awareness":"सामान्य जागरूकता","Mathematics":"गणित","Reasoning":"तर्कशक्ति",
     "English":"अंग्रेज़ी","Hindi":"हिंदी","Computer Knowledge":"कंप्यूटर ज्ञान","General Science":"सामान्य विज्ञान",
     "General Studies":"सामान्य अध्ययन","Quantitative Aptitude":"मात्रात्मक योग्यता","Current Affairs":"करंट अफेयर्स",
@@ -272,6 +284,7 @@
   }
   function installLanguageToggle(){
     let btn=document.getElementById("langToggle")||document.getElementById("tthLanguageToggle")||document.getElementById("langBtn")||document.getElementById("langBtnName")||document.getElementById("langBtnResult");
+    if(btn && btn.hidden) btn=null;
     const hadExistingToggle=!!btn;
     if(!btn && !document.getElementById("langSel")){
       btn=document.createElement("button");btn.type="button";btn.id="tthLanguageToggle";btn.className="tth-language-toggle";
