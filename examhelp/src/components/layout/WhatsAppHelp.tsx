@@ -1,7 +1,13 @@
+"use client";
+
+import { usePathname } from "next/navigation";
 import { site } from "@/lib/site";
 
 /** Floating WhatsApp help button (issues with payment, download, tests). */
 export function WhatsAppHelp() {
+  const pathname = usePathname();
+  // Hide the floating WhatsApp icon on the daily current-affairs page only.
+  if (pathname.replace(/\/$/, "") === "/current-affairs") return null;
   if (!site.contact.whatsapp) return null;
   const msg = encodeURIComponent("नमस्ते TETTESTHUB, मुझे सहायता चाहिए: ");
   return (
