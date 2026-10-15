@@ -1,7 +1,6 @@
 name: Publish Daily Current Affairs
 on:
   schedule:
-    # 04:00 Asia/Kolkata = 22:30 UTC on the previous day
     - cron: "30 22 * * *"
   push:
     branches: [main]
@@ -33,7 +32,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: Generate and publish today's free quiz
+      - name: Generate and publish bilingual free quizzes
         env:
           START_DATE: ${{ inputs.start_date }}
           END_DATE: ${{ inputs.end_date }}
@@ -50,18 +49,9 @@ jobs:
             start="${START_DATE:-2026-01-01}"
             end="${END_DATE:-2026-10-15}"
           fi
-          date_re='^[0-9]{4}-[0-9]{2}-[0-9]{2}
-          [[ "$start" < "$end" || "$start" == "$end" ]] || { echo "start_date must not be after end_date"; exit 2; }
-          [[ "$start" >= "2026-01-01" && "$end" <= "$today" ]] || { echo "Date range must be from 2026-01-01 through today"; exit 2; }
-          current="$start"
-          while [[ "$current" < "$end" || "$current" == "$end" ]]; do
-            echo "Generating bilingual daily quiz for $current"
-            TARGET_DATE="$current" node scripts/daily-current-affairs.mjs
-            current="$(date -u -d "$current + 1 day" +%F)"
-            sleep 2
-          done
-
-          [[ "$start" =~ $date_re && "$end" =~ $date_re ]] || { echo "Dates must use YYYY-MM-DD"; exit 2; }
+          date_re='^[0-9]{4}-[0-9]{2}-[0-9]{2}$'
+          printf '%s\n' "$start" | grep -Eq "$date_re"
+          printf '%s\n' "$end" | grep -Eq "$date_re"
           [[ "$start" < "$end" || "$start" == "$end" ]] || { echo "start_date must not be after end_date"; exit 2; }
           [[ "$start" >= "2026-01-01" && "$end" <= "$today" ]] || { echo "Date range must be from 2026-01-01 through today"; exit 2; }
           current="$start"
