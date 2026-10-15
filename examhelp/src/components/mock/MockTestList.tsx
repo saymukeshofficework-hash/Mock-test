@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { CheckCircle2, CreditCard, FileText, Lock, PlayCircle, Unlock } from "lucide-react";
 import { MOCK_SERIES } from "@/data/mockTests";
 import { buyNotes, checkout, claimPurchase, downloadPath, mainSiteUnlock } from "@/lib/checkout";
@@ -34,6 +35,10 @@ export function MockTestList({ series = "ag3" }: { series?: string }) {
   const [canBuy, setCanBuy] = useState(false);
   const [payState, setPayState] = useState("idle");
   const [payErr, setPayErr] = useState("");
+  useEffect(() => {
+    document.body.classList.add("mock-test-list-page");
+    return () => document.body.classList.remove("mock-test-list-page");
+  }, []);
   // RRB NTPC Graduate tests open on the main site: a paid token adds them to the student's profile
   const mainSite = S.product === "rrbg-tests" || S.product === "rrbu-tests";
   useEffect(() => {
@@ -115,18 +120,21 @@ export function MockTestList({ series = "ag3" }: { series?: string }) {
 
   return (
     <div className="container-page py-8 sm:py-12">
-      <div className="flex items-start justify-between gap-4">
-        <div>
+      <div className="flex min-w-0 items-start justify-between gap-3">
+        <div className="min-w-0 flex-1">
           <h1 className="text-2xl font-extrabold text-brand-900 sm:text-3xl">{S.title[lang]}</h1>
           <p className="mt-2 max-w-2xl text-ink-600">{S.sub[lang]}</p>
         </div>
-        <div className="inline-flex shrink-0 rounded-full border border-ink-200 bg-white p-0.5 text-sm font-semibold" role="group" aria-label="भाषा / Language">
+        <div className="flex shrink-0 flex-col items-end gap-2">
+          <Link href="/" className="inline-flex min-h-8 items-center justify-center rounded-lg border border-brand-200 bg-white px-3 py-1 text-sm font-semibold text-brand-700 shadow-sm hover:bg-brand-50">{lang === "hi" ? "होम" : "Home"}</Link>
+          <div className="inline-flex rounded-full border border-ink-200 bg-white p-0.5 text-sm font-semibold" role="group" aria-label="भाषा / Language">
           {(["hi", "en"] as Lang[]).map((l) => (
             <button key={l} type="button" onClick={() => switchLang(l)} aria-pressed={lang === l}
               className={`rounded-full px-3 py-1 ${lang === l ? "bg-brand-700 text-white" : "text-ink-700"}`}>
               {l === "hi" ? "हिंदी" : "English"}
             </button>
           ))}
+          </div>
         </div>
       </div>
 
