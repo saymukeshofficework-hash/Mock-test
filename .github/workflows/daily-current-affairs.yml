@@ -3,6 +3,10 @@ on:
   schedule:
     # 04:00 Asia/Kolkata = 22:30 UTC on the previous day
     - cron: "30 22 * * *"
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/daily-current-affairs.yml"
   workflow_dispatch:
     inputs:
       start_date:
@@ -38,9 +42,14 @@ jobs:
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
         run: |
           set -euo pipefail
-          start="$START_DATE"
-          end="$END_DATE"
           today="$(TZ=Asia/Kolkata date +%F)"
+          if [[ "$GITHUB_EVENT_NAME" == "schedule" ]]; then
+            start="${START_DATE:-$today}"
+            end="${END_DATE:-$today}"
+          else
+            start="${START_DATE:-2026-01-01}"
+            end="${END_DATE:-2026-10-15}"
+          fi
           [[ "$start" =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}$ && "$end" =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}$ ]] || { echo "Dates must use YYYY-MM-DD"; exit 2; }
           [[ "$start" < "$end" || "$start" == "$end" ]] || { echo "start_date must not be after end_date"; exit 2; }
           [[ "$start" >= "2026-01-01" && "$end" <= "$today" ]] || { echo "Date range must be from 2026-01-01 through today"; exit 2; }
