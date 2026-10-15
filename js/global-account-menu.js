@@ -244,9 +244,9 @@
     if(!trimmed) return;
     // Prefer the matching half of an explicitly bilingual label such as "हिंदी / English".
     // This lets one switch translate titles and card labels without changing question content.
-    const paired=trimmed.split(/\\s+[\\/|｜]\\s+/);
+    const paired=trimmed.split(/\s+[\/|｜]\s+/);
     if(paired.length>1){
-      const scoreHindi=x=>(x.match(/[\\u0900-\\u097F]/g)||[]).length;
+      const scoreHindi=x=>(x.match(/[\u0900-\u097F]/g)||[]).length;
       const scoreLatin=x=>(x.match(/[A-Za-z]/g)||[]).length;
       const hiPart=paired.filter(x=>scoreHindi(x)>0).sort((a,b)=>scoreHindi(b)-scoreHindi(a))[0];
       const enPart=paired.filter(x=>scoreLatin(x)>0).sort((a,b)=>scoreLatin(b)-scoreLatin(a))[0];
