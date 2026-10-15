@@ -1,5 +1,8 @@
 /* Shared TET Test Hub account menu for individual exam and typing pages. */
 (function () {
+  // auth.js and i18n.js also inject this file; two copies fight over the same text and freeze the page.
+  if (window.__tthAccountMenuLoaded) return;
+  window.__tthAccountMenuLoaded = true;
   let path = window.location.pathname;
   while (path.length > 1 && path.endsWith("/")) path = path.slice(0, -1);
   if (path === "/" || path === "/index.html") return;
@@ -250,8 +253,10 @@
       const scoreLatin=x=>(x.match(/[A-Za-z]/g)||[]).length;
       const hiPart=paired.filter(x=>scoreHindi(x)>0).sort((a,b)=>scoreHindi(b)-scoreHindi(a))[0];
       const enPart=paired.filter(x=>scoreLatin(x)>0).sort((a,b)=>scoreLatin(b)-scoreLatin(a))[0];
-      if(lang==="hi"&&hiPart&&scoreHindi(hiPart)>=scoreLatin(hiPart)) { node.nodeValue=original.replace(trimmed,hiPart); return; }
-      if(lang==="en"&&enPart&&scoreLatin(enPart)>=scoreHindi(enPart)) { node.nodeValue=original.replace(trimmed,enPart); return; }
+      // Write only when the text really changes: an equal write still fires the
+      // MutationObserver below, which looped forever and froze test pages.
+      const part=lang==="hi"&&hiPart&&scoreHindi(hiPart)>=scoreLatin(hiPart)?hiPart:lang==="en"&&enPart&&scoreLatin(enPart)>=scoreHindi(enPart)?enPart:null;
+      if(part){ const next=original.replace(trimmed,part); if(node.nodeValue!==next) node.nodeValue=next; return; }
     }
     let translated=trimmed;
     if(lang==="hi"){
