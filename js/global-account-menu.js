@@ -237,36 +237,48 @@
         });
       });
     }
-    const btn=document.getElementById("langToggle")||document.getElementById("tthLanguageToggle");
-    if(btn) btn.textContent=lang==="hi"?"English":"हिंदी";
-    // Keep the complete question paper in the same language as the interface.
-    ["defaultLang","qLangSelect"].forEach(id=>{
+    ["langToggle","tthLanguageToggle","langBtn","langBtnName","langBtnResult"].forEach(id=>{
+      const btn=document.getElementById(id);
+      if(btn) btn.textContent=lang==="hi"?"English":"हिंदी";
+    });
+    // Keep every test engine's own language preference synchronized with the site.
+    try { localStorage.setItem("testhub_lang_pref", lang); } catch (_) {}
+    ["defaultLang","qLangSelect","langSel"].forEach(id=>{
       const select=document.getElementById(id);
-      if(select && Array.from(select.options).some(o=>o.value===lang)) select.value=lang;
+      if(select && Array.from(select.options).some(o=>o.value===lang) && select.value!==lang){
+        select.value=lang;
+        if(id==="langSel") select.dispatchEvent(new Event("change",{bubbles:true}));
+      }
     });
     if(typeof window.renderQuestion==="function" && document.getElementById("testScreen")?.style.display==="block"){
       try{window.renderQuestion();}catch(_){}
     }
   }
   function installLanguageToggle(){
-    let btn=document.getElementById("langToggle")||document.getElementById("tthLanguageToggle");
+    let btn=document.getElementById("langToggle")||document.getElementById("tthLanguageToggle")||document.getElementById("langBtn")||document.getElementById("langBtnName")||document.getElementById("langBtnResult");
     const hadExistingToggle=!!btn;
-    if(!btn){
+    if(!btn && !document.getElementById("langSel")){
       btn=document.createElement("button");btn.type="button";btn.id="tthLanguageToggle";btn.className="tth-language-toggle";
       btn.style.cssText="border:1px solid #8abbb0;background:#fff;color:#155e55;border-radius:8px;padding:6px 10px;font-weight:800;cursor:pointer;white-space:nowrap;";
       const header=document.querySelector("header.topbar .topbar-left")||document.querySelector(".site-header")||document.querySelector(".hdr .bar")||document.querySelector(".tbar")||document.querySelector("header");
       if(header) header.appendChild(btn); else {btn.style.cssText+=";position:fixed;top:12px;right:12px;z-index:99999";document.body.appendChild(btn);}
     }
-    if(btn.dataset.tthLangBound!=="true"){
-      btn.dataset.tthLangBound="true";
-      // Existing login button calls toggleLang(); apply the page-wide dictionary afterwards.
-      btn.addEventListener("click",()=>{setTimeout(()=>{
-        if(!hadExistingToggle){
-          try{localStorage.setItem("tetLang",tthLang()==="hi"?"en":"hi");}catch(_){}
-        }
+    const controls=["langToggle","tthLanguageToggle","langBtn","langBtnName","langBtnResult"].map(id=>document.getElementById(id)).filter(Boolean);
+    if(!controls.length && document.getElementById("langSel")) controls.push(document.getElementById("langSel"));
+    controls.forEach(control=>{
+      if(control.dataset.tthLangBound==="true") return;
+      control.dataset.tthLangBound="true";
+      control.addEventListener("click",()=>setTimeout(()=>{
+        const selected=(function(){try{return localStorage.getItem("testhub_lang_pref")||localStorage.getItem("tetLang")||"hi";}catch(_){return "hi";}})();
+        try{localStorage.setItem("tetLang",selected);localStorage.setItem("testhub_lang_pref",selected);}catch(_){}
         tthApplyLanguage();
-      },0);});
-    }
+      },0));
+      if(control.tagName==="SELECT") control.addEventListener("change",()=>setTimeout(()=>{
+        const selected=control.value==="en"?"en":"hi";
+        try{localStorage.setItem("tetLang",selected);localStorage.setItem("testhub_lang_pref",selected);}catch(_){}
+        tthApplyLanguage();
+      },0));
+    });
     tthApplyLanguage();
     if(!tthObserver && document.body){
       tthObserver=new MutationObserver(records=>records.forEach(rec=>{
