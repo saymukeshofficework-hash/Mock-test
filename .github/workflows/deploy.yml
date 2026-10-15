@@ -210,6 +210,10 @@ jobs:
           # TETTESTHUB exam help (/examhelp/) static export — includes the latest Exam Hub source branch (fixed landing component)
           mkdir -p _site/examhelp
           cp -r examhelp/out/. _site/examhelp/
+          # Explicitly publish the standalone mock-test engines and their free JSON data.
+          # Keep these public assets available even if Next static export omits public files.
+          mkdir -p _site/examhelp/mock-tests
+          cp -r examhelp/public/mock-tests/. _site/examhelp/mock-tests/
 
           # Old /testhub/ links (ads, QR codes in sample PDFs) redirect to the same page under /examhelp/.
           python3 - <<'PY'
