@@ -521,7 +521,14 @@ header.site-header nav{padding-right:145px}
   I18N_ONCHANGE = () => { translateHomepage(getLang()); translateHomepageStable(getLang()); };
   applyI18n();
   translateHomepageStable(getLang());
-  const homeLangObserver = new MutationObserver(() => translateHomepageStable(getLang()));
+  // Pause the observer while translating, otherwise its own text writes re-trigger it
+  // in an endless loop and the homepage freezes.
+  const homeLangObserver = new MutationObserver(() => {
+    homeLangObserver.disconnect();
+    translateHomepageStable(getLang());
+    homeLangObserver.takeRecords();
+    homeLangObserver.observe(document.body, { childList: true, subtree: true });
+  });
   homeLangObserver.observe(document.body, { childList: true, subtree: true });
 </script>
 </body>
