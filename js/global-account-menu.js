@@ -11,11 +11,12 @@
       if (link.querySelector("svg") && !link.textContent.trim()) link.remove();
     });
 
-    const header = document.querySelector("header.topbar") || document.querySelector(".hdr .bar");
+    const header = document.querySelector("header.topbar") || document.querySelector(".hdr .bar") || document.querySelector(".tbar");
     if (!header || header.dataset.tthHeaderReady === "true") return;
     header.dataset.tthHeaderReady = "true";
 
     const isExamTopbar = header.matches("header.topbar");
+    const isCatalogueBar = header.matches(".hdr .bar");
     const left = header.querySelector(".topbar-left") || header;
     let home = header.querySelector("#tthTopHomeLink");
     if (!home) {
@@ -34,7 +35,7 @@
     if (!isExamTopbar) {
       const logo = header.querySelector("a.logo");
       if (logo) logo.href = "/index.html";
-      return;
+      if (!isCatalogueBar) return;
     }
 
     let brand = header.querySelector(".tth-header-brand");
@@ -100,9 +101,11 @@
     style.id = "tth-mobile-header-style";
     style.textContent = `
       header.topbar .topbar-left { display:flex; align-items:center; flex-wrap:wrap; gap:8px; min-width:0; flex:1 1 100%; }
-      header.topbar .tth-top-home-link, .hdr .bar .tth-top-home-link { display:inline-flex; align-items:center; justify-content:center; padding:6px 11px; border-radius:8px; background:#16856f; border:1px solid #8abbb0; color:#fff; font-size:13px; font-weight:800; text-decoration:none; white-space:nowrap; }
-      header.topbar .tth-top-home-link:hover, .hdr .bar .tth-top-home-link:hover { background:#0f6b5f; }
+      header.topbar .tth-top-home-link, .hdr .bar .tth-top-home-link, .tbar .tth-top-home-link { display:inline-flex; align-items:center; justify-content:center; padding:6px 11px; border-radius:8px; background:#16856f; border:1px solid #8abbb0; color:#fff; font-size:13px; font-weight:800; text-decoration:none; white-space:nowrap; }
+      header.topbar .tth-top-home-link:hover, .hdr .bar .tth-top-home-link:hover, .tbar .tth-top-home-link:hover { background:#0f6b5f; }
       .hdr .bar { justify-content:flex-start; flex-wrap:wrap; }
+      .tbar { justify-content:space-between !important; }
+      .tbar .tth-top-home-link { margin-right:auto; }
       .hdr .bar .logo { margin-right:auto; }
       header.topbar .tth-header-brand { color:#fff; font-size:16px; font-weight:700; white-space:nowrap; }
       header.topbar .tth-student-account-menu { position:relative; flex:0 0 auto; z-index:1002; color:#fff; font-size:12px; }
