@@ -1,0 +1,20 @@
+{
+  "packageId": "in.tettesthub.app",
+  "host": "tettesthub.in",
+  "name": "TETTESTHUB – Mock Tests & Exam Prep",
+  "launcherName": "TETTESTHUB",
+  "startUrl": "/examhelp/?source=android",
+  "webManifestUrl": "https://tettesthub.in/examhelp/manifest.webmanifest",
+  "iconUrl": "https://tettesthub.in/examhelp/icons/icon-512.png",
+  "maskableIconUrl": "https://tettesthub.in/examhelp/icons/maskable-512.png",
+  "themeColor": "#163377",
+  "navigationColor": "#163377",
+  "backgroundColor": "#ffffff",
+  "display": "standalone",
+  "orientation": "portrait",
+  "enableNotifications": false,
+  "appVersionName": "1.0.0",
+  "appVersionCode": 1,
+  "signingKey": { "path": "./upload-keystore.jks", "alias": "upload" },
+  "fallbackType": "customtabs"
+}

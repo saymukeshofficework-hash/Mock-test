@@ -218,3 +218,6 @@ body.mock-test-list-page > a[aria-label="WhatsApp पर सहायता / He
 body.mock-test-list-page {
   overflow-x: clip;
 }
+
+/* Android app (Google Play): hide anything that sells digital goods. Set by public/app-mode.js. */
+html[data-app] [data-sale] { display: none !important; }

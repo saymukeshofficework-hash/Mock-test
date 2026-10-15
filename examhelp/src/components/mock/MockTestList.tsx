@@ -155,7 +155,7 @@ export function MockTestList({ series = "ag3" }: { series?: string }) {
         <p className="mt-1 text-xs text-ink-500">{S.neg[lang]}</p>
       </section>
 
-      <section className="card mt-6 flex flex-col gap-4 border-accent-100 bg-accent-50 p-5 sm:flex-row sm:items-center sm:justify-between">
+      <section data-sale className="card mt-6 flex flex-col gap-4 border-accent-100 bg-accent-50 p-5 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h2 className="font-bold text-ink-900">{S.unlockTitle[lang]}</h2>
           <p className="mt-1 text-sm text-ink-600">{S.unlockSub[lang]}</p>
