@@ -190,7 +190,7 @@
   function tthLang(){ try{return localStorage.getItem("tetLang") || "hi";}catch(_){return "hi";} }
   function tthTranslateNode(node, lang){
     if(!node || node.nodeType!==Node.TEXT_NODE || !node.parentElement) return;
-    if(node.parentElement.closest("script,style,textarea,option[data-keep-language],#qText,#optionsList,.qtext,.option")) return;
+    if(node.parentElement.closest("script,style,textarea,option[data-keep-language],#qText,#qtext,#optionsList,#options,.qtext,.rqtext,.rsol,.option")) return;
     let original=TTH_ORIGINALS.get(node);
     if(original===undefined){original=node.nodeValue;TTH_ORIGINALS.set(node,original);}
     const trimmed=original.trim();
