@@ -1,51 +1,70 @@
-/* TET mock papers keep their existing text Home link; other exam/typing papers use a text option, not a floating icon. */
+/* Compact shared header for exam and typing pages. Home always opens the actual homepage. */
 (function () {
   let path = window.location.pathname;
   while (path.length > 1 && path.endsWith("/")) path = path.slice(0, -1);
-  const isHome = path === "/" || path === "/index.html";
-  const isTetMock = /^\/tet-mock-test-\d+\.html$/.test(path);
-  if (isHome) {
-    // index.html owns the signed-in account menu and fills in the student's ID.
-    return;
+  if (path === "/" || path === "/index.html") return;
+
+  function addTestHeader() {
+    const header = document.querySelector("header.topbar");
+    if (!header || header.dataset.tthHeaderReady === "true") return;
+    header.dataset.tthHeaderReady = "true";
+
+    const left = header.querySelector(".topbar-left") || header;
+    let home = header.querySelector(".home-link");
+    if (!home) {
+      home = document.createElement("a");
+      home.className = "home-link";
+      home.href = "/index.html";
+      home.textContent = "🏠 होम";
+      left.insertBefore(home, left.firstChild);
+    }
+    home.href = "/index.html";
+    home.setAttribute("aria-label", "होम पेज पर जाएँ");
+    home.textContent = "🏠 होम";
+
+    let brand = header.querySelector(".tth-header-brand");
+    if (!brand) {
+      brand = document.createElement("span");
+      brand.className = "tth-header-brand";
+      brand.textContent = "TET Test Hub";
+      left.insertBefore(brand, home);
+    }
+
+    let identity = header.querySelector(".tth-student-identity");
+    if (!identity) {
+      identity = document.createElement("div");
+      identity.className = "tth-student-identity";
+      identity.textContent = "छात्र ID";
+      const idSource = document.querySelector("[data-student-id], #studentId, #studentID, .student-id, .student-id-value");
+      if (idSource) {
+        const value = idSource.getAttribute("data-student-id") || idSource.textContent.trim();
+        if (value) identity.textContent = "छात्र ID: " + value.replace(/^छात्र\s*ID\s*:?\s*/i, "");
+      }
+      left.appendChild(identity);
+    }
   }
 
-  function applyHomeNavigation() {
-    const floatingLinks = Array.from(document.querySelectorAll("#tth-floating-home"));
-    const hadFloatingHome = floatingLinks.length > 0;
-    const floatingStyles = Array.from(document.querySelectorAll("#tth-floating-home-style"));
-    floatingLinks.forEach(link => link.remove());
-    floatingStyles.forEach(style => style.remove());
-
-    if (isTetMock) return;
-
-    const hasHeaderHome = !!document.querySelector(".topbar .home-link, header .home-link");
-    const isExamOrTypingPage =
-      hadFloatingHome ||
-      path === "/exam-test.html" ||
-      path === "/bbc-english/test.html" ||
-      path.startsWith("/cpct/") ||
-      path.startsWith("/typing-practice/") ||
-      path.startsWith("/examhelp/");
-
-    if (hasHeaderHome || !isExamOrTypingPage) return;
-    if (document.getElementById("tth-top-home")) return;
-
+  function installStyles() {
+    if (document.getElementById("tth-mobile-header-style")) return;
     const style = document.createElement("style");
-    style.id = "tth-top-home-style";
-    style.textContent = "#tth-top-home{display:inline-flex;align-items:center;justify-content:center;margin:8px 12px;padding:7px 13px;border-radius:8px;background:#0f766e;color:#fff;border:1px solid rgba(255,255,255,.9);box-shadow:0 2px 6px rgba(0,0,0,.16);font:600 14px/1.3 system-ui,sans-serif;text-decoration:none;position:relative;z-index:10}#tth-top-home:focus-visible{outline:3px solid #e8a33d;outline-offset:3px}";
+    style.id = "tth-mobile-header-style";
+    style.textContent = `
+      header.topbar .topbar-left { display:flex; align-items:center; flex-wrap:wrap; gap:8px; min-width:0; flex:1 1 100%; }
+      header.topbar .tth-header-brand { color:#fff; font-size:16px; font-weight:700; white-space:nowrap; }
+      header.topbar .home-link { margin:0; padding:6px 10px; font-size:13px; }
+      header.topbar .tth-student-identity { flex-basis:100%; width:100%; min-width:0; font-size:12px; line-height:1.25; overflow-wrap:anywhere; color:#e7f4f1; margin-top:-3px; }
+      header.topbar h1 { min-width:0; }
+      @media(max-width:600px) {
+        header.topbar { padding:7px 10px; gap:5px; }
+        header.topbar .topbar-left { gap:7px; }
+        header.topbar .tth-header-brand { font-size:15px; }
+        header.topbar .home-link { padding:5px 8px; font-size:12px; }
+        header.topbar .timer { font-size:12px; padding:3px 7px; }
+      }`;
     document.head.appendChild(style);
-
-    const link = document.createElement("a");
-    link.id = "tth-top-home";
-    link.href = "/index.html";
-    link.textContent = "होम / Home";
-    link.setAttribute("aria-label", "होम पेज पर जाएँ");
-    if (document.body) document.body.insertBefore(link, document.body.firstChild);
   }
 
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", applyHomeNavigation, { once: true });
-  } else {
-    applyHomeNavigation();
-  }
+  function run() { installStyles(); addTestHeader(); }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", run, { once: true });
+  else run();
 })();
