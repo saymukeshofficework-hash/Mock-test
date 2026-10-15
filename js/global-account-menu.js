@@ -320,7 +320,16 @@
       btn=document.createElement("button");btn.type="button";btn.id="tthLanguageToggle";btn.className="tth-language-toggle";
       btn.style.cssText="border:1px solid #8abbb0;background:#fff;color:#155e55;border-radius:8px;padding:6px 10px;font-weight:800;cursor:pointer;white-space:nowrap;";
       const header=document.querySelector("header.topbar .topbar-left")||document.querySelector(".site-header")||document.querySelector(".hdr .bar")||document.querySelector(".tbar")||document.querySelector("header");
-      if(header) header.appendChild(btn); else {btn.style.cssText+=";position:fixed;top:12px;right:12px;z-index:99999";document.body.appendChild(btn);}
+      // Place the language switch immediately beside the student-ID/account control when present.
+      const studentControl=document.querySelector("#tthStudentAccountMenu, #studentId, #studentID, .student-id, [data-student-id]");
+      if(studentControl && studentControl.parentElement){
+        studentControl.insertAdjacentElement("afterend",btn);
+      } else if(header){
+        header.appendChild(btn);
+      } else {
+        btn.style.cssText+=";position:fixed;top:12px;right:12px;z-index:99999";
+        document.body.appendChild(btn);
+      }
     }
     const controls=["langToggle","tthLanguageToggle","langBtn","langBtnName","langBtnResult"].map(id=>document.getElementById(id)).filter(Boolean);
     if(!controls.length && document.getElementById("langSel")) controls.push(document.getElementById("langSel"));
