@@ -41,7 +41,7 @@
       return;
     }
     home.textContent = "⌂";
-    home.href = "/";
+    home.href = "/index.html";
     home.title = "होम";
 
     let brand = header.querySelector(".tth-header-brand");
