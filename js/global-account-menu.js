@@ -41,7 +41,9 @@
       return;
     }
     home.textContent = "⌂";
-    home.href = "/index.html";
+    // The live root/index route can show the login landing page; use the separately
+    // published homepage copy so exam-paper Home always opens the public homepage.
+    home.href = "/examhelp/index.html";
     home.title = "होम";
 
     let brand = header.querySelector(".tth-header-brand");
