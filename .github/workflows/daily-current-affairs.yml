@@ -53,7 +53,7 @@ jobs:
           printf '%s\n' "$start" | grep -Eq "$date_re"
           printf '%s\n' "$end" | grep -Eq "$date_re"
           [[ "$start" < "$end" || "$start" == "$end" ]] || { echo "start_date must not be after end_date"; exit 2; }
-          [[ "$start" >= "2026-01-01" && "$end" <= "$today" ]] || { echo "Date range must be from 2026-01-01 through today"; exit 2; }
+          [[ "$start" < "2026-01-01" || "$today" < "$end" ]] && { echo "Date range must be from 2026-01-01 through today"; exit 2; }
           current="$start"
           while [[ "$current" < "$end" || "$current" == "$end" ]]; do
             echo "Generating bilingual daily quiz for $current"
