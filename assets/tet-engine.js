@@ -164,15 +164,19 @@ function renderQuestion(){
   const item = sections[curSection].questions[curQuestion];
   const mode = sections[curSection].mode || 'bilingual';
   const langBar = document.getElementById('langBarWrap');
+  const hasBothLanguages = !!(item && item.en && item.hi);
   let lang;
-  if(mode === 'bilingual'){
+  if(hasBothLanguages || mode === 'bilingual'){
     langBar.style.display = 'flex';
-    lang = document.getElementById('qLangSelect').value;
+    const savedLang = (() => { try { return localStorage.getItem('tetLang'); } catch (_) { return null; } })();
+    const selector = document.getElementById('qLangSelect');
+    if(savedLang && (savedLang === 'hi' || savedLang === 'en') && selector && selector.value !== savedLang) selector.value = savedLang;
+    lang = selector.value || 'en';
   } else {
     langBar.style.display = 'none';
     lang = mode;
   }
-  const data = item[lang];
+  const data = item[lang] || item.en || item.hi;
   document.getElementById('qNoLabel').textContent = `Question No. ${curQuestion+1}`;
   document.getElementById('qText').textContent = data.q;
   const optWrap = document.getElementById('optionsList');
