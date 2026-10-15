@@ -221,3 +221,7 @@ body.mock-test-list-page {
 
 /* Android app (Google Play): hide anything that sells digital goods. Set by public/app-mode.js. */
 html[data-app] [data-sale] { display: none !important; }
+
+/* Shown only inside the Android app. */
+[data-app-only] { display: none; }
+html[data-app] [data-app-only] { display: revert; }

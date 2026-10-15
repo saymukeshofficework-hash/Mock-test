@@ -79,6 +79,7 @@ export function Footer({ lang }: { lang: Lang }) {
         <div className="container-page flex flex-col gap-2 py-6 text-xs text-brand-100/70 sm:flex-row sm:items-center sm:justify-between">
           <p>{tr(dict.footer.rights, lang)}</p>
           <p>{tr(dict.disclaimer.affiliation, lang)}</p>
+          <a data-app-only href="/examhelp/delete-account/" className="underline">{lang === "hi" ? "अकाउंट डिलीट करें" : "Delete account"}</a>
         </div>
       </div>
     </footer>
