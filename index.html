@@ -491,8 +491,13 @@ header.site-header nav{padding-right:145px}
       const original = homeOriginalText.get(node);
       const trimmed = original.trim();
       if (!trimmed) return;
+      const isHindiText = /[\\u0900-\\u097F]/.test(trimmed);
       const translated = HOME_TRANSLATION_MAP.get(trimmed);
-      if (translated) node.nodeValue = original.replace(trimmed, toEnglish ? (HOME_TRANSLATION_MAP.get(trimmed) || trimmed) : (HOME_TRANSLATION_MAP.get(trimmed) || trimmed));
+      if (translated && ((toEnglish && isHindiText) || (!toEnglish && !isHindiText))) {
+        node.nodeValue = original.replace(trimmed, translated);
+      } else {
+        node.nodeValue = original;
+      }
     });
     const search = document.getElementById("examSearch");
     if (search) search.placeholder = toEnglish ? "Search exams or courses…" : "परीक्षा या कोर्स खोजें…";
