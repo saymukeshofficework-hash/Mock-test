@@ -16,7 +16,6 @@
     header.dataset.tthHeaderReady = "true";
 
     const isExamTopbar = header.matches("header.topbar");
-    const isCatalogueBar = header.matches(".hdr .bar");
     const left = header.querySelector(".topbar-left") || header;
     let home = header.querySelector("#tthTopHomeLink");
     if (!home) {
@@ -35,7 +34,7 @@
     if (!isExamTopbar) {
       const logo = header.querySelector("a.logo");
       if (logo) logo.href = "/index.html";
-      if (!isCatalogueBar) return;
+      return;
     }
 
     let brand = header.querySelector(".tth-header-brand");
