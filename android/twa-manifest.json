@@ -11,7 +11,7 @@
   "navigationColor": "#163377",
   "backgroundColor": "#ffffff",
   "display": "standalone",
-  "orientation": "portrait",
+  "orientation": "default",
   "enableNotifications": false,
   "appVersionName": "1.0.0",
   "appVersionCode": 1,

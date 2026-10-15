@@ -7,7 +7,7 @@
   "start_url": "/examhelp/?source=android",
   "scope": "/",
   "display": "standalone",
-  "orientation": "portrait",
+  "orientation": "any",
   "background_color": "#ffffff",
   "theme_color": "#163377",
   "icons": [
