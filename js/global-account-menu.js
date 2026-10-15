@@ -22,8 +22,9 @@
       home = document.createElement("a");
       home.id = "tthTopHomeLink";
       home.className = "tth-top-home-link";
-      home.href = "/index.html";
-      home.textContent = "⌂ होम";
+      home.href = "/";
+      home.textContent = "⌂";
+      home.title = "होम";
       home.setAttribute("aria-label", "होमपेज पर जाएँ");
       const leftSide = header.querySelector(".topbar-left") || header;
       leftSide.insertBefore(home, leftSide.firstChild);
@@ -42,7 +43,8 @@
       brand = document.createElement("span");
       brand.className = "tth-header-brand";
       brand.textContent = "TET Test Hub";
-      left.insertBefore(brand, left.firstChild);
+      if (home && home.parentElement === left) home.insertAdjacentElement("afterend", brand);
+      else left.insertBefore(brand, left.firstChild);
     }
 
     let menu = header.querySelector("#tthStudentAccountMenu");
@@ -100,7 +102,7 @@
     style.id = "tth-mobile-header-style";
     style.textContent = `
       header.topbar .topbar-left { display:flex; align-items:center; flex-wrap:wrap; gap:8px; min-width:0; flex:1 1 100%; }
-      header.topbar .tth-top-home-link, .hdr .bar .tth-top-home-link, .tbar .tth-top-home-link { display:inline-flex; align-items:center; justify-content:center; padding:6px 11px; border-radius:8px; background:#16856f; border:1px solid #8abbb0; color:#fff; font-size:13px; font-weight:800; text-decoration:none; white-space:nowrap; }
+      header.topbar .tth-top-home-link, .hdr .bar .tth-top-home-link, .tbar .tth-top-home-link { display:inline-flex; align-items:center; justify-content:center; padding:5px 7px; border-radius:8px; background:#16856f; border:1px solid #8abbb0; color:#fff; font-size:17px; line-height:1; min-width:30px; min-height:30px; font-weight:800; text-decoration:none; white-space:nowrap; }
       header.topbar .tth-top-home-link:hover, .hdr .bar .tth-top-home-link:hover, .tbar .tth-top-home-link:hover { background:#0f6b5f; }
       .hdr .bar { justify-content:flex-start; flex-wrap:wrap; }
       .tbar { justify-content:space-between !important; }
