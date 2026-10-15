@@ -168,7 +168,7 @@ body {
 /* Shared colourful three-column catalogue cards for every exam series:
    TET, MP High Court AG-III, MP Police Constable GD, and MP Police Subedar/ASI. */
 .mock-test-grid {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: minmax(0, 1fr);
   align-items: stretch;
 }
 .mock-test-card {
@@ -203,6 +203,18 @@ body {
 .mock-test-card h3 { min-width: 0; font-size: .9rem; line-height: 1.35; }
 .mock-test-card .btn-primary { font-size: .78rem; padding: .5rem .35rem; line-height: 1.35; white-space: normal; }
 .mock-test-card p { font-size: .7rem; line-height: 1.4; }
-@media (max-width: 359px) {
+@media (min-width: 480px) {
   .mock-test-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (min-width: 1024px) {
+  .mock-test-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+/* The mock-test list has its own top-right Home option; suppress duplicate floating controls there. */
+body.mock-test-list-page > a[aria-label="होम पेज पर जाएँ"],
+body.mock-test-list-page > a[aria-label="WhatsApp पर सहायता / Help on WhatsApp"] {
+  display: none !important;
+}
+body.mock-test-list-page {
+  overflow-x: clip;
 }
