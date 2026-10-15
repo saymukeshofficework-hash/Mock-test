@@ -1,4 +1,4 @@
-/* Compact shared header for exam and typing pages. No Home icon is shown inside test papers. */
+/* Shared TET Test Hub account menu for individual exam and typing pages. */
 (function () {
   let path = window.location.pathname;
   while (path.length > 1 && path.endsWith("/")) path = path.slice(0, -1);
@@ -10,8 +10,6 @@
     header.dataset.tthHeaderReady = "true";
 
     const left = header.querySelector(".topbar-left") || header;
-
-    // Remove the Home shortcut previously injected into test-paper headers.
     header.querySelectorAll(".home-link").forEach((link) => link.remove());
 
     let brand = header.querySelector(".tth-header-brand");
@@ -22,17 +20,52 @@
       left.insertBefore(brand, left.firstChild);
     }
 
-    let identity = header.querySelector(".tth-student-identity");
-    if (!identity) {
-      identity = document.createElement("div");
-      identity.className = "tth-student-identity";
-      identity.textContent = "छात्र ID";
-      const idSource = document.querySelector("[data-student-id], #studentId, #studentID, .student-id, .student-id-value");
-      if (idSource) {
-        const value = idSource.getAttribute("data-student-id") || idSource.textContent.trim();
-        if (value) identity.textContent = "छात्र ID: " + value.replace(/^छात्र\s*ID\s*:?\s*/i, "");
-      }
-      left.appendChild(identity);
+    let menu = header.querySelector("#tthStudentAccountMenu");
+    if (!menu) {
+      menu = document.createElement("details");
+      menu.id = "tthStudentAccountMenu";
+      menu.className = "tth-student-account-menu";
+      menu.innerHTML = `
+        <summary id="tthStudentAccountLabel">छात्र ID</summary>
+        <div class="tth-student-account-dropdown">
+          <a href="/dashboard.html">डैशबोर्ड / Dashboard</a>
+          <button type="button" id="tthStudentLogout">लॉगआउट / Logout</button>
+        </div>`;
+      if (brand.nextSibling) left.insertBefore(menu, brand.nextSibling);
+      else left.appendChild(menu);
+    }
+
+    const label = menu.querySelector("#tthStudentAccountLabel");
+    const idSource = document.querySelector("[data-student-id], #studentId, #studentID, .student-id, .student-id-value");
+    if (idSource && label) {
+      const value = idSource.getAttribute("data-student-id") || idSource.textContent.trim();
+      if (value) label.textContent = "छात्र ID: " + value.replace(/^छात्र\s*ID\s*:?\s*/i, "");
+    }
+
+    if (label && typeof window.getSession === "function" && typeof window.getProfile === "function") {
+      Promise.resolve(window.getSession()).then(async (session) => {
+        if (!session) return;
+        const user = session.user || session.data?.session?.user;
+        if (!user?.id) return;
+        const profile = await window.getProfile(user.id);
+        if (profile?.student_id) label.textContent = "छात्र ID: " + profile.student_id;
+      }).catch((error) => console.warn("Unable to load student ID", error));
+    }
+
+    const logoutButton = menu.querySelector("#tthStudentLogout");
+    if (logoutButton && logoutButton.dataset.bound !== "true") {
+      logoutButton.dataset.bound = "true";
+      logoutButton.addEventListener("click", async () => {
+        logoutButton.disabled = true;
+        logoutButton.textContent = "लॉगआउट हो रहा है…";
+        try {
+          if (typeof window.logout === "function") await window.logout();
+          else if (window.supabaseClient?.auth?.signOut) await window.supabaseClient.auth.signOut();
+        } catch (error) {
+          console.error("Logout failed", error);
+        }
+        window.location.href = "/login.html";
+      });
     }
   }
 
@@ -43,7 +76,12 @@
     style.textContent = `
       header.topbar .topbar-left { display:flex; align-items:center; flex-wrap:wrap; gap:8px; min-width:0; flex:1 1 100%; }
       header.topbar .tth-header-brand { color:#fff; font-size:16px; font-weight:700; white-space:nowrap; }
-      header.topbar .tth-student-identity { flex-basis:100%; width:100%; min-width:0; font-size:12px; line-height:1.25; overflow-wrap:anywhere; color:#e7f4f1; margin-top:-3px; }
+      header.topbar .tth-student-account-menu { position:relative; flex:0 0 auto; z-index:1002; color:#fff; font-size:12px; }
+      header.topbar .tth-student-account-menu summary { list-style:none; cursor:pointer; border:1px solid #8abbb0; background:#ffffff18; border-radius:8px; padding:6px 10px; white-space:nowrap; font-weight:700; }
+      header.topbar .tth-student-account-menu summary::-webkit-details-marker { display:none; }
+      header.topbar .tth-student-account-dropdown { position:absolute; left:0; top:calc(100% + 6px); min-width:180px; display:grid; gap:4px; padding:6px; background:#fff; color:#202020; border:1px solid #ddd; border-radius:10px; box-shadow:0 8px 24px #0003; }
+      header.topbar .tth-student-account-dropdown a, header.topbar .tth-student-account-dropdown button { display:block; width:100%; padding:10px 12px; border:0; border-radius:7px; background:#fff; color:#202020; font:inherit; font-size:13px; text-align:left; text-decoration:none; cursor:pointer; }
+      header.topbar .tth-student-account-dropdown a:hover, header.topbar .tth-student-account-dropdown button:hover { background:#eee8fb; color:#5b36a8; }
       header.topbar h1 { min-width:0; }
       @media(max-width:600px) {
         header.topbar { padding:7px 10px; gap:5px; }
