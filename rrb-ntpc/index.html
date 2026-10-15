@@ -62,4 +62,6 @@ $('prev').onclick=()=>{if(current>0){current--;renderQ()}};$('next').onclick=()=
 // Opened from the exam page (?test=rrbntpc-g-full-NN): start that test directly.
 (function(){const tid=new URLSearchParams(location.search).get('test');if(!/^rrbntpc-[gu]-full-\d{2}$/.test(tid||''))return;autoTest=true;$('catalog').classList.add('hidden');
 const stub={disabled:false,textContent:''};startTest(tid,90,stub).then(ok=>{if(!ok&&$('runner').classList.contains('hidden')&&$('results').classList.contains('hidden'))location.href='/examhelp/'+(tid.includes('-g-')?'rrb-ntpc-graduate-mock-tests/':'rrb-ntpc-undergraduate-mock-tests/')})})();
-</script></body></html>
+</script>
+<script src="/js/global-account-menu.js?v=9"></script>
+</body></html>
