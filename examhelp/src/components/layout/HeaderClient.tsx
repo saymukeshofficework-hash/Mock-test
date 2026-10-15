@@ -13,7 +13,6 @@ import { LoginChip } from "./LoginChip";
 /** Desktop nav with an accessible "More" dropdown. */
 export function DesktopNav({ lang }: { lang: Lang }) {
   const pathname = usePathname();
-  const isMockTestList = /(?:^|\/)(?:tet-mock-tests|mp-high-court-assistant-grade-3-mock-tests|mp-police-constable-gd-mock-tests|mp-police-subedar-asi-mock-tests|mp-grameen-bank-mock-tests|rrb-ntpc-(?:graduate|undergraduate)-mock-tests)\/?$/.test(pathname);
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLLIElement>(null);
 
@@ -87,6 +86,7 @@ export function DesktopNav({ lang }: { lang: Lang }) {
 /** Mobile: Search + Menu buttons and the slide-in drawer. */
 export function MobileControls({ lang }: { lang: Lang }) {
   const pathname = usePathname();
+  const isMockTestList = /(?:^|\/)(?:tet-mock-tests|mp-high-court-assistant-grade-3-mock-tests|mp-police-constable-gd-mock-tests|mp-police-subedar-asi-mock-tests|mp-grameen-bank-mock-tests|rrb-ntpc-(?:graduate|undergraduate)-mock-tests)\/?$/.test(pathname);
   const [open, setOpen] = useState(false);
   const closeRef = useRef<HTMLButtonElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
