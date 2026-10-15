@@ -37,7 +37,7 @@
 
     const link = document.createElement("a");
     link.id = "tth-top-home";
-    link.href = "/";
+    link.href = "/index.html";
     link.textContent = "होम / Home";
     link.setAttribute("aria-label", "होम पेज पर जाएँ");
     if (document.body) document.body.insertBefore(link, document.body.firstChild);
