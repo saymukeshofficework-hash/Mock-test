@@ -491,7 +491,7 @@ header.site-header nav{padding-right:145px}
       const original = homeOriginalText.get(node);
       const trimmed = original.trim();
       if (!trimmed) return;
-      const isHindiText = /[\\u0900-\\u097F]/.test(trimmed);
+      const isHindiText = /[\u0900-\u097F]/.test(trimmed);
       const translated = HOME_TRANSLATION_MAP.get(trimmed);
       if (translated && ((toEnglish && isHindiText) || (!toEnglish && !isHindiText))) {
         node.nodeValue = original.replace(trimmed, translated);
