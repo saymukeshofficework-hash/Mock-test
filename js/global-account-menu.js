@@ -10,7 +10,19 @@
     header.dataset.tthHeaderReady = "true";
 
     const left = header.querySelector(".topbar-left") || header;
-    header.querySelectorAll(".home-link").forEach((link) => link.remove());
+    // Replace floating/home-icon controls with one clear text option in the top bar.
+    header.querySelectorAll(".home-link, #tth-floating-home, .floating-home, .home-icon-button").forEach((link) => link.remove());
+    let home = header.querySelector("#tthTopHomeLink");
+    if (!home) {
+      home = document.createElement("a");
+      home.id = "tthTopHomeLink";
+      home.className = "tth-top-home-link";
+      home.href = "/index.html";
+      home.textContent = "⌂ होम";
+      home.setAttribute("aria-label", "होमपेज पर जाएँ");
+      const leftSide = header.querySelector(".topbar-left") || header;
+      leftSide.insertBefore(home, leftSide.firstChild);
+    }
 
     let brand = header.querySelector(".tth-header-brand");
     if (!brand) {
@@ -75,6 +87,8 @@
     style.id = "tth-mobile-header-style";
     style.textContent = `
       header.topbar .topbar-left { display:flex; align-items:center; flex-wrap:wrap; gap:8px; min-width:0; flex:1 1 100%; }
+      header.topbar .tth-top-home-link { display:inline-flex; align-items:center; justify-content:center; padding:6px 11px; border-radius:8px; background:#16856f; border:1px solid #8abbb0; color:#fff; font-size:13px; font-weight:800; text-decoration:none; white-space:nowrap; }
+      header.topbar .tth-top-home-link:hover { background:#0f6b5f; }
       header.topbar .tth-header-brand { color:#fff; font-size:16px; font-weight:700; white-space:nowrap; }
       header.topbar .tth-student-account-menu { position:relative; flex:0 0 auto; z-index:1002; color:#fff; font-size:12px; }
       header.topbar .tth-student-account-menu summary { list-style:none; cursor:pointer; border:1px solid #8abbb0; background:#ffffff18; border-radius:8px; padding:6px 10px; white-space:nowrap; font-weight:700; }
