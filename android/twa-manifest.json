@@ -22,7 +22,7 @@
   "fallbackType": "customtabs",
   "splashScreenFadeOutDuration": 300,
   "fullScopeUrl": "https://tettesthub.in/",
-  "minSdkVersion": 21,
+  "minSdkVersion": 24,
   "enableSiteSettingsShortcut": true,
   "isChromeOSOnly": false,
   "signingMode": "local",
