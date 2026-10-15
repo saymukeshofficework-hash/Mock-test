@@ -1,8 +1,9 @@
 /* TET mock papers keep their existing text Home link; other exam/typing papers use a text option, not a floating icon. */
 (function () {
-  const path = window.location.pathname.replace(/\\/+$/, "") || "/";
+  let path = window.location.pathname;
+  while (path.length > 1 && path.endsWith("/")) path = path.slice(0, -1);
   const isHome = path === "/" || path === "/index.html";
-  const isTetMock = /^\\/tet-mock-test-\\d+\\.html$/.test(path);
+  const isTetMock = /^\/tet-mock-test-\d+\.html$/.test(path);
   if (isHome) {
     // index.html owns the signed-in account menu and fills in the student's ID.
     return;
@@ -10,6 +11,7 @@
 
   function applyHomeNavigation() {
     const floatingLinks = Array.from(document.querySelectorAll("#tth-floating-home"));
+    const hadFloatingHome = floatingLinks.length > 0;
     const floatingStyles = Array.from(document.querySelectorAll("#tth-floating-home-style"));
     floatingLinks.forEach(link => link.remove());
     floatingStyles.forEach(style => style.remove());
@@ -18,11 +20,12 @@
 
     const hasHeaderHome = !!document.querySelector(".topbar .home-link, header .home-link");
     const isExamOrTypingPage =
+      hadFloatingHome ||
       path === "/exam-test.html" ||
       path === "/bbc-english/test.html" ||
       path.startsWith("/cpct/") ||
       path.startsWith("/typing-practice/") ||
-      path.startsWith("/examhelp/public/mock-tests/");
+      path.startsWith("/examhelp/");
 
     if (hasHeaderHome || !isExamOrTypingPage) return;
     if (document.getElementById("tth-top-home")) return;
