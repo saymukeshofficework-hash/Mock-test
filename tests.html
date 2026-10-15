@@ -68,13 +68,15 @@ h1{color:#352054;margin-top:24px;font-size:clamp(24px,5vw,34px)}
 @media(min-width:700px){.grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}.t{padding:18px 12px}.t h3{font-size:15px}.t .m{font-size:12px}.t .btn{font-size:13px}}
 @media(max-width:360px){.t:before{width:54px;height:54px}.t h3{font-size:12px}.t .m{font-size:10px}.grid{gap:8px}.t{padding:10px 5px}}
 
+
+.student-account-menu{position:relative;display:inline-flex;align-items:center;height:auto;min-height:40px;padding:0;background:var(--brand2);color:var(--brand);z-index:20}.student-account-menu summary{list-style:none;cursor:pointer;white-space:nowrap}.student-account-menu summary::-webkit-details-marker{display:none}.student-account-dropdown{position:absolute;right:0;top:calc(100% + 8px);min-width:180px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:6px;box-shadow:0 8px 24px rgba(0,0,0,.12);display:grid;gap:4px}.student-account-dropdown a,.student-account-dropdown button{display:block;width:100%;padding:10px 12px;border:0;border-radius:8px;background:#fff;color:var(--ink);font:inherit;font-size:14px;text-align:left;text-decoration:none;cursor:pointer}.student-account-dropdown a:hover,.student-account-dropdown button:hover{background:var(--brand2);color:var(--brand)}
 </style>
  <link rel="stylesheet" href="assets/exam-layout.css?v=2">
 </head>
 <body>
 <div class="hdr"><div class="bar">
   <a class="logo" href="/index.html"><i><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></i><span>TETTEST<b>HUB</b></span></a>
-  <a class="chip" id="userChip" href="/login.html">लॉगिन / रजिस्टर</a>
+  <details class="chip student-account-menu" id="studentAccountMenu"><summary id="studentAccountLabel">छात्र ID</summary><div class="student-account-dropdown"><a href="/dashboard.html">डैशबोर्ड / Dashboard</a><button type="button" data-account-logout>लॉगआउट / Logout</button></div></details>
 </div></div>
 <main class="wrap">
   <h1>MP TET 2026 — 25 फुल मॉक टेस्ट</h1>
@@ -124,11 +126,15 @@ h1{color:#352054;margin-top:24px;font-size:clamp(24px,5vw,34px)}
   (async () => {
     const session = await getSession(); if (!session) return;
     const p = await getProfile(session.user.id);
-    if (p) { const ch = document.getElementById('userChip'); ch.href = 'dashboard.html'; ch.textContent = 'स्वागत है, ' + ((p.full_name||'').split(' ')[0] || p.student_id) + ' · ' + p.student_id; }
+    if (p) { const ch = document.getElementById('studentAccountLabel'); ch.textContent = 'छात्र ID: ' + (p.student_id || ''); }
     if (p && p.status === 'active') renderCards(p.purchased_tests || []);
   })();
 </script>
 
+
+<script>
+(function(){const menu=document.getElementById('studentAccountMenu');if(!menu)return;const b=menu.querySelector('[data-account-logout]');if(b)b.addEventListener('click',async()=>{b.disabled=true;b.textContent='लॉगआउट हो रहा है…';await logout();window.location.href='/login.html';});})();
+</script>
 <script src="js/global-account-menu.js"></script>
 </body>
 </html>
