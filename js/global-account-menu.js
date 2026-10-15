@@ -1,20 +1,51 @@
-/* Keep account controls on the post-login home page; add a small Home shortcut everywhere else. */
+/* TET mock papers keep their existing text Home link; other exam/typing papers use a text option, not a floating icon. */
 (function () {
-  const path = window.location.pathname.replace(/\/+$/, "") || "/";
+  let path = window.location.pathname;
+  while (path.length > 1 && path.endsWith("/")) path = path.slice(0, -1);
   const isHome = path === "/" || path === "/index.html";
-  if (!isHome && !document.getElementById("tth-floating-home")) {
-    const style = document.createElement("style");
-    style.textContent = "#tth-floating-home{position:fixed;right:14px;bottom:86px;z-index:9999;width:42px;height:42px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:#0f766e;color:#fff;border:2px solid rgba(255,255,255,.9);box-shadow:0 3px 12px rgba(0,0,0,.25);text-decoration:none}#tth-floating-home svg{width:21px;height:21px;display:block}#tth-floating-home:focus-visible{outline:3px solid #e8a33d;outline-offset:3px}@media(max-width:640px){#tth-floating-home{right:12px;bottom:78px;width:40px;height:40px}}";
-    document.head.appendChild(style);
-    const link = document.createElement("a");
-    link.id = "tth-floating-home";
-    link.href = "/";
-    link.setAttribute("aria-label", "होम पेज पर जाएँ");
-    link.title = "होम";
-    link.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 10 9-7 9 7"/><path d="M5 9v11h14V9"/><path d="M9 20v-7h6v7"/></svg>';
-    if (document.body) document.body.appendChild(link); else document.addEventListener("DOMContentLoaded", () => document.body.appendChild(link), { once: true });
+  const isTetMock = /^\/tet-mock-test-\d+\.html$/.test(path);
+  if (isHome) {
+    // index.html owns the signed-in account menu and fills in the student's ID.
+    return;
   }
-  if (!isHome) return;
-  // index.html owns the signed-in account menu and fills in the student's ID.
-  if (document.getElementById('accountMenu')) return;
+
+  function applyHomeNavigation() {
+    const floatingLinks = Array.from(document.querySelectorAll("#tth-floating-home"));
+    const hadFloatingHome = floatingLinks.length > 0;
+    const floatingStyles = Array.from(document.querySelectorAll("#tth-floating-home-style"));
+    floatingLinks.forEach(link => link.remove());
+    floatingStyles.forEach(style => style.remove());
+
+    if (isTetMock) return;
+
+    const hasHeaderHome = !!document.querySelector(".topbar .home-link, header .home-link");
+    const isExamOrTypingPage =
+      hadFloatingHome ||
+      path === "/exam-test.html" ||
+      path === "/bbc-english/test.html" ||
+      path.startsWith("/cpct/") ||
+      path.startsWith("/typing-practice/") ||
+      path.startsWith("/examhelp/");
+
+    if (hasHeaderHome || !isExamOrTypingPage) return;
+    if (document.getElementById("tth-top-home")) return;
+
+    const style = document.createElement("style");
+    style.id = "tth-top-home-style";
+    style.textContent = "#tth-top-home{display:inline-flex;align-items:center;justify-content:center;margin:8px 12px;padding:7px 13px;border-radius:8px;background:#0f766e;color:#fff;border:1px solid rgba(255,255,255,.9);box-shadow:0 2px 6px rgba(0,0,0,.16);font:600 14px/1.3 system-ui,sans-serif;text-decoration:none;position:relative;z-index:10}#tth-top-home:focus-visible{outline:3px solid #e8a33d;outline-offset:3px}";
+    document.head.appendChild(style);
+
+    const link = document.createElement("a");
+    link.id = "tth-top-home";
+    link.href = "/";
+    link.textContent = "होम / Home";
+    link.setAttribute("aria-label", "होम पेज पर जाएँ");
+    if (document.body) document.body.insertBefore(link, document.body.firstChild);
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", applyHomeNavigation, { once: true });
+  } else {
+    applyHomeNavigation();
+  }
 })();
