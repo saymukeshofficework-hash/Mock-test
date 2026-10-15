@@ -27,7 +27,6 @@ const ui = {
     contact: { hi: "संपर्क करें", en: "Contact" },
     privacy: { hi: "गोपनीयता नीति", en: "Privacy Policy" },
     disclaimer: { hi: "अस्वीकरण", en: "Disclaimer" },
-    deleteAccount: { hi: "अकाउंट डिलीट करें", en: "Delete account" },
     terms: { hi: "नियम एवं शर्तें", en: "Terms & Conditions" },
     refund: { hi: "रिफंड नीति", en: "Refund Policy" },
     faq: { hi: "सामान्य प्रश्न", en: "FAQ" },

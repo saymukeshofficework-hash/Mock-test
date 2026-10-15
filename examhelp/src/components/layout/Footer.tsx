@@ -36,7 +36,6 @@ export function Footer({ lang }: { lang: Lang }) {
         { href: "/terms", label: n.terms },
         { href: "/refund-policy", label: n.refund },
         { href: "/disclaimer", label: n.disclaimer },
-        { href: "/delete-account", label: n.deleteAccount },
       ],
     },
   ];
