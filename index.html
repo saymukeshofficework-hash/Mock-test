@@ -90,6 +90,8 @@ header.site-header nav a.active{background:var(--app-purple);color:#fff}
 /* My Account is a separate, prominent control in the header's top-right corner. */
 header.site-header .top-account-menu{position:absolute;top:8px;right:14px;z-index:120}
 header.site-header .top-account-menu .account-menu-toggle{padding:10px 13px;font-size:16px;font-weight:900;letter-spacing:.35px;border:1px solid #d9cbed;box-shadow:0 3px 10px #39214b12}
+header.site-header .header-login-link{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;line-height:1.3}
+header.site-header .header-login-link[hidden]{display:none!important}
 header.site-header nav{padding-right:145px}
 @media(max-width:600px){header.site-header nav{padding-right:0;padding-top:42px;flex-wrap:wrap}header.site-header .top-account-menu{top:7px;right:10px}header.site-header .top-account-menu .account-menu-toggle{padding:8px 11px;font-size:15px}}
 
@@ -191,6 +193,7 @@ header.site-header nav{padding-right:145px}
         <button type="button" id="homeLogoutBtn">लॉगआउट</button>
       </div>
     </div>
+    <a href="login.html" class="account-menu top-account-menu account-menu-toggle header-login-link" id="homeHeaderLoginLink" hidden data-i18n="nav_login">लॉगिन</a>
   </header>
 
   <main>
@@ -324,6 +327,7 @@ header.site-header nav{padding-right:145px}
   const accountMenuToggle = document.getElementById('accountMenuToggle');
   const accountMenuDropdown = document.getElementById('accountMenuDropdown');
   const navLoginLink = document.getElementById('navLoginLink');
+  const homeHeaderLoginLink = document.getElementById('homeHeaderLoginLink');
   accountMenuToggle.addEventListener('click', () => {
     const isOpen = accountMenuToggle.getAttribute('aria-expanded') === 'true';
     accountMenuToggle.setAttribute('aria-expanded', String(!isOpen));
@@ -346,6 +350,7 @@ header.site-header nav{padding-right:145px}
     document.documentElement.classList.remove('auth-gate-pending');
     if (session) {
       navLoginLink.hidden = true;
+      homeHeaderLoginLink.hidden = true;
       accountMenu.hidden = false;
       const idEl = document.getElementById('accountStudentId');
       let studentId = session.user?.user_metadata?.student_id || session.user?.user_metadata?.contact_identifier || '';
@@ -360,6 +365,7 @@ header.site-header nav{padding-right:145px}
     } else {
       navLoginLink.hidden = false;
       accountMenu.hidden = true;
+      homeHeaderLoginLink.hidden = false;
     }
   })();
 
