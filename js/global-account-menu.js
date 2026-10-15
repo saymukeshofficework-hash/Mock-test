@@ -30,13 +30,19 @@
       leftSide.insertBefore(home, leftSide.firstChild);
     }
 
-    // CPCT/TET catalogue headers use .hdr .bar rather than header.topbar.
-    // Their logo was incorrectly linked to login; make it point to the homepage.
+    // CPCT/TET catalogue pages keep the original text Home option.
+    // Exam paper headers use the compact house icon only.
     if (!isExamTopbar) {
+      home.textContent = "⌂ होम";
+      home.href = "/index.html";
+      home.title = "होम";
       const logo = header.querySelector("a.logo");
       if (logo) logo.href = "/index.html";
       return;
     }
+    home.textContent = "⌂";
+    home.href = "/";
+    home.title = "होम";
 
     let brand = header.querySelector(".tth-header-brand");
     if (!brand) {
