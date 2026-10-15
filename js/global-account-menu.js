@@ -269,8 +269,17 @@
       if(control.dataset.tthLangBound==="true") return;
       control.dataset.tthLangBound="true";
       control.addEventListener("click",()=>setTimeout(()=>{
-        const selected=(function(){try{return localStorage.getItem("testhub_lang_pref")||localStorage.getItem("tetLang")||"hi";}catch(_){return "hi";}})();
-        try{localStorage.setItem("tetLang",selected);localStorage.setItem("testhub_lang_pref",selected);}catch(_){}
+        let selected="hi";
+        try{
+          if(control.id==="tthLanguageToggle" && !hadExistingToggle){
+            selected=(localStorage.getItem("tetLang")||"hi")==="hi"?"en":"hi";
+          } else if(["langBtn","langBtnName","langBtnResult"].includes(control.id)){
+            selected=localStorage.getItem("testhub_lang_pref")||"hi";
+          } else {
+            selected=localStorage.getItem("tetLang")||"hi";
+          }
+          localStorage.setItem("tetLang",selected);localStorage.setItem("testhub_lang_pref",selected);
+        }catch(_){}
         tthApplyLanguage();
       },0));
       if(control.tagName==="SELECT") control.addEventListener("change",()=>setTimeout(()=>{
