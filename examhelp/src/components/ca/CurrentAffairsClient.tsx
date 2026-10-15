@@ -90,13 +90,25 @@ export function CurrentAffairsClient() {
     try {
       const base = process.env.NEXT_PUBLIC_SUPABASE_URL ?? "https://znulepzdihzhjmuvyroi.supabase.co";
       const anon = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpudWxlcHpkaWh6aGptdXZ5cm9pIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTExMjE5MjIsImV4cCI6MjEwNjY5NzkyMn0.XoqC6vNDJkEAxgtXLVPCpTxocv3lAa-ZBeg69OdbhdU";
-      const url = new URL(`${base}/rest/v1/daily_current_affairs`);
-      url.searchParams.set("select", "day,content");
-      url.searchParams.set("order", "day.desc");
-      url.searchParams.set("limit", "400");
-      const response = await fetch(url.toString(), { headers: { apikey: anon, Authorization: `Bearer ${anon}` } });
-      if (!response.ok) throw new Error("current_affairs_fetch_failed");
-      const rows = await response.json() as { day: string; content: Day }[];
+      // Older published rows may use the legacy "data" column, while new rows use "content".
+      // Read both formats so a schema mismatch in either generation cannot blank the whole page.
+      type RawRow = { day: string; content?: Day | null; data?: Day | null };
+      const readColumn = async (column: "content" | "data"): Promise<RawRow[]> => {
+        const url = new URL(`${base}/rest/v1/daily_current_affairs`);
+        url.searchParams.set("select", `day,${column}`);
+        url.searchParams.set("order", "day.desc");
+        url.searchParams.set("limit", "400");
+        const response = await fetch(url.toString(), { headers: { apikey: anon, Authorization: `Bearer ${anon}` } });
+        if (!response.ok) return [];
+        return await response.json() as RawRow[];
+      };
+      const [contentRows, legacyRows] = await Promise.all([readColumn("content"), readColumn("data")]);
+      const byDay = new Map<string, RawRow>();
+      for (const row of [...legacyRows, ...contentRows]) {
+        const payload = row.content ?? row.data;
+        if (payload) byDay.set(row.day, { day: row.day, content: payload });
+      }
+      const rows = [...byDay.values()].sort((a, b) => b.day.localeCompare(a.day));
       setIndex(rows.map((row) => ({ day: row.day, items: row.content?.items?.length ?? 0 })));
       const target = d || rows[0]?.day || todayInIndia();
       setSelectedDate(target);
