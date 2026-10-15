@@ -168,10 +168,9 @@ function renderQuestion(){
   let lang;
   if(hasBothLanguages || mode === 'bilingual'){
     langBar.style.display = 'flex';
-    const savedLang = (() => { try { return localStorage.getItem('tetLang'); } catch (_) { return null; } })();
     const selector = document.getElementById('qLangSelect');
-    if(savedLang && (savedLang === 'hi' || savedLang === 'en') && selector && selector.value !== savedLang) selector.value = savedLang;
     lang = selector.value || 'en';
+    try { localStorage.setItem('tetLang', lang); } catch (_) {}
   } else {
     langBar.style.display = 'none';
     lang = mode;
