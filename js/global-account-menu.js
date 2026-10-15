@@ -198,7 +198,12 @@
   };
   const TTH_ORIGINALS = new WeakMap();
   let tthObserver = null;
-  function tthLang(){ try{return localStorage.getItem("tetLang") || "hi";}catch(_){return "hi";} }
+  function tthLang(){
+    try{
+      const examControl=document.getElementById("langBtn")||document.getElementById("langBtnName")||document.getElementById("langSel");
+      return examControl ? (localStorage.getItem("testhub_lang_pref")||localStorage.getItem("tetLang")||"hi") : (localStorage.getItem("tetLang")||"hi");
+    }catch(_){return "hi";}
+  }
   function tthTranslateNode(node, lang){
     if(!node || node.nodeType!==Node.TEXT_NODE || !node.parentElement) return;
     if(node.parentElement.closest("script,style,textarea,option[data-keep-language],#qText,#qtext,#optionsList,#options,.qtext,.rqtext,.rsol,.option")) return;
