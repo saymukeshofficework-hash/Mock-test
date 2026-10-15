@@ -183,7 +183,18 @@
     "Marks for correct answer: 1 | Negative Marks: 0":"सही उत्तर के अंक: 1 | गलत उत्तर के अंक: 0",
     "Please enter your email ID and password.":"कृपया ईमेल आईडी और पासवर्ड दर्ज करें।",
     "Incorrect email ID or password.":"ईमेल आईडी या पासवर्ड गलत है।","Something went wrong. Please try again.":"कुछ गलत हो गया। कृपया पुनः प्रयास करें।",
-    "Account created successfully.":"खाता सफलतापूर्वक बन गया।","Send reset link":"रीसेट लिंक भेजें"
+    "Account created successfully.":"खाता सफलतापूर्वक बन गया।","Send reset link":"रीसेट लिंक भेजें",
+    "General Knowledge":"सामान्य ज्ञान","General Awareness":"सामान्य जागरूकता","Mathematics":"गणित","Reasoning":"तर्कशक्ति",
+    "English":"अंग्रेज़ी","Hindi":"हिंदी","Computer Knowledge":"कंप्यूटर ज्ञान","General Science":"सामान्य विज्ञान",
+    "General Studies":"सामान्य अध्ययन","Quantitative Aptitude":"मात्रात्मक योग्यता","Current Affairs":"करंट अफेयर्स",
+    "MP GK":"मध्यप्रदेश सामान्य ज्ञान","General Hindi":"सामान्य हिंदी","General English":"सामान्य अंग्रेज़ी",
+    "Child Development and Pedagogy":"बाल विकास एवं शिक्षाशास्त्र","Social Science":"सामाजिक विज्ञान",
+    "Environmental Studies":"पर्यावरण अध्ययन","Teaching Aptitude":"शिक्षण अभिरुचि","Computer Awareness":"कंप्यूटर जागरूकता",
+    "सामान्य ज्ञान":"General Knowledge","सामान्य जागरूकता":"General Awareness","गणित":"Mathematics","तर्कशक्ति":"Reasoning",
+    "कंप्यूटर ज्ञान":"Computer Knowledge","सामान्य विज्ञान":"General Science","सामान्य अध्ययन":"General Studies",
+    "मात्रात्मक योग्यता":"Quantitative Aptitude","करंट अफेयर्स":"Current Affairs","मध्यप्रदेश सामान्य ज्ञान":"MP GK",
+    "सामान्य हिंदी":"General Hindi","सामान्य अंग्रेज़ी":"General English","बाल विकास एवं शिक्षाशास्त्र":"Child Development and Pedagogy",
+    "सामाजिक विज्ञान":"Social Science","पर्यावरण अध्ययन":"Environmental Studies","शिक्षण अभिरुचि":"Teaching Aptitude","कंप्यूटर जागरूकता":"Computer Awareness"
   };
   const TTH_ORIGINALS = new WeakMap();
   let tthObserver = null;
@@ -197,13 +208,13 @@
     if(!trimmed) return;
     let translated=trimmed;
     if(lang==="hi"){
-      translated=TTH_TEXT[trimmed] || trimmed;
+      translated=TTH_TEXT[trimmed] || Object.entries(TTH_TEXT).find(([en])=>en.toLowerCase()===trimmed.toLowerCase())?.[1] || trimmed;
       const q=trimmed.match(/^Question No\\.\\s*(\\d+)$/i); if(q) translated="प्रश्न संख्या "+q[1];
       const timer=trimmed.match(/^Time Left\\s*:\\s*(.*)$/i); if(timer) translated="शेष समय : "+timer[1];
       const candidate=trimmed.match(/^Candidate:\\s*(.*)$/i); if(candidate) translated="उम्मीदवार: "+candidate[1];
       const marks=trimmed.match(/^Marks for correct answer:\\s*(\\d+)\\s*\\|\\s*Negative Marks:\\s*(.*)$/i); if(marks) translated="सही उत्तर के अंक: "+marks[1]+" | गलत उत्तर के अंक: "+marks[2];
     } else {
-      const reverse=Object.entries(TTH_TEXT).find(([en,hi])=>hi===trimmed);
+      const reverse=Object.entries(TTH_TEXT).find(([en,hi])=>hi===trimmed || hi.toLowerCase()===trimmed.toLowerCase());
       translated=reverse ? reverse[0] : trimmed;
       const q=trimmed.match(/^प्रश्न संख्या\\s*(\\d+)$/); if(q) translated="Question No. "+q[1];
       const timer=trimmed.match(/^शेष समय\\s*:\\s*(.*)$/); if(timer) translated="Time Left : "+timer[1];
