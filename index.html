@@ -349,7 +349,7 @@ header.site-header nav{padding-right:145px}
     try { session = await getSession(); } catch (error) { console.error('Unable to verify login session:', error); }
     document.documentElement.classList.remove('auth-gate-pending');
     if (session) {
-      navLoginLink.hidden = true;
+      if (navLoginLink) navLoginLink.hidden = true;
       homeHeaderLoginLink.hidden = true;
       accountMenu.hidden = false;
       const idEl = document.getElementById('accountStudentId');
@@ -363,7 +363,7 @@ header.site-header nav{padding-right:145px}
       if (!studentId && session.user?.email) studentId = session.user.email.split('@')[0];
       idEl.textContent = studentId || 'उपलब्ध नहीं';
     } else {
-      navLoginLink.hidden = false;
+      if (navLoginLink) navLoginLink.hidden = false;
       accountMenu.hidden = true;
       homeHeaderLoginLink.hidden = false;
     }
