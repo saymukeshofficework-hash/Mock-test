@@ -373,7 +373,7 @@ function translateText(original){
   const trimmed=original.trim();
   if(!trimmed) return original;
   if(lang!=='en') return original;
-  const normalized=trimmed.replace(/\\s+/g,' ').trim();
+  const normalized=trimmed.replace(/\s+/g,' ').trim();
   if(T[normalized]) return original.replace(trimmed,T[normalized]);
   let translated=trimmed;
   const keys=Object.keys(T).filter(k=>k.trim().length>=5).sort((a,b)=>b.length-a.length);
