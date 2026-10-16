@@ -168,6 +168,7 @@ jobs:
 
           # BBC English Coaching Classes Burhar platform, static, no build step
           cp -r bbc-english _site/bbc-english
+          cp -r gita-olympiad _site/gita-olympiad
 
           # 80-Second Video Maker, static, no build step
           cp -r video-cutter _site/video-cutter
