@@ -224,7 +224,7 @@ export const MOCK_SERIES: Record<string, MockSeries> = {
     total: 25,
     free: [1],
     product: "rrbg-tests",
-    price: 99,
+    price: 85,
     enginePath: "",
     scorePrefix: "testhub_rrbg_mock_",
     listPath: "/rrb-ntpc-graduate-mock-tests",
@@ -250,12 +250,12 @@ export const MOCK_SERIES: Record<string, MockSeries> = {
     },
     totalLine: { hi: "कुल 100 प्रश्न · 100 अंक · 90 मिनट · प्रत्येक प्रश्न 1 अंक", en: "Total 100 questions · 100 marks · 90 minutes · 1 mark each" },
     neg: { hi: "प्रत्येक गलत उत्तर पर ⅓ अंक कटेगा; छोड़े गए प्रश्न पर कोई कटौती नहीं।", en: "⅓ mark is deducted for each wrong answer; no deduction for unattempted questions." },
-    unlockTitle: { hi: "टेस्ट 2–25 अनलॉक करें — ₹99", en: "Unlock Tests 2–25 — ₹99" },
+    unlockTitle: { hi: "टेस्ट 2–25 अनलॉक करें — ₹85", en: "Unlock Tests 2–25 — ₹85" },
     unlockSub: {
-      hi: "टेस्ट 1 फ्री है। टेस्ट 2–25 खोलने के लिए एक बार ₹99 का भुगतान करें।",
-      en: "Test 1 is free. Pay ₹99 once to unlock Tests 2–25.",
+      hi: "टेस्ट 1 फ्री है। टेस्ट 2–25 खोलने के लिए एक बार ₹85 का भुगतान करें।",
+      en: "Test 1 is free. Pay ₹85 once to unlock Tests 2–25.",
     },
-    unlockBtn: { hi: "अभी भुगतान करें — ₹99", en: "Pay Now — ₹99" },
+    unlockBtn: { hi: "अभी भुगतान करें — ₹85", en: "Pay Now — ₹85" },
     links: [],
   },
   rrbu: {
@@ -263,7 +263,7 @@ export const MOCK_SERIES: Record<string, MockSeries> = {
     total: 25,
     free: [1],
     product: "rrbu-tests",
-    price: 99,
+    price: 85,
     enginePath: "",
     scorePrefix: "testhub_rrbu_mock_",
     listPath: "/rrb-ntpc-undergraduate-mock-tests",
@@ -271,8 +271,8 @@ export const MOCK_SERIES: Record<string, MockSeries> = {
     testHref: (n) => `/rrb-ntpc/?test=rrbntpc-u-full-${String(n).padStart(2, "0")}`,
     title: { hi: "RRB NTPC अंडरग्रेजुएट 10+2 (CEN 07/2025) — 25 फुल CBT-1 मॉक टेस्ट", en: "RRB NTPC Undergraduate 10+2 (CEN 07/2025) — 25 Full CBT-1 Mock Tests" },
     sub: {
-      hi: "CBT-1 पैटर्न पर: 100 प्रश्न, 90 मिनट, 3 खंड। टेस्ट 1 फ्री है; टेस्ट 2–25 ₹99 में अनलॉक करें।",
-      en: "On the CBT-1 pattern: 100 questions, 90 minutes, 3 sections. Test 1 is free; unlock tests 2–25 for ₹99.",
+      hi: "CBT-1 पैटर्न पर: 100 प्रश्न, 90 मिनट, 3 खंड। टेस्ट 1 फ्री है; टेस्ट 2–25 ₹85 में अनलॉक करें।",
+      en: "On the CBT-1 pattern: 100 questions, 90 minutes, 3 sections. Test 1 is free; unlock tests 2–25 for ₹85.",
     },
     rows: {
       hi: [
@@ -288,12 +288,12 @@ export const MOCK_SERIES: Record<string, MockSeries> = {
     },
     totalLine: { hi: "कुल 100 प्रश्न · 100 अंक · 90 मिनट · प्रत्येक प्रश्न 1 अंक", en: "Total 100 questions · 100 marks · 90 minutes · 1 mark each" },
     neg: { hi: "प्रत्येक गलत उत्तर पर ⅓ अंक कटेगा; छोड़े गए प्रश्न पर कोई कटौती नहीं।", en: "⅓ mark is deducted for each wrong answer; no deduction for unattempted questions." },
-    unlockTitle: { hi: "टेस्ट 2–25 अनलॉक करें — ₹99", en: "Unlock Tests 2–25 — ₹99" },
+    unlockTitle: { hi: "टेस्ट 2–25 अनलॉक करें — ₹85", en: "Unlock Tests 2–25 — ₹85" },
     unlockSub: {
-      hi: "टेस्ट 1 फ्री है। टेस्ट 2–25 खोलने के लिए एक बार ₹99 का भुगतान करें।",
-      en: "Test 1 is free. Pay ₹99 once to unlock Tests 2–25.",
+      hi: "टेस्ट 1 फ्री है। टेस्ट 2–25 खोलने के लिए एक बार ₹85 का भुगतान करें।",
+      en: "Test 1 is free. Pay ₹85 once to unlock Tests 2–25.",
     },
-    unlockBtn: { hi: "अभी भुगतान करें — ₹99", en: "Pay Now — ₹99" },
+    unlockBtn: { hi: "अभी भुगतान करें — ₹85", en: "Pay Now — ₹85" },
     links: [],
   },
 };
