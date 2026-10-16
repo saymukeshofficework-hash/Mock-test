@@ -63,6 +63,13 @@ const PRODUCTS: Record<string, { amount: number; file: string; downloadName: str
     downloadName: "",
     title: "MP पुलिस सूबेदार (शीघ्रलेखक) / ASI 2026 — 25 फुल मॉक टेस्ट",
   },
+  "pcdr-tests": {
+    amount: 9900,
+    kind: "tests",
+    file: "pcdr", // private bucket "tests": pcdr/02.json … pcdr/25.json; test 1 is public
+    downloadName: "",
+    title: "MP पुलिस आरक्षक (चालक) 2026 — 25 फुल मॉक टेस्ट",
+  },
   "mpgrb-tests": {
     amount: 9900,
     kind: "tests",
