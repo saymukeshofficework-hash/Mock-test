@@ -120,8 +120,8 @@
       .tbar .tth-top-home-link { margin-right:auto; }
       .hdr .bar .logo { margin-right:auto; }
       .tth-header-brand { color:#fff; font-size:16px; font-weight:700; white-space:nowrap; }
-      header.topbar .tth-student-account-menu { position:relative; flex:0 0 auto; z-index:1002; color:#fff; font-size:12px; }
-      header.topbar .tth-student-account-menu summary { list-style:none; cursor:pointer; border:1px solid #8abbb0; background:#ffffff18; border-radius:8px; padding:6px 10px; white-space:nowrap; font-weight:700; }
+      header.topbar .tth-student-account-menu { position:relative; flex:0 0 auto; z-index:1002; color:#fff; font-size:11px; margin-left:37px; margin-top:-3px; width:max-content; max-width:calc(100% - 37px); }
+      header.topbar .tth-student-account-menu summary { list-style:none; cursor:pointer; border:1px solid #8abbb0; background:#ffffff18; border-radius:7px; padding:3px 7px; white-space:nowrap; font-weight:700; font-size:11px; line-height:1.25; }
       header.topbar .tth-student-account-menu summary::-webkit-details-marker { display:none; }
       header.topbar .tth-student-account-dropdown { position:absolute; left:0; top:calc(100% + 6px); min-width:180px; display:grid; gap:4px; padding:6px; background:#fff; color:#202020; border:1px solid #ddd; border-radius:10px; box-shadow:0 8px 24px #0003; }
       header.topbar .tth-student-account-dropdown a, header.topbar .tth-student-account-dropdown button { display:block; width:100%; padding:10px 12px; border:0; border-radius:7px; background:#fff; color:#202020; font:inherit; font-size:13px; text-align:left; text-decoration:none; cursor:pointer; }
@@ -130,7 +130,8 @@
       @media(max-width:600px) {
         header.topbar { padding:7px 10px; gap:5px; }
         header.topbar .topbar-left { gap:7px; }
-        header.topbar .tth-header-brand { font-size:15px; }
+        header.topbar .tth-header-brand { font-size:15px; } 
+        header.topbar .tth-student-account-menu { margin-left:37px; flex-basis:100%; margin-top:-4px; }
         header.topbar .timer { font-size:12px; padding:3px 7px; }
       }`;
     document.head.appendChild(style);
