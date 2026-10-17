@@ -184,8 +184,8 @@ const I18N_DICT = {
   // ---------- contact.html ----------
   contact_h2: { hi: "संपर्क और भुगतान सहायता", en: "Contact & Payment Support" },
   contact_lead: {
-    hi: "भुगतान के बाद, अपने भुगतान विवरण (स्क्रीनशॉट या ऑर्डर आईडी) के साथ हमसे संपर्क करें ताकि आपको छात्र आईडी और पासवर्ड मिल सके। हम हर भुगतान की मैन्युअल जांच करते हैं, इसलिए विवरण भेजने के बाद कृपया थोड़ा समय दें।",
-    en: "After payment, contact us with your payment details (screenshot or order ID) to receive your Student ID and Password. We verify each payment manually, so please allow some time after sending your details.",
+    hi: "किसी भी प्रकार की समस्या आने पर, जैसे लॉगिन या कोई अन्य समस्या, नीचे दिए गए बटन पर क्लिक करें, ताकि आपको तुरंत सहायता मिल सके।",
+    en: "If you face any problem, such as a login issue or any other issue, click the button below to get instant help.",
   },
   contact_email_label: { hi: "ईमेल:", en: "Email:" },
   contact_phone_label: { hi: "व्हाट्सएप / कॉल:", en: "WhatsApp / Call:" },
