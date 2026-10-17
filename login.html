@@ -107,7 +107,8 @@ document.querySelectorAll('[data-switch]').forEach(b=>b.onclick=()=>switchPane(b
 document.querySelectorAll('[data-eye]').forEach(b=>b.onclick=()=>{const i=document.getElementById(b.dataset.eye);i.type=i.type==='password'?'text':'password';b.textContent=i.type==='password'?'Show':'Hide'});
 // Opening the Login option always starts a fresh sign-in: clear any existing session
 // so the student must enter their email ID and password instead of seeing Continue.
-(async()=>{await logout()})();
+// Inside the installed Android app (standalone mode) keep the student signed in: go straight on.
+(async()=>{const app=matchMedia('(display-mode: standalone)').matches||document.referrer.startsWith('android-app://');if(app&&await getSession()){location.replace(nextUrl());return}await logout()})();
 document.getElementById('loginForm').addEventListener('submit',async e=>{
  e.preventDefault();hideAlert();const btn=document.getElementById('loginBtn');btn.disabled=true;btn.textContent='LOGGING IN...';
  const r=await loginWithIdentifier(document.getElementById('loginIdentifier').value,document.getElementById('loginPassword').value);
