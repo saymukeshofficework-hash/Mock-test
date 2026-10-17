@@ -227,8 +227,8 @@ export const MOCK_SERIES: Record<string, MockSeries> = {
     testHref: (n) => `/examhelp/mock-tests/mpgrb/test.html?t=${String(n).padStart(2, "0")}&lang=hi`,
     title: { hi: "मध्य प्रदेश ग्रामीण बैंक — 25 मॉक टेस्ट", en: "Madhya Pradesh Gramin Bank — 25 Mock Tests" },
     sub: {
-      hi: "IBPS RRB प्रारंभिक परीक्षा के अभ्यास पैटर्न पर: 80 प्रश्न, 45 मिनट, रीजनिंग और संख्यात्मक योग्यता। टेस्ट 1 फ्री; बाकी 24 टेस्ट ₹99 में।",
-      en: "Practice series based on the IBPS RRB preliminary pattern: 80 questions, 45 minutes, Reasoning and Numerical Ability. Test 1 is free; the other 24 tests cost ₹99.",
+      hi: "केवल IBPS RRB प्रारंभिक परीक्षा के अभ्यास पैटर्न पर आधारित।",
+      en: "Based only on the IBPS RRB preliminary exam practice pattern.",
     },
     rows: {
       hi: [
