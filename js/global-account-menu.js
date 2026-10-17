@@ -101,7 +101,7 @@
         } catch (error) {
           console.error("Logout failed", error);
         }
-        window.location.href = "/index.html";
+        window.location.replace("/login.html");
       });
     }
   }
