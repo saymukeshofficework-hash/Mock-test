@@ -37,7 +37,7 @@ export default async function Page() {
           <p className="mt-1 text-lg font-extrabold text-brand-900">{lang === "hi" ? "मध्य प्रदेश ग्रामीण बैंक — 25 मॉक टेस्ट" : "Madhya Pradesh Gramin Bank — 25 mock tests"}</p>
           <p className="mt-1 text-sm text-ink-600">{lang === "hi" ? "80 प्रश्न · 45 मिनट · रीजनिंग + संख्यात्मक योग्यता · टेस्ट 1 फ्री" : "80 questions · 45 minutes · Reasoning + Numerical Ability · Test 1 free"}</p>
         </div>
-        <span className="btn-primary shrink-0">{lang === "hi" ? "देखें" : "View"}<span data-sale>{" — ₹99"}</span></span>
+        <span className="btn-primary shrink-0">{lang === "hi" ? "टेस्ट चुनें →" : "Choose tests →"}</span>
       </Link>
       <Link href="/mp-high-court-assistant-grade-3-mock-tests" className="card flex flex-col gap-3 border-2 border-brand-700 p-5 transition hover:shadow-md sm:flex-row sm:items-center sm:justify-between">
         <div>
@@ -45,7 +45,7 @@ export default async function Page() {
           <p className="mt-1 text-lg font-extrabold text-brand-900">{lang === "hi" ? "MP हाई कोर्ट सहायक ग्रेड-3 — 25 फुल मॉक टेस्ट" : "MP High Court Assistant Grade-3 — 25 full mock tests"}</p>
           <p className="mt-1 text-sm text-ink-600">{lang === "hi" ? "हिंदी/English · हर प्रश्न की व्याख्या · टेस्ट 1 फ्री" : "Hindi/English · explanation for every question · Test 1 free"}</p>
         </div>
-        <span className="btn-primary shrink-0">{lang === "hi" ? "देखें" : "View"}<span data-sale>{" — ₹99"}</span></span>
+        <span className="btn-primary shrink-0">{lang === "hi" ? "टेस्ट चुनें →" : "Choose tests →"}</span>
       </Link>
       <Link href="/mp-police-constable-gd-mock-tests" className="card mt-4 flex flex-col gap-3 border-2 border-brand-700 p-5 transition hover:shadow-md sm:flex-row sm:items-center sm:justify-between">
         <div>
@@ -53,7 +53,7 @@ export default async function Page() {
           <p className="mt-1 text-lg font-extrabold text-brand-900">{lang === "hi" ? "MP पुलिस आरक्षक (जी.डी.) 2026 — 25 फुल मॉक टेस्ट" : "MP Police Constable (GD) 2026 — 25 full mock tests"}</p>
           <p className="mt-1 text-sm text-ink-600">{lang === "hi" ? "MPESB पैटर्न · हिंदी/English · टेस्ट 1 फ्री" : "MPESB pattern · Hindi/English · Test 1 free"}</p>
         </div>
-        <span className="btn-primary shrink-0">{lang === "hi" ? "देखें" : "View"}<span data-sale>{" — ₹99"}</span></span>
+        <span className="btn-primary shrink-0">{lang === "hi" ? "टेस्ट चुनें →" : "Choose tests →"}</span>
       </Link>
       <Link href="/mp-police-subedar-asi-mock-tests" className="card mt-4 flex flex-col gap-3 border-2 border-brand-700 p-5 transition hover:shadow-md sm:flex-row sm:items-center sm:justify-between">
         <div>
@@ -61,7 +61,7 @@ export default async function Page() {
           <p className="mt-1 text-lg font-extrabold text-brand-900">{lang === "hi" ? "MP पुलिस सूबेदार / ASI 2026 — 25 फुल मॉक टेस्ट" : "MP Police Subedar / ASI 2026 — 25 full mock tests"}</p>
           <p className="mt-1 text-sm text-ink-600">{lang === "hi" ? "MPESB पैटर्न · हिंदी/English · टेस्ट 1 फ्री" : "MPESB pattern · Hindi/English · Test 1 free"}</p>
         </div>
-        <span className="btn-primary shrink-0">{lang === "hi" ? "देखें" : "View"}<span data-sale>{" — ₹99"}</span></span>
+        <span className="btn-primary shrink-0">{lang === "hi" ? "टेस्ट चुनें →" : "Choose tests →"}</span>
       </Link>
       <Link href="/mp-police-driver-mock-tests" className="card mt-4 flex flex-col gap-3 border-2 border-brand-700 p-5 transition hover:shadow-md sm:flex-row sm:items-center sm:justify-between">
         <div>
@@ -69,7 +69,7 @@ export default async function Page() {
           <p className="mt-1 text-lg font-extrabold text-brand-900">{lang === "hi" ? "MP पुलिस आरक्षक (चालक) 2026 — 25 फुल मॉक टेस्ट" : "MP Police Constable (Driver) 2026 — 25 full mock tests"}</p>
           <p className="mt-1 text-sm text-ink-600">{lang === "hi" ? "MPESB पैटर्न · हिंदी · टेस्ट 1 फ्री" : "MPESB pattern · Hindi · Test 1 free"}</p>
         </div>
-        <span className="btn-primary shrink-0">{lang === "hi" ? "देखें" : "View"}<span data-sale>{" — ₹99"}</span></span>
+        <span className="btn-primary shrink-0">{lang === "hi" ? "टेस्ट चुनें →" : "Choose tests →"}</span>
       </Link>
     </div>
     <SectionLanding
