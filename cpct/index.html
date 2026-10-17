@@ -33,16 +33,18 @@ h1{font-size:clamp(28px,6vw,40px);line-height:1.2;margin:34px 0 12px;color:#0d3b
 .t .btn{margin-top:auto}.foot{text-align:center;color:var(--muted);font-size:13px;padding:24px 0 40px}
 .on{background:var(--brand)!important;color:#fff!important}.crumb{font-size:14px;color:var(--muted);margin:20px 0 0}.crumb a{color:var(--brand)}
 .soon{margin-left:8px;background:#fef3c7;color:#92400e;border-radius:99px;padding:2px 9px;font-size:12px}
+
+.student-account-menu{position:relative;display:inline-flex;align-items:center;height:auto;min-height:40px;padding:0;background:var(--brand2);color:var(--brand);z-index:20}.student-account-menu summary{list-style:none;cursor:pointer;white-space:nowrap}.student-account-menu summary::-webkit-details-marker{display:none}.student-account-dropdown{position:absolute;right:0;top:calc(100% + 8px);min-width:180px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:6px;box-shadow:0 8px 24px rgba(0,0,0,.12);display:grid;gap:4px}.student-account-dropdown a,.student-account-dropdown button{display:block;width:100%;padding:10px 12px;border:0;border-radius:8px;background:#fff;color:var(--ink);font:inherit;font-size:14px;text-align:left;text-decoration:none;cursor:pointer}.student-account-dropdown a:hover,.student-account-dropdown button:hover{background:var(--brand2);color:var(--brand)}
 </style>
 </head>
 <body>
 <div class="hdr"><div class="bar">
-  <a class="logo" href="/login.html"><span>TETTEST<b>HUB</b></span></a>
-  <a class="chip" href="/tests.html">सभी टेस्ट / All Tests</a>
+  <a class="logo" href="/index.html"><span>TETTEST<b>HUB</b></span></a>
+  <details class="chip student-account-menu" id="studentAccountMenu"><summary id="studentAccountLabel">छात्र ID</summary><div class="student-account-dropdown"><a href="/dashboard.html">डैशबोर्ड / Dashboard</a><button type="button" data-account-logout>लॉगआउट / Logout</button></div></details>
 </div></div>
 <main class="wrap">
   <h1 id="ttl">MP CPCT टेस्ट सीरीज़ / Test Series</h1>
-  <p class="sub" id="sub">25 पूरे पेपर (MCQ + अंग्रेज़ी टाइपिंग + हिंदी टाइपिंग), ₹199 में पूरी सीरीज़। पेपर 1 फ्री।<br>25 full papers (MCQ + English typing + Hindi typing), full series ₹199. Paper 1 is free.</p>
+  <p class="sub" id="sub">25 पूरे पेपर (MCQ + अंग्रेज़ी टाइपिंग + हिंदी टाइपिंग), ₹99 में पूरी सीरीज़। पेपर 1 फ्री।<br>25 full papers (MCQ + English typing + Hindi typing), full series ₹99. Paper 1 is free.</p>
   <section class="card pat" id="pat"></section>
   <div class="grid" id="grid" style="margin-top:18px"></div>
 </main>
@@ -147,6 +149,19 @@ h1{font-size:clamp(28px,6vw,40px);line-height:1.2;margin:34px 0 12px;color:#0d3b
 })();
 </script>
 
-<script src="../js/global-account-menu.js"></script>
+
+<script>
+(async function(){
+  const menu=document.getElementById('studentAccountMenu');
+  const label=document.getElementById('studentAccountLabel');
+  if(!menu||!label)return;
+  try{const session=await getSession();if(session){const profile=await getProfile(session.user.id);if(profile&&profile.student_id)label.textContent='छात्र ID: '+profile.student_id;}}
+  catch(e){console.warn('Unable to load student ID',e);}
+  const logoutButton=menu.querySelector('[data-account-logout]');
+  if(logoutButton)logoutButton.addEventListener('click',async()=>{logoutButton.disabled=true;logoutButton.textContent='लॉगआउट हो रहा है…';await logout();window.location.href='/login.html';});
+})();
+</script>
+<script src="../js/global-account-menu.js?v=10"></script>
+
 </body>
 </html>

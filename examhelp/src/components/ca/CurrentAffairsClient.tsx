@@ -2,7 +2,6 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Download, Globe2, Landmark, MapPin, Newspaper, ShieldCheck, Sparkles } from "lucide-react";
-import { checkout } from "@/lib/checkout";
 
 /**
  * Daily current affairs (MP, India, World), free for everyone.
@@ -24,6 +23,8 @@ type Item = {
 type Quiz = { q: Bi; o: { hi: string[]; en: string[] }; a: number; exp: Bi };
 type Day = { day: string; title?: Bi; items: Item[]; oneliners?: { hi: string[]; en: string[] }; quiz?: Quiz[] };
 type IndexRow = { day: string; items: number };
+const MIN_CURRENT_AFFAIRS_DATE = "2026-01-01";
+const todayInIndia = () => new Intl.DateTimeFormat("en-CA", { timeZone: "Asia/Kolkata", year: "numeric", month: "2-digit", day: "2-digit" }).format(new Date());
 
 const PDF_LIB = "https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js";
 
@@ -78,6 +79,7 @@ export function CurrentAffairsClient() {
   const [index, setIndex] = useState<IndexRow[]>([]);
   const [state, setState] = useState<"loading" | "error" | "ready">("loading");
   const [day, setDay] = useState<Day | null>(null);
+  const [selectedDate, setSelectedDate] = useState(todayInIndia());
   const [region, setRegion] = useState<"all" | Item["region"]>("all");
   const [pdfBusy, setPdfBusy] = useState(false);
   const [shown, setShown] = useState<Record<number, number | undefined>>({});
@@ -85,14 +87,31 @@ export function CurrentAffairsClient() {
   const L = (b?: Bi) => (b ? b[lang] || b.hi : "");
 
   const openDay = useCallback(async (d?: string) => {
-    const r = await checkout<{ data: Day | null; day: string | null }>({ action: "ca_day", day: d });
-    if (r.error) {
+    try {
+      const base = process.env.NEXT_PUBLIC_SUPABASE_URL ?? "https://znulepzdihzhjmuvyroi.supabase.co";
+      const anon = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpudWxlcHpkaWh6aGptdXZ5cm9pIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTExMjE5MjIsImV4cCI6MjEwNjY5NzkyMn0.XoqC6vNDJkEAxgtXLVPCpTxocv3lAa-ZBeg69OdbhdU";
+      const callApi = async (payload: { action: "ca_index" | "ca_day"; day?: string }) => {
+        const response = await fetch(`${base}/functions/v1/notes-checkout`, {
+          method: "POST",
+          headers: { apikey: anon, Authorization: `Bearer ${anon}`, "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        });
+        if (!response.ok) throw new Error(`Current affairs API failed: ${response.status}`);
+        return await response.json();
+      };
+      const indexData = await callApi({ action: "ca_index" });
+      const rows = (Array.isArray(indexData.days) ? indexData.days : []) as IndexRow[];
+      setIndex(rows);
+      const target = d || rows[0]?.day || todayInIndia();
+      setSelectedDate(target);
+      const result = await callApi({ action: "ca_day", day: target });
+      const payload = result.data as Day | null;
+      setDay(payload ? { ...payload, day: result.day || target } : null);
+      setShown({});
+      setState("ready");
+    } catch {
       setState("error");
-      return;
     }
-    setDay(r.data ? { ...r.data, day: r.day ?? r.data.day } : null);
-    setShown({});
-    setState("ready");
   }, []);
 
   useEffect(() => {
@@ -103,9 +122,6 @@ export function CurrentAffairsClient() {
     } catch {
       /* ignore */
     }
-    checkout<{ days: IndexRow[] }>({ action: "ca_index" })
-      .then((r) => setIndex(r.days ?? []))
-      .catch(() => {});
     openDay();
   }, [openDay]);
 
@@ -169,6 +185,12 @@ export function CurrentAffairsClient() {
   const allItems = day?.items ?? [];
   return (
     <div className="container-page py-8 sm:py-10">
+      <div className="mb-4">
+        <a href="https://tettesthub.in/index.html" aria-label="बैंगनी होमपेज पर जाएँ" title="होम" className="inline-flex h-9 items-center gap-2 rounded-lg border border-brand-200 bg-brand-50 px-3 text-sm font-bold text-brand-700 transition hover:bg-brand-100">
+          <span aria-hidden="true">⌂</span>
+          <span>होम</span>
+        </a>
+      </div>
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div>
           <p className="flex items-center gap-1.5 text-sm font-semibold text-success-700">
@@ -187,9 +209,17 @@ export function CurrentAffairsClient() {
         </div>
       </div>
 
-      {/* days */}
-      <div className="-mx-1 mt-6 flex gap-2 overflow-x-auto px-1 pb-1 [scrollbar-width:none]">
-        {index.slice(0, 30).map((d) => (
+      {/* Select any date in the historical range. */}
+      <div className="mt-6 flex flex-wrap items-end gap-3 rounded-2xl border border-ink-200 bg-surface p-4">
+        <label className="grid gap-1 text-sm font-semibold text-ink-700">
+          {lang === "hi" ? "तारीख चुनें" : "Choose a date"}
+          <input type="date" value={selectedDate} min={MIN_CURRENT_AFFAIRS_DATE} max={todayInIndia()} onChange={(event) => setSelectedDate(event.target.value)} className="rounded-lg border border-ink-200 bg-white px-3 py-2 text-ink-900" />
+        </label>
+        <button type="button" onClick={() => openDay(selectedDate)} className="btn-primary">{lang === "hi" ? "उस दिन का टेस्ट खोलें" : "Open daily test"}</button>
+        <span className="text-xs text-ink-500">{lang === "hi" ? `${index.length} दिन उपलब्ध` : `${index.length} dates available`}</span>
+      </div>
+      <div className="-mx-1 mt-3 flex gap-2 overflow-x-auto px-1 pb-1 [scrollbar-width:none]">
+        {index.slice(0, 7).map((d) => (
           <button key={d.day} type="button" onClick={() => openDay(d.day)} aria-pressed={day?.day === d.day}
             className={`shrink-0 rounded-full border px-4 py-2 text-sm transition-colors ${day?.day === d.day ? "border-ink-900 bg-ink-900 text-white" : "border-ink-200 bg-surface text-ink-900 hover:border-ink-300"}`}>
             {fmtDay(d.day, lang)}
@@ -198,7 +228,7 @@ export function CurrentAffairsClient() {
       </div>
 
       {!day ? (
-        <p className="mt-10 rounded-2xl border border-ink-200 bg-surface p-8 text-center text-ink-500">{lang === "hi" ? "पहला अंक जल्द प्रकाशित होगा।" : "The first edition is coming soon."}</p>
+        <p className="mt-10 rounded-2xl border border-ink-200 bg-surface p-8 text-center text-ink-500">{lang === "hi" ? `${fmtDay(selectedDate, lang, true)} का अंक अभी उपलब्ध नहीं है। कृपया दूसरी तारीख चुनें।` : `No edition is available for ${fmtDay(selectedDate, lang, true)} yet. Please choose another date.`}</p>
       ) : (
         <>
           {/* regions */}

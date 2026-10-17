@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useState } from "react";
 import { Ban, Copy, LogOut, MessageCircle, RefreshCw, RotateCcw, Search, ShieldCheck, Undo2 } from "lucide-react";
-import { adminCall, downloadPath } from "@/lib/checkout";
+import { ADMIN_USER_KEY, adminCall, downloadPath } from "@/lib/checkout";
 import { UploadTests } from "@/components/admin/UploadTests";
 import { BridgeAdmin } from "@/components/admin/BridgeAdmin";
 
@@ -30,6 +30,7 @@ const PRODUCT: Record<string, string> = {
   "ag3-combo-en": "Combo — English notes + tests",
   "pcgd-tests": "Police Constable GD — 25 tests",
   "asi-tests": "Police Subedar/ASI — 25 tests",
+  "pcdr-tests": "Police Constable Driver — 25 tests",
   "mpgrb-tests": "MP Gramin Bank — 25 tests",
   "ca-30": "Current affairs — 30-day pass",
 };
@@ -41,6 +42,7 @@ const when = (s: string | null) =>
   s ? new Date(s).toLocaleString("en-IN", { day: "2-digit", month: "short", hour: "2-digit", minute: "2-digit", timeZone: "Asia/Kolkata" }) : "—";
 
 export function AdminClient() {
+  const [user, setUser] = useState("");
   const [pw, setPw] = useState("");
   const [authed, setAuthed] = useState(false);
   const [stats, setStats] = useState<Stats | null>(null);
@@ -51,9 +53,14 @@ export function AdminClient() {
   const [msg, setMsg] = useState("");
   const [confirm, setConfirm] = useState<string | null>(null);
 
-  const login = useCallback(async (password: string) => {
+  const login = useCallback(async (username: string, password: string) => {
     setBusy(true);
     setMsg("");
+    try {
+      sessionStorage.setItem(ADMIN_USER_KEY, username.trim());
+    } catch {
+      /* ignore */
+    }
     const r = await adminCall<{ ok: boolean; stats: Stats }>({ action: "login", password });
     setBusy(false);
     if (r.ok) {
@@ -65,7 +72,7 @@ export function AdminClient() {
         /* ignore */
       }
     } else {
-      setMsg(r.error === "wrong_password" ? "Wrong password." : r.error === "admin_not_configured" ? "ADMIN_PASSWORD is not set in Supabase secrets yet (min 10 characters)." : "Could not connect. Try again.");
+      setMsg(r.error === "wrong_password" ? "Wrong username or password. / यूज़रनेम या पासवर्ड गलत है।" : r.error === "admin_not_configured" ? "ADMIN_USERS / ADMIN_PASSWORD is not set in Supabase secrets yet (min 10 characters)." : "Could not connect. Try again.");
       try {
         sessionStorage.removeItem(PW_KEY);
       } catch {
@@ -86,8 +93,10 @@ export function AdminClient() {
     try {
       const saved = sessionStorage.getItem(PW_KEY);
       if (saved) {
+        const u = sessionStorage.getItem(ADMIN_USER_KEY) ?? "";
+        setUser(u);
         setPw(saved);
-        login(saved);
+        login(u, saved);
       }
     } catch {
       /* ignore */
@@ -140,15 +149,20 @@ export function AdminClient() {
           className="card w-full max-w-sm p-6"
           onSubmit={(e) => {
             e.preventDefault();
-            login(pw);
+            login(user, pw);
           }}
         >
           <h1 className="flex items-center gap-2 text-xl font-extrabold text-brand-900">
             <ShieldCheck className="h-5 w-5 text-accent-600" aria-hidden="true" />
             TETTESTHUB Admin
           </h1>
-          <label className="mt-5 block text-sm font-semibold text-ink-700" htmlFor="adm-pw">
-            Password
+          <label className="mt-5 block text-sm font-semibold text-ink-700" htmlFor="adm-user">
+            Username / यूज़रनेम
+          </label>
+          <input id="adm-user" type="text" autoComplete="username" value={user} onChange={(e) => setUser(e.target.value)}
+            className="mt-1 w-full rounded-lg border border-ink-200 px-3 py-2" />
+          <label className="mt-3 block text-sm font-semibold text-ink-700" htmlFor="adm-pw">
+            Password / पासवर्ड
           </label>
           <input id="adm-pw" type="password" autoComplete="current-password" value={pw} onChange={(e) => setPw(e.target.value)}
             className="mt-1 w-full rounded-lg border border-ink-200 px-3 py-2" />

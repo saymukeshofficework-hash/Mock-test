@@ -149,6 +149,7 @@ jobs:
           cp -r assets _site/assets
           cp -r js _site/js
           cp -r tet _site/tet
+          cp -r .well-known _site/.well-known
           # MP CPCT mock + typing tests
           cp -r cpct _site/cpct
           # RRB NTPC Graduate and 10+2 Undergraduate mock tests
@@ -169,6 +170,7 @@ jobs:
 
           # BBC English Coaching Classes Burhar platform, static, no build step
           cp -r bbc-english _site/bbc-english
+          cp -r gita-olympiad _site/gita-olympiad
 
           # 80-Second Video Maker, static, no build step
           cp -r video-cutter _site/video-cutter
@@ -212,6 +214,10 @@ jobs:
           # TETTESTHUB exam help (/examhelp/) static export — includes the latest Exam Hub source branch (fixed landing component)
           mkdir -p _site/examhelp
           cp -r examhelp/out/. _site/examhelp/
+          # Explicitly publish the standalone mock-test engines and their free JSON data.
+          # Keep these public assets available even if Next static export omits public files.
+          mkdir -p _site/examhelp/mock-tests
+          cp -r examhelp/public/mock-tests/. _site/examhelp/mock-tests/
 
           # Old /testhub/ links (ads, QR codes in sample PDFs) redirect to the same page under /examhelp/.
           python3 - <<'PY'

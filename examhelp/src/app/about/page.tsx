@@ -24,7 +24,7 @@ export default async function AboutPage() {
           <ul>
             <li>MPESB और MPPSC की परीक्षाओं की तिथियाँ आधिकारिक स्रोत के लिंक के साथ।</li>
             <li>हर तिथि की स्थिति स्पष्ट — आधिकारिक, संभावित, अपेक्षित या घोषित होना शेष।</li>
-            <li>परीक्षा-केंद्रित ₹299 PDF नोट्स (शीघ्र)।</li>
+            <li data-sale>परीक्षा-केंद्रित ₹299 PDF नोट्स (शीघ्र)।</li>
             <li>टेस्ट सीरीज़, प्रैक्टिस टेस्ट, करेंट अफेयर्स और पिछले प्रश्नपत्र (शीघ्र)।</li>
           </ul>
           <h2>हमारा सिद्धांत</h2>
@@ -40,7 +40,7 @@ export default async function AboutPage() {
           <ul>
             <li>MPESB and MPPSC exam dates, linked to the official source.</li>
             <li>A clear status on every date — Official, Tentative, Expected or To be announced.</li>
-            <li>Exam-focused ₹299 PDF notes (coming soon).</li>
+            <li data-sale>Exam-focused ₹299 PDF notes (coming soon).</li>
             <li>Test series, practice tests, current affairs and previous papers (coming soon).</li>
           </ul>
           <h2>Our principle</h2>

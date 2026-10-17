@@ -1,9 +1,384 @@
-/* Account menu is intentionally limited to the post-login home page.
-   Exam/test screens must not inject their own Dashboard or Logout controls. */
+/* Shared TET Test Hub account menu for individual exam and typing pages. */
 (function () {
-  const path = window.location.pathname.replace(/\/+$/, '') || '/';
-  const isHome = path === '/' || path === '/index.html';
-  if (!isHome) return;
-  // index.html owns the signed-in account menu and fills in the student's ID.
-  if (document.getElementById('accountMenu')) return;
+  // auth.js and i18n.js also inject this file; two copies fight over the same text and freeze the page.
+  if (window.__tthAccountMenuLoaded) return;
+  window.__tthAccountMenuLoaded = true;
+  let path = window.location.pathname;
+  while (path.length > 1 && path.endsWith("/")) path = path.slice(0, -1);
+  if (path === "/" || path === "/index.html") return;
+
+  function addTestHeader() {
+    // Remove legacy floating house icons across all pages, not only exam headers.
+    document.querySelectorAll(".home-link, #tth-floating-home, .floating-home, .home-icon-button, .home-icon, .home-button, .floating-home-button").forEach((link) => link.remove());
+    document.querySelectorAll('a[aria-label*="होम"], a[title="होम"], a[aria-label*="home" i], a[title*="home" i]').forEach((link) => {
+      if (link.querySelector("svg") && !link.textContent.trim()) link.remove();
+    });
+
+    const header = document.querySelector("header.topbar") || document.querySelector(".hdr .bar") || document.querySelector(".tbar");
+    if (!header || header.dataset.tthHeaderReady === "true") return;
+    header.dataset.tthHeaderReady = "true";
+
+    const isExamTopbar = header.matches("header.topbar");
+    const left = header.querySelector(".topbar-left") || header;
+    let home = header.querySelector("#tthTopHomeLink");
+    if (!home) {
+      home = document.createElement("a");
+      home.id = "tthTopHomeLink";
+      home.className = "tth-top-home-link";
+      home.href = "/";
+      home.textContent = "⌂";
+      home.title = "होम";
+      home.setAttribute("aria-label", "होमपेज पर जाएँ");
+      const leftSide = header.querySelector(".topbar-left") || header;
+      leftSide.insertBefore(home, leftSide.firstChild);
+    }
+
+    // CPCT/TET catalogue pages keep the original text Home option.
+    // Exam paper headers use the compact house icon only.
+    if (!isExamTopbar) {
+      home.textContent = "⌂ होम";
+      home.href = "/index.html";
+      home.title = "होम";
+      const logo = header.querySelector("a.logo");
+      if (logo) logo.href = "/index.html";
+      return;
+    }
+    home.textContent = "⌂";
+    // /examhelp/ redirects to login, so Home must open the public root homepage.
+    home.href = "/index.html";
+    home.title = "होम";
+
+    let brand = header.querySelector(".tth-header-brand");
+    if (!brand) {
+      brand = document.createElement("span");
+      brand.className = "tth-header-brand";
+      brand.textContent = "TET Test Hub";
+      if (home && home.parentElement === left) home.insertAdjacentElement("afterend", brand);
+      else left.insertBefore(brand, left.firstChild);
+    }
+
+    let menu = header.querySelector("#tthStudentAccountMenu");
+    if (!menu) {
+      menu = document.createElement("details");
+      menu.id = "tthStudentAccountMenu";
+      menu.className = "tth-student-account-menu";
+      menu.innerHTML = `
+        <summary id="tthStudentAccountLabel">छात्र ID</summary>
+        <div class="tth-student-account-dropdown">
+          <a href="/dashboard.html">डैशबोर्ड / Dashboard</a>
+          <button type="button" id="tthStudentLogout">लॉगआउट / Logout</button>
+        </div>`;
+      if (brand.nextSibling) left.insertBefore(menu, brand.nextSibling);
+      else left.appendChild(menu);
+    }
+
+    const label = menu.querySelector("#tthStudentAccountLabel");
+    const idSource = document.querySelector("[data-student-id], #studentId, #studentID, .student-id, .student-id-value");
+    if (idSource && label) {
+      const value = idSource.getAttribute("data-student-id") || idSource.textContent.trim();
+      if (value) label.textContent = "छात्र ID: " + value.replace(/^छात्र\s*ID\s*:?\s*/i, "");
+    }
+
+    if (label && typeof window.getSession === "function" && typeof window.getProfile === "function") {
+      Promise.resolve(window.getSession()).then(async (session) => {
+        if (!session) return;
+        const user = session.user || session.data?.session?.user;
+        if (!user?.id) return;
+        const profile = await window.getProfile(user.id);
+        if (profile?.student_id) label.textContent = "छात्र ID: " + profile.student_id;
+      }).catch((error) => console.warn("Unable to load student ID", error));
+    }
+
+    const logoutButton = menu.querySelector("#tthStudentLogout");
+    if (logoutButton && logoutButton.dataset.bound !== "true") {
+      logoutButton.dataset.bound = "true";
+      logoutButton.addEventListener("click", async () => {
+        logoutButton.disabled = true;
+        logoutButton.textContent = "लॉगआउट हो रहा है…";
+        try {
+          if (typeof window.logout === "function") await window.logout();
+          else if (window.supabaseClient?.auth?.signOut) await window.supabaseClient.auth.signOut();
+        } catch (error) {
+          console.error("Logout failed", error);
+        }
+        window.location.href = "/index.html";
+      });
+    }
+  }
+
+  function installStyles() {
+    if (document.getElementById("tth-mobile-header-style")) return;
+    const style = document.createElement("style");
+    style.id = "tth-mobile-header-style";
+    style.textContent = `
+      header.topbar .topbar-left { display:flex; align-items:center; flex-wrap:wrap; gap:8px; min-width:0; flex:1 1 100%; }
+      header.topbar .tth-top-home-link, .hdr .bar .tth-top-home-link, .tbar .tth-top-home-link { display:inline-flex; align-items:center; justify-content:center; padding:5px 7px; border-radius:8px; background:#16856f; border:1px solid #8abbb0; color:#fff; font-size:17px; line-height:1; min-width:30px; min-height:30px; font-weight:800; text-decoration:none; white-space:nowrap; }
+      header.topbar .tth-top-home-link:hover, .hdr .bar .tth-top-home-link:hover, .tbar .tth-top-home-link:hover { background:#0f6b5f; }
+      .hdr .bar { justify-content:flex-start; flex-wrap:wrap; }
+      .tbar { justify-content:space-between !important; }
+      .tbar .tth-top-home-link { margin-right:auto; }
+      .hdr .bar .logo { margin-right:auto; }
+      .tth-header-brand { color:#fff; font-size:16px; font-weight:700; white-space:nowrap; }
+      header.topbar .tth-student-account-menu { position:relative; flex:0 0 auto; z-index:1002; color:#fff; font-size:11px; margin-left:37px; margin-top:-3px; width:max-content; max-width:calc(100% - 37px); }
+      header.topbar .tth-student-account-menu summary { list-style:none; cursor:pointer; border:1px solid #8abbb0; background:#ffffff18; border-radius:7px; padding:3px 7px; white-space:nowrap; font-weight:700; font-size:11px; line-height:1.25; }
+      header.topbar .tth-student-account-menu summary::-webkit-details-marker { display:none; }
+      header.topbar .tth-student-account-dropdown { position:absolute; left:0; top:calc(100% + 6px); min-width:180px; display:grid; gap:4px; padding:6px; background:#fff; color:#202020; border:1px solid #ddd; border-radius:10px; box-shadow:0 8px 24px #0003; }
+      header.topbar .tth-student-account-dropdown a, header.topbar .tth-student-account-dropdown button { display:block; width:100%; padding:10px 12px; border:0; border-radius:7px; background:#fff; color:#202020; font:inherit; font-size:13px; text-align:left; text-decoration:none; cursor:pointer; }
+      header.topbar .tth-student-account-dropdown a:hover, header.topbar .tth-student-account-dropdown button:hover { background:#eee8fb; color:#5b36a8; }
+      header.topbar h1 { min-width:0; }
+      @media(max-width:600px) {
+        header.topbar { padding:7px 10px; gap:5px; }
+        header.topbar .topbar-left { gap:7px; }
+        header.topbar .tth-header-brand { font-size:15px; } 
+        header.topbar .tth-student-account-menu { margin-left:37px; flex-basis:100%; margin-top:-4px; }
+        header.topbar .timer { font-size:12px; padding:3px 7px; }
+      }`;
+    document.head.appendChild(style);
+  }
+
+
+  // Shared language switch for exam, typing, login and account pages.
+  const TTH_TEXT = {
+    "TET Test Hub":"TET टेस्ट हब","Home":"होम","All Tests":"सभी टेस्ट","Login":"लॉगिन","Register":"रजिस्टर",
+    "About":"हमारे बारे में","Contact":"संपर्क करें","Welcome back":"वापसी पर स्वागत है",
+    "Login to access your TET Test Hub dashboard.":"अपने TET टेस्ट हब डैशबोर्ड में जाने के लिए लॉगिन करें।",
+    "Email ID":"ईमेल आईडी","Password":"पासवर्ड","Enter your email ID":"अपनी ईमेल आईडी दर्ज करें",
+    "Show":"दिखाएँ","Hide":"छिपाएँ","LOGIN":"लॉगिन","REGISTER":"रजिस्टर",
+    "New student?":"नए विद्यार्थी हैं?","Create account":"खाता बनाएँ","Forgot password?":"पासवर्ड भूल गए?",
+    "Create your account":"अपना खाता बनाएँ","Register once and use your account for all your tests.":"एक बार रजिस्टर करें और सभी टेस्ट के लिए अपना खाता उपयोग करें।",
+    "Full Name":"पूरा नाम","Your full name":"अपना पूरा नाम","Confirm Password":"पासवर्ड की पुष्टि करें",
+    "Already registered?":"पहले से रजिस्टर हैं?","Your account is ready to use immediately after registration.":"रजिस्ट्रेशन के बाद आपका खाता तुरंत उपयोग के लिए तैयार है।",
+    "Enter the email address linked to your account and we’ll send a secure reset link.":"अपने खाते से जुड़ा ईमेल दर्ज करें; हम सुरक्षित रीसेट लिंक भेजेंगे।",
+    "Registered Email":"रजिस्टर्ड ईमेल","SEND RESET LINK":"रीसेट लिंक भेजें","Back to login":"लॉगिन पर वापस जाएँ",
+    "Forgot password?":"पासवर्ड भूल गए?","Your full name":"अपना पूरा नाम","Already registered?":"पहले से रजिस्टर हैं?",
+    "Checking your access…":"आपकी पहुँच जाँची जा रही है…","Checking your access...":"आपकी पहुँच जाँची जा रही है…",
+    "Enter Your Name to Begin":"शुरू करने के लिए अपना नाम दर्ज करें","Your name will appear on your test and result summary.":"आपका नाम टेस्ट और परिणाम में दिखाई देगा।",
+    "Continue":"आगे बढ़ें","Instructions":"निर्देश","Please read the instructions carefully":"कृपया निर्देश ध्यान से पढ़ें",
+    "General Instructions:":"सामान्य निर्देश:","Choose your default language:":"अपनी डिफ़ॉल्ट भाषा चुनें:",
+    "English":"अंग्रेज़ी","I have read and understood the instructions. All computer hardware allotted to me is in proper working condition. I declare that I am not in possession of any prohibited material. I agree that in case of not adhering to the instructions, I shall be liable to disciplinary action.":"मैंने निर्देश पढ़ और समझ लिए हैं। मुझे दिया गया कंप्यूटर सही स्थिति में है। मैं किसी प्रतिबंधित सामग्री के पास न होने की घोषणा करता/करती हूँ और निर्देशों का पालन करने के लिए सहमत हूँ।",
+    "I am ready to begin":"मैं शुरू करने के लिए तैयार हूँ","Question Type: MCQ":"प्रश्न का प्रकार: MCQ",
+    "View in:":"भाषा देखें:","Question No. 1":"प्रश्न संख्या 1","Mark for Review & Next":"समीक्षा के लिए चिह्नित करें और आगे बढ़ें",
+    "Clear Response":"उत्तर हटाएँ","Previous":"पिछला","Save & Next":"सहेजें और आगे बढ़ें",
+    "Answered":"उत्तर दिया","Not Answered":"उत्तर नहीं दिया","Not Visited":"नहीं देखा","Marked for Review":"समीक्षा के लिए चिह्नित",
+    "SECTION":"खंड","Choose a Question":"प्रश्न चुनें","Submit":"जमा करें","Test Submitted":"टेस्ट जमा हो गया",
+    "Score":"अंक","Correct":"सही","Incorrect":"गलत","Unattempted":"अनुत्तरित","Section":"खंड","Total":"कुल",
+    "Time Left":"शेष समय","Candidate:":"उम्मीदवार:","Candidate":"उम्मीदवार","Retry":"दोबारा प्रयास करें",
+    "Show Tests":"टेस्ट दिखाएँ","Hide Tests":"टेस्ट छिपाएँ","Full Mock Tests":"पूर्ण मॉक टेस्ट",
+    "Paper 1":"पेपर 1","Paper 2":"पेपर 2","Exam not found.":"परीक्षा नहीं मिली।","Content coming soon":"सामग्री जल्द उपलब्ध होगी",
+    "TET Test Hub":"TET टेस्ट हब","डैशबोर्ड / Dashboard":"डैशबोर्ड","लॉगआउट / Logout":"लॉगआउट",
+    "You have not purchased this test.":"आपने यह टेस्ट नहीं खरीदा है।","Could not load this test right now. Please try again in a moment.":"यह टेस्ट अभी लोड नहीं हो सका। कृपया थोड़ी देर बाद पुनः प्रयास करें।",
+    "you@example.com":"आपका@email.com","Passwords do not match.":"पासवर्ड मेल नहीं खाते।","Please enter your name to continue.":"आगे बढ़ने के लिए अपना नाम दर्ज करें।",
+    "LOGGING IN...":"लॉगिन हो रहा है…","CREATING ACCOUNT...":"खाता बनाया जा रहा है…","SENDING...":"भेजा जा रहा है…",
+    "Passwords do not match.":"पासवर्ड मेल नहीं खाते।","Account created. Please log in.":"खाता बन गया है। कृपया लॉगिन करें।",
+    "Already registered?":"पहले से रजिस्टर हैं?","Your account is ready to use immediately after registration.":"रजिस्ट्रेशन के बाद आपका खाता तुरंत उपयोग के लिए तैयार है।",
+    "Total duration of examination is":"परीक्षा की कुल अवधि है","minutes (2 Hours 30 Minutes)":"मिनट (2 घंटे 30 मिनट)",
+    "The test has":"इस टेस्ट में","questions":"प्रश्न हैं","1 mark per question, no negative marking":"प्रत्येक प्रश्न के लिए 1 अंक, नकारात्मक अंकन नहीं",
+    "The clock will be set at the server. The countdown timer will display the remaining time. When the timer reaches zero, the examination will end and auto-submit.":"घड़ी सर्वर के अनुसार चलेगी। टाइमर शेष समय दिखाएगा। समय शून्य होने पर परीक्षा समाप्त होकर अपने आप जमा हो जाएगी।",
+    "The Question Palette on the right will show the status of each question using the symbols below:":"दाईं ओर प्रश्न पैलेट नीचे दिए गए चिह्नों से हर प्रश्न की स्थिति दिखाएगा:",
+    "You have not visited the question yet.":"आपने अभी तक यह प्रश्न नहीं देखा है।","You have not answered the question.":"आपने इस प्रश्न का उत्तर नहीं दिया है।",
+    "You have answered the question.":"आपने इस प्रश्न का उत्तर दिया है।","You have marked the question for review.":"आपने प्रश्न को समीक्षा के लिए चिह्नित किया है।",
+    "The \"Mark for Review\" status simply means you would like to look at that question again.":"\"समीक्षा के लिए चिह्नित\" का अर्थ है कि आप इस प्रश्न को फिर से देखना चाहते हैं।",
+    "To answer a question, select an option and click \"Save & Next\".":"उत्तर देने के लिए विकल्प चुनें और \"सहेजें और आगे बढ़ें\" पर क्लिक करें।",
+    "To deselect a chosen answer, click \"Clear Response\".":"चुना हुआ उत्तर हटाने के लिए \"उत्तर हटाएँ\" पर क्लिक करें।",
+    "To change your answer, select another option and click \"Save & Next\".":"उत्तर बदलने के लिए दूसरा विकल्प चुनें और \"सहेजें और आगे बढ़ें\" पर क्लिक करें।",
+    "Sections in this test will be displayed as tabs at the top. Questions in a section can be viewed by clicking the section name.":"इस टेस्ट के खंड ऊपर टैब के रूप में दिखेंगे। खंड का नाम चुनकर उसके प्रश्न देखें।",
+    "You can navigate between sections and questions anytime during the test, subject to the time constraint.":"समय सीमा के भीतर आप कभी भी खंडों और प्रश्नों के बीच जा सकते हैं।",
+    "Marks for correct answer: 1 | Negative Marks: 0":"सही उत्तर के अंक: 1 | गलत उत्तर के अंक: 0",
+    "Please enter your email ID and password.":"कृपया ईमेल आईडी और पासवर्ड दर्ज करें।",
+    "Incorrect email ID or password.":"ईमेल आईडी या पासवर्ड गलत है।","Something went wrong. Please try again.":"कुछ गलत हो गया। कृपया पुनः प्रयास करें।",
+    "Account created successfully.":"खाता सफलतापूर्वक बन गया।","Send reset link":"रीसेट लिंक भेजें",
+    "Login isn't available yet. Please try again later.":"लॉगिन अभी उपलब्ध नहीं है। कृपया बाद में फिर प्रयास करें।",
+    "Please fill all fields.":"कृपया सभी फ़ील्ड भरें।","Password must be at least 6 characters.":"पासवर्ड कम से कम 6 अक्षरों का होना चाहिए।",
+    "This email is already registered. Please login.":"यह ईमेल पहले से रजिस्टर है। कृपया लॉगिन करें।",
+    "Unable to create account.":"खाता नहीं बन सका।","Account created. Please check your email to confirm your account.":"खाता बन गया है। पुष्टि के लिए अपना ईमेल देखें।",
+    "Please enter the registered email address.":"कृपया रजिस्टर्ड ईमेल दर्ज करें।",
+    "Email confirmation isn't available yet. Please try again later.":"ईमेल पुष्टि अभी उपलब्ध नहीं है। कृपया बाद में प्रयास करें।",
+    "Unable to resend the confirmation email.":"पुष्टि ईमेल दोबारा नहीं भेजा जा सका।",
+    "Confirmation email sent again. Please check Inbox, Spam and Promotions.":"पुष्टि ईमेल फिर से भेज दिया गया है। इनबॉक्स, स्पैम और प्रमोशन देखें।",
+    "Please enter a valid registered email address.":"कृपया मान्य रजिस्टर्ड ईमेल दर्ज करें।",
+    "Password reset isn't available yet. Please try again later.":"पासवर्ड रीसेट अभी उपलब्ध नहीं है। कृपया बाद में प्रयास करें।",
+    "Unable to send the reset link.":"रीसेट लिंक नहीं भेजा जा सका।",
+    "Reset link sent. Please check your email inbox and spam folder.":"रीसेट लिंक भेज दिया गया है। इनबॉक्स और स्पैम फ़ोल्डर देखें।",
+    "General Knowledge":"सामान्य ज्ञान","General Awareness":"सामान्य जागरूकता","Mathematics":"गणित","Reasoning":"तर्कशक्ति",
+    "English":"अंग्रेज़ी","Hindi":"हिंदी","Computer Knowledge":"कंप्यूटर ज्ञान","General Science":"सामान्य विज्ञान",
+    "General Studies":"सामान्य अध्ययन","Quantitative Aptitude":"मात्रात्मक योग्यता","Current Affairs":"करंट अफेयर्स",
+    "MP GK":"मध्यप्रदेश सामान्य ज्ञान","General Hindi":"सामान्य हिंदी","General English":"सामान्य अंग्रेज़ी",
+    "Child Development and Pedagogy":"बाल विकास एवं शिक्षाशास्त्र","Social Science":"सामाजिक विज्ञान",
+    "Environmental Studies":"पर्यावरण अध्ययन","Teaching Aptitude":"शिक्षण अभिरुचि","Computer Awareness":"कंप्यूटर जागरूकता",
+    "सामान्य ज्ञान":"General Knowledge","सामान्य जागरूकता":"General Awareness","गणित":"Mathematics","तर्कशक्ति":"Reasoning",
+    "कंप्यूटर ज्ञान":"Computer Knowledge","सामान्य विज्ञान":"General Science","सामान्य अध्ययन":"General Studies",
+    "मात्रात्मक योग्यता":"Quantitative Aptitude","करंट अफेयर्स":"Current Affairs","मध्यप्रदेश सामान्य ज्ञान":"MP GK",
+    "सामान्य हिंदी":"General Hindi","सामान्य अंग्रेज़ी":"General English","बाल विकास एवं शिक्षाशास्त्र":"Child Development and Pedagogy",
+    "सामाजिक विज्ञान":"Social Science","पर्यावरण अध्ययन":"Environmental Studies","शिक्षण अभिरुचि":"Teaching Aptitude","कंप्यूटर जागरूकता":"Computer Awareness",
+    "MP CPCT टेस्ट सीरीज़":"MP CPCT Test Series","MP CPCT — पूरी सीरीज़":"MP CPCT — Full Series",
+    "पेपर पैटर्न":"Paper Pattern","पेपर शुरू करें":"Start Paper","पेपर":"Paper","टेस्ट सीरीज़":"Test Series",
+    "पूरी सीरीज़":"Full Series","अनलॉक करें":"Unlock","फ्री":"Free","जल्द आ रहा है":"Coming Soon",
+    "जल्द उपलब्ध होगा":"Coming Soon","सभी पेपर":"All Papers","सिर्फ टाइपिंग":"Typing Only",
+    "छात्र ID":"Student ID","डैशबोर्ड":"Dashboard","लॉगआउट":"Logout","संपर्क":"Contact",
+    "स्तर चुनें, फिर विषय चुनें। हर विषय में 25 टेस्ट, टेस्ट 1 फ्री।":"Choose a level, then a subject. 25 tests per subject; test 1 is free.",
+    "TET — प्राथमिक और माध्यमिक":"TET — Primary and Secondary",
+    "प्राथमिक और माध्यमिक":"Primary and Secondary","विषयवार टेस्ट सीरीज़":"Subject-wise Test Series",
+    "विषय खोलें":"Open Subject","टेस्ट":"Test","अगला":"Next","शुरू करें":"Start",
+    "आपकी पहुँच जाँची जा रही है…":"Checking your access…","पेमेंट खुल रहा है…":"Opening payment…",
+    "पेमेंट जाँच रहे हैं…":"Checking payment…","पेमेंट शुरू नहीं हुआ, फिर से कोशिश करें।":"Payment could not start. Please try again.",
+    "यह पेपर लॉक है।":"This paper is locked.","यह टेस्ट अभी लोड नहीं हो सका। कृपया थोड़ी देर बाद पुनः प्रयास करें।":"This test could not load. Please try again shortly.",
+    "प्रश्न":"Questions","मिनट":"Minutes","अंक":"Marks","सही":"Correct","गलत":"Incorrect","अनुत्तरित":"Unattempted",
+    "समय शेष":"Time Left","हिंदी टाइपिंग":"Hindi Typing","अंग्रेज़ी टाइपिंग":"English Typing",
+    "कंप्यूटर दक्षता":"Computer Proficiency","अपठित गद्यांश":"Reading Comprehension","तर्कशक्ति":"Reasoning",
+    "सामान्य ज्ञान":"General Awareness","गणित":"Mathematics","पहले लॉगिन करें।":"Please log in first.",
+    "सीरीज़ अनलॉक है।":"Series unlocked.","सीरीज़ अनलॉक हो गई।":"Series unlocked.",
+    "25 पूरे पेपर":"25 full papers","पेपर 1 फ्री।":"Paper 1 is free.",
+    "स्तर चुनें":"Choose a level","विषय चुनें":"Choose a subject","प्राथमिक":"Primary","माध्यमिक":"Secondary"
+  };
+  const TTH_ORIGINALS = new WeakMap();
+  let tthObserver = null;
+  function tthLang(){
+    try{
+      const examControl=document.getElementById("langBtn")||document.getElementById("langBtnName")||document.getElementById("langSel");
+      return examControl ? (localStorage.getItem("testhub_lang_pref")||localStorage.getItem("tetLang")||"hi") : (localStorage.getItem("tetLang")||"hi");
+    }catch(_){return "hi";}
+  }
+  function tthTranslateNode(node, lang){
+    if(!node || node.nodeType!==Node.TEXT_NODE || !node.parentElement) return;
+    if(node.parentElement.closest("script,style,textarea,option[data-keep-language],#qText,#qtext,#optionsList,#options,.qtext,.rqtext,.rsol,.option")) return;
+    let original=TTH_ORIGINALS.get(node);
+    if(original===undefined){original=node.nodeValue;TTH_ORIGINALS.set(node,original);}
+    const trimmed=original.trim();
+    if(!trimmed) return;
+    // Prefer the matching half of an explicitly bilingual label such as "हिंदी / English".
+    // This lets one switch translate titles and card labels without changing question content.
+    const paired=trimmed.split(/\s+[\/|｜]\s+/);
+    if(paired.length>1){
+      const scoreHindi=x=>(x.match(/[\u0900-\u097F]/g)||[]).length;
+      const scoreLatin=x=>(x.match(/[A-Za-z]/g)||[]).length;
+      const hiPart=paired.filter(x=>scoreHindi(x)>0).sort((a,b)=>scoreHindi(b)-scoreHindi(a))[0];
+      const enPart=paired.filter(x=>scoreLatin(x)>0).sort((a,b)=>scoreLatin(b)-scoreLatin(a))[0];
+      // Write only when the text really changes: an equal write still fires the
+      // MutationObserver below, which looped forever and froze test pages.
+      const part=lang==="hi"&&hiPart&&scoreHindi(hiPart)>=scoreLatin(hiPart)?hiPart:lang==="en"&&enPart&&scoreLatin(enPart)>=scoreHindi(enPart)?enPart:null;
+      if(part){ const next=original.replace(trimmed,part); if(node.nodeValue!==next) node.nodeValue=next; return; }
+    }
+    let translated=trimmed;
+    if(lang==="hi"){
+      translated=TTH_TEXT[trimmed] || Object.entries(TTH_TEXT).find(([en])=>en.toLowerCase()===trimmed.toLowerCase())?.[1] || trimmed;
+      const q=trimmed.match(/^Question No\\.\\s*(\\d+)$/i); if(q) translated="प्रश्न संख्या "+q[1];
+      const timer=trimmed.match(/^Time Left\\s*:\\s*(.*)$/i); if(timer) translated="शेष समय : "+timer[1];
+      const candidate=trimmed.match(/^Candidate:\\s*(.*)$/i); if(candidate) translated="उम्मीदवार: "+candidate[1];
+      const marks=trimmed.match(/^Marks for correct answer:\\s*(\\d+)\\s*\\|\\s*Negative Marks:\\s*(.*)$/i); if(marks) translated="सही उत्तर के अंक: "+marks[1]+" | गलत उत्तर के अंक: "+marks[2];
+    } else {
+      const reverse=Object.entries(TTH_TEXT).find(([en,hi])=>hi===trimmed || hi.toLowerCase()===trimmed.toLowerCase());
+      translated=reverse ? reverse[0] : trimmed;
+      const q=trimmed.match(/^प्रश्न संख्या\\s*(\\d+)$/); if(q) translated="Question No. "+q[1];
+      const timer=trimmed.match(/^शेष समय\\s*:\\s*(.*)$/); if(timer) translated="Time Left : "+timer[1];
+      const candidate=trimmed.match(/^उम्मीदवार:\\s*(.*)$/); if(candidate) translated="Candidate: "+candidate[1];
+      const marks=trimmed.match(/^सही उत्तर के अंक:\\s*(\\d+)\\s*\\|\\s*गलत उत्तर के अंक:\\s*(.*)$/); if(marks) translated="Marks for correct answer: "+marks[1]+" | Negative Marks: "+marks[2];
+    }
+    if(translated!==trimmed){
+      const lead=original.match(/^\\s*/)?.[0]||"";
+      const trail=original.match(/\\s*$/)?.[0]||"";
+      const next=lead+translated+trail;
+      if(node.nodeValue!==next) node.nodeValue=next;
+    } else if(node.nodeValue!==original && lang!=="hi") {
+      node.nodeValue=original;
+    }
+  }
+  function tthApplyLanguage(){
+    const lang=tthLang();
+    document.documentElement.lang=lang;
+    const root=document.body;
+    if(root){
+      const walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT);
+      let node;while((node=walker.nextNode())) tthTranslateNode(node,lang);
+      root.querySelectorAll("input[placeholder],button[title],a[title],button[aria-label]").forEach(el=>{
+        ["placeholder","title","aria-label"].forEach(attr=>{
+          if(!el.hasAttribute(attr)) return;
+          const key="data-tth-original-"+attr;
+          if(!el.hasAttribute(key)) el.setAttribute(key,el.getAttribute(attr));
+          const original=el.getAttribute(key);
+          if(lang==="hi") el.setAttribute(attr,TTH_TEXT[original]||original);
+          else { const reverse=Object.entries(TTH_TEXT).find(([en,hi])=>hi===original);el.setAttribute(attr,reverse?reverse[0]:original); }
+        });
+      });
+    }
+    if(typeof window.applyI18n==="function") window.applyI18n();
+    ["langToggle","tthLanguageToggle","langBtn","langBtnName","langBtnResult"].forEach(id=>{
+      const btn=document.getElementById(id);
+      if(btn) btn.textContent=lang==="hi"?"English":"हिंदी";
+    });
+    // Keep every test engine's own language preference synchronized with the site.
+    try { localStorage.setItem("testhub_lang_pref", lang); } catch (_) {}
+    ["defaultLang","qLangSelect","langSel"].forEach(id=>{
+      const select=document.getElementById(id);
+      if(select && Array.from(select.options).some(o=>o.value===lang) && select.value!==lang){
+        select.value=lang;
+        if(id==="langSel") select.dispatchEvent(new Event("change",{bubbles:true}));
+      }
+    });
+    if(typeof window.renderQuestion==="function" && document.getElementById("testScreen")?.style.display==="block"){
+      try{window.renderQuestion();}catch(_){}
+    }
+  }
+  function installLanguageToggle(){
+    let btn=document.getElementById("langToggle")||document.getElementById("tthLanguageToggle")||document.getElementById("langBtn")||document.getElementById("langBtnName")||document.getElementById("langBtnResult");
+    if(btn && btn.hidden) btn=null;
+    const hadExistingToggle=!!btn;
+    if(!btn && !document.getElementById("langSel")){
+      btn=document.createElement("button");btn.type="button";btn.id="tthLanguageToggle";btn.className="tth-language-toggle";
+      btn.style.cssText="border:1px solid #8abbb0;background:#fff;color:#155e55;border-radius:8px;padding:6px 10px;font-weight:800;cursor:pointer;white-space:nowrap;";
+      const header=document.querySelector("header.topbar .topbar-left")||document.querySelector(".site-header")||document.querySelector(".hdr .bar")||document.querySelector(".tbar")||document.querySelector("header");
+      // Place the language switch immediately beside the student-ID/account control when present.
+      const studentControl=document.querySelector("#tthStudentAccountMenu, #studentId, #studentID, .student-id, [data-student-id]");
+      if(studentControl && studentControl.parentElement){
+        studentControl.insertAdjacentElement("afterend",btn);
+      } else if(header){
+        header.appendChild(btn);
+      } else {
+        btn.style.cssText+=";position:fixed;top:12px;right:12px;z-index:99999";
+        document.body.appendChild(btn);
+      }
+    }
+    const controls=["langToggle","tthLanguageToggle","langBtn","langBtnName","langBtnResult"].map(id=>document.getElementById(id)).filter(Boolean);
+    if(!controls.length && document.getElementById("langSel")) controls.push(document.getElementById("langSel"));
+    controls.forEach(control=>{
+      if(control.dataset.tthLangBound==="true") return;
+      control.dataset.tthLangBound="true";
+      control.addEventListener("click",()=>setTimeout(()=>{
+        let selected="hi";
+        try{
+          if(control.id==="tthLanguageToggle" && !hadExistingToggle){
+            selected=(localStorage.getItem("tetLang")||"hi")==="hi"?"en":"hi";
+          } else if(["langBtn","langBtnName","langBtnResult"].includes(control.id)){
+            selected=localStorage.getItem("testhub_lang_pref")||"hi";
+          } else {
+            selected=localStorage.getItem("tetLang")||"hi";
+          }
+          localStorage.setItem("tetLang",selected);localStorage.setItem("testhub_lang_pref",selected);
+        }catch(_){}
+        tthApplyLanguage();
+      },0));
+      if(control.tagName==="SELECT") control.addEventListener("change",()=>setTimeout(()=>{
+        const selected=control.value==="en"?"en":"hi";
+        try{localStorage.setItem("tetLang",selected);localStorage.setItem("testhub_lang_pref",selected);}catch(_){}
+        tthApplyLanguage();
+      },0));
+    });
+    tthApplyLanguage();
+    if(!tthObserver && document.body){
+      tthObserver=new MutationObserver(records=>records.forEach(rec=>{
+        if(rec.type==="characterData") tthTranslateNode(rec.target,tthLang());
+        rec.addedNodes&&rec.addedNodes.forEach(n=>{
+          if(n.nodeType===Node.TEXT_NODE)tthTranslateNode(n,tthLang());
+          else if(n.nodeType===Node.ELEMENT_NODE){
+            const w=document.createTreeWalker(n,NodeFilter.SHOW_TEXT);let child;
+            while((child=w.nextNode()))tthTranslateNode(child,tthLang());
+          }
+        });
+      }));
+      tthObserver.observe(document.body,{subtree:true,childList:true,characterData:true});
+    }
+  }
+
+  function run() { installStyles(); addTestHeader(); installLanguageToggle(); }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", run, { once: true });
+  else run();
 })();

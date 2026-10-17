@@ -63,6 +63,7 @@ nav.links a:hover,.more>button:hover,nav.links a.on{color:var(--ink);background:
 .btn.ghost{border-color:var(--primary);color:var(--primary);background:transparent}
 .btn.solid{background:var(--primary);color:var(--primary-ink)}
 .burger{display:none}
+.lang-switch{display:inline-flex;align-items:center;border:1px solid var(--primary);border-radius:10px;overflow:hidden;flex:0 0 auto;white-space:nowrap}.lang-switch button{border:0;background:transparent;color:var(--primary);padding:8px 10px;font:inherit;font-size:13px;font-weight:800;cursor:pointer}.lang-switch button[aria-pressed="true"]{background:var(--primary);color:var(--primary-ink)}.lang-switch button:focus-visible{outline:2px solid var(--accent);outline-offset:-3px}
 
 /* heading + chips */
 .head{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
@@ -168,6 +169,7 @@ body{padding-bottom:70px}
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
       <input id="q" type="search" placeholder="खोजें — नोट्स, टेस्ट, हाई कोर्ट…" aria-label="खोजें">
     </label>
+    <div class="lang-switch" id="languageSwitch" role="group" aria-label="भाषा चुनें / Choose language"><button type="button" data-lang="hi" aria-pressed="true">हिंदी</button><button type="button" data-lang="en" aria-pressed="false">English</button></div>
     <button class="icon-btn" id="theme" type="button" aria-label="डार्क / लाइट मोड">
       <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
     </button>
@@ -190,6 +192,7 @@ body{padding-bottom:70px}
   </div>
 </header>
 
+<!-- Deploy trigger: police category filter -->
 <main class="wrap" id="courses">
   <div class="head">
     <div>
@@ -201,7 +204,8 @@ body{padding-bottom:70px}
 
   <div class="chips" role="group" aria-label="श्रेणी / Category">
     <button class="chip on" data-f="all">सभी</button>
-    <button class="chip" data-f="new">नए कोर्स</button>
+    <button class="chip" data-f="police">पुलिस</button>
+    <button class="chip" data-f="railway">रेलवे</button>
     <button class="chip" data-f="hc">MP हाई कोर्ट</button>
     <button class="chip" data-f="tests">टेस्ट सीरीज़</button>
     <button class="chip" data-f="notes">PDF नोट्स</button>
@@ -233,7 +237,7 @@ body{padding-bottom:70px}
 <script src="/js/site-config.js?v=3"></script>
 <script src="/js/auth.js?v=3"></script>
 <script>
-(async()=>{try{const btn=document.getElementById('logoutBtn');if(!await getSession())return;btn.hidden=false;btn.parentElement.classList.add('in');btn.onclick=async()=>{await logout();location.replace('/login.html')}}catch(e){}})();
+(async()=>{try{const btn=document.getElementById('logoutBtn');if(!await getSession())return;btn.hidden=false;btn.parentElement.classList.add('in');btn.onclick=async()=>{await logout();location.replace('/index.html')}}catch(e){}})();
 </script>
 <script>
 const ART = {
@@ -250,16 +254,19 @@ const COURSES = [
   {f:['new','notes'], p:'p-amber', art:'book', kick:'रोज़ अपडेट • MP + भारत + विश्व', big:'दैनिक करेंट अफेयर्स', sub:['रोज़ की खबरें','PDF डाउनलोड','क्विज़'], isNew:true,
    tags:['करेंट अफेयर्स','नया'], title:'दैनिक करेंट अफेयर्स — मध्यप्रदेश, भारत व अंतरराष्ट्रीय',
    desc:'हर दिन MP, भारत व विश्व की प्रमुख खबरें · वन-लाइनर व क्विज़ · PDF डाउनलोड', img:'current-affairs', href:EH+'/current-affairs/'},
-  {f:['new','tests'], p:'p-indigo', art:'test', kick:'MP पुलिस • 7500 पद', big:'आरक्षक (जी.डी.) 2026', sub:['मॉक टेस्ट','हिंदी/English'], isNew:true,
+  {f:['new','tests','police'], p:'p-indigo', art:'test', kick:'MP पुलिस • 7500 पद', big:'आरक्षक (जी.डी.) 2026', sub:['मॉक टेस्ट','हिंदी/English'], isNew:true,
    tags:['MP पुलिस','टेस्ट सीरीज़'], meta:['🧾','हर टेस्ट: ','100 प्रश्न · 120 मिनट'], title:'MP पुलिस आरक्षक (जी.डी.) 2026 मॉक टेस्ट',
    desc:'MPESB पैटर्न: 3 खंड, 100 प्रश्न · हिंदी/English · हर प्रश्न की व्याख्या', img:'mp-police-gd', href:EH+'/mp-police-constable-gd-mock-tests/'},
-  {f:['new','tests'], p:'p-sage', art:'test', kick:'MP पुलिस • 655 पद', big:'सूबेदार / ASI 2026', sub:['मॉक टेस्ट','हिंदी/English'], isNew:true,
+  {f:['new','tests','police'], p:'p-indigo', art:'test', kick:'MP पुलिस • 1000 पद', big:'आरक्षक (चालक) 2026', sub:['मॉक टेस्ट','हिंदी'], isNew:true,
+   tags:['MP पुलिस','टेस्ट सीरीज़'], meta:['🧾','हर टेस्ट: ','100 प्रश्न · 120 मिनट'], title:'MP पुलिस आरक्षक (चालक) 2026 मॉक टेस्ट',
+   desc:'MPESB पैटर्न: 3 खंड, 100 प्रश्न · MV Act, सड़क संकेत, वाहन यांत्रिकी · हर प्रश्न की व्याख्या', img:'mp-police-driver', href:EH+'/mp-police-driver-mock-tests/'},
+  {f:['new','tests','police'], p:'p-sage', art:'test', kick:'MP पुलिस • 655 पद', big:'सूबेदार / ASI 2026', sub:['मॉक टेस्ट','हिंदी/English'], isNew:true,
    tags:['MP पुलिस','टेस्ट सीरीज़'], meta:['🧾','हर टेस्ट: ','100 प्रश्न · 120 मिनट'], title:'MP पुलिस सूबेदार (शीघ्रलेखक) / ASI 2026 मॉक टेस्ट',
    desc:'MPESB पैटर्न: 3 खंड, 100 प्रश्न · 12वीं स्तर · हिंदी/English व्याख्या सहित', img:'mp-police-asi', href:EH+'/mp-police-subedar-asi-mock-tests/'},
-  {f:['new','tests'], p:'p-teal', art:'test', kick:'RRB NTPC • Graduate', big:'RRB NTPC ग्रेजुएट लेवल', sub:['मॉक टेस्ट','हिंदी/English'], isNew:true,
+  {f:['new','tests','railway'], p:'p-teal', art:'test', kick:'RRB NTPC • Graduate', big:'RRB NTPC ग्रेजुएट लेवल', sub:['मॉक टेस्ट','हिंदी/English'], isNew:true,
    tags:['RRB NTPC','रेलवे','टेस्ट सीरीज़'], meta:['🧾','हर टेस्ट: ','100 प्रश्न · 90 मिनट'], title:'RRB NTPC Graduate Level मॉक टेस्ट',
    desc:'प्रत्येक में 100 प्रश्न · हिंदी/English · 90 मिनट', img:'rrb-ntpc-graduate', href:'/examhelp/rrb-ntpc-graduate-mock-tests/'},
-  {f:['new','tests'], p:'p-indigo', art:'test', kick:'RRB NTPC • 10+2', big:'RRB NTPC 10+2 अंडरग्रेजुएट', sub:['मॉक टेस्ट','हिंदी/English'], isNew:true,
+  {f:['new','tests','railway'], p:'p-indigo', art:'test', kick:'RRB NTPC • 10+2', big:'RRB NTPC 10+2 अंडरग्रेजुएट', sub:['मॉक टेस्ट','हिंदी/English'], isNew:true,
    tags:['RRB NTPC','रेलवे','टेस्ट सीरीज़'], meta:['🧾','हर टेस्ट: ','100 प्रश्न · 90 मिनट'], title:'RRB NTPC 10+2 Undergraduate मॉक टेस्ट',
    desc:'प्रत्येक में 100 प्रश्न · हिंदी/English · 90 मिनट', img:'rrb-ntpc-12th', href:'/examhelp/rrb-ntpc-undergraduate-mock-tests/'},
   {f:['new','tests','typing'], p:'p-sky', art:'keys', kick:'MP CPCT • MAP_IT', big:'MP CPCT मॉक टेस्ट', sub:['हिंदी/English','MCQ + टाइपिंग'], isNew:true,
@@ -315,7 +322,7 @@ function apply() {
     const show = okF && (!q || hay.includes(q));
     el.style.display = show ? '' : 'none'; if (show) n++;
   });
-  document.getElementById('count').textContent = n + ' कोर्स / courses';
+  document.getElementById('count').textContent = n + (document.documentElement.lang === 'en' ? ' courses' : ' कोर्स / courses');
   document.getElementById('empty').style.display = n ? 'none' : 'block';
 }
 document.querySelectorAll('.chip').forEach(b => b.addEventListener('click', () => {
@@ -350,5 +357,122 @@ document.getElementById('theme').addEventListener('click', () => {
 </nav>
 
 <script src="../js/global-account-menu.js"></script>
+
+<script>
+(function(){
+const T = {"होम":"Home","कोर्स":"Courses","टेस्ट सीरीज़":"Test Series","पिछले प्रश्नपत्र":"Previous Papers","और ▾":"More ▾","टाइपिंग प्रैक्टिस":"Typing Practice","TET मॉक टेस्ट सीरीज़":"TET Mock Test Series","B.Ed ब्रिज कोर्स नोट्स":"B.Ed Bridge Course Notes","MP परीक्षा कैलेंडर":"MP Exam Calendar","सभी MP परीक्षाएँ":"All MP Exams","संपर्क":"Contact","खोजें — नोट्स, टेस्ट, हाई कोर्ट…":"Search notes, tests, High Court…","मेरी ख़रीद":"My Purchases","फ्री टेस्ट दें":"Take Free Test","मेन्यू":"Menu","मेरी ख़रीद / डाउनलोड":"My Purchases / Downloads","कोर्स और टेस्ट सीरीज़":"Courses & Test Series","अपनी परीक्षा चुनें और असली परीक्षा जैसे मॉक टेस्ट से तैयारी शुरू करें। · Pick your exam and start practising.":"Choose your exam and start preparing with exam-style mock tests.","सभी":"All","पुलिस":"Police","रेलवे":"Railway","MP हाई कोर्ट":"MP High Court","PDF नोट्स":"PDF Notes","B.Ed ब्रिज कोर्स":"B.Ed Bridge Course","टाइपिंग":"Typing","फ्री":"Free","कुछ नहीं मिला — कोई और शब्द आज़माएँ।":"No results found — try another search.","विवरण देखें / View details":"View details","© 2026 TETTESTHUB · एक स्वतंत्र शैक्षिक प्लेटफ़ॉर्म, किसी सरकारी संस्था से संबद्ध नहीं।":"© 2026 TETTESTHUB · An independent educational platform, not affiliated with any government body.","हमारे बारे में":"About Us","गोपनीयता":"Privacy","रिफंड नीति":"Refund Policy","नियम":"Terms","TET टेस्ट":"TET Tests","मेरे कोर्स":"My Courses","परीक्षाएँ":"Exams","संपर्क करें":"Contact","लॉगआउट / Logout":"Logout","लॉगआउट":"Logout","सहायक ग्रेड-3 2026":"Assistant Grade-3 2026","दैनिक करेंट अफेयर्स":"Daily Current Affairs","आरक्षक (जी.डी.) 2026":"Constable (GD) 2026","सूबेदार / ASI 2026":"Subedar / ASI 2026","RRB NTPC ग्रेजुएट लेवल":"RRB NTPC Graduate Level","RRB NTPC 10+2 अंडरग्रेजुएट":"RRB NTPC 10+2 Undergraduate","MP CPCT मॉक टेस्ट":"MP CPCT Mock Tests","ब्रिज कोर्स नोट्स":"Bridge Course Notes","मॉक टेस्ट":"Mock Tests","हिंदी/English":"Hindi/English","रोज़ की खबरें":"Daily News","PDF डाउनलोड":"PDF Download","हर टेस्ट: ":"Each test: ","हर पेपर: ":"Each paper: ","100 प्रश्न · 120 मिनट":"100 questions · 120 minutes","100 प्रश्न · 90 मिनट":"100 questions · 90 minutes","75 MCQ + अंग्रेज़ी व हिंदी टाइपिंग":"75 MCQs + English and Hindi typing","डिजिटल नोट्स":"Digital Notes","तुरंत एक्सेस":"Instant Access","150 प्रश्न · 150 मिनट":"150 questions · 150 minutes","स्पीड टेस्ट":"Speed Test","हिंदी व English":"Hindi and English","भाषा: ":"Languages: ","प्रकार: ":"Type: ","MP हाई कोर्ट सहायक ग्रेड-3 2026 मॉक टेस्ट":"MP High Court Assistant Grade-3 2026 Mock Tests","आधिकारिक पैटर्न: 5 खंड, 100 प्रश्न · हिंदी/English · हर प्रश्न की व्याख्या":"Official pattern: 5 sections, 100 questions · Hindi/English · explanations for every question","दैनिक करेंट अफेयर्स — मध्यप्रदेश, भारत व अंतरराष्ट्रीय":"Daily Current Affairs — Madhya Pradesh, India & International","हर दिन MP, भारत व विश्व की प्रमुख खबरें · वन-लाइनर व क्विज़ · PDF डाउनलोड":"Daily key news from MP, India & the world · One-liners and quizzes · PDF download","MP पुलिस आरक्षक (जी.डी.) 2026 मॉक टेस्ट":"MP Police Constable (GD) 2026 Mock Tests","MPESB पैटर्न: 3 खंड, 100 प्रश्न · हिंदी/English · हर प्रश्न की व्याख्या":"MPESB pattern: 3 sections, 100 questions · Hindi/English · explanations for every question","MP पुलिस सूबेदार (शीघ्रलेखक) / ASI 2026 मॉक टेस्ट":"MP Police Subedar (Stenographer) / ASI 2026 Mock Tests","MPESB पैटर्न: 3 खंड, 100 प्रश्न · 12वीं स्तर · हिंदी/English व्याख्या सहित":"MPESB pattern: 3 sections, 100 questions · Class 12 level · Hindi/English explanations","RRB NTPC Graduate Level मॉक टेस्ट":"RRB NTPC Graduate Level Mock Tests","प्रत्येक में 100 प्रश्न · हिंदी/English · 90 मिनट":"100 questions each · Hindi/English · 90 minutes","RRB NTPC 10+2 Undergraduate मॉक टेस्ट":"RRB NTPC 10+2 Undergraduate Mock Tests","MP CPCT मॉक टेस्ट / Mock Tests (MCQ + Typing)":"MP CPCT Mock Tests (MCQ + Typing)","75 MCQ, 75 मिनट · अंग्रेज़ी व हिंदी टाइपिंग (मंगल/कृतिदेव) · असली CPCT जैसा इंटरफ़ेस":"75 MCQs, 75 minutes · English and Hindi typing (Mangal/Kruti Dev) · Real CPCT-style interface","NIOS B.Ed ब्रिज कोर्स — संपूर्ण डिजिटल नोट्स":"NIOS B.Ed Bridge Course — Complete Digital Notes","ब्रिज कोर्स के सभी विषय · परीक्षा व असाइनमेंट के लिए · तुरंत एक्सेस":"All bridge-course subjects · For exams and assignments · Instant access","TET मॉक टेस्ट सीरीज़ (हिंदी/English)":"TET Mock Test Series (Hindi/English)","CDP, भाषा, गणित, पर्यावरण · हिंदी/English · असली परीक्षा जैसा इंटरफ़ेस":"CDP, languages, maths and EVS · Hindi/English · Real exam-style interface","टाइपिंग प्रैक्टिस — हिंदी व English टाइपिंग टेस्ट":"Typing Practice — Hindi & English Typing Tests","हाई कोर्ट टाइपिंग टेस्ट (चरण 2) की तैयारी · स्पीड व एक्यूरेसी":"Prepare for High Court typing test (Stage 2) · Speed and accuracy","MP हाई कोर्ट • 1174 पद":"MP High Court • 1,174 vacancies","रोज़ अपडेट • MP + भारत + विश्व":"Daily updates • MP + India + World","MP पुलिस • 7500 पद":"MP Police • 7,500 vacancies","MP पुलिस • 655 पद":"MP Police • 655 vacancies","RRB NTPC • Graduate":"RRB NTPC • Graduate","RRB NTPC • 10+2":"RRB NTPC • 10+2","MP CPCT • MAP_IT":"MP CPCT • MAP_IT","NIOS • B.Ed ब्रिज कोर्स":"NIOS • B.Ed Bridge Course","TET • शिक्षक पात्रता परीक्षा":"TET • Teacher Eligibility Test","हाई कोर्ट • सरकारी नौकरी":"High Court • Government Jobs","करेंट अफेयर्स":"Current Affairs","नया":"New","MP पुलिस":"MP Police","CPCT":"CPCT","TET":"TET","हर टेस्ट:":"Each test:","हर पेपर:":"Each paper:","हिंदी व English टाइपिंग":"Hindi and English typing","डार्क / लाइट मोड":"Dark / Light mode","मुख्य":"Main navigation","श्रेणी / Category":"Category","कोर्स सूची / Course list":"Course list","मुख्य नेविगेशन":"Main navigation","TETTESTHUB होम":"TETTESTHUB Home"};
+Object.assign(T,{
+ "सहायक ग्रेड-3 2026":"Assistant Grade-3 2026","आरक्षक (जी.डी.) 2026":"Constable (GD) 2026","सूबेदार / ASI 2026":"Subedar / ASI 2026",
+ "मॉक टेस्ट":"Mock Tests","25 फुल टेस्ट":"25 Full Tests","टेस्ट 1 फ्री":"Test 1 Free","25 फुल मॉक टेस्ट":"25 Full Mock Tests",
+ "हर टेस्ट: ":"Each test: ","हर पेपर: ":"Each paper: ","100 प्रश्न · 120 मिनट":"100 questions · 120 minutes","100 प्रश्न · 90 मिनट":"100 questions · 90 minutes",
+ "150 प्रश्न · 150 मिनट":"150 questions · 150 minutes","डिजिटल नोट्स":"Digital Notes","तुरंत एक्सेस":"Instant Access","स्पीड टेस्ट":"Speed Test",
+ "रोज़ की खबरें":"Daily News","क्विज़":"Quiz","PDF डाउनलोड":"PDF Download","फ्री":"Free","नया":"New",
+ "MP हाई कोर्ट सहायक ग्रेड-3 2026 मॉक टेस्ट":"MP High Court Assistant Grade-3 2026 Mock Tests",
+ "MP पुलिस आरक्षक (जी.डी.) 2026 मॉक टेस्ट":"MP Police Constable (GD) 2026 Mock Tests",
+ "MP पुलिस सूबेदार (शीघ्रलेखक) / ASI 2026 मॉक टेस्ट":"MP Police Subedar (Stenographer) / ASI 2026 Mock Tests",
+ "MP हाई कोर्ट सहायक ग्रेड-3 2026 — 25 फुल मॉक टेस्ट":"MP High Court Assistant Grade-3 2026 — 25 Full Mock Tests",
+ "MP पुलिस आरक्षक (जी.डी.) 2026 — 25 फुल मॉक टेस्ट":"MP Police Constable (GD) 2026 — 25 Full Mock Tests",
+ "MP पुलिस सूबेदार (शीघ्रलेखक) / ASI 2026 — 25 फुल मॉक टेस्ट":"MP Police Subedar (Stenographer) / ASI 2026 — 25 Full Mock Tests",
+ "NIOS B.Ed ब्रिज कोर्स — संपूर्ण डिजिटल नोट्स":"NIOS B.Ed Bridge Course — Complete Digital Notes",
+ "TET मॉक टेस्ट सीरीज़ — 25 फुल-लेंथ टेस्ट (हिंदी/English)":"TET Mock Test Series — 25 Full-Length Tests (Hindi/English)",
+ "टाइपिंग प्रैक्टिस — हिंदी व English टाइपिंग टेस्ट":"Typing Practice — Hindi & English Typing Tests",
+ "आधिकारिक पैटर्न: 5 खंड, 100 प्रश्न · हिंदी/English · हर प्रश्न की व्याख्या":"Official pattern: 5 sections, 100 questions · Hindi/English · explanations for every question",
+ "MPESB पैटर्न: 3 खंड, 100 प्रश्न · हिंदी/English · हर प्रश्न की व्याख्या":"MPESB pattern: 3 sections, 100 questions · Hindi/English · explanations for every question",
+ "MPESB पैटर्न: 3 खंड, 100 प्रश्न · 12वीं स्तर · हिंदी/English व्याख्या सहित":"MPESB pattern: 3 sections, 100 questions · Class 12 level · Hindi/English explanations",
+ "हर दिन MP, भारत व विश्व की प्रमुख खबरें · वन-लाइनर व क्विज़ · PDF डाउनलोड":"Daily key news from MP, India & the world · One-liners and quizzes · PDF download",
+ "ब्रिज कोर्स के सभी विषय · परीक्षा व असाइनमेंट के लिए · तुरंत एक्सेस":"All bridge-course subjects · For exams and assignments · Instant access",
+ "CDP, भाषा, गणित, पर्यावरण · हिंदी/English · असली परीक्षा जैसा इंटरफ़ेस":"CDP, languages, maths and EVS · Hindi/English · Real exam-style interface",
+ "हाई कोर्ट टाइपिंग टेस्ट (चरण 2) की तैयारी · स्पीड व एक्यूरेसी":"Prepare for High Court typing test (Stage 2) · Speed and accuracy",
+ "भाषा: ":"Language: ","प्रकार: ":"Type: ","हिंदी व English":"Hindi and English","हिंदी/English":"Hindi/English",
+ "कुछ नहीं मिला — कोई और शब्द आज़माएँ।":"No results found — try another search.",
+ "हमारे बारे में":"About Us","गोपनीयता":"Privacy","रिफंड नीति":"Refund Policy","नियम":"Terms",
+ "मेरे कोर्स":"My Courses","परीक्षाएँ":"Exams","संपर्क करें":"Contact","संपर्क":"Contact","होम":"Home",
+ "लॉगआउट / Logout":"Logout","लॉगआउट":"Logout","सभी MP परीक्षाएँ":"All MP Exams","और ▾":"More ▾",
+ "खोजें — नोट्स, टेस्ट, हाई कोर्ट…":"Search notes, tests, High Court…","मेरी ख़रीद":"My Purchases",
+ "फ्री टेस्ट दें":"Take Free Test","मेरी ख़रीद / डाउनलोड":"My Purchases / Downloads",
+ "कोर्स और टेस्ट सीरीज़":"Courses & Test Series","अपनी परीक्षा चुनें और असली परीक्षा जैसे मॉक टेस्ट से तैयारी शुरू करें। · Pick your exam and start practising.":"Choose your exam and start preparing with exam-style mock tests.",
+ "विवरण देखें / View details":"View details","मेन्यू":"Menu","टेस्ट सीरीज़":"Test Series","पिछले प्रश्नपत्र":"Previous Papers",
+ "टाइपिंग प्रैक्टिस":"Typing Practice","B.Ed ब्रिज कोर्स नोट्स":"B.Ed Bridge Course Notes","MP परीक्षा कैलेंडर":"MP Exam Calendar",
+ "श्रेणी / Category":"Category","कोर्स सूची / Course list":"Course list","मुख्य नेविगेशन":"Main navigation",
+ "© 2026 TETTESTHUB · एक स्वतंत्र शैक्षिक प्लेटफ़ॉर्म, किसी सरकारी संस्था से संबद्ध नहीं।":"© 2026 TETTESTHUB · An independent educational platform, not affiliated with any government body."
+}); 
+Object.assign(T,{
+ "सहायक ग्रेड-3":"Assistant Grade-3",
+ "दैनिक करेंट":"Daily Current",
+ "करेंट अफेयर्स":"Current Affairs",
+ "अफेयर्स":"Affairs",
+ "रोज़ अपडेट":"Daily Updates",
+ "रोज़ की खबरें":"Daily News",
+ "आरक्षक":"Constable",
+ "जी.डी.":"GD",
+ "सूबेदार":"Subedar",
+ "अंडरग्रेजुएट":"Undergraduate",
+ "ग्रेजुएट लेवल":"Graduate Level",
+ "मध्यप्रदेश":"Madhya Pradesh",
+ "वन-लाइनर":"One-liners",
+ "प्रश्न":"Questions",
+ "मॉक टेस्ट":"Mock Tests",
+ "टेस्ट सीरीज़":"Test Series",
+ "हिंदी व English":"Hindi and English",
+ "हिंदी/English":"Hindi/English",
+ "PDF डाउनलोड":"PDF Download",
+ "डिजिटल नोट्स":"Digital Notes",
+ "तुरंत एक्सेस":"Instant Access",
+ "विवरण देखें / View details":"View details",
+ "MP हाई कोर्ट":"MP High Court",
+ "MP पुलिस":"MP Police",
+ "परीक्षा":"Exam",
+ "परीक्षाएँ":"Exams",
+ "सभी":"All"
+});
+
+const KEY='tetLang'; let lang='hi';
+try { lang=localStorage.getItem(KEY)==='en'?'en':'hi'; } catch(e){}
+const originalNodes=new WeakMap();
+function translateText(original){
+  const trimmed=original.trim();
+  if(!trimmed) return original;
+  if(lang!=='en') return original;
+  const normalized=trimmed.replace(/\s+/g,' ').trim();
+  if(T[normalized]) return original.replace(trimmed,T[normalized]);
+  let translated=trimmed;
+  const keys=Object.keys(T).filter(k=>k.trim().length>=5).sort((a,b)=>b.length-a.length);
+  for(const key of keys){
+    if(translated.includes(key)) translated=translated.split(key).join(T[key]);
+  }
+  return original.replace(trimmed,translated);
+}
+function translateTree(){
+ const walker=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);
+ let node;
+ while((node=walker.nextNode())){
+  const parent=node.parentElement;
+  if(parent && parent.closest('script,style,noscript,#languageSwitch')) continue;
+  if(!originalNodes.has(node)) originalNodes.set(node,node.nodeValue);
+  const original=originalNodes.get(node);
+  node.nodeValue=lang==='en'?translateText(original):original;
+ }
+ const q=document.getElementById('q');
+ if(q) q.placeholder=lang==='en'?'Search notes, tests, High Court…':'खोजें — नोट्स, टेस्ट, हाई कोर्ट…';
+ document.querySelectorAll('#languageSwitch [data-lang]').forEach(b=>{
+  const active=b.dataset.lang===lang;
+  b.setAttribute('aria-pressed',String(active));
+  b.classList.toggle('active',active);
+ });
+ document.documentElement.lang=lang;
+ const title=document.querySelector('title');
+ if(title) title.textContent=lang==='en'?'Courses & Test Series | MP Govt Exams, TET, RRB NTPC, CPCT – TETTESTHUB':'कोर्स और टेस्ट सीरीज़ | MP सरकारी परीक्षा, TET, RRB NTPC, CPCT – TETTESTHUB';
+ const count=document.getElementById('count');
+ if(count){
+  const n=[...document.querySelectorAll('#grid > a')].filter(x=>x.style.display!=='none').length;
+  count.textContent=n+(lang==='en'?' courses':' कोर्स / courses');
+ }
+}
+document.querySelectorAll('#languageSwitch [data-lang]').forEach(btn=>btn.addEventListener('click',()=>{lang=btn.dataset.lang==='en'?'en':'hi';try{localStorage.setItem(KEY,lang)}catch(e){};translateTree();}));
+window.addEventListener('DOMContentLoaded',translateTree);
+translateTree();
+})();
+</script>
+
 </body>
 </html>

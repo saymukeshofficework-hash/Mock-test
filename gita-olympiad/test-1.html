@@ -1,0 +1,1817 @@
+<!DOCTYPE html>
+<html lang="hi">
+	<head>
+		<meta charset="UTF-8" />
+		<meta
+			name="viewport"
+			content="width=device-width,initial-scale=1.0,maximum-scale=1.0"
+		/>
+		<title>गीता ओलम्पियाड टेस्ट 1</title>
+		<style>
+			:root {
+				--navy: #16204e;
+				--navy-l: #22307a;
+				--blue: #2f6fed;
+				--blue-l: #eaf1ff;
+				--green: #1ba672;
+				--red: #e2483d;
+				--purple: #8b5cf6;
+				--bg: #f4f6fb;
+				--ink: #1c2233;
+				--muted: #6b7280;
+				--border: #e1e5ee;
+			}
+			* {
+				box-sizing: border-box;
+			}
+			html,
+			body {
+				margin: 0;
+				padding: 0;
+			}
+			body {
+				font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+					Roboto, "Noto Sans Devanagari", Helvetica, Arial, sans-serif;
+				background: var(--bg);
+				color: var(--ink);
+			}
+			#app {
+				max-width: 720px;
+				margin: 0 auto;
+				min-height: 100vh;
+				background: #fff;
+				display: flex;
+				flex-direction: column;
+			}
+			.topbar {
+				background: var(--navy);
+				color: #fff;
+				padding: 14px 16px;
+				display: flex;
+				justify-content: space-between;
+				align-items: flex-start;
+				gap: 10px;
+			}
+			.topbar .ttext {
+				font-weight: 800;
+				font-size: 17px;
+			}
+			.topbar small {
+				display: block;
+				font-weight: 400;
+				opacity: 0.75;
+				font-size: 12px;
+				margin-top: 3px;
+			}
+			.langBtn {
+				flex: 0 0 auto;
+				background: rgba(255, 255, 255, 0.14);
+				border: 1px solid rgba(255, 255, 255, 0.45);
+				color: #fff;
+				padding: 7px 13px;
+				border-radius: 999px;
+				font-size: 12.5px;
+				font-weight: 700;
+				white-space: nowrap;
+				cursor: pointer;
+			}
+			.langBtn:active {
+				background: rgba(255, 255, 255, 0.28);
+			}
+			.timerbar {
+				background: var(--blue);
+				color: #fff;
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				padding: 10px 16px;
+				font-size: 14px;
+			}
+			#timer {
+				background: #0d1430;
+				padding: 5px 12px;
+				border-radius: 6px;
+				font-weight: 700;
+				font-variant-numeric: tabular-nums;
+				font-size: 15px;
+			}
+			.timerbar.warn #timer {
+				background: var(--red);
+			}
+			.sectiontabs {
+				display: flex;
+				overflow-x: auto;
+				gap: 6px;
+				padding: 10px 12px;
+				background: var(--blue-l);
+				border-bottom: 1px solid var(--border);
+			}
+			.sectiontabs button {
+				flex: 0 0 auto;
+				border: 1px solid #c7d6f7;
+				background: #fff;
+				color: var(--navy);
+				padding: 7px 10px;
+				border-radius: 999px;
+				font-size: 12.5px;
+				font-weight: 600;
+				white-space: nowrap;
+			}
+			.sectiontabs button.active {
+				background: var(--navy);
+				border-color: var(--navy);
+				color: #fff;
+			}
+			.palette {
+				display: grid;
+				grid-template-columns: repeat(8, 1fr);
+				gap: 6px;
+				padding: 12px;
+				max-height: 190px;
+				overflow-y: auto;
+				background: #fbfcfe;
+				border-bottom: 1px solid var(--border);
+			}
+			.pcell {
+				aspect-ratio: 1;
+				border-radius: 7px;
+				border: 1px solid var(--border);
+				background: #fff;
+				color: var(--ink);
+				font-size: 12px;
+				font-weight: 700;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				position: relative;
+				cursor: pointer;
+			}
+			.pcell.current {
+				outline: 2px solid var(--navy);
+				outline-offset: 1px;
+			}
+			.pcell.answered {
+				background: var(--green);
+				border-color: var(--green);
+				color: #fff;
+			}
+			.pcell.notanswered {
+				background: var(--red);
+				border-color: var(--red);
+				color: #fff;
+			}
+			.pcell.marked {
+				background: var(--purple);
+				border-color: var(--purple);
+				color: #fff;
+			}
+			.pcell.marked.answered::after {
+				content: "";
+				position: absolute;
+				bottom: 2px;
+				right: 2px;
+				width: 6px;
+				height: 6px;
+				border-radius: 50%;
+				background: var(--green);
+				border: 1px solid #fff;
+			}
+			.legend {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 10px;
+				padding: 8px 14px;
+				font-size: 11px;
+				color: var(--muted);
+				background: #fbfcfe;
+				border-bottom: 1px solid var(--border);
+			}
+			.legend span {
+				display: inline-flex;
+				align-items: center;
+				gap: 4px;
+			}
+			.dot {
+				width: 9px;
+				height: 9px;
+				border-radius: 3px;
+				display: inline-block;
+			}
+			.qpanel {
+				padding: 16px;
+				flex: 1;
+			}
+			.qmeta {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				margin-bottom: 10px;
+				gap: 8px;
+			}
+			.qno {
+				font-weight: 700;
+				font-size: 14px;
+				color: var(--navy);
+				flex: 0 0 auto;
+			}
+			.qsec {
+				font-size: 11px;
+				color: #fff;
+				background: var(--navy-l);
+				padding: 3px 9px;
+				border-radius: 999px;
+				font-weight: 600;
+				text-align: right;
+			}
+			.qtext {
+				font-size: 16px;
+				line-height: 1.65;
+				margin-bottom: 16px;
+				font-weight: 600;
+			}
+			.options {
+				display: flex;
+				flex-direction: column;
+				gap: 10px;
+			}
+			.opt {
+				display: flex;
+				align-items: flex-start;
+				gap: 10px;
+				border: 1px solid var(--border);
+				border-radius: 10px;
+				padding: 11px 12px;
+				font-size: 15px;
+				line-height: 1.55;
+				cursor: pointer;
+			}
+			.opt.selected {
+				border-color: var(--blue);
+				background: var(--blue-l);
+			}
+			.opt input {
+				margin-top: 4px;
+				flex: 0 0 auto;
+			}
+			.opt label {
+				flex: 1;
+				cursor: pointer;
+			}
+			.actions {
+				display: flex;
+				gap: 10px;
+				padding: 0 16px 10px;
+			}
+			.actions button {
+				flex: 1;
+				padding: 12px 8px;
+				border-radius: 8px;
+				border: 1px solid var(--border);
+				background: #fff;
+				font-weight: 600;
+				font-size: 13px;
+				color: var(--navy);
+			}
+			.actions2 {
+				display: flex;
+				gap: 10px;
+				padding: 0 16px 16px;
+			}
+			.actions2 button {
+				flex: 1;
+				padding: 13px 8px;
+				border-radius: 8px;
+				border: none;
+				font-weight: 700;
+				font-size: 14px;
+			}
+			#prevBtn {
+				background: #eef0f6;
+				color: var(--navy);
+			}
+			#saveBtn {
+				background: var(--green);
+				color: #fff;
+			}
+			.submitwrap {
+				padding: 0 16px 22px;
+			}
+			#submitBtn {
+				width: 100%;
+				padding: 14px;
+				border: none;
+				border-radius: 8px;
+				background: var(--blue);
+				color: #fff;
+				font-weight: 700;
+				font-size: 15px;
+			}
+			/* Name entry screen */
+			#nameScreen {
+				max-width: 720px;
+				margin: 0 auto;
+				min-height: 100vh;
+				background: #fff;
+				display: flex;
+				flex-direction: column;
+			}
+			#nameScreen .ntop {
+				background: var(--navy);
+				color: #fff;
+				padding: 14px 16px;
+				display: flex;
+				justify-content: space-between;
+				align-items: flex-start;
+				gap: 10px;
+			}
+			#nameScreen .ncard {
+				flex: 1;
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
+				padding: 28px 24px;
+				text-align: center;
+			}
+			#nameScreen .nicon {
+				width: 60px;
+				height: 60px;
+				border-radius: 50%;
+				background: var(--blue-l);
+				color: var(--navy);
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				font-size: 26px;
+				font-weight: 800;
+				margin-bottom: 18px;
+			}
+			#nameScreen .ntitle {
+				font-size: 19px;
+				font-weight: 800;
+				color: var(--navy);
+				margin-bottom: 6px;
+			}
+			#nameScreen .nsub {
+				font-size: 13.5px;
+				color: var(--muted);
+				margin-bottom: 24px;
+			}
+			#nameScreen .nfield {
+				width: 100%;
+				max-width: 340px;
+				text-align: left;
+				margin-bottom: 22px;
+			}
+			#nameScreen .nfield label {
+				display: block;
+				font-size: 12.5px;
+				font-weight: 600;
+				color: var(--navy);
+				margin-bottom: 6px;
+			}
+			#nameInput {
+				width: 100%;
+				padding: 13px 14px;
+				border: 1.5px solid var(--border);
+				border-radius: 10px;
+				font-size: 16px;
+				color: var(--ink);
+				background: #fbfcfe;
+			}
+			#nameInput:focus {
+				outline: none;
+				border-color: var(--blue);
+			}
+			#startBtn {
+				width: 100%;
+				max-width: 340px;
+				padding: 14px;
+				border: none;
+				border-radius: 8px;
+				background: var(--blue);
+				color: #fff;
+				font-weight: 700;
+				font-size: 15px;
+			}
+			/* Result screen */
+			#resultScreen {
+				display: none;
+				max-width: 720px;
+				margin: 0 auto;
+				background: #fff;
+				min-height: 100vh;
+			}
+			.rhero {
+				background: var(--navy);
+				color: #fff;
+				padding: 28px 20px 22px;
+				text-align: center;
+				position: relative;
+			}
+			.rhero .rbrand {
+				font-size: 11px;
+				font-weight: 600;
+				letter-spacing: 1px;
+				opacity: 0.6;
+				text-transform: uppercase;
+			}
+			.rhero .rname {
+				font-size: 14px;
+				font-weight: 700;
+				margin-top: 8px;
+				opacity: 0.95;
+			}
+			.rhero .score {
+				font-size: 46px;
+				font-weight: 800;
+				line-height: 1;
+				margin-top: 6px;
+			}
+			.rhero .outof {
+				font-size: 14px;
+				opacity: 0.8;
+				margin-top: 4px;
+			}
+			.rhero .pct {
+				display: inline-block;
+				margin-top: 10px;
+				background: rgba(255, 255, 255, 0.12);
+				padding: 5px 14px;
+				border-radius: 999px;
+				font-size: 13px;
+				font-weight: 600;
+			}
+			.rhero .langBtn {
+				position: absolute;
+				top: 14px;
+				right: 14px;
+			}
+			.rwrap {
+				padding: 0 18px 24px;
+			}
+			table.rtable {
+				width: 100%;
+				border-collapse: collapse;
+				margin: 18px 0;
+				font-size: 12.5px;
+			}
+			table.rtable th,
+			table.rtable td {
+				padding: 8px 6px;
+				text-align: center;
+				border-bottom: 1px solid var(--border);
+			}
+			table.rtable th {
+				background: #f4f6fb;
+				font-size: 11px;
+				color: var(--muted);
+				text-transform: uppercase;
+				letter-spacing: 0.3px;
+			}
+			table.rtable td:first-child,
+			table.rtable th:first-child {
+				text-align: left;
+			}
+			.rnote {
+				font-size: 12.5px;
+				color: var(--muted);
+				margin: 4px 0 16px;
+			}
+			details.qreview {
+				border: 1px solid var(--border);
+				border-radius: 8px;
+				margin-bottom: 8px;
+				padding: 10px 12px;
+			}
+			details.qreview summary {
+				font-size: 13px;
+				font-weight: 600;
+				cursor: pointer;
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				list-style: none;
+				gap: 8px;
+			}
+			details.qreview summary::-webkit-details-marker {
+				display: none;
+			}
+			.rtag {
+				font-size: 11px;
+				font-weight: 700;
+				padding: 2px 8px;
+				border-radius: 999px;
+				color: #fff;
+				flex-shrink: 0;
+			}
+			.rtag.ok {
+				background: var(--green);
+			}
+			.rtag.bad {
+				background: var(--red);
+			}
+			.rtag.skip {
+				background: var(--muted);
+			}
+			.rqtext {
+				font-size: 14px;
+				margin: 10px 0 8px;
+				font-weight: 600;
+			}
+			.rsol {
+				font-size: 13px;
+				background: #f4f6fb;
+				border-radius: 6px;
+				padding: 8px 10px;
+				margin-bottom: 8px;
+				color: var(--muted);
+			}
+			.ropt {
+				font-size: 13.5px;
+				padding: 6px 9px;
+				border-radius: 6px;
+				margin-bottom: 5px;
+				border: 1px solid var(--border);
+			}
+			.ropt.correctAns {
+				background: #e6f7f0;
+				border-color: var(--green);
+			}
+			.ropt.wrongChosen {
+				background: #fdecea;
+				border-color: var(--red);
+			}
+			#retakeBtn {
+				width: 100%;
+				padding: 13px;
+				border: none;
+				border-radius: 8px;
+				background: var(--blue);
+				color: #fff;
+				font-weight: 700;
+				font-size: 14px;
+				margin-top: 6px;
+			}
+		.langBtn{display:none !important;}
+		</style>
+	</head>
+	<body>
+		<div id="nameScreen">
+			<div class="ntop">
+				<div>
+					<div class="ttext">गीता ओलम्पियाड मॉक टेस्ट</div>
+					<small id="nSubtitleText"
+						>टेस्ट 1 (प्रश्न 1–25) &nbsp;&middot;&nbsp; 25 प्रश्न</small
+					>
+				</div>
+				<button class="langBtn" id="langBtnName" type="button">
+					हिंदी
+				</button>
+			</div>
+			<div class="ncard">
+				<div class="nicon">&#2384;</div>
+				<div class="ntitle" id="nCardTitle">शुरू करने से पहले</div>
+				<div class="nsub" id="nCardSub">
+					अपना नाम दर्ज करें ताकि यह आपके परिणाम में दिखे।
+				</div>
+				<div class="nfield">
+					<label for="nameInput" id="nFieldLabel">विद्यार्थी का नाम</label>
+					<input
+						type="text"
+						id="nameInput"
+						placeholder="e.g. Riya Sharma"
+						maxlength="60"
+						autocomplete="off"
+					/>
+				</div>
+				<button id="startBtn" type="button">टेस्ट शुरू करें</button>
+			</div>
+		</div>
+
+		<div id="app" style="display: none">
+			<div class="topbar">
+				<div>
+					<div class="ttext">गीता ओलम्पियाड मॉक टेस्ट</div>
+					<small id="subtitleText"
+						>टेस्ट 1 (प्रश्न 1–25) &nbsp;&middot;&nbsp; 25 प्रश्न</small
+					>
+				</div>
+				<button class="langBtn" id="langBtn" type="button">
+					हिंदी
+				</button>
+			</div>
+			<div class="timerbar" id="timerbar">
+				<span id="timeLeftLabel">शेष समय</span>
+				<span id="timer">30:00</span>
+			</div>
+			<div class="sectiontabs" id="sectiontabs"></div>
+			<div class="palette" id="palette"></div>
+			<div class="legend">
+				<span
+					><i class="dot" style="background: var(--green)"></i
+					><span id="legAns">Answered</span></span
+				>
+				<span
+					><i class="dot" style="background: var(--red)"></i
+					><span id="legNot">Not Answered</span></span
+				>
+				<span
+					><i class="dot" style="background: var(--purple)"></i
+					><span id="legMarked">Marked</span></span
+				>
+				<span
+					><i
+						class="dot"
+						style="
+							background: #fff;
+							border: 1px solid var(--border);
+						"
+					></i
+					><span id="legVisit">Not Visited</span></span
+				>
+			</div>
+			<div class="qpanel" id="qpanel">
+				<div class="qmeta">
+					<span class="qno" id="qno">Q 1 of 100</span>
+					<span class="qsec" id="qsec"></span>
+				</div>
+				<div class="qtext" id="qtext"></div>
+				<div class="options" id="options"></div>
+			</div>
+			<div class="actions">
+				<button id="clearBtn">Clear Response</button>
+				<button id="markBtn">Mark for Review & Next</button>
+			</div>
+			<div class="actions2">
+				<button id="prevBtn">&#8249; Previous</button>
+				<button id="saveBtn">Save & Next &#8250;</button>
+			</div>
+			<div class="submitwrap">
+				<button id="submitBtn">Submit Test</button>
+			</div>
+		</div>
+
+		<div id="resultScreen"></div>
+
+		<script>
+			const SECTIONS = [
+ {
+  "key": "S1",
+  "label": {
+   "hi": "भाग 1 (1–5): परिचय एवं गीता महत्त्व",
+   "en": "Part 1 (1-5): Introduction & Significance of the Gita"
+  }
+ },
+ {
+  "key": "S2",
+  "label": {
+   "hi": "भाग 2 (6–10): परिचय एवं गीता महत्त्व",
+   "en": "Part 2 (6-10): Introduction & Significance of the Gita"
+  }
+ },
+ {
+  "key": "S3",
+  "label": {
+   "hi": "भाग 3 (11–15): अध्याय 1–2: अर्जुनविषाद एवं सांख्य (आरम्भ)",
+   "en": "Part 3 (11-15): Ch 1–2: Arjuna's Dilemma & Sankhya"
+  }
+ },
+ {
+  "key": "S4",
+  "label": {
+   "hi": "भाग 4 (16–20): अध्याय 1–2: अर्जुनविषाद एवं सांख्य (आरम्भ)",
+   "en": "Part 4 (16-20): Ch 1–2: Arjuna's Dilemma & Sankhya"
+  }
+ },
+ {
+  "key": "S5",
+  "label": {
+   "hi": "भाग 5 (21–25): अध्याय 2–3: सांख्ययोग एवं कर्मयोग",
+   "en": "Part 5 (21-25): Ch 2–3: Sankhya & Karma Yoga"
+  }
+ }
+];
+			const Q = [
+ {
+  "s": "S1",
+  "a": 2,
+  "q": {
+   "hi": "श्रीमद्भगवद्गीता क्या है?",
+   "en": "श्रीमद्भगवद्गीता क्या है?"
+  },
+  "o": {
+   "hi": [
+    "यह भागवत पुराण का एक स्कन्ध है।",
+    "यह रामायण का एक अध्याय है।",
+    "यह महाभारत का एक 700 श्लोकों वाला अत्यंत पवित्र ग्रंथ है।",
+    "यह ऋग्वेद का एक छोटा सूक्त मात्र है।"
+   ],
+   "en": [
+    "यह भागवत पुराण का एक स्कन्ध है।",
+    "यह रामायण का एक अध्याय है।",
+    "यह महाभारत का एक 700 श्लोकों वाला अत्यंत पवित्र ग्रंथ है।",
+    "यह ऋग्वेद का एक छोटा सूक्त मात्र है।"
+   ]
+  },
+  "sol": {
+   "hi": "सही उत्तर: C) यह महाभारत का एक 700 श्लोकों वाला अत्यंत पवित्र ग्रंथ है।  [संदर्भ: Mahabharata]",
+   "en": "सही उत्तर: C) यह महाभारत का एक 700 श्लोकों वाला अत्यंत पवित्र ग्रंथ है।  [संदर्भ: Mahabharata]"
+  }
+ },
+ {
+  "s": "S1",
+  "a": 2,
+  "q": {
+   "hi": "श्रीमद्भगवद्गीता महाभारत के किस पर्व में स्थित है?",
+   "en": "श्रीमद्भगवद्गीता महाभारत के किस पर्व में स्थित है?"
+  },
+  "o": {
+   "hi": [
+    "उद्योग पर्व, अध्याय १-१५",
+    "वन पर्व, अध्याय १०-१८",
+    "भीष्म पर्व (अध्याय 23 से 40)।",
+    "शांति पर्व, अध्याय ४५-६०"
+   ],
+   "en": [
+    "उद्योग पर्व, अध्याय १-१५",
+    "वन पर्व, अध्याय १०-१८",
+    "भीष्म पर्व (अध्याय 23 से 40)।",
+    "शांति पर्व, अध्याय ४५-६०"
+   ]
+  },
+  "sol": {
+   "hi": "सही उत्तर: C) भीष्म पर्व (अध्याय 23 से 40)।  [संदर्भ: Bhishma Parva]",
+   "en": "सही उत्तर: C) भीष्म पर्व (अध्याय 23 से 40)।  [संदर्भ: Bhishma Parva]"
+  }
+ },
+ {
+  "s": "S1",
+  "a": 1,
+  "q": {
+   "hi": "महाभारत और भगवद्गीता के मूल रचयिता कौन हैं?",
+   "en": "महाभारत और भगवद्गीता के मूल रचयिता कौन हैं?"
+  },
+  "o": {
+   "hi": [
+    "महर्षि वशिष्ठ जी",
+    "महर्षि वेद व्यास जी।",
+    "महर्षि विश्वामित्र जी",
+    "महर्षि वाल्मीकि जी"
+   ],
+   "en": [
+    "महर्षि वशिष्ठ जी",
+    "महर्षि वेद व्यास जी।",
+    "महर्षि विश्वामित्र जी",
+    "महर्षि वाल्मीकि जी"
+   ]
+  },
+  "sol": {
+   "hi": "सही उत्तर: B) महर्षि वेद व्यास जी।  [संदर्भ: Tradition]",
+   "en": "सही उत्तर: B) महर्षि वेद व्यास जी।  [संदर्भ: Tradition]"
+  }
+ },
+ {
+  "s": "S1",
+  "a": 1,
+  "q": {
+   "hi": "धृतराष्ट्र को कुरुक्षेत्र युद्ध और गीता का सजीव वृत्तांत किसने सुनाया?",
+   "en": "धृतराष्ट्र को कुरुक्षेत्र युद्ध और गीता का सजीव वृत्तांत किसने सुनाया?"
+  },
+  "o": {
+   "hi": [
+    "विदुर ने राजदरबार में बैठकर।",
+    "संजय ने (महर्षि वेद व्यास द्वारा प्रदत्त दिव्य दृष्टि से)।",
+    "भीष्म पितामह ने शरशय्या से।",
+    "गांधारी ने अपनी दिव्य दृष्टि से।"
+   ],
+   "en": [
+    "विदुर ने राजदरबार में बैठकर।",
+    "संजय ने (महर्षि वेद व्यास द्वारा प्रदत्त दिव्य दृष्टि से)।",
+    "भीष्म पितामह ने शरशय्या से।",
+    "गांधारी ने अपनी दिव्य दृष्टि से।"
+   ]
+  },
+  "sol": {
+   "hi": "सही उत्तर: B) संजय ने (महर्षि वेद व्यास द्वारा प्रदत्त दिव्य दृष्टि से)।  [संदर्भ: BG 1.1]",
+   "en": "सही उत्तर: B) संजय ने (महर्षि वेद व्यास द्वारा प्रदत्त दिव्य दृष्टि से)।  [संदर्भ: BG 1.1]"
+  }
+ },
+ {
+  "s": "S1",
+  "a": 2,
+  "q": {
+   "hi": "भगवान श्रीकृष्ण और अर्जुन का संवाद कहाँ हुआ था?",
+   "en": "भगवान श्रीकृष्ण और अर्जुन का संवाद कहाँ हुआ था?"
+  },
+  "o": {
+   "hi": [
+    "हस्तिनापुर का राजदरबार",
+    "इंद्रप्रस्थ का सभागृह",
+    "धर्मक्षेत्र कुरुक्षेत्र की युद्धभूमि में।",
+    "नैमिषारण्य पवित्र वन"
+   ],
+   "en": [
+    "हस्तिनापुर का राजदरबार",
+    "इंद्रप्रस्थ का सभागृह",
+    "धर्मक्षेत्र कुरुक्षेत्र की युद्धभूमि में।",
+    "नैमिषारण्य पवित्र वन"
+   ]
+  },
+  "sol": {
+   "hi": "सही उत्तर: C) धर्मक्षेत्र कुरुक्षेत्र की युद्धभूमि में।  [संदर्भ: BG 1.1]",
+   "en": "सही उत्तर: C) धर्मक्षेत्र कुरुक्षेत्र की युद्धभूमि में।  [संदर्भ: BG 1.1]"
+  }
+ },
+ {
+  "s": "S2",
+  "a": 2,
+  "q": {
+   "hi": "भगवद्गीता में कुल कितने अध्याय और श्लोक हैं?",
+   "en": "भगवद्गीता में कुल कितने अध्याय और श्लोक हैं?"
+  },
+  "o": {
+   "hi": [
+    "१६ अध्याय और ६५० श्लोक",
+    "१२ अध्याय और ५०० श्लोक",
+    "18 अध्याय और 700 श्लोक।",
+    "२४ अध्याय और १००० श्लोक"
+   ],
+   "en": [
+    "१६ अध्याय और ६५० श्लोक",
+    "१२ अध्याय और ५०० श्लोक",
+    "18 अध्याय और 700 श्लोक।",
+    "२४ अध्याय और १००० श्लोक"
+   ]
+  },
+  "sol": {
+   "hi": "सही उत्तर: C) 18 अध्याय और 700 श्लोक।  [संदर्भ: Structure]",
+   "en": "सही उत्तर: C) 18 अध्याय और 700 श्लोक।  [संदर्भ: Structure]"
+  }
+ },
+ {
+  "s": "S2",
+  "a": 0,
+  "q": {
+   "hi": "भगवद्गीता में चार प्रमुख वक्ता कौन हैं?",
+   "en": "भगवद्गीता में चार प्रमुख वक्ता कौन हैं?"
+  },
+  "o": {
+   "hi": [
+    "श्रीकृष्ण, अर्जुन, संजय और धृतराष्ट्र (क्रमशः 574, 84, 41 और 1 श्लोक)।",
+    "श्रीकृष्ण, अर्जुन, भीष्म और युधिष्ठिर",
+    "श्रीकृष्ण, अर्जुन, द्रोण और विदुर",
+    "श्रीकृष्ण, अर्जुन, कर्ण और दुर्योधन"
+   ],
+   "en": [
+    "श्रीकृष्ण, अर्जुन, संजय और धृतराष्ट्र (क्रमशः 574, 84, 41 और 1 श्लोक)।",
+    "श्रीकृष्ण, अर्जुन, भीष्म और युधिष्ठिर",
+    "श्रीकृष्ण, अर्जुन, द्रोण और विदुर",
+    "श्रीकृष्ण, अर्जुन, कर्ण और दुर्योधन"
+   ]
+  },
+  "sol": {
+   "hi": "सही उत्तर: A) श्रीकृष्ण, अर्जुन, संजय और धृतराष्ट्र (क्रमशः 574, 84, 41 और 1 श्लोक)।  [संदर्भ: Shloka Distribution]",
+   "en": "सही उत्तर: A) श्रीकृष्ण, अर्जुन, संजय और धृतराष्ट्र (क्रमशः 574, 84, 41 और 1 श्लोक)।  [संदर्भ: Shloka Distribution]"
+  }
+ },
+ {
+  "s": "S2",
+  "a": 1,
+  "q": {
+   "hi": "भगवद्गीता का सबसे पहला शब्द कौन सा है?",
+   "en": "भगवद्गीता का सबसे पहला शब्द कौन सा है?"
+  },
+  "o": {
+   "hi": [
+    "'श्री' ('श्रीभगवानुवाच' से)",
+    "'धर्म' ('धर्मक्षेत्रे कुरुक्षेत्रे...' से)।",
+    "'यदा' ('यदा यदा हि' से)",
+    "'कुरुक्षेत्र' (युद्धभूमि का नाम)"
+   ],
+   "en": [
+    "'श्री' ('श्रीभगवानुवाच' से)",
+    "'धर्म' ('धर्मक्षेत्रे कुरुक्षेत्रे...' से)।",
+    "'यदा' ('यदा यदा हि' से)",
+    "'कुरुक्षेत्र' (युद्धभूमि का नाम)"
+   ]
+  },
+  "sol": {
+   "hi": "सही उत्तर: B) 'धर्म' ('धर्मक्षेत्रे कुरुक्षेत्रे...' से)।  [संदर्भ: BG 1.1]",
+   "en": "सही उत्तर: B) 'धर्म' ('धर्मक्षेत्रे कुरुक्षेत्रे...' से)।  [संदर्भ: BG 1.1]"
+  }
+ },
+ {
+  "s": "S2",
+  "a": 0,
+  "q": {
+   "hi": "भगवद्गीता का मुख्य उद्देश्य और केंद्रीय संदेश क्या है?",
+   "en": "भगवद्गीता का मुख्य उद्देश्य और केंद्रीय संदेश क्या है?"
+  },
+  "o": {
+   "hi": [
+    "फल की आसक्ति के बिना स्वधर्म का पालन करना तथा निष्काम भाव से ईश्वर के प्रति समर्पित होना।",
+    "कर्तव्यों से विमुख होकर निष्क्रिय बैठ जाना।",
+    "भौतिक सुखों की प्राप्ति हेतु सकाम यज्ञ-अनुष्ठान करना।",
+    "संसार छोड़कर वन में कठोर तपस्या करना।"
+   ],
+   "en": [
+    "फल की आसक्ति के बिना स्वधर्म का पालन करना तथा निष्काम भाव से ईश्वर के प्रति समर्पित होना।",
+    "कर्तव्यों से विमुख होकर निष्क्रिय बैठ जाना।",
+    "भौतिक सुखों की प्राप्ति हेतु सकाम यज्ञ-अनुष्ठान करना।",
+    "संसार छोड़कर वन में कठोर तपस्या करना।"
+   ]
+  },
+  "sol": {
+   "hi": "सही उत्तर: A) फल की आसक्ति के बिना स्वधर्म का पालन करना तथा निष्काम भाव से ईश्वर के प्रति समर्पित होना।  [संदर्भ: Essence]",
+   "en": "सही उत्तर: A) फल की आसक्ति के बिना स्वधर्म का पालन करना तथा निष्काम भाव से ईश्वर के प्रति समर्पित होना।  [संदर्भ: Essence]"
+  }
+ },
+ {
+  "s": "S2",
+  "a": 3,
+  "q": {
+   "hi": "भगवद्गीता को 'गीतोपनिषद्' क्यों कहा जाता है?",
+   "en": "भगवद्गीता को 'गीतोपनिषद्' क्यों कहा जाता है?"
+  },
+  "o": {
+   "hi": [
+    "क्योंकि इसमें केवल कर्मकाण्ड और यज्ञ-विधियों का वर्णन है।",
+    "क्योंकि इसमें केवल भौतिक जगत के नियमों की चर्चा है।",
+    "क्योंकि इसकी रचना किसी उपनिषद् के ऋषि ने की थी।",
+    "क्योंकि यह समस्त उपनिषदों और वैदिक दर्शन का सार (अमृत) है।"
+   ],
+   "en": [
+    "क्योंकि इसमें केवल कर्मकाण्ड और यज्ञ-विधियों का वर्णन है।",
+    "क्योंकि इसमें केवल भौतिक जगत के नियमों की चर्चा है।",
+    "क्योंकि इसकी रचना किसी उपनिषद् के ऋषि ने की थी।",
+    "क्योंकि यह समस्त उपनिषदों और वैदिक दर्शन का सार (अमृत) है।"
+   ]
+  },
+  "sol": {
+   "hi": "सही उत्तर: D) क्योंकि यह समस्त उपनिषदों और वैदिक दर्शन का सार (अमृत) है।  [संदर्भ: Gita Mahatmya]",
+   "en": "सही उत्तर: D) क्योंकि यह समस्त उपनिषदों और वैदिक दर्शन का सार (अमृत) है।  [संदर्भ: Gita Mahatmya]"
+  }
+ },
+ {
+  "s": "S3",
+  "a": 1,
+  "q": {
+   "hi": "भगवद्गीता के प्रथम अध्याय का नाम क्या है?",
+   "en": "भगवद्गीता के प्रथम अध्याय का नाम क्या है?"
+  },
+  "o": {
+   "hi": [
+    "विश्वरूपदर्शनयोग",
+    "अर्जुनविषादयोग।",
+    "सांख्ययोग",
+    "कर्मयोग"
+   ],
+   "en": [
+    "विश्वरूपदर्शनयोग",
+    "अर्जुनविषादयोग।",
+    "सांख्ययोग",
+    "कर्मयोग"
+   ]
+  },
+  "sol": {
+   "hi": "सही उत्तर: B) अर्जुनविषादयोग।  [संदर्भ: Chapter 1]",
+   "en": "सही उत्तर: B) अर्जुनविषादयोग।  [संदर्भ: Chapter 1]"
+  }
+ },
+ {
+  "s": "S3",
+  "a": 0,
+  "q": {
+   "hi": "भगवान श्रीकृष्ण के शंख का क्या नाम था?",
+   "en": "भगवान श्रीकृष्ण के शंख का क्या नाम था?"
+  },
+  "o": {
+   "hi": [
+    "पाञ्चजन्य।",
+    "देवदत्त",
+    "पौण्ड्र",
+    "अनन्तविजय"
+   ],
+   "en": [
+    "पाञ्चजन्य।",
+    "देवदत्त",
+    "पौण्ड्र",
+    "अनन्तविजय"
+   ]
+  },
+  "sol": {
+   "hi": "सही उत्तर: A) पाञ्चजन्य।  [संदर्भ: BG 1.15]",
+   "en": "सही उत्तर: A) पाञ्चजन्य।  [संदर्भ: BG 1.15]"
+  }
+ },
+ {
+  "s": "S3",
+  "a": 2,
+  "q": {
+   "hi": "अर्जुन के शंख और उनके प्रसिद्ध दिव्य धनुष का क्या नाम था?",
+   "en": "अर्जुन के शंख और उनके प्रसिद्ध दिव्य धनुष का क्या नाम था?"
+  },
+  "o": {
+   "hi": [
+    "शंख: अनन्तविजय; धनुष: शार्ङ्ग।",
+    "शंख: पाञ्चजन्य; धनुष: गाण्डीव।",
+    "शंख: देवदत्त; धनुष: गाण्डीव।",
+    "शंख: देवदत्त; धनुष: पिनाक।"
+   ],
+   "en": [
+    "शंख: अनन्तविजय; धनुष: शार्ङ्ग।",
+    "शंख: पाञ्चजन्य; धनुष: गाण्डीव।",
+    "शंख: देवदत्त; धनुष: गाण्डीव।",
+    "शंख: देवदत्त; धनुष: पिनाक।"
+   ]
+  },
+  "sol": {
+   "hi": "सही उत्तर: C) शंख: देवदत्त; धनुष: गाण्डीव।  [संदर्भ: BG 1.15, 1.29]",
+   "en": "सही उत्तर: C) शंख: देवदत्त; धनुष: गाण्डीव।  [संदर्भ: BG 1.15, 1.29]"
+  }
+ },
+ {
+  "s": "S3",
+  "a": 0,
+  "q": {
+   "hi": "अर्जुन के रथ की ध्वजा पर किसका प्रतीक (चिह्न) था?",
+   "en": "अर्जुन के रथ की ध्वजा पर किसका प्रतीक (चिह्न) था?"
+  },
+  "o": {
+   "hi": [
+    "भगवान हनुमान जी (इसलिए अर्जुन को 'कपिध्वज' कहा गया)।",
+    "भगवान शिव का त्रिशूल",
+    "भगवान कार्तिकेय का मयूर",
+    "गरुड़ देव का प्रतीक"
+   ],
+   "en": [
+    "भगवान हनुमान जी (इसलिए अर्जुन को 'कपिध्वज' कहा गया)।",
+    "भगवान शिव का त्रिशूल",
+    "भगवान कार्तिकेय का मयूर",
+    "गरुड़ देव का प्रतीक"
+   ]
+  },
+  "sol": {
+   "hi": "सही उत्तर: A) भगवान हनुमान जी (इसलिए अर्जुन को 'कपिध्वज' कहा गया)।  [संदर्भ: BG 1.20]",
+   "en": "सही उत्तर: A) भगवान हनुमान जी (इसलिए अर्जुन को 'कपिध्वज' कहा गया)।  [संदर्भ: BG 1.20]"
+  }
+ },
+ {
+  "s": "S3",
+  "a": 3,
+  "q": {
+   "hi": "युद्ध आरम्भ होने से पूर्व अर्जुन ने श्रीकृष्ण से क्या प्रार्थना की थी?",
+   "en": "युद्ध आरम्भ होने से पूर्व अर्जुन ने श्रीकृष्ण से क्या प्रार्थना की थी?"
+  },
+  "o": {
+   "hi": [
+    "रथ को शत्रु सेना के पीछे ले जाने की।",
+    "रथ को भीष्म पितामह के चरणों तक ले जाने की।",
+    "रथ को युद्धभूमि से वापस ले चलने की।",
+    "दोनों सेनाओं के मध्य में रथ खड़ा करने की।"
+   ],
+   "en": [
+    "रथ को शत्रु सेना के पीछे ले जाने की।",
+    "रथ को भीष्म पितामह के चरणों तक ले जाने की।",
+    "रथ को युद्धभूमि से वापस ले चलने की।",
+    "दोनों सेनाओं के मध्य में रथ खड़ा करने की।"
+   ]
+  },
+  "sol": {
+   "hi": "सही उत्तर: D) दोनों सेनाओं के मध्य में रथ खड़ा करने की।  [संदर्भ: BG 1.21]",
+   "en": "सही उत्तर: D) दोनों सेनाओं के मध्य में रथ खड़ा करने की।  [संदर्भ: BG 1.21]"
+  }
+ },
+ {
+  "s": "S4",
+  "a": 1,
+  "q": {
+   "hi": "अर्जुन श्रीकृष्ण को 'अच्युत' कहकर क्यों सम्बोधित करते हैं?",
+   "en": "अर्जुन श्रीकृष्ण को 'अच्युत' कहकर क्यों सम्बोधित करते हैं?"
+  },
+  "o": {
+   "hi": [
+    "'अच्युत' का अर्थ है जो युद्ध में सदा अजेय रहते हैं।",
+    "'अच्युत' का अर्थ है जो कभी अपने स्वरूप और भक्तों के प्रति प्रेम से च्युत (विचलित) नहीं होते।",
+    "'अच्युत' का अर्थ है गोवर्धन पर्वत धारण करने वाले।",
+    "'अच्युत' का अर्थ है गायों का पालन करने वाले।"
+   ],
+   "en": [
+    "'अच्युत' का अर्थ है जो युद्ध में सदा अजेय रहते हैं।",
+    "'अच्युत' का अर्थ है जो कभी अपने स्वरूप और भक्तों के प्रति प्रेम से च्युत (विचलित) नहीं होते।",
+    "'अच्युत' का अर्थ है गोवर्धन पर्वत धारण करने वाले।",
+    "'अच्युत' का अर्थ है गायों का पालन करने वाले।"
+   ]
+  },
+  "sol": {
+   "hi": "सही उत्तर: B) 'अच्युत' का अर्थ है जो कभी अपने स्वरूप और भक्तों के प्रति प्रेम से च्युत (विचलित) नहीं होते।  [संदर्भ: BG 1.21]",
+   "en": "सही उत्तर: B) 'अच्युत' का अर्थ है जो कभी अपने स्वरूप और भक्तों के प्रति प्रेम से च्युत (विचलित) नहीं होते।  [संदर्भ: BG 1.21]"
+  }
+ },
+ {
+  "s": "S4",
+  "a": 3,
+  "q": {
+   "hi": "प्रथम अध्याय में अर्जुन के विषाद और युद्ध न करने की इच्छा का मुख्य कारण क्या था?",
+   "en": "प्रथम अध्याय में अर्जुन के विषाद और युद्ध न करने की इच्छा का मुख्य कारण क्या था?"
+  },
+  "o": {
+   "hi": [
+    "अस्त्र-शस्त्रों के अभाव की चिंता।",
+    "भगवान श्रीकृष्ण की बातों पर अविश्वास।",
+    "शत्रु सेना की विशाल संख्या से उत्पन्न भय।",
+    "अपने पूज्य गुरुजनों (द्रोणाचार्य, भीष्म पितामह) और संबंधियों को मारने के विचार से उत्पन्न मोह, शोक और करुणा।"
+   ],
+   "en": [
+    "अस्त्र-शस्त्रों के अभाव की चिंता।",
+    "भगवान श्रीकृष्ण की बातों पर अविश्वास।",
+    "शत्रु सेना की विशाल संख्या से उत्पन्न भय।",
+    "अपने पूज्य गुरुजनों (द्रोणाचार्य, भीष्म पितामह) और संबंधियों को मारने के विचार से उत्पन्न मोह, शोक और करुणा।"
+   ]
+  },
+  "sol": {
+   "hi": "सही उत्तर: D) अपने पूज्य गुरुजनों (द्रोणाचार्य, भीष्म पितामह) और संबंधियों को मारने के विचार से उत्पन्न मोह, शोक और करुणा।  [संदर्भ: BG 1.28-46]",
+   "en": "सही उत्तर: D) अपने पूज्य गुरुजनों (द्रोणाचार्य, भीष्म पितामह) और संबंधियों को मारने के विचार से उत्पन्न मोह, शोक और करुणा।  [संदर्भ: BG 1.28-46]"
+  }
+ },
+ {
+  "s": "S4",
+  "a": 3,
+  "q": {
+   "hi": "पहले अध्याय के अंत में अर्जुन ने अपना शोक व्यक्त करने के बाद क्या किया?",
+   "en": "पहले अध्याय के अंत में अर्जुन ने अपना शोक व्यक्त करने के बाद क्या किया?"
+  },
+  "o": {
+   "hi": [
+    "शंख बजाकर युद्ध की घोषणा कर दी।",
+    "रथ से उतरकर भीष्म पितामह पर बाण चलाया।",
+    "श्रीकृष्ण को रथ से उतारकर स्वयं सारथी बन गए।",
+    "धनुष-बाण त्याग कर शोकग्रस्त मन से रथ के पिछले भाग में बैठ गए।"
+   ],
+   "en": [
+    "शंख बजाकर युद्ध की घोषणा कर दी।",
+    "रथ से उतरकर भीष्म पितामह पर बाण चलाया।",
+    "श्रीकृष्ण को रथ से उतारकर स्वयं सारथी बन गए।",
+    "धनुष-बाण त्याग कर शोकग्रस्त मन से रथ के पिछले भाग में बैठ गए।"
+   ]
+  },
+  "sol": {
+   "hi": "सही उत्तर: D) धनुष-बाण त्याग कर शोकग्रस्त मन से रथ के पिछले भाग में बैठ गए।  [संदर्भ: BG 1.47]",
+   "en": "सही उत्तर: D) धनुष-बाण त्याग कर शोकग्रस्त मन से रथ के पिछले भाग में बैठ गए।  [संदर्भ: BG 1.47]"
+  }
+ },
+ {
+  "s": "S4",
+  "a": 2,
+  "q": {
+   "hi": "भगवद्गीता के दूसरे अध्याय का क्या नाम है?",
+   "en": "भगवद्गीता के दूसरे अध्याय का क्या नाम है?"
+  },
+  "o": {
+   "hi": [
+    "भक्तियोग",
+    "ज्ञानकर्मसंन्यासयोग",
+    "सांख्ययोग।",
+    "कर्मयोग"
+   ],
+   "en": [
+    "भक्तियोग",
+    "ज्ञानकर्मसंन्यासयोग",
+    "सांख्ययोग।",
+    "कर्मयोग"
+   ]
+  },
+  "sol": {
+   "hi": "सही उत्तर: C) सांख्ययोग।  [संदर्भ: Chapter 2]",
+   "en": "सही उत्तर: C) सांख्ययोग।  [संदर्भ: Chapter 2]"
+  }
+ },
+ {
+  "s": "S4",
+  "a": 3,
+  "q": {
+   "hi": "किस श्लोक में अर्जुन श्रीकृष्ण के सम्मुख शिष्य भाव से पूर्ण समर्पण करते हैं?",
+   "en": "किस श्लोक में अर्जुन श्रीकृष्ण के सम्मुख शिष्य भाव से पूर्ण समर्पण करते हैं?"
+  },
+  "o": {
+   "hi": [
+    "भगवद्गीता 4.7 ('यदा यदा हि धर्मस्य ग्लानिर्भवति भारत')।",
+    "भगवद्गीता 18.66 ('सर्वधर्मान्परित्यज्य मामेकं शरणं व्रज')।",
+    "भगवद्गीता 2.47 ('कर्मण्येवाधिकारस्ते मा फलेषु कदाचन')।",
+    "भगवद्गीता 2.7 ('शिष्यस्तेऽहं शाधि मां त्वां प्रपन्नम्')।"
+   ],
+   "en": [
+    "भगवद्गीता 4.7 ('यदा यदा हि धर्मस्य ग्लानिर्भवति भारत')।",
+    "भगवद्गीता 18.66 ('सर्वधर्मान्परित्यज्य मामेकं शरणं व्रज')।",
+    "भगवद्गीता 2.47 ('कर्मण्येवाधिकारस्ते मा फलेषु कदाचन')।",
+    "भगवद्गीता 2.7 ('शिष्यस्तेऽहं शाधि मां त्वां प्रपन्नम्')।"
+   ]
+  },
+  "sol": {
+   "hi": "सही उत्तर: D) भगवद्गीता 2.7 ('शिष्यस्तेऽहं शाधि मां त्वां प्रपन्नम्')।  [संदर्भ: BG 2.7]",
+   "en": "सही उत्तर: D) भगवद्गीता 2.7 ('शिष्यस्तेऽहं शाधि मां त्वां प्रपन्नम्')।  [संदर्भ: BG 2.7]"
+  }
+ },
+ {
+  "s": "S5",
+  "a": 3,
+  "q": {
+   "hi": "दूसरे अध्याय में श्रीकृष्ण आत्मा के स्वरूप का वर्णन कैसे करते हैं?",
+   "en": "दूसरे अध्याय में श्रीकृष्ण आत्मा के स्वरूप का वर्णन कैसे करते हैं?"
+  },
+  "o": {
+   "hi": [
+    "आत्मा केवल शरीर के साथ उत्पन्न होती है और उसी के साथ नष्ट हो जाती है।",
+    "आत्मा को अग्नि जला सकती है और जल गला सकता है।",
+    "आत्मा जन्म और मृत्यु के अधीन नाशवान है; शस्त्र उसे काट सकते हैं।",
+    "आत्मा अजर, अमर, अजन्मा, शाश्वत और अविनाशी है; इसे न शस्त्र काट सकते हैं, न अग्नि जला सकती है।"
+   ],
+   "en": [
+    "आत्मा केवल शरीर के साथ उत्पन्न होती है और उसी के साथ नष्ट हो जाती है।",
+    "आत्मा को अग्नि जला सकती है और जल गला सकता है।",
+    "आत्मा जन्म और मृत्यु के अधीन नाशवान है; शस्त्र उसे काट सकते हैं।",
+    "आत्मा अजर, अमर, अजन्मा, शाश्वत और अविनाशी है; इसे न शस्त्र काट सकते हैं, न अग्नि जला सकती है।"
+   ]
+  },
+  "sol": {
+   "hi": "सही उत्तर: D) आत्मा अजर, अमर, अजन्मा, शाश्वत और अविनाशी है; इसे न शस्त्र काट सकते हैं, न अग्नि जला सकती है।  [संदर्भ: BG 2.20, 2.23]",
+   "en": "सही उत्तर: D) आत्मा अजर, अमर, अजन्मा, शाश्वत और अविनाशी है; इसे न शस्त्र काट सकते हैं, न अग्नि जला सकती है।  [संदर्भ: BG 2.20, 2.23]"
+  }
+ },
+ {
+  "s": "S5",
+  "a": 2,
+  "q": {
+   "hi": "आत्मा द्वारा शरीर बदलने की प्रक्रिया को श्रीकृष्ण ने किस उपमा से समझाया है?",
+   "en": "आत्मा द्वारा शरीर बदलने की प्रक्रिया को श्रीकृष्ण ने किस उपमा से समझाया है?"
+  },
+  "o": {
+   "hi": [
+    "जैसे नदी बहकर समुद्र में मिल जाती है।",
+    "जैसे सर्प अपनी पुरानी केंचुली छोड़ देता है।",
+    "जैसे मनुष्य पुराने वस्त्रों को त्यागकर नए वस्त्र धारण करता है (वासांसि जीर्णानि यथा विहाय...)।",
+    "जैसे बीज से नया वृक्ष उत्पन्न होता है।"
+   ],
+   "en": [
+    "जैसे नदी बहकर समुद्र में मिल जाती है।",
+    "जैसे सर्प अपनी पुरानी केंचुली छोड़ देता है।",
+    "जैसे मनुष्य पुराने वस्त्रों को त्यागकर नए वस्त्र धारण करता है (वासांसि जीर्णानि यथा विहाय...)।",
+    "जैसे बीज से नया वृक्ष उत्पन्न होता है।"
+   ]
+  },
+  "sol": {
+   "hi": "सही उत्तर: C) जैसे मनुष्य पुराने वस्त्रों को त्यागकर नए वस्त्र धारण करता है (वासांसि जीर्णानि यथा विहाय...)।  [संदर्भ: BG 2.22]",
+   "en": "सही उत्तर: C) जैसे मनुष्य पुराने वस्त्रों को त्यागकर नए वस्त्र धारण करता है (वासांसि जीर्णानि यथा विहाय...)।  [संदर्भ: BG 2.22]"
+  }
+ },
+ {
+  "s": "S5",
+  "a": 2,
+  "q": {
+   "hi": "दूसरे अध्याय में कर्म करने का प्रसिद्ध उपदेश कौन सा श्लोक है?",
+   "en": "दूसरे अध्याय में कर्म करने का प्रसिद्ध उपदेश कौन सा श्लोक है?"
+  },
+  "o": {
+   "hi": [
+    "भगवद्गीता 6.5: 'उद्धरेदात्मनात्मानं नात्मानमवसादयेत्...'",
+    "भगवद्गीता 3.9: 'यज्ञार्थात्कर्मणोऽन्यत्र लोकोऽयं कर्मबन्धनः...'",
+    "भगवद्गीता 2.47: 'कर्मण्येवाधिकारस्ते मा फलेषु कदाचन...'",
+    "भगवद्गीता 9.22: 'अनन्याश्चिन्तयन्तो मां ये जनाः पर्युपासते...'"
+   ],
+   "en": [
+    "भगवद्गीता 6.5: 'उद्धरेदात्मनात्मानं नात्मानमवसादयेत्...'",
+    "भगवद्गीता 3.9: 'यज्ञार्थात्कर्मणोऽन्यत्र लोकोऽयं कर्मबन्धनः...'",
+    "भगवद्गीता 2.47: 'कर्मण्येवाधिकारस्ते मा फलेषु कदाचन...'",
+    "भगवद्गीता 9.22: 'अनन्याश्चिन्तयन्तो मां ये जनाः पर्युपासते...'"
+   ]
+  },
+  "sol": {
+   "hi": "सही उत्तर: C) भगवद्गीता 2.47: 'कर्मण्येवाधिकारस्ते मा फलेषु कदाचन...'  [संदर्भ: BG 2.47]",
+   "en": "सही उत्तर: C) भगवद्गीता 2.47: 'कर्मण्येवाधिकारस्ते मा फलेषु कदाचन...'  [संदर्भ: BG 2.47]"
+  }
+ },
+ {
+  "s": "S5",
+  "a": 0,
+  "q": {
+   "hi": "श्लोक 2.47 के अनुसार मनुष्य का अधिकार किसमें है और किसमें नहीं?",
+   "en": "श्लोक 2.47 के अनुसार मनुष्य का अधिकार किसमें है और किसमें नहीं?"
+  },
+  "o": {
+   "hi": [
+    "कर्म करने में अधिकार है, परन्तु उसके फलों में कभी नहीं।",
+    "कर्म और फल दोनों में समान अधिकार है।",
+    "न कर्म में, न फल में; केवल प्रारब्ध में अधिकार है।",
+    "फलों में अधिकार है, परन्तु कर्म में नहीं।"
+   ],
+   "en": [
+    "कर्म करने में अधिकार है, परन्तु उसके फलों में कभी नहीं।",
+    "कर्म और फल दोनों में समान अधिकार है।",
+    "न कर्म में, न फल में; केवल प्रारब्ध में अधिकार है।",
+    "फलों में अधिकार है, परन्तु कर्म में नहीं।"
+   ]
+  },
+  "sol": {
+   "hi": "सही उत्तर: A) कर्म करने में अधिकार है, परन्तु उसके फलों में कभी नहीं।  [संदर्भ: BG 2.47]",
+   "en": "सही उत्तर: A) कर्म करने में अधिकार है, परन्तु उसके फलों में कभी नहीं।  [संदर्भ: BG 2.47]"
+  }
+ },
+ {
+  "s": "S5",
+  "a": 0,
+  "q": {
+   "hi": "श्लोक 2.48 और 2.50 में श्रीकृष्ण योग की क्या परिभाषा देते हैं?",
+   "en": "श्लोक 2.48 और 2.50 में श्रीकृष्ण योग की क्या परिभाषा देते हैं?"
+  },
+  "o": {
+   "hi": [
+    "'समत्वं योग उच्यते' (समत्व भाव ही योग है) और 'योगः कर्मसु कौशलम्' (कर्मों में कुशलता ही योग है)।",
+    "केवल आसन और प्राणायाम का अभ्यास ही योग है।",
+    "कर्मों का पूर्ण त्याग करके वन में रहना ही योग है।",
+    "कामनापूर्वक बड़े-बड़े यज्ञ करना ही योग है।"
+   ],
+   "en": [
+    "'समत्वं योग उच्यते' (समत्व भाव ही योग है) और 'योगः कर्मसु कौशलम्' (कर्मों में कुशलता ही योग है)।",
+    "केवल आसन और प्राणायाम का अभ्यास ही योग है।",
+    "कर्मों का पूर्ण त्याग करके वन में रहना ही योग है।",
+    "कामनापूर्वक बड़े-बड़े यज्ञ करना ही योग है।"
+   ]
+  },
+  "sol": {
+   "hi": "सही उत्तर: A) 'समत्वं योग उच्यते' (समत्व भाव ही योग है) और 'योगः कर्मसु कौशलम्' (कर्मों में कुशलता ही योग है)।  [संदर्भ: BG 2.48, 2.50]",
+   "en": "सही उत्तर: A) 'समत्वं योग उच्यते' (समत्व भाव ही योग है) और 'योगः कर्मसु कौशलम्' (कर्मों में कुशलता ही योग है)।  [संदर्भ: BG 2.48, 2.50]"
+  }
+ }
+];
+			const UI = {
+				en: {
+					subtitle: "टेस्ट 1 (प्रश्न 1–25) · 25 प्रश्न",
+					timeLeft: "Time Left",
+					legAns: "Answered",
+					legNot: "Not Answered",
+					legMarked: "Marked",
+					legVisit: "Not Visited",
+					qof: (n, t) => "Q " + n + " of " + t,
+					clear: "Clear Response",
+					mark: "Mark for Review & Next",
+					prev: "‹ Previous",
+					save: "Save & Next ›",
+					submit: "Submit Test",
+					confirmMsg: (u) =>
+						"You have " +
+						u +
+						" unattempted question(s).\nSubmit the test now?",
+					rbrand: "गीता ओलम्पियाड मॉक टेस्ट",
+					outof: (auto) =>
+						"गीता ओलम्पियाड · " +
+						(auto
+							? "Time Up — Auto Submitted"
+							: "Test Submitted"),
+					scoreLabel: "Score",
+					thSection: "Section",
+					thCorrect: "Correct",
+					thWrong: "Wrong",
+					thSkipped: "Skipped",
+					rnote: "No negative marking. Tap any question below to see the correct answer.",
+					tagOk: "Correct",
+					tagBad: "Incorrect",
+					tagSkip: "Skipped",
+					solution: "Answer:",
+					retake: "Retake Test",
+					langBtn: "हिंदी",
+					qLabelPrefix: "Q",
+					nCardTitle: "Before you begin",
+					nCardSub: "अपना नाम दर्ज करें ताकि यह आपके परिणाम में दिखे।",
+					nFieldLabel: "Student Name",
+					nPlaceholder: "e.g. Riya Sharma",
+					startBtn: "Start Test",
+					defaultName: "Student",
+				},
+				hi: {
+					subtitle:
+						"टेस्ट 1 (प्रश्न 1–25) · 25 प्रश्न",
+					timeLeft: "शेष समय",
+					legAns: "उत्तर दिया",
+					legNot: "उत्तर नहीं दिया",
+					legMarked: "चिह्नित",
+					legVisit:
+						"नहीं देखा गया",
+					qof: (n, t) =>
+						"प्रश्न " + n + " / " + t,
+					clear: "उत्तर हटाएं",
+					mark: "समीक्षा हेतु चिह्नित करें और आगे",
+					prev: "‹ पिछला",
+					save: "सहेजें और आगे ›",
+					submit: "टेस्ट जमा करें",
+					confirmMsg: (u) =>
+						"आपके " +
+						u +
+						" प्रश्न अनुत्तरित हैं।\nक्या अब टेस्ट जमा करें?",
+					rbrand: "गीता ओलम्पियाड मॉक टेस्ट",
+					outof: (auto) =>
+						"गीता ओलम्पियाड · " +
+						(auto
+							? "समय समाप्त — स्वतः जमा"
+							: "टेस्ट जमा हुआ"),
+					scoreLabel: "स्कोर",
+					thSection: "अनुभाग",
+					thCorrect: "सही",
+					thWrong: "गलत",
+					thSkipped: "छूटे",
+					rnote: "कोई ऋणात्मक अंकन नहीं। सही उत्तर देखने हेतु नीचे किसी भी प्रश्न पर टैप करें।",
+					tagOk: "सही",
+					tagBad: "गलत",
+					tagSkip: "छूटा",
+					solution: "उत्तर:",
+					retake: "टेस्ट फिर से दें",
+					langBtn: "English",
+					qLabelPrefix: "प्र।",
+					nCardTitle:
+						"शुरू करने से पहले",
+					nCardSub:
+						"अपना नाम दर्ज करें ताकि यह आपके परिणाम में दिखे।",
+					nFieldLabel:
+						"विद्यार्थी का नाम",
+					nPlaceholder:
+						"जैसे: रिया शर्मा",
+					startBtn:
+						"टेस्ट शुरू करें",
+					defaultName:
+						"विद्यार्थी",
+				},
+			};
+
+			let lang = "hi";
+			function t() {
+				return UI[lang];
+			}
+
+			const TOTAL = Q.length;
+			const DURATION = 30 * 60;
+			let cur = 0,
+				answers = {},
+				visited = new Set(),
+				marked = new Set(),
+				timeLeft = DURATION,
+				timerH = null;
+			let studentName = "";
+			let lastResult = null;
+
+			const secRange = {};
+			SECTIONS.forEach((sec) => {
+				const idx = Q.map((q, i) => (q.s === sec.key ? i : -1)).filter(
+					(i) => i >= 0
+				);
+				secRange[sec.key] = { start: idx[0], end: idx[idx.length - 1] };
+			});
+
+			const elTimer = document.getElementById("timer");
+			const elTimerbar = document.getElementById("timerbar");
+			const elPalette = document.getElementById("palette");
+			const elTabs = document.getElementById("sectiontabs");
+
+			function buildTabs() {
+				elTabs.innerHTML = "";
+				SECTIONS.forEach((sec) => {
+					const b = document.createElement("button");
+					b.textContent = sec.label[lang];
+					b.dataset.key = sec.key;
+					b.onclick = () => {
+						cur = secRange[sec.key].start;
+						render();
+					};
+					elTabs.appendChild(b);
+				});
+			}
+
+			function buildPalette() {
+				elPalette.innerHTML = "";
+				for (let i = 0; i < TOTAL; i++) {
+					const c = document.createElement("div");
+					c.className = "pcell";
+					c.textContent = i + 1;
+					c.onclick = () => {
+						cur = i;
+						render();
+					};
+					elPalette.appendChild(c);
+				}
+			}
+
+			function renderPalette() {
+				const cells = elPalette.children;
+				for (let i = 0; i < TOTAL; i++) {
+					const c = cells[i];
+					c.className = "pcell";
+					if (i === cur) c.classList.add("current");
+					const hasA = answers.hasOwnProperty(i);
+					const isMark = marked.has(i);
+					if (isMark) {
+						c.classList.add("marked");
+						if (hasA) c.classList.add("answered");
+					} else if (hasA) c.classList.add("answered");
+					else if (visited.has(i)) c.classList.add("notanswered");
+				}
+			}
+
+			function renderTabs() {
+				[...elTabs.children].forEach((b) =>
+					b.classList.toggle("active", Q[cur].s === b.dataset.key)
+				);
+			}
+
+			function renderQuestion() {
+				const item = Q[cur];
+				const sec = SECTIONS.find((s) => s.key === item.s);
+				document.getElementById("qno").textContent = t().qof(
+					cur + 1,
+					TOTAL
+				);
+				document.getElementById("qsec").textContent = sec.label[lang];
+				document.getElementById("qtext").textContent = item.q[lang];
+				const optDiv = document.getElementById("options");
+				optDiv.innerHTML = "";
+				item.o[lang].forEach((optText, idx) => {
+					const wrap = document.createElement("div");
+					wrap.className =
+						"opt" + (answers[cur] === idx ? " selected" : "");
+					const id = "opt_" + cur + "_" + idx;
+					wrap.innerHTML =
+						'<input type="radio" name="q' +
+						cur +
+						'" id="' +
+						id +
+						'"' +
+						(answers[cur] === idx ? " checked" : "") +
+						">" +
+						'<label for="' +
+						id +
+						'">' +
+						String.fromCharCode(65 + idx) +
+						". " +
+						optText +
+						"</label>";
+					wrap.onclick = () => {
+						answers[cur] = idx;
+						visited.add(cur);
+						renderQuestion();
+						renderPalette();
+					};
+					optDiv.appendChild(wrap);
+				});
+			}
+
+			function render() {
+				visited.add(cur);
+				renderQuestion();
+				renderPalette();
+				renderTabs();
+				elPalette.children[cur].scrollIntoView({
+					block: "nearest",
+					inline: "center",
+				});
+			}
+
+			document.getElementById("clearBtn").onclick = () => {
+				delete answers[cur];
+				renderQuestion();
+				renderPalette();
+			};
+			document.getElementById("markBtn").onclick = () => {
+				marked.add(cur);
+				goNext();
+			};
+			document.getElementById("saveBtn").onclick = goNext;
+			document.getElementById("prevBtn").onclick = () => {
+				if (cur > 0) {
+					cur--;
+					render();
+				}
+			};
+			function goNext() {
+				if (cur < TOTAL - 1) {
+					cur++;
+					render();
+				} else render();
+			}
+
+			document.getElementById("submitBtn").onclick = () => {
+				const u = TOTAL - Object.keys(answers).length;
+				showConfirm(t().confirmMsg(u));
+			};
+
+			function showConfirm(msg){
+				let ov=document.getElementById("cfOv");
+				if(ov) ov.remove();
+				ov=document.createElement("div");ov.id="cfOv";
+				ov.style.cssText="position:fixed;inset:0;background:rgba(13,20,48,.6);display:flex;align-items:center;justify-content:center;z-index:9999;padding:20px";
+				const box=document.createElement("div");
+				box.style.cssText="background:#fff;border-radius:12px;padding:20px;max-width:340px;width:100%;text-align:center;font-size:15px";
+				const p=document.createElement("p");p.style.cssText="margin:0 0 16px;white-space:pre-line;font-weight:600";p.textContent=msg;
+				const mk=(txt,bg,fn)=>{const b=document.createElement("button");b.type="button";b.textContent=txt;b.style.cssText="flex:1;padding:12px;border:none;border-radius:8px;font-weight:700;font-size:14px;color:#fff;background:"+bg;b.onclick=fn;return b;};
+				const row=document.createElement("div");row.style.cssText="display:flex;gap:10px";
+				row.appendChild(mk("रद्द करें","#6b7280",()=>ov.remove()));
+				row.appendChild(mk("जमा करें","#2f6fed",()=>{ov.remove();submitTest();}));
+				box.appendChild(p);box.appendChild(row);ov.appendChild(box);document.body.appendChild(ov);
+			}
+			function fmt(s) {
+				return (
+					String(Math.floor(s / 60)).padStart(2, "0") +
+					":" +
+					String(s % 60).padStart(2, "0")
+				);
+			}
+			function startTimer() {
+				timerH = setInterval(() => {
+					timeLeft--;
+					elTimer.textContent = fmt(Math.max(timeLeft, 0));
+					if (timeLeft <= 300) elTimerbar.classList.add("warn");
+					if (timeLeft <= 0) {
+						clearInterval(timerH);
+						submitTest(true);
+					}
+				}, 1000);
+			}
+
+			function submitTest(auto) {
+				clearInterval(timerH);
+				lastResult = { auto: !!auto };
+				renderResultScreen();
+			}
+
+			function renderResultScreen() {
+				if (!lastResult) return;
+				const auto = lastResult.auto;
+				const byS = {};
+				SECTIONS.forEach((s) => (byS[s.key] = { c: 0, w: 0, sk: 0 }));
+				let tot = 0;
+				Q.forEach((item, i) => {
+					const g = answers[i];
+					if (g === undefined) byS[item.s].sk++;
+					else if (g === item.a) {
+						byS[item.s].c++;
+						tot++;
+					} else byS[item.s].w++;
+				});
+
+				document.getElementById("app").style.display = "none";
+				const rs = document.getElementById("resultScreen");
+				rs.style.display = "block";
+				const pct = ((tot / TOTAL) * 100).toFixed(1);
+				const u = t();
+
+				let rows = "";
+				SECTIONS.forEach((s) => {
+					const d = byS[s.key];
+					rows += `<tr><td>${s.label[lang]}</td><td>${d.c}</td><td>${d.w}</td><td>${d.sk}</td></tr>`;
+				});
+
+				let review = "";
+				Q.forEach((item, i) => {
+					const g = answers[i];
+					let tag = "skip",
+						tl = u.tagSkip;
+					if (g !== undefined) {
+						if (g === item.a) {
+							tag = "ok";
+							tl = u.tagOk;
+						} else {
+							tag = "bad";
+							tl = u.tagBad;
+						}
+					}
+					let opts = "";
+					item.o[lang].forEach((ot, idx) => {
+						let cls = "";
+						if (idx === item.a) cls = "correctAns";
+						else if (idx === g) cls = "wrongChosen";
+						opts += `<div class="ropt ${cls}">${String.fromCharCode(
+							65 + idx
+						)}. ${ot}</div>`;
+					});
+					review += `<details class="qreview"><summary><span>${
+						u.qLabelPrefix
+					}${i + 1}. ${
+						SECTIONS.find((s) => s.key === item.s).label[lang]
+					}</span><span class="rtag ${tag}">${tl}</span></summary>
+   <div class="rqtext">${item.q[lang]}</div>
+   ${opts}
+   <div class="rsol"><b>${u.solution}</b> ${item.sol[lang]}</div>
+  </details>`;
+				});
+
+				rs.innerHTML = `
+  <div class="rhero">
+   <button class="langBtn" id="langBtnResult" type="button">${
+		u.langBtn
+   }</button>
+   <div class="rbrand">${u.rbrand}</div>
+   <div class="rname">${studentName ? studentName : u.defaultName}</div>
+   <div class="score">${tot} / ${TOTAL}</div>
+   <div class="outof">${u.outof(auto)}</div>
+   <div class="pct">${pct}% ${u.scoreLabel}</div>
+  </div>
+  <div class="rwrap">
+   <table class="rtable">
+    <tr><th>${u.thSection}</th><th>${u.thCorrect}</th><th>${
+					u.thWrong
+				}</th><th>${u.thSkipped}</th></tr>
+    ${rows}
+   </table>
+   <p class="rnote">${u.rnote}</p>
+   ${review}
+   <button id="retakeBtn">${u.retake}</button>
+  </div>`;
+
+				document.getElementById("langBtnResult").onclick = toggleLang;
+
+				document.getElementById("retakeBtn").onclick = () => {
+					answers = {};
+					visited = new Set();
+					marked = new Set();
+					cur = 0;
+					timeLeft = DURATION;
+					lastResult = null;
+					elTimerbar.classList.remove("warn");
+					elTimer.textContent = fmt(DURATION);
+					rs.style.display = "none";
+					document.getElementById("app").style.display = "flex";
+					renderPalette();
+					render();
+					startTimer();
+				};
+			}
+
+			function applyStaticText() {
+				const u = t();
+				document.getElementById("subtitleText").textContent =
+					u.subtitle;
+				document.getElementById("nSubtitleText").textContent =
+					u.subtitle;
+				document.getElementById("timeLeftLabel").textContent =
+					u.timeLeft;
+				document.getElementById("legAns").textContent = u.legAns;
+				document.getElementById("legNot").textContent = u.legNot;
+				document.getElementById("legMarked").textContent = u.legMarked;
+				document.getElementById("legVisit").textContent = u.legVisit;
+				document.getElementById("clearBtn").textContent = u.clear;
+				document.getElementById("markBtn").innerHTML = u.mark.replace(
+					"&",
+					"&amp;"
+				);
+				document.getElementById("prevBtn").innerHTML = u.prev;
+				document.getElementById("saveBtn").innerHTML = u.save.replace(
+					"&",
+					"&amp;"
+				);
+				document.getElementById("submitBtn").textContent = u.submit;
+				document.getElementById("langBtn").textContent = u.langBtn;
+				document.getElementById("langBtnName").textContent = u.langBtn;
+				document.getElementById("nCardTitle").textContent =
+					u.nCardTitle;
+				document.getElementById("nCardSub").textContent = u.nCardSub;
+				document.getElementById("nFieldLabel").textContent =
+					u.nFieldLabel;
+				document.getElementById("nameInput").placeholder =
+					u.nPlaceholder;
+				document.getElementById("startBtn").textContent = u.startBtn;
+			}
+
+			function toggleLang() {
+				lang = lang === "en" ? "hi" : "en";
+				applyStaticText();
+				buildTabs();
+				if (lastResult) {
+					renderResultScreen();
+				} else {
+					render();
+				}
+			}
+
+			document.getElementById("langBtn").onclick = toggleLang;
+			document.getElementById("langBtnName").onclick = toggleLang;
+
+			function beginTest() {
+				const val = document.getElementById("nameInput").value.trim();
+				studentName = val;
+				document.getElementById("nameScreen").style.display = "none";
+				document.getElementById("app").style.display = "flex";
+				render();
+				startTimer();
+			}
+			document.getElementById("startBtn").onclick = beginTest;
+			document
+				.getElementById("nameInput")
+				.addEventListener("keydown", (e) => {
+					if (e.key === "Enter") beginTest();
+				});
+
+			applyStaticText();
+			buildTabs();
+			buildPalette();
+			elTimer.textContent = fmt(DURATION);
+			document.getElementById("nameInput").focus();
+		</script>
+	</body>
+</html>

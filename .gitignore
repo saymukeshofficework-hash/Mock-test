@@ -21,3 +21,7 @@ supabase/.temp/
 bridge-course/**/*.pdf
 Bridge Course Notes*.pdf
 bridge-course-notes*.pdf
+android/*.jks
+android/*.keystore
+android/build/
+android/app-release*

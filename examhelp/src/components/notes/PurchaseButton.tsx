@@ -41,7 +41,7 @@ export function PurchaseButton({ productId, available, lang }: { productId: stri
   };
 
   return (
-    <div>
+    <div data-sale>
       <button type="button" onClick={buy} disabled={state === "loading"} className="btn-primary w-full">
         {state === "loading" ? <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" /> : <ShoppingCart className="h-4 w-4" aria-hidden="true" />}
         {tr(n.buyNow, lang)}

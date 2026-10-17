@@ -46,7 +46,7 @@ const COURSES = (lang: Lang): Course[] => {
       meta: [hi ? "हर टेस्ट" : "Each test", hi ? "100 प्रश्न · 120 मिनट" : "100 Qs · 120 min"],
       title: hi ? "MP हाई कोर्ट सहायक ग्रेड-3 2026 — 25 फुल मॉक टेस्ट" : "MP High Court Assistant Grade-3 2026 — 25 full mock tests",
       desc: hi ? "✅ आधिकारिक पैटर्न: 5 खंड, 100 प्रश्न ✅ टेस्ट 1 फ्री ✅ हिंदी/English, हर प्रश्न की व्याख्या" : "✅ Official pattern: 5 sections, 100 Qs ✅ Test 1 free ✅ Hindi/English, explanation for every question",
-      price: 199, href: "/mp-high-court-assistant-grade-3-mock-tests",
+      price: 99, href: "/mp-high-court-assistant-grade-3-mock-tests",
     },
     {
       f: ["new", "notes"], tone: "amber", art: "book", isNew: true,
@@ -65,7 +65,7 @@ const COURSES = (lang: Lang): Course[] => {
       tags: hi ? ["MP पुलिस", "टेस्ट सीरीज़"] : ["MP Police", "Test series"], meta: [hi ? "हर टेस्ट" : "Each test", hi ? "100 प्रश्न · 120 मिनट" : "100 Qs · 120 min"],
       title: hi ? "MP पुलिस आरक्षक (जी.डी.) 2026 — 25 फुल मॉक टेस्ट" : "MP Police Constable (GD) 2026 — 25 full mock tests",
       desc: hi ? "✅ MPESB पैटर्न: 3 खंड, 100 प्रश्न ✅ टेस्ट 1 फ्री ✅ हिंदी/English, हर प्रश्न की व्याख्या" : "✅ MPESB pattern: 3 sections, 100 Qs ✅ Test 1 free ✅ Hindi/English, explanation for every question",
-      price: 199, href: "/mp-police-constable-gd-mock-tests",
+      price: 99, href: "/mp-police-constable-gd-mock-tests",
     },
     {
       f: ["new", "tests"], tone: "sage", art: "test", isNew: true,
@@ -74,7 +74,7 @@ const COURSES = (lang: Lang): Course[] => {
       tags: hi ? ["MP पुलिस", "टेस्ट सीरीज़"] : ["MP Police", "Test series"], meta: [hi ? "हर टेस्ट" : "Each test", hi ? "100 प्रश्न · 120 मिनट" : "100 Qs · 120 min"],
       title: hi ? "MP पुलिस सूबेदार (शीघ्रलेखक) / ASI 2026 — 25 फुल मॉक टेस्ट" : "MP Police Subedar (Steno) / ASI 2026 — 25 full mock tests",
       desc: hi ? "✅ MPESB पैटर्न: 3 खंड, 100 प्रश्न ✅ टेस्ट 1 फ्री ✅ 12वीं स्तर, हिंदी/English व्याख्या सहित" : "✅ MPESB pattern: 3 sections, 100 Qs ✅ Test 1 free ✅ Class 12 level, Hindi/English with explanations",
-      price: 199, href: "/mp-police-subedar-asi-mock-tests",
+      price: 99, href: "/mp-police-subedar-asi-mock-tests",
     },
     {
       f: ["tests"], tone: "ink", art: "test",
@@ -83,7 +83,7 @@ const COURSES = (lang: Lang): Course[] => {
       tags: hi ? ["TET", "टेस्ट सीरीज़"] : ["TET", "Test series"], meta: [hi ? "हर टेस्ट" : "Each test", hi ? "150 प्रश्न · 150 मिनट" : "150 Qs · 150 min"],
       title: hi ? "TET मॉक टेस्ट सीरीज़ — 25 फुल-लेंथ टेस्ट (हिंदी/English)" : "TET Mock Test Series — 25 full-length tests (Hindi/English)",
       desc: hi ? "✅ टेस्ट 1 बिल्कुल फ्री ✅ बाकी 24 टेस्ट एक बंडल में ✅ असली परीक्षा जैसा इंटरफ़ेस" : "✅ Test 1 free ✅ Other 24 in one bundle ✅ Real exam interface",
-      price: 199, href: "/tests.html", abs: true,
+      price: 99, href: "/tests.html", abs: true,
     },
     {
       f: ["notes"], tone: "indigo", art: "book",
@@ -188,7 +188,7 @@ export function CourseCatalog({ lang }: { lang: Lang }) {
                 <p className="mt-2 text-lg leading-snug font-bold text-ink-900">{c.title}</p>
                 <p className="mt-1.5 line-clamp-2 text-sm text-ink-500">{c.desc}</p>
                 <div className="mt-auto flex items-center justify-between border-t border-ink-200 pt-4">
-                  <span className="text-2xl font-extrabold text-ink-900">
+                  <span data-sale={c.price ? "" : undefined} className="text-2xl font-extrabold text-ink-900">
                     {c.price ? `₹${c.price}` : <span className="text-brand-700">{lang === "hi" ? "फ्री" : "Free"}</span>}
                     {c.mrp ? <s className="ml-1.5 text-base font-medium text-ink-500">₹{c.mrp}</s> : null}
                     {c.from ? <small className="ml-1.5 text-sm font-semibold text-ink-500">{lang === "hi" ? "से शुरू" : "onwards"}</small> : null}

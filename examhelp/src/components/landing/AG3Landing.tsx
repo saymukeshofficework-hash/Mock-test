@@ -349,13 +349,13 @@ export function AG3Landing({
                   </p>
                   {n?.comboProduct && payReady[n.comboProduct] ? (
                     <a href="#buy" className="mt-4 inline-flex items-center gap-2 rounded-full bg-accent-500 px-4 py-1.5 text-sm font-bold text-white shadow">
-                      {lang === "hi" ? "कॉम्बो: नोट्स + 25 मॉक टेस्ट सिर्फ़ ₹449" : "Combo: notes + 25 mock tests just ₹449"}
+                      {lang === "hi" ? "कॉम्बो: नोट्स + 25 मॉक टेस्ट सिर्फ़ ₹349" : "Combo: notes + 25 mock tests just ₹349"}
                     </a>
                   ) : null}
                   <div className="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-sm font-semibold">
                     <Link href={`/mp-high-court-assistant-grade-3-test-series${lang === "en" ? "?lang=en" : ""}`} className="inline-flex items-center gap-1.5 rounded-lg bg-white px-4 py-2 text-brand-900 shadow hover:bg-accent-50">
                       <FileText className="h-4 w-4 text-accent-600" aria-hidden="true" />
-                      {lang === "hi" ? "टेस्ट सीरीज़: 25 मॉक टेस्ट — ₹199" : "Test series: 25 mock tests — ₹199"}
+                      {lang === "hi" ? "टेस्ट सीरीज़: 25 मॉक टेस्ट — ₹99" : "Test series: 25 mock tests — ₹99"}
                     </Link>
                     <a href="#share" className="inline-flex items-center gap-1.5 text-accent-100 underline-offset-4 hover:underline">
                       <Share2 className="h-4 w-4" aria-hidden="true" />
@@ -543,12 +543,12 @@ export function AG3Landing({
                   {lang === "hi" ? "हिंदी नोट्स PDF + 25 फुल मॉक टेस्ट" : "English notes PDF + 25 full mock tests"}
                 </p>
                 <p className="mt-2 flex items-baseline justify-center gap-2">
-                  <span className="text-4xl font-extrabold text-brand-900">₹449</span>
-                  <span className="text-ink-400 line-through">₹498</span>
+                  <span className="text-4xl font-extrabold text-brand-900">₹349</span>
+                  <span className="text-ink-400 line-through">₹398</span>
                 </p>
                 <button type="button" onClick={() => startBuy(cp)} disabled={payState !== "idle"} className="btn-primary mt-4 w-full text-base disabled:opacity-70">
                   <CreditCard className="h-5 w-5" aria-hidden="true" />
-                  {payState === "idle" ? (lang === "hi" ? "कॉम्बो खरीदें — ₹449" : "Buy combo — ₹449") : t(copy.wait, lang)}
+                  {payState === "idle" ? (lang === "hi" ? "कॉम्बो खरीदें — ₹349" : "Buy combo — ₹349") : t(copy.wait, lang)}
                 </button>
                 <p className="mt-3 text-xs text-ink-500">
                   {lang === "hi" ? "भुगतान के बाद PDF डाउनलोड करें और सभी 25 टेस्ट तुरंत अनलॉक।" : "Download the PDF and unlock all 25 tests right after payment."}

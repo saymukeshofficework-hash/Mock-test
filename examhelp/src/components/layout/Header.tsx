@@ -1,4 +1,5 @@
 import { LoginChip } from "./LoginChip";
+import { MockPageHomeLink } from "./HeaderClient";
 import Link from "next/link";
 import { Search } from "lucide-react";
 import { Logo } from "@/components/brand/Logo";
@@ -14,9 +15,12 @@ export function Header({ lang }: { lang: Lang }) {
       <div className="container-page">
       <div className="rounded-2xl border border-ink-200 bg-surface/95 shadow-[0_6px_24px_rgba(20,24,31,0.07)] backdrop-blur supports-[backdrop-filter]:bg-surface/90">
       <div className="flex h-16 items-center justify-between gap-4 px-3 sm:px-4">
-        <Link href="/" aria-label="TETTESTHUB — Home" className="shrink-0">
-          <Logo />
-        </Link>
+        <div className="flex shrink-0 items-center gap-2">
+          <MockPageHomeLink />
+          <Link href="/" aria-label="TETTESTHUB — Home" className="shrink-0">
+            <Logo />
+          </Link>
+        </div>
 
         <form action={`${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/search`} role="search" className="hidden max-w-md flex-1 xl:block">
           <label htmlFor="header-search" className="sr-only">
