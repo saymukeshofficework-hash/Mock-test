@@ -3,17 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script>
-// Always send direct visits to the site root/homepage to the student login first.
-// The loggedin=1 flag is only used after the login form succeeds.
-(function () {
-  const path = location.pathname;
-  const isSiteHome = path === '/' || path === '/index.html';
-  if (isSiteHome && new URLSearchParams(location.search).get('loggedin') !== '1') {
-    location.replace('/login.html?next=index.html%3Floggedin%3D1');
-  }
-})();
-</script>
+<script src="/js/force-login.js?v=1"></script>
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; connect-src 'self' https://*.supabase.co https://ovaubhekxjtkodkhsybg.supabase.co; img-src 'self' data:;">
 <title>TET Mock Test 2026 – Free Online TET Practice Tests | TET Test Hub</title>
 <meta name="description" content="Practice for the Teacher Eligibility Test (TET) online with 25 full-length bilingual mock tests. Start practising with full-length bilingual mock tests.">
