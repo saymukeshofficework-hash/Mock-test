@@ -31,8 +31,6 @@
 <script src="/assets/vendor/supabase/supabase.js"></script>
 <script src="/js/site-config.js"></script>
 <script src="/js/auth.js"></script>
-<script src="/js/cutoff-box.js"></script>
-<script src="/js/lead-gate.js?v=1"></script>
 <script>
 const $=id=>document.getElementById(id);let autoTest=false,questions=[],answers={},current=0,seconds=0,clock=null,testLabel='',testId='',secCounts=[];
 // Tests live in Supabase test_content (ids rrbntpc-<g|u>-<full|ga|maths|reason>-NN). Test 01 of each series is free; others need login + purchase.
@@ -54,7 +52,7 @@ $('runner').classList.add('hidden');$('results').classList.remove('hidden');$('r
 const {data,error}=await supabaseClient.rpc('score_test_attempt',{p_test_id:testId,p_answers:payload});
 if(error||!data){$('results').innerHTML='<div class="result"><h2>Could not score / स्कोर नहीं हो पाया</h2><p class="muted">Please try again. / कृपया दोबारा प्रयास करें।</p><button class="btn secondary" id="backBtn">All tests / सभी टेस्ट</button></div>'}
 else{const c=data.totalCorrect,w=data.totalIncorrect,u=data.totalUnattempted,score=c-w/3;
-$('results').innerHTML='<div class="result"><h2>'+(auto?'Time is up / समय समाप्त':'Test submitted / टेस्ट जमा हुआ')+'</h2><p class="muted">'+testLabel+'</p><div class="score">'+score.toFixed(2)+' / '+questions.length+'</div><p>Correct / सही: <b class="correct">'+c+'</b> · Wrong / गलत: <b class="wrong">'+w+'</b> · Unanswered / छोड़े: <b>'+u+'</b></p>'+data.rows.map(r=>'<p class="muted">'+r.name+': '+r.c+' / '+r.total+'</p>').join('')+'<p class="muted">Score = correct − (wrong ÷ 3). / स्कोर = सही − (गलत ÷ 3)।</p><button class="btn secondary" id="backBtn">All tests / सभी टेस्ट</button></div>';if(window.showCutoffBox)showCutoffBox(testId,score,$('backBtn').previousElementSibling)}
+$('results').innerHTML='<div class="result"><h2>'+(auto?'Time is up / समय समाप्त':'Test submitted / टेस्ट जमा हुआ')+'</h2><p class="muted">'+testLabel+'</p><div class="score">'+score.toFixed(2)+' / '+questions.length+'</div><p>Correct / सही: <b class="correct">'+c+'</b> · Wrong / गलत: <b class="wrong">'+w+'</b> · Unanswered / छोड़े: <b>'+u+'</b></p>'+data.rows.map(r=>'<p class="muted">'+r.name+': '+r.c+' / '+r.total+'</p>').join('')+'<p class="muted">Score = correct − (wrong ÷ 3). / स्कोर = सही − (गलत ÷ 3)।</p><button class="btn secondary" id="backBtn">All tests / सभी टेस्ट</button></div>'}
 $('backBtn').onclick=()=>{if(autoTest){location.href='/examhelp/'+(testId.includes('-g-')?'rrb-ntpc-graduate-mock-tests/':'rrb-ntpc-undergraduate-mock-tests/');return}$('results').classList.add('hidden');$('catalog').classList.remove('hidden');window.scrollTo(0,0)};window.scrollTo(0,0)}
 function updateTimer(){$('timer').textContent=String(Math.floor(seconds/60)).padStart(2,'0')+':'+String(seconds%60).padStart(2,'0');if(seconds<300)$('timer').style.color='#d00000'}
 const esc=t=>String(t??'').replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
@@ -65,8 +63,6 @@ $('prev').onclick=()=>{if(current>0){current--;renderQ()}};$('next').onclick=()=
 // Opened from the exam page (?test=rrbntpc-g-full-NN): start that test directly.
 (function(){const tid=new URLSearchParams(location.search).get('test');if(!/^rrbntpc-[gu]-full-\d{2}$/.test(tid||''))return;autoTest=true;$('catalog').classList.add('hidden');
 const stub={disabled:false,textContent:''};startTest(tid,90,stub).then(ok=>{if(!ok&&$('runner').classList.contains('hidden')&&$('results').classList.contains('hidden'))location.href='/examhelp/'+(tid.includes('-g-')?'rrb-ntpc-graduate-mock-tests/':'rrb-ntpc-undergraduate-mock-tests/')})})();
-// From a group landing page (/free/, ?lead=1): free test 01 asks name + WhatsApp number before the result.
-if(new URLSearchParams(location.search).get('lead')==='1'&&window.leadGate){const showResult=finish;let asked=false;finish=function(auto){if(!testId.endsWith('-01'))return showResult(auto);if(asked)return;asked=true;clearInterval(clock);leadGate(testId.includes('-g-')?'rrb-ntpc-graduate':'rrb-ntpc-12th',testId,'',()=>showResult(auto))}}
 </script>
 <script src="/js/global-account-menu.js?v=9"></script>
 </body></html>
