@@ -18,7 +18,7 @@
     // Previous CBT-1 cut-offs, RRB Bhopal / Bilaspur zones (owner-supplied).
     cutoff: { UR: 84, EWS: 80, OBC: 81, SC: 77, ST: 69 },
     safe: { UR: 86, EWS: 83, OBC: 84, SC: 79, ST: 73 },
-    price: 99, // keep in sync with notes-checkout products rrbg-tests / rrbu-tests
+    price: 85, // keep in sync with examhelp mockTests.ts / notes-checkout (rrbg-tests, rrbu-tests)
   };
   const CPCT = {
     max: 75,
