@@ -342,12 +342,18 @@ header.site-header nav{padding-right:145px}
   });
   document.getElementById('homeLogoutBtn').addEventListener('click', async () => {
     await logout();
-    window.location.href = 'index.html';
+    window.location.replace('/login.html');
   });
   // Home navigation always opens the homepage. Login is optional for browsing.
   (async () => {
     let session = null;
     try { session = await getSession(); } catch (error) { console.error('Unable to verify login session:', error); }
+    // The public site entry point must always require a student login.
+    // If no valid session exists, do not render the homepage or its exam links.
+    if (!session) {
+      location.replace('/login.html');
+      return;
+    }
     document.documentElement.classList.remove('auth-gate-pending');
     if (session) {
       if (navLoginLink) navLoginLink.hidden = true;
