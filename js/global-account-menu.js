@@ -301,6 +301,7 @@
         });
       });
     }
+    if(typeof window.applyI18n==="function") window.applyI18n();
     ["langToggle","tthLanguageToggle","langBtn","langBtnName","langBtnResult"].forEach(id=>{
       const btn=document.getElementById(id);
       if(btn) btn.textContent=lang==="hi"?"English":"हिंदी";
