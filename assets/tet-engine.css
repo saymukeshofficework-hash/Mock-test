@@ -117,3 +117,26 @@ html.exam-font-larger .section-tab,html.exam-font-larger .qtype-bar,html.exam-fo
   header.topbar{gap:8px}
   .topbar-left{gap:8px;flex-wrap:wrap}
 }
+
+/* Keep every test paper inside the mobile viewport; long text must wrap instead of widening the page. */
+*,*::before,*::after{box-sizing:border-box}
+html,body{width:100%;max-width:100%;margin:0;overflow-x:hidden}
+#app{width:100%;max-width:100%;min-width:0}
+.topbar,.main-layout,.question-panel,.sidebar,.question-body,.qtext,.option,.options,.action-bar,.left-btns,.right-btns,.section-tabs,.instr-body,.instr-footer{min-width:0;max-width:100%}
+.qtext,.option,.question-body,.instr-body,.agree-row,label,p,li{overflow-wrap:anywhere;word-break:normal}
+img,svg,video,canvas,table{max-width:100%}
+table{display:block;overflow-x:auto}
+@media(max-width:600px){
+  .topbar{flex-wrap:wrap;padding:10px 12px;gap:8px}
+  .topbar-left{flex:1 1 100%;min-width:0;max-width:100%}
+  .topbar-left h1,#examTitle{max-width:100%;font-size:clamp(15px,4vw,19px);overflow-wrap:anywhere}
+  .timer{max-width:100%;font-size:13px}
+  .section-tabs{display:flex;flex-wrap:wrap;gap:5px}
+  .section-tab{max-width:100%;white-space:normal;overflow-wrap:anywhere}
+  .question-panel{padding:10px}
+  .qtype-bar,.view-lang{display:flex;flex-wrap:wrap;gap:6px}
+  .action-bar{display:flex;flex-wrap:wrap;gap:8px;padding:10px}
+  .left-btns,.right-btns{display:flex;flex:1 1 100%;flex-wrap:wrap;gap:6px;min-width:0}
+  .action-bar button{flex:1 1 42%;min-width:0;white-space:normal;overflow-wrap:anywhere;padding:9px 6px}
+  .sidebar{width:100%}
+}
