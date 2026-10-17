@@ -34,7 +34,7 @@ const I18N_DICT = {
   hero_h1: { hi: "टीईटी मॉक टेस्ट और ऑनलाइन प्रैक्टिस टेस्ट", en: "TET Mock Tests & Online Practice Tests" },
   hero_tagline: { hi: "तैयारी करें। अभ्यास करें। प्रदर्शन करें।", en: "Prepare. Practice. Perform." },
   hero_intro: { hi: "वास्तविक ऑनलाइन मॉक टेस्ट, अभ्यास प्रश्नों और प्रदर्शन विश्लेषण के साथ टीईटी की तैयारी करें। पहला पूरा टेस्ट बिल्कुल मुफ्त है।", en: "Prepare for TET with realistic online mock tests, practice questions and performance analysis. Start with your first full test absolutely free." },
-  hero_cta_free: { hi: "मुफ्त टेस्ट आज़माएं", en: "Try a Free Test" },
+  hero_cta_free: { hi: "आज ही अभ्यास शुरू करें", en: "Start Practising Today" },
   hero_cta_login: { hi: "छात्र लॉगिन", en: "Student Login" },
 
   free_h2: { hi: "🎯 पहला पूरा टेस्ट — 100% मुफ्त", en: "🎯 Start With a Full Test — 100% Free" },
