@@ -226,7 +226,7 @@ body{padding-bottom:70px}
 <script src="/js/site-config.js?v=3"></script>
 <script src="/js/auth.js?v=3"></script>
 <script>
-(async()=>{try{const btn=document.getElementById('logoutBtn');if(!await getSession())return;btn.hidden=false;btn.parentElement.classList.add('in');btn.onclick=async()=>{await logout();location.replace('/login.html')}}catch(e){}})();
+(async()=>{try{const btn=document.getElementById('logoutBtn');if(!await getSession())return;btn.hidden=false;btn.parentElement.classList.add('in');btn.onclick=async()=>{await logout();location.replace('/index.html')}}catch(e){}})();
 </script>
 <script>
 const ART = {
