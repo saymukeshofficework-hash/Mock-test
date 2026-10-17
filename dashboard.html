@@ -107,7 +107,7 @@
 
   async function doLogout() {
     await logout();
-    location.href = 'index.html';
+    location.replace('/login.html');
   }
   document.getElementById('logoutLink').addEventListener('click', (e) => { e.preventDefault(); doLogout(); });
   document.getElementById('logoutBtn').addEventListener('click', doLogout);
