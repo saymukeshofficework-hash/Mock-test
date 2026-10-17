@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { CheckCircle2, CreditCard, FileText, Lock, PlayCircle, Unlock } from "lucide-react";
 import { MOCK_SERIES } from "@/data/mockTests";
-import { buyNotes, checkout, claimPurchase, downloadPath, mainSiteUnlock } from "@/lib/checkout";
+import { buyNotes, checkout, claimPurchase, mainSiteUnlock } from "@/lib/checkout";
 
 type Lang = "hi" | "en";
 type Best = { last: number; best: number; total: number; at: number };
@@ -176,9 +176,6 @@ export function MockTestList({ series = "ag3" }: { series?: string }) {
           ) : token ? (
             <>
               <p className="rounded-lg bg-success-50 px-4 py-2 text-center font-semibold text-success-700">{t("unlocked")}</p>
-              <a href={downloadPath(token)} className="mt-2 block text-center text-xs text-brand-700 underline">
-                {lang === "hi" ? "दूसरे डिवाइस के लिए यह लिंक सेव करें" : "Save this link to unlock another device"}
-              </a>
             </>
           ) : (
             <>
