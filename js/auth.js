@@ -106,6 +106,8 @@ function canAccessTest(testId,profile){
 async function _checkSingleDevice(){
  if(!supabaseClient||/(login|reset-password)\.html$/.test(location.pathname))return;
  const s=await getSession();if(!s)return;
+ // Token not refreshed yet (e.g. app just resumed offline): do not treat as logged out elsewhere.
+ if(s.expires_at&&s.expires_at*1000<Date.now())return;
  let error=null;try{({error}=await supabaseClient.auth.getUser())}catch(e){return}
  if(!error||!(error.status===401||error.status===403||error.name==="AuthSessionMissingError"))return;
  try{localStorage.removeItem("tth_user")}catch(e){}
