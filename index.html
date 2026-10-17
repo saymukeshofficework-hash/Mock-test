@@ -303,7 +303,7 @@ header.site-header nav{padding-right:145px}
     <a href="index.html" class="active" aria-current="page"><span class="nav-icon" aria-hidden="true">⌂</span><span>होम</span></a>
     <a href="dashboard.html"><span class="nav-icon" aria-hidden="true">▤</span><span>मेरे कोर्स</span></a>
     <a href="tests.html"><span class="nav-icon" aria-hidden="true">▦</span><span>परीक्षाएँ</span></a>
-    <a href="contact.html"><span class="nav-icon" aria-hidden="true">▧</span><span>नोट्स</span></a>
+    <a href="/examhelp/exam-calendar/"><span class="nav-icon" aria-hidden="true">▣</span><span>परीक्षा कैलेंडर</span></a>
     <a href="contact.html"><span class="nav-icon" aria-hidden="true">✉</span><span>संपर्क करें</span></a>
   </nav>
   <footer class="site-footer">
@@ -411,7 +411,7 @@ header.site-header nav{padding-right:145px}
     ["परीक्षा या कोर्स खोजें…","Search exams or courses…"],["परीक्षा श्रेणी चुनें","Choose exam category"],["सभी","All"],["मॉक टेस्ट","Mock Tests"],["नोट्स / PDF","Notes / PDF"],["फ्री प्रैक्टिस","Free Practice"],["विकल्प","options"],["इस खोज में कोई विकल्प नहीं मिला। दूसरा नाम या श्रेणी चुनें।","No results found. Try another name or category."],
     ["सहायक ग्रेड-3 2026","Assistant Grade-3 2026"],["25 टेस्ट","25 tests"],["टेस्ट और नोट्स देखें","View tests and notes"],["दैनिक करेंट अफेयर्स","Daily Current Affairs"],["MP, भारत और विश्व की खबरें · क्विज़ व PDF","MP, India and world news · Quiz and PDF"],["अभी पढ़ें","Read now"],["आरक्षक (GD) 2026","Constable (GD) 2026"],["टेस्ट देखें","View tests"],["सूबेदार / ASI 2026","Subedar / ASI 2026"],["25 टेस्ट · हिंदी/English","25 tests · Hindi/English"],
     ["ग्रेजुएट लेवल (CEN 06/2025)","Graduate Level (CEN 06/2025)"],["25 टेस्ट","25 tests"],["अंडरग्रेजुएट 10+2 (CEN 07/2025)","Undergraduate 10+2 (CEN 07/2025)"],["25 पूरे पेपर / 25 Full Papers","25 Full Papers"],["MCQ + अंग्रेज़ी व हिंदी टाइपिंग","MCQ + English and Hindi typing · Paper 1 free"],["पेपर देखें / View papers","View papers"],["प्राथमिक व माध्यमिक शिक्षक / Primary & Secondary Teacher","Primary & Secondary Teacher"],["विषयवार टेस्ट सीरीज़ · हर विषय में टेस्ट","Subject-wise test series · Tests in each subject"],["टेस्ट देखें / View tests","View tests"],["ब्रिज कोर्स नोट्स","Bridge Course Notes"],["डिजिटल नोट्स · सभी विषय","Digital notes · All subjects"],["नोट्स देखें","View notes"],["टाइपिंग प्रैक्टिस","Typing Practice"],["हिंदी और English · स्पीड व एक्यूरेसी टेस्ट","Hindi and English · Speed and accuracy tests"],["अभ्यास करें","Practice now"],
-    ["होम","Home"],["मेरे कोर्स","My Courses"],["परीक्षाएँ","Exams"],["नोट्स","Notes"],["संपर्क करें","Contact Us"],["छात्र लॉगिन","Student Login"],["हमारे बारे में","About Us"],
+    ["होम","Home"],["मेरे कोर्स","My Courses"],["परीक्षाएँ","Exams"],["नोट्स","Notes"],["परीक्षा कैलेंडर","Exam Calendar"],["संपर्क करें","Contact Us"],["छात्र लॉगिन","Student Login"],["हमारे बारे में","About Us"],
     ["उपलब्ध नहीं","Not available"],["टेस्ट","Tests"],["हिंदी और English","Hindi and English"]
   ];
   const HOME_TRANSLATION_MAP = new Map();
@@ -473,7 +473,7 @@ header.site-header nav{padding-right:145px}
     ["विषयवार टेस्ट सीरीज़ · हर विषय में टेस्ट","Subject-wise test series · Tests in each subject"],
     ["टेस्ट देखें / View tests","View tests"],["ब्रिज कोर्स नोट्स","Bridge Course Notes"],["डिजिटल नोट्स · सभी विषय","Digital notes · All subjects"],
     ["नोट्स देखें","View notes"],["हिंदी और English · स्पीड व एक्यूरेसी टेस्ट","Hindi and English · Speed and accuracy tests"],
-    ["अभ्यास करें","Practice now"],["होम","Home"],["मेरे कोर्स","My Courses"],["परीक्षाएँ","Exams"],["नोट्स","Notes"],["संपर्क करें","Contact Us"],
+    ["अभ्यास करें","Practice now"],["होम","Home"],["मेरे कोर्स","My Courses"],["परीक्षाएँ","Exams"],["नोट्स","Notes"],["परीक्षा कैलेंडर","Exam Calendar"],["संपर्क करें","Contact Us"],
     ["छात्र लॉगिन","Student Login"],["हमारे बारे में","About Us"],["उपलब्ध नहीं","Not available"],["टेस्ट","Tests"],
     ["डैशबोर्ड","Dashboard"],["छात्र की ID:","Student ID:"],["लॉगआउट","Logout"],["लॉगिन","Login"],["MY ACCOUNT","MY ACCOUNT"]
   ].forEach(([hi, en]) => { HOME_TRANSLATION_MAP.set(hi, en); HOME_TRANSLATION_MAP.set(en, hi); });
