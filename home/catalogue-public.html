@@ -124,7 +124,7 @@ footer a:hover{color:var(--ink)}
 .drawer.open{display:block}
 .drawer a{display:block;padding:11px 12px;border-radius:9px;font-size:15px}
 .drawer a:hover{background:var(--bg)}
-.mobile-bottom-nav{position:fixed;left:0;right:0;bottom:0;z-index:50;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));background:var(--surface);border-top:1px solid var(--line);padding:7px 4px calc(7px + env(safe-area-inset-bottom));box-shadow:0 -4px 18px rgba(20,24,31,.08)}
+.mobile-bottom-nav{position:fixed;left:0;right:0;bottom:0;z-index:50;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));background:var(--surface);border-top:1px solid var(--line);padding:7px 4px calc(7px + env(safe-area-inset-bottom));box-shadow:0 -4px 18px rgba(20,24,31,.08)}
 .mobile-bottom-nav a{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:var(--muted);text-decoration:none;font-size:11px;line-height:1.2;min-width:0}
 .mobile-bottom-nav .nav-icon{font-size:19px;line-height:1.1}
 .mobile-bottom-nav a.active{color:var(--primary);font-weight:800}
@@ -325,9 +325,8 @@ document.getElementById('theme').addEventListener('click', () => {
 <nav class="mobile-bottom-nav" aria-label="मुख्य नेविगेशन">
   <a href="/examhelp/courses/" class="active" aria-current="page"><span class="nav-icon" aria-hidden="true">⌂</span><span>होम</span></a>
   <a href="/dashboard.html"><span class="nav-icon" aria-hidden="true">▤</span><span>मेरे कोर्स</span></a>
-  <a href="/examhelp/notes/"><span class="nav-icon" aria-hidden="true">▧</span><span>नोट्स</span></a>
-  <a href="#courses"><span class="nav-icon" aria-hidden="true">▦</span><span>परीक्षाएँ</span></a>
-  <a href="/examhelp/exam-calendar/"><span class="nav-icon" aria-hidden="true">▣</span><span>परीक्षा कैलेंडर</span></a>
+  <a href="/tests.html"><span class="nav-icon" aria-hidden="true">▦</span><span>परीक्षाएँ</span></a>
+  <a href="/contact.html"><span class="nav-icon" aria-hidden="true">✉</span><span>संपर्क</span></a>
 </nav>
 
 <script src="../js/global-account-menu.js"></script>
