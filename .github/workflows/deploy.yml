@@ -154,6 +154,8 @@ jobs:
           cp -r cpct _site/cpct
           # RRB NTPC Graduate and 10+2 Undergraduate mock tests
           cp -r rrb-ntpc _site/rrb-ntpc
+          cp -r free _site/free
+          cp free-test.html _site/
           cp saanp-seedhi-multiplayer.html _site/
           cp 404.html _site/
           cp CNAME _site/
