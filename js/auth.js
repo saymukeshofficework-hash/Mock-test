@@ -32,6 +32,8 @@ async function loginWithIdentifier(identifier, password) {
   try {
     const {data,error}=await supabaseClient.auth.signInWithPassword({email:normalizeIdentifier(identifier),password});
     if(error) return {ok:false,message:"Incorrect email ID or password."};
+    // One device per account: this login signs the account out on every other device.
+    try{await supabaseClient.auth.signOut({scope:"others"})}catch(e){}
     return {ok:true,session:data.session};
   } catch(e) { return {ok:false,message:"Something went wrong. Please try again."}; }
 }
@@ -98,4 +100,22 @@ function canAccessTest(testId,profile){
  if(!profile)return false;
  if(FREE_TESTS&&FREE_TESTS.includes(testId))return profile.status==="active";
  return profile.status==="active"&&(profile.purchased_tests||[]).includes(testId);
+}
+
+// One device per account: if this account logged in on another device, sign out here.
+async function _checkSingleDevice(){
+ if(!supabaseClient||/(login|reset-password)\.html$/.test(location.pathname))return;
+ const s=await getSession();if(!s)return;
+ let error=null;try{({error}=await supabaseClient.auth.getUser())}catch(e){return}
+ if(!error||!(error.status===401||error.status===403||error.name==="AuthSessionMissingError"))return;
+ try{localStorage.removeItem("tth_user")}catch(e){}
+ try{await supabaseClient.auth.signOut({scope:"local"})}catch(e){}
+ alert("आपका अकाउंट दूसरे डिवाइस पर लॉगिन हुआ है, इसलिए यहाँ से लॉगआउट कर दिया गया।\nYour account was logged in on another device, so you have been logged out here.");
+ const next=encodeURIComponent(location.pathname.split("/").pop()||"dashboard.html");
+ location.replace(`/login.html?next=${next}`);
+}
+if(supabaseClient){
+ _checkSingleDevice();
+ setInterval(_checkSingleDevice,60000);
+ document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible")_checkSingleDevice()});
 }

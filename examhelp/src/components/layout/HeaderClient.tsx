@@ -10,6 +10,14 @@ import type { Lang } from "@/types";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import { LoginChip } from "./LoginChip";
 
+/** Small Home option before the TETTESTHUB logo on mock-test catalogues. */
+export function MockPageHomeLink() {
+  const pathname = usePathname();
+  const isMockTestList = /(?:^|\/)(?:tet-mock-tests|mp-high-court-assistant-grade-3-mock-tests|mp-police-constable-gd-mock-tests|mp-police-subedar-asi-mock-tests|mp-police-driver-mock-tests|mp-grameen-bank-mock-tests|rrb-ntpc-(?:graduate|undergraduate)-mock-tests)\/?$/.test(pathname);
+  if (!isMockTestList) return null;
+  return <a href="https://tettesthub.in/index.html" aria-label="बैंगनी होमपेज पर जाएँ" title="होम" className="inline-flex h-8 shrink-0 items-center gap-1 rounded-lg border border-brand-200 bg-brand-50 px-2 text-xs font-bold text-brand-700 hover:bg-brand-100">⌂ <span>होम</span></a>;
+}
+
 /** Desktop nav with an accessible "More" dropdown. */
 export function DesktopNav({ lang }: { lang: Lang }) {
   const pathname = usePathname();
@@ -86,6 +94,8 @@ export function DesktopNav({ lang }: { lang: Lang }) {
 /** Mobile: Search + Menu buttons and the slide-in drawer. */
 export function MobileControls({ lang }: { lang: Lang }) {
   const pathname = usePathname();
+  const isMockTestList = /(?:^|\/)(?:tet-mock-tests|mp-high-court-assistant-grade-3-mock-tests|mp-police-constable-gd-mock-tests|mp-police-subedar-asi-mock-tests|mp-police-driver-mock-tests|mp-grameen-bank-mock-tests|rrb-ntpc-(?:graduate|undergraduate)-mock-tests)\/?$/.test(pathname);
+  const isCurrentAffairs = /(?:^|\/)current-affairs\/?$/.test(pathname);
   const [open, setOpen] = useState(false);
   const closeRef = useRef<HTMLButtonElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
@@ -109,7 +119,8 @@ export function MobileControls({ lang }: { lang: Lang }) {
 
   return (
     <div className="flex items-center gap-1 xl:hidden">
-      <LoginChip className="inline-flex h-10 items-center rounded-xl border border-brand-200 bg-brand-50 px-2.5 text-xs font-semibold text-brand-700 hover:bg-brand-100 sm:px-3 sm:text-sm" />
+      <LoginChip className="inline-flex h-8 max-w-[118px] items-center overflow-hidden rounded-lg border border-brand-200 bg-brand-50 px-1.5 text-[10px] font-semibold text-brand-700 hover:bg-brand-100" />
+      {!isMockTestList && !isCurrentAffairs && <>
       <Link href="/search" aria-label={tr(dict.nav.search, lang)} className="grid h-11 w-11 place-items-center rounded-xl text-ink-700 hover:bg-ink-100">
         <Search className="h-5 w-5" aria-hidden="true" />
       </Link>
@@ -124,8 +135,9 @@ export function MobileControls({ lang }: { lang: Lang }) {
       >
         <Menu className="h-6 w-6" aria-hidden="true" />
       </button>
+      </>}
 
-      {open && (
+      {!isMockTestList && !isCurrentAffairs && open && (
         <div className="fixed inset-0 z-[60]" role="dialog" aria-modal="true" aria-label={tr(dict.nav.menu, lang)} id="mobile-drawer">
           <button type="button" aria-label={tr(dict.nav.closeMenu, lang)} tabIndex={-1} className="absolute inset-0 bg-brand-950/50" onClick={() => setOpen(false)} />
           <div className="absolute inset-y-0 right-0 flex w-[86%] max-w-sm flex-col bg-surface shadow-2xl">

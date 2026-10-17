@@ -22,6 +22,9 @@
 #run{background:#fff;border:1px solid #bbb;padding:16px 12px;margin-top:0;min-height:60vh}
 #passage{font-size:22px;line-height:1.6;height:7em;overflow:auto;padding:10px 12px;border:2px solid #666;background:#fff}
 #passage .cur{background:#ffff00;color:#1a1aff}
+/* A word typed wrong (even one wrong letter) turns red, live and in the result review. */
+.bad{color:#d00000;text-decoration:underline wavy #d00000;text-underline-offset:3px}#passage .cur.bad{color:#d00000}
+.rev{font-size:20px;line-height:1.9;border:1px solid var(--line);border-radius:12px;padding:10px 12px;max-height:50vh;overflow:auto}.rev s{color:var(--muted);font-size:.8em}
 #box{width:100%;min-height:160px;margin-top:16px;font-size:20px;line-height:1.6;padding:10px 12px;border:1px solid #ddd;border-radius:4px;font-family:inherit;resize:vertical}
 .foot{display:flex;justify-content:flex-end;background:#f3f3f3;border-top:1px solid #ddd;padding:12px 16px;margin:16px -12px -16px}
 .btn-g{background:#34a853;color:#fff;border-radius:4px;padding:12px 44px;font-size:17px}
@@ -35,8 +38,9 @@
 select{font:inherit;font-size:16px;padding:10px 12px;border-radius:12px;border:1px solid #b9dcd4;background:#fff;margin:6px 0 4px;max-width:100%}
 .warn{background:#fef3c7;color:#92400e;border-radius:12px;padding:10px 12px;font-size:14px;line-height:1.6}
 /* Hindi fonts: Mangal is Unicode (falls back to Noto Sans Devanagari); Kruti Dev 010 is a legacy
-   font that draws Hindi on ASCII keys, so it must be installed on the student's computer. */
-@font-face{font-family:"TTH Kruti Dev 010";src:local("Kruti Dev 010"),local("KrutiDev010"),local("Kruti Dev 010 Regular")}
+   font that draws Hindi on ASCII keys. An installed copy is used first; phones have none, so the free
+   web font built from Noto Sans Devanagari (typing-practice/fonts/README.md) is the fallback. */
+@font-face{font-family:"TTH Kruti Dev 010";src:local("Kruti Dev 010"),local("KrutiDev010"),local("Kruti Dev 010 Regular"),url("/typing-practice/fonts/tth-krutidev.woff2") format("woff2");font-display:swap}
 .f-mangal{font-family:Mangal,"Noto Sans Devanagari",sans-serif}.f-kd{font-family:"TTH Kruti Dev 010",monospace;font-size:21px}
 </style>
 </head>
@@ -175,10 +179,14 @@ import { unicodeToKrutidev } from '/typing-practice/js/engine/krutidev.js';
     if (left <= 0) finish();
   }
 
-  // As in the official mock, only the word to type next is highlighted (no right/wrong colours).
+  // The word to type next is highlighted; a word with any wrong letter turns red.
   function paint(typed) {
     const at = box.value && !/\s$/.test(box.value) ? typed.length - 1 : typed.length;
-    $('passage').innerHTML = words.map((w, i) => i === at ? `<span class="cur">${esc(w)}</span>` : esc(w)).join(' ');
+    $('passage').innerHTML = words.map((w, i) => {
+      const bad = i < at ? typed[i] !== w : i === at && typed[i] !== undefined && !w.startsWith(typed[i]);
+      const c = (i === at ? 'cur' : '') + (bad ? ' bad' : '');
+      return c ? `<span class="${c.trim()}">${esc(w)}</span>` : esc(w);
+    }).join(' ');
     const cur = $('passage').querySelector('.cur');
     if (cur) cur.scrollIntoView({ block: 'nearest' });
   }
@@ -219,9 +227,13 @@ import { unicodeToKrutidev } from '/typing-practice/js/engine/krutidev.js';
       <div><b>${acc.toFixed(1)}%</b>शुद्धता / Accuracy</div><div><b>${right}/${typed.length}</b>सही शब्द / Correct words</div>
       <div><b>${wrong}</b>गलत शब्द / Wrong words</div><div><b>${mins.toFixed(1)}</b>मिनट / Minutes</div></div>
       <p class="${ok ? 'pass' : 'fail'}" style="margin:14px 0">${ok ? '✅ उत्तीर्ण' : '❌ अनुत्तीर्ण'}: न्यूनतम ${NEED[lang]} Net WPM / ${ok ? 'Qualified' : 'Not qualified'}: minimum ${NEED[lang]} Net WPM</p>
+      <h3 style="margin:16px 0 8px">आपकी टाइपिंग / Your typing <span class="muted">(लाल = गलत शब्द, कटा हुआ = आपने जो टाइप किया / red = wrong word, struck = what you typed)</span></h3>
+      <div class="rev ${mode === 'kd' ? 'f-kd' : mode === 'mangal' ? 'f-mangal' : ''}">${typed.length ? typed.map((t, i) => t === words[i] ? esc(t) :
+        `<span class="bad">${esc(words[i] === undefined ? t : words[i])}</span>${words[i] === undefined ? '' : ` <s>${esc(t)}</s>`}`).join(' ') : '—'}</div>
       ${next}<div class="row" style="margin-top:12px"><a class="btn btn-l" href="">फिर से / Try again</a> ${back}</div>`;
   }
 })();
 </script>
+<script src="../js/global-account-menu.js?v=10"></script>
 </body>
 </html>

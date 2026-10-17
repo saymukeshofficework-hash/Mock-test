@@ -1,6 +1,8 @@
 // TETTESTHUB — private admin API for the /admin page.
-// Secret (Supabase → Edge Functions → Secrets): ADMIN_PASSWORD  (at least 10 characters)
-// Actions (POST JSON, every call carries {password}):
+// Secrets (Supabase → Edge Functions → Secrets):
+//   ADMIN_USERS     "name1:password1,name2:password2"  (each password at least 10 characters; calls carry {username, password})
+//   ADMIN_PASSWORD  old single password, still accepted when username is empty
+// Actions (POST JSON, every call carries {username, password}):
 //   login                       → stats
 //   list   {q?, status?}        → recent orders (search by payment id / order id / email / phone)
 //   update {id, op}             → op: "reset" (downloads = 0) | "cancel" (status = cancelled) | "restore" (status = paid)
@@ -28,14 +30,22 @@ function safeEqual(a: string, b: string) {
   for (let i = 0; i < a.length; i++) r |= a.charCodeAt(i) ^ b.charCodeAt(i);
   return r === 0;
 }
-const SERIES = ["ag3", "pcgd", "asi", "mpgrb"];
+const SERIES = ["ag3", "pcgd", "asi", "mpgrb", "pcdr"];
 const COLS = "id,product,amount,status,rzp_order_id,rzp_payment_id,email,phone,downloads,download_token,created_at,paid_at";
 
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: cors });
   if (req.method !== "POST") return json({ error: "method" }, 405);
   const pw = (Deno.env.get("ADMIN_PASSWORD") ?? "").trim();
-  if (pw.length < 10) return json({ error: "admin_not_configured" }, 503);
+  // username → password; "" is the old single ADMIN_PASSWORD
+  const users = new Map<string, string>();
+  for (const pair of (Deno.env.get("ADMIN_USERS") ?? "").split(",")) {
+    const i = pair.indexOf(":");
+    const u = pair.slice(0, i).trim().toLowerCase(), p = pair.slice(i + 1).trim();
+    if (i > 0 && u && p.length >= 10) users.set(u, p);
+  }
+  if (pw.length >= 10) users.set("", pw);
+  if (!users.size) return json({ error: "admin_not_configured" }, 503);
   // deno-lint-ignore no-explicit-any
   let body: Record<string, any>;
   try {
@@ -43,7 +53,8 @@ Deno.serve(async (req) => {
   } catch {
     return json({ error: "bad_json" }, 400);
   }
-  if (!safeEqual(await sha(String(body.password ?? "")), await sha(pw))) {
+  const want = users.get(String(body.username ?? "").trim().toLowerCase()) ?? "\u0000no-user";
+  if (!safeEqual(await sha(String(body.password ?? "")), await sha(want))) {
     await new Promise((r) => setTimeout(r, 1200)); // slow down guessing
     return json({ error: "wrong_password" }, 401);
   }

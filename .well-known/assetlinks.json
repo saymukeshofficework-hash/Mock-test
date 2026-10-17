@@ -1,0 +1,10 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "in.tettesthub.app",
+      "sha256_cert_fingerprints": ["8F:24:8C:F6:7C:F6:0A:49:61:86:13:B4:B9:83:63:12:14:0C:08:18:3E:E9:C8:9B:CD:72:47:D9:9F:13:2C:69"]
+    }
+  }
+]

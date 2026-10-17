@@ -209,7 +209,7 @@ export default async function NoteProductPage({ params }: { params: Params }) {
         </div>
 
         {/* Purchase panel */}
-        <aside id="buy" className="lg:sticky lg:top-32 lg:self-start">
+        <aside id="buy" data-sale className="lg:sticky lg:top-32 lg:self-start">
           <div className="card p-6">
             <PriceBadge price={note.price} lang={lang} />
             <p className="mt-1 text-sm text-ink-500">
@@ -246,7 +246,7 @@ export default async function NoteProductPage({ params }: { params: Params }) {
 
       <div className="h-16 lg:hidden" aria-hidden="true" />
       {/* Sticky mobile CTA */}
-      <div className="fixed inset-x-0 bottom-14 z-30 border-t border-ink-200 bg-surface/95 p-3 backdrop-blur lg:hidden">
+      <div data-sale className="fixed inset-x-0 bottom-14 z-30 border-t border-ink-200 bg-surface/95 p-3 backdrop-blur lg:hidden">
         <div className="flex items-center justify-between gap-3">
           <PriceBadge price={note.price} lang={lang} />
           <a href="#buy" className={available ? "btn-primary" : "btn-outline"}>

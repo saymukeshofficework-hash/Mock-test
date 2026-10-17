@@ -30,13 +30,13 @@ const SITE_CONFIG = {
   studentEmailDomain: "students.tettesthub.app",
 };
 
-// Pricing: Test 01 & 02 are FREE. Tests 03-20 sold as one ₹199 bundle.
+// Pricing: Test 01 & 02 are FREE. Tests 03-20 sold as one ₹99 bundle.
 // No individual test purchases — only free access or the full ₹149 bundle.
 const PRICES = {
-  all18: 199,  // Tests 03-20 (18 tests total)
+  all18: 99,  // Tests 03-20 (18 tests total)
 };
 
-// Razorpay Payment Link for the ₹199 bundle. Create this in your Razorpay
+// Razorpay Payment Link for the ₹99 bundle. Create this in your Razorpay
 // Dashboard -> Payment Links -> Create Payment Link (see ADMIN_INSTRUCTIONS.md
 // for the exact steps), then paste the resulting https://rzp.io/... URL here.
 // Payment is still verified and Supabase accounts still created manually —
@@ -104,10 +104,10 @@ const TET_LEVELS = {
   },
 };
 const TET_TESTS_PER_SUBJECT = 25;
-// ₹199 per subject series (tests 2-25). tet/index.html sells it through the TETTESTHUB
+// ₹99 per subject series (tests 2-25). tet/index.html sells it through the TETTESTHUB
 // Razorpay checkout (exam-hub notes-checkout, products "tet-<series>"; keep the amount there
 // in sync) and the tet-unlock Edge Function adds the tests to the buyer's profile.
-const TET_SUBJECT_PRICE = 199;
+const TET_SUBJECT_PRICE = 99;
 // Test 1 of every ready TET subject series is free (same rule as test01).
 Object.values(TET_LEVELS).forEach(lv => lv.subjects.forEach(s => {
   if (s.ready && !s.legacy) FREE_TESTS.push(`tet${lv === TET_LEVELS.primary ? "p" : "s"}-${s.key}-01`);
@@ -116,8 +116,27 @@ Object.values(TET_LEVELS).forEach(lv => lv.subjects.forEach(s => {
 // MP CPCT series (cpct/index.html): 25 exam tests (75 MCQ, 75 min, ids "cpct-exam-NN") and
 // 25 typing tests (English + Hindi passage, ids "cpct-typing-NN"). Exam test 1 and typing
 // test 1 are free (owner asked for one free typing test too, 2026-10-13).
-// ₹199 for the whole series, sold like TET (exam-hub notes-checkout product "tet-cpct");
+// ₹99 for the whole series, sold like TET (exam-hub notes-checkout product "tet-cpct");
 // tet-unlock adds exam tests 02-25 and typing tests 01-25 (01 is free anyway) to the buyer's profile.
 // Set `ready: true` once the questions are uploaded to Supabase test_content.
-const CPCT_SERIES = { tests: 25, price: 199, exam: { ready: true }, typing: { ready: true } };
+const CPCT_SERIES = { tests: 25, price: 99, exam: { ready: true }, typing: { ready: true } };
 FREE_TESTS.push("cpct-exam-01", "cpct-typing-01");
+// RRB NTPC (/rrb-ntpc/): test 01 of each series is free; tests open in exam-test.html.
+for (const l of ["g", "u"]) for (const s of ["full", "ga", "maths", "reason"]) FREE_TESTS.push(`rrbntpc-${l}-${s}-01`);
+
+/* Small persistent Home shortcut on exam and practice pages. */
+(function () {
+  if (document.getElementById("tth-floating-home")) return;
+  const path = window.location.pathname.replace(/\/+$/, "") || "/";
+  if (path === "/" || path === "/index.html") return;
+  const style = document.createElement("style");
+  style.textContent = "#tth-floating-home{position:fixed;right:14px;bottom:86px;z-index:9999;width:42px;height:42px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:#0f766e;color:#fff;border:2px solid rgba(255,255,255,.9);box-shadow:0 3px 12px rgba(0,0,0,.25);text-decoration:none}#tth-floating-home svg{width:21px;height:21px;display:block}#tth-floating-home:focus-visible{outline:3px solid #e8a33d;outline-offset:3px}@media(max-width:640px){#tth-floating-home{right:12px;bottom:78px;width:40px;height:40px}}";
+  document.head.appendChild(style);
+  const link = document.createElement("a");
+  link.id = "tth-floating-home";
+  link.href = "/";
+  link.setAttribute("aria-label", "होम पेज पर जाएँ");
+  link.title = "होम";
+  link.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 10 9-7 9 7"/><path d="M5 9v11h14V9"/><path d="M9 20v-7h6v7"/></svg>';
+  if (document.body) document.body.appendChild(link); else document.addEventListener("DOMContentLoaded", () => document.body.appendChild(link), { once: true });
+})();

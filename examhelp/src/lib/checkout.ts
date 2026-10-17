@@ -22,13 +22,22 @@ export async function checkout<T = Record<string, unknown>>(payload: Record<stri
   }
 }
 
-/** Private admin API (supabase/functions/testhub-admin). Password is checked on the server. */
+export const ADMIN_USER_KEY = "testhub_admin_user";
+function adminUser() {
+  try {
+    return sessionStorage.getItem(ADMIN_USER_KEY) ?? "";
+  } catch {
+    return "";
+  }
+}
+
+/** Private admin API (supabase/functions/testhub-admin). Username + password are checked on the server. */
 export async function adminCall<T = Record<string, unknown>>(payload: Record<string, unknown>): Promise<T & { error?: string }> {
   try {
     const r = await fetch(CHECKOUT_URL.replace("notes-checkout", "testhub-admin"), {
       method: "POST",
       headers: { "Content-Type": "application/json", apikey: ANON, Authorization: `Bearer ${ANON}` },
-      body: JSON.stringify(payload),
+      body: JSON.stringify({ username: adminUser(), ...payload }),
     });
     try {
       return (await r.json()) as T & { error?: string };

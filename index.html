@@ -5,17 +5,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; connect-src 'self' https://*.supabase.co https://ovaubhekxjtkodkhsybg.supabase.co; img-src 'self' data:;">
 <title>TET Mock Test 2026 – Free Online TET Practice Tests | TET Test Hub</title>
-<meta name="description" content="Practice for the Teacher Eligibility Test (TET) online with 25 full-length bilingual mock tests. Try 1 test free, then unlock all 25 for ₹199.">
+<meta name="description" content="Practice for the Teacher Eligibility Test (TET) online with 25 full-length bilingual mock tests. Try 1 test free, then unlock all 25 for ₹99.">
 <link rel="canonical" href="https://tettesthub.in/">
 <meta property="og:title" content="TET Mock Test 2026 – Free Online TET Practice Tests | TET Test Hub">
-<meta property="og:description" content="Practice for the Teacher Eligibility Test (TET) online with 25 full-length bilingual mock tests. Try 1 test free, then unlock all 25 for ₹199.">
+<meta property="og:description" content="Practice for the Teacher Eligibility Test (TET) online with 25 full-length bilingual mock tests. Try 1 test free, then unlock all 25 for ₹99.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://tettesthub.in/">
 <meta property="og:site_name" content="TET Test Hub">
 <link rel="icon" href="data:,">
 <link rel="stylesheet" href="assets/site.css?v=2">
 <link rel="stylesheet" href="assets/exam-layout.css?v=2">
-<script src="js/i18n.js?v=3"></script>
+<script src="js/i18n.js?v=4"></script>
 <style>
 /* Colorful all-exams catalogue on the home page */
 .all-exams-heading{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:18px}
@@ -87,6 +87,14 @@ header.site-header nav a{color:#5c4d73;background:#f1ebf9;padding:7px 10px;font-
 header.site-header nav a.active{background:var(--app-purple);color:#fff}
 .lang-toggle{background:#f1ebf9;color:var(--app-purple);border-color:#d9cbed}
 .account-menu{position:relative}
+/* My Account is a separate, prominent control in the header's top-right corner. */
+header.site-header .top-account-menu{position:absolute;top:8px;right:62px;z-index:120}
+header.site-header .top-account-menu .account-menu-toggle{padding:10px 13px;font-size:16px;font-weight:900;letter-spacing:.35px;border:1px solid #d9cbed;box-shadow:0 3px 10px #39214b12}
+header.site-header .header-login-link{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;line-height:1.3}
+header.site-header .header-login-link[hidden]{display:none!important}
+header.site-header nav{padding-right:145px}
+@media(max-width:600px){header.site-header nav{padding-right:0;padding-top:42px;flex-wrap:wrap}header.site-header .top-account-menu{top:7px;right:58px}header.site-header .top-account-menu .account-menu-toggle{padding:8px 11px;font-size:15px}}
+
 .account-menu-toggle{border:0;border-radius:8px;background:#f1ebf9;color:var(--app-purple);padding:7px 10px;font-size:12px;font-weight:700;cursor:pointer}
 .account-menu-dropdown{position:absolute;right:0;top:calc(100% + 8px);z-index:100;min-width:135px;padding:6px;background:#fff;border:1px solid var(--app-line);border-radius:12px;box-shadow:0 8px 24px #24153a1f}
 .account-menu-dropdown a,.account-menu-dropdown button{display:block;width:100%;padding:10px;border:0;border-radius:7px;background:transparent;color:#342052;text-align:left;text-decoration:none;font:inherit;font-size:13px;cursor:pointer}
@@ -150,7 +158,14 @@ header.site-header nav a.active{background:var(--app-purple);color:#fff}
 @media(max-width:700px){.hero{margin:9px 9px 14px;padding:24px 18px;border-radius:20px}.hero:after{right:1%;bottom:4%;font-size:34px}.home-quick-start{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;padding:0 10px}.home-quick-link{gap:9px;padding:11px 9px;border-radius:13px}.home-quick-icon{flex-basis:37px;width:37px;height:37px;font-size:20px}.home-quick-link strong{font-size:12px}.home-quick-link small{font-size:10px}.home-first-visit{padding:0 10px}.home-first-visit-inner{align-items:flex-start;flex-direction:column}.home-first-visit-inner .btn{width:100%;text-align:center}.hero .hero-actions .btn{flex:1;text-align:center;padding:12px 10px}}
 @media(prefers-reduced-motion:reduce){.home-quick-link,.hero .hero-actions .btn{transition:none}.home-quick-link:hover,.hero .hero-actions .btn-primary:hover{transform:none}}
 
+
+/* Homepage folders: one entry point per learning category, no repeated exam shortcuts. */
+.home-folder-grid{grid-template-columns:repeat(4,minmax(0,1fr));margin:0;padding:0;max-width:none}
+.home-folder-grid .home-quick-link{min-height:96px}
+@media(max-width:700px){.home-folder-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.home-folder-grid .home-quick-link{min-height:94px}}
+@media(max-width:360px){.home-folder-grid{grid-template-columns:1fr}}
 </style>
+<!-- Homepage is public; only protected actions require login. -->
 </head>
 <body>
 
@@ -165,19 +180,20 @@ header.site-header nav a.active{background:var(--app-purple);color:#fff}
       <a href="index.html" class="active" data-i18n="nav_home">Home</a>
       <a href="/examhelp/courses/" data-i18n="nav_tests">All Tests</a>
       <a href="typing-practice/" data-i18n="nav_typing">Typing Practice</a>
-      <a href="login.html" id="navLoginLink" data-i18n="nav_login">Student Login</a>
-      <div class="account-menu" id="accountMenu" hidden>
-        <button type="button" class="account-menu-toggle" id="accountMenuToggle" aria-expanded="false" aria-controls="accountMenuDropdown">मेरा अकाउंट <span aria-hidden="true">▾</span></button>
-        <div class="account-menu-dropdown" id="accountMenuDropdown" hidden>
-          <a href="dashboard.html">डैशबोर्ड</a>
-          <div class="account-student-id">छात्र की ID: <strong id="accountStudentId">लोड हो रही है…</strong></div>
-          <button type="button" id="homeLogoutBtn">लॉगआउट</button>
-        </div>
-      </div>
+
       <a href="about.html" data-i18n="nav_about">About</a>
       <a href="contact.html" data-i18n="nav_contact">Contact</a>
     </nav>
     <button class="lang-toggle" id="langToggle" onclick="toggleLang()">EN</button>
+    <div class="account-menu top-account-menu" id="accountMenu" hidden>
+      <button type="button" class="account-menu-toggle" id="accountMenuToggle" aria-expanded="false" aria-controls="accountMenuDropdown">MY ACCOUNT <span aria-hidden="true">▾</span></button>
+      <div class="account-menu-dropdown" id="accountMenuDropdown" hidden>
+        <a href="dashboard.html">डैशबोर्ड</a>
+        <div class="account-student-id">छात्र की ID: <strong id="accountStudentId">लोड हो रही है…</strong></div>
+        <button type="button" id="homeLogoutBtn">लॉगआउट</button>
+      </div>
+    </div>
+    <a href="login.html" class="account-menu top-account-menu account-menu-toggle header-login-link" id="homeHeaderLoginLink" hidden data-i18n="nav_login">लॉगिन</a>
   </header>
 
   <main>
@@ -185,68 +201,25 @@ header.site-header nav a.active{background:var(--app-purple);color:#fff}
       <span class="eyebrow">सभी परीक्षाओं के मॉक टेस्ट</span>
       <h1>अपनी परीक्षा की तैयारी यहाँ से शुरू करें</h1>
       <p class="tagline">तैयारी करें। अभ्यास करें। सफलता पाएँ।</p>
-      <p class="intro">MP पुलिस, हाईकोर्ट, RRB NTPC और अन्य उपलब्ध परीक्षाओं के मॉक टेस्ट, नोट्स और प्रैक्टिस विकल्प एक ही जगह चुनें।</p>
       <div class="hero-actions">
         <a class="btn btn-primary" href="/examhelp/courses/" data-i18n="hero_cta_free">Explore All Tests</a>
-        <a class="btn btn-secondary" href="login.html" data-i18n="hero_cta_login">Student Login</a>
+
       </div>
     </div>
-
-    <section class="home-quick-start" aria-label="लोकप्रिय परीक्षाएँ">
-      <a class="home-quick-link" href="/examhelp/mp-police-constable-gd-mock-tests/"><span class="home-quick-icon" style="background:#dcfce7;color:#166534">🛡️</span><span><strong>MP पुलिस</strong><small>कॉन्स्टेबल मॉक टेस्ट</small></span><span class="quick-arrow" aria-hidden="true">›</span></a>
-      <a class="home-quick-link" href="/examhelp/rrb-ntpc-graduate-mock-tests/"><span class="home-quick-icon" style="background:#dbeafe;color:#1d4ed8">🚆</span><span><strong>RRB NTPC</strong><small>ग्रेजुएट लेवल</small></span><span class="quick-arrow" aria-hidden="true">›</span></a>
-      <a class="home-quick-link" href="/examhelp/mp-high-court-assistant-grade-3-mock-tests/"><span class="home-quick-icon" style="background:#fce7f3;color:#9d174d">⚖️</span><span><strong>हाईकोर्ट</strong><small>असिस्टेंट ग्रेड-3</small></span><span class="quick-arrow" aria-hidden="true">›</span></a>
-      <a class="home-quick-link" href="/examhelp/courses/"><span class="home-quick-icon" style="background:#fef3c7;color:#92400e">📚</span><span><strong>सभी टेस्ट</strong><small>अपनी परीक्षा चुनें</small></span><span class="quick-arrow" aria-hidden="true">›</span></a>
-    </section>
-
 
     <div class="container">
 
       <section class="section" id="learningCategories" style="padding-top:8px;">
         <div class="all-exams-heading">
           <div>
-            <span class="all-exams-kicker">📚 कोर्स, टेस्ट और ई-बुक</span>
-            <h2>अपनी तैयारी की श्रेणी चुनें</h2>
-            <p class="lead">किसी श्रेणी पर टैप करें और अपनी परीक्षा के उपलब्ध कोर्स, टेस्ट सीरीज़ या नोट्स खोलें।</p>
+            <span class="all-exams-kicker">📚 साफ़ और व्यवस्थित होमपेज</span>
           </div>
         </div>
-        <div class="grid all-exams-grid learning-category-grid">
-          <details class="card learning-category" open>
-            <summary><span class="all-exam-icon" aria-hidden="true">🎓</span><span><strong>पेड कोर्स</strong><small>परीक्षा के अनुसार कोर्स</small></span><span class="category-chevron" aria-hidden="true">⌄</span></summary>
-            <div class="category-links">
-              <a href="/examhelp/mp-police-subedar-asi-mock-tests/">सूबेदार / ASI <span>→</span></a>
-              <a href="/examhelp/mp-police-constable-gd-mock-tests/">कॉन्स्टेबल (GD) <span>→</span></a>
-              <a href="/examhelp/mp-high-court-assistant-grade-3-mock-tests/">MP हाईकोर्ट सहायक ग्रेड-3 <span>→</span></a>
-              <a href="/examhelp/courses/">DVT परीक्षा (कोर्स कैटलॉग) <span>→</span></a>
-              <a href="/examhelp/rrb-ntpc-graduate-mock-tests/">RRB NTPC ग्रेजुएट <span>→</span></a>
-              <a href="/examhelp/rrb-ntpc-undergraduate-mock-tests/">RRB NTPC 10+2 <span>→</span></a>
-              <a href="/cpct/">MP CPCT (MCQ + टाइपिंग) <span>→</span></a>
-              <a href="/typing-practice/">स्टेनो / टाइपिंग अभ्यास <span>→</span></a>
-            </div>
-          </details>
-          <details class="card learning-category">
-            <summary><span class="all-exam-icon" aria-hidden="true">📝</span><span><strong>टेस्ट सीरीज़</strong><small>परीक्षा चुनें और मॉक टेस्ट दें</small></span><span class="category-chevron" aria-hidden="true">⌄</span></summary>
-            <div class="category-links">
-              <a href="/examhelp/mp-police-subedar-asi-mock-tests/">सूबेदार / ASI के टेस्ट <span>→</span></a>
-              <a href="/examhelp/mp-police-constable-gd-mock-tests/">कॉन्स्टेबल के टेस्ट <span>→</span></a>
-              <a href="/examhelp/mp-high-court-assistant-grade-3-mock-tests/">MP हाईकोर्ट के टेस्ट <span>→</span></a>
-              <a href="/examhelp/rrb-ntpc-graduate-mock-tests/">RRB NTPC ग्रेजुएट टेस्ट <span>→</span></a>
-              <a href="/examhelp/rrb-ntpc-undergraduate-mock-tests/">RRB NTPC 10+2 टेस्ट <span>→</span></a>
-              <a href="/cpct/">MP CPCT के पेपर <span>→</span></a>
-              <a href="/examhelp/current-affairs/">डेली करेंट अफेयर्स क्विज़ <span>→</span></a>
-            </div>
-          </details>
-          <details class="card learning-category">
-            <summary><span class="all-exam-icon" aria-hidden="true">📖</span><span><strong>ई-बुक / PDF नोट्स</strong><small>डिजिटल अध्ययन सामग्री</small></span><span class="category-chevron" aria-hidden="true">⌄</span></summary>
-            <div class="category-links">
-              <a href="/bridge-course/">ब्रिज कोर्स नोट्स <span>→</span></a>
-              <a href="/examhelp/current-affairs/">करेंट अफेयर्स और PDF <span>→</span></a>
-              <a href="/examhelp/mp-high-court-assistant-grade-3-mock-tests/">MP हाईकोर्ट अध्ययन सामग्री <span>→</span></a>
-              <a href="/examhelp/mp-police-subedar-asi-mock-tests/">सूबेदार / ASI अध्ययन सामग्री <span>→</span></a>
-              <a href="/examhelp/mp-police-constable-gd-mock-tests/">कॉन्स्टेबल अध्ययन सामग्री <span>→</span></a>
-              <p class="category-note">नोट: जहाँ ई-बुक/PDF उपलब्ध है, वहीं से उसे खोलें। भुगतान वाले PDF के लिए सुरक्षित खरीद और डाउनलोड व्यवस्था अलग से जुड़ी होनी चाहिए।</p>
-            </div>
-          </details>
+        <div class="home-quick-start home-folder-grid" aria-label="तैयारी के मुख्य फ़ोल्डर">
+          <a class="home-quick-link" href="/examhelp/courses/" style="border-top:4px solid #7c3aed;"><span class="home-quick-icon" style="background:#f1eaff;color:#6d28d9">🎓</span><span><strong>सभी कोर्स</strong></span><span class="quick-arrow" aria-hidden="true">›</span></a>
+          <a class="home-quick-link" href="dashboard.html" style="border-top:4px solid #0f766e;"><span class="home-quick-icon" style="background:#ddf7f2;color:#0f766e">📝</span><span><strong>मेरे टेस्ट</strong><small>डैशबोर्ड और अपनी तैयारी</small></span><span class="quick-arrow" aria-hidden="true">›</span></a>
+          <a class="home-quick-link" href="/bridge-course/" style="border-top:4px solid #be185d;"><span class="home-quick-icon" style="background:#fce7f3;color:#be185d">📖</span><span><strong>ई-बुक / PDF नोट्स</strong><small>उपलब्ध डिजिटल अध्ययन सामग्री</small></span><span class="quick-arrow" aria-hidden="true">›</span></a>
+          <a class="home-quick-link" href="/examhelp/current-affairs/" style="border-top:4px solid #b45309;"><span class="home-quick-icon" style="background:#fff1d6;color:#b45309">📰</span><span><strong>फ्री प्रैक्टिस</strong><small>डेली करेंट अफेयर्स क्विज़</small></span><span class="quick-arrow" aria-hidden="true">›</span></a>
         </div>
       </section>
 
@@ -270,11 +243,11 @@ header.site-header nav a.active{background:var(--app-purple);color:#fff}
           </div>
         </div>
 
-        <p class="exam-result-count" id="examResultCount" aria-live="polite">11 विकल्प</p>
+        <p class="exam-result-count" id="examResultCount" aria-live="polite">12 विकल्प</p>
         <div class="grid all-exams-grid" id="allExamGrid">
           <a class="card test-card all-exam-card" data-exam-cats="test notes" data-exam-search="mp high court सहायक grade 3 assistant 2026 25 mock test नोट्स" href="/examhelp/mp-high-court-assistant-grade-3-mock-tests/" style="--exam-color:#087f8c;--exam-soft:#e1f7f7;">
             <span class="all-exam-icon" aria-hidden="true">⚖️</span><span class="all-exam-label">MP HIGH COURT</span>
-            <h3>सहायक ग्रेड-3 2026</h3><p class="desc">25 फुल मॉक टेस्ट · टेस्ट 1 फ्री</p><span class="all-exam-link">टेस्ट और नोट्स देखें <span aria-hidden="true">↗</span></span>
+            <h3>सहायक ग्रेड-3 2026</h3><p class="desc">25 टेस्ट · टेस्ट 1 फ्री</p><span class="all-exam-link">टेस्ट और नोट्स देखें <span aria-hidden="true">↗</span></span>
           </a>
           <a class="card test-card all-exam-card" data-exam-cats="free" data-exam-search="daily current affairs दैनिक करेंट अफेयर्स mp भारत विश्व quiz pdf" href="/examhelp/current-affairs/" style="--exam-color:#b45309;--exam-soft:#fff1d6;">
             <span class="all-exam-icon" aria-hidden="true">📰</span><span class="all-exam-label">DAILY UPDATE</span>
@@ -282,23 +255,31 @@ header.site-header nav a.active{background:var(--app-purple);color:#fff}
           </a>
           <a class="card test-card all-exam-card" data-exam-cats="test" data-exam-search="mp police constable आरक्षक जीडी gd 2026 25 mock tests" href="/examhelp/mp-police-constable-gd-mock-tests/" style="--exam-color:#4338ca;--exam-soft:#eeecff;">
             <span class="all-exam-icon" aria-hidden="true">🛡️</span><span class="all-exam-label">MP POLICE</span>
-            <h3>आरक्षक (GD) 2026</h3><p class="desc">25 फुल मॉक टेस्ट · टेस्ट 1 फ्री</p><span class="all-exam-link">टेस्ट देखें <span aria-hidden="true">↗</span></span>
+            <h3>आरक्षक (GD) 2026</h3><p class="desc">25 टेस्ट · टेस्ट 1 फ्री</p><span class="all-exam-link">टेस्ट देखें <span aria-hidden="true">↗</span></span>
+          </a>
+          <a class="card test-card all-exam-card" data-exam-cats="test" data-exam-search="mp police driver constable आरक्षक चालक ड्राइवर 2026 25 mock tests" href="/examhelp/mp-police-driver-mock-tests/" style="--exam-color:#4338ca;--exam-soft:#eeecff;">
+            <span class="all-exam-icon" aria-hidden="true">🚓</span><span class="all-exam-label">MP POLICE</span>
+            <h3>आरक्षक (चालक) 2026</h3><p class="desc">25 टेस्ट · टेस्ट 1 फ्री</p><span class="all-exam-link">टेस्ट देखें <span aria-hidden="true">↗</span></span>
           </a>
           <a class="card test-card all-exam-card" data-exam-cats="test" data-exam-search="mp police subedar asi सूबेदार सहायक उप निरीक्षक 2026 25 mock tests" href="/examhelp/mp-police-subedar-asi-mock-tests/" style="--exam-color:#047857;--exam-soft:#e3f8ee;">
             <span class="all-exam-icon" aria-hidden="true">🎖️</span><span class="all-exam-label">MP POLICE</span>
-            <h3>सूबेदार / ASI 2026</h3><p class="desc">25 फुल टेस्ट · हिंदी/English</p><span class="all-exam-link">टेस्ट देखें <span aria-hidden="true">↗</span></span>
+            <h3>सूबेदार / ASI 2026</h3><p class="desc">25 टेस्ट · हिंदी/English</p><span class="all-exam-link">टेस्ट देखें <span aria-hidden="true">↗</span></span>
           </a>
           <a class="card test-card all-exam-card" data-exam-cats="test" data-exam-search="rrb ntpc graduate ग्रेजुएट रेलवे cen 06/2025 cbt-1 mock test 25" href="/examhelp/rrb-ntpc-graduate-mock-tests/" style="--exam-color:#0f766e;--exam-soft:#ddf7f2;">
             <span class="all-exam-icon" aria-hidden="true">🚆</span><span class="all-exam-label">RRB NTPC</span>
-            <h3>ग्रेजुएट लेवल (CEN 06/2025)</h3><p class="desc">25 फुल CBT-1 मॉक टेस्ट · टेस्ट 1 फ्री</p><span class="all-exam-link">टेस्ट देखें <span aria-hidden="true">↗</span></span>
+            <h3>ग्रेजुएट लेवल (CEN 06/2025)</h3><p class="desc">25 टेस्ट · टेस्ट 1 फ्री</p><span class="all-exam-link">टेस्ट देखें <span aria-hidden="true">↗</span></span>
           </a>
           <a class="card test-card all-exam-card" data-exam-cats="test" data-exam-search="rrb ntpc undergraduate 10+2 अंडरग्रेजुएट रेलवे cen 07/2025 cbt-1 mock test 25" href="/examhelp/rrb-ntpc-undergraduate-mock-tests/" style="--exam-color:#b45309;--exam-soft:#fff1d6;">
             <span class="all-exam-icon" aria-hidden="true">🚉</span><span class="all-exam-label">RRB NTPC</span>
-            <h3>अंडरग्रेजुएट 10+2 (CEN 07/2025)</h3><p class="desc">25 फुल CBT-1 मॉक टेस्ट · टेस्ट 1 फ्री</p><span class="all-exam-link">टेस्ट देखें <span aria-hidden="true">↗</span></span>
+            <h3>अंडरग्रेजुएट 10+2 (CEN 07/2025)</h3><p class="desc">25 टेस्ट · टेस्ट 1 फ्री</p><span class="all-exam-link">टेस्ट देखें <span aria-hidden="true">↗</span></span>
           </a>
           <a class="card test-card all-exam-card" data-exam-cats="test" data-exam-search="mp cpct सीपीसीटी computer proficiency typing टाइपिंग mangal krutidev मंगल कृतिदेव mock test 25 paper" href="/cpct/" style="--exam-color:#1d4ed8;--exam-soft:#dbeafe;">
             <span class="all-exam-icon" aria-hidden="true">⌨️</span><span class="all-exam-label">MP CPCT</span>
             <h3>25 पूरे पेपर / 25 Full Papers</h3><p class="desc">MCQ + अंग्रेज़ी व हिंदी टाइपिंग · पेपर 1 फ्री<br>MCQ + English & Hindi typing · Paper 1 free</p><span class="all-exam-link">पेपर देखें / View papers <span aria-hidden="true">↗</span></span>
+          </a>
+          <a class="card test-card all-exam-card" data-exam-cats="test" data-exam-search="tet mp tet stet शिक्षक पात्रता teacher eligibility primary secondary प्राथमिक माध्यमिक teaching mock test" href="/tet/" style="--exam-color:#7c3aed;--exam-soft:#f1ebf9;">
+            <span class="all-exam-icon" aria-hidden="true">👩‍🏫</span><span class="all-exam-label">TEACHING • MP TET</span>
+            <h3>प्राथमिक व माध्यमिक शिक्षक / Primary & Secondary Teacher</h3><p class="desc">विषयवार टेस्ट सीरीज़ · हर विषय में टेस्ट 1 फ्री<br>Subject-wise test series · Test 1 free in each subject</p><span class="all-exam-link">टेस्ट देखें / View tests <span aria-hidden="true">↗</span></span>
           </a>
           <a class="card test-card all-exam-card" data-exam-cats="notes" data-exam-search="nios b ed bridge course ब्रिज कोर्स digital notes pdf" href="/bridge-course/" style="--exam-color:#be185d;--exam-soft:#fce7f3;">
             <span class="all-exam-icon" aria-hidden="true">📚</span><span class="all-exam-label">NIOS • B.Ed</span>
@@ -315,19 +296,6 @@ header.site-header nav a.active{background:var(--app-purple);color:#fff}
         <div class="exam-no-results" id="examNoResults" hidden>इस खोज में कोई विकल्प नहीं मिला। दूसरा नाम या श्रेणी चुनें।</div>
       </section>
 
-      <section class="section" id="typingPractice" style="padding-top:8px;">
-        <a class="card test-card" href="typing-practice/" style="text-decoration:none;color:inherit;max-width:640px;margin:0 auto;flex-direction:row;flex-wrap:wrap;align-items:center;gap:12px 16px;">
-          <div class="badge" aria-hidden="true" style="margin-bottom:0;">⌨</div>
-          <div style="flex:1;min-width:0;">
-            <h3 data-i18n="home_typing_h">Typing Practice</h3>
-            <p class="desc" style="margin:0;" data-i18n="home_typing_desc">English और Hindi typing की speed और accuracy बढ़ाएँ।</p>
-          </div>
-          <span class="btn btn-primary" data-i18n="home_typing_btn">Practice Now</span>
-        </a>
-      </section>
-
-
-
     </div>
   </main>
 
@@ -341,7 +309,7 @@ header.site-header nav a.active{background:var(--app-purple);color:#fff}
   <footer class="site-footer">
     <div class="links">
       <a href="/examhelp/courses/" data-i18n="nav_tests">All Tests</a>
-      <a href="login.html" data-i18n="nav_login">Student Login</a>
+      <a href="login.html" id="navLoginLink" data-i18n="nav_login">Student Login</a>
       <a href="about.html" data-i18n="nav_about">About</a>
       <a href="contact.html" data-i18n="nav_contact">Contact</a>
     </div>
@@ -360,6 +328,7 @@ header.site-header nav a.active{background:var(--app-purple);color:#fff}
   const accountMenuToggle = document.getElementById('accountMenuToggle');
   const accountMenuDropdown = document.getElementById('accountMenuDropdown');
   const navLoginLink = document.getElementById('navLoginLink');
+  const homeHeaderLoginLink = document.getElementById('homeHeaderLoginLink');
   accountMenuToggle.addEventListener('click', () => {
     const isOpen = accountMenuToggle.getAttribute('aria-expanded') === 'true';
     accountMenuToggle.setAttribute('aria-expanded', String(!isOpen));
@@ -375,12 +344,14 @@ header.site-header nav a.active{background:var(--app-purple);color:#fff}
     await logout();
     window.location.href = 'index.html';
   });
-  // Keep the homepage public; a missing auth session must never blank the page.
+  // Home navigation always opens the homepage. Login is optional for browsing.
   (async () => {
     let session = null;
     try { session = await getSession(); } catch (error) { console.error('Unable to verify login session:', error); }
+    document.documentElement.classList.remove('auth-gate-pending');
     if (session) {
-      navLoginLink.hidden = true;
+      if (navLoginLink) navLoginLink.hidden = true;
+      homeHeaderLoginLink.hidden = true;
       accountMenu.hidden = false;
       const idEl = document.getElementById('accountStudentId');
       let studentId = session.user?.user_metadata?.student_id || session.user?.user_metadata?.contact_identifier || '';
@@ -393,8 +364,9 @@ header.site-header nav a.active{background:var(--app-purple);color:#fff}
       if (!studentId && session.user?.email) studentId = session.user.email.split('@')[0];
       idEl.textContent = studentId || 'उपलब्ध नहीं';
     } else {
-      navLoginLink.hidden = false;
+      if (navLoginLink) navLoginLink.hidden = false;
       accountMenu.hidden = true;
+      homeHeaderLoginLink.hidden = false;
     }
   })();
 
@@ -427,9 +399,138 @@ header.site-header nav a.active{background:var(--app-purple);color:#fff}
   examSearch.addEventListener('input', filterExamCards);
   filterExamCards();
 
-  // TET mock-test overview is intentionally omitted from the homepage.
-  I18N_ONCHANGE = () => {};
+  // Complete homepage localization: translate visible text nodes and UI attributes
+  // without replacing card markup, links, icons, or interactive controls.
+  const HOME_TRANSLATIONS = [
+    ["MY ACCOUNT","मेरा खाता"],["डैशबोर्ड","Dashboard"],["छात्र की ID:","Student ID:"],["लोड हो रही है…","Loading…"],["लॉगआउट","Logout"],["लॉगिन","Login"],
+    ["सभी परीक्षाओं के मॉक टेस्ट","Mock Tests for All Exams"],["अपनी परीक्षा की तैयारी यहाँ से शुरू करें","Start Preparing for Your Exam Here"],["तैयारी करें। अभ्यास करें। सफलता पाएँ।","Prepare. Practice. Succeed."],
+    ["MP पुलिस, हाईकोर्ट, RRB NTPC और अन्य उपलब्ध परीक्षाओं के मॉक टेस्ट, नोट्स और प्रैक्टिस विकल्प एक ही जगह चुनें।","Choose mock tests, notes, and practice options for MP Police, High Court, RRB NTPC, and other available exams in one place."],
+    ["साफ़ और व्यवस्थित होमपेज","A Clear, Organized Homepage"],["अपनी ज़रूरत का फ़ोल्डर चुनें","Choose a Folder"],["हर विकल्प एक अलग श्रेणी में ले जाएगा। सभी परीक्षाओं की सूची नीचे एक ही जगह है, इसलिए वही टेस्ट बार-बार नहीं दिखेंगे।","Each option opens a separate category. All exams are listed below in one place, so the same tests won't be repeated."],
+    ["तैयारी के मुख्य फ़ोल्डर","Main Preparation Categories"],["सभी कोर्स","All Courses"],["मेरे टेस्ट","My Tests"],["डैशबोर्ड और अपनी तैयारी","Dashboard and your preparation"],["ई-बुक / PDF नोट्स","E-books / PDF Notes"],["उपलब्ध डिजिटल अध्ययन सामग्री","Available digital study material"],["फ्री प्रैक्टिस","Free Practice"],["डेली करेंट अफेयर्स क्विज़","Daily Current Affairs Quiz"],
+    ["आपकी तैयारी, एक जगह","Your Preparation, All in One Place"],["सभी परीक्षाएँ और टेस्ट","All Exams and Tests"],["अपनी परीक्षा या कोर्स चुनें। सभी उपलब्ध मॉक टेस्ट, करेंट अफेयर्स, नोट्स और प्रैक्टिस विकल्प यहाँ मिलेंगे।","Choose an exam or course. Find all available mock tests, current affairs, notes, and practice options here."],["पूरा कैटलॉग","Full Catalogue"],
+    ["परीक्षा या कोर्स खोजें…","Search exams or courses…"],["परीक्षा श्रेणी चुनें","Choose exam category"],["सभी","All"],["मॉक टेस्ट","Mock Tests"],["नोट्स / PDF","Notes / PDF"],["फ्री प्रैक्टिस","Free Practice"],["विकल्प","options"],["इस खोज में कोई विकल्प नहीं मिला। दूसरा नाम या श्रेणी चुनें।","No results found. Try another name or category."],
+    ["सहायक ग्रेड-3 2026","Assistant Grade-3 2026"],["25 टेस्ट · टेस्ट 1 फ्री","25 tests · Test 1 free"],["टेस्ट और नोट्स देखें","View tests and notes"],["दैनिक करेंट अफेयर्स","Daily Current Affairs"],["MP, भारत और विश्व की खबरें · क्विज़ व PDF","MP, India and world news · Quiz and PDF"],["अभी पढ़ें","Read now"],["आरक्षक (GD) 2026","Constable (GD) 2026"],["टेस्ट देखें","View tests"],["सूबेदार / ASI 2026","Subedar / ASI 2026"],["25 टेस्ट · हिंदी/English","25 tests · Hindi/English"],
+    ["ग्रेजुएट लेवल (CEN 06/2025)","Graduate Level (CEN 06/2025)"],["25 टेस्ट · टेस्ट 1 फ्री","25 tests · Test 1 free"],["अंडरग्रेजुएट 10+2 (CEN 07/2025)","Undergraduate 10+2 (CEN 07/2025)"],["25 पूरे पेपर / 25 Full Papers","25 Full Papers"],["MCQ + अंग्रेज़ी व हिंदी टाइपिंग · पेपर 1 फ्री","MCQ + English and Hindi typing · Paper 1 free"],["पेपर देखें / View papers","View papers"],["प्राथमिक व माध्यमिक शिक्षक / Primary & Secondary Teacher","Primary & Secondary Teacher"],["विषयवार टेस्ट सीरीज़ · हर विषय में टेस्ट 1 फ्री","Subject-wise test series · Test 1 free in each subject"],["टेस्ट देखें / View tests","View tests"],["ब्रिज कोर्स नोट्स","Bridge Course Notes"],["डिजिटल नोट्स · सभी विषय","Digital notes · All subjects"],["नोट्स देखें","View notes"],["टाइपिंग प्रैक्टिस","Typing Practice"],["हिंदी और English · स्पीड व एक्यूरेसी टेस्ट","Hindi and English · Speed and accuracy tests"],["अभ्यास करें","Practice now"],
+    ["होम","Home"],["मेरे कोर्स","My Courses"],["परीक्षाएँ","Exams"],["नोट्स","Notes"],["संपर्क करें","Contact Us"],["छात्र लॉगिन","Student Login"],["हमारे बारे में","About Us"],
+    ["उपलब्ध नहीं","Not available"],["टेस्ट 1 फ्री","Test 1 free"],["हिंदी और English","Hindi and English"]
+  ];
+  const HOME_TRANSLATION_MAP = new Map();
+  HOME_TRANSLATIONS.forEach(([hi,en]) => { HOME_TRANSLATION_MAP.set(hi,en); HOME_TRANSLATION_MAP.set(en,hi); });
+  function translateHomepage(lang) {
+    const toEnglish = lang === "en";
+    const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+    const nodes = [];
+    while (walker.nextNode()) nodes.push(walker.currentNode);
+    nodes.forEach(node => {
+      const raw = node.nodeValue;
+      const trimmed = raw.trim();
+      if (!trimmed) return;
+      const translated = HOME_TRANSLATION_MAP.get(trimmed);
+      if (translated) node.nodeValue = raw.replace(trimmed, translated);
+    });
+    const search = document.getElementById("examSearch");
+    if (search) search.placeholder = toEnglish ? "Search exams or courses…" : "परीक्षा या कोर्स खोजें…";
+    const filterGroup = document.querySelector(".exam-filters");
+    if (filterGroup) filterGroup.setAttribute("aria-label", toEnglish ? "Choose exam category" : "परीक्षा श्रेणी चुनें");
+    const folderGroup = document.querySelector(".home-folder-grid");
+    if (folderGroup) folderGroup.setAttribute("aria-label", toEnglish ? "Main preparation categories" : "तैयारी के मुख्य फ़ोल्डर");
+    const count = document.getElementById("examResultCount");
+    if (count) {
+      const visible = document.querySelectorAll("#allExamGrid [data-exam-cats]:not([hidden])").length;
+      count.textContent = visible + (toEnglish ? " options" : " विकल्प");
+    }
+    document.title = toEnglish ? "TET Test Hub – Mock Tests and Exam Practice" : "TET टेस्ट हब – मॉक टेस्ट और परीक्षा अभ्यास";
+  }
+
+  // Keep homepage language switching complete and reversible, including text that
+  // is inserted after load (account menu, filters, result count and dynamic cards).
+  [
+    ["सभी परीक्षाओं के मॉक टेस्ट","Mock Tests for All Exams"],
+    ["अपनी परीक्षा की तैयारी यहाँ से शुरू करें","Start Preparing for Your Exam Here"],
+    ["तैयारी करें। अभ्यास करें। सफलता पाएँ।","Prepare. Practice. Succeed."],
+    ["MP पुलिस, हाईकोर्ट, RRB NTPC और अन्य उपलब्ध परीक्षाओं के मॉक टेस्ट, नोट्स और प्रैक्टिस विकल्प एक ही जगह चुनें।","Choose mock tests, notes, and practice options for MP Police, High Court, RRB NTPC, and other available exams in one place."],
+    ["साफ़ और व्यवस्थित होमपेज","A Clear, Organized Homepage"],
+    ["अपनी ज़रूरत का फ़ोल्डर चुनें","Choose a Folder"],
+    ["हर विकल्प एक अलग श्रेणी में ले जाएगा। सभी परीक्षाओं की सूची नीचे एक ही जगह है, इसलिए वही टेस्ट बार-बार नहीं दिखेंगे।","Each option opens a separate category. All exams are listed below in one place, so the same tests won't be repeated."],
+    ["तैयारी के मुख्य फ़ोल्डर","Main Preparation Categories"],
+    ["सभी कोर्स","All Courses"],
+    ["मेरे टेस्ट","My Tests"],["डैशबोर्ड और अपनी तैयारी","Dashboard and your preparation"],
+    ["ई-बुक / PDF नोट्स","E-books / PDF Notes"],["उपलब्ध डिजिटल अध्ययन सामग्री","Available digital study material"],
+    ["फ्री प्रैक्टिस","Free Practice"],["डेली करेंट अफेयर्स क्विज़","Daily Current Affairs Quiz"],
+    ["आपकी तैयारी, एक जगह","Your Preparation, All in One Place"],["सभी परीक्षाएँ और टेस्ट","All Exams and Tests"],
+    ["अपनी परीक्षा या कोर्स चुनें। सभी उपलब्ध मॉक टेस्ट, करेंट अफेयर्स, नोट्स और प्रैक्टिस विकल्प यहाँ मिलेंगे।","Choose an exam or course. Find all available mock tests, current affairs, notes, and practice options here."],
+    ["पूरा कैटलॉग","Full Catalogue"],["परीक्षा या कोर्स खोजें…","Search exams or courses…"],["परीक्षा श्रेणी चुनें","Choose exam category"],
+    ["सभी","All"],["मॉक टेस्ट","Mock Tests"],["नोट्स / PDF","Notes / PDF"],["फ्री प्रैक्टिस","Free Practice"],
+    ["इस खोज में कोई विकल्प नहीं मिला। दूसरा नाम या श्रेणी चुनें।","No results found. Try another name or category."],
+    ["सहायक ग्रेड-3 2026","Assistant Grade-3 2026"],["25 टेस्ट · टेस्ट 1 फ्री","25 tests · Test 1 free"],
+    ["टेस्ट और नोट्स देखें","View tests and notes"],["दैनिक करेंट अफेयर्स","Daily Current Affairs"],["MP, भारत और विश्व की खबरें · क्विज़ व PDF","MP, India and world news · Quiz and PDF"],
+    ["अभी पढ़ें","Read now"],["आरक्षक (GD) 2026","Constable (GD) 2026"],["टेस्ट देखें","View tests"],
+    ["सूबेदार / ASI 2026","Subedar / ASI 2026"],["25 टेस्ट · हिंदी/English","25 tests · Hindi/English"],
+    ["ग्रेजुएट लेवल (CEN 06/2025)","Graduate Level (CEN 06/2025)"],["25 टेस्ट · टेस्ट 1 फ्री","25 tests · Test 1 free"],
+    ["अंडरग्रेजुएट 10+2 (CEN 07/2025)","Undergraduate 10+2 (CEN 07/2025)"],
+    ["25 पूरे पेपर / 25 Full Papers","25 Full Papers"],["MCQ + अंग्रेज़ी व हिंदी टाइपिंग · पेपर 1 फ्री","MCQ + English and Hindi typing · Paper 1 free"],
+    ["पेपर देखें / View papers","View papers"],["प्राथमिक व माध्यमिक शिक्षक / Primary & Secondary Teacher","Primary & Secondary Teacher"],
+    ["विषयवार टेस्ट सीरीज़ · हर विषय में टेस्ट 1 फ्री","Subject-wise test series · Test 1 free in each subject"],
+    ["टेस्ट देखें / View tests","View tests"],["ब्रिज कोर्स नोट्स","Bridge Course Notes"],["डिजिटल नोट्स · सभी विषय","Digital notes · All subjects"],
+    ["नोट्स देखें","View notes"],["हिंदी और English · स्पीड व एक्यूरेसी टेस्ट","Hindi and English · Speed and accuracy tests"],
+    ["अभ्यास करें","Practice now"],["होम","Home"],["मेरे कोर्स","My Courses"],["परीक्षाएँ","Exams"],["नोट्स","Notes"],["संपर्क करें","Contact Us"],
+    ["छात्र लॉगिन","Student Login"],["हमारे बारे में","About Us"],["उपलब्ध नहीं","Not available"],["टेस्ट 1 फ्री","Test 1 free"],
+    ["डैशबोर्ड","Dashboard"],["छात्र की ID:","Student ID:"],["लॉगआउट","Logout"],["लॉगिन","Login"],["MY ACCOUNT","MY ACCOUNT"]
+  ].forEach(([hi, en]) => { HOME_TRANSLATION_MAP.set(hi, en); HOME_TRANSLATION_MAP.set(en, hi); });
+
+  // Save each node's original Hindi/English value so switching never depends on
+  // whichever language happened to be rendered previously.
+  const homeOriginalText = new WeakMap();
+  const homeTranslatableAttrs = ["placeholder", "aria-label", "title", "alt"];
+  function translateHomepageStable(lang) {
+    const toEnglish = lang === "en";
+    const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+    const nodes = [];
+    while (walker.nextNode()) nodes.push(walker.currentNode);
+    nodes.forEach(node => {
+      if (!homeOriginalText.has(node)) homeOriginalText.set(node, node.nodeValue);
+      const original = homeOriginalText.get(node);
+      const trimmed = original.trim();
+      if (!trimmed) return;
+      const isHindiText = /[\u0900-\u097F]/.test(trimmed);
+      const translated = HOME_TRANSLATION_MAP.get(trimmed);
+      if (translated && ((toEnglish && isHindiText) || (!toEnglish && !isHindiText))) {
+        node.nodeValue = original.replace(trimmed, translated);
+      } else {
+        node.nodeValue = original;
+      }
+    });
+    const search = document.getElementById("examSearch");
+    if (search) search.placeholder = toEnglish ? "Search exams or courses…" : "परीक्षा या कोर्स खोजें…";
+    const filterGroup = document.querySelector(".exam-filters");
+    if (filterGroup) filterGroup.setAttribute("aria-label", toEnglish ? "Choose exam category" : "परीक्षा श्रेणी चुनें");
+    const folderGroup = document.querySelector(".home-folder-grid");
+    if (folderGroup) folderGroup.setAttribute("aria-label", toEnglish ? "Main preparation categories" : "तैयारी के मुख्य फ़ोल्डर");
+    const count = document.getElementById("examResultCount");
+    if (count) {
+      const visible = document.querySelectorAll("#allExamGrid [data-exam-cats]:not([hidden])").length;
+      count.textContent = visible + (toEnglish ? " options" : " विकल्प");
+    }
+    document.title = toEnglish ? "TET Test Hub – Mock Tests and Exam Practice" : "TET टेस्ट हब – मॉक टेस्ट और परीक्षा अभ्यास";
+    document.documentElement.lang = lang;
+    const btn = document.getElementById("langToggle");
+    if (btn) btn.textContent = toEnglish ? "हिं" : "EN";
+  }
+  
+  const previousApplyI18n = applyI18n;
+  applyI18n = function() { previousApplyI18n(); translateHomepage(getLang()); };
+  I18N_ONCHANGE = () => { translateHomepage(getLang()); translateHomepageStable(getLang()); };
   applyI18n();
+  translateHomepageStable(getLang());
+  // Pause the observer while translating, otherwise its own text writes re-trigger it
+  // in an endless loop and the homepage freezes.
+  const homeLangObserver = new MutationObserver(() => {
+    homeLangObserver.disconnect();
+    translateHomepageStable(getLang());
+    homeLangObserver.takeRecords();
+    homeLangObserver.observe(document.body, { childList: true, subtree: true });
+  });
+  homeLangObserver.observe(document.body, { childList: true, subtree: true });
 </script>
 </body>
 </html>

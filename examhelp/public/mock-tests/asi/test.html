@@ -659,11 +659,38 @@
             }
 
 		
-/* Sticky homepage button for non-TET exam runners */
+/* Single text Home option in the top bar; no floating home icon */
 .topbar{position:sticky;top:0;z-index:1000}
-.dhome{display:inline-flex!important;flex:0 0 auto;align-items:center;justify-content:center;gap:5px;background:#16856f;color:#fff;border:1px solid rgba(255,255,255,.55);border-radius:9px;padding:9px 12px;font-size:14px;font-weight:800;text-decoration:none;white-space:nowrap;box-shadow:0 2px 6px rgba(0,0,0,.18)}
+.dhome{display:none!important;flex:0 0 auto;align-items:center;justify-content:center;gap:5px;background:#16856f;color:#fff;border:1px solid rgba(255,255,255,.55);border-radius:9px;padding:9px 12px;font-size:14px;font-weight:800;text-decoration:none;white-space:nowrap;box-shadow:0 2px 6px rgba(0,0,0,.18)}
 .dhome:hover{background:#0f6b5f}
-</style>
+.tth-top-home-option{display:inline-flex!important;align-items:center;justify-content:center;flex:0 0 auto;background:#16856f;color:#fff;border:1px solid rgba(255,255,255,.55);border-radius:9px;padding:8px 12px;font-size:14px;font-weight:800;text-decoration:none;white-space:nowrap}
+.tth-top-home-option:hover{background:#0f6b5f}
+
+/* Mobile viewport fix: keep the whole paper within screen width and wrap long question/option text. */
+*,*::before,*::after{box-sizing:border-box}
+html,body{width:100%;max-width:100%;margin:0;padding:0;overflow-x:hidden}
+#app{width:100%;max-width:720px;min-width:0}
+.topbar,.timerbar,.qpanel,.qmeta,.qtext,.opt,.actions,.actions2,.sectiontabs,.legend,#nameScreen,#resultScreen{min-width:0;max-width:100%}
+.qtext,.rqtext,.opt label,p,li,strong{overflow-wrap:anywhere;word-break:normal}
+img,svg,video,canvas,table{max-width:100%}
+@media(max-width:600px){
+ #app{width:100%;max-width:100%;margin:0}
+ .topbar{flex-wrap:wrap;padding:10px 12px;gap:8px}
+ .topbar .ttext{min-width:0;max-width:100%;font-size:clamp(14px,4vw,17px);overflow-wrap:anywhere}
+ .langBtn{padding:6px 9px;font-size:11px}
+ .timerbar{flex-wrap:wrap;gap:8px;padding:8px 12px}
+ .sectiontabs{flex-wrap:wrap;overflow-x:hidden;padding:8px}
+ .sectiontabs button{white-space:normal;max-width:100%;font-size:11px;padding:6px 8px}
+ .qpanel{padding:12px}
+ .qmeta{flex-wrap:wrap;gap:6px}
+ .qtext{font-size:15px;line-height:1.55}
+ .opt{padding:9px;font-size:14px;gap:8px}
+ .actions,.actions2{flex-wrap:wrap;gap:7px;padding-left:10px;padding-right:10px}
+ .actions button,.actions2 button{flex:1 1 42%;min-width:0;white-space:normal;overflow-wrap:anywhere;padding:10px 6px;font-size:12px}
+ .palette{grid-template-columns:repeat(6,minmax(0,1fr));gap:5px;padding:10px}
+}
+
+		</style>
 	</head>
 	<body>
 		<div id="nameScreen">
@@ -702,7 +729,6 @@
 
 		<div id="app" style="display: none">
 			<div class="topbar">
-				<a class="dhome" href="/" id="dHome" aria-label="होम पेज पर जाएँ">🏠 होम / Home</a>
 				<div class="ttwrap">
 					<div class="ttext" data-title>MP Police Subedar / ASI 2026 Mock Test</div>
 					<small id="subtitleText"
@@ -804,7 +830,7 @@ function showMsg(hi, en) {
   const back = document.getElementById("backLink"); if (back) back.textContent = L === "en" ? "\u2190 Back to all tests" : "\u2190 सभी टेस्ट पर वापस जाएँ";
 }
 function loadTest() {
-  if (TEST_NO === "01") return fetch("tests/" + TEST_NO + ".json").then((r) => { if (!r.ok) throw new Error("x"); return r.json(); });
+  if (TEST_NO === "01") return fetch("/examhelp/mock-tests/asi/tests/01.json").then((r) => { if (!r.ok) throw new Error("x"); return r.json(); });
   let tok = null; try { tok = localStorage.getItem("testhub_dl_asi-tests"); } catch (e) {}
   if (!tok) return Promise.reject(new Error("locked"));
   return fetch(CHECKOUT_URL, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ action: "test", token: tok, n: +TEST_NO, series: "asi" }) })
@@ -813,7 +839,7 @@ function loadTest() {
 loadTest()
   .then((d) => { SECTIONS = d.sections; Q = d.questions; boot(); })
   .catch((e) => {
-    if (e.message === "locked") showMsg("यह टेस्ट, टेस्ट सीरीज़ (₹199) का हिस्सा है। सभी टेस्ट अनलॉक करने के लिए वापस जाएँ।", "This test is part of the test series (₹199). Go back to unlock all tests.");
+    if (e.message === "locked") showMsg("यह टेस्ट, टेस्ट सीरीज़ (₹99) का हिस्सा है। सभी टेस्ट अनलॉक करने के लिए वापस जाएँ।", "This test is part of the test series (₹99). Go back to unlock all tests.");
     else showMsg("यह टेस्ट अभी उपलब्ध नहीं है।", "This test is not available yet.");
   });
 function boot() {
@@ -1290,7 +1316,7 @@ const UI = {
 				document.getElementById("submitBtn").textContent = u.submit;
 				document.getElementById("langBtn").textContent = u.langBtn;
 				document.getElementById("langSel").value = lang;
-				document.getElementById("dHome").innerHTML = u.dHome;
+				{ const dh = document.getElementById("dHome"); if (dh) dh.innerHTML = u.dHome; }
 				document.getElementById("dTimeLbl").textContent = u.dTimeLbl;
 				document.getElementById("dQType").textContent = u.dQType;
 				document.getElementById("dMarks").textContent = u.dMarks;
@@ -1370,6 +1396,6 @@ const UI = {
 }
 		</script>
 	
-<script src="/js/global-account-menu.js"></script>
+<script src="/js/global-account-menu.js?v=11"></script>
 </body>
 </html>

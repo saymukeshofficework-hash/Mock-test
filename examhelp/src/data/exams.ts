@@ -63,7 +63,7 @@ export const exams: Exam[] = [
     testSeries: {
       href: "/mp-police-constable-gd-mock-tests/",
       title: { hi: "आरक्षक (जी.डी.) 2026 — 25 फुल मॉक टेस्ट", en: "Police Constable GD 2026 — 25 full mock tests" },
-      sub: { hi: "MPESB पैटर्न: 100 प्रश्न · 120 मिनट · 3 खंड · टेस्ट 1 फ्री, बाकी 24 टेस्ट ₹199 में", en: "MPESB pattern: 100 Qs · 120 min · 3 sections · Test 1 free, other 24 for ₹199" },
+      sub: { hi: "MPESB पैटर्न: 100 प्रश्न · 120 मिनट · 3 खंड · टेस्ट 1 फ्री, बाकी 24 टेस्ट ₹99 में", en: "MPESB pattern: 100 Qs · 120 min · 3 sections · Test 1 free, other 24 for ₹99" },
       cta: { hi: "टेस्ट देखें", en: "View tests" },
     },
     updatedAt: CHECKED,
@@ -100,7 +100,7 @@ export const exams: Exam[] = [
     testSeries: {
       href: "/mp-police-subedar-asi-mock-tests/",
       title: { hi: "सूबेदार / ASI 2026 — 25 फुल मॉक टेस्ट", en: "Subedar / ASI 2026 — 25 full mock tests" },
-      sub: { hi: "MPESB पैटर्न: 100 प्रश्न · 120 मिनट · 3 खंड · टेस्ट 1 फ्री, बाकी 24 टेस्ट ₹199 में", en: "MPESB pattern: 100 Qs · 120 min · 3 sections · Test 1 free, other 24 for ₹199" },
+      sub: { hi: "MPESB पैटर्न: 100 प्रश्न · 120 मिनट · 3 खंड · टेस्ट 1 फ्री, बाकी 24 टेस्ट ₹99 में", en: "MPESB pattern: 100 Qs · 120 min · 3 sections · Test 1 free, other 24 for ₹99" },
       cta: { hi: "टेस्ट देखें", en: "View tests" },
     },
     updatedAt: CHECKED,
@@ -176,8 +176,8 @@ export const exams: Exam[] = [
       href: "/tests.html",
       title: { hi: "TET मॉक टेस्ट सीरीज़ — 25 फुल-लेंथ टेस्ट", en: "TET Mock Test Series — 25 full-length tests" },
       sub: {
-        hi: "हर टेस्ट में 150 प्रश्न · 150 मिनट · हिंदी/English · टेस्ट 1 फ्री, बाकी 24 टेस्ट ₹199 में",
-        en: "150 questions · 150 minutes each · Hindi/English · Test 1 free, other 24 for ₹199",
+        hi: "हर टेस्ट में 150 प्रश्न · 150 मिनट · हिंदी/English · टेस्ट 1 फ्री, बाकी 24 टेस्ट ₹99 में",
+        en: "150 questions · 150 minutes each · Hindi/English · Test 1 free, other 24 for ₹99",
       },
       cta: { hi: "टेस्ट सीरीज़ देखें", en: "See test series" },
     },
@@ -289,12 +289,37 @@ export const exams: Exam[] = [
     organization: "MPESB",
     category: "police",
     examType: "RECRUITMENT",
+    mode: { hi: "ऑनलाइन (CBT)", en: "Online (CBT)" },
     posts: 1000,
-    dates: { exam: { month: "2026-11", status: "EXPECTED", note: calNote } },
+    description: {
+      hi: "कुल 1,000 पद (विशेष सशस्त्र बल SAF 200, जिला पुलिस बल 800), केवल पुरुष। योग्यता: 10वीं पास (अनुसूचित जनजाति के लिए 8वीं) और 29.10.2026 से पहले जारी वैध भारी वाहन (HMV) परिवहन ड्राइविंग लाइसेंस। परीक्षा दो पालियों में, हर पाली 2 घंटे।",
+      en: "1,000 posts (Special Armed Force SAF 200, District Police Force 800), male candidates only. Eligibility: Class 10 pass (Class 8 for ST) and a valid Heavy Motor Vehicle (HMV) transport driving licence issued before 29.10.2026. CBT in two 2-hour shifts a day.",
+    },
+    dates: {
+      applicationStart: { date: "2026-10-15", status: "CONFIRMED" },
+      applicationEnd: { date: "2026-10-29", status: "CONFIRMED" },
+      correctionEnd: { date: "2026-11-03", status: "CONFIRMED" },
+      exam: {
+        date: "2027-01-04",
+        status: "TENTATIVE",
+        note: {
+          hi: "नियम पुस्तिका के अनुसार परीक्षा 04-01-2027 से प्रारंभ, प्रतिदिन दो पाली (2-2 घंटे)।",
+          en: "Rulebook: exams start from 04-01-2027, two 2-hour shifts a day.",
+        },
+      },
+    },
     officialUrl: ESB,
+    applyUrl: ESB_APPLY,
+    rulebookUrl: `${ESB_RB}PCRT_Driver_2026_rulebook_07102026.pdf`,
     featured: false,
-    source: { label: "MPESB Exam Calendar (revised 05.08.2026)", url: ESB_CAL, checkedOn: CHECKED },
-    updatedAt: CHECKED,
+    source: { label: "MPESB Rulebook (07.10.2026)", url: `${ESB_RB}PCRT_Driver_2026_rulebook_07102026.pdf`, checkedOn: "2026-10-16" },
+    testSeries: {
+      href: "/mp-police-driver-mock-tests/",
+      title: { hi: "आरक्षक (चालक) 2026 — 25 फुल मॉक टेस्ट", en: "Police Constable Driver 2026 — 25 full mock tests" },
+      sub: { hi: "MPESB पैटर्न: 100 प्रश्न · 120 मिनट · 3 खंड · टेस्ट 1 फ्री, बाकी 24 टेस्ट ₹99 में", en: "MPESB pattern: 100 Qs · 120 min · 3 sections · Test 1 free, other 24 for ₹99" },
+      cta: { hi: "टेस्ट देखें", en: "View tests" },
+    },
+    updatedAt: "2026-10-16",
   },
   {
     id: "mp-panchayat-sachiv-2026",
@@ -383,7 +408,7 @@ export const exams: Exam[] = [
     testSeries: {
       href: "/mp-high-court-assistant-grade-3-mock-tests/",
       title: { hi: "हाई कोर्ट सहायक ग्रेड-III — 25 फुल मॉक टेस्ट", en: "High Court Assistant Grade-III — 25 full mock tests" },
-      sub: { hi: "आधिकारिक पैटर्न: 100 प्रश्न · 120 मिनट · 5 खंड · टेस्ट 1 फ्री, बाकी 24 टेस्ट ₹199 में", en: "Official pattern: 100 Qs · 120 min · 5 sections · Test 1 free, other 24 for ₹199" },
+      sub: { hi: "आधिकारिक पैटर्न: 100 प्रश्न · 120 मिनट · 5 खंड · टेस्ट 1 फ्री, बाकी 24 टेस्ट ₹99 में", en: "Official pattern: 100 Qs · 120 min · 5 sections · Test 1 free, other 24 for ₹99" },
       cta: { hi: "टेस्ट देखें", en: "View tests" },
     },
     updatedAt: "2026-10-01",
@@ -417,7 +442,7 @@ export const exams: Exam[] = [
     testSeries: {
       href: "/cpct/",
       title: { hi: "MP CPCT — 25 मॉक टेस्ट + 25 टाइपिंग टेस्ट", en: "MP CPCT — 25 mock tests + 25 typing tests" },
-      sub: { hi: "मॉक टेस्ट 1 और टाइपिंग टेस्ट 1 फ्री, बाकी सब ₹199 में", en: "Mock test 1 and typing test 1 free, the rest for ₹199" },
+      sub: { hi: "मॉक टेस्ट 1 और टाइपिंग टेस्ट 1 फ्री, बाकी सब ₹99 में", en: "Mock test 1 and typing test 1 free, the rest for ₹99" },
       cta: { hi: "टेस्ट देखें", en: "View tests" },
     },
     updatedAt: "2026-10-13",

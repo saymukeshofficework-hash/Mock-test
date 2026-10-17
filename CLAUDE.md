@@ -47,7 +47,7 @@ Make the smallest change that does the job. Touch only the files named in the re
 
 ## Business rules (set by the owner)
 - Exactly one free test per series. Series are 25 tests each.
-- Products: PDF notes (₹299 MP High Court Assistant Grade-3), test series (₹199), daily current affairs (₹49/month), Bridge Course notes (₹199).
+- Products: PDF notes (₹299 MP High Court Assistant Grade-3), test series (₹99), daily current affairs (₹49/month), Bridge Course notes (₹199).
 - Homepage is a login-gated page, not a public catalogue.
 
 ## More detail

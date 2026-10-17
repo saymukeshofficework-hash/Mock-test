@@ -19,24 +19,24 @@
 
 /* ---------- fonts ---------- */
 /* Kruti Dev 010 is a legacy non-Unicode font. It is used ONLY for Krutidev mode.
-   The copy installed on the student's device is used; to serve it to everyone,
-   add the font file to typing-practice/fonts/ (see fonts/README.md). */
+   The copy installed on the student's device is used first; phones have none, so
+   fonts/tth-krutidev.woff2 (free, built from Noto Sans Devanagari, see fonts/README.md) is the fallback. */
 @font-face{
   font-family:"TTH Kruti Dev 010";
-  src:local("Kruti Dev 010"),local("KrutiDev010"),local("Kruti Dev 010 Regular");
-  /* After adding fonts/KrutiDev010.woff2 (licence permitting), replace the line above with:
   src:local("Kruti Dev 010"),local("KrutiDev010"),local("Kruti Dev 010 Regular"),
-      url("../fonts/KrutiDev010.woff2") format("woff2"),
-      url("../fonts/KrutiDev010.ttf") format("truetype"); */
+      url("../fonts/tth-krutidev.woff2") format("woff2");
   font-display:swap;
 }
+/* Must stay above the font classes: <html lang="hi"> made it override .font-krutidev. */
+:lang(hi){font-family:"Noto Sans Devanagari","Segoe UI",Arial,sans-serif;}
 .font-english{font-family:"Segoe UI",Arial,Helvetica,sans-serif;}
 .font-devanagari{font-family:"Noto Sans Devanagari","Nirmala UI","Mangal",sans-serif;}
 .font-mangal{font-family:"Mangal","Noto Sans Devanagari","Nirmala UI",sans-serif;}
 .font-krutidev{font-family:"TTH Kruti Dev 010",monospace;}
+/* The passage is drawn as one <span> per character; :lang(hi) would give each span its own font. */
+.font-english *,.font-devanagari *,.font-mangal *,.font-krutidev *{font-family:inherit;}
 /* Font not available: show the raw key codes legibly instead of fallback glyphs. */
 .kd-missing .font-krutidev,.font-krutidev.kd-missing{font-family:ui-monospace,"Cascadia Mono",Consolas,monospace;letter-spacing:.02em;}
-:lang(hi){font-family:"Noto Sans Devanagari","Segoe UI",Arial,sans-serif;}
 
 /* ---------- home ---------- */
 .tp-hero{padding:34px 16px 22px;}
