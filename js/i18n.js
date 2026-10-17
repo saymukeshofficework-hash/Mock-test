@@ -52,7 +52,7 @@ const I18N_DICT = {
     hi: "<strong>मुफ्त टेस्ट में अच्छा प्रदर्शन किया?</strong> <strong>24 और पूर्ण-लंबाई टेस्ट</strong> (टेस्ट 02&ndash;25 — 3600 और प्रश्न) एक बंडल में सिर्फ़ <strong>₹99</strong> में अनलॉक करें।",
     en: "<strong>Performed well on your free test?</strong> Unlock <strong>24 more full-length tests</strong> (Test 02&ndash;25 — 3600 more questions) in one bundle for just <strong>₹99</strong>.",
   },
-  free_unlock_btn: { hi: "24 टेस्ट अनलॉक करें — ₹99", en: "Unlock All 24 Tests — ₹99" },
+  free_unlock_btn: { hi: "24 टेस्ट अनलॉक करें", en: "Unlock All 24 Tests" },
 
   exams_h2: { hi: "शिक्षक परीक्षाएं", en: "Teacher Exams" },
   exams_lead: {
@@ -156,7 +156,7 @@ const I18N_DICT = {
   bundle_li2: { hi: "कुल 3600 प्रश्न", en: "3600 questions in total" },
   bundle_li3: { hi: "साथ में 1 मुफ्त टेस्ट (01)", en: "Plus 1 free test (01)" },
   bundle_li4: { hi: "हर टेस्ट में तुरंत परिणाम", en: "Instant results, every test" },
-  bundle_btn: { hi: "🔓 अभी खरीदें – ₹99", en: "🔓 Buy Now – ₹99" },
+  bundle_btn: { hi: "🔓 अभी खरीदें", en: "🔓 Buy Now" },
   card_full_mock: { hi: "पूर्ण मॉक टेस्ट", en: "Full Mock Test" },
   card_questions_suffix: { hi: "प्रश्न", en: "Questions" },
   card_minutes_suffix: { hi: "मिनट", en: "Minutes" },
