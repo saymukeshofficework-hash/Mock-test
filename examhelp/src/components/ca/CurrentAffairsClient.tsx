@@ -90,30 +90,23 @@ export function CurrentAffairsClient() {
     try {
       const base = process.env.NEXT_PUBLIC_SUPABASE_URL ?? "https://znulepzdihzhjmuvyroi.supabase.co";
       const anon = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpudWxlcHpkaWh6aGptdXZ5cm9pIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTExMjE5MjIsImV4cCI6MjEwNjY5NzkyMn0.XoqC6vNDJkEAxgtXLVPCpTxocv3lAa-ZBeg69OdbhdU";
-      // Older published rows may use the legacy "data" column, while new rows use "content".
-      // Read both formats so a schema mismatch in either generation cannot blank the whole page.
-      type RawRow = { day: string; content?: Day | null; data?: Day | null };
-      const readColumn = async (column: "content" | "data"): Promise<RawRow[]> => {
-        const url = new URL(`${base}/rest/v1/daily_current_affairs`);
-        url.searchParams.set("select", `day,${column}`);
-        url.searchParams.set("order", "day.desc");
-        url.searchParams.set("limit", "400");
-        const response = await fetch(url.toString(), { headers: { apikey: anon, Authorization: `Bearer ${anon}` } });
-        if (!response.ok) return [];
-        return await response.json() as RawRow[];
+      const callApi = async (payload: { action: "ca_index" | "ca_day"; day?: string }) => {
+        const response = await fetch(`${base}/functions/v1/notes-checkout`, {
+          method: "POST",
+          headers: { apikey: anon, Authorization: `Bearer ${anon}`, "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        });
+        if (!response.ok) throw new Error(`Current affairs API failed: ${response.status}`);
+        return await response.json();
       };
-      const [contentRows, legacyRows] = await Promise.all([readColumn("content"), readColumn("data")]);
-      const byDay = new Map<string, RawRow>();
-      for (const row of [...legacyRows, ...contentRows]) {
-        const payload = row.content ?? row.data;
-        if (payload) byDay.set(row.day, { day: row.day, content: payload });
-      }
-      const rows = [...byDay.values()].sort((a, b) => b.day.localeCompare(a.day));
-      setIndex(rows.map((row) => ({ day: row.day, items: row.content?.items?.length ?? 0 })));
+      const indexData = await callApi({ action: "ca_index" });
+      const rows = (Array.isArray(indexData.days) ? indexData.days : []) as IndexRow[];
+      setIndex(rows);
       const target = d || rows[0]?.day || todayInIndia();
       setSelectedDate(target);
-      const row = rows.find((item) => item.day === target);
-      setDay(row?.content ? { ...row.content, day: row.day } : null);
+      const result = await callApi({ action: "ca_day", day: target });
+      const payload = result.data as Day | null;
+      setDay(payload ? { ...payload, day: result.day || target } : null);
       setShown({});
       setState("ready");
     } catch {
