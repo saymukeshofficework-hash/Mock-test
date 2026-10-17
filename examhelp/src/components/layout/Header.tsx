@@ -1,6 +1,5 @@
 import { LoginChip } from "./LoginChip";
 import { MockPageHomeLink } from "./HeaderClient";
-import Link from "next/link";
 import { Search } from "lucide-react";
 import { Logo } from "@/components/brand/Logo";
 import { dict, tr } from "@/i18n/dictionary";
@@ -17,9 +16,9 @@ export function Header({ lang }: { lang: Lang }) {
       <div className="flex h-16 items-center justify-between gap-4 px-3 sm:px-4">
         <div className="flex shrink-0 items-center gap-2">
           <MockPageHomeLink />
-          <Link href="/" aria-label="TETTESTHUB — Home" className="shrink-0">
+          <div aria-label="TETTESTHUB" className="shrink-0">
             <Logo />
-          </Link>
+          </div>
         </div>
 
         <form action={`${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/search`} role="search" className="hidden max-w-md flex-1 xl:block">
