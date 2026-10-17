@@ -3,7 +3,6 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta http-equiv="refresh" content="0;url=/login.html">
 <title>TET Test Hub — Login</title>
 <style>
 html,body{margin:0;height:100%;font-family:system-ui,sans-serif;background:#fff}
@@ -11,9 +10,17 @@ main{min-height:100%;display:grid;place-items:center;color:#111827}
 </style>
 </head>
 <body>
-<main>लॉगिन पेज खोला जा रहा है…</main>
-<script>window.location.replace('/login.html');</script>
-<noscript><a href="/login.html">लॉगिन / रजिस्टर पर जाएँ</a></noscript>
+<main>पेज खोला जा रहा है… / Opening…</main>
+<script>
+// Served as /examhelp/ (Android app start page) and /examhelp/login.html.
+// Only the login copy goes to login; /examhelp/ opens the public homepage.
+(function(){
+  var isLogin=/\/login\.html$/.test(location.pathname);
+  if(!isLogin&&/[?&]source=android/.test(location.search)){try{localStorage.setItem('tth-app','1')}catch(e){}}
+  window.location.replace(isLogin?'/login.html':'/index.html'+location.search);
+})();
+</script>
+<noscript><a href="/index.html">होम / Home</a> · <a href="/login.html">लॉगिन / रजिस्टर पर जाएँ</a></noscript>
 
 <script src="../js/global-account-menu.js"></script>
 </body>
