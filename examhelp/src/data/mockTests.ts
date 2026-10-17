@@ -88,7 +88,7 @@ export const MOCK_SERIES: Record<string, MockSeries> = {
       hi: "टेस्ट 1 फ्री है। बाकी 24 टेस्ट एक बार ₹99 देकर अनलॉक करें — इसी डिवाइस पर तुरंत खुल जाएंगे।",
       en: "Test 1 is free. Unlock the other 24 tests once for ₹99 — they open instantly on this device.",
     },
-    unlockBtn: { hi: "सभी टेस्ट अनलॉक करें — ₹99", en: "Unlock all tests — ₹99" },
+    unlockBtn: { hi: "सभी टेस्ट अनलॉक करें", en: "Unlock all tests" },
     links: [
       { href: "/exams/mp-high-court-assistant-grade-3-2026/", label: { hi: "परीक्षा की पूरी जानकारी →", en: "Full exam details →" }, tone: "brand" },
     ],
@@ -115,7 +115,7 @@ export const MOCK_SERIES: Record<string, MockSeries> = {
       hi: "टेस्ट 1 फ्री है। बाकी 24 टेस्ट एक बार ₹99 देकर अनलॉक करें — इसी डिवाइस पर तुरंत खुल जाएंगे।",
       en: "Test 1 is free. Unlock the other 24 tests once for ₹99 — they open instantly on this device.",
     },
-    unlockBtn: { hi: "सभी टेस्ट अनलॉक करें — ₹99", en: "Unlock all tests — ₹99" },
+    unlockBtn: { hi: "सभी टेस्ट अनलॉक करें", en: "Unlock all tests" },
     links: [{ href: "/exams/mp-police-constable-2026/", label: { hi: "परीक्षा की पूरी जानकारी →", en: "Full exam details →" }, tone: "brand" }],
   },
   pcdr: {
@@ -143,7 +143,7 @@ export const MOCK_SERIES: Record<string, MockSeries> = {
       hi: "टेस्ट 1 फ्री है। बाकी 24 टेस्ट एक बार ₹99 देकर अनलॉक करें — इसी डिवाइस पर तुरंत खुल जाएंगे।",
       en: "Test 1 is free. Unlock the other 24 tests once for ₹99 — they open instantly on this device.",
     },
-    unlockBtn: { hi: "सभी टेस्ट अनलॉक करें — ₹99", en: "Unlock all tests — ₹99" },
+    unlockBtn: { hi: "सभी टेस्ट अनलॉक करें", en: "Unlock all tests" },
     links: [{ href: "/exams/mp-police-constable-driver-2026/", label: { hi: "परीक्षा की पूरी जानकारी →", en: "Full exam details →" }, tone: "brand" }],
   },
   tet: {
@@ -186,7 +186,7 @@ export const MOCK_SERIES: Record<string, MockSeries> = {
       hi: "टेस्ट 1 फ्री है। बाकी 24 टेस्ट एक बार ₹99 देकर अनलॉक करें।",
       en: "Test 1 is free. Unlock the other 24 tests once for ₹99.",
     },
-    unlockBtn: { hi: "सभी टेस्ट अनलॉक करें — ₹99", en: "Unlock all tests — ₹99" },
+    unlockBtn: { hi: "सभी टेस्ट अनलॉक करें", en: "Unlock all tests" },
     links: [],
   },
   asi: {
@@ -211,7 +211,7 @@ export const MOCK_SERIES: Record<string, MockSeries> = {
       hi: "टेस्ट 1 फ्री है। बाकी 24 टेस्ट एक बार ₹99 देकर अनलॉक करें — इसी डिवाइस पर तुरंत खुल जाएंगे।",
       en: "Test 1 is free. Unlock the other 24 tests once for ₹99 — they open instantly on this device.",
     },
-    unlockBtn: { hi: "सभी टेस्ट अनलॉक करें — ₹99", en: "Unlock all tests — ₹99" },
+    unlockBtn: { hi: "सभी टेस्ट अनलॉक करें", en: "Unlock all tests" },
     links: [{ href: "/exams/mp-subedar-steno-asi-2026/", label: { hi: "परीक्षा की पूरी जानकारी →", en: "Full exam details →" }, tone: "brand" }],
   },
   mpgrb: {
@@ -242,9 +242,9 @@ export const MOCK_SERIES: Record<string, MockSeries> = {
     },
     totalLine: { hi: "कुल 80 प्रश्न · 80 अंक · 45 मिनट", en: "Total 80 questions · 80 marks · 45 minutes" },
     neg: { hi: "प्रत्येक गलत उत्तर पर ¼ अंक कटेगा; छोड़े गए प्रश्न पर अंक नहीं कटेंगे।", en: "¼ mark is deducted for each wrong answer; unattempted questions carry no penalty." },
-    unlockTitle: { hi: "टेस्ट 2–25 अनलॉक करें — ₹99", en: "Unlock Tests 2–25 — ₹99" },
+    unlockTitle: { hi: "टेस्ट 2–25 अनलॉक करें", en: "Unlock Tests 2–25" },
     unlockSub: { hi: "पहला टेस्ट फ्री है। बाकी 24 टेस्ट एक बार ₹99 देकर अनलॉक करें।", en: "Test 1 is free. Unlock the other 24 tests with a one-time ₹99 payment." },
-    unlockBtn: { hi: "अभी भुगतान करें — ₹99", en: "Pay Now — ₹99" },
+    unlockBtn: { hi: "अभी भुगतान करें", en: "Pay Now" },
     links: [],
   },
   rrbg: {
@@ -278,12 +278,12 @@ export const MOCK_SERIES: Record<string, MockSeries> = {
     },
     totalLine: { hi: "कुल 100 प्रश्न · 100 अंक · 90 मिनट · प्रत्येक प्रश्न 1 अंक", en: "Total 100 questions · 100 marks · 90 minutes · 1 mark each" },
     neg: { hi: "प्रत्येक गलत उत्तर पर ⅓ अंक कटेगा; छोड़े गए प्रश्न पर कोई कटौती नहीं।", en: "⅓ mark is deducted for each wrong answer; no deduction for unattempted questions." },
-    unlockTitle: { hi: "टेस्ट 2–25 अनलॉक करें — ₹85", en: "Unlock Tests 2–25 — ₹85" },
+    unlockTitle: { hi: "टेस्ट 2–25 अनलॉक करें", en: "Unlock Tests 2–25" },
     unlockSub: {
       hi: "टेस्ट 1 फ्री है। टेस्ट 2–25 खोलने के लिए एक बार ₹85 का भुगतान करें।",
       en: "Test 1 is free. Pay ₹85 once to unlock Tests 2–25.",
     },
-    unlockBtn: { hi: "अभी भुगतान करें — ₹85", en: "Pay Now — ₹85" },
+    unlockBtn: { hi: "अभी भुगतान करें", en: "Pay Now" },
     links: [],
   },
   rrbu: {
@@ -316,12 +316,12 @@ export const MOCK_SERIES: Record<string, MockSeries> = {
     },
     totalLine: { hi: "कुल 100 प्रश्न · 100 अंक · 90 मिनट · प्रत्येक प्रश्न 1 अंक", en: "Total 100 questions · 100 marks · 90 minutes · 1 mark each" },
     neg: { hi: "प्रत्येक गलत उत्तर पर ⅓ अंक कटेगा; छोड़े गए प्रश्न पर कोई कटौती नहीं।", en: "⅓ mark is deducted for each wrong answer; no deduction for unattempted questions." },
-    unlockTitle: { hi: "टेस्ट 2–25 अनलॉक करें — ₹85", en: "Unlock Tests 2–25 — ₹85" },
+    unlockTitle: { hi: "टेस्ट 2–25 अनलॉक करें", en: "Unlock Tests 2–25" },
     unlockSub: {
       hi: "टेस्ट 1 फ्री है। टेस्ट 2–25 खोलने के लिए एक बार ₹85 का भुगतान करें।",
       en: "Test 1 is free. Pay ₹85 once to unlock Tests 2–25.",
     },
-    unlockBtn: { hi: "अभी भुगतान करें — ₹85", en: "Pay Now — ₹85" },
+    unlockBtn: { hi: "अभी भुगतान करें", en: "Pay Now" },
     links: [],
   },
 };
