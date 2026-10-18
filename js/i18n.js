@@ -63,6 +63,7 @@ const I18N_DICT = {
   exams_tgt_desc: { hi: "कक्षा IX-X के लिए विषयवार टेस्ट", en: "Subject-wise tests for Classes IX-X" },
   exams_pgt_desc: { hi: "कक्षा XI-XII के लिए विषयवार टेस्ट", en: "Subject-wise tests for Classes XI-XII" },
   exams_ctet_desc: { hi: "पेपर 1 और पेपर 2, साथ ही पूर्ण मॉक टेस्ट", en: "Paper 1 & Paper 2, plus full mock tests" },
+  home_clean_tagline: { hi: "📚 साफ़ और व्यवस्थित होमपेज", en: "📚 Clean and Organized Homepage" },
   home_typing_h: { hi: "टाइपिंग प्रैक्टिस", en: "Typing Practice" },
   home_typing_desc: { hi: "English और Hindi typing की speed और accuracy बढ़ाएँ।", en: "Build your English and Hindi typing speed and accuracy." },
   home_typing_btn: { hi: "अभ्यास करें", en: "Practice Now" },
