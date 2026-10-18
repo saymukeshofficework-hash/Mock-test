@@ -429,6 +429,9 @@ header.site-header nav{padding-right:145px}
     const nodes = [];
     while (walker.nextNode()) nodes.push(walker.currentNode);
     nodes.forEach(node => {
+      // Elements with data-i18n are translated by the shared dictionary; keep the legacy
+      // homepage text walker from overwriting them and breaking the return to Hindi.
+      if (node.parentElement && node.parentElement.closest("[data-i18n], [data-i18n-html]")) return;
       const raw = node.nodeValue;
       const trimmed = raw.trim();
       if (!trimmed) return;
@@ -495,6 +498,9 @@ header.site-header nav{padding-right:145px}
     const nodes = [];
     while (walker.nextNode()) nodes.push(walker.currentNode);
     nodes.forEach(node => {
+      // Elements with data-i18n are translated by the shared dictionary; keep the legacy
+      // homepage text walker from overwriting them and breaking the return to Hindi.
+      if (node.parentElement && node.parentElement.closest("[data-i18n], [data-i18n-html]")) return;
       if (!homeOriginalText.has(node)) homeOriginalText.set(node, node.nodeValue);
       const original = homeOriginalText.get(node);
       const trimmed = original.trim();
