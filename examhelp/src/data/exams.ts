@@ -509,9 +509,10 @@ export const exams: Exam[] = [
     category: "mppsc",
     examType: "RECRUITMENT",
     dates: {
-      exam: { date: "2026-11-22", status: "TENTATIVE", note: { hi: "MPPSC परीक्षा कैलेंडर के अनुसार; आधिकारिक व्यक्तिगत प्रवेश-पत्र सूचना जारी होने पर पुनः पुष्टि करें।", en: "Per MPPSC exam calendar; reconfirm when the individual official admit-card notice is available." } },
+      exam: { date: "2026-11-22", status: "CONFIRMED", note: { hi: "MPPSC की आधिकारिक सूचना दिनांक 15.10.2026 के अनुसार। प्रवेश-पत्र 12.11.2026 से; समय 12:00–15:00 बजे, संभागीय मुख्यालय इंदौर।", en: "Per MPPSC official notice dated 15 Oct 2026. Admit card from 12 Nov 2026; 12:00–15:00, divisional headquarters Indore." } },
     },
     officialUrl: PSC,
+    notificationUrl: "https://mppsc.mp.gov.in/uploads/advertisement/Corrigendum_03_05_06_07_and_35_2025_Dated_15_10_2026.pdf",
     source: { label: "MPPSC Exam Calendar 2026 (date subject to change)", url: PSC, checkedOn: CHECKED },
     updatedAt: CHECKED,
   },
@@ -524,9 +525,10 @@ export const exams: Exam[] = [
     category: "mppsc",
     examType: "RECRUITMENT",
     dates: {
-      exam: { date: "2026-11-22", status: "TENTATIVE", note: { hi: "MPPSC परीक्षा कैलेंडर के अनुसार; आधिकारिक व्यक्तिगत प्रवेश-पत्र सूचना जारी होने पर पुनः पुष्टि करें।", en: "Per MPPSC exam calendar; reconfirm when the individual official admit-card notice is available." } },
+      exam: { date: "2026-11-22", status: "CONFIRMED", note: { hi: "MPPSC की आधिकारिक सूचना दिनांक 15.10.2026 के अनुसार। प्रवेश-पत्र 12.11.2026 से; समय 12:00–15:00 बजे, संभागीय मुख्यालय इंदौर।", en: "Per MPPSC official notice dated 15 Oct 2026. Admit card from 12 Nov 2026; 12:00–15:00, divisional headquarters Indore." } },
     },
     officialUrl: PSC,
+    notificationUrl: "https://mppsc.mp.gov.in/uploads/advertisement/Corrigendum_03_05_06_07_and_35_2025_Dated_15_10_2026.pdf",
     source: { label: "MPPSC Exam Calendar 2026 (date subject to change)", url: PSC, checkedOn: CHECKED },
     updatedAt: CHECKED,
   },
@@ -555,10 +557,11 @@ export const exams: Exam[] = [
     category: "mppsc",
     examType: "RECRUITMENT",
     dates: {
-      exam: { date: "2026-11-22", status: "TENTATIVE", note: { hi: "MPPSC परीक्षा कैलेंडर में संभावित तिथि; अंतिम पुष्टि के लिए आयोग की नवीनतम सूचना देखें।", en: "Tentative date in the MPPSC exam calendar; check the latest Commission notice for final confirmation." } },
+      exam: { date: "2026-11-22", status: "CONFIRMED", note: { hi: "MPPSC की आधिकारिक सूचना दिनांक 15.10.2026 के अनुसार। प्रवेश-पत्र 12.11.2026 से; समय 12:00–15:00 बजे, संभागीय मुख्यालय इंदौर।", en: "Per MPPSC official notice dated 15 Oct 2026. Admit card from 12 Nov 2026; 12:00–15:00, divisional headquarters Indore." } },
     },
     officialUrl: PSC,
-    source: { label: "MPPSC Revised Exam Calendar 2026", url: "https://mppsc.mp.gov.in/", checkedOn: CHECKED },
+    notificationUrl: "https://mppsc.mp.gov.in/uploads/advertisement/Corrigendum_03_05_06_07_and_35_2025_Dated_15_10_2026.pdf",
+    source: { label: "MPPSC official exam notice dated 15.10.2026", url: "https://mppsc.mp.gov.in/uploads/advertisement/Corrigendum_03_05_06_07_and_35_2025_Dated_15_10_2026.pdf", checkedOn: CHECKED },
     updatedAt: CHECKED,
   },
 ];
