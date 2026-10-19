@@ -443,6 +443,14 @@ function translateTree(){
 }
 document.querySelectorAll('#languageSwitch [data-lang]').forEach(btn=>btn.addEventListener('click',()=>{lang=btn.dataset.lang==='en'?'en':'hi';try{localStorage.setItem(KEY,lang)}catch(e){};translateTree();}));
 window.addEventListener('DOMContentLoaded',translateTree);
+// Cards and labels are rendered asynchronously after the first translation pass.
+// Translate newly inserted text while ignoring characterData changes made by this script.
+if (document.body && typeof MutationObserver !== 'undefined') {
+ const languageObserver = new MutationObserver(records => {
+  if (records.some(record => record.addedNodes && record.addedNodes.length)) translateTree();
+ });
+ languageObserver.observe(document.body, { childList: true, subtree: true });
+}
 translateTree();
 })();
 </script>
