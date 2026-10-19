@@ -19,7 +19,7 @@ const ESB_APPLY = "https://esb.mponline.gov.in/Portal/Examinations/Vyapam/examsL
 const ESB_CAL = "https://esb.mp.gov.in/Exams_Schedule/Exam_schedule_2026_060826.pdf";
 const PSC = "https://mppsc.mp.gov.in/";
 const PSC_CAL = "https://mppsc.mp.gov.in/uploads/calendar/Revised_Exam_Calendar_2026_Dated_15_05_2026.pdf";
-const CHECKED = "2026-09-30";
+const CHECKED = "2026-10-19";
 
 const calNote = {
   hi: "MPESB के संभावित परीक्षा कैलेंडर (संशोधित 05.08.2026) के अनुसार केवल माह घोषित।",
@@ -203,16 +203,16 @@ export const exams: Exam[] = [
     mode: { hi: "ऑनलाइन (CBT)", en: "Online (CBT)" },
     posts: 700,
     dates: {
-      applicationStart: { date: "2026-08-29", status: "CONFIRMED" },
-      applicationEnd: { date: "2026-09-12", status: "CONFIRMED" },
-      correctionEnd: { date: "2026-09-17", status: "CONFIRMED" },
-      exam: { date: "2026-10-07", status: "CONFIRMED" },
+      applicationStart: { date: "2026-10-13", status: "CONFIRMED", note: { hi: "पुनः आवेदन विंडो; आधिकारिक MPOnline सूची के अनुसार।", en: "Reopened application window per the official MPOnline listing." } },
+      applicationEnd: { date: "2026-10-27", status: "CONFIRMED" },
+      correctionEnd: { date: "2026-10-28", status: "CONFIRMED" },
+      exam: { month: "2026-12", status: "EXPECTED", note: { hi: "परीक्षा दिसंबर 2026/जनवरी 2027 तक स्थगित; सटीक तारीख घोषित नहीं।", en: "Postponed to December 2026/January 2027; exact date not announced." } },
     },
     officialUrl: ESB,
     rulebookUrl: `${ESB_RB}Group03_2026_Updated_27082026.pdf`,
     featured: true,
     popular: true,
-    source: { label: "MPESB Rulebook (27.08.2026)", url: `${ESB_RB}Group03_2026_Updated_27082026.pdf`, checkedOn: CHECKED },
+    source: { label: "MPESB revised notice and MPOnline reopened application listing (13.10.2026)", url: "https://esb.mponline.gov.in/Portal/Examinations/Vyapam/examsList.aspx", checkedOn: CHECKED },
     updatedAt: CHECKED,
   },
   {
