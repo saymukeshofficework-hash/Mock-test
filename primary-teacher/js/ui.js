@@ -236,7 +236,7 @@
       var card = document.createElement("article");
       card.className = "lesson-card";
       card.id = "lesson-card-" + lesson.id;
-      card.style.setProperty("--card-accent", lesson.accent || "#d7ecff");
+      if (lesson.accent) card.style.setProperty("--card-accent", lesson.accent);
       card.tabIndex = 0;
       card.setAttribute("role", "group");
       card.setAttribute("aria-label", lesson.title);
