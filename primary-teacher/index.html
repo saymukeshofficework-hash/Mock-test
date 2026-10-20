@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>Primary Teacher — डिजिटल कक्षा</title>
 <meta name="description" content="बच्चों के लिए हिंदी-अंग्रेज़ी डिजिटल कक्षा — गिनती, वर्णमाला, स्वर, मात्राएँ और शब्द सिखाने वाला हैंड्स-फ्री टीचर ऐप।">
-<link rel="stylesheet" href="css/style.css?v=3">
-<link rel="stylesheet" href="css/classroom.css?v=3">
+<link rel="stylesheet" href="css/style.css?v=4">
+<link rel="stylesheet" href="css/classroom.css?v=4">
 </head>
 <body>
 
@@ -25,6 +25,20 @@
 </header>
 
 <main id="homeScreen">
+  <section class="welcome-hero" aria-labelledby="welcomeTitle">
+    <div class="welcome-copy">
+      <span class="hero-kicker">🌈 कक्षा 1 से 5 के लिए</span>
+      <h2 id="welcomeTitle">खेल-खेल में सीखें,<br><span>हर दिन कुछ नया!</span></h2>
+      <p>चित्र देखें, नाम सुनें, बोलकर दोहराएँ और अपनी सीखने की यात्रा शुरू करें।</p>
+      <div class="hero-actions"><a class="hero-primary" href="#objectLearning">🍎 चित्रों से सीखें</a><a class="hero-secondary" href="#categoryCountingTitle">🔢 गिनती शुरू करें</a></div>
+      <div class="hero-stats"><span>🎧 सुनें</span><span>👀 देखें</span><span>🗣️ बोलें</span><span>⭐ सीखें</span></div>
+    </div>
+    <div class="welcome-art"><img src="primary-teacher-hero.svg" alt="किताबों के साथ सीखते हुए खुश बच्चे और स्कूल की रंगीन तस्वीर" fetchpriority="high"></div>
+  </section>
+  <nav class="quick-menu" aria-label="सीखने की श्रेणियाँ">
+    <a href="#lesson-card-fruits">🍎 फल</a><a href="#lesson-card-vegetables">🥕 सब्जियाँ</a><a href="#lesson-card-animals">🐘 जानवर</a><a href="#lesson-card-birds">🦜 पक्षी</a><a href="#lesson-card-colors">🎨 रंग</a><a href="#lesson-card-shapes">🔷 आकार</a><a href="#lesson-card-body-parts">👀 शरीर के अंग</a><a href="#lesson-card-everyday-objects">🎒 वस्तुएँ</a>
+  </nav>
+
   <section class="category" aria-labelledby="categoryCountingTitle">
     <h2 id="categoryCountingTitle">🔢 गिनती</h2>
     <div class="lesson-grid" id="countingGrid"></div>
@@ -37,6 +51,14 @@
     <h2 id="categoryBarakhadiTitle">📝 बारहखड़ी</h2>
     <div class="lesson-grid" id="barakhadiGrid"></div>
   </section>
+
+  <section class="category object-category" id="objectLearning" aria-labelledby="categoryObjectsTitle">
+    <h2 id="categoryObjectsTitle">🍎 चित्रों से नई चीज़ें सीखें</h2>
+    <p class="category-intro">रंगीन चित्रों को देखें, नाम सुनें और सब मिलकर दोहराएँ।</p>
+    <img class="object-strip-art" src="primary-teacher-object-strip.svg" alt="फल, सब्जियाँ, जानवर, पक्षी, आकार और स्कूल की चीज़ों के चित्र" loading="lazy">
+    <div class="lesson-grid objects-grid" id="objectsGrid"></div>
+  </section>
+
   <section class="category" aria-labelledby="categoryRandomTitle">
     <h2 id="categoryRandomTitle">🎲 रैंडम अभ्यास</h2>
     <div class="lesson-grid" id="randomGrid"></div>
@@ -182,9 +204,10 @@
 <script src="data/matras.js?v=3"></script>
 <script src="data/words.js?v=3"></script>
 <script src="data/barakhadi.js?v=3"></script>
-<script src="data/randomizer.js?v=3"></script>
+<script src="data/randomizer.js?v=4"></script>
+<script src="data/object-lessons.js?v=1"></script>
 <script src="data/audio-manifest.js?v=3"></script>
-<script src="js/ui.js?v=3"></script>
-<script src="js/app.js?v=3"></script>
+<script src="js/ui.js?v=4"></script>
+<script src="js/app.js?v=4"></script>
 </body>
 </html>
