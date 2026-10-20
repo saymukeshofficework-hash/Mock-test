@@ -279,6 +279,12 @@ export const exams: Exam[] = [
     featured: false,
     popular: true,
     source: { label: "MPESB Exam Calendar (revised 05.08.2026) and MPOnline court-case-only reopening notice (15.10.2026)", url: ESB_APPLY, checkedOn: CHECKED },
+    testSeries: {
+      href: "/mp-police-si-mock-tests/",
+      title: { hi: "SI / सूबेदार 2026 — 25 फुल मॉक टेस्ट", en: "SI / Subedar 2026 — 25 full mock tests" },
+      sub: { hi: "15 प्रारंभिक + 10 मुख्य टेस्ट · 100 प्रश्न · 120 मिनट · टेस्ट 1 फ्री, बाकी 24 टेस्ट ₹99 में", en: "15 prelims + 10 mains tests · 100 Qs · 120 min · Test 1 free, other 24 for ₹99" },
+      cta: { hi: "टेस्ट देखें", en: "View tests" },
+    },
     updatedAt: CHECKED,
   },
   {

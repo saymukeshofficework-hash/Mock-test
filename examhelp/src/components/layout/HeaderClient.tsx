@@ -13,7 +13,7 @@ import { LoginChip } from "./LoginChip";
 /** Small Home option before the TETTESTHUB logo on mock-test catalogues. */
 export function MockPageHomeLink() {
   const pathname = usePathname();
-  const isMockTestList = /(?:^|\/)(?:tet-mock-tests|mp-high-court-assistant-grade-3-mock-tests|mp-police-constable-gd-mock-tests|mp-police-subedar-asi-mock-tests|mp-police-driver-mock-tests|mp-grameen-bank-mock-tests|rrb-ntpc-(?:graduate|undergraduate)-mock-tests)\/?$/.test(pathname);
+  const isMockTestList = /(?:^|\/)(?:tet-mock-tests|mp-high-court-assistant-grade-3-mock-tests|mp-police-constable-gd-mock-tests|mp-police-subedar-asi-mock-tests|mp-police-driver-mock-tests|mp-police-si-mock-tests|mp-grameen-bank-mock-tests|rrb-ntpc-(?:graduate|undergraduate)-mock-tests)\/?$/.test(pathname);
   if (!isMockTestList) return null;
   return <a href="https://tettesthub.in/index.html" aria-label="बैंगनी होमपेज पर जाएँ" title="होम" className="inline-flex h-8 shrink-0 items-center gap-1 rounded-lg border border-brand-200 bg-brand-50 px-2 text-xs font-bold text-brand-700 hover:bg-brand-100">⌂ <span>होम</span></a>;
 }
@@ -94,7 +94,7 @@ export function DesktopNav({ lang }: { lang: Lang }) {
 /** Mobile: Search + Menu buttons and the slide-in drawer. */
 export function MobileControls({ lang }: { lang: Lang }) {
   const pathname = usePathname();
-  const isMockTestList = /(?:^|\/)(?:tet-mock-tests|mp-high-court-assistant-grade-3-mock-tests|mp-police-constable-gd-mock-tests|mp-police-subedar-asi-mock-tests|mp-police-driver-mock-tests|mp-grameen-bank-mock-tests|rrb-ntpc-(?:graduate|undergraduate)-mock-tests)\/?$/.test(pathname);
+  const isMockTestList = /(?:^|\/)(?:tet-mock-tests|mp-high-court-assistant-grade-3-mock-tests|mp-police-constable-gd-mock-tests|mp-police-subedar-asi-mock-tests|mp-police-driver-mock-tests|mp-police-si-mock-tests|mp-grameen-bank-mock-tests|rrb-ntpc-(?:graduate|undergraduate)-mock-tests)\/?$/.test(pathname);
   const isCurrentAffairs = /(?:^|\/)current-affairs\/?$/.test(pathname);
   const [open, setOpen] = useState(false);
   const closeRef = useRef<HTMLButtonElement>(null);

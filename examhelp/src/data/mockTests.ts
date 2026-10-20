@@ -146,6 +146,42 @@ export const MOCK_SERIES: Record<string, MockSeries> = {
     unlockBtn: { hi: "सभी टेस्ट अनलॉक करें", en: "Unlock all tests" },
     links: [{ href: "/exams/mp-police-constable-driver-2026/", label: { hi: "परीक्षा की पूरी जानकारी →", en: "Full exam details →" }, tone: "brand" }],
   },
+  mpsi: {
+    id: "mpsi",
+    total: 25,
+    free: [1],
+    product: "mpsi-tests",
+    price: 99,
+    enginePath: "/mock-tests/mpsi/test.html",
+    scorePrefix: "testhub_mpsi_mock_",
+    listPath: "/mp-police-si-mock-tests",
+    title: { hi: "MP पुलिस SI / सूबेदार 2026 — 25 फुल मॉक टेस्ट", en: "MP Police SI / Subedar 2026 — 25 Full Mock Tests" },
+    sub: {
+      hi: "MPESB SI/सूबेदार 2026 पाठ्यक्रम पर: 15 प्रारंभिक + 10 मुख्य परीक्षा टेस्ट, हर टेस्ट 100 प्रश्न, 120 मिनट। हर प्रश्न हिंदी/English में, व्याख्या सहित। दोहराए गए प्रश्न हटाए गए हैं।",
+      en: "On the MPESB SI/Subedar 2026 syllabus: 15 prelims + 10 mains tests, 100 questions and 120 minutes each. Every question in Hindi/English with an explanation. Repeated questions have been removed.",
+    },
+    rows: {
+      hi: [
+        ["प्रारंभिक (टेस्ट 1–15): हिंदी, अंग्रेज़ी, विश्लेषण, इतिहास, भूगोल, विज्ञान, संविधान, कंप्यूटर, तर्कशक्ति, समसामयिकी", "100", "हिंदी/English"],
+        ["मुख्य प्रश्नपत्र-I (टेस्ट 16–20): इतिहास, भारतीय समाज, शासन, संविधान, BNS/BNSS/BSA", "100", "हिंदी/English"],
+        ["मुख्य प्रश्नपत्र-II (टेस्ट 21–25): समसामयिकी, विज्ञान-प्रौद्योगिकी, अर्थव्यवस्था, पर्यावरण, तर्कशक्ति, गणित", "100", "हिंदी/English"],
+      ],
+      en: [
+        ["Prelims (Tests 1–15): Hindi, English, Analytical, History, Geography, Science, Polity, Computer, Reasoning, Current Affairs", "100", "Hindi/English"],
+        ["Mains Paper I (Tests 16–20): History, Indian Society, Governance, Constitution, BNS/BNSS/BSA", "100", "Hindi/English"],
+        ["Mains Paper II (Tests 21–25): Current Affairs, Science-Tech, Economy, Environment, Reasoning, Maths", "100", "Hindi/English"],
+      ],
+    },
+    totalLine: { hi: "हर टेस्ट 100 प्रश्न · 120 मिनट · प्रारंभिक 100 अंक, मुख्य 300 अंक", en: "Each test 100 questions · 120 minutes · Prelims 100 marks, Mains 300 marks" },
+    neg: { hi: "प्रारंभिक टेस्ट: प्रत्येक प्रश्न 1 अंक, ऋणात्मक अंकन नहीं। मुख्य टेस्ट: सही +3, गलत −1।", en: "Prelims tests: 1 mark each, no negative marking. Mains tests: +3 correct, −1 wrong." },
+    unlockTitle: { hi: "पूरी टेस्ट सीरीज़ — 25 फुल मॉक टेस्ट", en: "Full test series — 25 full mock tests" },
+    unlockSub: {
+      hi: "टेस्ट 1 फ्री है। बाकी 24 टेस्ट एक बार ₹99 देकर अनलॉक करें — इसी डिवाइस पर तुरंत खुल जाएंगे।",
+      en: "Test 1 is free. Unlock the other 24 tests once for ₹99 — they open instantly on this device.",
+    },
+    unlockBtn: { hi: "सभी टेस्ट अनलॉक करें", en: "Unlock all tests" },
+    links: [{ href: "/exams/mp-subedar-si-2026/", label: { hi: "परीक्षा की पूरी जानकारी →", en: "Full exam details →" }, tone: "brand" }],
+  },
   tet: {
     id: "tet",
     total: 25,
