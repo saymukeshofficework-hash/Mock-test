@@ -77,6 +77,15 @@ const COURSES = (lang: Lang): Course[] => {
       price: 99, href: "/mp-police-subedar-asi-mock-tests",
     },
     {
+      f: ["new", "tests"], tone: "amber", art: "test", isNew: true,
+      kick: hi ? "MP पुलिस • 507 पद" : "MP Police • 507 posts", big: hi ? "SI / सूबेदार 2026" : "SI / Subedar 2026",
+      sub: hi ? ["25 फुल टेस्ट", "सभी फ्री"] : ["25 full tests", "All free"],
+      tags: hi ? ["MP पुलिस", "टेस्ट सीरीज़"] : ["MP Police", "Test series"], meta: [hi ? "हर टेस्ट" : "Each test", hi ? "100 प्रश्न · 120 मिनट" : "100 Qs · 120 min"],
+      title: hi ? "MP पुलिस SI / सूबेदार 2026 — 25 फुल मॉक टेस्ट" : "MP Police SI / Subedar 2026 — 25 full mock tests",
+      desc: hi ? "✅ 15 प्रारंभिक + 10 मुख्य परीक्षा टेस्ट ✅ सभी 25 टेस्ट फ्री ✅ हिंदी/English, हर प्रश्न की व्याख्या" : "✅ 15 prelims + 10 mains tests ✅ All 25 tests free ✅ Hindi/English, explanation for every question",
+      price: 0, href: "/mp-police-si-mock-tests",
+    },
+    {
       f: ["tests"], tone: "ink", art: "test",
       kick: hi ? "TET • शिक्षक पात्रता परीक्षा" : "TET • Teacher Eligibility Test", big: hi ? "TET मॉक टेस्ट सीरीज़" : "TET Mock Test Series",
       sub: hi ? ["25 फुल टेस्ट", "टेस्ट 1 फ्री"] : ["25 full tests", "Test 1 free"],
