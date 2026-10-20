@@ -156,10 +156,7 @@ export const MOCK_SERIES: Record<string, MockSeries> = {
     scorePrefix: "testhub_mpsi_mock_",
     listPath: "/mp-police-si-mock-tests",
     title: { hi: "MP पुलिस SI / सूबेदार 2026 — 25 फुल मॉक टेस्ट", en: "MP Police SI / Subedar 2026 — 25 Full Mock Tests" },
-    sub: {
-      hi: "MPESB SI/सूबेदार 2026 पाठ्यक्रम पर: 15 प्रारंभिक + 10 मुख्य परीक्षा टेस्ट, हर टेस्ट 100 प्रश्न, 120 मिनट। हर प्रश्न हिंदी/English में, व्याख्या सहित। दोहराए गए प्रश्न हटाए गए हैं।",
-      en: "On the MPESB SI/Subedar 2026 syllabus: 15 prelims + 10 mains tests, 100 questions and 120 minutes each. Every question in Hindi/English with an explanation. Repeated questions have been removed.",
-    },
+    sub: { hi: "MPESB SI/सूबेदार 2026", en: "MPESB SI/Subedar 2026" },
     rows: {
       hi: [
         ["प्रारंभिक (टेस्ट 1–15): हिंदी, अंग्रेज़ी, विश्लेषण, इतिहास, भूगोल, विज्ञान, संविधान, कंप्यूटर, तर्कशक्ति, समसामयिकी", "100", "हिंदी/English"],
