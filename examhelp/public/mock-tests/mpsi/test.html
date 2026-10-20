@@ -832,11 +832,8 @@ function showMsg(hi, en) {
 }
 let MAINS = false, MK = { c: 1, w: 0 };
 function loadTest() {
-  if (TEST_NO === "01") return fetch("/examhelp/mock-tests/mpsi/tests/01.json").then((r) => { if (!r.ok) throw new Error("x"); return r.json(); });
-  let tok = null; try { tok = localStorage.getItem("testhub_dl_mpsi-tests"); } catch (e) {}
-  if (!tok) return Promise.reject(new Error("locked"));
-  return fetch(CHECKOUT_URL, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ action: "test", token: tok, n: +TEST_NO, series: "mpsi" }) })
-    .then((r) => { if (r.status === 404 || r.status === 403) { try { localStorage.removeItem("testhub_dl_mpsi-tests"); } catch (e) {} throw new Error("locked"); } if (!r.ok) throw new Error("x"); return r.json(); });
+  // all 25 tests are free and public
+  return fetch("/examhelp/mock-tests/mpsi/tests/" + TEST_NO + ".json").then((r) => { if (!r.ok) throw new Error("x"); return r.json(); });
 }
 loadTest()
   .then((d) => { SECTIONS = d.sections; Q = d.questions; MAINS = d.stage === "mains"; MK = d.marks || { c: 1, w: 0 }; boot(); })

@@ -31,7 +31,6 @@ const PRODUCT: Record<string, string> = {
   "pcgd-tests": "Police Constable GD — 25 tests",
   "asi-tests": "Police Subedar/ASI — 25 tests",
   "pcdr-tests": "Police Constable Driver — 25 tests",
-  "mpsi-tests": "Police SI / Subedar — 25 tests",
   "mpgrb-tests": "MP Gramin Bank — 25 tests",
   "ca-30": "Current affairs — 30-day pass",
 };

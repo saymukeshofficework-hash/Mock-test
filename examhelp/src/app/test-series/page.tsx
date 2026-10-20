@@ -75,7 +75,7 @@ export default async function Page() {
         <div>
           <p className="text-xs font-bold uppercase tracking-wide text-accent-700">{lang === "hi" ? "नया" : "New"}</p>
           <p className="mt-1 text-lg font-extrabold text-brand-900">{lang === "hi" ? "MP पुलिस SI / सूबेदार 2026 — 25 फुल मॉक टेस्ट" : "MP Police SI / Subedar 2026 — 25 full mock tests"}</p>
-          <p className="mt-1 text-sm text-ink-600">{lang === "hi" ? "प्रारंभिक + मुख्य · हिंदी/English · टेस्ट 1 फ्री" : "Prelims + Mains · Hindi/English · Test 1 free"}</p>
+          <p className="mt-1 text-sm text-ink-600">{lang === "hi" ? "प्रारंभिक + मुख्य · हिंदी/English · सभी टेस्ट फ्री" : "Prelims + Mains · Hindi/English · All tests free"}</p>
         </div>
         <span className="btn-primary shrink-0">{lang === "hi" ? "टेस्ट चुनें →" : "Choose tests →"}</span>
       </Link>

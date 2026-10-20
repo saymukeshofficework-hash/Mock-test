@@ -149,7 +149,7 @@ export const MOCK_SERIES: Record<string, MockSeries> = {
   mpsi: {
     id: "mpsi",
     total: 25,
-    free: [1],
+    free: Array.from({ length: 25 }, (_, i) => i + 1),
     product: "mpsi-tests",
     price: 99,
     enginePath: "/mock-tests/mpsi/test.html",
@@ -174,12 +174,9 @@ export const MOCK_SERIES: Record<string, MockSeries> = {
     },
     totalLine: { hi: "हर टेस्ट 100 प्रश्न · 120 मिनट · प्रारंभिक 100 अंक, मुख्य 300 अंक", en: "Each test 100 questions · 120 minutes · Prelims 100 marks, Mains 300 marks" },
     neg: { hi: "प्रारंभिक टेस्ट: प्रत्येक प्रश्न 1 अंक, ऋणात्मक अंकन नहीं। मुख्य टेस्ट: सही +3, गलत −1।", en: "Prelims tests: 1 mark each, no negative marking. Mains tests: +3 correct, −1 wrong." },
-    unlockTitle: { hi: "पूरी टेस्ट सीरीज़ — 25 फुल मॉक टेस्ट", en: "Full test series — 25 full mock tests" },
-    unlockSub: {
-      hi: "टेस्ट 1 फ्री है। बाकी 24 टेस्ट एक बार ₹99 देकर अनलॉक करें — इसी डिवाइस पर तुरंत खुल जाएंगे।",
-      en: "Test 1 is free. Unlock the other 24 tests once for ₹99 — they open instantly on this device.",
-    },
-    unlockBtn: { hi: "सभी टेस्ट अनलॉक करें", en: "Unlock all tests" },
+    unlockTitle: { hi: "सभी 25 टेस्ट फ्री हैं", en: "All 25 tests are free" },
+    unlockSub: { hi: "कोई भुगतान नहीं — कोई भी टेस्ट अभी शुरू करें।", en: "No payment — start any test now." },
+    unlockBtn: { hi: "टेस्ट शुरू करें", en: "Start a test" },
     links: [{ href: "/exams/mp-subedar-si-2026/", label: { hi: "परीक्षा की पूरी जानकारी →", en: "Full exam details →" }, tone: "brand" }],
   },
   tet: {

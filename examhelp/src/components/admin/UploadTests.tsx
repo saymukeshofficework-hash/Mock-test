@@ -9,7 +9,6 @@ const SERIES = [
   { id: "pcgd", label: "MP Police Constable GD (pcgd)" },
   { id: "asi", label: "MP Police Subedar / ASI (asi)" },
   { id: "pcdr", label: "MP Police Constable Driver (pcdr)" },
-  { id: "mpsi", label: "MP Police SI / Subedar (mpsi)" },
   { id: "ag3", label: "MP High Court AG-3 (ag3)" },
   { id: "mpgrb", label: "Madhya Pradesh Gramin Bank (mpgrb)" },
 ];

@@ -167,6 +167,7 @@ export function MockTestList({ series = "ag3" }: { series?: string }) {
             );
           })}
         </div>
+        {S.free.length < S.total ? (
         <div className="shrink-0 sm:w-72">
           {S.unlockHref ? (
             <a href={S.unlockHref} className="btn-primary w-full">
@@ -188,6 +189,7 @@ export function MockTestList({ series = "ag3" }: { series?: string }) {
             </>
           )}
         </div>
+        ) : null}
       </section>
 
 

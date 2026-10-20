@@ -70,13 +70,6 @@ const PRODUCTS: Record<string, { amount: number; file: string; downloadName: str
     downloadName: "",
     title: "MP पुलिस आरक्षक (चालक) 2026 — 25 फुल मॉक टेस्ट",
   },
-  "mpsi-tests": {
-    amount: 9900,
-    kind: "tests",
-    file: "mpsi", // private bucket "tests": mpsi/02.json … mpsi/25.json; test 1 is public
-    downloadName: "",
-    title: "MP पुलिस SI/सूबेदार 2026 — 25 फुल मॉक टेस्ट",
-  },
   "mpgrb-tests": {
     amount: 9900,
     kind: "tests",
