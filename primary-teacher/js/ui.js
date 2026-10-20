@@ -13,6 +13,7 @@
       categoryLanguage: "🔤 भाषा",
       categoryBarakhadi: "📝 बारहखड़ी",
       categoryRandom: "🎲 रैंडम अभ्यास",
+      categoryObjects: "🍎 चीज़ों से सीखें",
       categoryCustom: "✍️ अपना टेक्स्ट पढ़ें",
       customTextPlaceholder: "यहाँ अंग्रेज़ी टेक्स्ट पेस्ट करें...",
       customTextLessonTitle: "मेरा टेक्स्ट",
@@ -65,6 +66,7 @@
       categoryLanguage: "🔤 Language",
       categoryBarakhadi: "📝 Barakhadi",
       categoryRandom: "🎲 Random Practice",
+      categoryObjects: "🍎 Learn with pictures",
       categoryCustom: "✍️ Read Your Own Text",
       customTextPlaceholder: "Paste English text here...",
       customTextLessonTitle: "My Text",
@@ -128,8 +130,8 @@
   function cacheEls() {
     [
       "appTitle", "appSubtitle", "navSettingsBtn", "navHomeBtn",
-      "homeScreen", "categoryCountingTitle", "categoryLanguageTitle", "categoryBarakhadiTitle", "categoryRandomTitle", "categoryCustomTitle",
-      "countingGrid", "languageGrid", "barakhadiGrid", "randomGrid", "customTextInput", "btnPlayCustomText",
+      "homeScreen", "categoryCountingTitle", "categoryLanguageTitle", "categoryBarakhadiTitle", "categoryRandomTitle", "categoryObjectsTitle", "categoryCustomTitle",
+      "countingGrid", "languageGrid", "barakhadiGrid", "randomGrid", "objectsGrid", "customTextInput", "btnPlayCustomText",
       "classroomScreen", "classroomTitle", "itemInstruction", "itemDisplay", "itemSpeech",
       "phaseIndicator", "repeatBlock", "repeatTogetherLabel", "repeatTextEl", "progressFill", "progressLabel", "nextPreview",
       "btnStart", "btnPause", "btnResume", "btnRestart", "btnPrevious", "btnNext", "btnRepeat", "btnStop", "btnFullscreenClassroom",
@@ -162,6 +164,7 @@
     els.categoryLanguageTitle.textContent = t("categoryLanguage");
     els.categoryBarakhadiTitle.textContent = t("categoryBarakhadi");
     els.categoryRandomTitle.textContent = t("categoryRandom");
+    els.categoryObjectsTitle.textContent = t("categoryObjects");
     els.categoryCustomTitle.textContent = t("categoryCustom");
     els.customTextInput.placeholder = t("customTextPlaceholder");
     els.btnPlayCustomText.textContent = t("btnStartShort");
@@ -211,6 +214,7 @@
     if (lesson.category === "counting") return t("categoryCounting");
     if (lesson.category === "barakhadi") return t("categoryBarakhadi");
     if (lesson.category === "random") return t("categoryRandom");
+    if (lesson.category === "objects") return t("categoryObjects");
     return t("categoryLanguage");
   }
 
@@ -218,6 +222,7 @@
     if (lesson.category === "counting") return els.countingGrid;
     if (lesson.category === "barakhadi") return els.barakhadiGrid;
     if (lesson.category === "random") return els.randomGrid;
+    if (lesson.category === "objects") return els.objectsGrid;
     return els.languageGrid;
   }
 
@@ -226,12 +231,20 @@
     els.languageGrid.innerHTML = "";
     els.barakhadiGrid.innerHTML = "";
     els.randomGrid.innerHTML = "";
+    if (els.objectsGrid) els.objectsGrid.innerHTML = "";
     lessons.forEach(function (lesson) {
       var card = document.createElement("article");
       card.className = "lesson-card";
+      card.id = "lesson-card-" + lesson.id;
+      card.style.setProperty("--card-accent", lesson.accent || "#d7ecff");
       card.tabIndex = 0;
       card.setAttribute("role", "group");
       card.setAttribute("aria-label", lesson.title);
+
+      var icon = document.createElement("div");
+      icon.className = "lesson-card-icon";
+      icon.setAttribute("aria-hidden", "true");
+      icon.textContent = lesson.icon || (lesson.category === "counting" ? "🔢" : lesson.category === "barakhadi" ? "📝" : lesson.category === "random" ? "🎲" : "🔤");
 
       var title = document.createElement("h3");
       title.className = "lesson-card-title";
@@ -251,6 +264,7 @@
       btn.setAttribute("aria-label", t("btnStartShort") + " " + lesson.title);
       btn.addEventListener("click", function () { onStart(lesson.id); });
 
+      card.appendChild(icon);
       card.appendChild(title);
       card.appendChild(desc);
       card.appendChild(count);
