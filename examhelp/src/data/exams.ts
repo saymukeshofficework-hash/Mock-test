@@ -3,7 +3,7 @@ import type { Exam } from "@/types";
 /**
  * Seed exam records.
  *
- * Every date below was checked on 30 Sep 2026 against the official source
+ * Every date below was reviewed on 20 Oct 2026 against the official source
  * named in `source`. Rules:
  *  - CONFIRMED  -> an official rulebook/notice states the exact date.
  *  - TENTATIVE  -> official document gives a date but marks it "संभावित"
@@ -19,7 +19,7 @@ const ESB_APPLY = "https://esb.mponline.gov.in/Portal/Examinations/Vyapam/examsL
 const ESB_CAL = "https://esb.mp.gov.in/Exams_Schedule/Exam_schedule_2026_060826.pdf";
 const PSC = "https://mppsc.mp.gov.in/";
 const PSC_CAL = "https://mppsc.mp.gov.in/uploads/calendar/Revised_Exam_Calendar_2026_Dated_15_05_2026.pdf";
-const CHECKED = "2026-10-19";
+const CHECKED = "2026-10-20";
 
 const calNote = {
   hi: "MPESB के संभावित परीक्षा कैलेंडर (संशोधित 05.08.2026) के अनुसार केवल माह घोषित।",
@@ -273,12 +273,12 @@ export const exams: Exam[] = [
     category: "police",
     examType: "RECRUITMENT",
     posts: 507,
-    dates: { exam: { month: "2026-10", status: "EXPECTED", note: { hi: "कैलेंडर में सितंबर/अक्टूबर 2026 संभावित।", en: "Calendar lists Sep/Oct 2026 as expected." } } },
+    dates: { exam: { month: "2026-10", status: "EXPECTED", note: { hi: "कैलेंडर में सितंबर/अक्टूबर 2026 संभावित। 15–20 अक्टूबर की पुनः आवेदन विंडो केवल न्यायालयीन प्रकरणों से संबंधित अभ्यर्थियों के लिए है; यह सामान्य भर्ती के लिए नहीं है।", en: "Calendar lists Sep/Oct 2026 as expected. The 15–20 Oct reopened application window is only for court-case candidates, not general applicants." } } },
     officialUrl: ESB,
     rulebookUrl: `${ESB_RB}SI_Rulebook-2026_updated_09092026.pdf`,
     featured: false,
     popular: true,
-    source: { label: "MPESB Exam Calendar (revised 05.08.2026)", url: ESB_CAL, checkedOn: CHECKED },
+    source: { label: "MPESB Exam Calendar (revised 05.08.2026) and MPOnline court-case-only reopening notice (15.10.2026)", url: ESB_APPLY, checkedOn: CHECKED },
     updatedAt: CHECKED,
   },
   {
@@ -312,14 +312,14 @@ export const exams: Exam[] = [
     applyUrl: ESB_APPLY,
     rulebookUrl: `${ESB_RB}PCRT_Driver_2026_rulebook_07102026.pdf`,
     featured: false,
-    source: { label: "MPESB Rulebook (07.10.2026)", url: `${ESB_RB}PCRT_Driver_2026_rulebook_07102026.pdf`, checkedOn: "2026-10-16" },
+    source: { label: "MPESB Rulebook (07.10.2026) and MPOnline active application listing", url: ESB_APPLY, checkedOn: CHECKED },
     testSeries: {
       href: "/mp-police-driver-mock-tests/",
       title: { hi: "आरक्षक (चालक) 2026 — 25 फुल मॉक टेस्ट", en: "Police Constable Driver 2026 — 25 full mock tests" },
       sub: { hi: "MPESB पैटर्न: 100 प्रश्न · 120 मिनट · 3 खंड · टेस्ट 1 फ्री, बाकी 24 टेस्ट ₹99 में", en: "MPESB pattern: 100 Qs · 120 min · 3 sections · Test 1 free, other 24 for ₹99" },
       cta: { hi: "टेस्ट देखें", en: "View tests" },
     },
-    updatedAt: "2026-10-16",
+    updatedAt: CHECKED,
   },
   {
     id: "mp-panchayat-sachiv-2026",
