@@ -61,7 +61,7 @@ Deno.serve(async (req) => {
 
   switch (body.action) {
     case "login": {
-      const { data } = await db.from("orders").select("amount,paid_at").eq("status", "paid").limit(10000);
+      const { data } = await db.from("orders").select("amount,paid_at").eq("status", "paid").not("rzp_order_id", "like", "owner_tester_%").limit(10000);
       const now = new Date();
       const ist = (d: Date) => new Date(d.getTime() + 5.5 * 3600e3).toISOString().slice(0, 10);
       const today = ist(now);
@@ -76,7 +76,8 @@ Deno.serve(async (req) => {
       return json({ ok: true, stats: s });
     }
     case "list": {
-      let q = db.from("orders").select(COLS).order("created_at", { ascending: false }).limit(100);
+      // tester accounts (rzp_order_id owner_tester_*) are free passes, not sales: hidden here
+      let q = db.from("orders").select(COLS).not("rzp_order_id", "like", "owner_tester_%").order("created_at", { ascending: false }).limit(100);
       const st = body.status ?? "paid";
       if (st === "paid") q = q.eq("status", "paid");
       else if (st === "cancelled") q = q.eq("status", "cancelled");
