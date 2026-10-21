@@ -136,7 +136,10 @@ export function MockTestList({ series = "ag3" }: { series?: string }) {
           <h1 className="text-2xl font-extrabold text-brand-900 sm:text-3xl">{S.title[lang]}</h1>
           <p className="mt-2 max-w-2xl text-ink-600">{S.sub[lang]}</p>
         </div>
-
+        <div className="flex shrink-0 items-center gap-1 rounded-xl border border-ink-200 bg-surface p-1" role="group" aria-label="Language / भाषा">
+          <button type="button" onClick={() => { setLang("hi"); try { localStorage.setItem("testhub_lang_pref", "hi"); } catch {} }} aria-pressed={lang === "hi"} className={`rounded-lg px-3 py-2 text-sm font-bold ${lang === "hi" ? "bg-brand-700 text-white" : "text-ink-700"}`}>हिन्दी</button>
+          <button type="button" onClick={() => { setLang("en"); try { localStorage.setItem("testhub_lang_pref", "en"); } catch {} }} aria-pressed={lang === "en"} className={`rounded-lg px-3 py-2 text-sm font-bold ${lang === "en" ? "bg-brand-700 text-white" : "text-ink-700"}`}>English</button>
+        </div>
       </div>
 
       <section className="card mt-6 overflow-x-auto p-5" aria-labelledby="pat-h">
@@ -210,7 +213,7 @@ export function MockTestList({ series = "ag3" }: { series?: string }) {
           const ready = S.openAll || (isFree ? S.free.includes(n) : freeNow ? !!S.unlockHref || mainSite || paidReady.includes(n) : !S.unlockHref && !!token && (mainSite || paidReady.includes(n)));
           const lockedPaid = !isFree && !token && !freeNow;
           const b = best[n];
-          const href = S.testHref ? S.testHref(n) : `${base}${S.enginePath}?t=${String(n).padStart(2, "0")}&lang=${lang}`;
+          const href = S.testHref ? S.testHref(n).replace(/([?&]lang=)(hi|en)/, `$1${lang}`) : `${base}${S.enginePath}?t=${String(n).padStart(2, "0")}&lang=${lang}`;
           return (
             <li key={n} className={`mock-test-card card flex flex-col p-3 sm:p-4 ${isFree ? "is-free" : "is-paid"}`}>
               <div className="mock-test-card-head flex items-center justify-between gap-1">
