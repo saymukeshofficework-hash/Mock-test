@@ -697,9 +697,9 @@ img,svg,video,canvas,table{max-width:100%}
 		<div id="nameScreen">
 			<div class="ntop">
 				<div>
-					<div class="ttext" data-title>MP Police Constable GD 2026 Mock Test</div>
+					<div class="ttext" data-title>MP Gramin Bank Mock Test</div>
 					<small id="nSubtitleText"
-						>100 Questions &nbsp;&middot;&nbsp; 120 min</small
+						>80 Questions &nbsp;&middot;&nbsp; 45 min</small
 					>
 				</div>
 				<button class="langBtn" id="langBtnName" type="button">
@@ -731,12 +731,12 @@ img,svg,video,canvas,table{max-width:100%}
 		<div id="app" style="display: none">
 			<div class="topbar">
 				<div class="ttwrap">
-					<div class="ttext" data-title>MP Police Constable GD 2026 Mock Test</div>
+					<div class="ttext" data-title>MP Gramin Bank Mock Test</div>
 					<small id="subtitleText"
-						>100 Questions &nbsp;&middot;&nbsp; 120 min</small
+						>80 Questions &nbsp;&middot;&nbsp; 45 min</small
 					>
 				</div>
-				<span class="dtime" id="dTime"><span id="dTimeLbl">Time Left</span> : <b id="timer2">120:00</b></span>
+				<span class="dtime" id="dTime"><span id="dTimeLbl">Time Left</span> : <b id="timer2">45:00</b></span>
 				<button class="langBtn" id="langBtn" type="button">
 					हिंदी
 				</button>
@@ -750,7 +750,7 @@ img,svg,video,canvas,table{max-width:100%}
             </div>
             <div class="timerbar" id="timerbar">
 				<span id="timeLeftLabel">Time Left</span>
-				<span id="timer">120:00</span>
+				<span id="timer">45:00</span>
 			</div>
 			<div class="sectiontabs" id="sectiontabs"></div>
 			<div class="examgrid">
@@ -821,7 +821,6 @@ img,svg,video,canvas,table{max-width:100%}
 			
 const params = new URLSearchParams(location.search);
 const TEST_NO = String(parseInt(params.get("t") || "1", 10)).padStart(2, "0");
-const CHECKOUT_URL = "https://znulepzdihzhjmuvyroi.supabase.co/functions/v1/notes-checkout";
 function showMsg(hi, en) {
   const L = (function(){ try { return localStorage.getItem("testhub_lang_pref") || "hi"; } catch (e) { return "hi"; } })();
   document.getElementById("nCardTitle").textContent = L === "en" ? en : hi;
@@ -831,63 +830,65 @@ function showMsg(hi, en) {
   const back = document.getElementById("backLink"); if (back) back.textContent = L === "en" ? "\u2190 Back to all tests" : "\u2190 सभी टेस्ट पर वापस जाएँ";
 }
 function makeFreeTest() {
-  let seed = 7129;
-  const rand = (n) => { seed = (seed * 1664525 + 1013904223) >>> 0; return seed % n; };
-  const shuffle = (a) => { a = a.slice(); for (let i=a.length-1;i>0;i--) { const j=rand(i+1); [a[i],a[j]]=[a[j],a[i]]; } return a; };
+  // Each question template uses a test-wide index so its parameter combination
+  // is unique across all 25 papers (250 questions per template family).
+  const testNo = Math.max(1, Math.min(25, Number(TEST_NO) || 1));
   const make = (s, hi, en, answer, wrong, shi, sen) => {
-    const opts = shuffle([String(answer), ...wrong.map(String)]);
-    return {s,d:"m",a:opts.indexOf(String(answer)),q:{hi,en},o:{hi:opts,en:opts},sol:{hi:shi,en:sen}};
+    const opts = [String(answer), ...wrong.map(String)];
+    // Deterministic option order; questions remain distinct without relying on randomness.
+    const shift = (testNo + hi.length + en.length) % opts.length;
+    const ordered = opts.slice(shift).concat(opts.slice(0, shift));
+    return {s,d:"m",a:ordered.indexOf(String(answer)),q:{hi,en},o:{hi:ordered,en:ordered},sol:{hi:shi,en:sen}};
   };
   const questions = [];
+  const words = ["BANK","LOAN","CASH","RURAL","MONEY","CROP","FARM","SAVE","CREDIT","VILLAGE"];
   for (let i=0;i<40;i++) {
-    const n=5+rand(35), step=2+rand(10), type=i%4;
+    const k=(testNo-1)*10+Math.floor(i/4), type=i%4;
     if(type===0) {
-      const seq=[n,n+step,n+2*step,n+3*step], ans=n+4*step;
+      const n=5+Math.floor(k/10), step=2+(k%10), seq=[n,n+step,n+2*step,n+3*step], ans=n+4*step;
       questions.push(make("reason",`श्रृंखला पूरी करें: ${seq.join(", ")}, ?`,`Complete the series: ${seq.join(", ")}, ?`,ans,[ans+step,ans-step,ans+2*step],`हर बार ${step} जोड़ने पर अगली संख्या ${ans} है।`,`Add ${step} each time; the next number is ${ans}.`));
     } else if(type===1) {
-      const words=["BANK","LOAN","CASH","RURAL","MONEY","CROP","FARM","SAVE"], w=words[rand(words.length)], sh=1+rand(4);
+      const w=words[k%words.length], sh=1+Math.floor(k/words.length);
       const ans=w.split("").map(ch=>String.fromCharCode((ch.charCodeAt(0)-65+sh)%26+65)).join("");
       questions.push(make("reason",`हर अक्षर को ${sh} स्थान आगे बढ़ाएँ: ${w} का कोड क्या होगा?`,`Shift every letter forward by ${sh}: what is the code for ${w}?`,ans,[w,ans.split("").reverse().join(""),w.split("").reverse().join("")],`प्रत्येक अक्षर ${sh} स्थान आगे बढ़ाने पर ${ans} मिलता है।`,`Shifting each letter forward by ${sh} gives ${ans}.`));
     } else if(type===2) {
-      const ans=n*3;
+      const n=5+k, multiplier=3, ans=n*multiplier;
       questions.push(make("reason",`यदि 1→3, 2→6, 3→9, तो ${n}→?`,`If 1→3, 2→6, 3→9, then ${n}→?`,ans,[ans+3,ans-2,n+3],`संख्या को 3 से गुणा करें: ${n} × 3 = ${ans}।`,`Multiply by 3: ${n} × 3 = ${ans}.`));
     } else {
-      const x=10+rand(40), y=10+rand(40), ans=x+y;
+      const x=10+Math.floor(k/40), y=10+(k%40), ans=x+y;
       questions.push(make("reason",`${x} और ${y} का योग कितना है?`,`What is the sum of ${x} and ${y}?`,ans,[ans+5,ans-3,ans+10],`${x} + ${y} = ${ans}।`,`${x} + ${y} = ${ans}.`));
     }
   }
   for (let i=0;i<40;i++) {
-    const n=100+rand(900), p=[5,10,15,20,25,30,40][rand(7)], type=i%5;
+    const k=(testNo-1)*8+Math.floor(i/5), type=i%5;
     if(type===0) {
-      const v=20+rand(180), rate=[10,15,20,25,30,40,50][rand(7)], ans=v*rate/100;
+      const v=20+k, rate=[10,15,20,25,30,40,50][k%7], ans=v*rate/100;
       questions.push(make("quant",`${v} का ${rate}% कितना है?`,`What is ${rate}% of ${v}?`,ans,[ans+5,ans+10,Math.max(1,ans-5)],`${v} × ${rate}/100 = ${ans}।`,`${v} × ${rate}/100 = ${ans}.`));
     } else if(type===1) {
-      const principal=500*(1+rand(20)), rate=[5,6,8,10,12][rand(5)], years=1+rand(3), ans=principal*rate*years/100;
+      const principal=500*(1+k), rate=[5,6,8,10,12][k%5], years=1+(k%3), ans=principal*rate*years/100;
       questions.push(make("quant",`₹${principal} पर ${rate}% से ${years} वर्ष का साधारण ब्याज?`,`Simple interest on ₹${principal} at ${rate}% for ${years} year(s)?`,ans,[ans+50,Math.max(0,ans-50),ans+100],`SI = P × R × T / 100 = ₹${ans}।`,`SI = P × R × T / 100 = ₹${ans}.`));
     } else if(type===2) {
-      const a=2+rand(18), b=2+rand(15), ans=a*b;
-      questions.push(make("quant",`${a} × ${b} का मान ज्ञात करें।`,`Calculate ${a} × ${b}.`,ans,[ans+a,ans-b,ans+2],`${a} × ${b} = ${ans}।`,`${a} × ${b} = ${ans}.`));
+      const a=2+Math.floor(k/15), b=2+(k%15), ans=a*b;
+      questions.push(make("quant",`${a} × ${b} का मान ज्ञात करें।`,`Calculate ${a} × ${b}.`,ans,[ans+1,ans+2,ans+3],`${a} × ${b} = ${ans}।`,`${a} × ${b} = ${ans}.`));
     } else if(type===3) {
-      const a=10+rand(50), b=10+rand(50), c=10+rand(50), ans=Number(((a+b+c)/3).toFixed(2));
+      const a=10+Math.floor(k/50), b=10+(Math.floor(k/10)%5), c=10+(k%10), ans=Number(((a+b+c)/3).toFixed(2));
       questions.push(make("quant",`${a}, ${b}, ${c} का औसत कितना है?`,`What is the average of ${a}, ${b}, ${c}?`,ans,[Number((ans+2).toFixed(2)),Number((ans+4).toFixed(2)),Number(Math.max(0,ans-2).toFixed(2))],`औसत = (${a}+${b}+${c}) ÷ 3 = ${ans}।`,`Average = (${a}+${b}+${c}) ÷ 3 = ${ans}.`));
     } else {
-      const price=100*(1+rand(30)), disc=[5,10,15,20,25][rand(5)], ans=price*(100-disc)/100;
+      const price=100*(1+k), disc=[5,10,15,20,25][k%5], ans=price*(100-disc)/100;
       questions.push(make("quant",`₹${price} की वस्तु पर ${disc}% छूट के बाद कीमत?`,`Price after a ${disc}% discount on ₹${price}?`,ans,[ans+10,ans-10,price],`कीमत = ₹${price} × (100−${disc})/100 = ₹${ans}।`,`Price = ₹${price} × (100−${disc})/100 = ₹${ans}.`));
     }
   }
-  return {test:1,title:{hi:"मध्य प्रदेश ग्रामीण बैंक — मॉक टेस्ट 01",en:"Madhya Pradesh Gramin Bank — Mock Test 01"},sections:[{key:"reason",label:{hi:"रीजनिंग / तार्किक क्षमता",en:"Reasoning Ability"}},{key:"quant",label:{hi:"संख्यात्मक योग्यता",en:"Numerical Ability"}}],questions};
+  return {test:testNo,title:{hi:"मध्य प्रदेश ग्रामीण बैंक — मॉक टेस्ट " + testNo,en:"Madhya Pradesh Gramin Bank — Mock Test " + testNo},sections:[{key:"reason",label:{hi:"रीजनिंग / तार्किक क्षमता",en:"Reasoning Ability"}},{key:"quant",label:{hi:"संख्यात्मक योग्यता",en:"Numerical Ability"}}],questions};
 }
 function loadTest() {
-  if (TEST_NO === "01") return Promise.resolve(makeFreeTest());
-  let tok = null; try { tok = localStorage.getItem("testhub_dl_mpgrb-tests"); } catch (e) {}
-  if (!tok) return Promise.reject(new Error("locked"));
-  return fetch(CHECKOUT_URL, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ action: "test", token: tok, n: +TEST_NO, series: "mpgrb" }) })
-    .then((r) => { if (r.status === 404 || r.status === 403) { try { localStorage.removeItem("testhub_dl_pcgd-tests"); } catch (e) {} throw new Error("locked"); } if (!r.ok) throw new Error("x"); return r.json(); });
+  // All 25 tests are free; no payment API, token, or login gate is used.
+  return Promise.resolve(makeFreeTest());
 }
 loadTest()
   .then((d) => { SECTIONS = d.sections; Q = d.questions; boot(); })
   .catch((e) => {
-    if (e.message === "locked") showMsg("यह टेस्ट, टेस्ट सीरीज़ (₹99) का हिस्सा है। सभी टेस्ट अनलॉक करने के लिए वापस जाएँ।", "This test is part of the test series (₹99). Go back to unlock all tests.");
+    if (e.message === "login") { showMsg("4 नवंबर तक सभी टेस्ट फ्री हैं। टेस्ट देने के लिए लॉगिन करें।", "All tests are free till 4 Nov. Please log in to take this test."); const b = document.getElementById("backLink"); if (b) { b.href = "/login.html?next=" + encodeURIComponent(location.pathname + location.search); b.textContent = "लॉगिन करें / Log in \u2192"; } }
+    else if (e.message === "locked") showMsg("यह टेस्ट, टेस्ट सीरीज़ (₹99) का हिस्सा है। सभी टेस्ट अनलॉक करने के लिए वापस जाएँ।", "This test is part of the test series (₹99). Go back to unlock all tests.");
     else showMsg("यह टेस्ट अभी उपलब्ध नहीं है।", "This test is not available yet.");
   });
 function boot() {

@@ -124,6 +124,9 @@ for (const s of TET_SERIES) {
   PRODUCTS[`tet-${s}`] = { amount: 9900, file: "", downloadName: "", title: `TET टेस्ट सीरीज़ / Test Series (${s})`, kind: "tet" };
 }
 const PASS_DAYS = 30; // current affairs pass length
+// 14-day free offer (owner, 2026-10-21): until this time any logged-in main-site student opens every
+// paid mock test ("test" action with access_token). Same date in js/site-config.js.
+const FREE_ACCESS_UNTIL = Date.parse("2026-11-04T23:59:59+05:30");
 const MAX_DOWNLOADS = 10;
 const LINK_SECONDS = 600;
 
@@ -328,6 +331,15 @@ Deno.serve(async (req) => {
       // paid mock test paper: token of a paid "tests" order + test number
       const token = body.token ?? "";
       const n = parseInt(String(body.n ?? ""), 10);
+      if (!token && body.access_token && Date.now() < FREE_ACCESS_UNTIL && n >= 1 && n <= 50) {
+        // free offer: logged-in student, any "tests" series folder
+        if (!(await loggedInUser(body.access_token))) return json({ error: "login_required" }, 401);
+        const folder = String(body.series ?? "");
+        if (!Object.values(PRODUCTS).some((x) => x.kind === "tests" && x.file === folder)) return json({ error: "not_found" }, 404);
+        const { data, error } = await db.storage.from("tests").download(`${folder}/${String(n).padStart(2, "0")}.json`);
+        if (error || !data) return json({ error: "no_test" }, 404);
+        return new Response(await data.text(), { headers: { ...cors, "Content-Type": "application/json", "Cache-Control": "private, max-age=600" } });
+      }
       if (token.length < 20 || !(n >= 1 && n <= 50)) return json({ error: "bad_request" }, 400);
       const { data: ord } = await db.from("orders").select("product,status").eq("download_token", token).eq("status", "paid").maybeSingle();
       const p = ord ? PRODUCTS[ord.product] : null;

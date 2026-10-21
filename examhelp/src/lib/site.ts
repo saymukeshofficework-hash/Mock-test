@@ -2,6 +2,12 @@
  * Site-wide configuration. Anything environment-specific (URLs, contact
  * details, analytics IDs) comes from environment variables — never hard-code.
  */
+// 14-day free offer (owner, 2026-10-21): every test series opens for logged-in students and the
+// price box is hidden until this time. Same date in js/site-config.js, public/mock-tests/free-pass.js
+// and supabase/functions/notes-checkout.
+export const FREE_ACCESS_UNTIL = "2026-11-04T23:59:59+05:30";
+export const freeAccessOn = () => Date.now() < Date.parse(FREE_ACCESS_UNTIL);
+
 export const site = {
   name: "TETTESTHUB",
   url: (process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000").replace(/\/$/, ""),

@@ -37,6 +37,10 @@
             return
           }
         }
+        // Short links like /mp-police-si-mock-tests/ open the same page under /examhelp/.
+        if (/^\/[a-z0-9-]+-mock-tests\/?$/.test(path)) {
+          window.location.replace('/examhelp' + path.replace(/\/?$/, '/') + window.location.search + window.location.hash)
+        }
       })()
     </script>
   </head>

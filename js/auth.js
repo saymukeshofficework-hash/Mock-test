@@ -99,6 +99,7 @@ async function requireAuth(){
 function canAccessTest(testId,profile){
  if(!profile)return false;
  if(FREE_TESTS&&FREE_TESTS.includes(testId))return profile.status==="active";
+ if(typeof freeAccessOn==="function"&&freeAccessOn())return profile.status==="active";
  return profile.status==="active"&&(profile.purchased_tests||[]).includes(testId);
 }
 

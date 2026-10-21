@@ -40,6 +40,17 @@ const COURSES = (lang: Lang): Course[] => {
   return [
     {
       f: ["new", "tests"], tone: "teal", art: "test", isNew: true,
+      kick: hi ? "मध्यप्रदेश ग्रामीण बैंक • 25 मॉक टेस्ट" : "MP Gramin Bank • 25 mock tests",
+      big: hi ? "ग्रामीण बैंक प्रैक्टिस सेट" : "Gramin Bank Practice Sets",
+      sub: hi ? ["25 फुल टेस्ट", "सभी टेस्ट फ्री"] : ["25 full tests", "All tests free"],
+      tags: hi ? ["बैंकिंग", "मॉक टेस्ट"] : ["Banking", "Mock tests"],
+      meta: [hi ? "हर टेस्ट" : "Each test", hi ? "80 प्रश्न · 45 मिनट" : "80 Qs · 45 min"],
+      title: hi ? "मध्यप्रदेश ग्रामीण बैंक — 25 मुफ्त मॉक टेस्ट" : "Madhya Pradesh Gramin Bank — 25 free mock tests",
+      desc: hi ? "✅ सभी 25 टेस्ट मुफ्त ✅ कोई पेमेंट नहीं ✅ रीजनिंग और न्यूमेरिकल एबिलिटी" : "✅ All 25 tests free ✅ No payment required ✅ Reasoning and numerical ability",
+      price: 0, href: "/mp-grameen-bank-mock-tests",
+    },
+    {
+      f: ["new", "tests"], tone: "teal", art: "test", isNew: true,
       kick: hi ? "MP हाई कोर्ट • 1174 पद" : "MP High Court • 1174 posts", big: hi ? "सहायक ग्रेड-3 2026" : "Assistant Grade-3 2026",
       sub: hi ? ["25 फुल टेस्ट", "टेस्ट 1 फ्री"] : ["25 full tests", "Test 1 free"],
       tags: hi ? ["MP हाई कोर्ट", "टेस्ट सीरीज़"] : ["MP High Court", "Test series"],
@@ -75,6 +86,15 @@ const COURSES = (lang: Lang): Course[] => {
       title: hi ? "MP पुलिस सूबेदार (शीघ्रलेखक) / ASI 2026 — 25 फुल मॉक टेस्ट" : "MP Police Subedar (Steno) / ASI 2026 — 25 full mock tests",
       desc: hi ? "✅ MPESB पैटर्न: 3 खंड, 100 प्रश्न ✅ टेस्ट 1 फ्री ✅ 12वीं स्तर, हिंदी/English व्याख्या सहित" : "✅ MPESB pattern: 3 sections, 100 Qs ✅ Test 1 free ✅ Class 12 level, Hindi/English with explanations",
       price: 99, href: "/mp-police-subedar-asi-mock-tests",
+    },
+    {
+      f: ["new", "tests"], tone: "amber", art: "test", isNew: true,
+      kick: hi ? "MP पुलिस • 507 पद" : "MP Police • 507 posts", big: hi ? "SI / सूबेदार 2026" : "SI / Subedar 2026",
+      sub: hi ? ["25 फुल टेस्ट", "सभी फ्री"] : ["25 full tests", "All free"],
+      tags: hi ? ["MP पुलिस", "टेस्ट सीरीज़"] : ["MP Police", "Test series"], meta: [hi ? "हर टेस्ट" : "Each test", hi ? "100 प्रश्न · 120 मिनट" : "100 Qs · 120 min"],
+      title: hi ? "MP पुलिस SI / सूबेदार 2026 — 25 फुल मॉक टेस्ट" : "MP Police SI / Subedar 2026 — 25 full mock tests",
+      desc: hi ? "✅ 15 प्रारंभिक + 10 मुख्य परीक्षा टेस्ट ✅ सभी 25 टेस्ट फ्री ✅ हिंदी/English, हर प्रश्न की व्याख्या" : "✅ 15 prelims + 10 mains tests ✅ All 25 tests free ✅ Hindi/English, explanation for every question",
+      price: 0, href: "/mp-police-si-mock-tests",
     },
     {
       f: ["tests"], tone: "ink", art: "test",
