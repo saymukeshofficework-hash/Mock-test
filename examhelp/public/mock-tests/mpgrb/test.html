@@ -869,7 +869,7 @@ function makeFreeTest() {
       questions.push(make("quant",`₹${principal} पर ${rate}% से ${years} वर्ष का साधारण ब्याज?`,`Simple interest on ₹${principal} at ${rate}% for ${years} year(s)?`,ans,[ans+50,Math.max(0,ans-50),ans+100],`SI = P × R × T / 100 = ₹${ans}।`,`SI = P × R × T / 100 = ₹${ans}.`));
     } else if(type===2) {
       const a=2+Math.floor(k/15), b=2+(k%15), ans=a*b;
-      questions.push(make("quant",`${a} × ${b} का मान ज्ञात करें।`,`Calculate ${a} × ${b}.`,ans,[ans+a,ans-b,ans+2],`${a} × ${b} = ${ans}।`,`${a} × ${b} = ${ans}.`));
+      questions.push(make("quant",`${a} × ${b} का मान ज्ञात करें।`,`Calculate ${a} × ${b}.`,ans,[ans+1,ans+2,ans+3],`${a} × ${b} = ${ans}।`,`${a} × ${b} = ${ans}.`));
     } else if(type===3) {
       const a=10+Math.floor(k/50), b=10+(Math.floor(k/10)%5), c=10+(k%10), ans=Number(((a+b+c)/3).toFixed(2));
       questions.push(make("quant",`${a}, ${b}, ${c} का औसत कितना है?`,`What is the average of ${a}, ${b}, ${c}?`,ans,[Number((ans+2).toFixed(2)),Number((ans+4).toFixed(2)),Number(Math.max(0,ans-2).toFixed(2))],`औसत = (${a}+${b}+${c}) ÷ 3 = ${ans}।`,`Average = (${a}+${b}+${c}) ÷ 3 = ${ans}.`));
