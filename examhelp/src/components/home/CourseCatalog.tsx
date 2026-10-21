@@ -182,43 +182,10 @@ export function CourseCatalog({ lang }: { lang: Lang }) {
         {shown.map((c) => {
           const external = c.abs || c.href.endsWith(".html") || c.href.includes(".html?");
           const inner = (
-            <>
-              <div className={`relative flex aspect-[4/5] flex-col justify-between overflow-hidden p-2 sm:aspect-[16/9] sm:p-5 ${TONES[c.tone]}`}>
-                {c.isNew ? <span className="absolute top-1 right-1 rounded-full bg-white px-1 py-0.5 text-[7px] font-extrabold text-ink-900 sm:top-4 sm:right-4 sm:px-2.5 sm:text-[11px]">NEW</span> : null}
-                <div>
-                  <p className="text-[7px] font-bold leading-tight tracking-wide uppercase opacity-85 sm:text-[11.5px]">{c.kick}</p>
-                  <p className="mt-1 max-w-full text-[11px] leading-tight font-extrabold sm:max-w-[75%] sm:text-2xl">{c.big}</p>
-                </div>
-                <div className="flex flex-wrap gap-1 sm:gap-1.5">
-                  {c.sub.map((s) => (
-                    <span key={s} className="rounded-full bg-white/20 px-1 py-0.5 text-[7px] leading-tight font-semibold sm:px-2.5 sm:text-xs">{s}</span>
-                  ))}
-                </div>
-                <Art kind={c.art} />
-              </div>
-              <div className="flex flex-1 flex-col p-2 sm:p-5">
-                <div className="flex flex-wrap gap-1 sm:gap-2">
-                  {c.tags.map((t) => (
-                    <span key={t} className="rounded border border-ink-200 bg-canvas px-1 py-0.5 text-[7px] leading-tight text-ink-500 sm:rounded-md sm:px-2.5 sm:text-xs">{t}</span>
-                  ))}
-                </div>
-                <p className="mt-2 text-[8px] leading-tight text-ink-500 sm:mt-3 sm:text-sm">
-                  {c.meta[0]}: <b className="font-semibold text-ink-900">{c.meta[1]}</b>
-                </p>
-                <p className="mt-1 text-[10px] leading-tight font-bold text-ink-900 sm:mt-2 sm:text-lg">{c.title}</p>
-                <p className="mt-1 line-clamp-2 text-[8px] leading-tight text-ink-500 sm:mt-1.5 sm:text-sm">{c.desc}</p>
-                <div className="mt-auto flex items-center justify-between gap-1 border-t border-ink-200 pt-2 sm:pt-4">
-                  <span data-sale={c.price ? "" : undefined} className="text-xs font-extrabold text-ink-900 sm:text-2xl">
-                    {c.price ? `₹${c.price}` : <span className="text-brand-700">{lang === "hi" ? "फ्री" : "Free"}</span>}
-                    {c.mrp ? <s className="ml-1 text-[9px] font-medium text-ink-500 sm:ml-1.5 sm:text-base">₹{c.mrp}</s> : null}
-                    {c.from ? <small className="ml-1 text-[8px] font-semibold text-ink-500 sm:ml-1.5 sm:text-sm">{lang === "hi" ? "से शुरू" : "onwards"}</small> : null}
-                  </span>
-                  <span className="grid h-5 w-5 shrink-0 place-items-center rounded-full bg-ink-900 text-white sm:h-9 sm:w-9" aria-hidden="true">
-                    <ArrowUpRight className="h-3 w-3 sm:h-4 sm:w-4" />
-                  </span>
-                </div>
-              </div>
-            </>
+            <div className={`flex min-h-20 items-center justify-center gap-2 p-3 text-center sm:min-h-28 sm:p-5 ${TONES[c.tone]}`}>
+              <span className="text-sm font-extrabold leading-snug sm:text-xl">{c.big}</span>
+              <ArrowUpRight className="h-4 w-4 shrink-0" aria-hidden="true" />
+            </div>
           );
           const cls = "flex h-full flex-col overflow-hidden rounded-2xl border border-ink-200 bg-surface transition hover:-translate-y-0.5 hover:shadow-[var(--shadow-lift)]";
           return (
