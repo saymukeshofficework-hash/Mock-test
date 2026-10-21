@@ -126,14 +126,6 @@ export function MockTestList({ series = "ag3" }: { series?: string }) {
       /* ignore */
     }
   }, []);
-  const switchLang = (l: Lang) => {
-    setLang(l);
-    try {
-      localStorage.setItem("testhub_lang_pref", l);
-    } catch {
-      /* ignore */
-    }
-  };
   const base = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
   const t = (k: keyof typeof T) => (T[k] as Record<Lang, string>)[lang];
 
@@ -144,17 +136,7 @@ export function MockTestList({ series = "ag3" }: { series?: string }) {
           <h1 className="text-2xl font-extrabold text-brand-900 sm:text-3xl">{S.title[lang]}</h1>
           <p className="mt-2 max-w-2xl text-ink-600">{S.sub[lang]}</p>
         </div>
-        <div className="flex shrink-0 flex-col items-end gap-2">
-          
-          <div className="inline-flex rounded-full border border-ink-200 bg-white p-0.5 text-sm font-semibold" role="group" aria-label="भाषा / Language">
-          {(["hi", "en"] as Lang[]).map((l) => (
-            <button key={l} type="button" onClick={() => switchLang(l)} aria-pressed={lang === l}
-              className={`rounded-full px-3 py-1 ${lang === l ? "bg-brand-700 text-white" : "text-ink-700"}`}>
-              {l === "hi" ? "हिंदी" : "English"}
-            </button>
-          ))}
-          </div>
-        </div>
+
       </div>
 
       <section className="card mt-6 overflow-x-auto p-5" aria-labelledby="pat-h">
