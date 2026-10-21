@@ -40,6 +40,17 @@ const COURSES = (lang: Lang): Course[] => {
   return [
     {
       f: ["new", "tests"], tone: "teal", art: "test", isNew: true,
+      kick: hi ? "मध्यप्रदेश ग्रामीण बैंक • 25 मॉक टेस्ट" : "MP Gramin Bank • 25 mock tests",
+      big: hi ? "ग्रामीण बैंक प्रैक्टिस सेट" : "Gramin Bank Practice Sets",
+      sub: hi ? ["25 फुल टेस्ट", "सभी टेस्ट फ्री"] : ["25 full tests", "All tests free"],
+      tags: hi ? ["बैंकिंग", "मॉक टेस्ट"] : ["Banking", "Mock tests"],
+      meta: [hi ? "हर टेस्ट" : "Each test", hi ? "80 प्रश्न · 45 मिनट" : "80 Qs · 45 min"],
+      title: hi ? "मध्यप्रदेश ग्रामीण बैंक — 25 मुफ्त मॉक टेस्ट" : "Madhya Pradesh Gramin Bank — 25 free mock tests",
+      desc: hi ? "✅ सभी 25 टेस्ट मुफ्त ✅ कोई पेमेंट नहीं ✅ रीजनिंग और न्यूमेरिकल एबिलिटी" : "✅ All 25 tests free ✅ No payment required ✅ Reasoning and numerical ability",
+      price: 0, href: "/mp-grameen-bank-mock-tests",
+    },
+    {
+      f: ["new", "tests"], tone: "teal", art: "test", isNew: true,
       kick: hi ? "MP हाई कोर्ट • 1174 पद" : "MP High Court • 1174 posts", big: hi ? "सहायक ग्रेड-3 2026" : "Assistant Grade-3 2026",
       sub: hi ? ["25 फुल टेस्ट", "टेस्ट 1 फ्री"] : ["25 full tests", "Test 1 free"],
       tags: hi ? ["MP हाई कोर्ट", "टेस्ट सीरीज़"] : ["MP High Court", "Test series"],
