@@ -13,15 +13,15 @@ main{min-height:100%;display:grid;place-items:center;color:#111827}
 <main>पेज खोला जा रहा है… / Opening…</main>
 <script>
 // Served as /examhelp/ (Android app start page) and /examhelp/login.html.
-// Only the login copy goes to login; /examhelp/ opens the public homepage.
+// /index.html always sends visitors to login first (js/force-login.js), so go straight
+// to that same login URL and skip one full page load on app start.
 (function(){
   var isLogin=/\/login\.html$/.test(location.pathname);
   if(!isLogin&&/[?&]source=android/.test(location.search)){try{localStorage.setItem('tth-app','1')}catch(e){}}
-  window.location.replace(isLogin?'/login.html':'/index.html'+location.search);
+  window.location.replace(isLogin?'/login.html':'/login.html?next=index.html%3Floggedin%3D1');
 })();
 </script>
 <noscript><a href="/index.html">होम / Home</a> · <a href="/login.html">लॉगिन / रजिस्टर पर जाएँ</a></noscript>
 
-<script src="../js/global-account-menu.js"></script>
 </body>
 </html>
