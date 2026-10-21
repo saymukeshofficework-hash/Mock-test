@@ -247,18 +247,18 @@ export const MOCK_SERIES: Record<string, MockSeries> = {
   mpgrb: {
     id: "mpgrb",
     total: 25,
-    free: [1],
-    product: "mpgrb-tests",
-    price: 99,
+    free: Array.from({ length: 25 }, (_, i) => i + 1),
+    product: "mpgrb-free-tests",
+    price: 0,
     enginePath: "",
     scorePrefix: "testhub_mpgrb_mock_",
     listPath: "/mp-grameen-bank-mock-tests",
     meta: { hi: "80 प्रश्न · 45 मिनट", en: "80 Qs · 45 min" },
     testHref: (n) => `/examhelp/mock-tests/mpgrb/test.html?t=${String(n).padStart(2, "0")}&lang=hi`,
-    title: { hi: "मध्य प्रदेश ग्रामीण बैंक — 25 मॉक टेस्ट", en: "Madhya Pradesh Gramin Bank — 25 Mock Tests" },
+    title: { hi: "मध्य प्रदेश ग्रामीण बैंक — 25 फ्री मॉक टेस्ट", en: "Madhya Pradesh Gramin Bank — 25 Free Mock Tests" },
     sub: {
-      hi: "केवल IBPS RRB प्रारंभिक परीक्षा के अभ्यास पैटर्न पर आधारित।",
-      en: "Based only on the IBPS RRB preliminary exam practice pattern.",
+      hi: "IBPS RRB प्रारंभिक परीक्षा के अभ्यास पैटर्न पर आधारित। सभी 25 टेस्ट मुफ्त हैं — कोई पेमेंट या अनलॉक नहीं।",
+      en: "Based on the IBPS RRB preliminary exam practice pattern. All 25 tests are free — no payment or unlock required.",
     },
     rows: {
       hi: [
@@ -272,9 +272,9 @@ export const MOCK_SERIES: Record<string, MockSeries> = {
     },
     totalLine: { hi: "कुल 80 प्रश्न · 80 अंक · 45 मिनट", en: "Total 80 questions · 80 marks · 45 minutes" },
     neg: { hi: "प्रत्येक गलत उत्तर पर ¼ अंक कटेगा; छोड़े गए प्रश्न पर अंक नहीं कटेंगे।", en: "¼ mark is deducted for each wrong answer; unattempted questions carry no penalty." },
-    unlockTitle: { hi: "टेस्ट 2–25 अनलॉक करें", en: "Unlock Tests 2–25" },
-    unlockSub: { hi: "पहला टेस्ट फ्री है। बाकी 24 टेस्ट एक बार ₹99 देकर अनलॉक करें।", en: "Test 1 is free. Unlock the other 24 tests with a one-time ₹99 payment." },
-    unlockBtn: { hi: "अभी भुगतान करें", en: "Pay Now" },
+    unlockTitle: { hi: "सभी 25 टेस्ट मुफ्त", en: "All 25 tests are free" },
+    unlockSub: { hi: "किसी भुगतान या अनलॉक की जरूरत नहीं।", en: "No payment or unlock required." },
+    unlockBtn: { hi: "टेस्ट शुरू करें", en: "Start test" },
     links: [],
   },
   rrbg: {
