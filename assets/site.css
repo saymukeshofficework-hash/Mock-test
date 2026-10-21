@@ -161,3 +161,67 @@ footer.site-footer .links a{margin:0 8px;text-decoration:none;color:var(--blue-d
   .hero{padding:40px 12px 28px;}
   .dash-header{flex-direction:column;}
 }
+
+
+/* Premium gradient refresh — shared UI layer, preserves existing markup and functionality */
+:root{
+  --blue:#5634d8; --blue-dark:#21105f; --blue-light:#c8bcff;
+  --green:#159b69; --red:#d9534f; --grey:#9e9e9e;
+  --lightblue:#f0edff; --border:#e7e2f5; --ink:#211b3a; --muted:#6f6885;
+  --page:#f7f8ff; --card:#ffffff; --accent:#ffb547;
+  --brand-gradient:linear-gradient(125deg,#642ee8 0%,#4338ca 48%,#2878e8 100%);
+}
+body{background:radial-gradient(ellipse at 8% 0%,#eee9ff 0,transparent 36%),var(--page);color:var(--ink)}
+header.site-header{background:linear-gradient(110deg,#1e1058 0%,#3820a0 52%,#3f52cf 100%);box-shadow:0 8px 28px rgba(43,24,111,.18);padding:12px clamp(12px,3vw,28px)}
+header.site-header .brand .logo{border:1px solid #ffffff45;box-shadow:inset 0 0 0 1px #ffffff12}
+header.site-header nav a{background:transparent;border:1px solid transparent}
+header.site-header nav a.active{background:#fff;color:#302078;box-shadow:0 3px 12px #16094b25}
+.lang-toggle{background:#ffffff16;border-color:#ffffff55}
+.btn{border-radius:12px;transition:transform .18s ease,box-shadow .18s ease,filter .18s ease}
+.btn-primary{background:linear-gradient(120deg,#6d35e8,#4438ca 55%,#2878e8);box-shadow:0 8px 18px #5436c52e}
+.btn-primary:hover{box-shadow:0 11px 24px #5436c540;transform:translateY(-1px)}
+.btn-secondary{border-color:#c9bdf3;color:#4931a2;background:linear-gradient(135deg,#fff,#f6f3ff)}
+.section h1,.section h2{color:#2a176d}
+.hero{text-align:left;padding:clamp(36px,6vw,76px) 20px 52px;background:linear-gradient(120deg,#f5f1ff 0%,#f8faff 52%,#e9f1ff 100%);border-bottom:1px solid #e7e1fa}
+.hero::before{inset:-25% -5% auto 35%;height:380px;background:radial-gradient(ellipse at 50% 40%,#9c7bff35,transparent 70%)}
+.hero .eyebrow{color:#5634b9;background:#eee8ff;border-color:#ded3ff}
+.hero h1{color:#261363;max-width:780px;line-height:1.13;letter-spacing:-.8px}
+.hero p.tagline,.hero p.intro{color:#625a7d}
+.grid{gap:16px}
+.card,.benefit,.faq-item,.form-card{border-color:#e8e2f7;border-radius:18px;box-shadow:0 5px 20px rgba(48,29,111,.055)}
+.card:hover{box-shadow:0 15px 32px rgba(48,29,111,.12);border-color:#cfc2f5}
+.test-card .badge{background:linear-gradient(135deg,#8c69ff,#4630b8);box-shadow:0 6px 14px #5a39c32a}
+.test-card .meta{background:#f0edff;color:#4930a2}
+.pricing-card.featured{border-color:#8c6cf0;box-shadow:0 10px 28px #5634d822}
+.pricing-card .ribbon{background:linear-gradient(120deg,#7438e8,#3f55d6)}
+.form-card{max-width:440px;padding:clamp(22px,4vw,34px);background:linear-gradient(155deg,#fff 0%,#fcfbff 100%);box-shadow:0 16px 42px rgba(48,29,111,.10)}
+.form-card h1{color:#2b176f}
+.field input{border-color:#e2dcf2;border-radius:11px;background:#fff;min-height:46px}
+.field input:focus{border-color:#7656df;box-shadow:0 0 0 4px #7656df18}
+.alert-info{background:#f0edff;color:#4930a2;border-color:#d9ceff}
+.alert-success{background:#e8fbf2;color:#146b4c;border-color:#bcebd5}
+.all-exam-card{border-radius:18px!important;box-shadow:0 6px 20px rgba(45,25,110,.06)}
+.all-exam-card:hover{box-shadow:0 15px 30px rgba(45,25,110,.13)}
+.exam-search{border-color:#e4dcf7;border-radius:15px;box-shadow:0 5px 18px #34205a0b}
+.exam-filter{border-color:#e4dcf7;border-radius:999px}
+.exam-filter.active{background:linear-gradient(120deg,#6d35e8,#4438ca);border-color:transparent}
+.learning-category{border:1px solid #e8e2f7!important;border-radius:16px!important;background:#fff}
+.learning-category summary .all-exam-icon{background:linear-gradient(135deg,#eee8ff,#e7efff)}
+.category-links a{border-color:#f0ebfa}
+@media(max-width:700px){
+  .container{padding-left:14px;padding-right:14px}
+  header.site-header{gap:8px;padding:10px 12px}
+  header.site-header .brand{font-size:16px}
+  header.site-header nav{gap:4px}
+  header.site-header nav a{font-size:12px;padding:7px 9px}
+  .section{padding:30px 0}
+  .hero{padding:36px 14px 30px}
+  .hero h1{font-size:clamp(27px,8vw,36px)}
+  .hero p.tagline{font-size:15px}
+  .grid{grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:12px}
+  .card{padding:16px}
+  .form-card{margin:24px auto;border-radius:16px}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{scroll-behavior:auto!important;transition:none!important;animation:none!important}
+}
