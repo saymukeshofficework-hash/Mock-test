@@ -62,6 +62,8 @@ export function MockTestList({ series = "ag3" }: { series?: string }) {
     if (mainSite && token) mainSiteUnlock();
   }, [mainSite, token]);
   useEffect(() => {
+    // Fully free series (e.g. MP Gramin Bank) must not call checkout/status or purchase-claim APIs.
+    if (S.free.length === S.total) return;
     let tk: string | null = null;
     try {
       tk = localStorage.getItem(TOKEN_KEY);
