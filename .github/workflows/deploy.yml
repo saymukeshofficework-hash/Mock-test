@@ -152,6 +152,7 @@ jobs:
           cp -r .well-known _site/.well-known
           # MP CPCT mock + typing tests
           cp -r cpct _site/cpct
+          cp -r mp-cpct-mock-test _site/mp-cpct-mock-test
           # RRB NTPC Graduate and 10+2 Undergraduate mock tests
           cp -r rrb-ntpc _site/rrb-ntpc
           cp saanp-seedhi-multiplayer.html _site/
