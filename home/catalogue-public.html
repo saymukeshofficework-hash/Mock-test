@@ -441,7 +441,9 @@ function translateTree(){
  const count=document.getElementById('count');
  if(count){
   const n=[...document.querySelectorAll('#grid > a')].filter(x=>x.style.display!=='none').length;
-  count.textContent=n+(lang==='en'?' courses':' कोर्स / courses');
+  // Only write when it changes: replacing the text node re-triggers the MutationObserver below (infinite loop, page hang).
+  const label=n+(lang==='en'?' courses':' कोर्स / courses');
+  if(count.textContent!==label) count.textContent=label;
  }
 }
 document.querySelectorAll('#languageSwitch [data-lang]').forEach(btn=>btn.addEventListener('click',()=>{lang=btn.dataset.lang==='en'?'en':'hi';try{localStorage.setItem(KEY,lang)}catch(e){};translateTree();}));
