@@ -29,7 +29,7 @@
 <section id="results" class="hidden"></section>
 </main><footer>Practice with TET TasteHub.in · RRB NTPC preparation</footer>
 <script src="/assets/vendor/supabase/supabase.js"></script>
-<script src="/js/site-config.js"></script>
+<script src="/js/site-config.js?v=12"></script>
 <script src="/js/auth.js"></script>
 <script>
 const $=id=>document.getElementById(id);let autoTest=false,questions=[],answers={},current=0,seconds=0,clock=null,testLabel='',testId='',secCounts=[];
@@ -42,6 +42,7 @@ document.addEventListener('click',e=>{const b=e.target.closest('[data-test]');if
 async function startTest(tid,mins,btn){if(!supabaseClient){alert('Service unavailable / सेवा उपलब्ध नहीं');return}btn.disabled=true;const old=btn.textContent;btn.textContent='Loading…';
 const {data,error}=await supabaseClient.rpc('get_test_questions',{p_test_id:tid});btn.disabled=false;btn.textContent=old;
 if(error||!data){if(tid.endsWith('-01')){alert('यह फ्री टेस्ट अभी उपलब्ध नहीं हो पाया। कृपया थोड़ी देर बाद फिर प्रयास करें। / Free test is temporarily unavailable. Please try again later.');return}
+if(freeAccessOn()){if(confirm('सभी टेस्ट 4 नवंबर तक फ्री हैं, बस लॉगिन करें। / All tests are free till 4 Nov, just log in.'))location.href='/login.html';return}
 if(confirm('यह टेस्ट लॉक है। टेस्ट 2–25 सिर्फ ₹85 में अनलॉक करें? / This test is locked. Unlock tests 2–25 for ₹85?'))location.href='/examhelp/rrb-ntpc-'+(tid.includes('-g-')?'graduate':'undergraduate')+'-mock-tests/';return}
 location.href='/exam-test.html?t='+tid;return true;
 questions=[];secCounts=[];data.forEach((sec,si)=>{secCounts.push(sec.questions.length);sec.questions.forEach((q,qi)=>questions.push({...q,section:sec.name,si,qi}))});

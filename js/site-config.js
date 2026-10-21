@@ -47,6 +47,13 @@ const PAYMENT_LINKS = {
 
 // Tests that are FREE for all logged-in students
 const FREE_TESTS = ["test01"];
+// 14-day free offer (owner, 2026-10-21): until this time every test is open to any logged-in
+// student and prices are hidden. It ends by itself. Keep the same date in the RLS policy
+// (supabase/migrations/20261021090000_free_access_window.sql), examhelp/src/lib/site.ts,
+// examhelp/public/mock-tests/free-pass.js and examhelp notes-checkout.
+const FREE_ACCESS_UNTIL = "2026-11-04T23:59:59+05:30";
+const freeAccessOn = () => Date.now() < Date.parse(FREE_ACCESS_UNTIL);
+const FREE_OFFER_HTML = '<h2>🎉 14 दिन सभी टेस्ट फ्री / All tests free for 14 days</h2><p>4 नवंबर 2026 तक सिर्फ लॉगिन करें और सभी टेस्ट दें।<br>Till 4 Nov 2026, just log in to take every test.</p>';
 
 // One row per test. `id` must match the purchased_tests values you set in Supabase;
 // `file` must match an actual tet-mock-test-N.html page.

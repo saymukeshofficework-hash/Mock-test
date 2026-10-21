@@ -50,7 +50,7 @@ h1{font-size:clamp(28px,6vw,40px);line-height:1.2;margin:34px 0 12px;color:#0d3b
 </main>
 <div class="foot">TETTESTHUB · <a href="/contact.html">संपर्क / Contact</a></div>
 <script src="../assets/vendor/supabase/supabase.js"></script>
-<script src="../js/site-config.js?v=10"></script>
+<script src="../js/site-config.js?v=12"></script>
 <script src="../js/auth.js?v=2"></script>
 <script>
 (function(){
@@ -84,6 +84,11 @@ h1{font-size:clamp(28px,6vw,40px);line-height:1.2;margin:34px 0 12px;color:#0d3b
   grid.innerHTML = html;
   // Sell only once the exam tests are live.
   if (!CPCT_SERIES.exam.ready) return;
+  if (freeAccessOn()) {
+    grid.querySelectorAll('.card.t[data-id] a.btn').forEach(a => { a.className = 'btn btn-p w'; a.textContent = '▶ पेपर शुरू करें / Start paper'; });
+    $('pat').insertAdjacentHTML('afterend', '<section class="card unlock" id="unlockBox">' + FREE_OFFER_HTML + '</section>');
+    return;
+  }
   $('pat').insertAdjacentHTML('afterend', `<section class="card unlock" id="unlockBox"><h2>MP CPCT — पूरी सीरीज़ / Full series</h2><p>25 पूरे पेपर।<br>25 full papers.</p><button class="btn btn-p" id="buyBtn" type="button">अनलॉक करें / Unlock</button><p id="buyMsg" style="margin:10px 0 0"></p></section>`);
   setupCheckout('cpct');
   // Razorpay checkout (TETTESTHUB account, exam-hub notes-checkout) + auto-unlock (tet-unlock).

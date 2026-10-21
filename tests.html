@@ -102,7 +102,7 @@ h1{color:#352054;margin-top:24px;font-size:clamp(24px,5vw,34px)}
 </nav>
 
 <script src="assets/vendor/supabase/supabase.js"></script>
-<script src="js/site-config.js?v=4"></script>
+<script src="js/site-config.js?v=12"></script>
 <script src="js/auth.js?v=3"></script>
 <script>
   document.getElementById('priceAll18').textContent = PRICES.all18;
@@ -120,14 +120,17 @@ h1{color:#352054;margin-top:24px;font-size:clamp(24px,5vw,34px)}
       grid.appendChild(c);
     });
     const all = TEST_CATALOG.every(it => (FREE_TESTS||[]).includes(it.id) || owned.includes(it.id));
-    document.getElementById('unlockBox').style.display = all ? 'none' : '';
+    document.getElementById('unlockBox').style.display = all && !freeAccessOn() ? 'none' : '';
   }
-  renderCards([]);
+  // 14-day free offer: every test opens (the test page still checks login), no price shown
+  const FREE_ALL = TEST_CATALOG.map(it => it.id);
+  if (freeAccessOn()) document.getElementById('unlockBox').innerHTML = FREE_OFFER_HTML;
+  renderCards(freeAccessOn() ? FREE_ALL : []);
   (async () => {
     const session = await getSession(); if (!session) return;
     const p = await getProfile(session.user.id);
     if (p) { const ch = document.getElementById('studentAccountLabel'); ch.textContent = 'छात्र ID: ' + (p.student_id || ''); }
-    if (p && p.status === 'active') renderCards(p.purchased_tests || []);
+    if (p && p.status === 'active' && !freeAccessOn()) renderCards(p.purchased_tests || []);
   })();
 </script>
 

@@ -816,7 +816,8 @@ img,svg,video,canvas,table{max-width:100%}
 
 		<div id="resultScreen"></div>
 
-		<script>
+		<script src="/examhelp/mock-tests/free-pass.js?v=1"></script>
+<script>
 			let SECTIONS = [], Q = [];
 			
 const params = new URLSearchParams(location.search);
@@ -833,6 +834,11 @@ function showMsg(hi, en) {
 function loadTest() {
   if (TEST_NO === "01") return fetch("/examhelp/mock-tests/asi/tests/01.json").then((r) => { if (!r.ok) throw new Error("x"); return r.json(); });
   let tok = null; try { tok = localStorage.getItem("testhub_dl_asi-tests"); } catch (e) {}
+  if (!tok && window.tthFree && tthFree.on()) return tthFree.token().then((at) => {
+    if (!at) throw new Error("login");
+    return fetch(CHECKOUT_URL, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ action: "test", access_token: at, n: +TEST_NO, series: "asi" }) })
+      .then((r) => { if (r.status === 401) throw new Error("login"); if (!r.ok) throw new Error("x"); return r.json(); });
+  });
   if (!tok) return Promise.reject(new Error("locked"));
   return fetch(CHECKOUT_URL, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ action: "test", token: tok, n: +TEST_NO, series: "asi" }) })
     .then((r) => { if (r.status === 404 || r.status === 403) { try { localStorage.removeItem("testhub_dl_asi-tests"); } catch (e) {} throw new Error("locked"); } if (!r.ok) throw new Error("x"); return r.json(); });
@@ -840,7 +846,8 @@ function loadTest() {
 loadTest()
   .then((d) => { SECTIONS = d.sections; Q = d.questions; boot(); })
   .catch((e) => {
-    if (e.message === "locked") showMsg("यह टेस्ट, टेस्ट सीरीज़ (₹99) का हिस्सा है। सभी टेस्ट अनलॉक करने के लिए वापस जाएँ।", "This test is part of the test series (₹99). Go back to unlock all tests.");
+    if (e.message === "login") { showMsg("4 नवंबर तक सभी टेस्ट फ्री हैं। टेस्ट देने के लिए लॉगिन करें।", "All tests are free till 4 Nov. Please log in to take this test."); const b = document.getElementById("backLink"); if (b) { b.href = "/login.html?next=" + encodeURIComponent(location.pathname + location.search); b.textContent = "लॉगिन करें / Log in \u2192"; } }
+    else if (e.message === "locked") showMsg("यह टेस्ट, टेस्ट सीरीज़ (₹99) का हिस्सा है। सभी टेस्ट अनलॉक करने के लिए वापस जाएँ।", "This test is part of the test series (₹99). Go back to unlock all tests.");
     else showMsg("यह टेस्ट अभी उपलब्ध नहीं है।", "This test is not available yet.");
   });
 function boot() {

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { CheckCircle2, CreditCard, FileText, Lock, PlayCircle, Unlock } from "lucide-react";
 import { MOCK_SERIES } from "@/data/mockTests";
 import { buyNotes, checkout, claimPurchase, mainSiteUnlock } from "@/lib/checkout";
+import { freeAccessOn } from "@/lib/site";
 
 type Lang = "hi" | "en";
 type Best = { last: number; best: number; total: number; at: number };
@@ -24,6 +25,9 @@ const T = {
   loginErr: { hi: "भुगतान से पहले कृपया लॉगिन करें।", en: "Please log in before paying." },
   otherDevice: { hi: "दूसरे फ़ोन/कंप्यूटर पर? Payment ID से यहाँ अनलॉक करें", en: "On another device? Unlock with your Payment ID here" },
   pattern: { hi: "परीक्षा पैटर्न", en: "Exam pattern" },
+  freeTitle: { hi: "🎉 4 नवंबर 2026 तक सभी टेस्ट फ्री", en: "🎉 All tests free till 4 Nov 2026" },
+  freeLogin: { hi: "बस लॉगिन करें और कोई भी टेस्ट दें", en: "Just log in and take any test" },
+  freeLoginBtn: { hi: "लॉगिन करें", en: "Log in" },
 };
 export function MockTestList({ series = "ag3" }: { series?: string }) {
   const S = MOCK_SERIES[series];
@@ -35,6 +39,19 @@ export function MockTestList({ series = "ag3" }: { series?: string }) {
   const [canBuy, setCanBuy] = useState(false);
   const [payState, setPayState] = useState("idle");
   const [payErr, setPayErr] = useState("");
+  // 14-day free offer: read on the client so the static build never freezes it
+  const [freeNow, setFreeNow] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [loginHref, setLoginHref] = useState("/login.html");
+  useEffect(() => {
+    setFreeNow(freeAccessOn());
+    setLoginHref(`/login.html?next=${encodeURIComponent(location.pathname)}`);
+    try {
+      setLoggedIn(!!localStorage.getItem("sb-ovaubhekxjtkodkhsybg-auth-token"));
+    } catch {
+      /* ignore */
+    }
+  }, []);
   useEffect(() => {
     document.body.classList.add("mock-test-list-page");
     return () => document.body.classList.remove("mock-test-list-page");
@@ -169,7 +186,17 @@ export function MockTestList({ series = "ag3" }: { series?: string }) {
         </div>
         {S.free.length < S.total ? (
         <div className="shrink-0 sm:w-72">
-          {S.unlockHref ? (
+          {freeNow ? (
+            <div className="rounded-lg bg-success-50 px-4 py-3 text-center text-success-700">
+              <p className="font-semibold">{t("freeTitle")}</p>
+              {loggedIn ? null : (
+                <>
+                  <p className="mt-1 text-sm">{t("freeLogin")}</p>
+                  <a href={loginHref} className="btn-primary mt-2 w-full">{t("freeLoginBtn")}</a>
+                </>
+              )}
+            </div>
+          ) : S.unlockHref ? (
             <a href={S.unlockHref} className="btn-primary w-full">
               <CreditCard className="h-4 w-4" aria-hidden="true" />
               {S.unlockBtn[lang]}
@@ -196,8 +223,8 @@ export function MockTestList({ series = "ag3" }: { series?: string }) {
       <ol className="mock-test-grid mt-8 grid gap-3">
         {Array.from({ length: S.total }, (_, i) => i + 1).map((n) => {
           const isFree = S.free.includes(n);
-          const ready = S.openAll || (isFree ? S.free.includes(n) : !S.unlockHref && !!token && (mainSite || paidReady.includes(n)));
-          const lockedPaid = !isFree && !token;
+          const ready = S.openAll || (isFree ? S.free.includes(n) : freeNow ? !!S.unlockHref || mainSite || paidReady.includes(n) : !S.unlockHref && !!token && (mainSite || paidReady.includes(n)));
+          const lockedPaid = !isFree && !token && !freeNow;
           const b = best[n];
           const href = S.testHref ? S.testHref(n) : `${base}${S.enginePath}?t=${String(n).padStart(2, "0")}&lang=${lang}`;
           return (
@@ -225,7 +252,7 @@ export function MockTestList({ series = "ag3" }: { series?: string }) {
                     {b ? t("again") : t("start")}
                   </a>
                 ) : (
-                  S.unlockHref ? (
+                  S.unlockHref && !freeNow ? (
                     <a href={S.unlockHref} className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-canvas px-3 py-2 text-sm font-semibold text-ink-500 ring-1 ring-ink-200">
                       <Lock className="h-4 w-4" aria-hidden="true" />
                       {t("locked")}
