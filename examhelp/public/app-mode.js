@@ -15,6 +15,15 @@
       window.addEventListener("load", function () { setTimeout(showRate, 2500); });
     }
   } catch (e) {}
+  // Google Apps Script web app that appends a row (time, name, stars) to the ratings Sheet. Empty = do not send.
+  var RATE_SHEET_URL = "";
+  function saveRating(n) {
+    if (!RATE_SHEET_URL) return;
+    var u = {};
+    try { u = JSON.parse(localStorage.getItem("tth_user") || "{}") || {}; } catch (e) {}
+    var row = { stars: n, name: u.name || "Guest", time: new Date().toISOString() };
+    try { fetch(RATE_SHEET_URL, { method: "POST", mode: "no-cors", body: JSON.stringify(row) }); } catch (e) {}
+  }
   function showRate() {
     try { if (localStorage.getItem(rk)) return; localStorage.setItem(rk, "shown"); } catch (e) { return; }
     var css = "#tth-rate{position:fixed;inset:0;z-index:99999;display:flex;align-items:center;justify-content:center;padding:16px;background:rgba(10,20,50,.55);opacity:0;transition:opacity .3s}" +
@@ -40,6 +49,7 @@
     row.addEventListener("click", function (e) {
       var n = +e.target.dataset.n; if (!n) return;
       fill(n); try { localStorage.setItem(rk, String(n)); } catch (x) {}
+      saveRating(n);
       var bx = o.querySelector(".bx");
       if (n >= 4) {
         bx.innerHTML = '<h3>धन्यवाद! 🙏</h3><p>Thank you! Please rate us on Play Store.<br>कृपया Play Store पर रेटिंग दें।</p>';
