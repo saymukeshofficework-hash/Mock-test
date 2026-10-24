@@ -1,0 +1,678 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>Bridge Course Assignment Form</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Mukta:wght@400;500;700&display=swap">
+<style>
+:root{--bg:#f6f7fb;--card:#fff;--ink:#1d2433;--soft:#5b6478;--line:#dde2ec;--accent:#1f4fa3;--accent-ink:#fff;--accent-soft:#e5edfb;--warn:#a23b2a;--ok:#1e7a46;--ok-soft:#e3f4ea}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#12161f;--card:#1a2030;--ink:#e8ecf5;--soft:#9aa5bd;--line:#2c3550;--accent:#7fa6f0;--accent-ink:#0d1220;--accent-soft:#222c47;--warn:#f09a8a;--ok:#6fd09a;--ok-soft:#1b3326}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 "Mukta",system-ui,sans-serif}
+.wrap{max-width:720px;margin:0 auto;padding:16px 16px 80px}
+header{display:flex;gap:12px;align-items:flex-start;justify-content:space-between;margin-bottom:12px}
+h1{font-size:1.45rem;line-height:1.3;margin:0 0 4px}
+.sub{color:var(--soft);margin:0;font-size:.95rem}
+.lang{display:inline-flex;border:1px solid var(--line);border-radius:999px;overflow:hidden;flex:none}
+.lang button{border:0;background:transparent;color:var(--ink);padding:6px 14px;font:inherit;cursor:pointer}
+.lang button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink)}
+section{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;margin:14px 0}
+h2{font-size:1.1rem;margin:0 0 4px}
+.hint{color:var(--soft);font-size:.9rem;margin:0 0 12px}
+.f{margin:0 0 14px}
+.f>label,.f>.lbl{display:block;font-weight:500;margin-bottom:4px}
+.req::after{content:" *";color:var(--warn)}
+input[type=text],input[type=tel],input[type=email],input[type=password],textarea,select{width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);font:inherit}
+textarea{min-height:84px;resize:vertical}
+input:focus,textarea:focus,select:focus{outline:2px solid var(--accent);outline-offset:1px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:0 12px}
+@media (max-width:520px){.grid{grid-template-columns:1fr}}
+.opts{display:flex;flex-direction:column;gap:6px}
+.opt{display:flex;gap:10px;align-items:flex-start;padding:8px 10px;border:1px solid var(--line);border-radius:10px;cursor:pointer}
+.opt input{margin-top:5px}
+.opt.on{border-color:var(--accent);background:var(--accent-soft)}
+.err{border-color:var(--warn)!important}
+.taskbox{background:var(--accent-soft);border-radius:10px;padding:10px 12px;margin:8px 0 0;font-size:.92rem}
+.btn{border:1px solid var(--accent);background:var(--accent);color:var(--accent-ink);padding:10px 18px;border-radius:10px;font:inherit;font-weight:500;cursor:pointer}
+.btn.ghost{background:transparent;color:var(--accent)}
+.btn.small{padding:6px 12px;font-size:.9rem}
+.btn:disabled{opacity:.55;cursor:default}
+.msg{padding:10px 12px;border-radius:10px;margin:10px 0}
+.msg.bad{background:#fbe6e2;color:#7a2417}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .msg.bad{background:#3a1d18;color:#f6b3a6}}
+.msg.good{background:var(--ok-soft);color:var(--ok)}
+.hp{position:absolute;left:-9999px;height:0;overflow:hidden}
+.demo{background:#fff4d6;color:#6a4b00;padding:6px 12px;border-radius:8px;font-size:.88rem;margin-bottom:10px}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.sub-card{border:1px solid var(--line);border-radius:12px;padding:12px;margin:10px 0}
+.sub-card h3{margin:0;font-size:1rem}
+.chip{display:inline-block;font-size:.8rem;padding:1px 10px;border-radius:999px;background:var(--accent-soft);color:var(--accent);margin-left:6px}
+.chip.done{background:var(--ok-soft);color:var(--ok)}
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div>
+    <h1 id="title"></h1>
+    <p class="sub" id="subtitle"></p>
+  </div>
+  <div class="lang" role="group" aria-label="माध्यम / Medium"><button type="button" id="lhi">हिंदी</button><button type="button" id="len">English</button></div>
+</header>
+
+<main id="formView">
+  <form id="f" autocomplete="on" novalidate></form>
+</main>
+
+</div>
+
+<script>
+(() => {
+"use strict";
+// ---------- settings ----------
+const SCHEMA = "tettesthub-bridge-v1";
+const DRAFT = "bridge-form-draft-v1";
+
+// ---------- question bank: every task has its own bilingual questions ----------
+// q(hi, en, optional) text answer; ch(hi, en, "हिं|Eng; हिं|Eng", optional, multi) choice answer
+const q = (hi, en, o) => ({ hi, en, o: !!o });
+const ch = (hi, en, opts, o, multi) => ({ hi, en, o: !!o, multi: !!multi, opts: opts.split(";").map(s => { const [h, e] = s.trim().split("|"); return { hi: h, en: e || h }; }) });
+
+const SUBJ = {
+  hindi: ["हिंदी/क्षेत्रीय भाषा", "Hindi/regional language"],
+  eng: ["अंग्रेज़ी", "English"],
+  math: ["गणित", "Mathematics"],
+  evs: ["परिवेश अध्ययन (EVS/TWAU)", "The World Around Us (EVS)"]
+};
+
+const docQs = (s, topicHi, topicEn) => [
+  q(`${topicHi} के वे 3–4 मुख्य बिंदु लिखिए जो आपको सबसे ज़रूरी लगे।`, `Write the 3–4 main points of ${topicEn} that matter most to you.`),
+  q(`इन बिंदुओं में से कौन-सा आपकी कक्षा के बच्चों के लिए सबसे उपयोगी है, और क्यों?`, `Which of these points is most useful for the children of your class, and why?`),
+  q(`आपके विद्यालय/कक्षा का कोई उदाहरण जो इस विषय से जुड़ता है?`, `An example from your school or class that connects with this topic?`),
+  q(`पहले आप ${s[0]} कैसे पढ़ाते थे और इन सुझावों के बाद क्या बदलना चाहेंगे?`, `How did you teach ${s[1]} earlier, and what would you change after these recommendations?`),
+  q(`ज़मीनी स्तर पर कौन-सी चुनौतियाँ दिखती हैं?`, `What challenges do you see on the ground?`),
+  q(`आपकी राय में इसका सबसे अच्छा पक्ष और एक कमी/अस्पष्टता क्या है?`, `In your view, what is its best aspect and one gap or unclear part?`, true)
+];
+const tbQs = (s, extra) => [
+  q(`${s[0]} की पुस्तक का नाम, कक्षा और प्रकाशक?`, `Name, class and publisher of the ${s[1]} textbook?`),
+  q(`कौन-से 1–2 पाठ/अध्याय ध्यान से देखे?`, `Which 1–2 lessons/chapters did you study closely?`),
+  q(`भाषा कैसी है? बच्चे किन शब्दों/वाक्यों पर अटके?`, `How is the language? Which words or sentences did children get stuck on?`),
+  ch(`चित्र बच्चों के परिवेश से कितने जुड़े हैं?`, `How well do the illustrations connect to the children's surroundings?`, "पूरी तरह स्थानीय परिवेश से|Fully local; कुछ जुड़े, कुछ अपरिचित|Partly; ज़्यादातर अपरिचित|Mostly unfamiliar"),
+  q(`विषय-वस्तु का क्रम और अभ्यास प्रश्न कैसे हैं? (सरल से कठिन, मूर्त से अमूर्त)`, `How are the sequence of content and the exercises? (simple to difficult, concrete to abstract)`),
+  q(`समावेशिता और रूढ़ियाँ: लड़के-लड़कियाँ, दिव्यांग, अलग समुदाय कैसे दिखाए गए हैं?`, `Inclusion and stereotypes: how are boys, girls, children with disabilities and different communities shown?`),
+  ch(`पुस्तक में आकलन कैसा है?`, `How is assessment in the book?`, "विविध (मौखिक, चित्र, गतिविधि, लिखित)|Varied; ज़्यादातर लिखित/रटने वाला|Mostly written/rote; लगभग नहीं है|Almost absent"),
+  ...extra,
+  q(`आपके सुधार सुझाव?`, `Your suggestions for improvement?`, true)
+];
+const vdQs = (s, extra) => [
+  q(`वीडियो का शीर्षक/विषय, कक्षा और अवधि?`, `Title or topic of the video, class and duration?`),
+  q(`वीडियो में आपको क्या अच्छा लगा? मुख्य बातें लिखें।`, `What did you like in the video? Write the main points.`),
+  ch(`भाषा और गति बच्चों की उम्र के अनुसार थी?`, `Were the language and pace right for the children's age?`, "हाँ, उपयुक्त|Yes, suitable; कुछ शब्द कठिन|Some words difficult; काफ़ी तेज़/कठिन|Too fast or difficult"),
+  ch(`वीडियो कितना इंटरैक्टिव था?`, `How interactive was the video?`, "बीच-बीच में प्रश्न / गतिविधि|Questions and activities in between; थोड़ा|A little; केवल देखना|Only watching"),
+  q(`उदाहरण आपके क्षेत्र/बच्चों से मेल खाते थे? क्या अलग लगा?`, `Did the examples match your area and children? What felt different?`),
+  ...extra,
+  q(`कक्षा में कितने बच्चों को, किस उपकरण पर दिखाया, और बच्चों ने क्या जवाब दिए?`, `How many children did you show it to, on which device, and what did they answer?`),
+  q(`वीडियो की कमियाँ और सुधार सुझाव?`, `Weaknesses of the video and suggestions?`, true)
+];
+const ictQs = (s, extra) => [
+  q(`कौन-सा संसाधन इस्तेमाल किया? (जादुई पिटारा की वस्तु / ऐप / वीडियो / गेम का नाम)`, `Which resource did you use? (name of the Jaadui Pitara item, app, video or game)`),
+  q(`${s[0]} की कौन-सी अवधारणा/कौशल पढ़ाया और किस कक्षा में?`, `Which ${s[1]} concept or skill did you teach, and in which class?`),
+  ch(`किस पर दिखाया/चलाया?`, `On what device did you run it?`, "स्मार्ट टीवी|Smart TV; मोबाइल|Mobile; प्रोजेक्टर|Projector; टैबलेट / कंप्यूटर|Tablet or computer"),
+  q(`कक्षा में कैसे इस्तेमाल किया? मुख्य चरण लिखें।`, `How did you use it in class? Write the main steps.`),
+  ...extra,
+  q(`यह किस सीखने के प्रतिफल (Learning Outcome) से जुड़ता है?`, `Which learning outcome does it link to?`),
+  q(`बच्चों की प्रतिक्रिया और परिणाम?`, `Children's response and the result?`),
+  q(`बिजली/इंटरनेट/उपकरण की क्या दिक्कतें आईं?`, `What problems with electricity, internet or devices did you face?`, true)
+];
+const erQs = (s, extra) => [
+  q(`कितने बच्चों की कॉपियाँ/वर्कशीट जाँचीं? किस टॉपिक की, कौन-सी कक्षा?`, `How many children's notebooks or worksheets did you check? Which topic and class?`),
+  q(`मुख्य ${s[0]} गलतियाँ लिखिए, एक लाइन में एक। (प्रश्न = बच्चे का उत्तर, कितने बच्चों में)`, `List the main ${s[1]} errors, one per line. (question = child's answer, in how many children)`),
+  ...extra,
+  ch(`आपके हिसाब से गलतियों के कारण?`, `In your view, what are the causes of the errors?`, "अवधारणा स्पष्ट नहीं|Concept unclear; घर की भाषा/बोली का असर|Home language effect; अभ्यास की कमी|Lack of practice; ध्यान/रुचि की कमी|Lack of attention or interest; शिक्षण विधि|Teaching method", false, true),
+  q(`उपचार के लिए कौन-सी गतिविधि/टीएलएम अपनाई? कितने दिन?`, `Which activity or TLM did you use as remedy? For how many days?`),
+  q(`उपचार के बाद क्या बदलाव दिखा?`, `What change did you see after the remedy?`)
+];
+const wsQs = (s, extra) => [
+  q(`वर्कशीट किस कक्षा और किस कौशल/अवधारणा के लिए बनाईं?`, `For which class and which skill or concept did you make the worksheets?`),
+  q(`पाँचों वर्कशीट के नाम/विषय एक-एक लाइन में लिखिए।`, `List the name or topic of all five worksheets, one per line.`),
+  ...extra,
+  q(`बनाते समय किन बातों का ध्यान रखा? (भाषा, चित्र, स्थान, कठिनाई का क्रम)`, `What did you keep in mind while making them? (language, pictures, space, order of difficulty)`),
+  q(`बच्चों से कैसे करवाईं और उनकी प्रतिक्रिया क्या रही?`, `How did you get children to do them, and how did they respond?`),
+  q(`वर्कशीट से क्या सीखने के प्रमाण मिले?`, `What evidence of learning did the worksheets give?`),
+  q(`किसी वर्कशीट में आगे क्या सुधार करेंगे?`, `What would you improve in any worksheet?`, true)
+];
+const tlmQs = (s, extra) => [
+  q(`आपने क्या बनाया? किस कक्षा के लिए?`, `What did you make? For which class?`),
+  q(`यह ${s[0]} के किस कौशल/अवधारणा के लिए है?`, `Which ${s[1]} skill or concept is it for?`),
+  q(`किस सामान से बना और कुल लागत कितनी आई?`, `What was it made from and what was the total cost?`),
+  q(`बनाने की विधि के मुख्य चरण?`, `Main steps of making it?`),
+  ...extra,
+  q(`कक्षा में इसका उपयोग कैसे किया? मुख्य चरण।`, `How did you use it in class? Main steps.`),
+  q(`बच्चों की प्रतिक्रिया और क्या बदलाव दिखा?`, `Children's response and what change you saw?`),
+  q(`इसमें आगे क्या सुधार करेंगे?`, `What would you improve next?`, true)
+];
+const plQs = (s, extra) => [
+  q(`इकाई/गतिविधि का विषय और कक्षा?`, `Topic of the unit or activity, and class?`),
+  q(`इस विषय से बच्चे कौन-से सीखने के प्रतिफल/दक्षताएँ पाएँगे?`, `Which learning outcomes or competencies will children gain?`),
+  ...extra,
+  q(`आपके पास कौन-सी सामग्री/संसाधन हैं?`, `What materials and resources do you have?`),
+  q(`स्थानीय उदाहरण जो योजना में आएँगे? (त्योहार, खेल, गीत, कहानियाँ, फसलें)`, `Local examples to include? (festivals, games, songs, stories, crops)`),
+  q(`आकलन कैसे करेंगे/किया?`, `How will you assess (or how did you)?`),
+  q(`क्या यह कक्षा में करवाया? कैसा रहा?`, `Did you try it in class? How did it go?`, true)
+];
+const asQs = (s, extra) => [
+  ...extra,
+  q(`कितने बच्चों पर किया? (कूट नाम)`, `On how many children? (code names)`),
+  q(`हर रणनीति/प्रश्न में बच्चों के उत्तर या मुख्य अवलोकन?`, `Children's answers or main observations for each strategy or question?`),
+  q(`आकलन में क्या चुनौतियाँ आईं?`, `What challenges came up in assessment?`),
+  q(`नतीजों के आधार पर आगे क्या करेंगे?`, `What will you do next on the basis of the results?`)
+];
+const H = SUBJ.hindi, E = SUBJ.eng, M = SUBJ.math, V = SUBJ.evs;
+const BANK = {
+  // ---------- Course 1 ----------
+  c1t1: [
+    q("आपने कितने बच्चों के साथ दिन बिताया? उन्हें कूट नाम दें और परिवार की आर्थिक स्थिति/पृष्ठभूमि बताएँ।", "With how many children did you spend the day? Give code names and each family's economic background."),
+    q("दिन कब और कहाँ बिताया (विद्यालय, घर, बस्ती)? कितने घंटे?", "When and where did you spend the day (school, home, locality)? For how many hours?"),
+    q("शारीरिक और भावनात्मक पहलू: स्वास्थ्य, भोजन, कपड़े, मूड, थकान में क्या दिखा?", "Physical and emotional factors: what did you see in health, food, clothes, mood and tiredness?"),
+    q("सामाजिक, भाषाई, सांस्कृतिक और धार्मिक प्रभाव: घर की भाषा, त्योहार, रीति-रिवाज़ बच्चों के व्यवहार में कैसे दिखे?", "Social, language, cultural and religious influences: how did home language, festivals and customs show in the children's behaviour?"),
+    q("कोई खास घटना या किसी बच्चे की कही हुई बात?", "Any special incident or something a child said?", true),
+    q("अलग-अलग पृष्ठभूमि के बच्चों के सीखने में क्या अंतर दिखा?", "What difference did you see in learning between children of different backgrounds?"),
+    q("इससे आप अपनी कक्षा में क्या बदलेंगे?", "What will you change in your class because of this?")
+  ],
+  c1t2: [
+    q("किस बच्चे पर केस स्टडी की? (कूट नाम, कक्षा, उम्र, पारिवारिक पृष्ठभूमि)", "Which child is the case study on? (code name, class, age, family background)"),
+    ch("मुख्य कठिनाई किस क्षेत्र में थी?", "In which area was the main difficulty?", "पढ़ना|Reading; लिखना|Writing; गणित|Mathematics; बोलना/समझना|Speaking or understanding; ध्यान/व्यवहार|Attention or behaviour; अन्य|Other", false, true),
+    q("कठिनाई कैसे पहचानी? शुरुआती स्थिति का एक-दो उदाहरण दें।", "How did you identify the difficulty? Give one or two examples of the starting position."),
+    q("आपके अनुसार संभावित कारण क्या हैं? (घर, स्वास्थ्य, भाषा, रुचि, पूर्व अनुभव)", "What are the likely reasons in your view? (home, health, language, interest, earlier experience)"),
+    q("व्यक्तिगत योजना में क्या गतिविधियाँ रखीं और कितने दिन चली?", "What activities did the personalised plan have and for how many days did it run?"),
+    q("हस्तक्षेप के बाद क्या बदलाव आया?", "What changed after the intervention?"),
+    q("अभिभावक या सहपाठियों ने कैसे मदद की?", "How did parents or classmates help?", true)
+  ],
+  c1t3: [
+    q("कितने अभिभावकों से बात की, और उनकी पृष्ठभूमि? (पेशा, शिक्षा, आर्थिक स्थिति, समुदाय; कूट नाम)", "How many parents did you talk to, and their backgrounds? (occupation, education, economic status, community; code names)"),
+    q("आपने कौन-से प्रश्न पूछे? सूची दें।", "Which questions did you ask? Give the list."),
+    q("अनुशासन, इनाम और सज़ा के बारे में अभिभावकों ने क्या बताया?", "What did parents say about discipline, reward and punishment?"),
+    ch("ज़्यादातर अभिभावकों की पालन-पोषण शैली कैसी लगी?", "What style of parenting did most parents show?", "सख़्त/आदेश देने वाली|Strict or authoritarian; स्नेहपूर्ण और संवादी|Warm and democratic; ढीली/छूट वाली|Permissive; उपेक्षापूर्ण|Neglectful; मिली-जुली|Mixed"),
+    q("लड़के-लड़कियों की पढ़ाई, खेल, मोबाइल और काम पर उनके विचार?", "Their views on boys' and girls' education, play, mobile use and household work?"),
+    q("अलग-अलग पृष्ठभूमि के अभिभावकों में क्या अंतर दिखा?", "What differences did you see between parents of different backgrounds?"),
+    q("इसके बाद आपने कक्षा या अभिभावकों के साथ क्या बदला/सीखा?", "What did you change or learn afterwards in class or with parents?")
+  ],
+  c1t4: [
+    q("लेखों के शीर्षक, अखबार और तारीख, एक लाइन में एक (कम से कम 10)।", "Titles, newspaper and date of the articles, one per line (at least 10)."),
+    q("लेख किन विषयों पर थे? (पालन-पोषण, बाल अधिकार, सुरक्षा, स्क्रीन टाइम, पढ़ाई का दबाव आदि)", "What themes did the articles cover? (parenting, child rights, safety, screen time, study pressure, etc.)"),
+    q("लेखों में बचपन और पालन-पोषण की कैसी तस्वीर दिखती है?", "What picture of childhood and parenting do the articles show?"),
+    q("किन लेखों की कौन-सी बात सही लगी और कहाँ कमी/पक्षपात दिखा?", "Which points in which articles seemed right, and where did you see gaps or bias?"),
+    q("अपने क्षेत्र के बच्चों और अभिभावकों के अनुभव से इन्हें कैसे जोड़ेंगे?", "How do these connect with the experience of children and parents in your area?"),
+    q("आपके निष्कर्ष और सुझाव?", "Your conclusions and suggestions?")
+  ],
+  c1t5: [
+    ch("पंचकोश में से किस पर गतिविधि बनाई?", "Which of the five koshas is the activity for?", "अन्नमय (शारीरिक)|Annamaya (physical); प्राणमय (ऊर्जा/स्वास्थ्य)|Pranamaya (vital energy); मनोमय (भावना/मन)|Manomaya (mind and emotion); विज्ञानमय (बुद्धि/चिंतन)|Vijnanamaya (intellect); आनंदमय (आनंद)|Anandamaya (joy); सभी|All"),
+    q("कक्षा, बच्चों की संख्या और उम्र?", "Class, number of children and their age?"),
+    q("गतिविधि का नाम और मूल विचार क्या है?", "Name and basic idea of the activity?"),
+    q("कौन-सी सामग्री लगी?", "What materials were needed?"),
+    q("गतिविधि के चरण क्रम से लिखिए।", "Write the steps of the activity in order."),
+    q("स्थानीय खेल, गीत या कहानी जो इसमें जोड़ी?", "Local game, song or story you added?"),
+    q("बच्चों की प्रतिक्रिया और आपने सीखने का आकलन कैसे किया?", "Children's response and how you assessed learning?")
+  ],
+  c1t6: [
+    q("कौन-सा खेल, कहाँ, कब और कितने बच्चे?", "Which game, where, when and how many children?"),
+    q("खेल के दौरान बच्चों ने अपनी भावनाएँ कैसे व्यक्त कीं? उदाहरण दें।", "How did children express feelings during play? Give examples."),
+    q("बच्चों ने आपस में सहयोग और नियम तय करने में क्या किया?", "How did children cooperate and decide rules among themselves?"),
+    q("प्रशंसा, आलोचना और जीत-हार पर बच्चों की प्रतिक्रिया कैसी रही?", "How did children react to praise, criticism, winning and losing?"),
+    q("झगड़ा या असहमति हुई तो कैसे सुलझाई? कोई घटना बताइए।", "If a quarrel or disagreement occurred, how was it resolved? Describe an incident."),
+    q("लड़के-लड़कियों या अलग बच्चों की भागीदारी में क्या अंतर दिखा?", "What difference was there in participation of boys, girls or different children?"),
+    q("कक्षा में खेल का उपयोग कैसे करेंगे?", "How will you use play in class?")
+  ],
+  c1t7: [
+    q("आपकी कक्षा में कौन-सी सांस्कृतिक/भाषाई विविधता है? (बोलियाँ, समुदाय, त्योहार)", "What cultural and language diversity does your class have? (dialects, communities, festivals)"),
+    q("कोई घटना जहाँ संस्कृति का असर सीखने पर दिखा?", "An incident where culture affected learning?"),
+    q("घर पर समाजीकरण कैसा है? (लड़का-लड़की, बड़ों से व्यवहार, भाषा, काम)", "What is socialisation like at home? (boys and girls, behaviour with elders, language, work)"),
+    q("सीखने में कहाँ बाधा बनती है और कहाँ मदद करती है?", "Where does it hinder learning and where does it help?"),
+    q("आपने इसे कक्षा में कैसे संभाला?", "How did you handle it in class?"),
+    q("आपके सुझाव और निष्कर्ष?", "Your suggestions and conclusion?")
+  ],
+
+  // ---------- Course 2 ----------
+  c2t1: [
+    q("NEP 2020 की कौन-सी 3–4 बातें आपको सबसे महत्वपूर्ण लगीं?", "Which 3–4 points of NEP 2020 seem most important to you?"),
+    q("बुनियादी (Foundational) और प्रारंभिक (Preparatory) स्तर के लिए इसकी सबसे उपयोगी सिफ़ारिश क्या है?", "What is its most useful recommendation for the foundational and preparatory stages?"),
+    q("आपके विद्यालय में क्या लागू हो रहा है? (FLN/निपुण भारत, खेल आधारित शिक्षा, मातृभाषा)", "What is being implemented in your school? (FLN/NIPUN Bharat, play-based learning, mother tongue)"),
+    q("ज़मीनी चुनौतियाँ क्या हैं?", "What are the challenges on the ground?"),
+    q("आलोचनात्मक दृष्टि से: कौन-सी बात अस्पष्ट या कठिन लगी?", "Critically: what seemed unclear or difficult?"),
+    q("आपके सुझाव?", "Your suggestions?", true)
+  ],
+  c2t2: [
+    q("विद्यालय का नाम और स्थान?", "Name and place of the school?"),
+    ch("यह किस प्रकार का विद्यालय है?", "What kind of school is it?", "सरकारी (नवाचारी)|Government (innovative); निजी|Private; वैकल्पिक|Alternative; NGO/ट्रस्ट|NGO or trust"),
+    q("कब गए, कितना समय रुके और किनसे बात की?", "When did you go, how long did you stay and whom did you speak to?"),
+    q("कक्षा-प्रक्रिया में आपने क्या देखा? मुख्य बातें लिखिए।", "What did you see in classroom transaction? Write the main points."),
+    q("पाठ्यचर्या और आकलन के कौन-से तरीके अलग लगे?", "Which curriculum and assessment practices seemed different?"),
+    q("आपके विद्यालय से क्या अंतर दिखा, और आप क्या अपनाएँगे?", "How is it different from your school, and what will you adopt?"),
+    q("किसी बच्चे/शिक्षक की कोई यादगार बात?", "Any memorable thing a child or teacher said?", true)
+  ],
+  c2t3: [
+    q("भारतीय ज्ञान परंपरा के कौन-से तत्व स्कूल में जुड़ सकते हैं? (योग, पंचतंत्र की कहानियाँ, लोकगीत, खेल, स्थानीय कला, पारंपरिक गणित)", "Which elements of IKS can be added in school? (yoga, Panchatantra stories, folk songs, games, local arts, traditional mathematics)"),
+    q("आपके क्षेत्र की स्थानीय ज्ञान परंपराएँ या लोककलाएँ क्या हैं?", "What local knowledge traditions or folk arts exist in your area?"),
+    q("किस विषय/कक्षा में कैसे जोड़ेंगे? एक-दो उदाहरण।", "In which subject or class and how will you integrate? One or two examples."),
+    q("क्या कक्षा में कोई प्रयास किया? बच्चों की प्रतिक्रिया?", "Did you try anything in class? How did children respond?", true),
+    q("चुनौतियाँ क्या हैं?", "What are the challenges?"),
+    q("आपके सुझाव?", "Your suggestions?")
+  ],
+  c2t4: [
+    ch("आप किस स्तर की कक्षाओं से जुड़े हैं?", "Which stage of classes do you work with?", "बुनियादी (कक्षा 1–2)|Foundational (Class 1–2); प्रारंभिक (कक्षा 3–5)|Preparatory (Class 3–5); दोनों|Both"),
+    q("अपने अनुभव में दोनों स्तरों के बच्चों के सीखने में क्या अंतर देखा?", "From your experience, what difference do you see in how children of the two stages learn?"),
+    q("पाठ्यचर्या लक्ष्यों और दक्षताओं में कौन-से अंतर और समानताएँ आपने समझीं?", "Which differences and similarities in curricular goals and competencies did you understand?"),
+    q("आपकी कक्षा में FLN की स्थिति: कितने बच्चे धाराप्रवाह पढ़ते और बुनियादी गणित करते हैं?", "FLN position in your class: how many children read fluently and do basic maths?"),
+    q("FLN के लिए आप क्या करते/करवाते हैं?", "What do you do for FLN?"),
+    q("चुनौतियाँ और सुझाव?", "Challenges and suggestions?")
+  ],
+  c2t5: [
+    q("कौन-सा विषय और कक्षा चुनी?", "Which subject and class did you choose?"),
+    q("कौन-सा पाठ्यचर्या लक्ष्य (Curricular Goal) चुना?", "Which curricular goal did you choose?"),
+    q("उस लक्ष्य की कौन-सी दो दक्षताएँ (Competencies) चुनीं?", "Which two competencies of that goal did you choose?"),
+    q("हर दक्षता के लिए सीखने के प्रतिफल क्या लिखेंगे?", "What learning outcomes will you write for each competency?"),
+    q("हर दक्षता के लिए कौन-सी गतिविधियाँ रखीं?", "Which activities did you plan for each competency?"),
+    q("आकलन कैसे होगा?", "How will it be assessed?"),
+    q("क्या कक्षा में आज़माया? परिणाम?", "Did you try it in class? Result?", true)
+  ],
+  c2t6: [
+    q("कितने अभिभावकों से बात की, उनकी पृष्ठभूमि? (कूट नाम)", "How many parents did you speak to, and their backgrounds? (code names)"),
+    q("वे विद्यालय से क्या अपेक्षा रखते हैं?", "What do they expect from the school?"),
+    q("वे अभिभावक की भूमिका को कैसे देखते हैं? (घर पर पढ़ाई, बैठकें, SMC)", "How do they see the parent's role? (study at home, meetings, SMC)"),
+    q("उनकी चिंताएँ या शिकायतें क्या थीं?", "What were their worries or complaints?"),
+    q("अलग-अलग पृष्ठभूमि वाले अभिभावकों की अपेक्षाओं में क्या अंतर दिखा?", "What difference was there in the expectations of parents of different backgrounds?"),
+    q("इसके आधार पर आपने क्या कदम उठाए/उठाएँगे?", "What steps did you take or will you take on this basis?")
+  ],
+  c2t7: [
+    q("PARAKH का कौन-सा कार्ड (कौन-सा चरण/कक्षा) भरा?", "Which PARAKH card (stage or class) did you fill?"),
+    q("कौन-से तीन विद्यार्थी चुने (कूट नाम) और क्यों?", "Which three students did you choose (code names) and why?"),
+    ch("कार्ड भरने के लिए कौन-सी रणनीतियाँ अपनाईं?", "Which strategies did you use to fill the cards?", "अवलोकन|Observation; बातचीत|Conversation; पोर्टफोलियो|Portfolio; कार्यपत्रक/वर्कशीट|Worksheets; गतिविधि/खेल|Activities or games; अभिभावक से जानकारी|Parent inputs", false, true),
+    q("हर विद्यार्थी के बारे में मुख्य अवलोकन क्या रहे?", "What were the main observations on each student?"),
+    q("कार्ड भरने में कौन-सी चुनौतियाँ आईं?", "What challenges did you face in filling the cards?"),
+    q("इस अनुभव से आपने क्या सीखा और आगे क्या करेंगे?", "What did you learn from this and what will you do next?")
+  ],
+
+  // ---------- Course 3 (Hindi) ----------
+  c3At1: docQs(H, "NCF-FS 2022 में भाषा शिक्षा", "language education in NCF-FS 2022"),
+  c3At2: tbQs(H, [
+    q("कक्षा 1/2 के बच्चे इसे अपने स्तर पर कितना पढ़ पाते हैं? वर्ण, मात्रा और शब्द कैसे सिखाए गए हैं?", "How much can Class 1/2 children read on their own? How are letters, matras and words taught?"),
+    q("सुनना, बोलना, पढ़ना, लिखना के सीखने के प्रतिफलों से पुस्तक का मेल कितना है?", "How well does the book match the learning outcomes of listening, speaking, reading and writing?")
+  ]),
+  c3At3: tbQs(H, [
+    q("पाठ समझने के प्रश्न और रचनात्मक लेखन के अवसर कैसे हैं?", "How are the comprehension questions and chances for creative writing?"),
+    q("प्रारंभिक स्तर के सीखने के प्रतिफलों (पढ़कर समझना, लिखना, व्याकरण) से मेल कैसा है?", "How well does it match preparatory-stage learning outcomes (reading comprehension, writing, grammar)?")
+  ]),
+  c3Bt1: plQs(H, [
+    q("चार ब्लॉक मॉडल को आप अपने शब्दों में कैसे समझाएँगे?", "How would you explain the four block model in your own words?"),
+    q("आपने कौन-सा ब्लॉक और उसका कौन-सा बिंदु/घटक चुना?", "Which block and which component of it did you choose?")
+  ]),
+  c3Bt2: [
+    q("बाल साहित्य की पुस्तक का नाम, लेखक/प्रकाशक और कक्षा?", "Name, author or publisher of the children's book, and the class?"),
+    q("पुस्तक की कहानी/सामग्री संक्षेप में।", "Brief summary of the book."),
+    q("पढ़ने से पहले, पढ़ते समय और पढ़ने के बाद की गतिविधियाँ क्या रहीं?", "What were the before-, during- and after-reading activities?"),
+    q("बच्चों की भागीदारी और उनके कहे हुए शब्द/प्रतिक्रियाएँ?", "Children's participation and the words or reactions they gave?"),
+    q("इससे कौन-से भाषा कौशल विकसित हुए?", "Which language skills developed?"),
+    q("कौन-सी चुनौती आई और आगे क्या करेंगे?", "What challenges came up and what will you do next?")
+  ],
+  c3Bt3: tlmQs(H, [
+    q("यह मौखिक भाषा, पढ़ने या लिखने में किस तरह मदद करती है?", "How does it help in oral language, reading or writing?")
+  ]),
+  c3Bt4: asQs(H, [
+    q("मौखिक भाषा के आकलन की पाँच रणनीतियाँ कौन-सी हैं? हर एक एक लाइन में।", "What are your five strategies for assessing oral language? One line each."),
+    q("किन भाषायी दक्षताओं को जाँचा? (सुनकर समझना, बोलना, शब्द-भंडार, बातचीत)", "Which language competencies did you assess? (listening comprehension, speaking, vocabulary, conversation)")
+  ]),
+
+  // ---------- Course 4 (English) ----------
+  c4At1: docQs(E, "NCF-FS 2022 और NCF-SE 2023 की अंग्रेज़ी/L-II संबंधी सिफ़ारिशें", "the NCF-FS 2022 and NCF-SE 2023 recommendations on English (L-II)"),
+  c4At2: tbQs(E, [
+    q("सीखने के प्रतिफल (L-II) के हिसाब से सुनने, बोलने, पढ़ने, लिखने के अभ्यास कैसे हैं?", "How are the listening, speaking, reading and writing exercises as per L-II learning outcomes?"),
+    q("बच्चों की घर की भाषा का उपयोग पुस्तक में कितना है? अनुवाद/शब्दावली मदद?", "How much is the children's home language used in the book? Any translation or glossary help?")
+  ]),
+  c4At3: vdQs(E, [
+    q("वीडियो में अंग्रेज़ी का उच्चारण और शब्दावली बच्चों के स्तर पर कैसी थी?", "How were the English pronunciation and vocabulary at the children's level?"),
+    q("वीडियो L-II के किस सीखने के प्रतिफल से जुड़ता है?", "Which L-II learning outcome does the video connect to?")
+  ]),
+  c4Bt1: plQs(E, [
+    q("चार ब्लॉक मॉडल के अनुसार 7–10 दिनों की इकाई के दिन-वार चरण (एक-दो पंक्ति प्रति दिन)।", "Day-wise steps of the 7–10 day unit as per the four block model (one or two lines per day)."),
+    q("अंग्रेज़ी में कौन-से शब्द/वाक्य-रचनाएँ सिखाएँगे?", "Which English words or sentence patterns will you teach?")
+  ]),
+  c4Bt2: [
+    q("आपकी कक्षा में बच्चों की घर की भाषाएँ/बोलियाँ कौन-सी हैं?", "Which home languages or dialects do the children in your class have?"),
+    q("अंग्रेज़ी सीखने में बच्चों को कौन-सी चुनौतियाँ आती हैं?", "What challenges do children face in learning English?"),
+    q("किसी बच्चे का उदाहरण या घटना?", "An example or incident of a child?"),
+    ch("मुख्य कारण आपको क्या लगते हैं?", "What do you think are the main reasons?", "घर में अंग्रेज़ी का माहौल नहीं|No English at home; डर/झिझक|Fear or hesitation; शब्द-भंडार की कमी|Limited vocabulary; उच्चारण|Pronunciation; पाठ्यपुस्तक का स्तर|Textbook level; शिक्षक की कमी|Teacher shortage", false, true),
+    q("आपने कौन-सी रणनीतियाँ अपनाईं? (घर की भाषा का सेतु, चित्र, गीत, खेल)", "Which strategies did you use? (home language as bridge, pictures, songs, games)"),
+    q("उनका प्रभाव क्या रहा?", "What was their effect?")
+  ],
+  c4Bt3: asQs(E, [
+    q("अंग्रेज़ी में मौखिक भाषा के आकलन की पाँच रणनीतियाँ कौन-सी हैं?", "Which five strategies did you use to assess oral English?"),
+    q("कौन-सी भाषायी दक्षताएँ जाँचीं? (सुनना, बोलना, शब्द पहचान, छोटे वाक्य)", "Which competencies did you check? (listening, speaking, word recognition, short sentences)")
+  ]),
+  c4Bt4: wsQs(E, [
+    q("चार ब्लॉक मॉडल के किस ब्लॉक/कौशल (पढ़ना या लिखना) के लिए ये वर्कशीट हैं?", "For which block and skill (reading or writing) of the four block model are these worksheets?")
+  ]),
+  c4Bt5: erQs(["अंग्रेज़ी की", "English"], [
+    q("गलतियाँ किस प्रकार की हैं? (वर्तनी, व्याकरण/काल, शब्द-क्रम, अक्षर उलटना, घर की भाषा का असर)", "What types of errors are they? (spelling, grammar or tense, word order, letter reversal, home-language effect)")
+  ]),
+  c4Bt6: tlmQs(E, [
+    q("यह अंग्रेज़ी के किस कौशल (सुनना, बोलना, पढ़ना, लिखना) में मदद करती है?", "Which English skill does it help (listening, speaking, reading, writing)?")
+  ]),
+  c4Bt7: ictQs(E, [
+    q("इससे बच्चों का उच्चारण/सुनने का अभ्यास कैसे हुआ?", "How did it give children practice in pronunciation and listening?")
+  ]),
+
+  // ---------- Course 5 (Maths) ----------
+  c5At1: tbQs(M, [
+    q("अवधारणाएँ मूर्त वस्तुओं से अमूर्त की ओर कैसे बढ़ती हैं? क्या खेल/गतिविधियाँ हैं?", "How do concepts move from concrete objects to abstract? Are there games or activities?"),
+    q("संख्याएँ और स्थानीय मान जैसी अवधारणाओं की व्याख्या में कहाँ कठिनाई दिखी?", "Where did you see difficulty in how concepts like numbers and place value are explained?")
+  ]),
+  c5At2: vdQs(M, [
+    q("गणित की कौन-सी अवधारणा सिखाई गई और कैसे? (मूर्त वस्तु, चित्र, उदाहरण)", "Which maths concept was taught and how? (objects, pictures, examples)"),
+    q("क्या वीडियो बच्चों से सोचने/खुद हल करने को कहता है?", "Does the video ask children to think and solve on their own?")
+  ]),
+  c5At3: docQs(M, "NCF-SE 2023 और NCF-FS 2022 की गणित शिक्षा संबंधी सिफ़ारिशें", "the NCF-SE 2023 and NCF-FS 2022 recommendations for mathematics"),
+  c5Bt1: plQs(M, [
+    q("चार ब्लॉक दृष्टिकोण में 7–10 दिन की इकाई के दिन-वार चरण।", "Day-wise steps of the 7–10 day unit in the four block approach."),
+    q("बच्चों के पूर्व ज्ञान में आपने क्या देखा?", "What did you see in children's prior knowledge?")
+  ]),
+  c5Bt2: tlmQs(M, [
+    q("दोनों संसाधनों के उद्देश्य, दायरा (किन कक्षाओं/अवधारणाओं तक) और उपयोग के चरण?", "Objective, scope (which classes or concepts) and steps of use for both resources?"),
+    q("निर्देशिका में कौन-से सवाल/संकेत दिए?", "Which questions or hints did you put in the manual?", true)
+  ]),
+  c5Bt3: wsQs(M, [
+    q("मूलभूत संख्या-ज्ञान के कौन-से पहलू लिए? (गिनती, स्थानीय मान, जोड़-घटाव, तुलना)", "Which aspects of foundational numeracy did you cover? (counting, place value, addition-subtraction, comparison)")
+  ]),
+  c5Bt4: erQs(["गणित की", "mathematics"], [
+    q("गलतियाँ किस प्रकार की हैं? (स्थानीय मान, हासिल/उधार, संक्रिया का चयन, गिनती, चिह्न)", "What kinds of errors? (place value, carry or borrow, choice of operation, counting, signs)")
+  ]),
+  c5Bt5: ictQs(M, [
+    q("इस संसाधन ने अवधारणा समझाने में क्या खास मदद की?", "What special help did this resource give in explaining the concept?")
+  ]),
+  c5Bt6: [
+    q("इकाई परीक्षा का टॉपिक और कक्षा? (जैसे स्थानीय मान, संक्रियाएँ)", "Topic and class of the unit test? (for example place value, operations)"),
+    q("कितने प्रश्न, किस प्रकार के, कुल कितने अंक? परीक्षा बनाने की योजना?", "How many questions, what types and how many marks? How did you plan the test?"),
+    q("कितने बच्चों ने परीक्षा दी और कब?", "How many children took it and when?"),
+    q("परिणाम: औसत अंक, कितने बच्चे किस प्रश्न में सफल/असफल?", "Result: average marks, how many children passed or failed which question?"),
+    q("विश्लेषण: कौन-सी अवधारणा मज़बूत और कौन-सी कमज़ोर निकली?", "Analysis: which concept was strong and which weak?"),
+    q("आगे उपचार के लिए क्या करेंगे?", "What will you do next as remedy?")
+  ],
+
+  // ---------- Course 6 (TWAU / EVS) ----------
+  c6At1: tbQs(V, [
+    q("पाठ बच्चों को अवलोकन, प्रयोग और स्थानीय परिवेश से कैसे जोड़ते हैं?", "How do the lessons link children with observation, experiments and the local environment?"),
+    q("विज्ञान, सामाजिक और पर्यावरण विषयों का एकीकरण कैसा है?", "How is the integration of science, social and environmental themes?")
+  ]),
+  c6At2: docQs(V, "NCF-SE 2023 और NCF-FS 2022 में TWAU संबंधी सिफ़ारिशें", "the NCF-SE 2023 and NCF-FS 2022 recommendations for The World Around Us"),
+  c6At3: plQs(V, [
+    q("आप कौन-सा विषय लेंगे और उसमें कला, खेल, भाषा, गणित का एकीकरण कैसे होगा?", "Which topic, and how will art, sports, language and maths be integrated?"),
+    q("कक्षा 1 या 2 के बच्चों के लिए क्या-क्या गतिविधियाँ रखीं?", "What activities did you keep for Class 1 or 2 children?")
+  ]),
+  c6At4: vdQs(V, [
+    q("वीडियो में कौन-सी अवधारणा/विषय था और वह बच्चों के परिवेश से कितना जुड़ता है?", "What concept or topic did the video have and how well does it connect to children's surroundings?"),
+    q("वीडियो के बाद क्या गतिविधि करवाई?", "What activity did you do after the video?")
+  ]),
+  c6Bt1: [
+    q("कौन-सा विषय चुना और कौन-सी कक्षा?", "Which topic did you choose and which class?"),
+    ch("बच्चों के विचार जानने के लिए क्या तरीका अपनाया?", "How did you probe children's ideas?", "साक्षात्कार / बातचीत|Interviews or talk; चित्र बनवाना|Drawings; प्रश्नावली|Questionnaire; समूह चर्चा|Group discussion; कहानी/नाटक|Story or role play", false, true),
+    q("कितने बच्चों से जाना? कूट नाम दें।", "How many children did you ask? Give code names."),
+    q("बच्चों के मन की धारणाएँ (वैकल्पिक अवधारणाएँ) क्या मिलीं? बच्चों के शब्दों में।", "What alternative conceptions did you find? In the children's own words."),
+    q("ये धारणाएँ कहाँ से आई होंगी? (घर, कहानियाँ, अनुभव)", "Where might these ideas have come from? (home, stories, experience)"),
+    q("इनसे निपटने के लिए आपने क्या किया?", "What did you do to address them?")
+  ],
+  c6Bt2: [
+    q("कहाँ का भ्रमण किया? (संग्रहालय, ऐतिहासिक स्मारक, डाकघर, पार्क, बाज़ार)", "Where did you take the trip? (museum, monument, post office, park, market)"),
+    q("कब गए, कितने बच्चे, कितने समय के लिए?", "When did you go, how many children and for how long?"),
+    q("भ्रमण से पहले क्या तैयारी की?", "What preparation was done before the trip?"),
+    q("वहाँ बच्चों ने क्या देखा, पूछा और किया?", "What did children see, ask and do there?"),
+    q("भ्रमण के चार सीखने के प्रतिफल क्या लिखेंगे?", "What four learning outcomes will you write for the trip?"),
+    q("यह अंतर-विषयक दृष्टिकोण को कैसे बढ़ावा देता है? (भाषा, गणित, कला, विज्ञान)", "How does it promote an interdisciplinary approach? (language, maths, art, science)"),
+    q("भ्रमण के बाद की गतिविधि?", "Follow-up activity after the trip?", true)
+  ],
+  c6Bt3: wsQs(V, [
+    q("PARAKH रिपोर्ट कार्ड के किन आयामों/दक्षताओं के लिए ये वर्कशीट हैं?", "For which dimensions or competencies of the PARAKH report card are these worksheets?")
+  ]),
+  c6Bt4: ictQs(V, [
+    q("बच्चों ने सीधे परिवेश से क्या जुड़ाव महसूस किया?", "How did children connect it with their surroundings?")
+  ]),
+  c6Bt5: tlmQs(V, [
+    q("यह बोर्ड गेम/EVS किट क्या है और खेलने के नियम?", "What is this board game or EVS kit and what are the rules of play?"),
+    q("इससे कौन-से प्रक्रिया कौशल (अवलोकन, वर्गीकरण, तुलना, अनुमान) बढ़ते हैं?", "Which process skills (observing, classifying, comparing, predicting) does it build?"),
+    q("निर्देशिका में कौन-से चरण और दायरा बताया?", "Which steps and scope are in the instruction manual?")
+  ])
+};
+
+// profile / class / reflection are shared by every task
+const PROFILE = [
+  ["name", "पूरा नाम", "Full name", false], ["enrol", "नामांकन संख्या (Enrolment No.)", "Enrolment number", true],
+  ["school", "विद्यालय का नाम", "School name", false], ["block", "ब्लॉक (विकासखंड)", "Block", false],
+  ["district", "जिला", "District", false], ["state", "राज्य", "State", true], ["udise", "यू-डाइस कोड (UDISE)", "UDISE code", true],
+  ["roll", "अनुक्रमांक (Roll No.)", "Roll number", true], ["village", "पता: ग्राम", "Address: village", true],
+  ["po", "पोस्ट ऑफिस", "Post office", true], ["thana", "थाना", "Police station", true], ["pin", "पिन कोड", "PIN code", true],
+  ["mobile", "मोबाइल नंबर", "Mobile number", true], ["email", "ई-मेल", "Email", true],
+  ["period", "अध्ययन-अध्यापन की अवधि (दिनांक से दिनांक तक)", "Study period (from date to date)", true],
+  ["centre", "अध्ययन केंद्र का नाम", "Study centre name", true]
+];
+const REFLECT = [
+  q("इस काम से एक शिक्षक के रूप में आपने क्या सीखा?", "What did you learn from this work as a teacher?"),
+  q("आगे इसमें क्या सुधार करेंगे?", "What will you improve next?", true),
+  q("कुछ और जो असाइनमेंट में ज़रूर आना चाहिए?", "Anything else that must be in the assignment?", true)
+];
+
+const DATA = {"courses":{"1":"Course 1: बाल विकास एवं शैक्षिक मनोविज्ञान","2":"Course 2: पाठ्यचर्या, शिक्षणशास्त्र और आकलन","3":"Course 3: भाषा का शिक्षाशास्त्र-1 (हिंदी/क्षेत्रीय भाषा)","4":"Course 4: Pedagogy of Language-II (English)","5":"Course 5: गणित का शिक्षाशास्त्र","6":"Course 6: The World Around Us (TWAU)"},"courseEn":{"1":"Child Development and Educational Psychology","2":"Curriculum, Pedagogy and Assessment","3":"Pedagogy of Language-I (Hindi/Regional Language)","4":"Pedagogy of Language-II (English)","5":"Pedagogy of Mathematics","6":"Pedagogy of The World Around Us"},"courseHi":{"1":"बाल विकास और शैक्षिक मनोविज्ञान","2":"पाठ्यचर्या, शिक्षणशास्त्र और आकलन","3":"भाषा का शिक्षाशास्त्र-1 (हिंदी/क्षेत्रीय भाषा)","4":"भाषा का शिक्षाशास्त्र-2 (अंग्रेज़ी)","5":"गणित का शिक्षाशास्त्र","6":"हमारे आस-पास की दुनिया का शिक्षाशास्त्र"},"tasks":[{"id":"c1t1","c":1,"sec":"","n":1,"short":"विविध पृष्ठभूमि के बच्चों के साथ एक दिन","en":"Spend day with children from diverse backgrounds (different economic status) and prepare a report based on observations (Focusing on various factors: Physical, emotional, social, language, cultural and religious influencing the child on daily basis)."},{"id":"c1t2","c":1,"sec":"","n":2,"short":"सीखने की कठिनाई: व्यक्तिगत हस्तक्षेप (केस स्टडी)","en":"Identify the learning difficulties of Students in different learning areas and the possible reasons for them. Prepare and implement a Personalized Intervention plan for Students with Learning Difficulties - Case Study Report."},{"id":"c1t3","c":1,"sec":"","n":3,"short":"4–5 अभिभावकों से पालन-पोषण पर साक्षात्कार","en":"Conduct interviews with 4 to 5 parents from different socio-cultural and economic background with regard to the child rearing practices and parenting styles."},{"id":"c1t4","c":1,"sec":"","n":4,"short":"पालन-पोषण व बचपन पर 10 अखबारी लेखों का विश्लेषण","en":"Collate at least ten newspaper articles that involve parenting and childhood and critically analyze these."},{"id":"c1t5","c":1,"sec":"","n":5,"short":"पंचकोशीय विकास हेतु गतिविधि","en":"Design an activity to promote Panch-koshiya Vikas (पंचकोशीय विकास) in children of your class."},{"id":"c1t6","c":1,"sec":"","n":6,"short":"खेलते बच्चों का अवलोकन","en":"Children at play- observe how they are engaged in games, express their feelings, cooperate with each other, respond to praise/criticism/winning a game, negotiate and resolve conflicts."},{"id":"c1t7","c":1,"sec":"","n":7,"short":"चिंतनशील निबंध: सांस्कृतिक भिन्नता और समाजीकरण","en":"Reflective Essay- on how cultural differences in socialization impact the learning in the classroom."},{"id":"c2t1","c":2,"sec":"","n":1,"short":"NEP 2020 का आलोचनात्मक विश्लेषण","en":"Critically analyze NEP 2020 and discuss its salient features and implications for the foundational and preparatory stage of school education."},{"id":"c2t2","c":2,"sec":"","n":2,"short":"नवाचारी/वैकल्पिक विद्यालय का भ्रमण","en":"Visit any innovative/alternative school in your area to observe schooling and curricular transaction process and present a report of your observations and learning."},{"id":"c2t3","c":2,"sec":"","n":3,"short":"पाठ्यक्रम में भारतीय ज्ञान परंपरा (IKS) पर निबंध","en":"Write an essay on the importance and possibilities of integrating IKS (Indian Knowledge Systems) in the school curriculum at preparatory level."},{"id":"c2t4","c":2,"sec":"","n":4,"short":"बुनियादी बनाम प्रारंभिक स्तर, और FLN का महत्व","en":"Compare and contrast between curricular goals and competencies of foundational and preparatory stage and discuss the importance of FLN (Foundational Literacy and Numeracy)."},{"id":"c2t5","c":2,"sec":"","n":5,"short":"एक पाठ्यचर्या लक्ष्य: सीखने के प्रतिफल व गतिविधियाँ","en":"Choose any one curricular goal for any school subject area and design learning outcomes and activities for any two competencies of that curricular goal."},{"id":"c2t6","c":2,"sec":"","n":6,"short":"5 अभिभावकों से विद्यालय संबंधी अपेक्षाएँ","en":"Interview 5 parents regarding their expectations from schooling, Parent's role etc. Analyze the responses and write a report."},{"id":"c2t7","c":2,"sec":"","n":7,"short":"PARAKH आकलन कार्ड: 3 विद्यार्थी","en":"Download the assessment cards for preparatory/foundational stage from PARAKH and fill in the sample cards for any 3 students of your class. Submit a detailed report explaining how you have filled up these report cards (i.e. what strategies you have used) and challenges faced."},{"id":"c3At1","c":3,"sec":"A","n":1,"short":"खंड 1 · NCF-FS 2022 में भाषा शिक्षा","en":""},{"id":"c3At2","c":3,"sec":"A","n":2,"short":"खंड 1 · कक्षा 1/2 की भाषा पाठ्यपुस्तक का विश्लेषण","en":""},{"id":"c3At3","c":3,"sec":"A","n":3,"short":"खंड 1 · कक्षा 3–5 की भाषा पाठ्यपुस्तक का विश्लेषण","en":""},{"id":"c3Bt1","c":3,"sec":"B","n":1,"short":"खंड 2 · चार ब्लॉक मॉडल: कक्षायी प्रक्रिया","en":""},{"id":"c3Bt2","c":3,"sec":"B","n":2,"short":"खंड 2 · बाल साहित्य की पुस्तक से गतिविधियाँ","en":""},{"id":"c3Bt3","c":3,"sec":"B","n":3,"short":"खंड 2 · कम लागत की अधिगम-शिक्षण सामग्री","en":""},{"id":"c3Bt4","c":3,"sec":"B","n":4,"short":"खंड 2 · मौखिक भाषा का आकलन (5 रणनीतियाँ)","en":""},{"id":"c4At1","c":4,"sec":"A","n":1,"short":"Section A · NCF-FS & NCF-SE: English","en":"Critically discuss and write a report on curricular and pedagogic recommendations of NCF-FS 2022 and NCF-SE 2023 for English (or Any L-II/L-III) language education at foundational and preparatory stage."},{"id":"c4At2","c":4,"sec":"A","n":2,"short":"Section A · English textbook analysis","en":"Critically analyze the present NCERT / state board English (or any L-II) textbook and present a written report. Aspects of analysis should include learning outcomes of L-II, language, content, illustrations, inclusion, stereotypes, assessment etc."},{"id":"c4At3","c":4,"sec":"A","n":3,"short":"Section A · DIKSHA English video analysis","en":"Watch and critically analyze a English (or any L-II) video programme on any topic of foundational/preparatory stage from DIKSHA portal and present a detailed report."},{"id":"c4Bt1","c":4,"sec":"B","n":1,"short":"Section B · Unit plan (7–10 days), four block model","en":"Prepare a unit plan (7-10 days) on any one topic from foundational or preparatory curriculum using four block model in English (or any L-II)."},{"id":"c4Bt2","c":4,"sec":"B","n":2,"short":"Section B · English in a multilingual classroom","en":"Discuss the challenges regarding English language (or any L-II) learning with special reference to your own multilingual Indian classroom. Suggest some strategies to address these challenges."},{"id":"c4Bt3","c":4,"sec":"B","n":3,"short":"Section B · Oral language assessment (5 strategies)","en":"How would you assess oral language at foundational stage? Use any five strategies in your classroom for the assessment and reflect on your experiences with children."},{"id":"c4Bt4","c":4,"sec":"B","n":4,"short":"Section B · Worksheet folder (5 worksheets)","en":"Prepare a worksheet folder (at least 5 worksheets) to develop reading or writing skills in English language (or any L-II) in the context of four block model at foundational stage."},{"id":"c4Bt5","c":4,"sec":"B","n":5,"short":"Section B · Error analysis in English","en":"Analyze written work (notebook & worksheets) of children of your class and observe the patterns of the errors in English Language (or any L-II) and present a report detailing the types of errors, possible causes for them and suggestive activities/approaches to address them."},{"id":"c4Bt6","c":4,"sec":"B","n":6,"short":"Section B · Low-cost learning material","en":"Prepare effective and useful and low-cost/no-cost learning material to develop language skills in English language (or any L-II) for one of the foundational or preparatory classes. Also, use it in the classroom and to analyze your experiences."},{"id":"c4Bt7","c":4,"sec":"B","n":7,"short":"Section B · Jaadui Pitara / ICT for English","en":"Write a detailed report on how you have used Jaadui Pitara / e-Jaadui Pitara/ ICT resource to develop language skills in English language (or any L-II) and link with the learning outcomes for L-II."},{"id":"c5At1","c":5,"sec":"A","n":1,"short":"Section A · गणित पाठ्यपुस्तक विश्लेषण","en":"Critically analyse the present NCERT / state board Mathematics textbook and present a written report. Aspects of analysis should include language, illustrations, content organisation, inclusion, stereotypes, assessment etc."},{"id":"c5At2","c":5,"sec":"A","n":2,"short":"Section A · DIKSHA गणित वीडियो विश्लेषण","en":"Watch and critically analyze a video on any topic of foundational/preparatory stage from DIKSHA portal and present a detailed report."},{"id":"c5At3","c":5,"sec":"A","n":3,"short":"Section A · NCF-SE & NCF-FS: गणित","en":"Write a report on the curricular and pedagogic recommendations of NCF-SE 2023 and NCF-FS 2022 for mathematics education at foundational and preparatory stage."},{"id":"c5Bt1","c":5,"sec":"B","n":1,"short":"Section B · इकाई योजना (7–10 दिन), चार ब्लॉक","en":"Prepare a unit plan (7-10 days) on any one topic from foundational or preparatory curriculum using four block approach in Mathematics."},{"id":"c5Bt2","c":5,"sec":"B","n":2,"short":"Section B · दो शिक्षण संसाधन + निर्देशिका","en":"Prepare any two teaching learning resources in mathematics along with instructional manual explain the objectives, scope and steps in using the resource."},{"id":"c5Bt3","c":5,"sec":"B","n":3,"short":"Section B · वर्कशीट फ़ोल्डर (5 वर्कशीट)","en":"Prepare a worksheet folder (at least 5 worksheets) to develop foundational numeracy."},{"id":"c5Bt4","c":5,"sec":"B","n":4,"short":"Section B · गणित में त्रुटि विश्लेषण","en":"Analyze written work (notebook & worksheets) of children of your class and observe the patterns of the errors and present a report detailing the types of errors, possible causes for them and suggestive activities/approaches to address them."},{"id":"c5Bt5","c":5,"sec":"B","n":5,"short":"Section B · जादुई पिटारा / ICT से गणित","en":"Write a detailed report on how you have used Jaadui Pitara / e-Jaadui Pitara/ ICT resource to teach a concept in mathematics and link with the learning outcomes."},{"id":"c5Bt6","c":5,"sec":"B","n":6,"short":"Section B · इकाई परीक्षा: बनाना, लेना, विश्लेषण","en":"Prepare a unit test to assess performance of students in one area of mathematics like place value or operations on numbers etc. Administer the test in the class, analyze and prepare a detailed report."},{"id":"c6At1","c":6,"sec":"A","n":1,"short":"Section A · EVS/हमारा अद्भुत संसार पाठ्यपुस्तक विश्लेषण","en":"Critically analyze the present NCERT (Our Wondrous World) / state board EVS textbook and present a written report. Aspects of analysis should include language, illustrations, content organisation, inclusion, stereotypes, assessment etc."},{"id":"c6At2","c":6,"sec":"A","n":2,"short":"Section A · NCF-SE & NCF-FS: TWAU","en":"Write a report on the curricular and pedagogic recommendations of NCF-SE 2023 and NCF-FS 2022 for The World Around Us at preparatory stage."},{"id":"c6At3","c":6,"sec":"A","n":3,"short":"Section A · एकीकृत इकाई योजना (कक्षा 1/2)","en":"Prepare an integrated unit plan to teach a topic in 'The World Around Us' detailing how it can be used to promote interdisciplinarity (Art and sports integration, other curricular areas like languages, Mathematics etc) for class 1 or 2."},{"id":"c6At4","c":6,"sec":"A","n":4,"short":"Section A · DIKSHA वीडियो विश्लेषण","en":"Watch and critically analyze a video on any topic of foundational/preparatory stage from DIKSHA portal and present a detailed report."},{"id":"c6Bt1","c":6,"sec":"B","n":1,"short":"Section B · बच्चों की वैकल्पिक अवधारणाएँ","en":"Choose any topic and probe children's ideas /alternate conceptions held by your class students. Present a detailed report of these, mentioning how you have probed (Hint- interviews, drawings, questionnaire etc)."},{"id":"c6Bt2","c":6,"sec":"B","n":2,"short":"Section B · क्षेत्र भ्रमण (Field trip)","en":"Organise a field trip /visit to museum or historical monument or post office or park or market in your area. Write four learning outcomes for such a trip and explain how it can promote interdisciplinary approach."},{"id":"c6Bt3","c":6,"sec":"B","n":3,"short":"Section B · PARAKH के अनुसार 5 वर्कशीट","en":"Develop 5 worksheets to assess students' learning as per the PARAKH report card guidelines."},{"id":"c6Bt4","c":6,"sec":"B","n":4,"short":"Section B · जादुई पिटारा / ICT से TWAU","en":"Write a detailed report on how you have used Jaadui Pitara /e-Jaadui Pitara/ ICT resource to teach a concept in 'the world around us' and link with the learning outcomes."},{"id":"c6Bt5","c":6,"sec":"B","n":5,"short":"Section B · बोर्ड गेम / EVS किट + निर्देशिका","en":"Prepare a board game/ EVS Kit along with instructional manual detailing its scope and steps. Also mention which process skills can be promoted through this resource."}]};
+const EN_C3 = { c3At1: "NCF-FS 2022 on language education", c3At2: "Analysis of a Class 1/2 language textbook", c3At3: "Analysis of a Class 3–5 language textbook", c3Bt1: "Four block model: classroom process", c3Bt2: "Activities from a children's literature book", c3Bt3: "Low-cost learning material", c3Bt4: "Assessing oral language (5 strategies)" };
+
+// ---------- interface text: [hindi, english] ----------
+const UI = {
+  title: ["ब्रिज कोर्स असाइनमेंट: जानकारी फ़ॉर्म", "Bridge Course Assignment: Information Form"],
+  subtitle: ["माध्यम (हिंदी/English) ऊपर से चुनें। जानकारी सच-सच और छोटे उत्तरों में भरें, फिर बनी हुई टेक्स्ट फ़ाइल हमें भेज दें।", "Choose your medium (Hindi/English) at the top. Fill in the details honestly in short answers, then send us the text file it creates."],
+  s1: ["1. आपका परिचय", "1. About you"], s1h: ["* वाले खाने ज़रूरी हैं।", "Fields marked * are required."],
+  s2: ["2. आपका कोर्स और कार्य (Task)", "2. Your course and task"],
+  course: ["कोर्स चुनें", "Choose the course"], task: ["कार्य (Task) चुनें", "Choose the task"], pick: ["— चुनें —", "— choose —"],
+  assignNo: ["यह आपका कौन-सा असाइनमेंट है?", "Which assignment of yours is this?"],
+  rule: [["किन्हीं 2 कार्यों की रिपोर्ट जमा करनी है।", "Submit a report for any 2 tasks."], ["खंड 1 से एक और खंड 2 से एक कार्य करना है।", "One task from Section 1 and one from Section 2."], ["Section A से एक और Section B से एक कार्य करना है।", "One task from Section A and one from Section B."]],
+  s3: ["3. आपकी कक्षा", "3. Your class"],
+  cls: ["यह काम किस कक्षा में/के लिए किया?", "Which class was this work done in or for?"],
+  total: ["कक्षा में कुल कितने बच्चे हैं? (लड़के-लड़कियाँ अलग बताएँ तो और अच्छा)", "How many children in the class? (boys and girls separately if possible)"],
+  locale: ["विद्यालय का परिवेश कैसा है? (गाँव/कस्बा, घर की भाषा, अभिभावकों का पेशा)", "What is the school surroundings like? (village or town, home language, parents' occupations)"],
+  s4: ["4. आपके कार्य के बारे में", "4. About your task"], s4h: ["ये सवाल आपके चुने कार्य के अनुसार हैं। जो जानकारी असली है वही लिखें; अपनी तरफ़ से आँकड़े न गढ़ें।", "These questions follow the task you chose. Write only what is real; do not make up figures."],
+  s4empty: ["पहले ऊपर कोर्स और कार्य चुनिए, फिर इस कार्य के सवाल यहाँ आएँगे।", "Choose the course and task above first; the questions for that task will appear here."],
+  s5: ["5. स्व-चिंतन", "5. Reflection"],
+  writeLang: ["असाइनमेंट किस भाषा में लिखा जाए?", "In which language should the assignment be written?"],
+  consent: ["मैं पुष्टि करता/करती हूँ कि यह जानकारी मेरे अपने कार्य की है।", "I confirm this information is about my own work."],
+  submit: ["टेक्स्ट फ़ाइल बनाएँ और डाउनलोड करें", "Create and download text file"], sending: ["भेजा जा रहा है…", "Sending…"],
+  optional: ["(वैकल्पिक)", "(optional)"],
+  fillReq: ["कृपया लाल निशान वाले ज़रूरी खाने भरें।", "Please fill the required fields marked in red."],
+  needConsent: ["कृपया पुष्टि वाला बॉक्स चुनें।", "Please tick the confirmation box."],
+  done: ["आपकी टेक्स्ट फ़ाइल (.txt) डाउनलोड हो गई है।", "Your text file (.txt) has been downloaded."],
+  sendIt: ["अब इस फ़ाइल को WhatsApp या ई-मेल से हमें भेज दीजिए। फ़ाइल न मिले तो नीचे दिया बटन दबाकर दोबारा डाउनलोड करें।", "Now send this file to us on WhatsApp or email. If you cannot find it, press the button below to download it again."],
+  again2: ["फ़ाइल दोबारा डाउनलोड करें", "Download the file again"],
+  copy: ["अपनी कॉपी डाउनलोड करें", "Download your copy"], again: ["नया फ़ॉर्म भरें", "Fill another form"],
+  failed: ["भेजने में दिक्कत आई। नीचे से फ़ाइल डाउनलोड करके हमें भेज दें, या थोड़ी देर बाद दोबारा कोशिश करें।", "Sending failed. Download the file below and send it to us, or try again shortly."],
+  yes: ["हाँ", "Yes"]
+};
+
+// ---------- state ----------
+let lang = "hi";
+let S = blank();
+function blank() { return { profile: {}, course: "", taskId: "", assignNo: "", cls: "", total: "", locale: "", writeLang: "", ans: {}, refl: {}, consent: false }; }
+try { const d = JSON.parse(localStorage.getItem(DRAFT)); if (d && d.S) { S = Object.assign(blank(), d.S); lang = d.lang || "hi"; } } catch {}
+const saveDraft = () => { try { localStorage.setItem(DRAFT, JSON.stringify({ S, lang })); } catch {} };
+const t = k => UI[k][lang === "hi" ? 0 : 1];
+const L = p => lang === "hi" ? p.hi : p.en;
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+const taskById = id => DATA.tasks.find(x => x.id === id);
+const secName = x => x.sec ? ((x.c === 3 ? (x.sec === "A" ? "खंड 1" : "खंड 2") : "Section " + x.sec) + " · ") : "";
+function taskText(x) {
+  if (lang === "hi") return x.short;
+  const base = x.en ? x.en.replace(/\s+/g, " ") : EN_C3[x.id];
+  const cut = base.length > 110 ? base.slice(0, 107) + "…" : base;
+  return `${x.sec ? (x.c === 3 ? (x.sec === "A" ? "Section 1" : "Section 2") : "Section " + x.sec) + " · " : ""}Task ${x.n}: ${cut}`;
+}
+const ruleIdx = c => c <= 2 ? 0 : c === 3 ? 1 : 2;
+
+// ---------- render ----------
+function fieldText(id, label, val, o, attrs) {
+  return `<div class="f"><label class="${o ? "" : "req"}" for="${id}">${esc(label)}${o ? ` <span class="sub">${t("optional")}</span>` : ""}</label><input type="text" id="${id}" data-k="${id}" value="${esc(val)}" ${attrs || ""}></div>`;
+}
+function qHtml(prefix, qq, i, store) {
+  const id = prefix + (i + 1);
+  const label = L(qq);
+  if (qq.opts) {
+    const cur = store[id] || [];
+    const type = qq.multi ? "checkbox" : "radio";
+    return `<div class="f" data-q="${id}" data-req="${qq.o ? 0 : 1}"><div class="lbl ${qq.o ? "" : "req"}">${esc(label)}${qq.o ? ` <span class="sub">${t("optional")}</span>` : ""}</div><div class="opts">` +
+      qq.opts.map((op, j) => `<label class="opt ${cur.includes(j) ? "on" : ""}"><input type="${type}" name="${id}" data-c="${id}" value="${j}" ${cur.includes(j) ? "checked" : ""}><span>${esc(L(op))}</span></label>`).join("") + `</div></div>`;
+  }
+  return `<div class="f" data-q="${id}" data-req="${qq.o ? 0 : 1}"><label class="${qq.o ? "" : "req"}" for="${id}">${esc(label)}${qq.o ? ` <span class="sub">${t("optional")}</span>` : ""}</label><textarea id="${id}" data-a="${id}">${esc(store[id] || "")}</textarea></div>`;
+}
+function render() {
+  document.documentElement.lang = lang === "hi" ? "hi" : "en";
+  $("title").textContent = t("title"); $("subtitle").textContent = t("subtitle");
+  $("lhi").setAttribute("aria-pressed", lang === "hi"); $("len").setAttribute("aria-pressed", lang === "en");
+  const tk = taskById(S.taskId);
+  const cNo = +S.course || 0;
+  const courses = lang === "hi" ? DATA.courseHi : DATA.courseEn;
+  const rule = cNo ? UI.rule[ruleIdx(cNo)][lang === "hi" ? 0 : 1] : "";
+  const clsOpts = [["कक्षा 1", "Class 1"], ["कक्षा 2", "Class 2"], ["कक्षा 3", "Class 3"], ["कक्षा 4", "Class 4"], ["कक्षा 5", "Class 5"], ["बहुकक्षा", "Multigrade"]];
+  const wl = [["हिंदी", "Hindi"], ["English", "English"]];
+  const radio = (name, list, cur) => `<div class="opts">` + list.map((o, j) => `<label class="opt ${String(cur) === String(j) ? "on" : ""}"><input type="radio" name="${name}" data-r="${name}" value="${j}" ${String(cur) === String(j) ? "checked" : ""}><span>${esc(o[lang === "hi" ? 0 : 1])}</span></label>`).join("") + `</div>`;
+  let h = `<section><h2>${t("s1")}</h2><p class="hint">${t("s1h")}</p><div class="grid">` +
+    PROFILE.map(([id, hi, en, o]) => fieldText("p_" + id, lang === "hi" ? hi : en, S.profile[id], o, id === "mobile" ? 'inputmode="tel"' : id === "email" ? 'inputmode="email"' : "")).join("") + `</div></section>`;
+  h += `<section><h2>${t("s2")}</h2>
+    <div class="f" data-req="1" data-q="course"><label class="req" for="course">${t("course")}</label><select id="course"><option value="">${t("pick")}</option>` +
+    Object.keys(courses).map(c => `<option value="${c}" ${String(c) === String(S.course) ? "selected" : ""}>Course ${c}: ${esc(courses[c])}</option>`).join("") + `</select>${rule ? `<div class="taskbox">${esc(rule)}</div>` : ""}</div>
+    <div class="f" data-req="1" data-q="task"><label class="req" for="task">${t("task")}</label><select id="task" ${cNo ? "" : "disabled"}><option value="">${t("pick")}</option>` +
+    DATA.tasks.filter(x => x.c === cNo).map(x => `<option value="${x.id}" ${x.id === S.taskId ? "selected" : ""}>${esc(taskText(x))}</option>`).join("") + `</select>${tk && lang === "en" && tk.en ? `<div class="taskbox">${esc(tk.en)}</div>` : ""}</div>
+    <div class="f" data-req="1" data-q="assignNo"><div class="lbl req">${t("assignNo")}</div>${radio("assignNo", [["असाइनमेंट 1", "Assignment 1"], ["असाइनमेंट 2", "Assignment 2"]], S.assignNo === "" ? "" : +S.assignNo - 1)}</div></section>`;
+  h += `<section><h2>${t("s3")}</h2><div class="f" data-req="1" data-q="cls"><div class="lbl req">${t("cls")}</div>${radio("cls", clsOpts, S.cls)}</div>
+    <div class="f" data-req="1" data-q="total"><label class="req" for="total">${t("total")}</label><input type="text" id="total" data-k="total" value="${esc(S.total)}"></div>
+    <div class="f" data-req="1" data-q="locale"><label class="req" for="locale">${t("locale")}</label><textarea id="locale" data-k="locale">${esc(S.locale)}</textarea></div></section>`;
+  h += `<section><h2>${t("s4")}</h2>` + (tk ? `<p class="hint">${t("s4h")}</p>` + BANK[tk.id].map((qq, i) => qHtml(tk.id + "_", qq, i, S.ans)).join("") : `<p class="hint">${t("s4empty")}</p>`) + `</section>`;
+  h += `<section><h2>${t("s5")}</h2>` + REFLECT.map((qq, i) => qHtml("r_", qq, i, S.refl)).join("") +
+    `<div class="f" data-req="1" data-q="writeLang"><div class="lbl req">${t("writeLang")}</div>${radio("writeLang", wl, S.writeLang)}</div></section>`;
+  h += `<div class="hp" aria-hidden="true"><input type="text" id="hp" tabindex="-1" autocomplete="off"></div>
+    <label class="opt ${S.consent ? "on" : ""}" style="margin:6px 0 12px" data-q="consent"><input type="checkbox" id="consent" ${S.consent ? "checked" : ""}><span>${t("consent")}</span></label>
+    <div id="fmsg"></div><div class="row"><button class="btn" type="submit" id="sendBtn">${t("submit")}</button></div>`;
+  $("f").innerHTML = h;
+}
+
+// ---------- events ----------
+const f = $("f");
+f.addEventListener("input", e => {
+  const el = e.target;
+  if (el.dataset.k) {
+    if (el.id.startsWith("p_")) S.profile[el.dataset.k.slice(2)] = el.value;
+    else S[el.dataset.k] = el.value;
+  } else if (el.dataset.a) {
+    (el.dataset.a.startsWith("r_") ? S.refl : S.ans)[el.dataset.a] = el.value;
+  }
+  el.closest(".f") && el.closest(".f").classList.remove("err");
+  saveDraft();
+});
+f.addEventListener("change", e => {
+  const el = e.target;
+  if (el.id === "course") { S.course = el.value; S.taskId = ""; S.ans = {}; saveDraft(); render(); return; }
+  if (el.id === "task") { if (S.taskId !== el.value) S.ans = {}; S.taskId = el.value; saveDraft(); render(); return; }
+  if (el.id === "consent") { S.consent = el.checked; el.closest(".opt").classList.toggle("on", el.checked); saveDraft(); return; }
+  if (el.dataset.r) {
+    const v = el.value, n = el.dataset.r;
+    if (n === "assignNo") S.assignNo = String(+v + 1); else S[n] = v;
+    el.closest(".opts").querySelectorAll(".opt").forEach(o => o.classList.toggle("on", o.querySelector("input").checked));
+    el.closest(".f").classList.remove("err"); saveDraft(); return;
+  }
+  if (el.dataset.c) {
+    const id = el.dataset.c, store = id.startsWith("r_") ? S.refl : S.ans;
+    const picked = [...f.querySelectorAll(`input[data-c="${id}"]`)].filter(x => x.checked).map(x => +x.value);
+    store[id] = picked;
+    el.closest(".opts").querySelectorAll(".opt").forEach(o => o.classList.toggle("on", o.querySelector("input").checked));
+    el.closest(".f").classList.remove("err"); saveDraft();
+  }
+});
+$("lhi").onclick = () => { lang = "hi"; saveDraft(); render(); };
+$("len").onclick = () => { lang = "en"; saveDraft(); render(); };
+
+// ---------- build + validate ----------
+const tick = a => Array.isArray(a) ? a.length > 0 : !!(a && String(a).trim());
+function missing() {
+  const bad = [];
+  PROFILE.forEach(([id, , , o]) => { if (!o && !tick(S.profile[id])) bad.push("p_" + id); });
+  if (!S.course) bad.push("course"); if (!S.taskId) bad.push("task"); if (!S.assignNo) bad.push("assignNo");
+  if (S.cls === "") bad.push("cls"); if (!tick(S.total)) bad.push("total"); if (!tick(S.locale)) bad.push("locale");
+  if (S.taskId) BANK[S.taskId].forEach((qq, i) => { if (!qq.o && !tick(S.ans[S.taskId + "_" + (i + 1)])) bad.push(S.taskId + "_" + (i + 1)); });
+  REFLECT.forEach((qq, i) => { if (!qq.o && !tick(S.refl["r_" + (i + 1)])) bad.push("r_" + (i + 1)); });
+  if (S.writeLang === "") bad.push("writeLang");
+  return bad;
+}
+function answerText(qq, v) {
+  if (qq.opts) return (v || []).map(j => (lang === "hi" ? qq.opts[j].hi : qq.opts[j].en)).join("; ");
+  return String(v || "").trim();
+}
+function buildPayload() {
+  const tk = taskById(S.taskId);
+  const clsHi = ["कक्षा 1", "कक्षा 2", "कक्षा 3", "कक्षा 4", "कक्षा 5", "बहुकक्षा (Multigrade)"][+S.cls];
+  const profile = {}; PROFILE.forEach(([id]) => { profile[id] = String(S.profile[id] || "").trim(); });
+  return {
+    schema: SCHEMA, submittedAt: new Date().toISOString(), formLang: lang,
+    profile, course: +S.course, taskId: tk.id, taskLabel: `${tk.n}. ${tk.short}`, assignNo: +S.assignNo,
+    cls: clsHi, total: S.total.trim(), locale: S.locale.trim(), writeLang: S.writeLang === "1" ? "English" : "हिंदी",
+    qa: BANK[tk.id].map((qq, i) => ({ id: tk.id + "_" + (i + 1), q: qq.hi, qEn: qq.en, a: answerText(qq, S.ans[tk.id + "_" + (i + 1)]) })),
+    reflection: REFLECT.map((qq, i) => ({ id: "r_" + (i + 1), q: qq.hi, qEn: qq.en, a: answerText(qq, S.refl["r_" + (i + 1)]) }))
+  };
+}
+const nowStamp = () => new Date().toISOString().slice(0, 10);
+const fileName = p => `bridge_${(p.profile.name || "teacher").trim().replace(/\s+/g, "_")}_${p.taskId}_${nowStamp()}.txt`;
+// the text file reads like a normal note; the JSON block at the end lets the assignment desk load it with one click
+function toText(p) {
+  const hi = p.formLang !== "en";
+  const line = (k, v) => v ? `${k}: ${v}\n` : "";
+  let o = `BRIDGE COURSE ASSIGNMENT: ${hi ? "शिक्षक की जानकारी" : "TEACHER INFORMATION"}\n${"=".repeat(46)}\n`;
+  o += PROFILE.map(([id, h, e]) => line(hi ? h : e, p.profile[id])).join("");
+  o += `\n${hi ? "कोर्स" : "Course"}: Course ${p.course}\n${hi ? "कार्य" : "Task"}: ${p.taskLabel}\n${hi ? "असाइनमेंट" : "Assignment"}: ${p.assignNo}\n`;
+  o += `${hi ? "कक्षा" : "Class"}: ${p.cls}\n${hi ? "कुल बच्चे" : "Total children"}: ${p.total}\n${hi ? "परिवेश" : "Surroundings"}: ${p.locale}\n${hi ? "लेखन माध्यम" : "Medium"}: ${p.writeLang}\n`;
+  o += `\n${hi ? "कार्य के सवाल और जवाब" : "TASK QUESTIONS AND ANSWERS"}\n${"-".repeat(46)}\n`;
+  [...p.qa, ...p.reflection].forEach((x, i) => { o += `\n${i + 1}. ${hi ? x.q : x.qEn}\n   ${x.a || "—"}\n`; });
+  o += `\n\n${"=".repeat(46)}\n###BRIDGE-JSON-START###\n${JSON.stringify(p)}\n###BRIDGE-JSON-END###\n`;
+  return o;
+}
+async function download(name, text) {
+  try {
+    const d = window.claude && claude.use ? await claude.use("downloads") : null;
+    if (d) { await d.save({ filename: name, data: "\ufeff" + text }); return; }
+  } catch {}
+  const blob = new Blob(["\ufeff" + text], { type: "text/plain;charset=utf-8" });
+  const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = name; document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+}
+
+f.addEventListener("submit", e => {
+  e.preventDefault();
+  const msg = $("fmsg"); msg.innerHTML = "";
+  if ($("hp").value) return;
+  const bad = missing();
+  f.querySelectorAll(".err").forEach(x => x.classList.remove("err"));
+  if (bad.length) {
+    bad.forEach(id => { const el = f.querySelector(`[data-q="${id}"]`) || (f.querySelector("#" + id) || {}).closest?.(".f"); if (el) el.classList.add("err"); });
+    msg.innerHTML = `<div class="msg bad">${t("fillReq")}</div>`;
+    const first = f.querySelector(".err"); if (first) first.scrollIntoView({ behavior: "smooth", block: "center" });
+    return;
+  }
+  if (!S.consent) { msg.innerHTML = `<div class="msg bad">${t("needConsent")}</div>`; f.querySelector('[data-q="consent"]').classList.add("err"); return; }
+  const p = buildPayload(), name = fileName(p), text = toText(p);
+  download(name, text);
+  try { localStorage.removeItem(DRAFT); } catch {}
+  f.innerHTML = `<section><div class="msg good">${t("done")}</div><p>${t("sendIt")}</p><p class="hint">${esc(name)}</p><div class="row"><button type="button" class="btn" id="cpy">${t("again2")}</button><button type="button" class="btn ghost" id="again">${t("again")}</button></div></section>`;
+  $("cpy").onclick = () => download(name, text);
+  $("again").onclick = () => { S = blank(); saveDraft(); render(); window.scrollTo(0, 0); };
+  window.scrollTo(0, 0);
+});
+
+render();
+window.__form = { BANK, DATA, buildPayload, toText, S: () => S };
+})();
+</script>
+</body>
+</html>

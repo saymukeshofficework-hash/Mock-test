@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /bridge-course/assignment-form/
 
 Sitemap: https://tettesthub.in/sitemap.xml

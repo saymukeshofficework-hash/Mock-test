@@ -277,6 +277,23 @@ export default function Landing() {
         </div>
       </section>
 
+      {/* Assignment help: form is unlisted (noindex), reached only from here or a shared link */}
+      <section className="mx-auto max-w-5xl px-4 pb-14">
+        <div className="rounded-2xl border border-paper-300 bg-paper-50 p-6">
+          <h2 className="font-serif text-xl font-semibold text-ink-900">
+            {lang === 'hi' ? 'असाइनमेंट लिखवाने में मदद चाहिए?' : 'Need help writing your assignment?'}
+          </h2>
+          <p className="mt-1 text-[15px] leading-relaxed text-ink-700">
+            {lang === 'hi'
+              ? 'अपने कार्य की जानकारी फ़ॉर्म में भरें (हिंदी या English माध्यम) और बनी हुई टेक्स्ट फ़ाइल हमें भेज दें। हम उसी से आपका असाइनमेंट तैयार करेंगे।'
+              : 'Fill in the details of your work in the form (Hindi or English medium) and send us the text file it creates. We will prepare your assignment from it.'}
+          </p>
+          <a href={asset('assignment-form/')} rel="nofollow" className="btn-secondary mt-4 inline-flex">
+            {lang === 'hi' ? 'असाइनमेंट फ़ॉर्म भरें' : 'Fill the assignment form'}
+          </a>
+        </div>
+      </section>
+
       {/* TEACHER'S NOTE */}
       <section className="mx-auto max-w-3xl px-4 pb-14">
         <figure className="border-l-4 border-saffron-500 pl-5">
