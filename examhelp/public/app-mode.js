@@ -15,14 +15,19 @@
       window.addEventListener("load", function () { setTimeout(showRate, 2500); });
     }
   } catch (e) {}
-  // Google Apps Script web app that appends a row (time, name, stars) to the ratings Sheet. Empty = do not send.
-  var RATE_SHEET_URL = "";
+  // Saves the rating to Supabase table app_ratings (insert-only for the public; owner reads it in Supabase).
+  // Public anon key, same one LoginChip.tsx uses.
+  var SB = "https://ovaubhekxjtkodkhsybg.supabase.co", SB_ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im92YXViaGVreGp0a29ka2hzeWJnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODc4NTk4NDMsImV4cCI6MjEwMzQzNTg0M30.KKDmp6mt2YEIKxI0BP5I7BvAgMAStNXJiwgUy3X4b2s";
   function saveRating(n) {
-    if (!RATE_SHEET_URL) return;
     var u = {};
     try { u = JSON.parse(localStorage.getItem("tth_user") || "{}") || {}; } catch (e) {}
-    var row = { stars: n, name: u.name || "Guest", time: new Date().toISOString() };
-    try { fetch(RATE_SHEET_URL, { method: "POST", mode: "no-cors", body: JSON.stringify(row) }); } catch (e) {}
+    try {
+      fetch(SB + "/rest/v1/app_ratings", {
+        method: "POST",
+        headers: { apikey: SB_ANON, Authorization: "Bearer " + SB_ANON, "Content-Type": "application/json", Prefer: "return=minimal" },
+        body: JSON.stringify({ stars: n, name: String(u.name || "Guest").slice(0, 100) })
+      }).catch(function () {});
+    } catch (e) {}
   }
   function showRate() {
     try { if (localStorage.getItem(rk)) return; localStorage.setItem(rk, "shown"); } catch (e) { return; }
