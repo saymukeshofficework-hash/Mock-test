@@ -5,7 +5,7 @@
   window.__tthAccountMenuLoaded = true;
   let path = window.location.pathname;
   while (path.length > 1 && path.endsWith("/")) path = path.slice(0, -1);
-  if (path === "/" || path === "/index.html") return;
+  const isHomePage = path === "/" || path === "/index.html";
 
   function addTestHeader() {
     // Remove legacy floating house icons across all pages, not only exam headers.
@@ -390,8 +390,11 @@
     // Keep the existing functional control; move it to the brand/student-ID area.
     const anchor=account||brand;
     if(anchor && anchor.parentElement){
-      anchor.insertAdjacentElement("afterend",control);
-    } else {
+      // Move only when needed; repeated DOM moves can retrigger page observers.
+      if(control.parentElement !== anchor.parentElement || control.previousElementSibling !== anchor){
+        anchor.insertAdjacentElement("afterend",control);
+      }
+    } else if(control.parentElement !== left || control !== left.lastElementChild) {
       left.appendChild(control);
     }
     control.classList.add("tth-language-top");
@@ -411,7 +414,7 @@
       el.style.setProperty("display","none","important");
     });
   }
-  function run() { installStyles(); addTestHeader(); installLanguageToggle(); }
+  function run() { installStyles(); if (!isHomePage) addTestHeader(); installLanguageToggle(); normalizeLanguageControl(); }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", run, { once: true });
   else run();
 })();
