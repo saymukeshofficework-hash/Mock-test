@@ -97,6 +97,17 @@ const COURSES = (lang: Lang): Course[] => {
       price: 0, href: "/mp-police-si-mock-tests",
     },
     {
+      f: ["new", "tests"], tone: "teal", art: "test", isNew: true,
+      kick: hi ? "RRB रेलवे • स्टेशन मास्टर" : "RRB Railway • Station Master",
+      big: hi ? "RRB स्टेशन मास्टर" : "RRB Station Master",
+      sub: hi ? ["25 फुल टेस्ट", "सभी टेस्ट मुफ्त"] : ["25 full tests", "All tests free"],
+      tags: hi ? ["रेलवे", "मॉक टेस्ट", "फ्री"] : ["Railway", "Mock tests", "Free"],
+      meta: [hi ? "हर टेस्ट" : "Each test", hi ? "100 प्रश्न · 90 मिनट" : "100 Qs · 90 min"],
+      title: hi ? "RRB स्टेशन मास्टर — 25 मुफ्त मॉक टेस्ट" : "RRB Station Master — 25 free mock tests",
+      desc: hi ? "✅ सभी 25 टेस्ट मुफ्त ✅ कोई पेमेंट/रिचार्ज नहीं ✅ रीजनिंग, गणित और सामान्य जागरूकता" : "✅ All 25 tests free ✅ No payment/recharge ✅ Reasoning, maths and general awareness",
+      price: 0, href: "/rrb-station-master-mock-tests",
+    },
+    {
       f: ["tests"], tone: "ink", art: "test",
       kick: hi ? "TET • शिक्षक पात्रता परीक्षा" : "TET • Teacher Eligibility Test", big: hi ? "TET मॉक टेस्ट सीरीज़" : "TET Mock Test Series",
       sub: hi ? ["25 फुल टेस्ट", "टेस्ट 1 फ्री"] : ["25 full tests", "Test 1 free"],
