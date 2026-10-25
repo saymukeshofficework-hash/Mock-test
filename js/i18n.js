@@ -2,7 +2,7 @@
 (function () {
   if (document.querySelector('script[data-global-account-menu]')) return;
   const script = document.createElement('script');
-  script.src = '/js/global-account-menu.js?v=13';
+  script.src = '/js/global-account-menu.js?v=14';
   script.dataset.globalAccountMenu = 'true';
   document.head.appendChild(script);
 })();
