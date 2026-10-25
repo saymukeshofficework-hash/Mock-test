@@ -16,7 +16,7 @@
 <link rel="icon" href="data:,">
 <link rel="stylesheet" href="assets/site.css?v=2">
 <link rel="stylesheet" href="assets/exam-layout.css?v=2">
-<script src="js/i18n.js?v=5"></script>
+<script src="js/i18n.js?v=6"></script>
 <style>
 /* Colorful all-exams catalogue on the home page */
 .all-exams-heading{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:18px}
@@ -349,32 +349,8 @@ main{min-height:calc(100svh - 70px)}
   const HOME_TRANSLATION_MAP = new Map();
   HOME_TRANSLATIONS.forEach(([hi,en]) => { HOME_TRANSLATION_MAP.set(hi,en); HOME_TRANSLATION_MAP.set(en,hi); });
   function translateHomepage(lang) {
-    const toEnglish = lang === "en";
-    const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
-    const nodes = [];
-    while (walker.nextNode()) nodes.push(walker.currentNode);
-    nodes.forEach(node => {
-      // Elements with data-i18n are translated by the shared dictionary; keep the legacy
-      // homepage text walker from overwriting them and breaking the return to Hindi.
-      if (node.parentElement && node.parentElement.closest("[data-i18n], [data-i18n-html]")) return;
-      const raw = node.nodeValue;
-      const trimmed = raw.trim();
-      if (!trimmed) return;
-      const translated = HOME_TRANSLATION_MAP.get(trimmed);
-      if (translated) node.nodeValue = raw.replace(trimmed, translated);
-    });
-    const search = document.getElementById("examSearch");
-    if (search) search.placeholder = toEnglish ? "Search exams or courses…" : "परीक्षा या कोर्स खोजें…";
-    const filterGroup = document.querySelector(".exam-filters");
-    if (filterGroup) filterGroup.setAttribute("aria-label", toEnglish ? "Choose exam category" : "परीक्षा श्रेणी चुनें");
-    const folderGroup = document.querySelector(".home-folder-grid");
-    if (folderGroup) folderGroup.setAttribute("aria-label", toEnglish ? "Main preparation categories" : "तैयारी के मुख्य फ़ोल्डर");
-    const count = document.getElementById("examResultCount");
-    if (count) {
-      const visible = document.querySelectorAll("#allExamGrid [data-exam-cats]:not([hidden])").length;
-      count.textContent = visible + (toEnglish ? " options" : " विकल्प");
-    }
-    document.title = toEnglish ? "TET Test Hub – Mock Tests and Exam Practice" : "TET टेस्ट हब – मॉक टेस्ट और परीक्षा अभ्यास";
+    // One translation path only: always use captured original text to keep switching reversible.
+    translateHomepageStable(lang);
   }
 
   // Keep homepage language switching complete and reversible, including text that
@@ -459,25 +435,23 @@ main{min-height:calc(100svh - 70px)}
   applyI18n = function() { previousApplyI18n(); translateHomepage(getLang()); };
   I18N_ONCHANGE = () => {
     const lang = getLang();
-    translateHomepage(lang);
     translateHomepageStable(lang);
     const btn = document.getElementById("langToggle");
     if (btn) {
-      btn.textContent = lang === "hi" ? "EN" : "हिं";
-      btn.setAttribute("aria-label", lang === "hi" ? "Switch homepage to English" : "होमपेज हिंदी में बदलें");
+      btn.textContent = lang === "hi" ? "अंग्रेज़ी" : "हिंदी";
+      btn.setAttribute("aria-label", lang === "hi" ? "Switch homepage to English" : "Switch homepage to Hindi");
       btn.setAttribute("aria-pressed", String(lang === "en"));
     }
   };
-  // Use one explicit, global handler so the language switch also works on mobile.
   window.__toggleTTHHomeLanguage = function () {
     const nextLang = getLang() === "hi" ? "en" : "hi";
     setLang(nextLang);
-    translateHomepage(nextLang);
     translateHomepageStable(nextLang);
     const button = document.getElementById("langToggle");
     if (button) {
-      button.textContent = nextLang === "hi" ? "अंग्रेज़ी" : "Hindi";
+      button.textContent = nextLang === "hi" ? "अंग्रेज़ी" : "हिंदी";
       button.setAttribute("aria-label", nextLang === "hi" ? "Switch homepage to English" : "Switch homepage to Hindi");
+      button.setAttribute("aria-pressed", String(nextLang === "en"));
     }
   };
   const homepageLanguageButton = document.getElementById("langToggle");
