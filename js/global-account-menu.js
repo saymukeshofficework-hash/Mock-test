@@ -411,7 +411,7 @@
       el.style.setProperty("display","none","important");
     });
   }
-  function run() { installStyles(); addTestHeader(); installLanguageToggle(); normalizeLanguageControl(); }
+  function run() { installStyles(); addTestHeader(); installLanguageToggle(); }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", run, { once: true });
   else run();
 })();
