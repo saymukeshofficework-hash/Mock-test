@@ -419,7 +419,7 @@ document.getElementById('theme').addEventListener('click', () => {
 <nav class="mobile-bottom-nav" aria-label="मुख्य नेविगेशन">
   <a href="/examhelp/courses/" class="active" aria-current="page"><span class="nav-icon" aria-hidden="true">⌂</span><span>होम</span></a>
   <a href="/dashboard.html"><span class="nav-icon" aria-hidden="true">▤</span><span>मेरे कोर्स</span></a>
-  <a href="/contact.html"><span class="nav-icon" aria-hidden="true">✉</span><span>संपर्क</span></a>
+  <a href="/contact.html"><span class="nav-icon" aria-hidden="true">✉</span><span data-i18n-contact-nav>संपर्क</span></a>
 </nav>
 
 <script src="../js/global-account-menu.js"></script>
@@ -509,6 +509,8 @@ function translateText(original){
   return original.replace(trimmed,translated);
 }
 function translateTree(){
+ const contactNavLabel=document.querySelector('[data-i18n-contact-nav]');
+ if(contactNavLabel) contactNavLabel.textContent=lang==='en'?'Contact':'संपर्क';
  const walker=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);
  let node;
  while((node=walker.nextNode())){
