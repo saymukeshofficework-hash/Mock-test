@@ -383,7 +383,7 @@
     if(!header) return;
     const left=header.querySelector(".topbar-left")||header.querySelector(".brand")?.parentElement||header;
     const brand=header.querySelector(".tth-header-brand, .brand, .logo, a[aria-label*='TETTESTHUB'], a[aria-label*='TET Test Hub']")||left.firstElementChild;
-    const account=header.querySelector("#tthStudentAccountMenu");
+    const account=header.querySelector("#tthStudentAccountMenu, #accountMenu, .top-account-menu, .account-student-id, #accountStudentId");
     let control=header.querySelector("#languageSwitch, .lang-switch, #langToggle, #tthLanguageToggle, #langBtn, #langBtnName, #langBtnResult");
     if(!control) control=document.querySelector("#languageSwitch, .lang-switch, #langToggle, #tthLanguageToggle, #langBtn, #langBtnName, #langBtnResult");
     if(!control) return;
