@@ -378,7 +378,40 @@
     }
   }
 
-  function run() { installStyles(); addTestHeader(); installLanguageToggle(); }
+  function normalizeLanguageControl(){
+    const header=document.querySelector("header.topbar")||document.querySelector(".hdr .bar")||document.querySelector(".site-header")||document.querySelector(".tbar")||document.querySelector("header");
+    if(!header) return;
+    const left=header.querySelector(".topbar-left")||header.querySelector(".brand")?.parentElement||header;
+    const brand=header.querySelector(".tth-header-brand, .brand, .logo, a[aria-label*='TETTESTHUB'], a[aria-label*='TET Test Hub']")||left.firstElementChild;
+    const account=header.querySelector("#tthStudentAccountMenu");
+    let control=header.querySelector("#languageSwitch, .lang-switch, #langToggle, #tthLanguageToggle, #langBtn, #langBtnName, #langBtnResult");
+    if(!control) control=document.querySelector("#languageSwitch, .lang-switch, #langToggle, #tthLanguageToggle, #langBtn, #langBtnName, #langBtnResult");
+    if(!control) return;
+    // Keep the existing functional control; move it to the brand/student-ID area.
+    const anchor=account||brand;
+    if(anchor && anchor.parentElement){
+      anchor.insertAdjacentElement("afterend",control);
+    } else {
+      left.appendChild(control);
+    }
+    control.classList.add("tth-language-top");
+    control.style.setProperty("display","inline-flex","important");
+    control.style.setProperty("align-items","center");
+    control.style.setProperty("gap","4px");
+    control.style.setProperty("margin","4px 0 0");
+    control.style.setProperty("padding","3px");
+    control.style.setProperty("border-radius","8px");
+    control.style.setProperty("font-size","11px");
+    control.style.setProperty("max-width","max-content");
+    control.style.setProperty("flex-shrink","0");
+    // Hide extra language controls elsewhere on the page, without hiding test-question language selectors.
+    document.querySelectorAll(".lang-switch, #languageSwitch, #langToggle, #tthLanguageToggle, #langBtn, #langBtnName, #langBtnResult").forEach(el=>{
+      if(el===control || control.contains(el)) return;
+      if(el.closest(".question-language, .question-lang, .q-language, #questionLanguage, .question-palette")) return;
+      el.style.setProperty("display","none","important");
+    });
+  }
+  function run() { installStyles(); addTestHeader(); installLanguageToggle(); normalizeLanguageControl(); }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", run, { once: true });
   else run();
 })();
