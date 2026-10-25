@@ -853,16 +853,16 @@ function makeFreeTest() {
       questions.push(make("reason",`प्रश्न कोड ${k+1}: हर अक्षर को ${sh} स्थान आगे बढ़ाने पर ${w} का कूट क्या होगा?`,`Item ${k+1}: if each letter is shifted forward by ${sh} places, what is the code for ${w}?`,ans,[w,ans.split("").reverse().join(""),w.split("").reverse().join("")],`प्रत्येक अक्षर ${sh} स्थान आगे बढ़ाने पर ${ans} मिलता है।`,`Shifting every letter forward by ${sh} gives ${ans}.`));
     } else if(type===2) {
       const n=17+(k*7%113), mult=2+(k%6), ans=n*mult;
-      questions.push(make("reason",`एक नियम में संख्या ${n} को ${mult} से गुणा किया जाता है। परिणाम क्या होगा?`,`A rule multiplies ${n} by ${mult}. What is the result?`,ans,[ans+mult,ans-n,ans+2*mult],`${n} × ${mult} = ${ans}।`,`${n} × ${mult} = ${ans}.`));
+      questions.push(make("reason",`तर्क प्रश्न ${k+1}: संख्या ${n} को ${mult} से गुणा करने पर क्या परिणाम होगा?`,`Reasoning item ${k+1}: what is ${n} multiplied by ${mult}?`,ans,[ans+mult,ans-n,ans+2*mult],`${n} × ${mult} = ${ans}।`,`${n} × ${mult} = ${ans}.`));
     } else if(type===3) {
       const a=12+(k*5%38), b=4+(k*3%19), ans=a-b;
-      questions.push(make("reason",`यदि ${a} यात्रियों में से ${b} अगले स्टेशन पर उतरें, तो कितने यात्री शेष रहेंगे?`,`If ${b} passengers leave a group of ${a} at the next station, how many remain?`,ans,[a+b,ans+2,b-a],`${a} − ${b} = ${ans}।`,`${a} − ${b} = ${ans}.`));
+      questions.push(make("reason",`स्थिति ${k+1}: ${a} यात्रियों में से ${b} उतरें, तो कितने यात्री शेष रहेंगे?`,`Scenario ${k+1}: if ${b} passengers leave ${a}, how many remain?`,ans,[a+b,ans+2,b-a],`${a} − ${b} = ${ans}।`,`${a} − ${b} = ${ans}.`));
     } else if(type===4) {
       const dirs=["उत्तर","पूर्व","दक्षिण","पश्चिम"], enDirs=["North","East","South","West"], turn=k%4, ans=dirs[(turn+1)%4];
-      questions.push(make("reason",`एक व्यक्ति ${dirs[turn]} की ओर मुख करके दाएँ मुड़ता है। अब वह किस दिशा में है?`,`A person faces ${enDirs[turn]} and turns right. Which direction is faced now?`,ans,[dirs[(turn+3)%4],dirs[turn],dirs[(turn+2)%4]],`दाएँ मुड़ने पर दिशा ${ans} होगी।`,`A right turn from ${enDirs[turn]} points ${enDirs[(turn+1)%4]}.`));
+      questions.push(make("reason",`दिशा प्रश्न ${k+1}: ${dirs[turn]} की ओर मुख व्यक्ति दाएँ मुड़े तो अब किस दिशा में है?`,`Direction item ${k+1}: a person facing ${enDirs[turn]} turns right. Which way now?`,ans,[dirs[(turn+3)%4],dirs[turn],dirs[(turn+2)%4]],`दाएँ मुड़ने पर दिशा ${ans} होगी।`,`A right turn from ${enDirs[turn]} points ${enDirs[(turn+1)%4]}.`));
     } else if(type===5) {
       const a=3+(k%11), b=2+(Math.floor(k/3)%9), ans=a*b;
-      questions.push(make("reason",`यदि ${a} डिब्बों में प्रत्येक में ${b} संकेत-पुस्तिकाएँ हों, तो कुल कितनी पुस्तिकाएँ हैं?`,`If each of ${a} boxes contains ${b} signal manuals, how many manuals are there?`,ans,[ans+a,ans-b,a+b],`कुल = ${a} × ${b} = ${ans}।`,`Total = ${a} × ${b} = ${ans}.`));
+      questions.push(make("reason",`प्रश्न ${k+1}: ${a} डिब्बों में प्रत्येक में ${b} संकेत-पुस्तिकाएँ हैं। कुल कितनी?`,`Item ${k+1}: ${a} boxes contain ${b} signal manuals each. How many manuals in total?`,ans,[ans+a,ans-b,a+b],`कुल = ${a} × ${b} = ${ans}।`,`Total = ${a} × ${b} = ${ans}.`));
     } else {
       const a=21+(k%37), b=5+(k*2%17), ans=a+b;
       questions.push(make("reason",`दो रेलखंडों की लंबाई ${a} किमी और ${b} किमी है। संयुक्त लंबाई?`,`Two rail sections are ${a} km and ${b} km long. What is their combined length?`,ans,[ans+5,ans-b,a-b],`${a} + ${b} = ${ans} किमी।`,`${a} + ${b} = ${ans} km.`));
@@ -876,19 +876,19 @@ function makeFreeTest() {
       questions.push(make("quant",`${v} का ${rate}% कितना है?`,`What is ${rate}% of ${v}?`,ans,[Number((ans+v/10).toFixed(2)),Number((ans-7).toFixed(2)),Number((ans+13).toFixed(2))],`${v} × ${rate}/100 = ${ans}।`,`${v} × ${rate}/100 = ${ans}.`));
     } else if(type===1) {
       const p=1000*(1+k%29), rate=[6,7,8,9,10,12][k%6], years=1+(k%5), ans=p*rate*years/100;
-      questions.push(make("quant",`₹${p} पर ${rate}% वार्षिक दर से ${years} वर्ष का साधारण ब्याज ज्ञात करें।`,`Find simple interest on ₹${p} at ${rate}% per annum for ${years} year(s).`,ans,[ans+rate*10,Math.max(0,ans-100),ans+200],`SI = PRT/100 = ₹${ans}।`,`SI = PRT/100 = ₹${ans}.`));
+      questions.push(make("quant",`गणना ${k+1}: ₹${p} पर ${rate}% से ${years} वर्ष का साधारण ब्याज कितना है?`,`Calculation ${k+1}: find simple interest on ₹${p} at ${rate}% for ${years} year(s).`,ans,[ans+rate*10,Math.max(0,ans-100),ans+200],`SI = PRT/100 = ₹${ans}।`,`SI = PRT/100 = ₹${ans}.`));
     } else if(type===2) {
       const a=12+(k*7%49), b=3+(k*5%17), ans=a*b;
-      questions.push(make("quant",`${a} × ${b} का मान ज्ञात करें।`,`Calculate ${a} × ${b}.`,ans,[ans+a,ans-b,ans+2*b],`${a} × ${b} = ${ans}।`,`${a} × ${b} = ${ans}.`));
+      questions.push(make("quant",`गणना प्रश्न ${k+1}: ${a} × ${b} का मान ज्ञात करें।`,`Calculation item ${k+1}: calculate ${a} × ${b}.`,ans,[ans+a,ans-b,ans+2*b],`${a} × ${b} = ${ans}।`,`${a} × ${b} = ${ans}.`));
     } else if(type===3) {
       const a=32+(k%41), b=45+(k*3%38), c=51+(k*7%29), ans=Number(((a+b+c)/3).toFixed(2));
       questions.push(make("quant",`तीन स्टेशनों पर दर्ज यात्रियों की संख्या ${a}, ${b}, ${c} है। औसत ज्ञात करें।`,`Passenger counts at three stations are ${a}, ${b}, and ${c}. Find the average.`,ans,[Number((ans+3).toFixed(2)),Number((ans+6).toFixed(2)),Number(Math.max(0,ans-4).toFixed(2))],`औसत = (${a}+${b}+${c}) ÷ 3 = ${ans}।`,`Average = (${a}+${b}+${c}) ÷ 3 = ${ans}.`));
     } else if(type===4) {
       const speed=36+(k*7%65), time=2+(k%8), ans=speed*time;
-      questions.push(make("quant",`एक ट्रेन ${speed} किमी/घंटा की गति से ${time} घंटे चलती है। दूरी?`,`A train travels at ${speed} km/h for ${time} hours. Find the distance.`,ans,[ans+speed,ans-time,speed+time],`दूरी = गति × समय = ${speed} × ${time} = ${ans} किमी।`,`Distance = speed × time = ${speed} × ${time} = ${ans} km.`));
+      questions.push(make("quant",`रेल प्रश्न ${k+1}: ${speed} किमी/घंटा की गति से ${time} घंटे चलने पर दूरी?`,`Rail item ${k+1}: find the distance travelled at ${speed} km/h for ${time} hours.`,ans,[ans+speed,ans-time,speed+time],`दूरी = गति × समय = ${speed} × ${time} = ${ans} किमी।`,`Distance = speed × time = ${speed} × ${time} = ${ans} km.`));
     } else if(type===5) {
       const ratio=2+(k%7), unit=4+(k*3%16), ans=ratio*unit;
-      questions.push(make("quant",`दो संख्याओं का अनुपात ${ratio}:1 है और छोटी संख्या ${unit} है। बड़ी संख्या?`,`Two numbers are in the ratio ${ratio}:1 and the smaller is ${unit}. Find the larger.`,ans,[ans+unit,ans-ratio,ratio+unit],`बड़ी संख्या = ${ratio} × ${unit} = ${ans}।`,`Larger number = ${ratio} × ${unit} = ${ans}.`));
+      questions.push(make("quant",`अनुपात प्रश्न ${k+1}: अनुपात ${ratio}:1 है और छोटी संख्या ${unit} है। बड़ी संख्या?`,`Ratio item ${k+1}: two numbers are in ratio ${ratio}:1 and the smaller is ${unit}. Find the larger.`,ans,[ans+unit,ans-ratio,ratio+unit],`बड़ी संख्या = ${ratio} × ${unit} = ${ans}।`,`Larger number = ${ratio} × ${unit} = ${ans}.`));
     } else {
       const price=500+(k*23%2500), disc=[8,10,12,15,18,20,25,30][k%8], ans=Number((price*(100-disc)/100).toFixed(2));
       questions.push(make("quant",`₹${price} की वस्तु पर ${disc}% छूट के बाद देय मूल्य?`,`What is the payable price after a ${disc}% discount on an item costing ₹${price}?`,ans,[Number((ans+price/10).toFixed(2)),Number((ans-25).toFixed(2)),price],`मूल्य = ${price} × (100−${disc})/100 = ₹${ans}।`,`Price = ${price} × (100−${disc})/100 = ₹${ans}.`));
@@ -928,19 +928,19 @@ function makeFreeTest() {
       questions.push(make("general",`घटना रिपोर्ट ${id}: यदि ${situation[0]} और सुरक्षित स्थिति की पुष्टि न हो, तो सबसे उचित कार्रवाई क्या है?`,`Incident report ${id}: if ${situation[0]} and safety has not been confirmed, what is the best action?`,"Stop movement and follow prescribed safe procedure",["Proceed at normal speed","Ignore the report","Assume the route is clear"],"सुरक्षा की पुष्टि न होने पर निर्धारित सुरक्षित प्रक्रिया अपनाएँ।","When safety is unconfirmed, follow the prescribed safe procedure."));
     } else if(type===5) {
       const pct=10+(k%6)*5, base=200+(k%23)*20, ans=base*pct/100;
-      questions.push(make("general",`निरीक्षण में ${base} उपकरणों में से ${pct}% को जाँच हेतु चुना गया। कितने उपकरण जाँचे जाएँगे?`,`An inspection selects ${pct}% of ${base} devices. How many devices are selected?`,ans,[ans+5,ans-5,base-pct],`संख्या = ${base} × ${pct}/100 = ${ans}।`,`Count = ${base} × ${pct}/100 = ${ans}.`));
+      questions.push(make("general",`निरीक्षण केस ${id}: ${base} उपकरणों में से ${pct}% जाँचे जाएँगे। संख्या ज्ञात करें।`,`Inspection case ${id}: how many devices are selected from ${base} at ${pct}%?`,ans,[ans+5,ans-5,base-pct],`संख्या = ${base} × ${pct}/100 = ${ans}।`,`Count = ${base} × ${pct}/100 = ${ans}.`));
     } else if(type===6) {
       const a=11+(k%31), b=17+(k*3%29), ans=a+b;
       questions.push(make("general",`दो लगातार ब्लॉक खंडों की दूरी ${a} किमी और ${b} किमी है। कुल दूरी?`,`Two consecutive block sections are ${a} km and ${b} km long. Total distance?`,ans,[ans+3,ans-b,a-b],`कुल दूरी = ${a} + ${b} = ${ans} किमी।`,`Total distance = ${a} + ${b} = ${ans} km.`));
     } else if(type===7) {
       const p=1000+(k%19)*250, rate=5+(k%8), years=1+(k%4), ans=p*rate*years/100;
-      questions.push(make("general",`₹${p} की लागत पर ${rate}% वार्षिक साधारण ब्याज से ${years} वर्ष का ब्याज कितना होगा?`,`Find simple interest on ₹${p} at ${rate}% per annum for ${years} year(s).`,ans,[ans+rate*10,ans+100,Math.max(0,ans-50)],`SI = PRT/100 = ₹${ans}।`,`SI = PRT/100 = ₹${ans}.`));
+      questions.push(make("general",`ब्याज केस ${id}: ₹${p} पर ${rate}% से ${years} वर्ष का साधारण ब्याज?`,`Calculation ${k+1}: find simple interest on ₹${p} at ${rate}% for ${years} year(s).`,ans,[ans+rate*10,ans+100,Math.max(0,ans-50)],`SI = PRT/100 = ₹${ans}।`,`SI = PRT/100 = ₹${ans}.`));
     } else if(type===8) {
       const word=words[k%words.length], shift=1+(k%11), code=word.split("").map(ch=>String.fromCharCode((ch.charCodeAt(0)-65+shift)%26+65)).join("");
       questions.push(make("general",`रिपोर्ट ${id}: रेलवे शब्द ${word} के प्रत्येक अक्षर को ${shift} स्थान आगे बढ़ाकर कूट बनाया जाए, तो कूट क्या होगा?`,`Report ${id}: encode ${word} by shifting each letter forward ${shift} places. What is the code?`,code,[word,code.split("").reverse().join(""),word.split("").reverse().join("")],`हर अक्षर ${shift} स्थान आगे बढ़ाने पर ${code} मिलता है।`,`Shifting each letter forward ${shift} places gives ${code}.`));
     } else {
       const items=8+(k%22), damaged=1+(k%5), ans=items-damaged;
-      questions.push(make("general",`जाँच में ${items} संचार उपकरणों में से ${damaged} खराब मिले। कार्यशील उपकरण कितने हैं?`,`During inspection, ${damaged} of ${items} communication devices are faulty. How many are operational?`,ans,[items+damaged,ans+damaged,damaged],`कार्यशील उपकरण = ${items} − ${damaged} = ${ans}।`,`Operational devices = ${items} − ${damaged} = ${ans}.`));
+      questions.push(make("general",`उपकरण केस ${id}: ${items} संचार उपकरणों में से ${damaged} खराब हैं। कार्यशील कितने?`,`Equipment case ${id}: ${damaged} of ${items} communication devices are faulty. How many are operational?`,ans,[items+damaged,ans+damaged,damaged],`कार्यशील उपकरण = ${items} − ${damaged} = ${ans}।`,`Operational devices = ${items} − ${damaged} = ${ans}.`));
     }
   }
   return {test:testNo,title:{hi:"RRB स्टेशन मास्टर — मॉक टेस्ट " + testNo,en:"RRB Station Master — Mock Test " + testNo},sections:[{key:"reason",label:{hi:"तर्कशक्ति",en:"Reasoning"}},{key:"quant",label:{hi:"गणित",en:"Mathematics"}},{key:"general",label:{hi:"सामान्य जागरूकता, विज्ञान व रेलवे",en:"General Awareness, Science & Railways"}}],questions};
@@ -1012,7 +1012,7 @@ const UI = {
 						"100 objective questions · 100 marks · 90 minutes.",
 						"3 sections: Reasoning (35), Mathematics (35), General Awareness/Science/Railways (30).",
 						"Every question is in Hindi and English — switch language any time.",
-						"Each correct answer carries 1 mark. A wrong answer deducts ¼ mark.",
+						"Each correct answer carries 1 mark. A wrong answer deducts ⅓ mark.",
 						"Move freely between sections. Green = answered, red = not answered, purple = marked for review.",
 						"The test auto-submits when the timer reaches 00:00. Confirm the current official recruitment pattern separately.",
 					],
@@ -1047,7 +1047,7 @@ const UI = {
 					thCorrect: "\u0938\u0939\u0940",
 					thWrong: "\u0917\u0932\u0924",
 					thSkipped: "\u091b\u0942\u091f\u0947",
-					rnote: "प्रत्येक सही उत्तर 1 अंक का है; गलत उत्तर पर ¼ अंक कटेगा। उत्तर व व्याख्या देखने के लिए नीचे किसी भी प्रश्न पर टैप करें।",
+					rnote: "प्रत्येक सही उत्तर 1 अंक का है; गलत उत्तर पर ⅓ अंक कटेगा। उत्तर व व्याख्या देखने के लिए नीचे किसी भी प्रश्न पर टैप करें।",
 					tagOk: "\u0938\u0939\u0940",
 					tagBad: "\u0917\u0932\u0924",
 					tagSkip: "\u091b\u0942\u091f\u093e",
@@ -1078,7 +1078,7 @@ const UI = {
 						"100 वस्तुनिष्ठ प्रश्न · 100 अंक · 90 मिनट।",
 						"3 खंड: तर्कशक्ति (35), गणित (35), सामान्य जागरूकता/विज्ञान/रेलवे (30)।",
 						"हर प्रश्न हिंदी और अंग्रेज़ी दोनों में है — भाषा कभी भी बदलें।",
-						"सही उत्तर पर 1 अंक; गलत उत्तर पर ¼ अंक की कटौती।",
+						"सही उत्तर पर 1 अंक; गलत उत्तर पर ⅓ अंक की कटौती।",
 						"खंडों के बीच कभी भी जा सकते हैं। हरा = उत्तर दिया, लाल = उत्तर नहीं दिया, बैंगनी = समीक्षा हेतु चिह्नित।",
 						"समय 00:00 होते ही टेस्ट स्वतः जमा हो जाएगा। आधिकारिक भर्ती पैटर्न अलग से जाँचें।",
 					],
