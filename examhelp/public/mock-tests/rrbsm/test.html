@@ -1294,7 +1294,7 @@ const UI = {
 				clearInterval(timerH);
 				lastResult = { auto: !!auto };
 				try {
-					let sc = 0; Q.forEach((it, i) => { if (answers[i] === it.a) sc += 1; else if (answers[i] !== undefined) sc -= 0.25; });
+					let sc = 0; Q.forEach((it, i) => { if (answers[i] === it.a) sc += 1; else if (answers[i] !== undefined) sc -= (1 / 3); });
 					const key = "testhub_rrbsm_mock_" + TEST_NO, prev = JSON.parse(localStorage.getItem(key) || "null");
 					localStorage.setItem(key, JSON.stringify({ last: sc, best: Math.max(sc, prev ? prev.best : 0), total: TOTAL, at: Date.now() }));
 				} catch (e) {}
@@ -1314,7 +1314,7 @@ const UI = {
 						byS[item.s].c++;
 						tot++;
                         net += 1;
-					} else { byS[item.s].w++; net -= 0.25; }
+					} else { byS[item.s].w++; net -= (1 / 3); }
 				});
 
 				document.getElementById("app").style.display = "none";
@@ -1384,7 +1384,7 @@ const UI = {
    <p class="rnote">${u.rnote}</p>
    ${review}
    <button id="retakeBtn">${u.retake}</button>
-   <div style="text-align:center"><a class="backlink" href="../../mp-police-constable-gd-mock-tests/">${u.back}</a></div>
+   <div style="text-align:center"><a class="backlink" href="../../rrb-station-master-mock-tests/">${u.back}</a></div>
   </div>`;
 
 				document.getElementById("langBtnResult").onclick = toggleLang;
