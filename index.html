@@ -456,7 +456,27 @@ main{min-height:calc(100svh - 70px)}
   
   const previousApplyI18n = applyI18n;
   applyI18n = function() { previousApplyI18n(); translateHomepage(getLang()); };
-  I18N_ONCHANGE = () => { translateHomepage(getLang()); translateHomepageStable(getLang()); };
+  I18N_ONCHANGE = () => {
+    const lang = getLang();
+    translateHomepage(lang);
+    translateHomepageStable(lang);
+    const btn = document.getElementById("langToggle");
+    if (btn) {
+      btn.textContent = lang === "hi" ? "EN" : "हिं";
+      btn.setAttribute("aria-label", lang === "hi" ? "Switch homepage to English" : "होमपेज हिंदी में बदलें");
+      btn.setAttribute("aria-pressed", String(lang === "en"));
+    }
+  };
+  const homepageLanguageButton = document.getElementById("langToggle");
+  if (homepageLanguageButton) {
+    homepageLanguageButton.removeAttribute("onclick");
+    homepageLanguageButton.addEventListener("click", () => {
+      const nextLang = getLang() === "hi" ? "en" : "hi";
+      setLang(nextLang);
+      translateHomepage(nextLang);
+      translateHomepageStable(nextLang);
+    });
+  }
   applyI18n();
   translateHomepageStable(getLang());
   // Pause the observer while translating, otherwise its own text writes re-trigger it
