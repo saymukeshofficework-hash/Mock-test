@@ -850,7 +850,7 @@ function makeFreeTest() {
     } else if(type===1) {
       const w=words[k%words.length], sh=1+(Math.floor(k/words.length)%9);
       const ans=w.split("").map(ch=>String.fromCharCode((ch.charCodeAt(0)-65+sh)%26+65)).join("");
-      questions.push(make("reason",`यदि हर अक्षर को ${sh} स्थान आगे बढ़ाया जाए, तो ${w} का कूट क्या होगा?`,`If each letter is shifted forward by ${sh} places, what is the code for ${w}?`,ans,[w,ans.split("").reverse().join(""),w.split("").reverse().join("")],`प्रत्येक अक्षर ${sh} स्थान आगे बढ़ाने पर ${ans} मिलता है।`,`Shifting every letter forward by ${sh} gives ${ans}.`));
+      questions.push(make("reason",`प्रश्न कोड ${k+1}: हर अक्षर को ${sh} स्थान आगे बढ़ाने पर ${w} का कूट क्या होगा?`,`Item ${k+1}: if each letter is shifted forward by ${sh} places, what is the code for ${w}?`,ans,[w,ans.split("").reverse().join(""),w.split("").reverse().join("")],`प्रत्येक अक्षर ${sh} स्थान आगे बढ़ाने पर ${ans} मिलता है।`,`Shifting every letter forward by ${sh} gives ${ans}.`));
     } else if(type===2) {
       const n=17+(k*7%113), mult=2+(k%6), ans=n*mult;
       questions.push(make("reason",`एक नियम में संख्या ${n} को ${mult} से गुणा किया जाता है। परिणाम क्या होगा?`,`A rule multiplies ${n} by ${mult}. What is the result?`,ans,[ans+mult,ans-n,ans+2*mult],`${n} × ${mult} = ${ans}।`,`${n} × ${mult} = ${ans}.`));
@@ -913,7 +913,7 @@ function makeFreeTest() {
     const id=1000+k*7, n=2+(k%17), m=3+(k%13), situation=safetySituations[type];
     if(type===0) {
       const ans=26+(k%5);
-      questions.push(make("general",`संविधान अंगीकृत होने की वर्षगाँठ 26 नवंबर को मनाई जाती है। संविधान किस वर्ष अंगीकृत हुआ था?`,`Constitution Day is observed on 26 November. In which year was the Constitution adopted?`,"1949",["1947","1950","1952"],"संविधान सभा ने 26 नवंबर 1949 को संविधान अंगीकृत किया।","The Constituent Assembly adopted the Constitution on 26 November 1949."));
+      questions.push(make("general",`संचालन केस ${id}: ${n} ट्रेनों के लिए ${m} मिनट का अतिरिक्त अंतराल रखा जाए, तो कुल बफर समय कितना होगा?`,`Operations case ${id}: if each of ${n} trains receives an extra ${m}-minute interval, what is the total buffer time?`,n*m,[n+m,n*m+m,n*m-n],`कुल बफर समय = ${n} × ${m} = ${n*m} मिनट।`,`Total buffer time = ${n} × ${m} = ${n*m} minutes.`));
     } else if(type===1) {
       const answer=2025+(k%2);
       questions.push(make("general",`रेलवे ड्यूटी रजिस्टर में घटना क्रमांक ${id} दर्ज है। ट्रेस करने योग्य रिकॉर्ड का सबसे अच्छा गुण क्या है?`,`Incident ${id} is entered in a railway duty register. What best makes the record traceable?`,"Time-stamped factual entries",["Unverified assumptions","Blank fields","Undated summaries"],"समय, तथ्य और निर्णय स्पष्ट रूप से दर्ज होने चाहिए।","Entries should clearly record time, facts and decisions."));
@@ -925,7 +925,7 @@ function makeFreeTest() {
       questions.push(make("general",`एक ट्रेन ${speed} किमी/घंटा की औसत गति से ${mins} मिनट चलती है। तय दूरी लगभग कितनी है?`,`A train travels for ${mins} minutes at an average speed of ${speed} km/h. Approximate distance?`,dist,[Number((dist+5).toFixed(2)),Number(Math.max(0,dist-4).toFixed(2)),Number((speed+mins).toFixed(2))],`दूरी = ${speed} × ${mins}/60 = ${dist} किमी।`,`Distance = ${speed} × ${mins}/60 = ${dist} km.`));
     } else if(type===4) {
       const answer=["Stop and follow prescribed procedure","Proceed at normal speed","Ignore the report","Wait without notifying anyone"][k%4];
-      questions.push(make("general",`यदि ${situation[0]} और सुरक्षित स्थिति की पुष्टि न हो, तो सबसे उचित कार्रवाई क्या है?`,`If ${situation[0]} and safety has not been confirmed, what is the best action?`,"Stop movement and follow prescribed safe procedure",["Proceed at normal speed","Ignore the report","Assume the route is clear"],"सुरक्षा की पुष्टि न होने पर निर्धारित सुरक्षित प्रक्रिया अपनाएँ।","When safety is unconfirmed, follow the prescribed safe procedure."));
+      questions.push(make("general",`घटना रिपोर्ट ${id}: यदि ${situation[0]} और सुरक्षित स्थिति की पुष्टि न हो, तो सबसे उचित कार्रवाई क्या है?`,`Incident report ${id}: if ${situation[0]} and safety has not been confirmed, what is the best action?`,"Stop movement and follow prescribed safe procedure",["Proceed at normal speed","Ignore the report","Assume the route is clear"],"सुरक्षा की पुष्टि न होने पर निर्धारित सुरक्षित प्रक्रिया अपनाएँ।","When safety is unconfirmed, follow the prescribed safe procedure."));
     } else if(type===5) {
       const pct=10+(k%6)*5, base=200+(k%23)*20, ans=base*pct/100;
       questions.push(make("general",`निरीक्षण में ${base} उपकरणों में से ${pct}% को जाँच हेतु चुना गया। कितने उपकरण जाँचे जाएँगे?`,`An inspection selects ${pct}% of ${base} devices. How many devices are selected?`,ans,[ans+5,ans-5,base-pct],`संख्या = ${base} × ${pct}/100 = ${ans}।`,`Count = ${base} × ${pct}/100 = ${ans}.`));
@@ -937,7 +937,7 @@ function makeFreeTest() {
       questions.push(make("general",`₹${p} की लागत पर ${rate}% वार्षिक साधारण ब्याज से ${years} वर्ष का ब्याज कितना होगा?`,`Find simple interest on ₹${p} at ${rate}% per annum for ${years} year(s).`,ans,[ans+rate*10,ans+100,Math.max(0,ans-50)],`SI = PRT/100 = ₹${ans}।`,`SI = PRT/100 = ₹${ans}.`));
     } else if(type===8) {
       const word=words[k%words.length], shift=1+(k%11), code=word.split("").map(ch=>String.fromCharCode((ch.charCodeAt(0)-65+shift)%26+65)).join("");
-      questions.push(make("general",`रेलवे शब्द ${word} के प्रत्येक अक्षर को ${shift} स्थान आगे बढ़ाकर कूट बनाया जाए, तो कूट क्या होगा?`,`Encode the railway-related word ${word} by shifting each letter forward ${shift} places. What is the code?`,code,[word,code.split("").reverse().join(""),word.split("").reverse().join("")],`हर अक्षर ${shift} स्थान आगे बढ़ाने पर ${code} मिलता है।`,`Shifting each letter forward ${shift} places gives ${code}.`));
+      questions.push(make("general",`रिपोर्ट ${id}: रेलवे शब्द ${word} के प्रत्येक अक्षर को ${shift} स्थान आगे बढ़ाकर कूट बनाया जाए, तो कूट क्या होगा?`,`Report ${id}: encode ${word} by shifting each letter forward ${shift} places. What is the code?`,code,[word,code.split("").reverse().join(""),word.split("").reverse().join("")],`हर अक्षर ${shift} स्थान आगे बढ़ाने पर ${code} मिलता है।`,`Shifting each letter forward ${shift} places gives ${code}.`));
     } else {
       const items=8+(k%22), damaged=1+(k%5), ans=items-damaged;
       questions.push(make("general",`जाँच में ${items} संचार उपकरणों में से ${damaged} खराब मिले। कार्यशील उपकरण कितने हैं?`,`During inspection, ${damaged} of ${items} communication devices are faulty. How many are operational?`,ans,[items+damaged,ans+damaged,damaged],`कार्यशील उपकरण = ${items} − ${damaged} = ${ans}।`,`Operational devices = ${items} − ${damaged} = ${ans}.`));
@@ -1075,7 +1075,7 @@ const UI = {
 						"\u0935\u093f\u0926\u094d\u092f\u093e\u0930\u094d\u0925\u0940",
 					back: "\u2190 सभी टेस्ट",
 					rules: [
-						"80 वस्तुनिष्ठ प्रश्न · 80 अंक · 45 मिनट।",
+						"100 वस्तुनिष्ठ प्रश्न · 100 अंक · 90 मिनट।",
 						"3 खंड: तर्कशक्ति (35), गणित (35), सामान्य जागरूकता/विज्ञान/रेलवे (30)।",
 						"हर प्रश्न हिंदी और अंग्रेज़ी दोनों में है — भाषा कभी भी बदलें।",
 						"सही उत्तर पर 1 अंक; गलत उत्तर पर ¼ अंक की कटौती।",
@@ -1091,7 +1091,7 @@ const UI = {
 			}
 
 			const TOTAL = Q.length;
-			const DURATION = 45 * 60;
+			const DURATION = 90 * 60;
 			let cur = 0,
 				answers = {},
 				visited = new Set(),
