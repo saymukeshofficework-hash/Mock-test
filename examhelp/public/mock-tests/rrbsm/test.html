@@ -1,0 +1,1516 @@
+<!DOCTYPE html>
+<html lang="hi">
+	<head>
+		<meta charset="UTF-8" />
+		<meta
+			name="viewport"
+			content="width=device-width,initial-scale=1.0,maximum-scale=1.0"
+		/>
+		<title>RRB Station Master Mock Test | TETTESTHUB</title>
+		<meta name="robots" content="noindex" />
+		<style>
+			:root {
+				--navy: #16204e;
+				--navy-l: #22307a;
+				--blue: #2f6fed;
+				--blue-l: #eaf1ff;
+				--green: #1ba672;
+				--red: #e2483d;
+				--purple: #8b5cf6;
+				--bg: #f4f6fb;
+				--ink: #1c2233;
+				--muted: #6b7280;
+				--border: #e1e5ee;
+			}
+			* {
+				box-sizing: border-box;
+			}
+			html,
+			body {
+				margin: 0;
+				padding: 0;
+			}
+			body {
+				font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+					Roboto, "Noto Sans Devanagari", Helvetica, Arial, sans-serif;
+				background: var(--bg);
+				color: var(--ink);
+			}
+			#app {
+				max-width: 720px;
+				margin: 0 auto;
+				min-height: 100vh;
+				background: #fff;
+				display: flex;
+				flex-direction: column;
+			}
+			.topbar {
+				background: var(--navy);
+				color: #fff;
+				padding: 14px 16px;
+				display: flex;
+				justify-content: space-between;
+				align-items: flex-start;
+				gap: 10px;
+			}
+			.topbar .ttext {
+				font-weight: 800;
+				font-size: 17px;
+			}
+			.topbar small {
+				display: block;
+				font-weight: 400;
+				opacity: 0.75;
+				font-size: 12px;
+				margin-top: 3px;
+			}
+			.langBtn {
+				flex: 0 0 auto;
+				background: rgba(255, 255, 255, 0.14);
+				border: 1px solid rgba(255, 255, 255, 0.45);
+				color: #fff;
+				padding: 7px 13px;
+				border-radius: 999px;
+				font-size: 12.5px;
+				font-weight: 700;
+				white-space: nowrap;
+				cursor: pointer;
+			}
+			.langBtn:active {
+				background: rgba(255, 255, 255, 0.28);
+			}
+			.timerbar {
+				background: var(--blue);
+				color: #fff;
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				padding: 10px 16px;
+				font-size: 14px;
+			}
+			#timer {
+				background: #0d1430;
+				padding: 5px 12px;
+				border-radius: 6px;
+				font-weight: 700;
+				font-variant-numeric: tabular-nums;
+				font-size: 15px;
+			}
+			.timerbar.warn #timer {
+				background: var(--red);
+			}
+			.sectiontabs {
+				display: flex;
+				overflow-x: auto;
+				gap: 6px;
+				padding: 10px 12px;
+				background: var(--blue-l);
+				border-bottom: 1px solid var(--border);
+			}
+			.sectiontabs button {
+				flex: 0 0 auto;
+				border: 1px solid #c7d6f7;
+				background: #fff;
+				color: var(--navy);
+				padding: 7px 10px;
+				border-radius: 999px;
+				font-size: 12.5px;
+				font-weight: 600;
+				white-space: nowrap;
+			}
+			.sectiontabs button.active {
+				background: var(--navy);
+				border-color: var(--navy);
+				color: #fff;
+			}
+			.palette {
+				display: grid;
+				grid-template-columns: repeat(8, 1fr);
+				gap: 6px;
+				padding: 12px;
+				max-height: 190px;
+				overflow-y: auto;
+				background: #fbfcfe;
+				border-top: 1px solid var(--border);
+				margin-top: 10px;
+			}
+			.pcell {
+				aspect-ratio: 1;
+				border-radius: 7px;
+				border: 1px solid var(--border);
+				background: #fff;
+				color: var(--ink);
+				font-size: 12px;
+				font-weight: 700;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				position: relative;
+				cursor: pointer;
+			}
+			.pcell.current {
+				outline: 2px solid var(--navy);
+				outline-offset: 1px;
+			}
+			.pcell.answered {
+				background: var(--green);
+				border-color: var(--green);
+				color: #fff;
+			}
+			.pcell.notanswered {
+				background: var(--red);
+				border-color: var(--red);
+				color: #fff;
+			}
+			.pcell.marked {
+				background: var(--purple);
+				border-color: var(--purple);
+				color: #fff;
+			}
+			.pcell.marked.answered::after {
+				content: "";
+				position: absolute;
+				bottom: 2px;
+				right: 2px;
+				width: 6px;
+				height: 6px;
+				border-radius: 50%;
+				background: var(--green);
+				border: 1px solid #fff;
+			}
+			.legend {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 10px;
+				padding: 8px 14px;
+				font-size: 11px;
+				color: var(--muted);
+				background: #fbfcfe;
+				border-bottom: 1px solid var(--border);
+			}
+			.legend span {
+				display: inline-flex;
+				align-items: center;
+				gap: 4px;
+			}
+			.dot {
+				width: 9px;
+				height: 9px;
+				border-radius: 3px;
+				display: inline-block;
+			}
+			.qpanel {
+				padding: 16px;
+				flex: 1;
+			}
+			.qmeta {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				margin-bottom: 10px;
+				gap: 8px;
+			}
+			.qno {
+				font-weight: 700;
+				font-size: 14px;
+				color: var(--navy);
+				flex: 0 0 auto;
+			}
+			.qsec {
+				font-size: 11px;
+				color: #fff;
+				background: var(--navy-l);
+				padding: 3px 9px;
+				border-radius: 999px;
+				font-weight: 600;
+				text-align: right;
+			}
+			#rules{list-style:none;margin:6px 0 14px;padding:12px 14px;background:#f4f6fb;border:1px solid var(--border);border-radius:10px;text-align:left;font-size:12.5px;line-height:1.55;color:#374151}
+			#rules li{margin:0 0 5px;padding-left:16px;position:relative}
+			#rules li::before{content:"";position:absolute;left:2px;top:7px;width:6px;height:6px;border-radius:50%;background:var(--blue)}
+			.backlink{display:inline-block;margin:10px auto 0;font-size:13px;color:var(--blue);text-decoration:none;font-weight:600}
+			.qtext,.rqtext{white-space:pre-line}
+			.qtext {
+				font-size: 16px;
+				line-height: 1.65;
+				margin-bottom: 16px;
+				font-weight: 600;
+			}
+			.options {
+				display: flex;
+				flex-direction: column;
+				gap: 10px;
+			}
+			.opt {
+				display: flex;
+				align-items: flex-start;
+				gap: 10px;
+				border: 1px solid var(--border);
+				border-radius: 10px;
+				padding: 11px 12px;
+				font-size: 15px;
+				line-height: 1.55;
+				cursor: pointer;
+			}
+			.opt.selected {
+				border-color: var(--blue);
+				background: var(--blue-l);
+			}
+			.opt input {
+				margin-top: 4px;
+				flex: 0 0 auto;
+			}
+			.opt label {
+				flex: 1;
+				cursor: pointer;
+			}
+			.actions {
+				display: flex;
+				gap: 10px;
+				padding: 0 16px 10px;
+			}
+			.actions button {
+				flex: 1;
+				padding: 12px 8px;
+				border-radius: 8px;
+				border: 1px solid var(--border);
+				background: #fff;
+				font-weight: 600;
+				font-size: 13px;
+				color: var(--navy);
+			}
+			.actions2 {
+				display: flex;
+				gap: 10px;
+				padding: 0 16px 16px;
+			}
+			.actions2 button {
+				flex: 1;
+				padding: 13px 8px;
+				border-radius: 8px;
+				border: none;
+				font-weight: 700;
+				font-size: 14px;
+			}
+			#prevBtn {
+				background: #eef0f6;
+				color: var(--navy);
+			}
+			#saveBtn {
+				background: var(--green);
+				color: #fff;
+			}
+			.submitwrap {
+				padding: 0 16px 22px;
+			}
+			#submitBtn {
+				width: 100%;
+				padding: 14px;
+				border: none;
+				border-radius: 8px;
+				background: var(--blue);
+				color: #fff;
+				font-weight: 700;
+				font-size: 15px;
+			}
+
+			/* ---------- layout wrappers (mobile: palette under the question) ---------- */
+			.examgrid{display:flex;flex-direction:column;flex:1}
+			.maincol{display:flex;flex-direction:column}
+			.side{display:flex;flex-direction:column}
+			.side .palette{order:1}.side .legend{order:2}.side .submitwrap{order:3}
+			.dhome,.dtime,.dinfo,.dview,.dprof,.dsecname,.dchoose,.qnoD{display:none}
+			.legend .dot{font-size:0;color:transparent}
+			/* ---------- PC: CBT exam screen ---------- */
+			@media (min-width: 900px){
+				body{background:#e9edf4}
+				#app{max-width:none;height:100vh;min-height:0;overflow:hidden}
+				.topbar{background:#2457c5;align-items:center;padding:0 18px;height:56px;gap:18px;justify-content:flex-start;flex:0 0 auto}
+				.topbar .ttwrap{flex:1;display:flex;align-items:baseline;gap:10px;min-width:0;overflow:hidden}
+				.topbar .ttext{font-size:19px;white-space:nowrap}
+				.topbar small{display:inline;font-size:15px;opacity:.9;margin:0;white-space:nowrap}
+				.dhome{display:inline-block;color:#fff;text-decoration:none;font-weight:600;font-size:15px;white-space:nowrap}
+				.dtime{display:inline-block;background:#fff;color:#1c2233;border-radius:6px;padding:6px 14px;font-size:17px;font-weight:600;white-space:nowrap}
+				.dtime b{font-variant-numeric:tabular-nums}
+				.dtime.warn{background:var(--red);color:#fff}
+				.topbar .langBtn,.timerbar{display:none}
+				.sectiontabs{padding:0;gap:0;background:#f1f3f7;border-bottom:1px solid #d5dae3;flex:0 0 auto}
+				.sectiontabs button{border:none;border-right:1px solid #d5dae3;border-radius:0;background:transparent;padding:13px 20px;font-size:13.5px;font-weight:700;letter-spacing:.3px;color:#2d3446;text-transform:uppercase;cursor:pointer}
+				.sectiontabs button.active{background:#2457c5;color:#fff}
+				.examgrid{flex-direction:row;min-height:0}
+				.maincol{flex:1;min-width:0;border-right:1px solid #d5dae3;overflow:hidden;background:#fff}
+				.dinfo{display:flex;justify-content:space-between;padding:10px 22px;font-size:14px;color:#2d3446;border-bottom:1px solid #e3e7ee}
+				.dview{display:flex;justify-content:flex-end;align-items:center;gap:10px;background:#2f6fed;color:#fff;padding:9px 22px;font-size:15px;font-weight:600}
+				.dview select{font-size:14.5px;padding:5px 10px;border-radius:4px;border:1px solid #c7d2e6;min-width:120px;font-family:inherit}
+				.qpanel{padding:18px 26px;overflow-y:auto}
+				.qnoD{display:block;font-weight:700;font-size:15.5px;color:#2d3446;margin-bottom:12px}
+				.qmeta{display:none}
+				.qtext{font-size:18px;font-weight:600;margin-bottom:18px}
+				.options{gap:4px}
+				.opt{border:none;padding:8px 6px;font-size:17px;border-radius:6px}
+				.opt.selected{background:#eaf1ff}
+				.opt input{width:17px;height:17px;margin-top:5px}
+				.actbar{display:flex;justify-content:space-between;align-items:center;border-top:1px solid #e3e7ee;padding:14px 22px;gap:12px;background:#fff}
+				.actions,.actions2{padding:0;gap:10px}
+				.actions button,.actions2 button{flex:0 0 auto;padding:11px 22px;font-size:15px;border-radius:4px;font-weight:500;cursor:pointer}
+				.actions button{border:1px solid #d5dae3;background:#f7f8fa;color:#2d3446}
+				#prevBtn{background:#f7f8fa;border:1px solid #d5dae3;color:#2d3446}
+				#saveBtn{background:#2f6fed;color:#fff;min-width:150px}
+				.side{width:340px;flex:0 0 340px;background:#f7f8fb;overflow-y:auto;padding:14px 14px 18px}
+				.side .dprof{order:0;display:flex;align-items:center;gap:14px;margin-bottom:12px}
+				.avatar{width:62px;height:62px;border-radius:6px;background:#dfe5ef;display:flex;align-items:center;justify-content:center;font-size:30px}
+				.dprof b{font-size:17px;color:#2d3446}
+				.side .legend{order:1;display:grid;grid-template-columns:1fr 1fr;gap:10px 8px;background:transparent;border:none;padding:4px 0 12px;font-size:13px;color:#2d3446}
+				.legend .dot{width:24px;height:24px;border-radius:4px;font-size:12px;font-weight:700;color:#fff;display:inline-flex;align-items:center;justify-content:center;font-style:normal;flex:0 0 auto}
+				#cVis{background:#c5cad6 !important;color:#2d3446;border:none !important}
+				.side .dsecname{order:2;display:block;background:#2457c5;color:#fff;font-weight:700;font-size:13.5px;padding:10px 12px;text-transform:uppercase;letter-spacing:.3px}
+				.side .dchoose{order:3;display:block;font-size:14px;color:#2d3446;padding:10px 0 8px}
+				.side .palette{order:4;grid-template-columns:repeat(4,1fr);gap:10px;max-height:none;overflow:visible;padding:0;margin:0;border:none;background:transparent}
+				.palette .pcell.othersec{display:none}
+				.pcell{aspect-ratio:auto;height:56px;font-size:15px;border-radius:6px;background:#c5cad6;border-color:#c5cad6;color:#2d3446}
+				.side .submitwrap{order:5;padding:18px 0 0;margin-top:auto}
+				#submitBtn{border-radius:4px;cursor:pointer}
+			}
+			/* Name entry screen */
+			#nameScreen {
+				max-width: 720px;
+				margin: 0 auto;
+				min-height: 100vh;
+				background: #fff;
+				display: flex;
+				flex-direction: column;
+			}
+			#nameScreen .ntop {
+				background: var(--navy);
+				color: #fff;
+				padding: 14px 16px;
+				display: flex;
+				justify-content: space-between;
+				align-items: flex-start;
+				gap: 10px;
+			}
+			#nameScreen .ncard {
+				flex: 1;
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
+				padding: 28px 24px;
+				text-align: center;
+			}
+			#nameScreen .nicon {
+				width: 60px;
+				height: 60px;
+				border-radius: 50%;
+				background: var(--blue-l);
+				color: var(--navy);
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				font-size: 26px;
+				font-weight: 800;
+				margin-bottom: 18px;
+			}
+			#nameScreen .ntitle {
+				font-size: 19px;
+				font-weight: 800;
+				color: var(--navy);
+				margin-bottom: 6px;
+			}
+			#nameScreen .nsub {
+				font-size: 13.5px;
+				color: var(--muted);
+				margin-bottom: 24px;
+			}
+			#nameScreen .nfield {
+				width: 100%;
+				max-width: 340px;
+				text-align: left;
+				margin-bottom: 22px;
+			}
+			#nameScreen .nfield label {
+				display: block;
+				font-size: 12.5px;
+				font-weight: 600;
+				color: var(--navy);
+				margin-bottom: 6px;
+			}
+			#nameInput {
+				width: 100%;
+				padding: 13px 14px;
+				border: 1.5px solid var(--border);
+				border-radius: 10px;
+				font-size: 16px;
+				color: var(--ink);
+				background: #fbfcfe;
+			}
+			#nameInput:focus {
+				outline: none;
+				border-color: var(--blue);
+			}
+			#startBtn {
+				width: 100%;
+				max-width: 340px;
+				padding: 14px;
+				border: none;
+				border-radius: 8px;
+				background: var(--blue);
+				color: #fff;
+				font-weight: 700;
+				font-size: 15px;
+			}
+			/* Result screen */
+			#resultScreen {
+				display: none;
+				max-width: 720px;
+				margin: 0 auto;
+				background: #fff;
+				min-height: 100vh;
+			}
+			.rhero {
+				background: var(--navy);
+				color: #fff;
+				padding: 28px 20px 22px;
+				text-align: center;
+				position: relative;
+			}
+			.rhero .rbrand {
+				font-size: 11px;
+				font-weight: 600;
+				letter-spacing: 1px;
+				opacity: 0.6;
+				text-transform: uppercase;
+			}
+			.rhero .rname {
+				font-size: 14px;
+				font-weight: 700;
+				margin-top: 8px;
+				opacity: 0.95;
+			}
+			.rhero .score {
+				font-size: 46px;
+				font-weight: 800;
+				line-height: 1;
+				margin-top: 6px;
+			}
+			.rhero .outof {
+				font-size: 14px;
+				opacity: 0.8;
+				margin-top: 4px;
+			}
+			.rhero .pct {
+				display: inline-block;
+				margin-top: 10px;
+				background: rgba(255, 255, 255, 0.12);
+				padding: 5px 14px;
+				border-radius: 999px;
+				font-size: 13px;
+				font-weight: 600;
+			}
+			.rhero .langBtn {
+				position: absolute;
+				top: 14px;
+				right: 14px;
+			}
+			.rwrap {
+				padding: 0 18px 24px;
+			}
+			table.rtable {
+				width: 100%;
+				border-collapse: collapse;
+				margin: 18px 0;
+				font-size: 12.5px;
+			}
+			table.rtable th,
+			table.rtable td {
+				padding: 8px 6px;
+				text-align: center;
+				border-bottom: 1px solid var(--border);
+			}
+			table.rtable th {
+				background: #f4f6fb;
+				font-size: 11px;
+				color: var(--muted);
+				text-transform: uppercase;
+				letter-spacing: 0.3px;
+			}
+			table.rtable td:first-child,
+			table.rtable th:first-child {
+				text-align: left;
+			}
+			.rnote {
+				font-size: 12.5px;
+				color: var(--muted);
+				margin: 4px 0 16px;
+			}
+			details.qreview {
+				border: 1px solid var(--border);
+				border-radius: 8px;
+				margin-bottom: 8px;
+				padding: 10px 12px;
+			}
+			details.qreview summary {
+				font-size: 13px;
+				font-weight: 600;
+				cursor: pointer;
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				list-style: none;
+				gap: 8px;
+			}
+			details.qreview summary::-webkit-details-marker {
+				display: none;
+			}
+			.rtag {
+				font-size: 11px;
+				font-weight: 700;
+				padding: 2px 8px;
+				border-radius: 999px;
+				color: #fff;
+				flex-shrink: 0;
+			}
+			.rtag.ok {
+				background: var(--green);
+			}
+			.rtag.bad {
+				background: var(--red);
+			}
+			.rtag.skip {
+				background: var(--muted);
+			}
+			.rqtext {
+				font-size: 14px;
+				margin: 10px 0 8px;
+				font-weight: 600;
+			}
+			.rsol {
+				font-size: 13px;
+				background: #f4f6fb;
+				border-radius: 6px;
+				padding: 8px 10px;
+				margin-bottom: 8px;
+				color: var(--muted);
+			}
+			.ropt {
+				font-size: 13.5px;
+				padding: 6px 9px;
+				border-radius: 6px;
+				margin-bottom: 5px;
+				border: 1px solid var(--border);
+			}
+			.ropt.correctAns {
+				background: #e6f7f0;
+				border-color: var(--green);
+			}
+			.ropt.wrongChosen {
+				background: #fdecea;
+				border-color: var(--red);
+			}
+			#retakeBtn {
+				width: 100%;
+				padding: 13px;
+				border: none;
+				border-radius: 8px;
+				background: var(--blue);
+				color: #fff;
+				font-weight: 700;
+				font-size: 14px;
+				margin-top: 6px;
+			}
+		
+            .font-size-toolbar {
+                display: flex;
+                align-items: center;
+                justify-content: flex-start;
+                gap: 8px;
+                padding: 8px 12px;
+                background: #fff;
+                border-bottom: 1px solid var(--border);
+            }
+            .font-size-toolbar .font-size-label {
+                color: var(--muted);
+                font-size: 12px;
+                font-weight: 700;
+                margin-right: 2px;
+            }
+            .font-size-toolbar button {
+                min-width: 38px;
+                min-height: 34px;
+                border: 1px solid #c7d6f7;
+                border-radius: 8px;
+                background: #fff;
+                color: var(--navy);
+                font-size: 14px;
+                font-weight: 800;
+                cursor: pointer;
+            }
+            .font-size-toolbar button[aria-pressed="true"] {
+                background: var(--navy);
+                color: #fff;
+                border-color: var(--navy);
+            }
+            #qtext, #options label, .rqtext, .rsol, .ropt {
+                font-size: calc(var(--paper-font-base, 14px) * var(--paper-font-scale, 1)) !important;
+                line-height: 1.65;
+            }
+            #rules {
+                font-size: calc(12.5px * var(--paper-font-scale, 1)) !important;
+            }
+
+		
+/* Single text Home option in the top bar; no floating home icon */
+.topbar{position:sticky;top:0;z-index:1000}
+.dhome{display:none!important;flex:0 0 auto;align-items:center;justify-content:center;gap:5px;background:#16856f;color:#fff;border:1px solid rgba(255,255,255,.55);border-radius:9px;padding:9px 12px;font-size:14px;font-weight:800;text-decoration:none;white-space:nowrap;box-shadow:0 2px 6px rgba(0,0,0,.18)}
+.dhome:hover{background:#0f6b5f}
+.tth-top-home-option{display:inline-flex!important;align-items:center;justify-content:center;flex:0 0 auto;background:#16856f;color:#fff;border:1px solid rgba(255,255,255,.55);border-radius:9px;padding:8px 12px;font-size:14px;font-weight:800;text-decoration:none;white-space:nowrap}
+.tth-top-home-option:hover{background:#0f6b5f}
+
+/* Mobile viewport fix: keep the whole paper within screen width and wrap long question/option text. */
+*,*::before,*::after{box-sizing:border-box}
+html,body{width:100%;max-width:100%;margin:0;padding:0;overflow-x:hidden}
+#app{width:100%;max-width:720px;min-width:0}
+@media (min-width:900px){#app{max-width:none}}
+.topbar,.timerbar,.qpanel,.qmeta,.qtext,.opt,.actions,.actions2,.sectiontabs,.legend,#nameScreen,#resultScreen{min-width:0;max-width:100%}
+.qtext,.rqtext,.opt label,p,li,strong{overflow-wrap:anywhere;word-break:normal}
+img,svg,video,canvas,table{max-width:100%}
+@media(max-width:600px){
+ #app{width:100%;max-width:100%;margin:0}
+ .topbar{flex-wrap:wrap;padding:10px 12px;gap:8px}
+ .topbar .ttext{min-width:0;max-width:100%;font-size:clamp(14px,4vw,17px);overflow-wrap:anywhere}
+ .langBtn{padding:6px 9px;font-size:11px}
+ .timerbar{flex-wrap:wrap;gap:8px;padding:8px 12px}
+ .sectiontabs{flex-wrap:wrap;overflow-x:hidden;padding:8px}
+ .sectiontabs button{white-space:normal;max-width:100%;font-size:11px;padding:6px 8px}
+ .qpanel{padding:12px}
+ .qmeta{flex-wrap:wrap;gap:6px}
+ .qtext{font-size:15px;line-height:1.55}
+ .opt{padding:9px;font-size:14px;gap:8px}
+ .actions,.actions2{flex-wrap:wrap;gap:7px;padding-left:10px;padding-right:10px}
+ .actions button,.actions2 button{flex:1 1 42%;min-width:0;white-space:normal;overflow-wrap:anywhere;padding:10px 6px;font-size:12px}
+ .palette{grid-template-columns:repeat(6,minmax(0,1fr));gap:5px;padding:10px}
+}
+
+		</style>
+	</head>
+	<body>
+		<div id="nameScreen">
+			<div class="ntop">
+				<div>
+					<div class="ttext" data-title>RRB Station Master Mock Test</div>
+					<small id="nSubtitleText"
+						>100 Questions &nbsp;&middot;&nbsp; 90 min</small
+					>
+				</div>
+				<button class="langBtn" id="langBtnName" type="button">
+					हिंदी
+				</button>
+			</div>
+			<div class="ncard">
+				<div class="nicon">&#9878;</div>
+				<div class="ntitle" id="nCardTitle">Before you begin</div>
+				<div class="nsub" id="nCardSub">
+					Enter your name so it appears on your result.
+				</div>
+				<ul id="rules"></ul>
+				<div class="nfield">
+					<label for="nameInput" id="nFieldLabel">Student Name</label>
+					<input
+						type="text"
+						id="nameInput"
+						placeholder="e.g. Riya Sharma"
+						maxlength="60"
+						autocomplete="off"
+					/>
+				</div>
+				<button id="startBtn" type="button">Start Test</button>
+				<a class="backlink" id="backLink" href="../../rrb-station-master-mock-tests/">← All tests</a>
+			</div>
+		</div>
+
+		<div id="app" style="display: none">
+			<div class="topbar">
+				<div class="ttwrap">
+					<div class="ttext" data-title>RRB Station Master Mock Test</div>
+					<small id="subtitleText"
+						>100 Questions &nbsp;&middot;&nbsp; 90 min</small
+					>
+				</div>
+				<span class="dtime" id="dTime"><span id="dTimeLbl">Time Left</span> : <b id="timer2">45:00</b></span>
+				<button class="langBtn" id="langBtn" type="button">
+					हिंदी
+				</button>
+			</div>
+			<div class="font-size-toolbar" role="group" aria-label="Font size controls">
+                <span class="font-size-label">Text size</span>
+                <button type="button" data-font-scale="0.85" aria-label="Smaller text" aria-pressed="false">A-</button>
+                <button type="button" data-font-scale="1" aria-label="Normal text" aria-pressed="true">A</button>
+                <button type="button" data-font-scale="1.15" aria-label="Larger text" aria-pressed="false">A+</button>
+                <button type="button" data-font-scale="1.3" aria-label="Largest text" aria-pressed="false">A++</button>
+            </div>
+            <div class="timerbar" id="timerbar">
+				<span id="timeLeftLabel">Time Left</span>
+				<span id="timer">45:00</span>
+			</div>
+			<div class="sectiontabs" id="sectiontabs"></div>
+			<div class="examgrid">
+			<div class="maincol">
+			<div class="dinfo"><span id="dQType">Question Type: MCQ</span><span id="dMarks">Marks for correct answer: 1 | Negative Marks: ⅓</span></div>
+			<div class="dview"><label for="langSel" id="dViewLbl">View in:</label> <select id="langSel"><option value="hi">हिन्दी</option><option value="en">English</option></select></div>
+			<div class="qpanel" id="qpanel">
+				<div class="qnoD" id="qnoD">Question No. 1</div>
+				<div class="qmeta">
+					<span class="qno" id="qno">Q 1 of 100</span>
+					<span class="qsec" id="qsec"></span>
+				</div>
+				<div class="qtext" id="qtext"></div>
+				<div class="options" id="options"></div>
+			</div>
+			<div class="actbar">
+			<div class="actions">
+				<button id="clearBtn">Clear Response</button>
+				<button id="markBtn">Mark for Review & Next</button>
+			</div>
+			<div class="actions2">
+				<button id="prevBtn">&#8249; Previous</button>
+				<button id="saveBtn">Save & Next &#8250;</button>
+			</div>
+			</div>
+			</div>
+			<aside class="side">
+			<div class="dprof"><span class="avatar" aria-hidden="true">&#128100;</span><b id="dName"></b></div>
+			<div class="palette" id="palette"></div>
+			<div class="legend">
+				<span
+					><i class="dot" id="cAns" style="background: var(--green)"></i
+					><span id="legAns">Answered</span></span
+				>
+				<span
+					><i class="dot" id="cNot" style="background: var(--red)"></i
+					><span id="legNot">Not Answered</span></span
+				>
+				<span
+					><i class="dot" id="cMark" style="background: var(--purple)"></i
+					><span id="legMarked">Marked</span></span
+				>
+				<span
+					><i
+						class="dot" id="cVis"
+						style="
+							background: #fff;
+							border: 1px solid var(--border);
+						"
+					></i
+					><span id="legVisit">Not Visited</span></span
+				>
+			</div>
+			<div class="dsecname" id="dSecName"></div>
+			<div class="dchoose" id="dChoose">Choose a Question</div>
+			<div class="submitwrap">
+				<button id="submitBtn">Submit Test</button>
+			</div>
+			</aside>
+			</div>
+
+		</div>
+
+		<div id="resultScreen"></div>
+
+		<script>
+			let SECTIONS = [], Q = [];
+			
+const params = new URLSearchParams(location.search);
+const TEST_NO = String(parseInt(params.get("t") || "1", 10)).padStart(2, "0");
+function showMsg(hi, en) {
+  const L = (function(){ try { return localStorage.getItem("testhub_lang_pref") || "hi"; } catch (e) { return "hi"; } })();
+  document.getElementById("nCardTitle").textContent = L === "en" ? en : hi;
+  document.getElementById("nCardSub").textContent = "";
+  document.getElementById("startBtn").style.display = "none";
+  document.getElementById("nameInput").parentNode.style.display = "none";
+  const back = document.getElementById("backLink"); if (back) back.textContent = L === "en" ? "\u2190 Back to all tests" : "\u2190 सभी टेस्ट पर वापस जाएँ";
+}
+function makeFreeTest() {
+  // Deterministic, test-specific parameters make each paper distinct across all 25 tests.
+  const testNo = Math.max(1, Math.min(25, Number(TEST_NO) || 1));
+  const make = (s, hi, en, answer, wrong, shi, sen) => {
+    const opts = [...new Set([String(answer), ...wrong.map(String)])];
+    while (opts.length < 4) opts.push(String(Number(opts[opts.length-1] || 0) + 7));
+    const shift = (testNo * 3 + hi.length + en.length) % opts.length;
+    const ordered = opts.slice(shift).concat(opts.slice(0, shift));
+    return {s,d:"m",a:ordered.indexOf(String(answer)),q:{hi,en},o:{hi:ordered,en:ordered},sol:{hi:shi,en:sen}};
+  };
+  const questions = [];
+  const words = ["SIGNAL","ENGINE","PLATFORM","TICKET","COACH","TRACK","STATION","GUARD","EXPRESS","JOURNEY","SAFETY","RAILWAY","DRIVER","ROUTE","FREIGHT","SLEEPER","CABIN","BRIDGE","TUNNEL","SCHEDULE","CONTROL","CROSSING","RESERVATION","LOCOMOTIVE","PASSENGER"];
+  // Reasoning: number series, coding, syllogistic-style logic, directions, ranking and analogy.
+  for (let i=0;i<35;i++) {
+    const k=(testNo-1)*35+i, type=i%7;
+    if(type===0) {
+      const step=3+(k%17), start=11+(k*3%89), seq=[start,start+step,start+2*step,start+3*step], ans=start+4*step;
+      questions.push(make("reason",`श्रृंखला में अगली संख्या ज्ञात करें: ${seq.join(", ")}, ?`,`Find the next number in the series: ${seq.join(", ")}, ?`,ans,[ans+step,ans-step,ans+2*step],`समान अंतर ${step} है; अगली संख्या ${ans} है।`,`The common difference is ${step}; the next term is ${ans}.`));
+    } else if(type===1) {
+      const w=words[k%words.length], sh=1+(Math.floor(k/words.length)%9);
+      const ans=w.split("").map(ch=>String.fromCharCode((ch.charCodeAt(0)-65+sh)%26+65)).join("");
+      questions.push(make("reason",`प्रश्न कोड ${k+1}: हर अक्षर को ${sh} स्थान आगे बढ़ाने पर ${w} का कूट क्या होगा?`,`Item ${k+1}: if each letter is shifted forward by ${sh} places, what is the code for ${w}?`,ans,[w,ans.split("").reverse().join(""),w.split("").reverse().join("")],`प्रत्येक अक्षर ${sh} स्थान आगे बढ़ाने पर ${ans} मिलता है।`,`Shifting every letter forward by ${sh} gives ${ans}.`));
+    } else if(type===2) {
+      const n=17+(k*7%113), mult=2+(k%6), ans=n*mult;
+      questions.push(make("reason",`तर्क प्रश्न ${k+1}: संख्या ${n} को ${mult} से गुणा करने पर क्या परिणाम होगा?`,`Reasoning item ${k+1}: what is ${n} multiplied by ${mult}?`,ans,[ans+mult,ans-n,ans+2*mult],`${n} × ${mult} = ${ans}।`,`${n} × ${mult} = ${ans}.`));
+    } else if(type===3) {
+      const a=12+(k*5%38), b=4+(k*3%19), ans=a-b;
+      questions.push(make("reason",`स्थिति ${k+1}: ${a} यात्रियों में से ${b} उतरें, तो कितने यात्री शेष रहेंगे?`,`Scenario ${k+1}: if ${b} passengers leave ${a}, how many remain?`,ans,[a+b,ans+2,b-a],`${a} − ${b} = ${ans}।`,`${a} − ${b} = ${ans}.`));
+    } else if(type===4) {
+      const dirs=["उत्तर","पूर्व","दक्षिण","पश्चिम"], enDirs=["North","East","South","West"], turn=k%4, ans=dirs[(turn+1)%4];
+      questions.push(make("reason",`दिशा प्रश्न ${k+1}: ${dirs[turn]} की ओर मुख व्यक्ति दाएँ मुड़े तो अब किस दिशा में है?`,`Direction item ${k+1}: a person facing ${enDirs[turn]} turns right. Which way now?`,ans,[dirs[(turn+3)%4],dirs[turn],dirs[(turn+2)%4]],`दाएँ मुड़ने पर दिशा ${ans} होगी।`,`A right turn from ${enDirs[turn]} points ${enDirs[(turn+1)%4]}.`));
+    } else if(type===5) {
+      const a=3+(k%11), b=2+(Math.floor(k/3)%9), ans=a*b;
+      questions.push(make("reason",`प्रश्न ${k+1}: ${a} डिब्बों में प्रत्येक में ${b} संकेत-पुस्तिकाएँ हैं। कुल कितनी?`,`Item ${k+1}: ${a} boxes contain ${b} signal manuals each. How many manuals in total?`,ans,[ans+a,ans-b,a+b],`कुल = ${a} × ${b} = ${ans}।`,`Total = ${a} × ${b} = ${ans}.`));
+    } else {
+      const a=21+(k%37), b=5+(k*2%17), ans=a+b;
+      questions.push(make("reason",`दो रेलखंडों की लंबाई ${a} किमी और ${b} किमी है। संयुक्त लंबाई?`,`Two rail sections are ${a} km and ${b} km long. What is their combined length?`,ans,[ans+5,ans-b,a-b],`${a} + ${b} = ${ans} किमी।`,`${a} + ${b} = ${ans} km.`));
+    }
+  }
+  // Quantitative aptitude: multi-step arithmetic, ratios, percentages, interest, speed and averages.
+  for (let i=0;i<35;i++) {
+    const k=(testNo-1)*35+i, type=i%7;
+    if(type===0) {
+      const v=120+(k*17%881), rate=[12,15,18,20,22,25,35,40][k%8], ans=Number((v*rate/100).toFixed(2));
+      questions.push(make("quant",`${v} का ${rate}% कितना है?`,`What is ${rate}% of ${v}?`,ans,[Number((ans+v/10).toFixed(2)),Number((ans-7).toFixed(2)),Number((ans+13).toFixed(2))],`${v} × ${rate}/100 = ${ans}।`,`${v} × ${rate}/100 = ${ans}.`));
+    } else if(type===1) {
+      const p=1000*(1+k%29), rate=[6,7,8,9,10,12][k%6], years=1+(k%5), ans=p*rate*years/100;
+      questions.push(make("quant",`गणना ${k+1}: ₹${p} पर ${rate}% से ${years} वर्ष का साधारण ब्याज कितना है?`,`Calculation ${k+1}: find simple interest on ₹${p} at ${rate}% for ${years} year(s).`,ans,[ans+rate*10,Math.max(0,ans-100),ans+200],`SI = PRT/100 = ₹${ans}।`,`SI = PRT/100 = ₹${ans}.`));
+    } else if(type===2) {
+      const a=12+(k*7%49), b=3+(k*5%17), ans=a*b;
+      questions.push(make("quant",`गणना प्रश्न ${k+1}: ${a} × ${b} का मान ज्ञात करें।`,`Calculation item ${k+1}: calculate ${a} × ${b}.`,ans,[ans+a,ans-b,ans+2*b],`${a} × ${b} = ${ans}।`,`${a} × ${b} = ${ans}.`));
+    } else if(type===3) {
+      const a=32+(k%41), b=45+(k*3%38), c=51+(k*7%29), ans=Number(((a+b+c)/3).toFixed(2));
+      questions.push(make("quant",`तीन स्टेशनों पर दर्ज यात्रियों की संख्या ${a}, ${b}, ${c} है। औसत ज्ञात करें।`,`Passenger counts at three stations are ${a}, ${b}, and ${c}. Find the average.`,ans,[Number((ans+3).toFixed(2)),Number((ans+6).toFixed(2)),Number(Math.max(0,ans-4).toFixed(2))],`औसत = (${a}+${b}+${c}) ÷ 3 = ${ans}।`,`Average = (${a}+${b}+${c}) ÷ 3 = ${ans}.`));
+    } else if(type===4) {
+      const speed=36+(k*7%65), time=2+(k%8), ans=speed*time;
+      questions.push(make("quant",`रेल प्रश्न ${k+1}: ${speed} किमी/घंटा की गति से ${time} घंटे चलने पर दूरी?`,`Rail item ${k+1}: find the distance travelled at ${speed} km/h for ${time} hours.`,ans,[ans+speed,ans-time,speed+time],`दूरी = गति × समय = ${speed} × ${time} = ${ans} किमी।`,`Distance = speed × time = ${speed} × ${time} = ${ans} km.`));
+    } else if(type===5) {
+      const ratio=2+(k%7), unit=4+(k*3%16), ans=ratio*unit;
+      questions.push(make("quant",`अनुपात प्रश्न ${k+1}: अनुपात ${ratio}:1 है और छोटी संख्या ${unit} है। बड़ी संख्या?`,`Ratio item ${k+1}: two numbers are in ratio ${ratio}:1 and the smaller is ${unit}. Find the larger.`,ans,[ans+unit,ans-ratio,ratio+unit],`बड़ी संख्या = ${ratio} × ${unit} = ${ans}।`,`Larger number = ${ratio} × ${unit} = ${ans}.`));
+    } else {
+      const price=500+(k*23%2500), disc=[8,10,12,15,18,20,25,30][k%8], ans=Number((price*(100-disc)/100).toFixed(2));
+      questions.push(make("quant",`₹${price} की वस्तु पर ${disc}% छूट के बाद देय मूल्य?`,`What is the payable price after a ${disc}% discount on an item costing ₹${price}?`,ans,[Number((ans+price/10).toFixed(2)),Number((ans-25).toFixed(2)),price],`मूल्य = ${price} × (100−${disc})/100 = ₹${ans}।`,`Price = ${price} × (100−${disc})/100 = ₹${ans}.`));
+    }
+  }
+  // General awareness and railway-operation judgement questions are parameterised
+  // per paper. Scenario values and wording vary by test and question index.
+  const safetySituations = [
+    ["signal aspect is unclear","señal is unclear"],
+    ["a track obstruction is reported","se informa de un obstáculo en la vía"],
+    ["two routes appear to conflict","dos rutas parecen entrar en conflicto"],
+    ["a communication message is incomplete","un mensaje de comunicación está incompleto"],
+    ["a train is reported overdue","se informa que un tren está retrasado"],
+    ["a platform becomes overcrowded","un andén se encuentra saturado"],
+    ["a point position is uncertain","la posición de un cambio de vía es incierta"],
+    ["an equipment fault is reported","se informa de una avería del equipo"],
+    ["an emergency alarm is received","se recibe una alarma de emergencia"],
+    ["a timetable disruption occurs","se produce una alteración del horario"]
+  ];
+  for (let i=0;i<30;i++) {
+    const k=(testNo-1)*30+i, type=i%10;
+    const id=1000+k*7, n=2+(k%17), m=3+(k%13), situation=safetySituations[type];
+    if(type===0) {
+      const ans=26+(k%5);
+      questions.push(make("general",`संचालन केस ${id}: ${n} ट्रेनों के लिए ${m} मिनट का अतिरिक्त अंतराल रखा जाए, तो कुल बफर समय कितना होगा?`,`Operations case ${id}: if each of ${n} trains receives an extra ${m}-minute interval, what is the total buffer time?`,n*m,[n+m,n*m+m,n*m-n],`कुल बफर समय = ${n} × ${m} = ${n*m} मिनट।`,`Total buffer time = ${n} × ${m} = ${n*m} minutes.`));
+    } else if(type===1) {
+      const answer=2025+(k%2);
+      questions.push(make("general",`रेलवे ड्यूटी रजिस्टर में घटना क्रमांक ${id} दर्ज है। ट्रेस करने योग्य रिकॉर्ड का सबसे अच्छा गुण क्या है?`,`Incident ${id} is entered in a railway duty register. What best makes the record traceable?`,"Time-stamped factual entries",["Unverified assumptions","Blank fields","Undated summaries"],"समय, तथ्य और निर्णय स्पष्ट रूप से दर्ज होने चाहिए।","Entries should clearly record time, facts and decisions."));
+    } else if(type===2) {
+      const ans=n*m;
+      questions.push(make("general",`एक स्टेशन पर ${n} प्लेटफॉर्म हैं और प्रत्येक पर ${m} संकेत-पैनल हैं। कुल पैनल?`,`A station has ${n} platforms with ${m} signal panels each. How many panels?`,ans,[ans+n,ans-m,n+m],`कुल ${n} × ${m} = ${ans} पैनल।`,`Total = ${n} × ${m} = ${ans} panels.`));
+    } else if(type===3) {
+      const speed=45+(k%56), mins=10+(k%41), dist=Number((speed*mins/60).toFixed(2));
+      questions.push(make("general",`एक ट्रेन ${speed} किमी/घंटा की औसत गति से ${mins} मिनट चलती है। तय दूरी लगभग कितनी है?`,`A train travels for ${mins} minutes at an average speed of ${speed} km/h. Approximate distance?`,dist,[Number((dist+5).toFixed(2)),Number(Math.max(0,dist-4).toFixed(2)),Number((speed+mins).toFixed(2))],`दूरी = ${speed} × ${mins}/60 = ${dist} किमी।`,`Distance = ${speed} × ${mins}/60 = ${dist} km.`));
+    } else if(type===4) {
+      const answer=["Stop and follow prescribed procedure","Proceed at normal speed","Ignore the report","Wait without notifying anyone"][k%4];
+      questions.push(make("general",`घटना रिपोर्ट ${id}: यदि ${situation[0]} और सुरक्षित स्थिति की पुष्टि न हो, तो सबसे उचित कार्रवाई क्या है?`,`Incident report ${id}: if ${situation[0]} and safety has not been confirmed, what is the best action?`,"Stop movement and follow prescribed safe procedure",["Proceed at normal speed","Ignore the report","Assume the route is clear"],"सुरक्षा की पुष्टि न होने पर निर्धारित सुरक्षित प्रक्रिया अपनाएँ।","When safety is unconfirmed, follow the prescribed safe procedure."));
+    } else if(type===5) {
+      const pct=10+(k%6)*5, base=200+(k%23)*20, ans=base*pct/100;
+      questions.push(make("general",`निरीक्षण केस ${id}: ${base} उपकरणों में से ${pct}% जाँचे जाएँगे। संख्या ज्ञात करें।`,`Inspection case ${id}: how many devices are selected from ${base} at ${pct}%?`,ans,[ans+5,ans-5,base-pct],`संख्या = ${base} × ${pct}/100 = ${ans}।`,`Count = ${base} × ${pct}/100 = ${ans}.`));
+    } else if(type===6) {
+      const a=11+(k%31), b=17+(k*3%29), ans=a+b;
+      questions.push(make("general",`दो लगातार ब्लॉक खंडों की दूरी ${a} किमी और ${b} किमी है। कुल दूरी?`,`Two consecutive block sections are ${a} km and ${b} km long. Total distance?`,ans,[ans+3,ans-b,a-b],`कुल दूरी = ${a} + ${b} = ${ans} किमी।`,`Total distance = ${a} + ${b} = ${ans} km.`));
+    } else if(type===7) {
+      const p=1000+(k%19)*250, rate=5+(k%8), years=1+(k%4), ans=p*rate*years/100;
+      questions.push(make("general",`ब्याज केस ${id}: ₹${p} पर ${rate}% से ${years} वर्ष का साधारण ब्याज?`,`Calculation ${k+1}: find simple interest on ₹${p} at ${rate}% for ${years} year(s).`,ans,[ans+rate*10,ans+100,Math.max(0,ans-50)],`SI = PRT/100 = ₹${ans}।`,`SI = PRT/100 = ₹${ans}.`));
+    } else if(type===8) {
+      const word=words[k%words.length], shift=1+(k%11), code=word.split("").map(ch=>String.fromCharCode((ch.charCodeAt(0)-65+shift)%26+65)).join("");
+      questions.push(make("general",`रिपोर्ट ${id}: रेलवे शब्द ${word} के प्रत्येक अक्षर को ${shift} स्थान आगे बढ़ाकर कूट बनाया जाए, तो कूट क्या होगा?`,`Report ${id}: encode ${word} by shifting each letter forward ${shift} places. What is the code?`,code,[word,code.split("").reverse().join(""),word.split("").reverse().join("")],`हर अक्षर ${shift} स्थान आगे बढ़ाने पर ${code} मिलता है।`,`Shifting each letter forward ${shift} places gives ${code}.`));
+    } else {
+      const items=8+(k%22), damaged=1+(k%5), ans=items-damaged;
+      questions.push(make("general",`उपकरण केस ${id}: ${items} संचार उपकरणों में से ${damaged} खराब हैं। कार्यशील कितने?`,`Equipment case ${id}: ${damaged} of ${items} communication devices are faulty. How many are operational?`,ans,[items+damaged,ans+damaged,damaged],`कार्यशील उपकरण = ${items} − ${damaged} = ${ans}।`,`Operational devices = ${items} − ${damaged} = ${ans}.`));
+    }
+  }
+  return {test:testNo,title:{hi:"RRB स्टेशन मास्टर — मॉक टेस्ट " + testNo,en:"RRB Station Master — Mock Test " + testNo},sections:[{key:"reason",label:{hi:"तर्कशक्ति",en:"Reasoning"}},{key:"quant",label:{hi:"गणित",en:"Mathematics"}},{key:"general",label:{hi:"सामान्य जागरूकता, विज्ञान व रेलवे",en:"General Awareness, Science & Railways"}}],questions};
+}
+function loadTest() {
+  // All 25 tests are free; no payment API, token, or login gate is used.
+  return Promise.resolve(makeFreeTest());
+}
+loadTest()
+  .then((d) => { SECTIONS = d.sections; Q = d.questions; boot(); })
+  .catch((e) => {
+    if (e.message === "login") { showMsg("4 नवंबर तक सभी टेस्ट फ्री हैं। टेस्ट देने के लिए लॉगिन करें।", "All tests are free till 4 Nov. Please log in to take this test."); const b = document.getElementById("backLink"); if (b) { b.href = "/login.html?next=" + encodeURIComponent(location.pathname + location.search); b.textContent = "लॉगिन करें / Log in \u2192"; } }
+    else if (e.message === "locked") showMsg("यह टेस्ट, टेस्ट सीरीज़ (₹99) का हिस्सा है। सभी टेस्ट अनलॉक करने के लिए वापस जाएँ।", "This test is part of the test series (₹99). Go back to unlock all tests.");
+    else showMsg("यह टेस्ट अभी उपलब्ध नहीं है।", "This test is not available yet.");
+  });
+function boot() {
+const UI = {
+				en: {
+					subtitle: "Mock Test " + (+TEST_NO) + " \u00b7 100 Questions \u00b7 90 min",
+					timeLeft: "Time Left",
+					legAns: "Answered",
+					legNot: "Not Answered",
+					legMarked: "Marked",
+					legVisit: "Not Visited",
+					qof: (n, t) => "Q " + n + " of " + t,
+					clear: "Clear Response",
+					mark: "Mark for Review & Next",
+					prev: "\u2039 Previous",
+					save: "Save & Next \u203a",
+					submit: "Submit Test",
+					confirmMsg: (u) =>
+						"You have " +
+						u +
+						" unattempted question(s).\nSubmit the test now?",
+					rbrand: "RRB STATION MASTER \u00b7 MOCK TEST " + (+TEST_NO),
+					outof: (auto) =>
+						"RRB Station Master \u00b7 " +
+						(auto
+							? "Time Up \u2014 Auto Submitted"
+							: "Test Submitted"),
+					scoreLabel: "Score",
+					thSection: "Section",
+					thCorrect: "Correct",
+					thWrong: "Wrong",
+					thSkipped: "Skipped",
+					rnote: "Each correct answer carries 1 mark; ⅓ mark is deducted for each wrong answer. Tap any question below to see the answer and explanation.",
+					tagOk: "Correct",
+					tagBad: "Incorrect",
+					tagSkip: "Skipped",
+					solution: "Answer:",
+					retake: "Retake Test",
+					langBtn: "\u0939\u093f\u0902\u0926\u0940",
+					qLabelPrefix: "Q ",
+					qnoD: "Question No. ",
+					dHome: "&larr; Home",
+					dTimeLbl: "Time Left",
+					dQType: "Question Type: MCQ",
+					dMarks: "Marks for correct answer: 1 | Negative Marks: ⅓",
+					dViewLbl: "View in:",
+					dChoose: "Choose a Question",
+					nCardTitle: "Before you begin",
+					nCardSub: "Practice test for RRB Station Master recruitment. Enter your name for the result card.",
+					nFieldLabel: "Student Name",
+					nPlaceholder: "e.g. Riya Sharma",
+					startBtn: "Start Test",
+					defaultName: "Student",
+					back: "\u2190 All tests",
+					rules: [
+						"100 objective questions · 100 marks · 90 minutes.",
+						"3 sections: Reasoning (35), Mathematics (35), General Awareness/Science/Railways (30).",
+						"Every question is in Hindi and English — switch language any time.",
+						"Each correct answer carries 1 mark. A wrong answer deducts ⅓ mark.",
+						"Move freely between sections. Green = answered, red = not answered, purple = marked for review.",
+						"The test auto-submits when the timer reaches 00:00. Confirm the current official recruitment pattern separately.",
+					],
+				},
+				hi: {
+					subtitle: "मॉक टेस्ट " + (+TEST_NO) + " · 100 प्रश्न · 90 मिनट",
+					timeLeft: "\u0936\u0947\u0937 \u0938\u092e\u092f",
+					legAns: "\u0909\u0924\u094d\u0924\u0930 \u0926\u093f\u092f\u093e",
+					legNot: "\u0909\u0924\u094d\u0924\u0930 \u0928\u0939\u0940\u0902 \u0926\u093f\u092f\u093e",
+					legMarked: "\u091a\u093f\u0939\u094d\u0928\u093f\u0924",
+					legVisit:
+						"\u0928\u0939\u0940\u0902 \u0926\u0947\u0916\u093e \u0917\u092f\u093e",
+					qof: (n, t) =>
+						"\u092a\u094d\u0930\u0936\u094d\u0928 " + n + " / " + t,
+					clear: "\u0909\u0924\u094d\u0924\u0930 \u0939\u091f\u093e\u090f\u0902",
+					mark: "\u0938\u092e\u0940\u0915\u094d\u0937\u093e \u0939\u0947\u0924\u0941 \u091a\u093f\u0939\u094d\u0928\u093f\u0924 \u0915\u0930\u0947\u0902 \u0914\u0930 \u0906\u0917\u0947",
+					prev: "\u2039 \u092a\u093f\u091b\u0932\u093e",
+					save: "\u0938\u0939\u0947\u091c\u0947\u0902 \u0914\u0930 \u0906\u0917\u0947 \u203a",
+					submit: "\u091f\u0947\u0938\u094d\u091f \u091c\u092e\u093e \u0915\u0930\u0947\u0902",
+					confirmMsg: (u) =>
+						"\u0906\u092a\u0915\u0947 " +
+						u +
+						" \u092a\u094d\u0930\u0936\u094d\u0928 \u0905\u0928\u0941\u0924\u094d\u0924\u0930\u093f\u0924 \u0939\u0948\u0902\u0964\n\u0915\u094d\u092f\u093e \u0905\u092c \u091f\u0947\u0938\u094d\u091f \u091c\u092e\u093e \u0915\u0930\u0947\u0902?",
+					rbrand: "RRB STATION MASTER \u00b7 MOCK TEST " + (+TEST_NO),
+					outof: (auto) =>
+						"मध्य प्रदेश ग्रामीण बैंक · " +
+						(auto
+							? "\u0938\u092e\u092f \u0938\u092e\u093e\u092a\u094d\u0924 \u2014 \u0938\u094d\u0935\u0924\u0903 \u091c\u092e\u093e"
+							: "\u091f\u0947\u0938\u094d\u091f \u091c\u092e\u093e \u0939\u0941\u0906"),
+					scoreLabel: "\u0938\u094d\u0915\u094b\u0930",
+					thSection: "\u0905\u0928\u0941\u092d\u093e\u0917",
+					thCorrect: "\u0938\u0939\u0940",
+					thWrong: "\u0917\u0932\u0924",
+					thSkipped: "\u091b\u0942\u091f\u0947",
+					rnote: "प्रत्येक सही उत्तर 1 अंक का है; गलत उत्तर पर ⅓ अंक कटेगा। उत्तर व व्याख्या देखने के लिए नीचे किसी भी प्रश्न पर टैप करें।",
+					tagOk: "\u0938\u0939\u0940",
+					tagBad: "\u0917\u0932\u0924",
+					tagSkip: "\u091b\u0942\u091f\u093e",
+					solution: "\u0909\u0924\u094d\u0924\u0930:",
+					retake: "\u091f\u0947\u0938\u094d\u091f \u092b\u093f\u0930 \u0938\u0947 \u0926\u0947\u0902",
+					langBtn: "English",
+					qLabelPrefix: "\u092a\u094d\u0930\u0936\u094d\u0928 ",
+					qnoD: "प्रश्न क्रमांक ",
+					dHome: "&larr; सभी टेस्ट",
+					dTimeLbl: "शेष समय",
+					dQType: "प्रश्न प्रकार: MCQ",
+					dMarks: "सही उत्तर के अंक: 1 | ऋणात्मक अंक: ⅓",
+					dViewLbl: "भाषा:",
+					dChoose: "प्रश्न चुनें",
+					nCardTitle:
+						"\u0936\u0941\u0930\u0942 \u0915\u0930\u0928\u0947 \u0938\u0947 \u092a\u0939\u0932\u0947",
+					nCardSub: "IBPS RRB प्रारंभिक परीक्षा के अभ्यास पैटर्न पर आधारित टेस्ट। परिणाम कार्ड के लिए अपना नाम दर्ज करें।",
+					nFieldLabel:
+						"\u0935\u093f\u0926\u094d\u092f\u093e\u0930\u094d\u0925\u0940 \u0915\u093e \u0928\u093e\u092e",
+					nPlaceholder:
+						"\u091c\u0948\u0938\u0947: \u0930\u093f\u092f\u093e \u0936\u0930\u094d\u092e\u093e",
+					startBtn:
+						"\u091f\u0947\u0938\u094d\u091f \u0936\u0941\u0930\u0942 \u0915\u0930\u0947\u0902",
+					defaultName:
+						"\u0935\u093f\u0926\u094d\u092f\u093e\u0930\u094d\u0925\u0940",
+					back: "\u2190 सभी टेस्ट",
+					rules: [
+						"100 वस्तुनिष्ठ प्रश्न · 100 अंक · 90 मिनट।",
+						"3 खंड: तर्कशक्ति (35), गणित (35), सामान्य जागरूकता/विज्ञान/रेलवे (30)।",
+						"हर प्रश्न हिंदी और अंग्रेज़ी दोनों में है — भाषा कभी भी बदलें।",
+						"सही उत्तर पर 1 अंक; गलत उत्तर पर ⅓ अंक की कटौती।",
+						"खंडों के बीच कभी भी जा सकते हैं। हरा = उत्तर दिया, लाल = उत्तर नहीं दिया, बैंगनी = समीक्षा हेतु चिह्नित।",
+						"समय 00:00 होते ही टेस्ट स्वतः जमा हो जाएगा। आधिकारिक भर्ती पैटर्न अलग से जाँचें।",
+					],
+				},
+			};
+
+			let lang = (function(){ const q = params.get("lang"); if (q === "en" || q === "hi") return q; try { return localStorage.getItem("testhub_lang_pref") || "hi"; } catch (e) { return "hi"; } })();
+			function t() {
+				return UI[lang];
+			}
+
+			const TOTAL = Q.length;
+			const DURATION = 90 * 60;
+			let cur = 0,
+				answers = {},
+				visited = new Set(),
+				marked = new Set(),
+				timeLeft = DURATION,
+				timerH = null;
+			let studentName = "";
+			let lastResult = null;
+
+			const secRange = {};
+			SECTIONS.forEach((sec) => {
+				const idx = Q.map((q, i) => (q.s === sec.key ? i : -1)).filter(
+					(i) => i >= 0
+				);
+				secRange[sec.key] = { start: idx[0], end: idx[idx.length - 1] };
+			});
+
+			const elTimer = document.getElementById("timer");
+			const elTimerbar = document.getElementById("timerbar");
+			const elPalette = document.getElementById("palette");
+			const elTabs = document.getElementById("sectiontabs");
+			const elTimer2 = document.getElementById("timer2");
+			const elDTime = document.getElementById("dTime");
+
+			function buildTabs() {
+				elTabs.innerHTML = "";
+				SECTIONS.forEach((sec) => {
+					const b = document.createElement("button");
+					b.textContent = sec.label[lang];
+					b.dataset.key = sec.key;
+					b.onclick = () => {
+						cur = secRange[sec.key].start;
+						render();
+					};
+					elTabs.appendChild(b);
+				});
+			}
+
+			function buildPalette() {
+				elPalette.innerHTML = "";
+				for (let i = 0; i < TOTAL; i++) {
+					const c = document.createElement("div");
+					c.className = "pcell";
+					c.textContent = i + 1;
+					c.onclick = () => {
+						cur = i;
+						render();
+					};
+					elPalette.appendChild(c);
+				}
+			}
+
+			function renderPalette() {
+				const cells = elPalette.children;
+				for (let i = 0; i < TOTAL; i++) {
+					const c = cells[i];
+					c.className = "pcell";
+					if (i === cur) c.classList.add("current");
+					if (Q[i].s !== Q[cur].s) c.classList.add("othersec");
+					const hasA = answers.hasOwnProperty(i);
+					const isMark = marked.has(i);
+					if (isMark) {
+						c.classList.add("marked");
+						if (hasA) c.classList.add("answered");
+					} else if (hasA) c.classList.add("answered");
+					else if (visited.has(i)) c.classList.add("notanswered");
+				}
+			}
+
+			function renderSide() {
+				let a = 0, n = 0, m = 0, v = 0;
+				for (let i = 0; i < TOTAL; i++) {
+					if (marked.has(i)) m++;
+					else if (answers.hasOwnProperty(i)) a++;
+					else if (visited.has(i)) n++;
+					else v++;
+				}
+				document.getElementById("cAns").textContent = a;
+				document.getElementById("cNot").textContent = n;
+				document.getElementById("cMark").textContent = m;
+				document.getElementById("cVis").textContent = v;
+				const sec = SECTIONS.find((s) => s.key === Q[cur].s);
+				document.getElementById("dSecName").textContent = sec.label[lang];
+				document.getElementById("dName").textContent = studentName || t().defaultName;
+			}
+
+			function renderTabs() {
+				[...elTabs.children].forEach((b) =>
+					b.classList.toggle("active", Q[cur].s === b.dataset.key)
+				);
+			}
+
+			function renderQuestion() {
+				const item = Q[cur];
+				const sec = SECTIONS.find((s) => s.key === item.s);
+				document.getElementById("qno").textContent = t().qof(
+					cur + 1,
+					TOTAL
+				);
+				document.getElementById("qsec").textContent = sec.label[lang];
+				document.getElementById("qnoD").textContent = t().qnoD + (cur + 1);
+				document.getElementById("qtext").textContent = item.q[lang];
+				const optDiv = document.getElementById("options");
+				optDiv.innerHTML = "";
+				item.o[lang].forEach((optText, idx) => {
+					const wrap = document.createElement("div");
+					wrap.className =
+						"opt" + (answers[cur] === idx ? " selected" : "");
+					const id = "opt_" + cur + "_" + idx;
+					wrap.innerHTML =
+						'<input type="radio" name="q' +
+						cur +
+						'" id="' +
+						id +
+						'"' +
+						(answers[cur] === idx ? " checked" : "") +
+						">" +
+						'<label for="' +
+						id +
+						'">' +
+						String.fromCharCode(65 + idx) +
+						". " +
+						optText +
+						"</label>";
+					wrap.onclick = () => {
+						answers[cur] = idx;
+						visited.add(cur);
+						renderQuestion();
+						renderPalette();
+						renderSide();
+					};
+					optDiv.appendChild(wrap);
+				});
+			}
+
+			function render() {
+				visited.add(cur);
+				renderQuestion();
+				renderPalette();
+				renderTabs();
+				renderSide();
+				// keep the current cell visible inside the palette without moving the page
+				const cell = elPalette.children[cur];
+				if (cell) elPalette.scrollTop = cell.offsetTop - elPalette.offsetTop - elPalette.clientHeight / 2 + cell.clientHeight / 2;
+				// if the question is above the screen (e.g. tapped a number at the bottom), bring it into view
+				const qp = document.getElementById("qpanel").getBoundingClientRect();
+				if (qp.top < 0 || qp.top > window.innerHeight * 0.6) window.scrollTo({ top: window.scrollY + qp.top - 70, behavior: "smooth" });
+			}
+
+			document.getElementById("clearBtn").onclick = () => {
+				delete answers[cur];
+				renderQuestion();
+				renderPalette();
+				renderSide();
+			};
+			document.getElementById("markBtn").onclick = () => {
+				marked.add(cur);
+				goNext();
+			};
+			document.getElementById("saveBtn").onclick = goNext;
+			document.getElementById("prevBtn").onclick = () => {
+				if (cur > 0) {
+					cur--;
+					render();
+				}
+			};
+			function goNext() {
+				if (cur < TOTAL - 1) {
+					cur++;
+					render();
+				} else render();
+			}
+
+			document.getElementById("submitBtn").onclick = () => {
+				const u = TOTAL - Object.keys(answers).length;
+				if (confirm(t().confirmMsg(u))) submitTest();
+			};
+
+			function fmt(s) {
+				return (
+					String(Math.floor(s / 60)).padStart(2, "0") +
+					":" +
+					String(s % 60).padStart(2, "0")
+				);
+			}
+			function startTimer() {
+				timerH = setInterval(() => {
+					timeLeft--;
+					elTimer.textContent = fmt(Math.max(timeLeft, 0));
+					elTimer2.textContent = elTimer.textContent;
+					if (timeLeft <= 300) { elTimerbar.classList.add("warn"); elDTime.classList.add("warn"); }
+					if (timeLeft <= 0) {
+						clearInterval(timerH);
+						submitTest(true);
+					}
+				}, 1000);
+			}
+
+			function submitTest(auto) {
+				clearInterval(timerH);
+				lastResult = { auto: !!auto };
+				try {
+					let sc = 0; Q.forEach((it, i) => { if (answers[i] === it.a) sc += 1; else if (answers[i] !== undefined) sc -= (1 / 3); });
+					const key = "testhub_rrbsm_mock_" + TEST_NO, prev = JSON.parse(localStorage.getItem(key) || "null");
+					localStorage.setItem(key, JSON.stringify({ last: sc, best: Math.max(sc, prev ? prev.best : 0), total: TOTAL, at: Date.now() }));
+				} catch (e) {}
+				renderResultScreen();
+			}
+
+			function renderResultScreen() {
+				if (!lastResult) return;
+				const auto = lastResult.auto;
+				const byS = {};
+				SECTIONS.forEach((s) => (byS[s.key] = { c: 0, w: 0, sk: 0 }));
+				let tot = 0, net = 0;
+				Q.forEach((item, i) => {
+					const g = answers[i];
+					if (g === undefined) byS[item.s].sk++;
+					else if (g === item.a) {
+						byS[item.s].c++;
+						tot++;
+                        net += 1;
+					} else { byS[item.s].w++; net -= (1 / 3); }
+				});
+
+				document.getElementById("app").style.display = "none";
+				const rs = document.getElementById("resultScreen");
+				rs.style.display = "block";
+				const pct = ((net / TOTAL) * 100).toFixed(1);
+				const u = t();
+
+				let rows = "";
+				SECTIONS.forEach((s) => {
+					const d = byS[s.key];
+					rows += `<tr><td>${s.label[lang]}</td><td>${d.c}</td><td>${d.w}</td><td>${d.sk}</td></tr>`;
+				});
+
+				let review = "";
+				Q.forEach((item, i) => {
+					const g = answers[i];
+					let tag = "skip",
+						tl = u.tagSkip;
+					if (g !== undefined) {
+						if (g === item.a) {
+							tag = "ok";
+							tl = u.tagOk;
+						} else {
+							tag = "bad";
+							tl = u.tagBad;
+						}
+					}
+					let opts = "";
+					item.o[lang].forEach((ot, idx) => {
+						let cls = "";
+						if (idx === item.a) cls = "correctAns";
+						else if (idx === g) cls = "wrongChosen";
+						opts += `<div class="ropt ${cls}">${String.fromCharCode(
+							65 + idx
+						)}. ${ot}</div>`;
+					});
+					review += `<details class="qreview"><summary><span>${
+						u.qLabelPrefix
+					}${i + 1}. ${
+						SECTIONS.find((s) => s.key === item.s).label[lang]
+					}</span><span class="rtag ${tag}">${tl}</span></summary>
+   <div class="rqtext">${item.q[lang]}</div>
+   ${opts}
+   <div class="rsol"><b>${u.solution}</b> ${item.sol[lang]}</div>
+  </details>`;
+				});
+
+				rs.innerHTML = `
+  <div class="rhero">
+   <button class="langBtn" id="langBtnResult" type="button">${
+		u.langBtn
+   }</button>
+   <div class="rbrand">${u.rbrand}</div>
+   <div class="rname">${studentName ? studentName : u.defaultName}</div>
+   <div class="score">${net.toFixed(2)} / ${TOTAL}</div>
+   <div class="outof">${u.outof(auto)}</div>
+   <div class="pct">${pct}% ${u.scoreLabel}</div>
+  </div>
+  <div class="rwrap">
+   <table class="rtable">
+    <tr><th>${u.thSection}</th><th>${u.thCorrect}</th><th>${
+					u.thWrong
+				}</th><th>${u.thSkipped}</th></tr>
+    ${rows}
+   </table>
+   <p class="rnote">${u.rnote}</p>
+   ${review}
+   <button id="retakeBtn">${u.retake}</button>
+   <div style="text-align:center"><a class="backlink" href="../../rrb-station-master-mock-tests/">${u.back}</a></div>
+  </div>`;
+
+				document.getElementById("langBtnResult").onclick = toggleLang;
+
+				document.getElementById("retakeBtn").onclick = () => {
+					answers = {};
+					visited = new Set();
+					marked = new Set();
+					cur = 0;
+					timeLeft = DURATION;
+					lastResult = null;
+					elTimerbar.classList.remove("warn");
+					document.getElementById("dTime").classList.remove("warn"); elTimer.textContent = document.getElementById("timer2").textContent = fmt(DURATION);
+					rs.style.display = "none";
+					document.getElementById("app").style.display = "flex";
+					renderPalette();
+					render();
+					startTimer();
+				};
+			}
+
+			function applyStaticText() {
+				const u = t();
+				document.getElementById("subtitleText").textContent =
+					u.subtitle;
+				document.getElementById("nSubtitleText").textContent =
+					u.subtitle;
+				document.getElementById("timeLeftLabel").textContent =
+					u.timeLeft;
+				document.getElementById("legAns").textContent = u.legAns;
+				document.getElementById("legNot").textContent = u.legNot;
+				document.getElementById("legMarked").textContent = u.legMarked;
+				document.getElementById("legVisit").textContent = u.legVisit;
+				document.getElementById("clearBtn").textContent = u.clear;
+				document.getElementById("markBtn").innerHTML = u.mark.replace(
+					"&",
+					"&amp;"
+				);
+				document.getElementById("prevBtn").innerHTML = u.prev;
+				document.getElementById("saveBtn").innerHTML = u.save.replace(
+					"&",
+					"&amp;"
+				);
+				document.getElementById("submitBtn").textContent = u.submit;
+				document.getElementById("langBtn").textContent = u.langBtn;
+				document.getElementById("langSel").value = lang;
+				{ const dh = document.getElementById("dHome"); if (dh) dh.innerHTML = u.dHome; }
+				document.getElementById("dTimeLbl").textContent = u.dTimeLbl;
+				document.getElementById("dQType").textContent = u.dQType;
+				document.getElementById("dMarks").textContent = u.dMarks;
+				document.getElementById("dViewLbl").textContent = u.dViewLbl;
+				document.getElementById("dChoose").textContent = u.dChoose;
+				document.getElementById("langBtnName").textContent = u.langBtn;
+				document.getElementById("nCardTitle").textContent =
+					u.nCardTitle;
+				document.getElementById("nCardSub").textContent = u.nCardSub;
+				document.getElementById("nFieldLabel").textContent =
+					u.nFieldLabel;
+				document.getElementById("nameInput").placeholder =
+					u.nPlaceholder;
+				document.getElementById("startBtn").textContent = u.startBtn;
+				document.getElementById("rules").innerHTML = u.rules.map((r) => "<li>" + r + "</li>").join("");
+				document.getElementById("backLink").textContent = u.back;
+				document.documentElement.lang = lang;
+				try { localStorage.setItem("testhub_lang_pref", lang); } catch (e) {}
+			}
+
+			function toggleLang() {
+				lang = lang === "en" ? "hi" : "en";
+				applyStaticText();
+				buildTabs();
+				if (lastResult) {
+					renderResultScreen();
+				} else {
+					render();
+				}
+			}
+
+			document.getElementById("langBtn").onclick = toggleLang;
+			document.getElementById("langBtnName").onclick = toggleLang;
+			document.getElementById("langSel").onchange = (e) => { if (e.target.value !== lang) toggleLang(); };
+
+			function beginTest() {
+				const val = document.getElementById("nameInput").value.trim();
+				studentName = val;
+				document.getElementById("nameScreen").style.display = "none";
+				document.getElementById("app").style.display = "flex";
+				render();
+				startTimer();
+			}
+			document.getElementById("startBtn").onclick = beginTest;
+			document
+				.getElementById("nameInput")
+				.addEventListener("keydown", (e) => {
+					if (e.key === "Enter") beginTest();
+				});
+
+
+            // Accessible font-size controls for the question paper and review.
+            (function initPaperFontControls() {
+                const root = document.documentElement;
+                const buttons = document.querySelectorAll("[data-font-scale]");
+                const scaleTargets = ["qtext", "options", "rules"];
+                const setScale = (scale) => {
+                    root.style.setProperty("--paper-font-scale", scale);
+                    buttons.forEach((button) => {
+                        button.setAttribute("aria-pressed", String(Number(button.dataset.fontScale) === Number(scale)));
+                    });
+                    try { localStorage.setItem("testhub_paper_font_scale", String(scale)); } catch (e) {}
+                };
+                let saved = "1";
+                try { saved = localStorage.getItem("testhub_paper_font_scale") || "1"; } catch (e) {}
+                buttons.forEach((button) => button.addEventListener("click", () => setScale(button.dataset.fontScale)));
+                setScale(saved);
+            })();
+
+			applyStaticText();
+			buildTabs();
+			buildPalette();
+			elTimer.textContent = fmt(DURATION);
+			elTimer2.textContent = fmt(DURATION);
+			document.getElementById("nameInput").focus();
+		
+}
+		</script>
+	
+<script src="/js/global-account-menu.js?v=11"></script>
+</body>
+</html>
