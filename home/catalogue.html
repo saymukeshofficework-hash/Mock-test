@@ -510,7 +510,8 @@ function translateText(original){
 }
 function translateTree(){
  const contactNavLabel=document.querySelector('[data-i18n-contact-nav]');
- if(contactNavLabel) contactNavLabel.textContent=lang==='en'?'Contact':'संपर्क';
+ const contactNavText=lang==='en'?'Contact':'संपर्क';
+ if(contactNavLabel && contactNavLabel.textContent!==contactNavText) contactNavLabel.textContent=contactNavText;
  const walker=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);
  let node;
  while((node=walker.nextNode())){
