@@ -374,7 +374,7 @@
           }
         });
       }));
-      tthObserver.observe(document.body,{subtree:true,childList:true,characterData:true});
+      tthObserver.observe(document.body,{subtree:true,childList:true});
     }
   }
 
