@@ -530,7 +530,8 @@ function translateTree(){
  });
  document.documentElement.lang=lang;
  const title=document.querySelector('title');
- if(title) title.textContent=lang==='en'?'Courses & Test Series | MP Govt Exams, TET, RRB NTPC, CPCT – TETTESTHUB':'कोर्स और टेस्ट सीरीज़ | MP सरकारी परीक्षा, TET, RRB NTPC, CPCT – TETTESTHUB';
+ const pageTitle=lang==='en'?'Courses & Test Series | MP Govt Exams, TET, RRB NTPC, CPCT – TETTESTHUB':'कोर्स और टेस्ट सीरीज़ | MP सरकारी परीक्षा, TET, RRB NTPC, CPCT – TETTESTHUB';
+ if(title && title.textContent!==pageTitle) title.textContent=pageTitle;
  const count=document.getElementById('count');
  if(count){
   const n=[...document.querySelectorAll('#grid > a')].filter(x=>x.style.display!=='none').length;
