@@ -11,7 +11,7 @@ import type { Lang } from "@/types";
 export function BottomNav({ lang }: { lang: Lang }) {
   const pathname = usePathname();
   const items = [
-    { href: "/", label: dict.nav.home, Icon: Home },
+    { href: "https://tettesthub.in/index.html", label: dict.nav.home, Icon: Home, abs: true },
     { href: "/test-series", label: dict.nav.tests, Icon: NotebookPen },
     // exam list lives on the static courses catalogue, outside the Next.js app
     { href: "/examhelp/courses/#courses", label: dict.nav.exams, Icon: ClipboardList, abs: true },
