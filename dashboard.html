@@ -163,14 +163,26 @@ header.site-header nav.compact-test-nav a{font-size:12px;padding:5px 9px;border-
   async function claimProduct(product, accessToken) {
     let order_ids = [];
     try { order_ids = JSON.parse(lsGet('testhub_pending_' + product) || '[]'); } catch (e) {}
+    // A slow/unreachable checkout service must never keep My Tests loading indefinitely.
+    // Abort each ownership lookup after 3 seconds and fall back to the local purchase token.
     try {
-      const r = await fetch(CHECKOUT_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', apikey: CHECKOUT_ANON, Authorization: 'Bearer ' + CHECKOUT_ANON },
-        body: JSON.stringify({ action: 'claim', product, order_ids: Array.isArray(order_ids) ? order_ids : [], access_token: accessToken }),
-      });
-      const d = await r.json();
-      if (d && d.token) { try { localStorage.setItem('testhub_dl_' + product, d.token); } catch (e) {} return true; }
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 3000);
+      let r;
+      try {
+        r = await fetch(CHECKOUT_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', apikey: CHECKOUT_ANON, Authorization: 'Bearer ' + CHECKOUT_ANON },
+          body: JSON.stringify({ action: 'claim', product, order_ids: Array.isArray(order_ids) ? order_ids : [], access_token: accessToken }),
+          signal: controller.signal,
+        });
+      } finally {
+        clearTimeout(timeoutId);
+      }
+      if (r && r.ok) {
+        const d = await r.json();
+        if (d && d.token) { try { localStorage.setItem('testhub_dl_' + product, d.token); } catch (e) {} return true; }
+      }
     } catch (e) {}
     // older guest purchase unlocked on this device (a current-affairs pass can expire, so not that one)
     return product !== 'ca-30' && !!lsGet('testhub_dl_' + product);
