@@ -431,46 +431,35 @@ main{min-height:calc(100svh - 70px)}
     if (btn) btn.textContent = toEnglish ? "हिं" : "EN";
   }
   
-  const previousApplyI18n = applyI18n;
-  applyI18n = function() { previousApplyI18n(); translateHomepage(getLang()); };
-  I18N_ONCHANGE = () => {
-    const lang = getLang();
+  // Use one language-change path so the shared dictionary and homepage text
+  // cannot race each other or overwrite the language button label.
+  function refreshHomepageLanguage() {
+    const lang = getLang() === "en" ? "en" : "hi";
     translateHomepageStable(lang);
-    const btn = document.getElementById("langToggle");
-    if (btn) {
-      btn.textContent = lang === "hi" ? "अंग्रेज़ी" : "हिंदी";
-      btn.setAttribute("aria-label", lang === "hi" ? "Switch homepage to English" : "Switch homepage to Hindi");
-      btn.setAttribute("aria-pressed", String(lang === "en"));
-    }
-  };
-  window.__toggleTTHHomeLanguage = function () {
-    const nextLang = getLang() === "hi" ? "en" : "hi";
-    setLang(nextLang);
-    translateHomepageStable(nextLang);
     const button = document.getElementById("langToggle");
     if (button) {
-      button.textContent = nextLang === "hi" ? "अंग्रेज़ी" : "हिंदी";
-      button.setAttribute("aria-label", nextLang === "hi" ? "Switch homepage to English" : "Switch homepage to Hindi");
-      button.setAttribute("aria-pressed", String(nextLang === "en"));
+      button.textContent = lang === "hi" ? "English" : "हिंदी";
+      button.setAttribute("aria-label", lang === "hi" ? "Switch homepage to English" : "Switch homepage to Hindi");
+      button.setAttribute("aria-pressed", String(lang === "en"));
     }
-  };
+  }
+
+  I18N_ONCHANGE = refreshHomepageLanguage;
   const homepageLanguageButton = document.getElementById("langToggle");
   if (homepageLanguageButton) {
     homepageLanguageButton.removeAttribute("onclick");
     homepageLanguageButton.addEventListener("click", () => {
-      const nextLang = getLang() === "hi" ? "en" : "hi";
-      setLang(nextLang);
-      translateHomepage(nextLang);
-      translateHomepageStable(nextLang);
+      setLang(getLang() === "hi" ? "en" : "hi");
     });
   }
+
   applyI18n();
-  translateHomepageStable(getLang());
-  // Pause the observer while translating, otherwise its own text writes re-trigger it
-  // in an endless loop and the homepage freezes.
+  refreshHomepageLanguage();
+
+  // Translate newly inserted account/menu/card text without observing our own text writes.
   const homeLangObserver = new MutationObserver(() => {
     homeLangObserver.disconnect();
-    translateHomepageStable(getLang());
+    refreshHomepageLanguage();
     homeLangObserver.takeRecords();
     homeLangObserver.observe(document.body, { childList: true, subtree: true });
   });
