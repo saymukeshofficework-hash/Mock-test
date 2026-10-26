@@ -9,7 +9,7 @@ type U = { id?: string; name?: string };
 /** Shared account menu shown on every Exam Hub page for signed-in students. */
 export function LoginChip({ className }: { className: string }) {
   const pathname = usePathname();
-  const isCataloguePage = /\/(?:courses|exams)\/?$/.test(pathname);
+  const isCataloguePage = /(?:^|\/)(?:courses|exams|all-test|all-tests|tests)(?:\.html)?\/?$/.test(pathname);
   const [u, setU] = useState<U | null>(null);
   const [open, setOpen] = useState(false);
   useEffect(() => {
