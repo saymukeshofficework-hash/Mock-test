@@ -51,7 +51,7 @@ export function CatalogueHeaderExtras({ lang }: { lang: Lang }) {
   );
 }
 /** Language control for the Current Affairs header in the static site build. */
-export function CurrentAffairsHeaderLanguage() {
+export function CurrentAffairsHeaderLanguage({ className = "" }: { className?: string }) {
   const pathname = usePathname();
   const isCurrentAffairs = /(?:^|\\/)current-affairs\\/?$/.test(pathname);
   const [lang, setLang] = useState<"hi" | "en">("hi");
@@ -71,7 +71,7 @@ export function CurrentAffairsHeaderLanguage() {
     window.dispatchEvent(new CustomEvent("testhub-language-change", { detail: value }));
   };
   return (
-    <div role="group" aria-label="भाषा / Language" className="inline-flex shrink-0 items-center rounded-lg border border-ink-200 bg-surface p-0.5">
+    <div role="group" aria-label="भाषा / Language" className={`inline-flex shrink-0 items-center rounded-lg border border-ink-200 bg-surface p-0.5 ${className}`}>
       <button type="button" onClick={() => choose("hi")} aria-pressed={lang === "hi"} className={`rounded-md px-2 py-1 text-[11px] font-semibold ${lang === "hi" ? "bg-brand-700 text-white" : "text-ink-700"}`}>हिंदी</button>
       <button type="button" onClick={() => choose("en")} aria-pressed={lang === "en"} className={`rounded-md px-2 py-1 text-[11px] font-semibold ${lang === "en" ? "bg-brand-700 text-white" : "text-ink-700"}`}>English</button>
     </div>
