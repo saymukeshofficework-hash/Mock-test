@@ -19,6 +19,9 @@ const I18N_DICT = {
   // ---------- Header / nav / footer (every page) ----------
   nav_home: { hi: "होम", en: "Home" },
   nav_tests: { hi: "सभी टेस्ट", en: "All Tests" },
+  nav_my_tests: { hi: "मेरे टेस्ट", en: "My Tests" },
+  nav_exams: { hi: "परीक्षाएँ", en: "Exams" },
+  nav_notes: { hi: "नोट्स", en: "Notes" },
   nav_login: { hi: "छात्र लॉगिन", en: "Student Login" },
   nav_about: { hi: "हमारे बारे में", en: "About" },
   nav_contact: { hi: "संपर्क करें", en: "Contact" },
