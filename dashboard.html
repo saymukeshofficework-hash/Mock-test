@@ -51,7 +51,6 @@ header.site-header nav.compact-test-nav a{font-size:12px;padding:5px 9px;border-
     </a>
     <nav class="compact-test-nav">
       <a href="index.html" data-i18n="nav_home">Home</a>
-      <a href="dashboard.html" data-i18n="dash_mytests_h2">My Tests</a>
       <a href="/examhelp/courses/" data-i18n="nav_tests">All Tests</a>
       <a href="typing-practice/" data-i18n="nav_typing">Typing Practice</a>
       <a href="#" id="logoutLink" data-i18n="dash_logout">Logout</a>
@@ -69,7 +68,6 @@ header.site-header nav.compact-test-nav a{font-size:12px;padding:5px 9px;border-
           <p><span data-i18n="dash_studentid">Student ID:</span> <strong id="whoId">-</strong></p>
           <span class="pkg" id="whoPackage">Package</span>
         </div>
-        <button class="btn btn-secondary" id="logoutBtn" data-i18n="dash_logout">Logout</button>
       </div>
 
       <div id="disabledNotice" class="alert alert-error" style="display:none;" data-i18n-html="dash_disabled">
@@ -119,7 +117,6 @@ header.site-header nav.compact-test-nav a{font-size:12px;padding:5px 9px;border-
     location.replace('/login.html');
   }
   document.getElementById('logoutLink').addEventListener('click', (e) => { e.preventDefault(); doLogout(); });
-  document.getElementById('logoutBtn').addEventListener('click', doLogout);
 
   let lastPurchasedTests = [];
 
