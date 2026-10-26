@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Courses — परीक्षा चुनें | TET Test Hub</title>
+<meta name="description" content="अपनी परीक्षा का फोल्डर चुनें और उसी परीक्षा के मॉक टेस्ट खोलें।">
+<meta name="theme-color" content="#171225">
+<style>
+:root{color-scheme:dark;--bg:#100d19;--panel:#1b1628;--line:#342747;--ink:#f7f3ff;--muted:#b7adc9;--purple:#a78bfa}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top,#2b1c49 0%,var(--bg) 55%);color:var(--ink);font-family:system-ui,-apple-system,"Noto Sans Devanagari",sans-serif;min-height:100vh}
+header{position:sticky;top:0;background:#100d19eF;border-bottom:1px solid var(--line);backdrop-filter:blur(12px);padding:14px 18px;z-index:2}
+.header-inner{max-width:1100px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.brand{font-weight:900;letter-spacing:.3px}.brand span{color:var(--purple)}.back{color:#fff;background:#302344;border:1px solid #49345f;border-radius:10px;padding:9px 13px;text-decoration:none;font-weight:750;font-size:13px}
+main{max-width:1100px;margin:0 auto;padding:28px 16px 100px}
+.eyebrow{display:inline-block;color:#d8c8ff;background:#35244e;border:1px solid #50376f;border-radius:999px;padding:6px 10px;font-size:11px;font-weight:900;letter-spacing:.5px}
+h1{font-size:clamp(25px,4vw,38px);margin:14px 0 8px;line-height:1.2}.intro{color:var(--muted);margin:0 0 24px;line-height:1.6}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.card{--accent:#a78bfa;display:flex;align-items:center;gap:13px;min-width:0;min-height:100px;padding:16px;border:1px solid var(--line);border-radius:16px;background:linear-gradient(135deg,var(--panel),#211a30);color:var(--ink);text-decoration:none;box-shadow:0 8px 24px #0002;transition:transform .15s,border-color .15s}
+.card:hover{transform:translateY(-3px);border-color:var(--accent)}.icon{display:grid;place-items:center;flex:0 0 48px;height:48px;border-radius:14px;background:color-mix(in srgb,var(--accent) 18%,transparent);font-size:25px}
+.card strong{display:block;font-size:15px;line-height:1.4}.card small{display:block;color:var(--muted);font-size:11px;line-height:1.5;margin-top:4px}.arrow{margin-left:auto;color:var(--accent);font-size:24px}
+@media(max-width:700px){.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.card{padding:12px;gap:9px;min-height:90px}.icon{flex-basis:38px;height:38px;font-size:21px}.card strong{font-size:13px}.card small{font-size:10px}}
+@media(max-width:380px){.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header><div class="header-inner"><div class="brand">TET <span>TEST HUB</span></div><a class="back" href="/index.html">← Home</a></div></header>
+<main>
+<span class="eyebrow">COURSES · EXAM FOLDERS</span>
+<h1>अपनी परीक्षा चुनें</h1>
+<p class="intro">यहाँ हर परीक्षा का अलग फोल्डर है। जिस परीक्षा की तैयारी करनी है, उसी पर टैप करें—सीधे उस परीक्षा के मॉक टेस्ट खुलेंगे।</p>
+<div class="grid">
+<a class="card" style="--accent:#2dd4bf" href="/examhelp/mp-high-court-assistant-grade-3-mock-tests/"><span class="icon">⚖️</span><span><strong>MP High Court</strong><small>सहायक ग्रेड-3 मॉक टेस्ट</small></span><span class="arrow">›</span></a>
+<a class="card" style="--accent:#60a5fa" href="/examhelp/mp-grameen-bank-mock-tests/"><span class="icon">🏦</span><span><strong>MP Gramin Bank</strong><small>ग्रामीण बैंक प्रैक्टिस सेट</small></span><span class="arrow">›</span></a>
+<a class="card" style="--accent:#818cf8" href="/examhelp/mp-police-constable-gd-mock-tests/"><span class="icon">👮</span><span><strong>Police Constable GD</strong><small>आरक्षक जीडी मॉक टेस्ट</small></span><span class="arrow">›</span></a>
+<a class="card" style="--accent:#fbbf24" href="/examhelp/mp-police-driver-mock-tests/"><span class="icon">🚔</span><span><strong>Police Constable Driver</strong><small>आरक्षक चालक मॉक टेस्ट</small></span><span class="arrow">›</span></a>
+<a class="card" style="--accent:#fb7185" href="/examhelp/mp-police-si-mock-tests/"><span class="icon">🎖️</span><span><strong>Police SI / Subedar</strong><small>एसआई और सूबेदार टेस्ट</small></span><span class="arrow">›</span></a>
+<a class="card" style="--accent:#34d399" href="/examhelp/mp-police-subedar-asi-mock-tests/"><span class="icon">⌨️</span><span><strong>Subedar / ASI Steno</strong><small>शीघ्रलेखक और एएसआई टेस्ट</small></span><span class="arrow">›</span></a>
+<a class="card" style="--accent:#c084fc" href="/examhelp/rrb-ntpc-graduate-mock-tests/"><span class="icon">🚆</span><span><strong>RRB NTPC Graduate</strong><small>ग्रेजुएट लेवल मॉक टेस्ट</small></span><span class="arrow">›</span></a>
+<a class="card" style="--accent:#38bdf8" href="/examhelp/rrb-ntpc-undergraduate-mock-tests/"><span class="icon">🚉</span><span><strong>RRB NTPC 10+2</strong><small>अंडरग्रेजुएट मॉक टेस्ट</small></span><span class="arrow">›</span></a>
+<a class="card" style="--accent:#f97316" href="/examhelp/rrb-station-master-mock-tests/"><span class="icon">🚄</span><span><strong>RRB Station Master</strong><small>स्टेशन मास्टर प्रैक्टिस सेट</small></span><span class="arrow">›</span></a>
+<a class="card" style="--accent:#22d3ee" href="/cpct/"><span class="icon">💻</span><span><strong>MP CPCT</strong><small>MCQ और टाइपिंग टेस्ट</small></span><span class="arrow">›</span></a>
+<a class="card" style="--accent:#a3e635" href="/tests.html"><span class="icon">📚</span><span><strong>TET Mock Tests</strong><small>शिक्षक पात्रता परीक्षा</small></span><span class="arrow">›</span></a>
+<a class="card" style="--accent:#f472b6" href="/typing-practice/"><span class="icon">⌨️</span><span><strong>Typing Practice</strong><small>हिंदी और English टाइपिंग</small></span><span class="arrow">›</span></a>
+</div>
+</main>
+</body>
+</html>
