@@ -1,12 +1,15 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import { ChevronDown, LogOut } from "lucide-react";
 
 type U = { id?: string; name?: string };
 
 /** Shared account menu shown on every Exam Hub page for signed-in students. */
 export function LoginChip({ className }: { className: string }) {
+  const pathname = usePathname();
+  const isCataloguePage = pathname === "/courses" || pathname === "/courses/" || pathname === "/exams" || pathname === "/exams/";
   const [u, setU] = useState<U | null>(null);
   const [open, setOpen] = useState(false);
   useEffect(() => {
@@ -48,6 +51,13 @@ export function LoginChip({ className }: { className: string }) {
   }
 
   if (!u) return <a href="/login.html" aria-label="लॉगिन या रजिस्टर" className={className}>लॉगिन / रजिस्टर</a>;
+  if (isCataloguePage) {
+    return (
+      <button type="button" onClick={signOut} aria-label="Logout" title="Logout" className={className}>
+        <LogOut className="h-4 w-4 shrink-0" aria-hidden="true" /> <span>Logout</span>
+      </button>
+    );
+  }
   const first = (u.name || u.id || "").trim().split(/\s+/)[0];
   return (
     <div className="relative">
