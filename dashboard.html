@@ -107,9 +107,9 @@ body{padding-bottom:calc(94px + env(safe-area-inset-bottom))}
     <span data-i18n="footer_tagline">TET Test Hub &mdash; free-to-browse, paid mock tests for Teacher Eligibility Test aspirants.</span>
   </footer>
   <nav class="mytest-color-nav" aria-label="My Test navigation">
-    <a class="mytest-nav-home" href="/index.html"><span class="mytest-nav-icon" aria-hidden="true">⌂</span><span>Home</span></a>
-    <a class="mytest-nav-contact" href="/contact.html"><span class="mytest-nav-icon" aria-hidden="true">✉</span><span>Contact</span></a>
-    <a class="mytest-nav-logout" href="#" id="logoutLinkBottom"><span class="mytest-nav-icon" aria-hidden="true">⇥</span><span>Logout</span></a>
+    <a class="mytest-nav-home" href="/index.html"><span class="mytest-nav-icon" aria-hidden="true">⌂</span><span id="mytestNavHomeLabel">Home</span></a>
+    <a class="mytest-nav-contact" href="/contact.html"><span class="mytest-nav-icon" aria-hidden="true">✉</span><span id="mytestNavContactLabel">Contact</span></a>
+    <a class="mytest-nav-logout" href="#" id="logoutLinkBottom"><span class="mytest-nav-icon" aria-hidden="true">⇥</span><span id="mytestNavLogoutLabel">Logout</span></a>
   </nav>
 
 <script src="assets/vendor/supabase/supabase.js"></script>
@@ -255,6 +255,10 @@ body{padding-bottom:calc(94px + env(safe-area-inset-bottom))}
   })();
 
   applyI18n();
+  // Keep the colorful My Test bottom taskbar labels in English in both site languages.
+  document.getElementById("mytestNavHomeLabel").textContent = "Home";
+  document.getElementById("mytestNavContactLabel").textContent = "Contact";
+  document.getElementById("mytestNavLogoutLabel").textContent = "Logout";
 </script>
 </body>
 </html>
