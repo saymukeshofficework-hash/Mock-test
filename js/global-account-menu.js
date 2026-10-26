@@ -242,7 +242,7 @@
   }
   function tthTranslateNode(node, lang){
     if(!node || node.nodeType!==Node.TEXT_NODE || !node.parentElement) return;
-    if(node.parentElement.closest("script,style,textarea,option[data-keep-language],#qText,#qtext,#optionsList,#options,.qtext,.rqtext,.rsol,.option")) return;
+    if(node.parentElement.closest("script,style,textarea,option[data-keep-language],[data-i18n],[data-i18n-html],[data-i18n-placeholder],[data-i18n-alt],#qText,#qtext,#optionsList,#options,.qtext,.rqtext,.rsol,.option")) return;
     let original=TTH_ORIGINALS.get(node);
     if(original===undefined){original=node.nodeValue;TTH_ORIGINALS.set(node,original);}
     const trimmed=original.trim();
