@@ -15,25 +15,23 @@
   </script>
   <script src="js/i18n.js?v=3"></script>
 <style>
-/* Shared colourful exam/course catalogue shown after student login */
+/* My Test purchased items use the same dark-purple exam-folder look as the Courses page. */
+body{background:radial-gradient(ellipse at top,#2b1c49 0%,#100d19 55%)!important;color:#f7f3ff!important;min-height:100vh}
+main.container{max-width:1100px}
 .course-card[data-own]:not(.owned){display:none}
-.course-section{margin:0 0 22px;padding:17px;background:linear-gradient(145deg,#f6f1fc,#fff 72%);border:1px solid #e5d9f5;border-radius:20px}
-.course-heading h2{margin:0;font-size:18px;letter-spacing:-.3px;color:#30204f}
-.course-heading p{margin:5px 0 17px;color:#70677f;font-size:13px}
-.course-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
-.course-card{--course-accent:#5b36a8;--course-tint:#eee8fb;background:linear-gradient(145deg,var(--course-tint),#fff 78%);border:1px solid #e9e1f3;border-left:4px solid var(--course-accent);border-radius:14px;padding:12px;text-decoration:none;color:#30204f;display:flex;flex-direction:column;min-height:150px;min-width:0;box-shadow:0 3px 13px rgba(57,33,75,.07);transition:transform .15s,box-shadow .15s;overflow-wrap:anywhere}
-.course-card:nth-child(6n+1){--course-accent:#5b36a8;--course-tint:#eee8fb}
-.course-card:nth-child(6n+2){--course-accent:#087f68;--course-tint:#e0f7ef}
-.course-card:nth-child(6n+3){--course-accent:#c26a0a;--course-tint:#fff0d8}
-.course-card:nth-child(6n+4){--course-accent:#2563eb;--course-tint:#e3edff}
-.course-card:nth-child(6n+5){--course-accent:#c02675;--course-tint:#fce7f3}
-.course-card:nth-child(6n){--course-accent:#0e7490;--course-tint:#e0f7fa}
-.course-card:hover{transform:translateY(-2px);box-shadow:0 10px 25px rgba(57,33,75,.13)}
-.course-icon{width:38px;height:38px;flex:0 0 auto;border-radius:11px;background:var(--course-tint);color:var(--course-accent);border:1px solid color-mix(in srgb,var(--course-accent) 20%,white);display:grid;place-items:center;font-size:11px;font-weight:900;margin-bottom:8px;box-shadow:0 2px 5px rgba(20,20,40,.04)}
-.course-card strong{font-size:13px;line-height:1.35;color:#30204f}.course-card small{color:#70677f;font-size:11px;line-height:1.45;margin-top:5px;flex:1}.course-btn{margin-top:9px;font-size:11px;font-weight:800;color:var(--course-accent);padding-top:9px;border-top:1px solid color-mix(in srgb,var(--course-accent) 17%,white)}
-@media(max-width:850px){.course-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}}
-@media(max-width:520px){.course-section{padding:8px}.course-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:5px}.course-card{padding:7px 6px;min-height:112px;border-radius:10px;border-left-width:3px}.course-icon{width:27px;height:27px;margin-bottom:5px;border-radius:8px;font-size:9px}.course-card strong{font-size:10px;line-height:1.25}.course-card small{font-size:9px;line-height:1.25;margin-top:4px}.course-btn{font-size:9px;margin-top:6px;padding-top:5px}}
-@media(max-width:340px){.course-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:4px}.course-card{padding:5px 4px;min-height:104px}.course-card strong{font-size:9px}.course-card small,.course-btn{font-size:8px}}
+.course-section{margin:0 0 22px;padding:0;background:transparent;border:0;border-radius:0}
+.course-heading h2{margin:0;font-size:18px;letter-spacing:-.3px;color:#f7f3ff}
+.course-heading p{margin:5px 0 17px;color:#b7adc9;font-size:13px}
+.course-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.course-card{--course-accent:#a78bfa;background:linear-gradient(135deg,#1b1628,#211a30);border:1px solid #342747;border-radius:16px;padding:16px;text-decoration:none;color:#f7f3ff;display:grid;grid-template-columns:48px minmax(0,1fr) auto;grid-template-rows:auto auto;align-items:center;column-gap:13px;row-gap:4px;min-height:100px;min-width:0;box-shadow:0 8px 24px #0002;transition:transform .15s,border-color .15s;overflow-wrap:anywhere}
+.course-card:nth-child(6n+1){--course-accent:#2dd4bf}.course-card:nth-child(6n+2){--course-accent:#60a5fa}.course-card:nth-child(6n+3){--course-accent:#818cf8}.course-card:nth-child(6n+4){--course-accent:#fbbf24}.course-card:nth-child(6n+5){--course-accent:#fb7185}.course-card:nth-child(6n){--course-accent:#34d399}
+.course-card:hover{transform:translateY(-3px);border-color:var(--course-accent);box-shadow:0 10px 25px #0003}
+.course-icon{grid-column:1;grid-row:1/3;width:48px;height:48px;flex:0 0 48px;border-radius:14px;background:color-mix(in srgb,var(--course-accent) 18%,transparent);color:#f7f3ff;border:0;display:grid;place-items:center;font-size:11px;font-weight:900;margin:0;box-shadow:none}
+.course-card strong{grid-column:2;grid-row:1;font-size:14px;line-height:1.4;color:#f7f3ff;min-width:0}
+.course-card small{grid-column:2;grid-row:2;color:#b7adc9;font-size:11px;line-height:1.5;margin:0;min-width:0}
+.course-btn{grid-column:3;grid-row:1/3;margin:0;font-size:11px;font-weight:800;color:var(--course-accent);padding:0;border:0;white-space:nowrap}
+@media(max-width:700px){.course-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.course-card{padding:12px;grid-template-columns:38px minmax(0,1fr);column-gap:9px;min-height:90px}.course-icon{grid-column:1;grid-row:1/3;width:38px;height:38px;font-size:10px}.course-card strong{grid-column:2;grid-row:1;font-size:13px}.course-card small{grid-column:2;grid-row:2;font-size:10px}.course-btn{grid-column:2;grid-row:3;margin-top:4px;font-size:10px}}
+@media(max-width:380px){.course-grid{grid-template-columns:1fr}}
 header.site-header nav.compact-test-nav a{font-size:12px;padding:5px 9px;border-radius:16px}
 @media(max-width:520px){header.site-header nav.compact-test-nav{gap:3px}header.site-header nav.compact-test-nav a{font-size:11px;padding:5px 7px}}
 /* My Tests / My Courses must stay English-only; hide any legacy or injected language switch. */
