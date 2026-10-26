@@ -42,7 +42,6 @@ export function Header({ lang }: { lang: Lang }) {
           </div>
           <CatalogueHeaderExtras lang={lang} />
           <LoginChip className="hidden xl:inline-flex h-10 items-center rounded-xl border border-brand-200 bg-brand-50 px-3 text-sm font-semibold text-brand-700 hover:bg-brand-100" />
-          <CurrentAffairsHeaderLanguage className="hidden xl:inline-flex" />
           <MobileControls lang={lang} />
         </div>
       </div>
