@@ -91,7 +91,9 @@
       /(?:^|\/)exam-test\.html$/i.test(path) ||
       /(?:^|\/)tet-mock-test-\d+\.html$/i.test(path) ||
       /\/mock-tests\/[^/]+\/test\.html$/i.test(path) ||
-      /\/cpct\/typing\.html$/i.test(path) ||
+      /\/cpct\/(?:index\.html|typing\.html)$/i.test(path) ||
+      /\/tet\/(?:index\.html|test\.html)$/i.test(path) ||
+      /\/(?:cpct|tet)(?:-mock-test)?(?:-\d+)?\.html$/i.test(path) ||
       path === "/cpct" || path === "/tet" || path === "/mp-cpct-mock-test";
     if (!isMockTestPage || document.getElementById("tthMockBottomNav")) return;
 
@@ -450,6 +452,8 @@
     addTestHeader();
     installMockBottomNav();
     installLanguageToggle();
+    // Keep the one Hindi/English switch beside the student ID/header.
+    normalizeLanguageControl();
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", run, { once: true });
   else run();
