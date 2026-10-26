@@ -53,6 +53,40 @@ function* questions(file, data) {
   }
 }
 
+// Second kind of giveaway: only the correct option carries extra text in a
+// trailing bracket, e.g. "2879 (479×6+5 = 2879!)" or "X (because ...)".
+// Checked in every language and section. Returns [{lang, from, to, dupOf}].
+const TRAIL = /\s*\((?:[^()]|\([^()]*\))*\)[\s.!]*$/;
+const EQ_BR = /\s*\((?:[^()]|\([^()]*\))*(?:=|→|->)(?:[^()]|\([^()]*\))*\)/g;
+function leakFix(opts, answer, lang) {
+  if (!Array.isArray(opts) || typeof opts[answer] !== "string") return [];
+  const c = opts[answer], others = opts.filter((_, k) => k !== answer).map(String);
+  let to = c;
+  if (TRAIL.test(c) && !others.some((o) => o.includes("("))) to = c.replace(TRAIL, "");
+  else if (!others.some((o) => /=|→|->/.test(o))) to = c.replace(EQ_BR, "");
+  to = to.trim();
+  if (to === c || !to) return [];
+  const dupOf = others.findIndex((o) => o.trim() === to);
+  // Would match a wrong option: data error, left as is and listed for a manual fix.
+  if (dupOf < 0) opts[answer] = to;
+  return [{ lang, from: c, to, dupOf: dupOf < 0 ? null : dupOf >= answer ? dupOf + 1 : dupOf }];
+}
+
+function* allOptionSets(file, data) {
+  if (data && Array.isArray(data.questions) && data.questions[0] && "o" in data.questions[0]) {
+    for (const [i, q] of data.questions.entries())
+      for (const lang of Object.keys(q.o || {})) yield { id: data.test || file, n: i + 1, answer: q.a, lang, opts: q.o[lang] };
+    return;
+  }
+  for (const t of Array.isArray(data) ? data : [data]) {
+    let n = 0;
+    for (const sec of t.questions || []) for (const q of sec.questions || []) {
+      n++;
+      for (const lang of ["hi", "en"]) if (q[lang]) yield { id: t.test_id || file, n, answer: q.answer, lang, opts: q[lang].options };
+    }
+  }
+}
+
 function processQuestion(item) {
   const found = [];
   const fix = (obj, key, where) => {
@@ -89,7 +123,8 @@ const doFix = args.includes("--fix");
 const jsonOut = args.includes("--json") ? args[args.indexOf("--json") + 1] : null;
 const files = args.filter((a, i) => !a.startsWith("--") && args[i - 1] !== "--json");
 const report = [];
-let total = { q: 0, opt: 0, sol: 0, giveaway: 0, dup: 0 };
+let total = { q: 0, opt: 0, sol: 0, giveaway: 0, dup: 0, leak: 0, leakDup: 0 };
+const leaks = [];
 for (const file of files) {
   const data = JSON.parse(fs.readFileSync(file, "utf8"));
   let changed = false;
@@ -102,8 +137,15 @@ for (const file of files) {
     if (r.giveaway) total.giveaway++;
     report.push({ file, test: item.id, q: item.n, giveaway: r.giveaway, optionsKept: r.dup, found: r.found });
   }
+  for (const it of allOptionSets(file, data)) {
+    const l = leakFix(it.opts, it.answer, it.lang);
+    if (!l.length) continue;
+    changed = true; total.leak++; if (l[0].dupOf !== null) total.leakDup++;
+    leaks.push({ file, test: it.id, q: it.n, ...l[0] });
+  }
   if (doFix && changed) fs.writeFileSync(file, JSON.stringify(data));
 }
-if (jsonOut) fs.writeFileSync(jsonOut, JSON.stringify(report, null, 1));
+if (jsonOut) fs.writeFileSync(jsonOut, JSON.stringify({ report, leaks }, null, 1));
+for (const l of leaks) console.log(`LEAK ${l.test} Q${l.q} ${l.lang}: ${l.from} -> ${l.to}${l.dupOf !== null ? `  !! NOT changed, would equal option ${l.dupOf + 1}` : ""}`);
 for (const r of report.filter((r) => r.giveaway)) console.log(`GIVEAWAY ${r.test} Q${r.q}: ${r.found.map((f) => f.where + "=" + f.hits.join("|")).join("; ")}`);
-console.log(`questions with glosses: ${report.length}; glosses in q: ${total.q}, options: ${total.opt}, explanations: ${total.sol}; correct-option-only giveaways: ${total.giveaway}; options kept (gloss is the only difference): ${total.dup}${doFix ? " (fixed)" : ""}`);
+console.log(`questions with glosses: ${report.length}; glosses in q: ${total.q}, options: ${total.opt}, explanations: ${total.sol}; correct-option-only giveaways: ${total.giveaway}; options kept (gloss is the only difference): ${total.dup}; answer-only bracket leaks: ${total.leak} (${total.leakDup} left for manual fix)${doFix ? " (fixed)" : ""}`);
