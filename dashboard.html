@@ -187,12 +187,13 @@ body{padding-bottom:calc(94px + env(safe-area-inset-bottom))}
           body: JSON.stringify({ action: 'claim', product, order_ids: Array.isArray(order_ids) ? order_ids : [], access_token: accessToken }),
           signal: controller.signal,
         });
+        // Keep the timeout active through response parsing too, not just until headers arrive.
+        if (r && r.ok) {
+          const d = await r.json();
+          if (d && d.token) { try { localStorage.setItem('testhub_dl_' + product, d.token); } catch (e) {} return true; }
+        }
       } finally {
         clearTimeout(timeoutId);
-      }
-      if (r && r.ok) {
-        const d = await r.json();
-        if (d && d.token) { try { localStorage.setItem('testhub_dl_' + product, d.token); } catch (e) {} return true; }
       }
     } catch (e) {}
     // older guest purchase unlocked on this device (a current-affairs pass can expire, so not that one)
@@ -249,9 +250,20 @@ body{padding-bottom:calc(94px + env(safe-area-inset-bottom))}
       return;
     }
 
-    showOwnedCourses(await findOwnedProducts(profile, session.access_token));
-
+    // Render immediately from locally available purchase information so a slow checkout
+    // service cannot make the My Test page appear frozen. Refresh ownership in the background.
+    const localOwned = [];
+    const paidTet = (profile.purchased_tests || []).some(id => !(FREE_TESTS || []).includes(id));
+    if (paidTet || profile.package) localOwned.push('tet');
+    if (lsGet('bc_access_v1')) localOwned.push('bridge');
+    EXAMHELP_PRODUCTS.forEach(p => {
+      if (p !== 'ca-30' && lsGet('testhub_dl_' + p)) localOwned.push(p);
+    });
+    showOwnedCourses(localOwned);
     renderTests(profile.purchased_tests || []);
+    findOwnedProducts(profile, session.access_token)
+      .then(showOwnedCourses)
+      .catch(() => showOwnedCourses(localOwned));
   })();
 
   applyI18n();
