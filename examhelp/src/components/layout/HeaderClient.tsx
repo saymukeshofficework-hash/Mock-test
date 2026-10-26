@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { ChevronDown, Menu, Search, X } from "lucide-react";
+import { ChevronDown, Menu, Search, X, Moon, Sun, ShoppingBag } from "lucide-react";
 import { dict, tr } from "@/i18n/dictionary";
 import { isActive, mobileNav, moreNav, primaryNav } from "@/lib/nav";
 import type { Lang } from "@/types";
@@ -14,10 +14,42 @@ import { LoginChip } from "./LoginChip";
 export function MockPageHomeLink() {
   const pathname = usePathname();
   const isMockTestList = /(?:^|\/)(?:courses|test-series|my-tests?|dashboard|tet-mock-tests|mp-high-court-assistant-grade-3-mock-tests|mp-police-constable-gd-mock-tests|mp-police-subedar-asi-mock-tests|mp-police-driver-mock-tests|mp-police-si-mock-tests|mp-grameen-bank-mock-tests|rrb-ntpc-(?:graduate|undergraduate)-mock-tests)(?:\/index\.html)?\/?$/.test(pathname);
-  if (!isMockTestList) return null;
+  if (!isMockTestList || pathname === "/courses" || pathname === "/courses/" || pathname === "/exams" || pathname === "/exams/") return null;
   return <a href="https://tettesthub.in/index.html" aria-label="बैंगनी होमपेज पर जाएँ" title="होम" className="inline-flex h-8 shrink-0 items-center gap-1 rounded-lg border border-brand-200 bg-brand-50 px-2 text-xs font-bold text-brand-700 hover:bg-brand-100">⌂ <span>होम</span></a>;
 }
 
+/** Compact controls shown on the All Tests / Courses catalogue. */
+export function CatalogueHeaderExtras({ lang }: { lang: Lang }) {
+  const pathname = usePathname();
+  const isCataloguePage = pathname === "/courses" || pathname === "/courses/" || pathname === "/exams" || pathname === "/exams/";
+  const [dark, setDark] = useState(false);
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem("tth-theme");
+      const enabled = saved === "dark";
+      setDark(enabled);
+      if (saved) document.documentElement.dataset.theme = saved;
+      else delete document.documentElement.dataset.theme;
+    } catch { /* ignore unavailable storage */ }
+  }, []);
+  function toggleTheme() {
+    const next = dark ? "light" : "dark";
+    setDark(next === "dark");
+    document.documentElement.dataset.theme = next;
+    try { localStorage.setItem("tth-theme", next); } catch { /* ignore unavailable storage */ }
+  }
+  if (!isCataloguePage) return null;
+  return (
+    <div className="flex shrink-0 items-center gap-1">
+      <button type="button" onClick={toggleTheme} aria-label={dark ? "Light mode" : "Dark mode"} title={dark ? "Light mode" : "Dark mode"} className="grid h-9 w-9 place-items-center rounded-lg border border-ink-200 text-ink-700 hover:bg-ink-100">
+        {dark ? <Sun className="h-4 w-4" aria-hidden="true" /> : <Moon className="h-4 w-4" aria-hidden="true" />}
+      </button>
+      <Link href="/dashboard.html" className="inline-flex h-9 items-center gap-1 rounded-lg border border-brand-200 bg-brand-50 px-2 text-xs font-bold text-brand-700 hover:bg-brand-100">
+        <ShoppingBag className="h-4 w-4" aria-hidden="true" /> <span>My Purchase</span>
+      </Link>
+    </div>
+  );
+}
 /** Desktop nav with an accessible "More" dropdown. */
 export function DesktopNav({ lang }: { lang: Lang }) {
   const pathname = usePathname();
@@ -40,6 +72,7 @@ export function DesktopNav({ lang }: { lang: Lang }) {
   }, [open]);
 
   const moreActive = moreNav.some((i) => isActive(pathname, i.href));
+  if (pathname === "/courses" || pathname === "/courses/" || pathname === "/exams" || pathname === "/exams/") return null;
 
   return (
     <nav aria-label="Primary" className="hidden border-t border-ink-100 xl:block">
@@ -120,11 +153,10 @@ export function MobileControls({ lang }: { lang: Lang }) {
   return (
     <div className="flex items-center gap-1 xl:hidden">
       <LoginChip className="inline-flex h-8 max-w-[118px] items-center overflow-hidden rounded-lg border border-brand-200 bg-brand-50 px-1.5 text-[10px] font-semibold text-brand-700 hover:bg-brand-100" />
-      {!isMockTestList && !isCurrentAffairs && <>
-      <Link href="/search" aria-label={tr(dict.nav.search, lang)} className="grid h-11 w-11 place-items-center rounded-xl text-ink-700 hover:bg-ink-100">
+      <Link href="/search" aria-label={tr(dict.nav.search, lang)} className="grid h-9 w-9 place-items-center rounded-lg text-ink-700 hover:bg-ink-100">
         <Search className="h-5 w-5" aria-hidden="true" />
       </Link>
-      <button
+      {!isMockTestList && !isCurrentAffairs && <button
         ref={triggerRef}
         type="button"
         aria-label={tr(dict.nav.openMenu, lang)}
@@ -134,8 +166,7 @@ export function MobileControls({ lang }: { lang: Lang }) {
         className="grid h-11 w-11 place-items-center rounded-xl text-ink-700 hover:bg-ink-100"
       >
         <Menu className="h-6 w-6" aria-hidden="true" />
-      </button>
-      </>}
+      </button>}
 
       {!isMockTestList && !isCurrentAffairs && open && (
         <div className="fixed inset-0 z-[60]" role="dialog" aria-modal="true" aria-label={tr(dict.nav.menu, lang)} id="mobile-drawer">
