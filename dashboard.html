@@ -15,7 +15,7 @@
   </script>
   <script src="js/i18n.js?v=3"></script>
 <style>
-/* My Test purchased items use the same dark-purple exam-folder look as the Courses page. */
+/* My Tests folder: match the Courses folder card layout and colours. */
 body{background:radial-gradient(ellipse at top,#2b1c49 0%,#100d19 55%)!important;color:#f7f3ff!important;min-height:100vh}
 main.container{max-width:1100px}
 .course-card[data-own]:not(.owned){display:none}
@@ -23,14 +23,15 @@ main.container{max-width:1100px}
 .course-heading h2{margin:0;font-size:18px;letter-spacing:-.3px;color:#f7f3ff}
 .course-heading p{margin:5px 0 17px;color:#b7adc9;font-size:13px}
 .course-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
-.course-card{--course-accent:#a78bfa;background:linear-gradient(135deg,#1b1628,#211a30);border:1px solid #342747;border-radius:16px;padding:16px;text-decoration:none;color:#f7f3ff;display:grid;grid-template-columns:48px minmax(0,1fr) auto;grid-template-rows:auto auto;align-items:center;column-gap:13px;row-gap:4px;min-height:100px;min-width:0;box-shadow:0 8px 24px #0002;transition:transform .15s,border-color .15s;overflow-wrap:anywhere}
+.course-card{--course-accent:#a78bfa;display:flex;flex-direction:row;align-items:center;gap:13px;position:relative;min-width:0;min-height:100px;padding:16px 38px 16px 16px;border:1px solid #342747;border-radius:16px;background:linear-gradient(135deg,#1b1628,#211a30);color:#f7f3ff;text-decoration:none;box-shadow:0 8px 24px #0002;transition:transform .15s,border-color .15s;overflow-wrap:anywhere}
 .course-card:nth-child(6n+1){--course-accent:#2dd4bf}.course-card:nth-child(6n+2){--course-accent:#60a5fa}.course-card:nth-child(6n+3){--course-accent:#818cf8}.course-card:nth-child(6n+4){--course-accent:#fbbf24}.course-card:nth-child(6n+5){--course-accent:#fb7185}.course-card:nth-child(6n){--course-accent:#34d399}
 .course-card:hover{transform:translateY(-3px);border-color:var(--course-accent);box-shadow:0 10px 25px #0003}
-.course-icon{grid-column:1;grid-row:1/3;width:48px;height:48px;flex:0 0 48px;border-radius:14px;background:color-mix(in srgb,var(--course-accent) 18%,transparent);color:#f7f3ff;border:0;display:grid;place-items:center;font-size:11px;font-weight:900;margin:0;box-shadow:none}
-.course-card strong{grid-column:2;grid-row:1;font-size:14px;line-height:1.4;color:#f7f3ff;min-width:0}
-.course-card small{grid-column:2;grid-row:2;color:#b7adc9;font-size:11px;line-height:1.5;margin:0;min-width:0}
-.course-btn{grid-column:3;grid-row:1/3;margin:0;font-size:11px;font-weight:800;color:var(--course-accent);padding:0;border:0;white-space:nowrap}
-@media(max-width:700px){.course-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.course-card{padding:12px;grid-template-columns:38px minmax(0,1fr);column-gap:9px;min-height:90px}.course-icon{grid-column:1;grid-row:1/3;width:38px;height:38px;font-size:10px}.course-card strong{grid-column:2;grid-row:1;font-size:13px}.course-card small{grid-column:2;grid-row:2;font-size:10px}.course-btn{grid-column:2;grid-row:3;margin-top:4px;font-size:10px}}
+.course-card:after{content:"›";position:absolute;right:14px;top:50%;transform:translateY(-50%);color:var(--course-accent);font-size:27px;line-height:1}
+.course-icon{display:grid;place-items:center;flex:0 0 48px;width:48px;height:48px;border-radius:14px;background:color-mix(in srgb,var(--course-accent) 18%,transparent);color:#f7f3ff;border:0;font-size:14px;font-weight:900;margin:0;box-shadow:none}
+.course-card strong{display:block;min-width:0;font-size:14px;line-height:1.4;color:#f7f3ff}
+.course-card small{display:block;min-width:0;color:#b7adc9;font-size:11px;line-height:1.5;margin-top:4px;flex:1}
+.course-btn{display:none!important}
+@media(max-width:700px){.course-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.course-card{gap:9px;min-height:90px;padding:12px 28px 12px 12px;border-radius:14px}.course-icon{flex-basis:38px;width:38px;height:38px;border-radius:12px;font-size:11px}.course-card strong{font-size:13px;line-height:1.35}.course-card small{font-size:10px;line-height:1.4;margin-top:4px}.course-card:after{right:9px;font-size:23px}}
 @media(max-width:380px){.course-grid{grid-template-columns:1fr}}
 header.site-header nav.compact-test-nav a{font-size:12px;padding:5px 9px;border-radius:16px}
 @media(max-width:520px){header.site-header nav.compact-test-nav{gap:3px}header.site-header nav.compact-test-nav a{font-size:11px;padding:5px 7px}}
