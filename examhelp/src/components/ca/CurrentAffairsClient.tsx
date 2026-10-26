@@ -125,6 +125,15 @@ export function CurrentAffairsClient() {
     openDay();
   }, [openDay]);
 
+  useEffect(() => {
+    const onLanguageChange = (event: Event) => {
+      const value = (event as CustomEvent<Lang>).detail;
+      if (value === "hi" || value === "en") setLang(value);
+    };
+    window.addEventListener("testhub-language-change", onLanguageChange);
+    return () => window.removeEventListener("testhub-language-change", onLanguageChange);
+  }, []);
+
   const items = useMemo(() => (day?.items ?? []).filter((i) => region === "all" || i.region === region), [day, region]);
 
   const downloadPdf = async () => {
@@ -161,17 +170,6 @@ export function CurrentAffairsClient() {
     }
   };
 
-  const LangToggle = () => (
-    <div className="inline-flex rounded-full border border-ink-200 bg-surface p-0.5 text-sm font-semibold" role="group" aria-label="भाषा / Language">
-      {(["hi", "en"] as Lang[]).map((l) => (
-        <button key={l} type="button" onClick={() => switchLang(l)} aria-pressed={lang === l}
-          className={`rounded-full px-3 py-1 ${lang === l ? "bg-brand-700 text-white" : "text-ink-700"}`}>
-          {l === "hi" ? "हिंदी" : "English"}
-        </button>
-      ))}
-    </div>
-  );
-
   if (state === "loading") return <div className="container-page py-20 text-center text-ink-500">{lang === "hi" ? "लोड हो रहा है…" : "Loading…"}</div>;
   if (state === "error")
     return (
@@ -185,12 +183,6 @@ export function CurrentAffairsClient() {
   const allItems = day?.items ?? [];
   return (
     <div className="container-page py-8 sm:py-10">
-      <div className="mb-4">
-        <a href="https://tettesthub.in/index.html" aria-label="बैंगनी होमपेज पर जाएँ" title="होम" className="inline-flex h-9 items-center gap-2 rounded-lg border border-brand-200 bg-brand-50 px-3 text-sm font-bold text-brand-700 transition hover:bg-brand-100">
-          <span aria-hidden="true">⌂</span>
-          <span>होम</span>
-        </a>
-      </div>
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div>
           <p className="flex items-center gap-1.5 text-sm font-semibold text-success-700">
