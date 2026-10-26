@@ -136,6 +136,75 @@
     });
   }
 
+  function installFolderBottomLogout() {
+    const path = window.location.pathname.replace(/\\/+$/, "") || "/";
+    const isMockTestPage =
+      /(?:^|\\/)exam-test\\.html$/i.test(path) ||
+      /(?:^|\\/)tet-mock-test-\\d+\\.html$/i.test(path) ||
+      /\\/mock-tests\\/[^/]+\\/test\\.html$/i.test(path) ||
+      /\\/cpct\\/(?:index\\.html|typing\\.html)$/i.test(path) ||
+      /\\/tet\\/(?:index\\.html|test\\.html)$/i.test(path) ||
+      /\\/(?:cpct|tet)(?:-mock-test)?(?:-\\d+)?\\.html$/i.test(path) ||
+      path === "/cpct" || path === "/tet" || path === "/mp-cpct-mock-test";
+    if (isMockTestPage) return;
+
+    const norm = value => String(value || "").replace(/[\\s\\u00a0]+/g, " ").trim().toLowerCase();
+    const homeNames = new Set(["home", "होम"]);
+    const myTestNames = new Set(["my test", "मेरे टेस्ट", "माई टेस्ट"]);
+    const contactNames = new Set(["contact", "संपर्क", "संपर्क करें", "contact us"]);
+    const candidates = Array.from(document.querySelectorAll(
+      'nav, footer, [class*="bottom-nav"], [class*="bottom-bar"], [class*="taskbar"], [class*="mobile-nav"], [id*="bottomNav"], [id*="bottom-nav"]'
+    ));
+    const bar = candidates.find(el => {
+      if (el.id === "tthMockBottomNav" || el.querySelector("#tthBottomLogout, #tthFolderBottomLogout")) return false;
+      const labels = Array.from(el.querySelectorAll("a, button")).map(node => norm(node.textContent));
+      return labels.some(x => homeNames.has(x)) &&
+        labels.some(x => myTestNames.has(x)) &&
+        labels.some(x => contactNames.has(x));
+    });
+    if (!bar) return;
+
+    const controls = Array.from(bar.querySelectorAll("a, button"));
+    const logoutButton = document.createElement("button");
+    logoutButton.type = "button";
+    logoutButton.id = "tthFolderBottomLogout";
+    logoutButton.className = "tth-folder-nav-logout";
+    const isHindi = controls.some(node => homeNames.has(norm(node.textContent)) && norm(node.textContent) === "होम");
+    logoutButton.innerHTML = '<span aria-hidden="true" class="tth-folder-nav-icon">↪</span><span>' + (isHindi ? "लॉगआउट" : "Logout") + '</span>';
+    logoutButton.setAttribute("aria-label", isHindi ? "लॉगआउट" : "Logout");
+
+    const style = document.createElement("style");
+    style.id = "tth-folder-bottom-logout-style";
+    style.textContent = `
+      #tthFolderBottomLogout { min-width:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:3px; padding:7px 3px; border:1px solid transparent; border-radius:10px; color:#fff; background:linear-gradient(135deg,#ea580c,#f43f5e); text-decoration:none; font:700 11px/1.2 system-ui,-apple-system,"Segoe UI",sans-serif; cursor:pointer; }
+      #tthFolderBottomLogout .tth-folder-nav-icon { font-size:19px; line-height:1; }
+      #tthFolderBottomLogout:focus-visible { outline:2px solid #0f766e; outline-offset:2px; }
+    `;
+    document.head.appendChild(style);
+    const computedDisplay = window.getComputedStyle(bar).display;
+    if (computedDisplay === "grid") {
+      bar.style.gridTemplateColumns = "repeat(4,minmax(0,1fr))";
+    } else {
+      bar.style.display = "grid";
+      bar.style.gridTemplateColumns = "repeat(4,minmax(0,1fr))";
+    }
+    bar.appendChild(logoutButton);
+    document.body.style.paddingBottom = "calc(78px + env(safe-area-inset-bottom, 0px))";
+    logoutButton.addEventListener("click", async () => {
+      logoutButton.disabled = true;
+      const label = logoutButton.querySelector("span:last-child");
+      if (label) label.textContent = isHindi ? "लॉगआउट हो रहा है…" : "Logging out…";
+      try {
+        if (typeof window.logout === "function") await window.logout();
+        else if (window.supabaseClient?.auth?.signOut) await window.supabaseClient.auth.signOut();
+        else if (typeof supabaseClient !== "undefined" && supabaseClient?.auth?.signOut) await supabaseClient.auth.signOut();
+      } catch (error) {
+        console.error("Logout failed", error);
+      }
+      window.location.replace("/login.html");
+    });
+  }
+
   function installStyles() {
     if (document.getElementById("tth-mobile-header-style")) return;
     const style = document.createElement("style");
@@ -467,6 +536,7 @@
     }
     addTestHeader();
     installMockBottomNav();
+    installFolderBottomLogout();
     installLanguageToggle();
     // Keep the one Hindi/English switch beside the student ID/header.
     normalizeLanguageControl();
