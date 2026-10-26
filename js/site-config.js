@@ -135,7 +135,8 @@ for (const l of ["g", "u"]) for (const s of ["full", "ga", "maths", "reason"]) F
 (function () {
   if (document.getElementById("tth-floating-home")) return;
   const path = window.location.pathname.replace(/\/+$/, "") || "/";
-  if (path === "/" || path === "/index.html" || path === "/login.html") return;
+  // Dashboard already has its own Home action in the bottom taskbar; avoid a duplicate floating icon.
+  if (path === "/" || path === "/index.html" || path === "/login.html" || path === "/dashboard.html") return;
   const style = document.createElement("style");
   style.textContent = "#tth-floating-home{position:fixed;right:14px;bottom:86px;z-index:9999;width:42px;height:42px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:#0f766e;color:#fff;border:2px solid rgba(255,255,255,.9);box-shadow:0 3px 12px rgba(0,0,0,.25);text-decoration:none}#tth-floating-home svg{width:21px;height:21px;display:block}#tth-floating-home:focus-visible{outline:3px solid #e8a33d;outline-offset:3px}@media(max-width:640px){#tth-floating-home{right:12px;bottom:78px;width:40px;height:40px}}";
   document.head.appendChild(style);
