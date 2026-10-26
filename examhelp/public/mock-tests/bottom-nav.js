@@ -4,11 +4,11 @@
   style.textContent = `
     body { padding-bottom: calc(78px + env(safe-area-inset-bottom, 0px)) !important; }
     #tthExamBottomNav { position:fixed; left:0; right:0; bottom:0; z-index:100000; display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:6px; padding:8px 10px calc(8px + env(safe-area-inset-bottom,0px)); background:#fff; border-top:1px solid #dbe3e8; box-shadow:0 -4px 18px rgba(15,23,42,.12); }
-    #tthExamBottomNav a, #tthExamBottomNav button { min-width:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:3px; padding:7px 3px; border:1px solid transparent; border-radius:10px; color:#fff; text-decoration:none; font:700 11px/1.2 system-ui,-apple-system,"Segoe UI",sans-serif; cursor:pointer; }
-    #tthExamBottomNav .home { background:linear-gradient(135deg,#2563eb,#38bdf8); }
-    #tthExamBottomNav .mytest { background:linear-gradient(135deg,#7c3aed,#c084fc); }
-    #tthExamBottomNav .contact { background:linear-gradient(135deg,#0f9d70,#34d399); }
-    #tthExamBottomNav .logout { background:linear-gradient(135deg,#ea580c,#f43f5e); }
+    #tthExamBottomNav a, #tthExamBottomNav button { min-width:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:3px; padding:7px 3px; border:0; border-radius:0; background:transparent !important; box-shadow:none !important; text-decoration:none; font:700 11px/1.2 system-ui,-apple-system,"Segoe UI",sans-serif; cursor:pointer; }
+    #tthExamBottomNav .home { color:#2563eb; }
+    #tthExamBottomNav .mytest { color:#7c3aed; }
+    #tthExamBottomNav .contact { color:#0f9d70; }
+    #tthExamBottomNav .logout { color:#ea580c; }
     #tthExamBottomNav .ico { font-size:19px; line-height:1; }
     @media(min-width:900px) { #tthExamBottomNav { left:50%; right:auto; width:min(520px,100%); transform:translateX(-50%); border:1px solid #dbe3e8; border-bottom:0; border-radius:14px 14px 0 0; } }
   `;
