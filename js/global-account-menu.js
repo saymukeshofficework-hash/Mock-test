@@ -137,18 +137,18 @@
   }
 
   function installFolderBottomLogout() {
-    const path = window.location.pathname.replace(/\\/+$/, "") || "/";
+    const path = window.location.pathname.replace(/\/+$/, "") || "/";
     const isMockTestPage =
-      /(?:^|\\/)exam-test\\.html$/i.test(path) ||
-      /(?:^|\\/)tet-mock-test-\\d+\\.html$/i.test(path) ||
-      /\\/mock-tests\\/[^/]+\\/test\\.html$/i.test(path) ||
-      /\\/cpct\\/(?:index\\.html|typing\\.html)$/i.test(path) ||
-      /\\/tet\\/(?:index\\.html|test\\.html)$/i.test(path) ||
-      /\\/(?:cpct|tet)(?:-mock-test)?(?:-\\d+)?\\.html$/i.test(path) ||
+      /(?:^|\/)exam-test\.html$/i.test(path) ||
+      /(?:^|\/)tet-mock-test-\d+\.html$/i.test(path) ||
+      /\/mock-tests\/[^/]+\/test\.html$/i.test(path) ||
+      /\/cpct\/(?:index\.html|typing\.html)$/i.test(path) ||
+      /\/tet\/(?:index\.html|test\.html)$/i.test(path) ||
+      /\/(?:cpct|tet)(?:-mock-test)?(?:-\d+)?\.html$/i.test(path) ||
       path === "/cpct" || path === "/tet" || path === "/mp-cpct-mock-test";
     if (isMockTestPage) return;
 
-    const norm = value => String(value || "").replace(/[\\s\\u00a0]+/g, " ").trim().toLowerCase();
+    const norm = value => String(value || "").replace(/[\s\u00a0]+/g, " ").trim().toLowerCase();
     const homeNames = new Set(["home", "होम"]);
     const myTestNames = new Set(["my test", "मेरे टेस्ट", "माई टेस्ट"]);
     const contactNames = new Set(["contact", "संपर्क", "संपर्क करें", "contact us"]);
