@@ -253,6 +253,33 @@ body{padding-bottom:88px!important}
   color:#6d28d9!important;
 }
 
+
+/* Homepage bottom navigation: colorful text/icons without button boxes */
+.home-bottom-taskbar{grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:8px!important;background:rgba(255,255,255,.97)!important;border:0!important;box-shadow:0 -5px 18px #33205a12!important;backdrop-filter:blur(12px)!important}
+.home-bottom-taskbar a,
+.home-bottom-taskbar a:hover{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:4px;min-height:54px;padding:5px 2px!important;
+  background:transparent!important;border:0!important;border-radius:0!important;
+  box-shadow:none!important;text-decoration:none;transform:none!important;filter:none!important;
+  font-size:12px!important;font-weight:900!important;letter-spacing:.15px;
+}
+.home-bottom-taskbar .task-home{color:#2563eb!important}
+.home-bottom-taskbar .task-about{color:#7c3aed!important}
+.home-bottom-taskbar .task-contact{color:#e11d48!important}
+.home-bottom-taskbar .task-logout{color:#0f766e!important}
+.home-bottom-taskbar .task-icon{font-size:22px;line-height:1}
+.home-bottom-taskbar .task-home .task-icon{color:#2563eb!important}
+.home-bottom-taskbar .task-about .task-icon{color:#7c3aed!important}
+.home-bottom-taskbar .task-contact .task-icon{color:#e11d48!important}
+.home-bottom-taskbar .task-logout .task-icon{color:#0f766e!important}
+@media(max-width:480px){
+  body{padding-bottom:78px!important}
+  .home-bottom-taskbar{gap:4px!important;padding:7px max(8px,env(safe-area-inset-right)) calc(7px + env(safe-area-inset-bottom)) max(8px,env(safe-area-inset-left))!important}
+  .home-bottom-taskbar a,.home-bottom-taskbar a:hover{min-height:50px;font-size:11px!important}
+  .home-bottom-taskbar .task-icon{font-size:20px}
+}
+
 </style>
 <!-- Homepage is public; only protected actions require login. -->
 </head>
@@ -281,6 +308,7 @@ body{padding-bottom:88px!important}
     <a class="task-home" href="/index.html"><span class="task-icon" aria-hidden="true">⌂</span><span>Home</span></a>
     <a class="task-about" href="/about.html"><span class="task-icon" aria-hidden="true">ℹ</span><span>About</span></a>
     <a class="task-contact" href="/contact.html"><span class="task-icon" aria-hidden="true">✉</span><span>Contact</span></a>
+    <a class="task-logout" href="/login.html" id="homeBottomLogout"><span class="task-icon" aria-hidden="true">↪</span><span>Logout</span></a>
   </nav>
 
   <main>
@@ -341,6 +369,11 @@ body{padding-bottom:88px!important}
   document.getElementById('homeLogoutBtn').addEventListener('click', async () => {
     await logout();
     window.location.replace('/login.html');
+  });
+  const homeBottomLogout = document.getElementById('homeBottomLogout');
+  if (homeBottomLogout) homeBottomLogout.addEventListener('click', async (event) => {
+    event.preventDefault();
+    try { await logout(); } finally { window.location.replace('/login.html'); }
   });
   // Home navigation always opens the homepage. Login is optional for browsing.
   (async () => {
