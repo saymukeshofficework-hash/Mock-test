@@ -1,5 +1,5 @@
 (function () {
-  if (document.getElementById("tthExamBottomNav")) return;
+  if (document.getElementById("tthExamBottomNav") || document.getElementById("tthMockBottomNav")) return;
   const style = document.createElement("style");
   style.textContent = `
     body { padding-bottom: calc(78px + env(safe-area-inset-bottom, 0px)) !important; }
