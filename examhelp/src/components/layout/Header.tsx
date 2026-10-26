@@ -1,5 +1,5 @@
 import { LoginChip } from "./LoginChip";
-import { CatalogueHeaderExtras, MockPageHomeLink } from "./HeaderClient";
+import { CatalogueHeaderExtras, CurrentAffairsHeaderLanguage, MockPageHomeLink } from "./HeaderClient";
 import { Search } from "lucide-react";
 import { Logo } from "@/components/brand/Logo";
 import { dict, tr } from "@/i18n/dictionary";
@@ -41,7 +41,7 @@ export function Header({ lang }: { lang: Lang }) {
             <LanguageSwitcher lang={lang} />
           </div>
           <CatalogueHeaderExtras lang={lang} />
-          <LoginChip className="hidden xl:inline-flex h-10 items-center rounded-xl border border-brand-200 bg-brand-50 px-3 text-sm font-semibold text-brand-700 hover:bg-brand-100" />
+          <LoginChip className="hidden xl:inline-flex h-10 items-center rounded-xl border border-brand-200 bg-brand-50 px-3 text-sm font-semibold text-brand-700 hover:bg-brand-100" />\n          <CurrentAffairsHeaderLanguage className="hidden xl:inline-flex" />
           <MobileControls lang={lang} />
         </div>
       </div>
