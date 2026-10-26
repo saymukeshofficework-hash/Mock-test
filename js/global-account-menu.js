@@ -16,7 +16,7 @@
       if (link.querySelector("svg") && !link.textContent.trim()) link.remove();
     });
 
-    const header = document.querySelector("header.topbar") || document.querySelector(".hdr .bar") || document.querySelector(".top") || document.querySelector(".tbar");
+    const header = document.querySelector("header.topbar") || document.querySelector(".topbar") || document.querySelector(".hdr .bar") || document.querySelector(".top") || document.querySelector(".tbar");
     if (!header || header.dataset.tthHeaderReady === "true") return;
     header.dataset.tthHeaderReady = "true";
 
@@ -406,7 +406,7 @@
   }
 
   function normalizeLanguageControl(){
-    const header=document.querySelector("header.topbar")||document.querySelector(".hdr .bar")||document.querySelector(".site-header")||document.querySelector(".tbar")||document.querySelector("header");
+    const header=document.querySelector("header.topbar")||document.querySelector(".topbar")||document.querySelector(".hdr .bar")||document.querySelector(".site-header")||document.querySelector(".tbar")||document.querySelector("header");
     if(!header) return;
     const left=header.querySelector(".topbar-left")||header.querySelector(".ttwrap")||header.querySelector(".brand")?.parentElement||header;
     const brand=header.querySelector(".tth-header-brand, .brand, .logo, .ttext, a[aria-label*='TETTESTHUB'], a[aria-label*='TET Test Hub']")||left.firstElementChild;
@@ -469,4 +469,15 @@
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", run, { once: true });
   else run();
+
+  // Some mock-test templates create the old Home shortcut after their first render.
+  // Keep it removed even when the question/start screen is rebuilt.
+  const removeLegacyHome = () => {
+    document.querySelectorAll(".home-link, .tth-top-home-link, #tthTopHomeLink, #tth-floating-home, .floating-home, .home-icon-button, .home-icon, .home-button, .floating-home-button, .dhome").forEach((el) => el.remove());
+  };
+  if (document.body && !window.__tthLegacyHomeObserver) {
+    removeLegacyHome();
+    window.__tthLegacyHomeObserver = new MutationObserver(removeLegacyHome);
+    window.__tthLegacyHomeObserver.observe(document.body, { childList: true, subtree: true });
+  }
 })();
