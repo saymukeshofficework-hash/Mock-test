@@ -13,14 +13,14 @@ export function Header({ lang }: { lang: Lang }) {
       <div className="container-page">
       <div className="rounded-2xl border border-ink-200 bg-surface/95 shadow-[0_6px_24px_rgba(20,24,31,0.07)] backdrop-blur supports-[backdrop-filter]:bg-surface/90">
       <div className="flex min-h-16 flex-wrap items-center justify-between gap-2 px-3 py-2 sm:px-4">
-        <div className="flex shrink-0 items-center gap-2">
+        <div className="current-affairs-brand flex shrink-0 items-center gap-2">
           <MockPageHomeLink />
           <div aria-label="TETTESTHUB" className="shrink-0">
             <Logo />
           </div>
         </div>
 
-        <form action={`${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/search`} role="search" className="hidden max-w-md flex-1 xl:block">
+        <form action={`${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/search`} role="search" className="current-affairs-search hidden max-w-md flex-1 xl:block">
           <label htmlFor="header-search" className="sr-only">
             {tr(dict.search.label, lang)}
           </label>
