@@ -1,6 +1,6 @@
 import type { ExamNotification } from "@/types";
 
-const CHECKED = "2026-09-30";
+const CHECKED = "2026-10-26";
 const ESB = "https://esb.mp.gov.in/";
 const ESB_APPLY = "https://esb.mponline.gov.in/Portal/Examinations/Vyapam/examsList.aspx";
 
@@ -133,4 +133,90 @@ export const notifications: ExamNotification[] = [
     officialUrl: ESB,
     source: { label: "MPESB", url: ESB, checkedOn: CHECKED },
   },
+
+  {
+    id: "n-esb-si-exam-date-2026",
+    type: "IMPORTANT_NOTICE",
+    title: {
+      hi: "सूबेदार/उपनिरीक्षक भर्ती परीक्षा 2026 — परीक्षा 28.10.2026 से प्रारंभ",
+      en: "Subedar/Sub-Inspector Recruitment Test 2026 — examination starts 28 Oct 2026",
+    },
+    organization: "MPESB",
+    examSlug: "mp-subedar-si-2026",
+    officialUrl: "https://esb.mp.gov.in/student_dashboard.htm",
+    source: { label: "MPESB official student dashboard", url: "https://esb.mp.gov.in/student_dashboard.htm", checkedOn: CHECKED },
+  },
+  {
+    id: "n-esb-group3-last-date-2026",
+    type: "LAST_DATE",
+    title: {
+      hi: "MPESB समूह-3 भर्ती परीक्षा 2026 — पुनः आवेदन की अंतिम तिथि 27.10.2026; सुधार 28.10.2026 तक",
+      en: "MPESB Group-3 Recruitment Test 2026 — reopened application deadline 27 Oct; corrections through 28 Oct",
+    },
+    organization: "MPESB",
+    examSlug: "mp-group-3-2026",
+    officialUrl: ESB_APPLY,
+    source: { label: "MPESB Student Dashboard / MPOnline application listing", url: "https://esb.mp.gov.in/student_dashboard.htm", checkedOn: CHECKED },
+  },
+  {
+    id: "n-esb-driver-last-date-2026",
+    type: "LAST_DATE",
+    title: {
+      hi: "पुलिस आरक्षक (चालक) भर्ती परीक्षा 2026 — ऑनलाइन आवेदन की अंतिम तिथि 29.10.2026",
+      en: "Police Constable (Driver) Recruitment Test 2026 — online application deadline 29 Oct 2026",
+    },
+    organization: "MPESB",
+    examSlug: "mp-police-constable-driver-2026",
+    officialUrl: ESB_APPLY,
+    source: { label: "MPESB official rulebook and application listing", url: "https://esb.mp.gov.in/student_dashboard.htm", checkedOn: CHECKED },
+  },
+  {
+    id: "n-mppsc-nov22-exam-notice",
+    type: "IMPORTANT_NOTICE",
+    title: {
+      hi: "MPPSC वैज्ञानिक अधिकारी (भौतिकी/रसायन/जीव विज्ञान) एवं सहायक संचालक कृषि परीक्षा — 22.11.2026; प्रवेश-पत्र 12.11.2026 से",
+      en: "MPPSC Scientific Officer (Physics/Chemistry/Biology) and Assistant Director Agriculture exams — 22 Nov 2026; admit cards from 12 Nov",
+    },
+    organization: "MPPSC",
+    publishedOn: "2026-10-15",
+    officialUrl: "https://mppsc.mp.gov.in/uploads/advertisement/Corrigendum_03_05_06_07_and_35_2025_Dated_15_10_2026.pdf",
+    source: { label: "MPPSC official notice dated 15.10.2026", url: "https://mppsc.mp.gov.in/", checkedOn: CHECKED },
+  },
+  {
+    id: "n-ibps-so-main-call-letter-2026",
+    type: "ADMIT_CARD",
+    title: {
+      hi: "IBPS Specialist Officers XVI — मुख्य परीक्षा का कॉल लेटर जारी (22.10.2026)",
+      en: "IBPS Specialist Officers XVI — Main Examination call letter released (22 Oct 2026)",
+    },
+    organization: "OTHER",
+    publishedOn: "2026-10-22",
+    officialUrl: "https://www.ibps.in/index.php/crp-updates/",
+    source: { label: "IBPS CRP Updates", url: "https://www.ibps.in/index.php/crp-updates/", checkedOn: CHECKED },
+  },
+  {
+    id: "n-ibps-so-prelims-scores-2026",
+    type: "RESULT",
+    title: {
+      hi: "IBPS Specialist Officers XVI — प्रारंभिक परीक्षा के स्कोर उपलब्ध (22.10.2026)",
+      en: "IBPS Specialist Officers XVI — preliminary examination scores available (22 Oct 2026)",
+    },
+    organization: "OTHER",
+    publishedOn: "2026-10-22",
+    officialUrl: "https://www.ibps.in/index.php/crp-updates/",
+    source: { label: "IBPS CRP Updates", url: "https://www.ibps.in/index.php/crp-updates/", checkedOn: CHECKED },
+  },
+  {
+    id: "n-ssc-je-city-admit-2026",
+    type: "ADMIT_CARD",
+    title: {
+      hi: "SSC जूनियर इंजीनियर परीक्षा 2026 — परीक्षा शहर एवं प्रवेश-पत्र संबंधी सूचना जारी (23.10.2026)",
+      en: "SSC Junior Engineer Examination 2026 — exam-city and admission-certificate notice published (23 Oct 2026)",
+    },
+    organization: "OTHER",
+    publishedOn: "2026-10-23",
+    officialUrl: "https://ssc.gov.in/",
+    source: { label: "Staff Selection Commission — Notice Board", url: "https://ssc.gov.in/", checkedOn: CHECKED },
+  },
+
 ];
