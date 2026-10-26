@@ -192,19 +192,6 @@ body{padding-bottom:70px}
     </div>
     <span class="count" id="count"></span>
   </div>
-
-  <div class="chips" role="tablist" aria-label="श्रेणी">
-    <button class="chip on" data-f="all">सभी</button>
-    <button class="chip" data-f="police">पुलिस</button>
-    <button class="chip" data-f="hc">MP हाई कोर्ट</button>
-    <button class="chip" data-f="tests">टेस्ट सीरीज़</button>
-    <button class="chip" data-f="notes">PDF नोट्स</button>
-    <button class="chip" data-f="tet">TET</button>
-    <button class="chip" data-f="bridge">B.Ed ब्रिज कोर्स</button>
-    <button class="chip" data-f="typing">टाइपिंग</button>
-    <button class="chip" data-f="free">फ्री</button>
-  </div>
-
   <div class="grid" id="grid"></div>
   <p class="empty" id="empty">कुछ नहीं मिला — कोई और शब्द आज़माएँ।</p>
 </main>
@@ -272,22 +259,10 @@ const COURSES = [
 const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const grid = document.getElementById('grid');
 grid.innerHTML = COURSES.map((c, i) => `
-  <a class="card" href="${c.href}" data-i="${i}">
+  <a class="card" href="${c.href}" data-i="${i}" aria-label="${esc(c.big || c.title)}">
     <div class="poster ${c.p}">
-      ${c.isNew ? '<span class="new">NEW</span>' : ''}
-      <div><div class="kick">${esc(c.kick)}</div><div class="big">${esc(c.big)}</div></div>
-      <div class="sub">${c.sub.map(s => `<span>${esc(s)}</span>`).join('')}</div>
       ${ART[c.art]}
-    </div>
-    <div class="body">
-      <div class="tags">${c.tags.map(t => `<span class="tag">${esc(t)}</span>`).join('')}</div>
-      ${c.meta ? `<div class="meta"><span aria-hidden="true">${c.meta[0]}</span>${esc(c.meta[1])}<b>${esc(c.meta[2])}</b></div>` : ''}
-      <div class="title">${esc(c.title)}</div>
-      <div class="desc">${esc(c.desc)}</div>
-      <div class="foot">
-        <span class="price">${c.noprice ? '' : c.price ? '₹' + c.price.toLocaleString('en-IN') : '<span class="free">फ्री</span>'}${c.mrp ? `<s>₹${c.mrp}</s>` : ''}${c.from ? '<small> से शुरू</small>' : ''}</span>
-        <span class="go" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
-      </div>
+      <div class="big">${esc(c.big || c.title)}</div>
     </div>
   </a>`).join('');
 
@@ -305,10 +280,6 @@ function apply() {
   document.getElementById('count').textContent = n + (document.documentElement.lang === 'en' ? ' courses' : ' कोर्स');
   document.getElementById('empty').style.display = n ? 'none' : 'block';
 }
-document.querySelectorAll('.chip').forEach(b => b.addEventListener('click', () => {
-  document.querySelectorAll('.chip').forEach(x => x.classList.toggle('on', x === b));
-  filter = b.dataset.f; apply();
-}));
 document.getElementById('q').addEventListener('input', e => { query = e.target.value; apply(); });
 apply();
 
