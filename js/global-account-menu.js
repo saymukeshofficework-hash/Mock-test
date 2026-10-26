@@ -172,9 +172,25 @@
     logoutButton.type = "button";
     logoutButton.id = "tthFolderBottomLogout";
     logoutButton.className = "tth-folder-nav-logout";
-    const isHindi = controls.some(node => norm(node.textContent) === "होम");
-    logoutButton.innerHTML = '<span aria-hidden="true" class="tth-folder-nav-icon">↪</span><span>' + (isHindi ? "लॉगआउट" : "Logout") + '</span>';
-    logoutButton.setAttribute("aria-label", isHindi ? "लॉगआउट" : "Logout");
+    // Keep this bottom navigation English-only regardless of the exam's selected question language.
+    controls.forEach(node => {
+      const label = norm(node.textContent);
+      const english = label === "होम" ? "Home" :
+        (["मेरे टेस्ट", "माई टेस्ट", "मेरे test", "माई test"].includes(label) ? "My Test" :
+        (["संपर्क", "संपर्क करें", "contact us"].includes(label) ? "Contact" : ""));
+      if (english) {
+        const textNode = Array.from(node.childNodes).find(child => child.nodeType === Node.TEXT_NODE && child.nodeValue.trim());
+        if (textNode) textNode.nodeValue = english;
+        else {
+          const labelNode = node.querySelector("span:last-child");
+          if (labelNode) labelNode.textContent = english;
+          else node.textContent = english;
+        }
+      }
+    });
+    const isHindi = false;
+    logoutButton.innerHTML = '<span aria-hidden="true" class="tth-folder-nav-icon">↪</span><span>Logout</span>';
+    logoutButton.setAttribute("aria-label", "Logout");
 
     const style = document.createElement("style");
     style.id = "tth-folder-bottom-logout-style";
@@ -343,7 +359,7 @@
   }
   function tthTranslateNode(node, lang){
     if(!node || node.nodeType!==Node.TEXT_NODE || !node.parentElement) return;
-    if(node.parentElement.closest("script,style,textarea,[data-tth-no-translate],option[data-keep-language],[data-i18n],[data-i18n-html],[data-i18n-placeholder],[data-i18n-alt],#qText,#qtext,#optionsList,#options,.qtext,.rqtext,.rsol,.option")) return;
+    if(node.parentElement.closest("script,style,textarea,[data-tth-no-translate],option[data-keep-language],[data-i18n],[data-i18n-html],[data-i18n-placeholder],[data-i18n-alt],#tthMockBottomNav,#tthFolderBottomLogout,[data-tth-bottom-nav],[class*=\"bottom-nav\"],[class*=\"bottom-bar\"],[class*=\"taskbar\"],[class*=\"mobile-nav\"],#qText,#qtext,#optionsList,#options,.qtext,.rqtext,.rsol,.option")) return;
     let original=TTH_ORIGINALS.get(node);
     if(original===undefined){original=node.nodeValue;TTH_ORIGINALS.set(node,original);}
     const trimmed=original.trim();
