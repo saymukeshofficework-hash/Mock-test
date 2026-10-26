@@ -138,15 +138,18 @@
 
   function installFolderBottomLogout() {
     const path = window.location.pathname.replace(/\/+$/, "") || "/";
-    const isMockTestPage =
-      /(?:^|\/)exam-test\.html$/i.test(path) ||
+    // This button belongs on the exam's 25-test listing/folder page only.
+    // Do not add it inside an active question paper, even if that page's URL
+    // does not match one of the known mock-test filenames.
+    const isIndividualPaper =
+      /(?:^|\/)(?:exam-test|test-paper|attempt-test|take-test)(?:[-.]|\/|$)/i.test(path) ||
+      /(?:^|\/)test-?\d+(?:\.html)?$/i.test(path) ||
+      /(?:^|\/)mock-tests\/[^/]+\/test\.html$/i.test(path) ||
       /(?:^|\/)tet-mock-test-\d+\.html$/i.test(path) ||
-      /\/mock-tests\/[^/]+\/test\.html$/i.test(path) ||
-      /\/cpct\/(?:index\.html|typing\.html)$/i.test(path) ||
-      /\/tet\/(?:index\.html|test\.html)$/i.test(path) ||
-      /\/(?:cpct|tet)(?:-mock-test)?(?:-\d+)?\.html$/i.test(path) ||
-      path === "/cpct" || path === "/tet" || path === "/mp-cpct-mock-test";
-    if (isMockTestPage) return;
+      /(?:^|\/)cpct\/(?:typing|test)(?:\.html)?$/i.test(path) ||
+      /(?:^|\/)tet\/(?:test|paper)(?:\.html)?$/i.test(path) ||
+      !!document.querySelector("#testScreen, #questionText, #qText, #qtext, #optionsList, #questionPalette, .question-palette, .question-palette-container, [data-question-index], .question-container, .question-area, #timer, .test-timer");
+    if (isIndividualPaper || document.getElementById("tthMockBottomNav")) return;
 
     const norm = value => String(value || "").replace(/[\s\u00a0]+/g, " ").trim().toLowerCase();
     const homeNames = new Set(["home", "होम"]);
@@ -169,7 +172,7 @@
     logoutButton.type = "button";
     logoutButton.id = "tthFolderBottomLogout";
     logoutButton.className = "tth-folder-nav-logout";
-    const isHindi = controls.some(node => homeNames.has(norm(node.textContent)) && norm(node.textContent) === "होम");
+    const isHindi = controls.some(node => norm(node.textContent) === "होम");
     logoutButton.innerHTML = '<span aria-hidden="true" class="tth-folder-nav-icon">↪</span><span>' + (isHindi ? "लॉगआउट" : "Logout") + '</span>';
     logoutButton.setAttribute("aria-label", isHindi ? "लॉगआउट" : "Logout");
 
