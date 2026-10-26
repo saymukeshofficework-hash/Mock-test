@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { CalendarDays, ClipboardList, Home, NotebookPen, Phone } from "lucide-react";
+import { Home, NotebookPen, Phone, LogOut } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { dict, tr } from "@/i18n/dictionary";
 import { isActive } from "@/lib/nav";
 import type { Lang } from "@/types";
@@ -10,6 +11,14 @@ import type { Lang } from "@/types";
 /** Shared fixed mobile navigation for all app pages. */
 export function BottomNav({ lang }: { lang: Lang }) {
   const pathname = usePathname();
+  const router = useRouter();
+  const logout = () => {
+    try {
+      Object.keys(localStorage).filter((key) => key.includes("auth-token") || key.startsWith("sb-")).forEach((key) => localStorage.removeItem(key));
+      sessionStorage.clear();
+    } catch { /* ignore unavailable storage */ }
+    window.location.href = "https://tettesthub.in/login.html";
+  };
   const items = [
     { href: "https://tettesthub.in/index.html", label: dict.nav.home, fixedLabel: "Home", Icon: Home, abs: true, color: "text-blue-600" },
     { href: "/test-series", label: dict.nav.tests, fixedLabel: "My Test", Icon: NotebookPen, color: "text-emerald-600" },
@@ -20,7 +29,7 @@ export function BottomNav({ lang }: { lang: Lang }) {
       aria-label="Bottom navigation"
       className="fixed inset-x-0 bottom-0 z-40 border-t border-ink-200 bg-surface/95 pb-[env(safe-area-inset-bottom)] backdrop-blur xl:hidden"
     >
-      <ul className="mx-auto grid max-w-lg grid-cols-3">
+      <ul className="mx-auto grid max-w-lg grid-cols-4">
         {items.map(({ href, label, fixedLabel, Icon, abs, color }) => {
           const active = !abs && isActive(pathname, href);
           const cls = `flex min-h-14 flex-col items-center justify-center gap-0.5 text-[11px] font-bold ${
@@ -44,6 +53,12 @@ export function BottomNav({ lang }: { lang: Lang }) {
             </li>
           );
         })}
+        <li>
+          <button type="button" onClick={logout} className="flex min-h-14 w-full flex-col items-center justify-center gap-0.5 text-[11px] font-bold text-orange-600">
+            <LogOut className="h-5 w-5 stroke-[2.75]" aria-hidden="true" />
+            Logout
+          </button>
+        </li>
       </ul>
     </nav>
   );
