@@ -14,7 +14,7 @@
 <meta property="og:url" content="https://tettesthub.in/">
 <meta property="og:site_name" content="TET Test Hub">
 <link rel="icon" href="data:,">
-<link rel="stylesheet" href="assets/site.css?v=5">
+<link rel="stylesheet" href="assets/site.css?v=6">
 <link rel="stylesheet" href="assets/exam-layout.css?v=4">
 <style>
 /* Homepage language selector is intentionally removed; hide legacy/cached toggle markup too. */
@@ -177,6 +177,9 @@ main{min-height:calc(100svh - 70px)}
 .hero{margin-top:12px;margin-bottom:12px;padding-top:clamp(20px,3.5vw,34px);padding-bottom:clamp(20px,3.5vw,34px)}
 .hero .hero-actions{display:none}
 @media(max-width:700px){.home-folder-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;padding:0 2px}.home-folder-grid .home-quick-link{min-height:112px;padding:14px 10px;gap:8px;border-radius:15px}.home-folder-grid .home-quick-icon{width:42px;height:42px;flex-basis:42px;font-size:22px}.home-folder-grid .home-quick-link strong{font-size:14px}.home-folder-grid .home-quick-link small{font-size:10px}.home-folder-grid .quick-arrow{font-size:22px}.hero{margin:8px 8px 12px;padding:20px 15px;border-radius:17px}.hero h1{font-size:clamp(23px,6vw,32px)}.hero p.tagline{font-size:14px;margin:8px 0 0}.container{padding:0 10px}}
+.home-folder-grid .home-quick-link strong{font-weight:900!important;text-transform:uppercase;letter-spacing:.45px;line-height:1.2}
+.home-folder-grid .home-quick-link{border:1px solid var(--folder-soft)!important;border-top:5px solid var(--folder-color)!important;background:linear-gradient(145deg,#fff 0%,var(--folder-soft) 100%)!important}
+.home-folder-grid .home-quick-link:hover{transform:translateY(-3px);box-shadow:0 12px 26px #28134b20}
 @media(max-width:360px){.home-folder-grid{gap:8px}.home-folder-grid .home-quick-link{padding:12px 8px}.home-folder-grid .home-quick-link strong{font-size:12px}}
 </style>
 <!-- Homepage is public; only protected actions require login. -->
@@ -224,12 +227,12 @@ main{min-height:calc(100svh - 70px)}
 
       <section class="section" id="learningCategories" style="padding-top:8px;">
         <div class="home-quick-start home-folder-grid" aria-label="Main Preparation Categories">
-          <a class="home-quick-link home-primary-folder" href="dashboard.html" style="--folder-color:#0f766e;--folder-soft:#ddf7f2;"><span class="home-quick-icon" aria-hidden="true" style="background:#ddf7f2;color:#0f766e">📝</span><span><strong>My Tests</strong><small>Dashboard and Your Preparation</small></span><span class="quick-arrow" aria-hidden="true">›</span></a>
-          <a class="home-quick-link home-primary-folder" href="/course-folders.html" style="--folder-color:#6d28d9;--folder-soft:#ede9fe;"><span class="home-quick-icon" aria-hidden="true" style="background:#ede9fe;color:#6d28d9">🎓</span><span><strong>Courses</strong><small>Choose an Exam Folder</small></span><span class="quick-arrow" aria-hidden="true">›</span></a>
-          <a class="home-quick-link home-primary-folder" href="/current-affairs-folder.html" style="--folder-color:#b45309;--folder-soft:#fef3c7;"><span class="home-quick-icon" aria-hidden="true" style="background:#fef3c7;color:#b45309">📰</span><span><strong>Current Affairs</strong><small>Daily Current Affairs</small></span><span class="quick-arrow" aria-hidden="true">›</span></a>
-          <a class="home-quick-link home-primary-folder" href="/ebook-pdf-notes.html" style="--folder-color:#be185d;--folder-soft:#fce7f3;"><span class="home-quick-icon" aria-hidden="true" style="background:#fce7f3;color:#be185d">📖</span><span><strong>E-books / PDF Notes</strong><small>Digital Study Materials</small></span><span class="quick-arrow" aria-hidden="true">›</span></a>
-          <a class="home-quick-link home-primary-folder" href="/typing-practice-folder.html" style="--folder-color:#0369a1;--folder-soft:#e0f2fe;"><span class="home-quick-icon" aria-hidden="true" style="background:#e0f2fe;color:#0369a1">⌨️</span><span><strong>Typing Practice</strong><small>Hindi and English Typing</small></span><span class="quick-arrow" aria-hidden="true">›</span></a>
-          <a class="home-quick-link home-primary-folder" href="/bridge-course-folder.html" style="--folder-color:#b45309;--folder-soft:#fef3c7;"><span class="home-quick-icon" aria-hidden="true" style="background:#fef3c7;color:#b45309">🎓</span><span><strong>Bridge Course</strong><small>Open Bridge Course</small></span><span class="quick-arrow" aria-hidden="true">›</span></a>
+          <a class="home-quick-link home-primary-folder" href="/course-folders.html" style="--folder-color:#A95300;--folder-soft:#FFF0D9;"><span class="home-quick-icon" aria-hidden="true" style="background:#FFF0D9;color:#A95300">🎓</span><span><strong>PAID COURSE</strong><small>Courses and paid preparation</small></span><span class="quick-arrow" aria-hidden="true">›</span></a>
+          <a class="home-quick-link home-primary-folder" href="/dashboard.html" style="--folder-color:#087A4B;--folder-soft:#DDF7EA;"><span class="home-quick-icon" aria-hidden="true" style="background:#DDF7EA;color:#087A4B">📝</span><span><strong>MY TEST</strong><small>Your tests and preparation</small></span><span class="quick-arrow" aria-hidden="true">›</span></a>
+          <a class="home-quick-link home-primary-folder" href="/examhelp/courses/" style="--folder-color:#174FC4;--folder-soft:#DDEBFF;"><span class="home-quick-icon" aria-hidden="true" style="background:#DDEBFF;color:#174FC4">📚</span><span><strong>ALL TEST</strong><small>Browse all exam tests</small></span><span class="quick-arrow" aria-hidden="true">›</span></a>
+          <a class="home-quick-link home-primary-folder" href="/ebook-pdf-notes.html" style="--folder-color:#A21B6A;--folder-soft:#F9DFF0;"><span class="home-quick-icon" aria-hidden="true" style="background:#F9DFF0;color:#A21B6A">📖</span><span><strong>E-BOOK</strong><small>Digital study materials</small></span><span class="quick-arrow" aria-hidden="true">›</span></a>
+          <a class="home-quick-link home-primary-folder" href="/current-affairs-folder.html" style="--folder-color:#087E83;--folder-soft:#D8F6F5;"><span class="home-quick-icon" aria-hidden="true" style="background:#D8F6F5;color:#087E83">📰</span><span><strong>CURRENT AFFAIRS</strong><small>Daily current affairs practice</small></span><span class="quick-arrow" aria-hidden="true">›</span></a>
+          <a class="home-quick-link home-primary-folder" href="/examhelp/mp-police-constable-gd-mock-tests/" style="--folder-color:#B52B32;--folder-soft:#FFE1DE;"><span class="home-quick-icon" aria-hidden="true" style="background:#FFE1DE;color:#B52B32">🚔</span><span><strong>POLICE</strong><small>Police exam mock tests</small></span><span class="quick-arrow" aria-hidden="true">›</span></a>
         </div>
       </section>
 
