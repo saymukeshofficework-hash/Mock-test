@@ -269,3 +269,11 @@ body.current-affairs-page header form[role="search"],
 body.current-affairs-page header nav {
   display: none !important;
 }
+
+
+/* Current Affairs: show only Student ID and the Hindi/English toggle in the header. */
+body.current-affairs-page header .current-affairs-brand,
+body.current-affairs-page header .current-affairs-search,
+body.current-affairs-page header .current-affairs-search-icon {
+  display: none !important;
+}
