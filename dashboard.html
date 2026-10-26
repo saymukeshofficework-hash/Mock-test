@@ -255,10 +255,23 @@ body{padding-bottom:calc(94px + env(safe-area-inset-bottom))}
   })();
 
   applyI18n();
-  // Keep the colorful My Test bottom taskbar labels in English in both site languages.
-  document.getElementById("mytestNavHomeLabel").textContent = "Home";
-  document.getElementById("mytestNavContactLabel").textContent = "Contact";
-  document.getElementById("mytestNavLogoutLabel").textContent = "Logout";
+  // Keep the colorful My Test bottom taskbar labels in English regardless of the selected site language.
+  function enforceMyTestEnglishNav() {
+    const labels = [
+      ["mytestNavHomeLabel", "Home"],
+      ["mytestNavContactLabel", "Contact"],
+      ["mytestNavLogoutLabel", "Logout"]
+    ];
+    labels.forEach(([id, value]) => {
+      const el = document.getElementById(id);
+      if (el && el.textContent !== value) el.textContent = value;
+    });
+  }
+  enforceMyTestEnglishNav();
+  // Re-apply if any shared language script updates the navigation after page load.
+  const myTestNavObserver = new MutationObserver(enforceMyTestEnglishNav);
+  const myTestNav = document.querySelector(".mytest-color-nav");
+  if (myTestNav) myTestNavObserver.observe(myTestNav, { childList: true, subtree: true, characterData: true });
 </script>
 </body>
 </html>
