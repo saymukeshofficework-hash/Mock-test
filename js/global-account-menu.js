@@ -11,7 +11,7 @@
 
   function addTestHeader() {
     // Remove all old top/floating Home shortcuts. Mock tests use the shared bottom taskbar instead.
-    document.querySelectorAll(".home-link, .tth-top-home-link, #tthTopHomeLink, #tth-floating-home, .floating-home, .home-icon-button, .home-icon, .home-button, .floating-home-button").forEach((link) => link.remove());
+    document.querySelectorAll(".home-link, .tth-top-home-link, #tthTopHomeLink, #tth-floating-home, .floating-home, .home-icon-button, .home-icon, .home-button, .floating-home-button, .dhome").forEach((link) => link.remove());
     document.querySelectorAll('a[aria-label*="होम"], a[title="होम"], a[aria-label*="home" i], a[title*="home" i]').forEach((link) => {
       if (link.querySelector("svg") && !link.textContent.trim()) link.remove();
     });
@@ -351,7 +351,7 @@
     if(!btn && !document.getElementById("langSel") && !document.getElementById("languageSwitch")){
       btn=document.createElement("button");btn.type="button";btn.id="tthLanguageToggle";btn.className="tth-language-toggle";
       btn.style.cssText="border:1px solid #8abbb0;background:#fff;color:#155e55;border-radius:8px;padding:6px 10px;font-weight:800;cursor:pointer;white-space:nowrap;";
-      const header=document.querySelector("header.topbar .topbar-left")||document.querySelector(".site-header")||document.querySelector(".hdr .bar")||document.querySelector(".tbar")||document.querySelector("header");
+      const header=document.querySelector("header.topbar .topbar-left")||document.querySelector(".site-header")||document.querySelector(".hdr .bar")||document.querySelector(".tbar")||document.querySelector(".topbar")||document.querySelector("header");
       // Place the language switch immediately beside the student-ID/account control when present.
       const studentControl=document.querySelector("#tthStudentAccountMenu, #studentId, #studentID, .student-id, [data-student-id]");
       if(studentControl && studentControl.parentElement){
@@ -407,8 +407,8 @@
   function normalizeLanguageControl(){
     const header=document.querySelector("header.topbar")||document.querySelector(".hdr .bar")||document.querySelector(".site-header")||document.querySelector(".tbar")||document.querySelector("header");
     if(!header) return;
-    const left=header.querySelector(".topbar-left")||header.querySelector(".brand")?.parentElement||header;
-    const brand=header.querySelector(".tth-header-brand, .brand, .logo, a[aria-label*='TETTESTHUB'], a[aria-label*='TET Test Hub']")||left.firstElementChild;
+    const left=header.querySelector(".topbar-left")||header.querySelector(".ttwrap")||header.querySelector(".brand")?.parentElement||header;
+    const brand=header.querySelector(".tth-header-brand, .brand, .logo, .ttext, a[aria-label*='TETTESTHUB'], a[aria-label*='TET Test Hub']")||left.firstElementChild;
     const account=header.querySelector("#tthStudentAccountMenu, #accountMenu, .top-account-menu, .account-student-id, #accountStudentId");
     let control=header.querySelector("#languageSwitch, .lang-switch, #langToggle, #tthLanguageToggle, #langBtn, #langBtnName, #langBtnResult");
     if(!control) control=document.querySelector("#languageSwitch, .lang-switch, #langToggle, #tthLanguageToggle, #langBtn, #langBtnName, #langBtnResult");
@@ -428,6 +428,17 @@
     control.style.setProperty("align-items","center");
     control.style.setProperty("gap","4px");
     control.style.setProperty("margin","4px 0 0");
+    if(header.matches(".topbar") && left.classList.contains("ttwrap")){
+      control.style.setProperty("align-self","flex-start");
+      control.style.setProperty("font-size","10px");
+      control.style.setProperty("padding","2px 7px");
+      control.style.setProperty("margin","3px 0 0");
+      control.style.setProperty("position","static");
+      control.style.setProperty("display","inline-flex","important");
+      control.style.setProperty("background","rgba(255,255,255,.14)");
+      control.style.setProperty("color","#fff");
+      control.style.setProperty("border","1px solid rgba(255,255,255,.4)");
+    }
     control.style.setProperty("padding","3px");
     control.style.setProperty("border-radius","8px");
     control.style.setProperty("font-size","11px");
