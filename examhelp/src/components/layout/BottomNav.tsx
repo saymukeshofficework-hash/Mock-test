@@ -32,7 +32,7 @@ export function BottomNav({ lang }: { lang: Lang }) {
           const content = (
             <>
               <Icon className={`h-5 w-5 ${active ? "stroke-[2.5]" : ""}`} aria-hidden="true" />
-              {label === dict.nav.contact ? (lang === "en" ? "Contact" : "संपर्क करें") : tr(label, lang)}
+              {label === dict.nav.home ? "Home" : label === dict.nav.tests ? "My Test" : label === dict.nav.contact ? "Contact" : tr(label, lang)}
             </>
           );
           return (
