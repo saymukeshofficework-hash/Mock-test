@@ -10,52 +10,27 @@
   const isLoginPage = path === "/login.html";
 
   function addTestHeader() {
-    // Remove legacy floating house icons across all pages, not only exam headers.
-    document.querySelectorAll(".home-link, #tth-floating-home, .floating-home, .home-icon-button, .home-icon, .home-button, .floating-home-button").forEach((link) => link.remove());
+    // Remove all old top/floating Home shortcuts. Mock tests use the shared bottom taskbar instead.
+    document.querySelectorAll(".home-link, .tth-top-home-link, #tthTopHomeLink, #tth-floating-home, .floating-home, .home-icon-button, .home-icon, .home-button, .floating-home-button").forEach((link) => link.remove());
     document.querySelectorAll('a[aria-label*="होम"], a[title="होम"], a[aria-label*="home" i], a[title*="home" i]').forEach((link) => {
       if (link.querySelector("svg") && !link.textContent.trim()) link.remove();
     });
 
-    const header = document.querySelector("header.topbar") || document.querySelector(".hdr .bar") || document.querySelector(".tbar");
+    const header = document.querySelector("header.topbar") || document.querySelector(".hdr .bar") || document.querySelector(".top") || document.querySelector(".tbar");
     if (!header || header.dataset.tthHeaderReady === "true") return;
     header.dataset.tthHeaderReady = "true";
 
-    const isExamTopbar = header.matches("header.topbar");
+    // On individual exam-paper screens, keep the TET Test Hub brand and Student ID menu,
+    // but do not insert a Home link above the test.
+    if (!header.matches("header.topbar")) return;
     const left = header.querySelector(".topbar-left") || header;
-    let home = header.querySelector("#tthTopHomeLink");
-    if (!home) {
-      home = document.createElement("a");
-      home.id = "tthTopHomeLink";
-      home.className = "tth-top-home-link";
-      home.href = "/";
-      home.textContent = "⌂";
-      home.title = "होम";
-      home.setAttribute("aria-label", "होमपेज पर जाएँ");
-      const leftSide = header.querySelector(".topbar-left") || header;
-      leftSide.insertBefore(home, leftSide.firstChild);
-    }
-
-    // CPCT/TET catalogue pages keep the original text Home option.
-    // Exam paper headers use the compact house icon only.
-    if (!isExamTopbar) {
-      home.textContent = "⌂ होम";
-      home.href = "/index.html";
-      home.title = "होम";
-      const logo = header.querySelector("a.logo");
-      if (logo) logo.href = "/index.html";
-      return;
-    }
-    home.textContent = "⌂";
-    // /examhelp/ redirects to login, so Home must open the public root homepage.
-    home.href = "/index.html";
-    home.title = "होम";
-
     let brand = header.querySelector(".tth-header-brand");
     if (!brand) {
       brand = document.createElement("span");
       brand.className = "tth-header-brand";
       brand.textContent = "TET Test Hub";
-      if (home && home.parentElement === left) home.insertAdjacentElement("afterend", brand);
+      const title = left.querySelector("#examTitle, h1");
+      if (title) left.insertBefore(brand, title);
       else left.insertBefore(brand, left.firstChild);
     }
 
@@ -70,7 +45,8 @@
           <a href="/dashboard.html">डैशबोर्ड / Dashboard</a>
           <button type="button" id="tthStudentLogout">लॉगआउट / Logout</button>
         </div>`;
-      if (brand.nextSibling) left.insertBefore(menu, brand.nextSibling);
+      const title = left.querySelector("#examTitle, h1");
+      if (title) left.insertBefore(menu, title);
       else left.appendChild(menu);
     }
 
@@ -78,7 +54,7 @@
     const idSource = document.querySelector("[data-student-id], #studentId, #studentID, .student-id, .student-id-value");
     if (idSource && label) {
       const value = idSource.getAttribute("data-student-id") || idSource.textContent.trim();
-      if (value) label.textContent = "छात्र ID: " + value.replace(/^छात्र\s*ID\s*:?\s*/i, "");
+      if (value) label.textContent = "छात्र ID: " + value.replace(/^छात्र\\s*ID\\s*:?\\s*/i, "");
     }
 
     if (label && typeof window.getSession === "function" && typeof window.getProfile === "function") {
@@ -100,12 +76,58 @@
         try {
           if (typeof window.logout === "function") await window.logout();
           else if (window.supabaseClient?.auth?.signOut) await window.supabaseClient.auth.signOut();
+          else if (typeof supabaseClient !== "undefined" && supabaseClient?.auth?.signOut) await supabaseClient.auth.signOut();
         } catch (error) {
           console.error("Logout failed", error);
         }
         window.location.replace("/login.html");
       });
     }
+  }
+
+  function installMockBottomNav() {
+    const path = window.location.pathname.replace(/\\/+$/, "") || "/";
+    const isMockTestPage =
+      /(?:^|\\/)exam-test\\.html$/i.test(path) ||
+      /(?:^|\\/)tet-mock-test-\\d+\\.html$/i.test(path) ||
+      /\\/mock-tests\\/[^/]+\\/test\\.html$/i.test(path) ||
+      /\\/cpct\\/typing\\.html$/i.test(path) ||
+      path === "/cpct" || path === "/tet" || path === "/mp-cpct-mock-test";
+    if (!isMockTestPage || document.getElementById("tthMockBottomNav")) return;
+
+    const style = document.createElement("style");
+    style.id = "tth-mock-bottom-nav-style";
+    style.textContent = `
+      body.tth-has-mock-bottom-nav { padding-bottom: calc(76px + env(safe-area-inset-bottom, 0px)) !important; }
+      #tthMockBottomNav { position:fixed; left:0; right:0; bottom:0; z-index:10000; display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:6px; padding:8px 10px calc(8px + env(safe-area-inset-bottom, 0px)); background:#fff; border-top:1px solid #dbe3e8; box-shadow:0 -4px 18px rgba(15,23,42,.12); }
+      #tthMockBottomNav a, #tthMockBottomNav button { min-width:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:3px; padding:4px 3px; border:0; border-radius:9px; background:transparent; color:#0f6b5f; text-decoration:none; font:700 12px/1.2 system-ui,-apple-system,"Segoe UI",sans-serif; cursor:pointer; }
+      #tthMockBottomNav .tth-nav-icon { font-size:20px; line-height:1; }
+      #tthMockBottomNav a:focus-visible, #tthMockBottomNav button:focus-visible { outline:2px solid #0f766e; outline-offset:2px; }
+      @media(min-width:900px) { #tthMockBottomNav { left:50%; right:auto; width:min(520px,100%); transform:translateX(-50%); border:1px solid #dbe3e8; border-bottom:0; border-radius:14px 14px 0 0; } }
+    `;
+    document.head.appendChild(style);
+    const nav = document.createElement("nav");
+    nav.id = "tthMockBottomNav";
+    nav.setAttribute("aria-label", "Test navigation");
+    nav.setAttribute("data-tth-no-translate", "true");
+    nav.innerHTML = `
+      <a href="/index.html"><span class="tth-nav-icon" aria-hidden="true">⌂</span><span>Home</span></a>
+      <a href="/dashboard.html"><span class="tth-nav-icon" aria-hidden="true">▦</span><span>My Test</span></a>
+      <button type="button" id="tthBottomLogout"><span class="tth-nav-icon" aria-hidden="true">↪</span><span>Logout</span></button>`;
+    document.body.appendChild(nav);
+    document.body.classList.add("tth-has-mock-bottom-nav");
+    const logout = nav.querySelector("#tthBottomLogout");
+    logout.addEventListener("click", async () => {
+      logout.disabled = true;
+      try {
+        if (typeof window.logout === "function") await window.logout();
+        else if (window.supabaseClient?.auth?.signOut) await window.supabaseClient.auth.signOut();
+        else if (typeof supabaseClient !== "undefined" && supabaseClient?.auth?.signOut) await supabaseClient.auth.signOut();
+      } catch (error) {
+        console.error("Logout failed", error);
+      }
+      window.location.replace("/login.html");
+    });
   }
 
   function installStyles() {
