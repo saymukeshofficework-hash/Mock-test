@@ -184,7 +184,6 @@ export function CurrentAffairsClient() {
           {day ? <p className="mt-1 text-ink-500">{fmtDay(day.day, lang, true)}</p> : null}
         </div>
         <div className="flex flex-wrap items-center gap-2">
-          <LangToggle />
           <button type="button" onClick={downloadPdf} disabled={!day || pdfBusy} className="btn-primary disabled:opacity-60">
             <Download className="h-4 w-4" aria-hidden="true" />
             {pdfBusy ? (lang === "hi" ? "PDF बन रही है…" : "Making PDF…") : lang === "hi" ? "आज की PDF डाउनलोड" : "Download PDF"}
