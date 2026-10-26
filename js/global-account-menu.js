@@ -418,12 +418,14 @@
   }
   function run() {
     installStyles();
-    if (isLoginPage) {
+    if (isLoginPage || isHomePage) {
+      // Login and the purple public homepage are permanently English-only.
+      // Never inject the shared language toggle on either page.
       document.documentElement.lang = "en";
-      document.querySelectorAll(".lang-switch, #languageSwitch, #langToggle, #tthLanguageToggle, #langBtn, #langBtnName, #langBtnResult, #langSel").forEach(el => el.remove());
+      document.querySelectorAll(".lang-switch, #languageSwitch, #langToggle, #tthLanguageToggle, #langBtn, #langBtnName, #langBtnResult, #langSel, [data-language-toggle]").forEach(el => el.remove());
       return;
     }
-    if (!isHomePage) addTestHeader();
+    addTestHeader();
     installLanguageToggle();
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", run, { once: true });
