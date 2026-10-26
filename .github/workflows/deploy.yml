@@ -147,6 +147,7 @@ jobs:
           cp index.html tests.html login.html reset-password.html dashboard.html about.html contact.html attendance.html welcome.html _site/
           cp course-folders.html _site/
           cp typing-practice-folder.html _site/
+          cp bridge-course-folder.html _site/
           cp uptet.html up-tgt.html up-pgt.html ctet.html up-teacher-exams.html exam-test.html _site/
           cp tet-mock-test-*.html _site/
           cp -r assets _site/assets
