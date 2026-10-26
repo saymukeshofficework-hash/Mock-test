@@ -148,6 +148,7 @@ jobs:
           cp course-folders.html _site/
           cp typing-practice-folder.html _site/
           cp bridge-course-folder.html _site/
+          cp current-affairs-folder.html _site/
           cp uptet.html up-tgt.html up-pgt.html ctet.html up-teacher-exams.html exam-test.html _site/
           cp tet-mock-test-*.html _site/
           cp -r assets _site/assets
