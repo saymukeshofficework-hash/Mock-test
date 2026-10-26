@@ -355,3 +355,22 @@ header.site-header .top-account-menu{
 body:has(#instructionsScreen) footer.site-footer,
 body:has(#testScreen) footer.site-footer,
 body:has(#resultScreen) footer.site-footer { display:none !important; }
+
+
+/* Homepage folder refresh: bold uppercase labels and a distinct color for each folder */
+.learning-category{border:1px solid var(--folder-border,#e5d5ff)!important;border-radius:16px!important;background:linear-gradient(145deg,#fff 0%,var(--folder-soft,#f6f1fc) 100%)!important;box-shadow:0 5px 16px #28134b0d;transition:transform .18s ease,box-shadow .18s ease}
+.learning-category:hover{transform:translateY(-3px);box-shadow:0 10px 22px #28134b18}
+.learning-category summary{border-top:4px solid var(--folder-color,#6d3ac7);border-radius:12px 12px 0 0}
+.learning-category summary .all-exam-icon{background:var(--folder-soft,#f1eaff)!important;color:var(--folder-color,#6d3ac7)!important}
+.learning-category summary strong{color:var(--folder-color,#342052)!important;font-size:14px!important;font-weight:900!important;letter-spacing:.45px;text-transform:uppercase}
+.learning-category summary small{color:var(--folder-color,#777087)!important;opacity:.82}
+.learning-category .category-chevron{color:var(--folder-color,#6d3ac7)!important}
+.learning-category .category-links a{color:var(--folder-color,#4b3471)!important}
+.learning-category .category-links a span{color:var(--folder-color,#8c70bd)!important}
+.learning-category:nth-child(6n+1){--folder-color:#A95300;--folder-soft:#FFF0D9;--folder-border:#F2C27C}
+.learning-category:nth-child(6n+2){--folder-color:#087A4B;--folder-soft:#DDF7EA;--folder-border:#8DD8B3}
+.learning-category:nth-child(6n+3){--folder-color:#174FC4;--folder-soft:#DDEBFF;--folder-border:#9BBDF8}
+.learning-category:nth-child(6n+4){--folder-color:#A21B6A;--folder-soft:#F9DFF0;--folder-border:#E9A8D0}
+.learning-category:nth-child(6n+5){--folder-color:#087E83;--folder-soft:#D8F6F5;--folder-border:#8AD9D5}
+.learning-category:nth-child(6n){--folder-color:#B52B32;--folder-soft:#FFE1DE;--folder-border:#F5AAA3}
+.all-exam-card .all-exam-label,.all-exam-card h3{font-weight:900!important;text-transform:uppercase;letter-spacing:.35px}
