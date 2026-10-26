@@ -350,3 +350,8 @@ header.site-header .top-account-menu{
     padding:6px 7px;
   }
 }
+
+/* Mock-test pages should behave like an app: hide the website footer, while keeping the test's own instruction controls. */
+body:has(#instructionsScreen) footer.site-footer,
+body:has(#testScreen) footer.site-footer,
+body:has(#resultScreen) footer.site-footer { display:none !important; }
