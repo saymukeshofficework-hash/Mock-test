@@ -3,7 +3,7 @@ import type { Exam } from "@/types";
 /**
  * Seed exam records.
  *
- * Every date below was reviewed on 20 Oct 2026 against the official source
+ * Every date below was reviewed on 26 Oct 2026 against the official source
  * named in `source`. Rules:
  *  - CONFIRMED  -> an official rulebook/notice states the exact date.
  *  - TENTATIVE  -> official document gives a date but marks it "संभावित"
@@ -19,7 +19,7 @@ const ESB_APPLY = "https://esb.mponline.gov.in/Portal/Examinations/Vyapam/examsL
 const ESB_CAL = "https://esb.mp.gov.in/Exams_Schedule/Exam_schedule_2026_060826.pdf";
 const PSC = "https://mppsc.mp.gov.in/";
 const PSC_CAL = "https://mppsc.mp.gov.in/uploads/calendar/Revised_Exam_Calendar_2026_Dated_15_05_2026.pdf";
-const CHECKED = "2026-10-20";
+const CHECKED = "2026-10-26";
 
 const calNote = {
   hi: "MPESB के संभावित परीक्षा कैलेंडर (संशोधित 05.08.2026) के अनुसार केवल माह घोषित।",
@@ -128,15 +128,15 @@ export const exams: Exam[] = [
       correctionEnd: { date: "2026-10-06", status: "CONFIRMED" },
       exam: {
         date: "2026-11-14",
-        status: "TENTATIVE",
-        note: { hi: "नियमपुस्तिका में संभावित दिनांक के रूप में दी गई है।", en: "Given as the probable date in the rulebook." },
+        status: "CONFIRMED",
+        note: { hi: "MPESB के आधिकारिक विद्यार्थी डैशबोर्ड पर परीक्षा प्रारंभ 14.11.2026 दर्शाया गया है।", en: "MPESB official student dashboard lists the exam start as 14 Nov 2026." },
       },
     },
     officialUrl: ESB,
     applyUrl: ESB_APPLY,
     rulebookUrl: `${ESB_RB}Nayab_Tehsildar_2026_Rule_Book_11092026.pdf`,
     featured: true,
-    source: { label: "MPESB Rulebook (11.09.2026)", url: `${ESB_RB}Nayab_Tehsildar_2026_Rule_Book_11092026.pdf`, checkedOn: CHECKED },
+    source: { label: "MPESB official student dashboard (exam date 14.11.2026)", url: "https://esb.mp.gov.in/student_dashboard.htm", checkedOn: CHECKED },
     updatedAt: CHECKED,
   },
   {
@@ -520,7 +520,7 @@ export const exams: Exam[] = [
     officialUrl: PSC,
     notificationUrl: "https://mppsc.mp.gov.in/uploads/advertisement/Corrigendum_03_05_06_07_and_35_2025_Dated_15_10_2026.pdf",
     featured: false,
-    source: { label: "MPPSC Exam Calendar 2026 (date subject to change)", url: PSC, checkedOn: CHECKED },
+    source: { label: "MPPSC official notice dated 15.10.2026", url: "https://mppsc.mp.gov.in/uploads/advertisement/Corrigendum_03_05_06_07_and_35_2025_Dated_15_10_2026.pdf", checkedOn: CHECKED },
     updatedAt: CHECKED,
   },
   {
@@ -554,7 +554,7 @@ export const exams: Exam[] = [
     officialUrl: PSC,
     notificationUrl: "https://cdn.testbook.com/1774591047278-Advt_Scientific_Officer_Biology_2026_Dated_16_03_2026.pdf/1774591050.pdf",
     featured: false,
-    source: { label: "MPPSC Scientific Officer Biology Advertisement 07/2026 (16.03.2026)", url: "https://cdn.testbook.com/1774591047278-Advt_Scientific_Officer_Biology_2026_Dated_16_03_2026.pdf/1774591050.pdf", checkedOn: CHECKED },
+    source: { label: "MPPSC official notice dated 15.10.2026", url: "https://mppsc.mp.gov.in/uploads/advertisement/Corrigendum_03_05_06_07_and_35_2025_Dated_15_10_2026.pdf", checkedOn: CHECKED },
     updatedAt: CHECKED,
   },
   {
