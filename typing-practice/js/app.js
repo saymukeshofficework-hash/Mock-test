@@ -993,26 +993,6 @@ function boot() {
     applyStrings();
   }
   $("langToggle").addEventListener("click", toggleLanguage);
-  const bottomProgress = $("typingBottomProgress");
-  if (bottomProgress) bottomProgress.addEventListener("click", async () => {
-    if (view === "test" && session && !session.engine.isFinished && session.engine.state !== "ready") {
-      const ok = await confirmDialog(tr("end_t"), tr("end_m"), tr("end_test"));
-      if (!ok) return;
-    }
-    goHome("progress");
-  });
-  const bottomLogout = $("typingBottomLogout");
-  if (bottomLogout) bottomLogout.addEventListener("click", async () => {
-    bottomLogout.disabled = true;
-    try {
-      if (typeof window.logout === "function") await window.logout();
-      else if (window.supabaseClient?.auth?.signOut) await window.supabaseClient.auth.signOut();
-      else if (typeof supabaseClient !== "undefined" && supabaseClient?.auth?.signOut) await supabaseClient.auth.signOut();
-    } catch (error) {
-      console.error("Typing Practice logout failed", error);
-    }
-    window.location.replace("/login.html");
-  });
   document.querySelectorAll("[data-lang-toggle]").forEach((b) => b.addEventListener("click", toggleLanguage));
   $("storageNotice").hidden = storage.available;
 
