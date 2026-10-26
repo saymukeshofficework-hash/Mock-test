@@ -54,7 +54,7 @@
     const idSource = document.querySelector("[data-student-id], #studentId, #studentID, .student-id, .student-id-value");
     if (idSource && label) {
       const value = idSource.getAttribute("data-student-id") || idSource.textContent.trim();
-      if (value) label.textContent = "छात्र ID: " + value.replace(/^छात्र\\s*ID\\s*:?\\s*/i, "");
+      if (value) label.textContent = "छात्र ID: " + value.replace(/^छात्र\s*ID\s*:?\s*/i, "");
     }
 
     if (label && typeof window.getSession === "function" && typeof window.getProfile === "function") {
@@ -86,12 +86,12 @@
   }
 
   function installMockBottomNav() {
-    const path = window.location.pathname.replace(/\\/+$/, "") || "/";
+    const path = window.location.pathname.replace(/\/+$/, "") || "/";
     const isMockTestPage =
-      /(?:^|\\/)exam-test\\.html$/i.test(path) ||
-      /(?:^|\\/)tet-mock-test-\\d+\\.html$/i.test(path) ||
-      /\\/mock-tests\\/[^/]+\\/test\\.html$/i.test(path) ||
-      /\\/cpct\\/typing\\.html$/i.test(path) ||
+      /(?:^|\/)exam-test\.html$/i.test(path) ||
+      /(?:^|\/)tet-mock-test-\d+\.html$/i.test(path) ||
+      /\/mock-tests\/[^/]+\/test\.html$/i.test(path) ||
+      /\/cpct\/typing\.html$/i.test(path) ||
       path === "/cpct" || path === "/tet" || path === "/mp-cpct-mock-test";
     if (!isMockTestPage || document.getElementById("tthMockBottomNav")) return;
 
