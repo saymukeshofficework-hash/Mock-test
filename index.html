@@ -16,7 +16,6 @@
 <link rel="icon" href="data:,">
 <link rel="stylesheet" href="assets/site.css?v=2">
 <link rel="stylesheet" href="assets/exam-layout.css?v=2">
-<script src="js/i18n.js?v=7"></script>
 <style>
 /* Colorful all-exams catalogue on the home page */
 .all-exams-heading{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:18px}
@@ -197,23 +196,22 @@ main{min-height:calc(100svh - 70px)}
       <a href="about.html" data-i18n="nav_about">About</a>
       <a href="contact.html" data-i18n="nav_contact">Contact</a>
     </nav>
-    <button class="lang-toggle" id="langToggle" type="button" aria-label="Switch homepage language" onclick="window.__toggleTTHHomeLanguage()">EN</button>
     <div class="account-menu top-account-menu" id="accountMenu" hidden>
       <button type="button" class="account-menu-toggle" id="accountMenuToggle" aria-expanded="false" aria-controls="accountMenuDropdown">MY ACCOUNT <span aria-hidden="true">▾</span></button>
       <div class="account-menu-dropdown" id="accountMenuDropdown" hidden>
-        <a href="dashboard.html">डैशबोर्ड</a>
-        <div class="account-student-id">छात्र की ID: <strong id="accountStudentId">लोड हो रही है…</strong></div>
-        <button type="button" id="homeLogoutBtn">लॉगआउट</button>
+        <a href="dashboard.html">Dashboard</a>
+        <div class="account-student-id">Student ID: <strong id="accountStudentId">Loading…</strong></div>
+        <button type="button" id="homeLogoutBtn">Logout</button>
       </div>
     </div>
-    <a href="login.html" class="account-menu top-account-menu account-menu-toggle header-login-link" id="homeHeaderLoginLink" hidden data-i18n="nav_login">लॉगिन</a>
+    <a href="login.html" class="account-menu top-account-menu account-menu-toggle header-login-link" id="homeHeaderLoginLink" hidden >Student Login</a>
   </header>
 
   <main>
     <div class="hero">
-      <span class="eyebrow">सभी परीक्षाओं के मॉक टेस्ट</span>
-      <h1>अपनी परीक्षा की तैयारी यहाँ से शुरू करें</h1>
-      <p class="tagline">तैयारी करें। अभ्यास करें। सफलता पाएँ।</p>
+      <span class="eyebrow">Mock Tests for All Exams</span>
+      <h1>Start Preparing for Your Exam Here</h1>
+      <p class="tagline">Prepare. Practice. Succeed.</p>
       <div class="hero-actions">
         <a class="btn btn-primary" href="/examhelp/courses/" data-i18n="hero_cta_free">Explore All Tests</a>
 
@@ -223,10 +221,10 @@ main{min-height:calc(100svh - 70px)}
     <div class="container">
 
       <section class="section" id="learningCategories" style="padding-top:8px;">
-        <div class="home-quick-start home-folder-grid" aria-label="तैयारी के मुख्य फ़ोल्डर">
-          <a class="home-quick-link home-primary-folder" href="dashboard.html" style="--folder-color:#0f766e;--folder-soft:#ddf7f2;"><span class="home-quick-icon" aria-hidden="true" style="background:#ddf7f2;color:#0f766e">📝</span><span><strong>मेरे टेस्ट</strong><small>डैशबोर्ड और अपनी तैयारी</small></span><span class="quick-arrow" aria-hidden="true">›</span></a>
-          <a class="home-quick-link home-primary-folder" href="/examhelp/courses/" style="--folder-color:#6d28d9;--folder-soft:#ede9fe;"><span class="home-quick-icon" aria-hidden="true" style="background:#ede9fe;color:#6d28d9">🎓</span><span><strong>कोर्स</strong><small>सभी परीक्षाएँ और टेस्ट</small></span><span class="quick-arrow" aria-hidden="true">›</span></a>
-          <a class="home-quick-link home-primary-folder" href="/bridge-course/" style="--folder-color:#be185d;--folder-soft:#fce7f3;"><span class="home-quick-icon" aria-hidden="true" style="background:#fce7f3;color:#be185d">📖</span><span><strong>ई-बुक / PDF नोट्स</strong><small>डिजिटल अध्ययन सामग्री</small></span><span class="quick-arrow" aria-hidden="true">›</span></a>
+        <div class="home-quick-start home-folder-grid" aria-label="Main Preparation Categories">
+          <a class="home-quick-link home-primary-folder" href="dashboard.html" style="--folder-color:#0f766e;--folder-soft:#ddf7f2;"><span class="home-quick-icon" aria-hidden="true" style="background:#ddf7f2;color:#0f766e">📝</span><span><strong>My Tests</strong><small>Dashboard and Your Preparation</small></span><span class="quick-arrow" aria-hidden="true">›</span></a>
+          <a class="home-quick-link home-primary-folder" href="/examhelp/courses/" style="--folder-color:#6d28d9;--folder-soft:#ede9fe;"><span class="home-quick-icon" aria-hidden="true" style="background:#ede9fe;color:#6d28d9">🎓</span><span><strong>Courses</strong><small>All Exams and Tests</small></span><span class="quick-arrow" aria-hidden="true">›</span></a>
+          <a class="home-quick-link home-primary-folder" href="/bridge-course/" style="--folder-color:#be185d;--folder-soft:#fce7f3;"><span class="home-quick-icon" aria-hidden="true" style="background:#fce7f3;color:#be185d">📖</span><span><strong>E-books / PDF Notes</strong><small>Digital Study Materials</small></span><span class="quick-arrow" aria-hidden="true">›</span></a>
         </div>
       </section>
 
@@ -289,7 +287,7 @@ main{min-height:calc(100svh - 70px)}
         }
       } catch (_) {}
       if (!studentId && session.user?.email) studentId = session.user.email.split('@')[0];
-      idEl.textContent = studentId || 'उपलब्ध नहीं';
+      idEl.textContent = studentId || 'Not available';
     } else {
       if (navLoginLink) navLoginLink.hidden = false;
       accountMenu.hidden = true;
@@ -313,7 +311,7 @@ main{min-height:calc(100svh - 70px)}
       card.hidden = !show;
       if (show) visible++;
     });
-    examCount.textContent = visible + ' विकल्प';
+    examCount.textContent = visible + ' options';
     examNoResults.hidden = visible !== 0;
   }
   document.querySelectorAll('[data-exam-filter]').forEach(button => {
@@ -326,152 +324,9 @@ main{min-height:calc(100svh - 70px)}
   examSearch.addEventListener('input', filterExamCards);
   filterExamCards();
 
-  // Complete homepage localization: translate visible text nodes and UI attributes
-  // without replacing card markup, links, icons, or interactive controls.
-  const HOME_TRANSLATIONS = [
-    ["MY ACCOUNT","मेरा खाता"],["डैशबोर्ड","Dashboard"],["छात्र की ID:","Student ID:"],["लोड हो रही है…","Loading…"],["लॉगआउट","Logout"],["लॉगिन","Login"],
-    ["सभी परीक्षाओं के मॉक टेस्ट","Mock Tests for All Exams"],["अपनी परीक्षा की तैयारी यहाँ से शुरू करें","Start Preparing for Your Exam Here"],["तैयारी करें। अभ्यास करें। सफलता पाएँ।","Prepare. Practice. Succeed."],
-    ["MP पुलिस, हाईकोर्ट, RRB NTPC और अन्य उपलब्ध परीक्षाओं के मॉक टेस्ट, नोट्स और प्रैक्टिस विकल्प एक ही जगह चुनें।","Choose mock tests, notes, and practice options for MP Police, High Court, RRB NTPC, and other available exams in one place."],
-    ["साफ़ और व्यवस्थित होमपेज","A Clear, Organized Homepage"],["अपनी ज़रूरत का फ़ोल्डर चुनें","Choose a Folder"],["हर विकल्प एक अलग श्रेणी में ले जाएगा। सभी परीक्षाओं की सूची नीचे एक ही जगह है, इसलिए वही टेस्ट बार-बार नहीं दिखेंगे।","Each option opens a separate category. All exams are listed below in one place, so the same tests won't be repeated."],
-    ["तैयारी के मुख्य फ़ोल्डर","Main Preparation Categories"],["सभी कोर्स","All Courses"],["मेरे टेस्ट","My Tests"],["डैशबोर्ड और अपनी तैयारी","Dashboard and your preparation"],["कोर्स","Courses"],["सभी परीक्षाएँ और टेस्ट","All Exams and Tests"],["ई-बुक / PDF नोट्स","E-books / PDF Notes"],["उपलब्ध डिजिटल अध्ययन सामग्री","Available digital study material"],["फ्री प्रैक्टिस","Free Practice"],["डेली करेंट अफेयर्स क्विज़","Daily Current Affairs Quiz"],
-    ["आपकी तैयारी, एक जगह","Your Preparation, All in One Place"],["सभी परीक्षाएँ और टेस्ट","All Exams and Tests"],["अपनी परीक्षा या कोर्स चुनें। सभी उपलब्ध मॉक टेस्ट, करेंट अफेयर्स, नोट्स और प्रैक्टिस विकल्प यहाँ मिलेंगे।","Choose an exam or course. Find all available mock tests, current affairs, notes, and practice options here."],["पूरा कैटलॉग","Full Catalogue"],
-    ["परीक्षा या कोर्स खोजें…","Search exams or courses…"],["परीक्षा श्रेणी चुनें","Choose exam category"],["सभी","All"],["मॉक टेस्ट","Mock Tests"],["नोट्स / PDF","Notes / PDF"],["फ्री प्रैक्टिस","Free Practice"],["विकल्प","options"],["इस खोज में कोई विकल्प नहीं मिला। दूसरा नाम या श्रेणी चुनें।","No results found. Try another name or category."],
-    ["सहायक ग्रेड-3 2026","Assistant Grade-3 2026"],["25 टेस्ट","25 tests"],["टेस्ट और नोट्स देखें","View tests and notes"],["दैनिक करेंट अफेयर्स","Daily Current Affairs"],["MP, भारत और विश्व की खबरें · क्विज़ व PDF","MP, India and world news · Quiz and PDF"],["अभी पढ़ें","Read now"],["आरक्षक (GD) 2026","Constable (GD) 2026"],["टेस्ट देखें","View tests"],["सूबेदार / ASI 2026","Subedar / ASI 2026"],["25 टेस्ट · हिंदी/English","25 tests · Hindi/English"],
-    ["ग्रेजुएट लेवल (CEN 06/2025)","Graduate Level (CEN 06/2025)"],["25 टेस्ट","25 tests"],["अंडरग्रेजुएट 10+2 (CEN 07/2025)","Undergraduate 10+2 (CEN 07/2025)"],["25 पूरे पेपर / 25 Full Papers","25 Full Papers"],["MCQ + अंग्रेज़ी व हिंदी टाइपिंग","MCQ + English and Hindi typing · Paper 1 free"],["पेपर देखें / View papers","View papers"],["प्राथमिक व माध्यमिक शिक्षक / Primary & Secondary Teacher","Primary & Secondary Teacher"],["विषयवार टेस्ट सीरीज़ · हर विषय में टेस्ट","Subject-wise test series · Tests in each subject"],["टेस्ट देखें / View tests","View tests"],["ब्रिज कोर्स नोट्स","Bridge Course Notes"],["डिजिटल नोट्स · सभी विषय","Digital notes · All subjects"],["नोट्स देखें","View notes"],["टाइपिंग प्रैक्टिस","Typing Practice"],["हिंदी और English · स्पीड व एक्यूरेसी टेस्ट","Hindi and English · Speed and accuracy tests"],["अभ्यास करें","Practice now"],
-    ["होम","Home"],["सभी टेस्ट","All Tests"],["टाइपिंग प्रैक्टिस","Typing Practice"],["हमारे बारे में","About Us"],["संपर्क करें","Contact Us"],["मेरे कोर्स","My Courses"],["परीक्षाएँ","Exams"],["नोट्स","Notes"],["परीक्षा कैलेंडर","Exam Calendar"],["छात्र लॉगिन","Student Login"],
-    ["TET टेस्ट हब","TET Test Hub"],["अंग्रेज़ी","English"],["हिंदी","Hindi"],["मेरे टेस्ट","My Tests"],["PDF नोट्स","PDF Notes"],["लॉगआउट","Logout"],["डैशबोर्ड","Dashboard"],["मेरा अकाउंट","My Account"],["मॉक टेस्ट","Mock Tests"],
-    ["उपलब्ध नहीं","Not available"],["टेस्ट","Tests"],["हिंदी और English","Hindi and English"]
-  ];
-  const HOME_TRANSLATION_MAP = new Map();
-  HOME_TRANSLATIONS.forEach(([hi,en]) => { HOME_TRANSLATION_MAP.set(hi,en); HOME_TRANSLATION_MAP.set(en,hi); });
-  function translateHomepage(lang) {
-    // One translation path only: always use captured original text to keep switching reversible.
-    translateHomepageStable(lang);
-  }
-
-  // Keep homepage language switching complete and reversible, including text that
-  // is inserted after load (account menu, filters, result count and dynamic cards).
-  [
-    ["सभी परीक्षाओं के मॉक टेस्ट","Mock Tests for All Exams"],
-    ["अपनी परीक्षा की तैयारी यहाँ से शुरू करें","Start Preparing for Your Exam Here"],
-    ["तैयारी करें। अभ्यास करें। सफलता पाएँ।","Prepare. Practice. Succeed."],
-    ["MP पुलिस, हाईकोर्ट, RRB NTPC और अन्य उपलब्ध परीक्षाओं के मॉक टेस्ट, नोट्स और प्रैक्टिस विकल्प एक ही जगह चुनें।","Choose mock tests, notes, and practice options for MP Police, High Court, RRB NTPC, and other available exams in one place."],
-    ["साफ़ और व्यवस्थित होमपेज","A Clear, Organized Homepage"],
-    ["अपनी ज़रूरत का फ़ोल्डर चुनें","Choose a Folder"],
-    ["हर विकल्प एक अलग श्रेणी में ले जाएगा। सभी परीक्षाओं की सूची नीचे एक ही जगह है, इसलिए वही टेस्ट बार-बार नहीं दिखेंगे।","Each option opens a separate category. All exams are listed below in one place, so the same tests won't be repeated."],
-    ["तैयारी के मुख्य फ़ोल्डर","Main Preparation Categories"],
-    ["सभी कोर्स","All Courses"],
-    ["मेरे टेस्ट","My Tests"],["डैशबोर्ड और अपनी तैयारी","Dashboard and your preparation"],
-    ["ई-बुक / PDF नोट्स","E-books / PDF Notes"],["उपलब्ध डिजिटल अध्ययन सामग्री","Available digital study material"],
-    ["फ्री प्रैक्टिस","Free Practice"],["डेली करेंट अफेयर्स क्विज़","Daily Current Affairs Quiz"],
-    ["आपकी तैयारी, एक जगह","Your Preparation, All in One Place"],["सभी परीक्षाएँ और टेस्ट","All Exams and Tests"],
-    ["अपनी परीक्षा या कोर्स चुनें। सभी उपलब्ध मॉक टेस्ट, करेंट अफेयर्स, नोट्स और प्रैक्टिस विकल्प यहाँ मिलेंगे।","Choose an exam or course. Find all available mock tests, current affairs, notes, and practice options here."],
-    ["पूरा कैटलॉग","Full Catalogue"],["परीक्षा या कोर्स खोजें…","Search exams or courses…"],["परीक्षा श्रेणी चुनें","Choose exam category"],
-    ["सभी","All"],["मॉक टेस्ट","Mock Tests"],["नोट्स / PDF","Notes / PDF"],["फ्री प्रैक्टिस","Free Practice"],
-    ["इस खोज में कोई विकल्प नहीं मिला। दूसरा नाम या श्रेणी चुनें।","No results found. Try another name or category."],
-    ["सहायक ग्रेड-3 2026","Assistant Grade-3 2026"],["25 टेस्ट","25 tests"],
-    ["टेस्ट और नोट्स देखें","View tests and notes"],["दैनिक करेंट अफेयर्स","Daily Current Affairs"],["MP, भारत और विश्व की खबरें · क्विज़ व PDF","MP, India and world news · Quiz and PDF"],
-    ["अभी पढ़ें","Read now"],["आरक्षक (GD) 2026","Constable (GD) 2026"],["टेस्ट देखें","View tests"],
-    ["सूबेदार / ASI 2026","Subedar / ASI 2026"],["25 टेस्ट · हिंदी/English","25 tests · Hindi/English"],
-    ["ग्रेजुएट लेवल (CEN 06/2025)","Graduate Level (CEN 06/2025)"],["25 टेस्ट","25 tests"],
-    ["अंडरग्रेजुएट 10+2 (CEN 07/2025)","Undergraduate 10+2 (CEN 07/2025)"],
-    ["25 पूरे पेपर / 25 Full Papers","25 Full Papers"],["MCQ + अंग्रेज़ी व हिंदी टाइपिंग","MCQ + English and Hindi typing · Paper 1 free"],
-    ["पेपर देखें / View papers","View papers"],["प्राथमिक व माध्यमिक शिक्षक / Primary & Secondary Teacher","Primary & Secondary Teacher"],
-    ["विषयवार टेस्ट सीरीज़ · हर विषय में टेस्ट","Subject-wise test series · Tests in each subject"],
-    ["टेस्ट देखें / View tests","View tests"],["ब्रिज कोर्स नोट्स","Bridge Course Notes"],["डिजिटल नोट्स · सभी विषय","Digital notes · All subjects"],
-    ["नोट्स देखें","View notes"],["हिंदी और English · स्पीड व एक्यूरेसी टेस्ट","Hindi and English · Speed and accuracy tests"],
-    ["अभ्यास करें","Practice now"],["होम","Home"],["मेरे कोर्स","My Courses"],["परीक्षाएँ","Exams"],["नोट्स","Notes"],["परीक्षा कैलेंडर","Exam Calendar"],["संपर्क करें","Contact Us"],
-    ["छात्र लॉगिन","Student Login"],["हमारे बारे में","About Us"],["उपलब्ध नहीं","Not available"],["टेस्ट","Tests"],
-    ["डैशबोर्ड","Dashboard"],["छात्र की ID:","Student ID:"],["लॉगआउट","Logout"],["लॉगिन","Login"],["MY ACCOUNT","MY ACCOUNT"]
-  ].forEach(([hi, en]) => { HOME_TRANSLATION_MAP.set(hi, en); HOME_TRANSLATION_MAP.set(en, hi); });
-
-  // Save each node's original Hindi/English value so switching never depends on
-  // whichever language happened to be rendered previously.
-  const homeOriginalText = new WeakMap();
-  const homeTranslatableAttrs = ["placeholder", "aria-label", "title", "alt"];
-  function translateHomepageStable(lang) {
-    const toEnglish = lang === "en";
-    const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
-    const nodes = [];
-    while (walker.nextNode()) nodes.push(walker.currentNode);
-    nodes.forEach(node => {
-      // Elements with data-i18n are translated by the shared dictionary; keep the legacy
-      // homepage text walker from overwriting them and breaking the return to Hindi.
-      if (node.parentElement && node.parentElement.closest("[data-i18n], [data-i18n-html]")) return;
-      if (!homeOriginalText.has(node)) {
-        const initial = node.nodeValue;
-        const initialTrimmed = initial.trim();
-        const initialTranslation = HOME_TRANSLATION_MAP.get(initialTrimmed);
-        // Store a stable Hindi source when a dynamic node is first inserted while
-        // English is active. Otherwise the first English render can become the
-        // "original" and prevent a reliable switch back to Hindi.
-        const initialIsHindi = /[\u0900-\u097F]/.test(initialTrimmed);
-        const canonical = !initialIsHindi && initialTranslation && /[\u0900-\u097F]/.test(initialTranslation)
-          ? initial.replace(initialTrimmed, initialTranslation)
-          : initial;
-        homeOriginalText.set(node, canonical);
-      }
-      const original = homeOriginalText.get(node);
-      const trimmed = original.trim();
-      if (!trimmed) return;
-      const isHindiText = /[\u0900-\u097F]/.test(trimmed);
-      const translated = HOME_TRANSLATION_MAP.get(trimmed);
-      if (translated && ((toEnglish && isHindiText) || (!toEnglish && !isHindiText))) {
-        node.nodeValue = original.replace(trimmed, translated);
-      } else {
-        node.nodeValue = original;
-      }
-    });
-    const search = document.getElementById("examSearch");
-    if (search) search.placeholder = toEnglish ? "Search exams or courses…" : "परीक्षा या कोर्स खोजें…";
-    const filterGroup = document.querySelector(".exam-filters");
-    if (filterGroup) filterGroup.setAttribute("aria-label", toEnglish ? "Choose exam category" : "परीक्षा श्रेणी चुनें");
-    const folderGroup = document.querySelector(".home-folder-grid");
-    if (folderGroup) folderGroup.setAttribute("aria-label", toEnglish ? "Main preparation categories" : "तैयारी के मुख्य फ़ोल्डर");
-    const count = document.getElementById("examResultCount");
-    if (count) {
-      const visible = document.querySelectorAll("#allExamGrid [data-exam-cats]:not([hidden])").length;
-      count.textContent = visible + (toEnglish ? " options" : " विकल्प");
-    }
-    document.title = toEnglish ? "TET Test Hub – Mock Tests and Exam Practice" : "TET टेस्ट हब – मॉक टेस्ट और परीक्षा अभ्यास";
-    document.documentElement.lang = lang;
-    const btn = document.getElementById("langToggle");
-    if (btn) btn.textContent = toEnglish ? "हिं" : "EN";
-  }
-  
-  // Use one language-change path so the shared dictionary and homepage text
-  // cannot race each other or overwrite the language button label.
-  function refreshHomepageLanguage() {
-    const lang = getLang() === "en" ? "en" : "hi";
-    translateHomepageStable(lang);
-    const button = document.getElementById("langToggle");
-    if (button) {
-      button.textContent = lang === "hi" ? "English" : "हिंदी";
-      button.setAttribute("aria-label", lang === "hi" ? "Switch homepage to English" : "Switch homepage to Hindi");
-      button.setAttribute("aria-pressed", String(lang === "en"));
-    }
-  }
-
-  I18N_ONCHANGE = refreshHomepageLanguage;
-  const homepageLanguageButton = document.getElementById("langToggle");
-  if (homepageLanguageButton) {
-    homepageLanguageButton.removeAttribute("onclick");
-    homepageLanguageButton.addEventListener("click", () => {
-      setLang(getLang() === "hi" ? "en" : "hi");
-    });
-  }
-
-  applyI18n();
-  refreshHomepageLanguage();
-
-  // Translate newly inserted account/menu/card text without observing our own text writes.
-  const homeLangObserver = new MutationObserver(() => {
-    homeLangObserver.disconnect();
-    refreshHomepageLanguage();
-    homeLangObserver.takeRecords();
-    homeLangObserver.observe(document.body, { childList: true, subtree: true });
-  });
-  homeLangObserver.observe(document.body, { childList: true, subtree: true });
+  // This homepage is intentionally English-only; no language toggle or runtime translation.
+  document.title = "TET Test Hub – Mock Tests and Exam Practice";
+  document.documentElement.lang = "en";
 </script>
 </body>
 </html>
