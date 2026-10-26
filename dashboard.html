@@ -8,7 +8,12 @@
 <meta name="robots" content="noindex">
 <link rel="icon" href="data:,">
 <link rel="stylesheet" href="assets/site.css?v=2">
-<script src="js/i18n.js?v=3"></script>
+<script>
+  // My Tests / My Courses is permanently English-only, regardless of the saved site preference.
+  try { localStorage.setItem("tetLang", "en"); localStorage.setItem("testhub_lang_pref", "en"); } catch (e) {}
+  document.documentElement.lang = "en";
+  </script>
+  <script src="js/i18n.js?v=3"></script>
 <style>
 /* Shared colourful exam/course catalogue shown after student login */
 .course-card[data-own]:not(.owned){display:none}
@@ -31,6 +36,8 @@
 @media(max-width:340px){.course-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:4px}.course-card{padding:5px 4px;min-height:104px}.course-card strong{font-size:9px}.course-card small,.course-btn{font-size:8px}}
 header.site-header nav.compact-test-nav a{font-size:12px;padding:5px 9px;border-radius:16px}
 @media(max-width:520px){header.site-header nav.compact-test-nav{gap:3px}header.site-header nav.compact-test-nav a{font-size:11px;padding:5px 7px}}
+/* My Tests / My Courses must stay English-only; hide any legacy or injected language switch. */
+#langToggle, .lang-toggle, #tthLanguageToggle, .tth-language-toggle, #langBtn, #langBtnName, #langBtnResult, #langSel, #languageSwitch, [data-language-toggle] { display:none !important; visibility:hidden !important; pointer-events:none !important; }
 </style>
 </head>
 <body>
@@ -72,8 +79,8 @@ header.site-header nav.compact-test-nav a{font-size:12px;padding:5px 9px;border-
       <section class="course-section" aria-label="Courses and test series">
         <div class="course-heading">
           <div>
-            <h2>मेरे खरीदे कोर्स / My Courses</h2>
-            <p>आपके खरीदे हुए courses यहाँ से सीधे खोलें। / Open your purchased courses here.</p>
+            <h2>My Courses</h2>
+            <p>Open your purchased courses here.</p>
           </div>
         </div>
         <div class="course-grid">
@@ -86,7 +93,7 @@ header.site-header nav.compact-test-nav a{font-size:12px;padding:5px 9px;border-
           <a class="course-card" data-own="bridge" href="/bridge-course/"><span class="course-icon">B.Ed</span><strong>NIOS B.Ed Bridge Course</strong><small>Bridge Course learning resources</small><span class="course-btn">Open Course →</span></a>
           <a class="course-card" data-own="none" href="typing-practice/"><span class="course-icon">⌨</span><strong>Typing Practice</strong><small>Hindi and English typing practice</small><span class="course-btn">Practice Now →</span></a>
         </div>
-        <p id="noCourses" style="display:none;margin:0;"><span data-i18n="dash_no_courses">You have not bought any course yet.</span> <a href="/examhelp/">कोर्स देखें / View courses →</a></p>
+        <p id="noCourses" style="display:none;margin:0;"><span data-i18n="dash_no_courses">You have not bought any course yet.</span> <a href="/examhelp/">View courses →</a></p>
       </section>
 
     </div>
