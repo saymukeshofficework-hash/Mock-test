@@ -526,6 +526,7 @@
             while((child=w.nextNode()))tthTranslateNode(child,tthLang());
           }
         });
+        });
         keepBottomNavigationEnglish();
       });
       tthObserver.observe(document.body,{subtree:true,childList:true});
