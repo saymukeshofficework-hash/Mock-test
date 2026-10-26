@@ -12,18 +12,63 @@
 const fs = require("fs");
 
 const DEV = /[ऀ-ॿ]/;
-const GLOSS = /\s*\(([A-Za-z][A-Za-z0-9 .,'’&\/+-]*)\)/g;
+const GLOSS = /\s*\(([A-Za-z0-9][A-Za-z0-9 .,'’&\/+-]*)\)/g;
+// Other shapes of the same hint, all in Hindi text:
+//   "Sculpting / नक्काशी", "नक्काशी / Sculpting"     (English alternative after/before a slash)
+//   "(Pitch, आवृत्ति पर निर्भर)", "(एम्पीयर - Ampere)"  (English part inside a Hindi bracket)
+//   "Total Internal Reflection (पूर्ण आंतरिक परावर्तन)" (English term with the Hindi in brackets)
+const PH = "[A-Za-z][A-Za-z0-9 .'’-]*[A-Za-z0-9]";
+const SHAPES = [
+  [new RegExp(`(?<![A-Za-z0-9.'’ -])(${PH})\\s+\\/\\s+(?=[^/=]*[ऀ-ॿ])`, "g"), (m, ph) => [ph, ""]],
+  [new RegExp(`([ऀ-ॿ][^/()=]*?)\\s+\\/\\s+(${PH})(?=\\s*[)/]|\\s*$)`, "g"), (m, pre, ph) => [ph, pre]],
+  [new RegExp(`\\(\\s*(${PH})\\s*[,–—:-]\\s+(?=[^)A-Za-z]*[ऀ-ॿ][^)A-Za-z]*\\))`, "g"), (m, ph) => [ph, "("]],
+  [new RegExp(`\\(([^()A-Za-z]*[ऀ-ॿ][^()A-Za-z]*?)\\s+[-–—,]\\s*(${PH})\\)`, "g"), (m, hi, ph) => [ph, "(" + hi + ")"]],
+  [new RegExp(`(^|\\/\\s+)(${PH})\\s*\\(([^()A-Za-z]*[ऀ-ॿ][^()A-Za-z]*)\\)(?=\\s*(\\/|$))`, "g"), (m, pre, ph, hi) => [ph, pre + hi]],
+];
+// SHAPES need a real English word ("Pitch"), not an acronym like IaaS or BNS.
+// A number with a unit ("1 atm", "20 kHz") stays.
+const isWord = (ph) => /\b[A-Za-z][a-z]{2,}\b/.test(ph) && isGloss(ph) && !/^\d[\d.,]*\s*[A-Za-z]{1,4}$/.test(ph.trim());
+// "X / X" left over after a removal → "X"
+const dedupeSlash = (s) => s.split(" / ").filter((v, i, a) => a.findIndex((w) => w.trim() === v.trim()) === i).join(" / ");
 const isGloss = (inner) => /(?=[A-Za-z]*[a-z])[A-Za-z]{3,}/.test(inner) && !/\+|\b(Ctrl|Shift|Alt|Win|Esc)\b/.test(inner);
 // A removal must not leave empty quotes/brackets or an empty string.
 const broken = (s) => !DEV.test(s) || /(['"‘“])\s*\1|['‘][\s]*['’]|\(\s*\)/.test(s);
 const ENG_SECTION = /english|अंग्रेज/i;
 
-function clean(str) {
+// "English text (…) / हिंदी पाठ": keep only the Hindi alternatives of a slash list.
+function dropEnglishAlternatives(str, hits) {
+  // split on " / " outside brackets only
+  const segs = [];
+  let depth = 0, cur = "";
+  for (let i = 0; i < str.length; i++) {
+    const ch = str[i];
+    if (ch === "(" || ch === "[") depth++;
+    if (ch === ")" || ch === "]") depth = Math.max(0, depth - 1);
+    if (!depth && str.startsWith(" / ", i)) { segs.push(cur); cur = ""; i += 2; continue; }
+    cur += ch;
+  }
+  segs.push(cur);
+  if (segs.length < 2) return str;
+  const lat = (x) => (x.match(/[A-Za-z]/g) || []).length, dev = (x) => (x.match(/[ऀ-ॿ]/g) || []).length;
+  if (!segs.some((x) => dev(x) && !/[A-Za-z]{3,}/.test(x))) return str;
+  const keep = segs.filter((x) => !(lat(x) > dev(x) && /\b[A-Za-z][a-z]{2,}\b/.test(x)));
+  if (keep.length === segs.length || !keep.length) return str;
+  segs.filter((x) => !keep.includes(x)).forEach((x) => hits.push(x.trim()));
+  return keep.join(" / ");
+}
+
+function clean(str, isOption) {
   if (typeof str !== "string" || !DEV.test(str)) return { out: str, hits: [] };
   const hits = [];
-  let out = str, prev;
+  // Slash lists are dropped only in options; in sentences a slash can join English prose.
+  let out = isOption ? dropEnglishAlternatives(str, hits) : str, prev;
   // Repeat for nested glosses like "(Demography of MP (Census 2011))".
-  do { prev = out; out = out.replace(GLOSS, (m, inner) => (isGloss(inner) ? (hits.push(inner), "") : m)); } while (out !== prev);
+  do {
+    prev = out;
+    out = out.replace(GLOSS, (m, inner) => (isWord(inner) ? (hits.push(inner), "") : m));
+    for (const [re, fn] of SHAPES) out = out.replace(re, (...a) => { const [ph, keep] = fn(...a); return isWord(ph) ? (hits.push(ph), keep) : a[0]; });
+  } while (out !== prev);
+  if (hits.length) out = dedupeSlash(out);
   if (hits.length && broken(out) && !broken(str)) return { out: str, hits: [], skipped: true };
   return { out, hits };
 }
@@ -91,7 +136,7 @@ function processQuestion(item) {
   const found = [];
   const fix = (obj, key, where) => {
     if (!obj || typeof obj[key] !== "string") return;
-    const r = clean(obj[key]);
+    const r = clean(obj[key], Array.isArray(obj));
     if (r.hits.length) { found.push({ where, hits: r.hits }); obj[key] = r.out; }
   };
   let opts;
