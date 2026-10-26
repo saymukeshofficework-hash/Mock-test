@@ -72,7 +72,7 @@ export function DesktopNav({ lang }: { lang: Lang }) {
   }, [open]);
 
   const moreActive = moreNav.some((i) => isActive(pathname, i.href));
-  if (/\/(?:courses|exams)\/?$/.test(pathname)) return null;
+  if (/(?:^|\/)(?:courses|exams|all-test|all-tests|tests)(?:\.html)?\/?$/.test(pathname)) return null;
 
   return (
     <nav aria-label="Primary" className="hidden border-t border-ink-100 xl:block">
