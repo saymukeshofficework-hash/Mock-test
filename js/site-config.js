@@ -131,11 +131,11 @@ FREE_TESTS.push("cpct-exam-01", "cpct-typing-01");
 // RRB NTPC (/rrb-ntpc/): test 01 of each series is free; tests open in exam-test.html.
 for (const l of ["g", "u"]) for (const s of ["full", "ga", "maths", "reason"]) FREE_TESTS.push(`rrbntpc-${l}-${s}-01`);
 
-/* Small persistent Home shortcut on exam and practice pages. */
+/* Small persistent Home shortcut on exam and practice pages; never show it on login. */
 (function () {
   if (document.getElementById("tth-floating-home")) return;
   const path = window.location.pathname.replace(/\/+$/, "") || "/";
-  if (path === "/" || path === "/index.html") return;
+  if (path === "/" || path === "/index.html" || path === "/login.html") return;
   const style = document.createElement("style");
   style.textContent = "#tth-floating-home{position:fixed;right:14px;bottom:86px;z-index:9999;width:42px;height:42px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:#0f766e;color:#fff;border:2px solid rgba(255,255,255,.9);box-shadow:0 3px 12px rgba(0,0,0,.25);text-decoration:none}#tth-floating-home svg{width:21px;height:21px;display:block}#tth-floating-home:focus-visible{outline:3px solid #e8a33d;outline-offset:3px}@media(max-width:640px){#tth-floating-home{right:12px;bottom:78px;width:40px;height:40px}}";
   document.head.appendChild(style);
