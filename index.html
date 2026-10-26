@@ -326,9 +326,33 @@ main{min-height:calc(100svh - 70px)}
   examSearch.addEventListener('input', filterExamCards);
   filterExamCards();
 
-  // This homepage is intentionally English-only; no language toggle or runtime translation.
+  // Keep the public homepage English-only even if an old cached script injects a language control.
   document.title = "TET Test Hub – Mock Tests and Exam Practice";
   document.documentElement.lang = "en";
+
+  function enforceEnglishHeader() {
+    document.querySelectorAll(
+      'header .lang-toggle, header #langToggle, header .language-toggle, header [data-language-toggle], header [id*="langToggle"], header [class*="language-toggle"]'
+    ).forEach(el => el.remove());
+
+    document.querySelectorAll('header button, header a, header [role="button"]').forEach(el => {
+      const label = (el.innerText || el.textContent || "").replace(/\s+/g, " ").trim();
+      const aria = (el.getAttribute("aria-label") || "").toLowerCase();
+      if (/^(en|hi|english|हिंदी|हिन्दी)$/i.test(label) || /language|भाषा/.test(aria)) {
+        if (el.matches('[data-i18n="nav_contact"], a[href*="contact"]')) return;
+        el.remove();
+      }
+    });
+
+    const contactLink = document.querySelector('header [data-i18n="nav_contact"], header a[href*="contact"]');
+    if (contactLink) contactLink.textContent = "Contact";
+  }
+
+  enforceEnglishHeader();
+  const headerLanguageGuard = new MutationObserver(enforceEnglishHeader);
+  headerLanguageGuard.observe(document.querySelector("header") || document.body, {
+    childList: true, subtree: true, characterData: true, attributes: true
+  });
 </script>
 </body>
 </html>
