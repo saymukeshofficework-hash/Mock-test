@@ -224,6 +224,38 @@
     });
   }
 
+  function keepBottomNavigationEnglish() {
+    const norm = value => String(value || "").replace(/[\\s\\u00a0]+/g, " ").trim().toLowerCase();
+    const home = new Set(["home", "होम"]);
+    const myTest = new Set(["my test", "मेरे टेस्ट", "माई टेस्ट", "मेरे टेस्ट्स"]);
+    const contact = new Set(["contact", "संपर्क", "संपर्क करें", "contact us"]);
+    const bars = Array.from(document.querySelectorAll(
+      "#tthMockBottomNav, [data-tth-bottom-nav], nav, footer, [class*='bottom-nav'], [class*='bottom-bar'], [class*='taskbar'], [class*='mobile-nav'], [id*='bottomNav'], [id*='bottom-nav']"
+    ));
+    bars.forEach(bar => {
+      const controls = Array.from(bar.querySelectorAll("a, button"));
+      const labels = controls.map(el => norm(el.textContent));
+      if (!(labels.some(x => home.has(x)) && labels.some(x => myTest.has(x)) && labels.some(x => contact.has(x)))) return;
+      controls.forEach(el => {
+        const label = norm(el.textContent);
+        const target = home.has(label) ? "Home" :
+          myTest.has(label) ? "My Test" :
+          contact.has(label) ? "Contact" :
+          (["लॉगआउट", "logout", "लॉग आउट"].includes(label) ? "Logout" : "");
+        if (!target) return;
+        const lastSpan = el.querySelector("span:last-child");
+        if (lastSpan) lastSpan.textContent = target;
+        else {
+          const textNodes = Array.from(el.childNodes).filter(n => n.nodeType === Node.TEXT_NODE && n.nodeValue.trim());
+          if (textNodes.length) textNodes[textNodes.length - 1].nodeValue = target;
+          else el.textContent = target;
+        }
+        el.setAttribute("data-tth-no-translate", "true");
+      });
+      bar.setAttribute("data-tth-no-translate", "true");
+    });
+  }
+
   function installStyles() {
     if (document.getElementById("tth-mobile-header-style")) return;
     const style = document.createElement("style");
@@ -420,6 +452,7 @@
       });
     }
     if(typeof window.applyI18n==="function") window.applyI18n();
+    keepBottomNavigationEnglish();
     ["langToggle","tthLanguageToggle","langBtn","langBtnName","langBtnResult"].forEach(id=>{
       const btn=document.getElementById(id);
       if(btn) btn.textContent=lang==="hi"?"English":"हिंदी";
@@ -483,7 +516,8 @@
     });
     tthApplyLanguage();
     if(!tthObserver && document.body){
-      tthObserver=new MutationObserver(records=>records.forEach(rec=>{
+      tthObserver=new MutationObserver(records=>{
+        records.forEach(rec=>{
         if(rec.type==="characterData") tthTranslateNode(rec.target,tthLang());
         rec.addedNodes&&rec.addedNodes.forEach(n=>{
           if(n.nodeType===Node.TEXT_NODE)tthTranslateNode(n,tthLang());
@@ -492,7 +526,8 @@
             while((child=w.nextNode()))tthTranslateNode(child,tthLang());
           }
         });
-      }));
+        keepBottomNavigationEnglish();
+      });
       tthObserver.observe(document.body,{subtree:true,childList:true});
     }
   }
