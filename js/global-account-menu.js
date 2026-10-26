@@ -6,6 +6,8 @@
   let path = window.location.pathname;
   while (path.length > 1 && path.endsWith("/")) path = path.slice(0, -1);
   const isHomePage = path === "/" || path === "/index.html";
+  // Login page is permanently English-only; do not inject or run the shared language switch there.
+  const isLoginPage = path === "/login.html";
 
   function addTestHeader() {
     // Remove legacy floating house icons across all pages, not only exam headers.
@@ -414,7 +416,16 @@
       el.style.setProperty("display","none","important");
     });
   }
-  function run() { installStyles(); if (!isHomePage) addTestHeader(); installLanguageToggle(); }
+  function run() {
+    installStyles();
+    if (isLoginPage) {
+      document.documentElement.lang = "en";
+      document.querySelectorAll(".lang-switch, #languageSwitch, #langToggle, #tthLanguageToggle, #langBtn, #langBtnName, #langBtnResult, #langSel").forEach(el => el.remove());
+      return;
+    }
+    if (!isHomePage) addTestHeader();
+    installLanguageToggle();
+  }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", run, { once: true });
   else run();
 })();
