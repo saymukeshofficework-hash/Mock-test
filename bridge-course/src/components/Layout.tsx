@@ -21,11 +21,12 @@ export function Header() {
   return (
     <header className="sticky top-0 z-30 border-b border-paper-200/80 bg-paper-100/90 backdrop-blur">
       <div className="mx-auto flex h-14 max-w-5xl items-center justify-between px-4">
-        <Link to="/" aria-label={product.shortName} className="flex items-center gap-2 font-serif text-lg font-semibold text-ink-900">
+        <a href="/" aria-label="TET Test Hub Home" className="flex items-center gap-2 font-serif text-lg font-semibold text-ink-900">
           <span className="grid h-8 w-8 place-items-center rounded-lg bg-ink-900 text-sm font-bold text-paper-50">BC</span>
           <span className="hidden whitespace-nowrap sm:inline">{product.shortName}</span>
-        </Link>
+        </a>
         <div className="flex items-center gap-1.5">
+          <a href="/" className="whitespace-nowrap rounded-lg border border-paper-300 bg-paper-50 px-3 py-2 text-sm font-semibold text-ink-800 hover:bg-paper-200">Home</a>
           <Link to="/check-status" className="whitespace-nowrap rounded-lg px-2 py-2 text-sm font-medium text-ink-700 hover:bg-paper-200 sm:px-3">
             {t.header.alreadyPaid}
           </Link>
