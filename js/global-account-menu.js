@@ -101,9 +101,13 @@
     style.id = "tth-mock-bottom-nav-style";
     style.textContent = `
       body.tth-has-mock-bottom-nav { padding-bottom: calc(76px + env(safe-area-inset-bottom, 0px)) !important; }
-      #tthMockBottomNav { position:fixed; left:0; right:0; bottom:0; z-index:10000; display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:6px; padding:8px 10px calc(8px + env(safe-area-inset-bottom, 0px)); background:#fff; border-top:1px solid #dbe3e8; box-shadow:0 -4px 18px rgba(15,23,42,.12); }
-      #tthMockBottomNav a, #tthMockBottomNav button { min-width:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:3px; padding:4px 3px; border:0; border-radius:9px; background:transparent; color:#0f6b5f; text-decoration:none; font:700 12px/1.2 system-ui,-apple-system,"Segoe UI",sans-serif; cursor:pointer; }
-      #tthMockBottomNav .tth-nav-icon { font-size:20px; line-height:1; }
+      #tthMockBottomNav { position:fixed; left:0; right:0; bottom:0; z-index:10000; display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:6px; padding:8px 10px calc(8px + env(safe-area-inset-bottom, 0px)); background:#fff; border-top:1px solid #dbe3e8; box-shadow:0 -4px 18px rgba(15,23,42,.12); }
+      #tthMockBottomNav a, #tthMockBottomNav button { min-width:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:3px; padding:7px 3px; border:1px solid transparent; border-radius:10px; color:#fff; text-decoration:none; font:700 11px/1.2 system-ui,-apple-system,"Segoe UI",sans-serif; cursor:pointer; }
+      #tthMockBottomNav .tth-nav-icon { font-size:19px; line-height:1; }
+      #tthMockBottomNav .tth-nav-home { background:linear-gradient(135deg,#2563eb,#38bdf8); }
+      #tthMockBottomNav .tth-nav-mytest { background:linear-gradient(135deg,#7c3aed,#c084fc); }
+      #tthMockBottomNav .tth-nav-contact { background:linear-gradient(135deg,#0f9d70,#34d399); }
+      #tthMockBottomNav .tth-nav-logout { background:linear-gradient(135deg,#ea580c,#f43f5e); }
       #tthMockBottomNav a:focus-visible, #tthMockBottomNav button:focus-visible { outline:2px solid #0f766e; outline-offset:2px; }
       @media(min-width:900px) { #tthMockBottomNav { left:50%; right:auto; width:min(520px,100%); transform:translateX(-50%); border:1px solid #dbe3e8; border-bottom:0; border-radius:14px 14px 0 0; } }
     `;
@@ -111,11 +115,11 @@
     const nav = document.createElement("nav");
     nav.id = "tthMockBottomNav";
     nav.setAttribute("aria-label", "Test navigation");
-    nav.setAttribute("data-tth-no-translate", "true");
     nav.innerHTML = `
-      <a href="/index.html"><span class="tth-nav-icon" aria-hidden="true">⌂</span><span>Home</span></a>
-      <a href="/dashboard.html"><span class="tth-nav-icon" aria-hidden="true">▦</span><span>My Test</span></a>
-      <button type="button" id="tthBottomLogout"><span class="tth-nav-icon" aria-hidden="true">↪</span><span>Logout</span></button>`;
+      <a class="tth-nav-home" href="/index.html"><span class="tth-nav-icon" aria-hidden="true">⌂</span><span>Home</span></a>
+      <a class="tth-nav-mytest" href="/dashboard.html"><span class="tth-nav-icon" aria-hidden="true">▦</span><span>My Test</span></a>
+      <a class="tth-nav-contact" href="/contact.html"><span class="tth-nav-icon" aria-hidden="true">✉</span><span>Contact</span></a>
+      <button class="tth-nav-logout" type="button" id="tthBottomLogout"><span class="tth-nav-icon" aria-hidden="true">↪</span><span>Logout</span></button>`;
     document.body.appendChild(nav);
     document.body.classList.add("tth-has-mock-bottom-nav");
     const logout = nav.querySelector("#tthBottomLogout");
@@ -167,7 +171,7 @@
   // Shared language switch for exam, typing, login and account pages.
   const TTH_TEXT = {
     "TET Test Hub":"TET टेस्ट हब","Home":"होम","All Tests":"सभी टेस्ट","Login":"लॉगिन","Register":"रजिस्टर",
-    "About":"हमारे बारे में","Contact":"संपर्क करें","Welcome back":"वापसी पर स्वागत है",
+    "About":"हमारे बारे में","Contact":"संपर्क करें","My Test":"मेरे टेस्ट","Logout":"लॉगआउट","Welcome back":"वापसी पर स्वागत है",
     "Login to access your TET Test Hub dashboard.":"अपने TET टेस्ट हब डैशबोर्ड में जाने के लिए लॉगिन करें।",
     "Email ID":"ईमेल आईडी","Password":"पासवर्ड","Enter your email ID":"अपनी ईमेल आईडी दर्ज करें",
     "Show":"दिखाएँ","Hide":"छिपाएँ","LOGIN":"लॉगिन","REGISTER":"रजिस्टर",
