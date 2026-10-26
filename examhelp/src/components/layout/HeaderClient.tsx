@@ -181,7 +181,7 @@ export function MobileControls({ lang }: { lang: Lang }) {
   return (
     <div className="flex items-center gap-1 xl:hidden">
       <LoginChip className="inline-flex h-8 max-w-[118px] items-center overflow-hidden rounded-lg border border-brand-200 bg-brand-50 px-1.5 text-[10px] font-semibold text-brand-700 hover:bg-brand-100" />\n      <CurrentAffairsHeaderLanguage className="xl:hidden" />
-      <Link href="/search" aria-label={tr(dict.nav.search, lang)} className="grid h-9 w-9 place-items-center rounded-lg text-ink-700 hover:bg-ink-100">
+      <Link href="/search" aria-label={tr(dict.nav.search, lang)} className="current-affairs-search-icon grid h-9 w-9 place-items-center rounded-lg text-ink-700 hover:bg-ink-100">
         <Search className="h-5 w-5" aria-hidden="true" />
       </Link>
       {!isMockTestList && !isCurrentAffairs && <button
