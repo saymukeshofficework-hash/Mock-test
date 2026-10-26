@@ -178,6 +178,19 @@ main{min-height:calc(100svh - 70px)}
 .hero .hero-actions{display:none}
 @media(max-width:700px){.home-folder-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;padding:0 2px}.home-folder-grid .home-quick-link{min-height:112px;padding:14px 10px;gap:8px;border-radius:15px}.home-folder-grid .home-quick-icon{width:42px;height:42px;flex-basis:42px;font-size:22px}.home-folder-grid .home-quick-link strong{font-size:14px}.home-folder-grid .home-quick-link small{font-size:10px}.home-folder-grid .quick-arrow{font-size:22px}.hero{margin:8px 8px 12px;padding:20px 15px;border-radius:17px}.hero h1{font-size:clamp(23px,6vw,32px)}.hero p.tagline{font-size:14px;margin:8px 0 0}.container{padding:0 10px}}
 @media(max-width:360px){.home-folder-grid{gap:8px}.home-folder-grid .home-quick-link{padding:12px 8px}.home-folder-grid .home-quick-link strong{font-size:12px}}
+
+/* Colorful fixed bottom taskbar for the purple homepage */
+body{padding-bottom:88px!important}
+.home-bottom-taskbar{position:fixed!important;left:0;right:0;bottom:0;z-index:500;display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;padding:10px max(12px,env(safe-area-inset-right)) calc(10px + env(safe-area-inset-bottom)) max(12px,env(safe-area-inset-left));background:rgba(255,255,255,.97);border-top:1px solid #e5def5;box-shadow:0 -8px 28px #33205a20;backdrop-filter:blur(14px)}
+.home-bottom-taskbar a{display:flex;align-items:center;justify-content:center;gap:9px;min-width:0;min-height:52px;padding:10px 12px;border-radius:14px;color:#fff;text-decoration:none;font-size:14px;font-weight:900;letter-spacing:.2px;box-shadow:0 5px 12px #21143b20;transition:transform .15s ease,filter .15s ease}
+.home-bottom-taskbar a:hover{transform:translateY(-2px);filter:brightness(1.04)}
+.home-bottom-taskbar .task-home{background:linear-gradient(135deg,#2563eb,#38bdf8)}
+.home-bottom-taskbar .task-about{background:linear-gradient(135deg,#6d28d9,#a855f7)}
+.home-bottom-taskbar .task-contact{background:linear-gradient(135deg,#e11d48,#fb7185)}
+.home-bottom-taskbar .task-icon{font-size:21px;line-height:1}
+@media(max-width:480px){body{padding-bottom:82px!important}.home-bottom-taskbar{gap:7px;padding:8px 9px calc(8px + env(safe-area-inset-bottom))}.home-bottom-taskbar a{flex-direction:column;gap:3px;min-height:56px;padding:7px 3px;border-radius:12px;font-size:11px}.home-bottom-taskbar .task-icon{font-size:20px}}
+@media(prefers-reduced-motion:reduce){.home-bottom-taskbar a{transition:none}.home-bottom-taskbar a:hover{transform:none}}
+
 </style>
 <!-- Homepage is public; only protected actions require login. -->
 </head>
@@ -190,13 +203,7 @@ main{min-height:calc(100svh - 70px)}
       </span>
       TET Test Hub
     </a>
-    <nav>
-      <a href="index.html" class="active" data-i18n="nav_home">Home</a>
-      
 
-      <a href="about.html" data-i18n="nav_about">About</a>
-      <a href="contact.html" data-i18n="nav_contact">Contact</a>
-    </nav>
     <div class="account-menu top-account-menu" id="accountMenu" hidden>
       <button type="button" class="account-menu-toggle" id="accountMenuToggle" aria-expanded="false" aria-controls="accountMenuDropdown">MY ACCOUNT <span aria-hidden="true">▾</span></button>
       <div class="account-menu-dropdown" id="accountMenuDropdown" hidden>
@@ -207,6 +214,12 @@ main{min-height:calc(100svh - 70px)}
     </div>
     <a href="login.html" class="account-menu top-account-menu account-menu-toggle header-login-link" id="homeHeaderLoginLink" hidden >Student Login</a>
   </header>
+
+  <nav class="home-bottom-taskbar" aria-label="Home page navigation">
+    <a class="task-home" href="/index.html"><span class="task-icon" aria-hidden="true">⌂</span><span>Home</span></a>
+    <a class="task-about" href="/about.html"><span class="task-icon" aria-hidden="true">ℹ</span><span>About</span></a>
+    <a class="task-contact" href="/contact.html"><span class="task-icon" aria-hidden="true">✉</span><span>Contact</span></a>
+  </nav>
 
   <main>
     <div class="hero">
