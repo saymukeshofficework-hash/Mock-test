@@ -94,7 +94,8 @@
       /\/cpct\/(?:index\.html|typing\.html)$/i.test(path) ||
       /\/tet\/(?:index\.html|test\.html)$/i.test(path) ||
       /\/(?:cpct|tet)(?:-mock-test)?(?:-\d+)?\.html$/i.test(path) ||
-      path === "/cpct" || path === "/tet" || path === "/mp-cpct-mock-test";
+      path === "/cpct" || path === "/tet" || path === "/mp-cpct-mock-test" ||
+      /(?:^|\/)typing-practice(?:\/index\.html)?$/i.test(path);
     if (!isMockTestPage || document.getElementById("tthMockBottomNav")) return;
 
     const style = document.createElement("style");
