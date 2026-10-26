@@ -98,7 +98,7 @@ h1{color:#352054;margin-top:24px;font-size:clamp(24px,5vw,34px)}
   <a href="dashboard.html"><span class="nav-icon" aria-hidden="true">▤</span><span>मेरे कोर्स</span></a>
   <a href="/examhelp/exam-calendar/"><span class="nav-icon" aria-hidden="true">▦</span><span>परीक्षाएँ</span></a>
   <a href="/examhelp/courses/"><span class="nav-icon" aria-hidden="true">▧</span><span>नोट्स</span></a>
-  <a href="contact.html"><span class="nav-icon" aria-hidden="true">✉</span><span>संपर्क करें</span></a>
+  <a href="contact.html"><span class="nav-icon" aria-hidden="true">✉</span><span data-i18n="nav_contact">संपर्क करें</span></a>
 </nav>
 
 <script src="assets/vendor/supabase/supabase.js"></script>
@@ -139,5 +139,6 @@ h1{color:#352054;margin-top:24px;font-size:clamp(24px,5vw,34px)}
 (function(){const menu=document.getElementById('studentAccountMenu');if(!menu)return;const b=menu.querySelector('[data-account-logout]');if(b)b.addEventListener('click',async()=>{b.disabled=true;b.textContent='लॉगआउट हो रहा है…';await logout();window.location.href='/index.html';});})();
 </script>
 <script src="js/global-account-menu.js"></script>
+<script>if (typeof applyI18n === "function") applyI18n();</script>
 </body>
 </html>
