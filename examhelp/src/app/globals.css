@@ -279,7 +279,3 @@ body.current-affairs-page header .current-affairs-search-icon {
 }
 
 
-/* Current Affairs: use only the language toggle placed after Student ID. */
-body.current-affairs-page header .current-affairs-global-language {
-  display: none !important;
-}
