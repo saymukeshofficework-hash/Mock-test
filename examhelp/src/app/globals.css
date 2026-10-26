@@ -263,3 +263,9 @@ body.mock-test-list-page header form[role="search"],
 body.mock-test-list-page header nav {
   display: none !important;
 }
+
+/* Current Affairs page: keep the shared brand and only the student/account + language controls in the header. */
+body.current-affairs-page header form[role="search"],
+body.current-affairs-page header nav {
+  display: none !important;
+}
