@@ -447,7 +447,6 @@ main{min-height:calc(100svh - 70px)}
   I18N_ONCHANGE = refreshHomepageLanguage;
   const homepageLanguageButton = document.getElementById("langToggle");
   if (homepageLanguageButton) {
-    // Remove legacy inline handlers; the shared setLang() is the sole state setter.
     homepageLanguageButton.removeAttribute("onclick");
     homepageLanguageButton.addEventListener("click", () => {
       setLang(getLang() === "hi" ? "en" : "hi");
@@ -463,8 +462,6 @@ main{min-height:calc(100svh - 70px)}
     refreshHomepageLanguage();
     homeLangObserver.takeRecords();
     homeLangObserver.observe(document.body, { childList: true, subtree: true });
-  });
-  homeLangObserver.observe(document.body, { childList: true, subtree: true });
   });
   homeLangObserver.observe(document.body, { childList: true, subtree: true });
 </script>
