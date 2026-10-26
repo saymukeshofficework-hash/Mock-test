@@ -78,25 +78,41 @@ async function updateTypingStudentId() {
   const target = $("typingStudentId");
   if (!target) return;
   const lang = currentLang();
-  const fallback = lang === "hi" ? "छात्र ID" : "Student ID";
-  target.textContent = fallback;
+  const accountSummary = document.querySelector("#typingAccountMenu summary");
+  if (accountSummary) accountSummary.textContent = lang === "hi" ? "मेरा अकाउंट" : "My Account";
+  const idLabel = document.querySelector("[data-tp='student_id_label']");
+  if (idLabel) idLabel.textContent = lang === "hi" ? "छात्र ID" : "Student ID";
+  target.textContent = lang === "hi" ? "लोड हो रहा है…" : "Loading…";
   try {
-    if (typeof window.getSession !== "function") return;
-    const sessionData = await window.getSession();
-    const user = sessionData?.user || sessionData?.data?.session?.user;
-    if (!user) return;
-    let studentId = user.user_metadata?.student_id || user.user_metadata?.studentId || user.user_metadata?.student_code;
-    if (typeof window.getProfile === "function") {
-      const profile = await window.getProfile(user.id);
-      studentId = profile?.student_id || studentId;
+    let studentId = "";
+    if (typeof window.getSession === "function") {
+      const session = await window.getSession();
+      const user = session?.user;
+      if (user?.id && typeof window.getProfile === "function") {
+        const profile = await window.getProfile(user.id);
+        studentId = profile?.student_id || "";
+      }
+      if (!studentId && user?.user_metadata) {
+        studentId = user.user_metadata.student_id || user.user_metadata.studentId || user.user_metadata.student_code || "";
+      }
     }
-    if (studentId) target.textContent = (lang === "hi" ? "छात्र ID: " : "Student ID: ") + studentId;
-    else target.textContent = (lang === "hi" ? "छात्र खाता" : "Student Account");
+    // The homepage stores the canonical student ID here after reading profiles.student_id.
+    if (!studentId) {
+      try {
+        const saved = JSON.parse(localStorage.getItem("tth_user") || "null");
+        studentId = saved?.id || "";
+      } catch (_) {}
+    }
+    if (!studentId) {
+      target.textContent = lang === "hi" ? "ID उपलब्ध नहीं" : "ID unavailable";
+      return;
+    }
+    target.textContent = studentId;
   } catch (error) {
     console.warn("Could not load typing page student ID", error);
+    target.textContent = lang === "hi" ? "ID उपलब्ध नहीं" : "ID unavailable";
   }
 }
-
 // ------------------------------------------------------------------ toast + dialog
 let toastTimer = null;
 function toast(msg, ms = 2600) {
