@@ -1,11 +1,10 @@
 import { LoginChip } from "./LoginChip";
-import { MockPageHomeLink } from "./HeaderClient";
+import { CatalogueHeaderExtras, MockPageHomeLink } from "./HeaderClient";
 import { Search } from "lucide-react";
 import { Logo } from "@/components/brand/Logo";
 import { dict, tr } from "@/i18n/dictionary";
 import type { Lang } from "@/types";
 import { DesktopNav, MobileControls } from "./HeaderClient";
-import { isStaticExport } from "@/i18n/server";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 
 export function Header({ lang }: { lang: Lang }) {
@@ -13,7 +12,7 @@ export function Header({ lang }: { lang: Lang }) {
     <header className="sticky top-0 z-50 pt-3">
       <div className="container-page">
       <div className="rounded-2xl border border-ink-200 bg-surface/95 shadow-[0_6px_24px_rgba(20,24,31,0.07)] backdrop-blur supports-[backdrop-filter]:bg-surface/90">
-      <div className="flex h-16 items-center justify-between gap-4 px-3 sm:px-4">
+      <div className="flex min-h-16 flex-wrap items-center justify-between gap-2 px-3 py-2 sm:px-4">
         <div className="flex shrink-0 items-center gap-2">
           <MockPageHomeLink />
           <div aria-label="TETTESTHUB" className="shrink-0">
@@ -38,11 +37,10 @@ export function Header({ lang }: { lang: Lang }) {
         </form>
 
         <div className="flex items-center gap-2">
-          {!isStaticExport && (
-            <div className="hidden sm:block">
-              <LanguageSwitcher lang={lang} />
-            </div>
-          )}
+          <div className="block">
+            <LanguageSwitcher lang={lang} />
+          </div>
+          <CatalogueHeaderExtras lang={lang} />
           <LoginChip className="hidden xl:inline-flex h-10 items-center rounded-xl border border-brand-200 bg-brand-50 px-3 text-sm font-semibold text-brand-700 hover:bg-brand-100" />
           <MobileControls lang={lang} />
         </div>
