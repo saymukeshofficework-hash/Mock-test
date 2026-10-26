@@ -161,15 +161,6 @@ export function CurrentAffairsClient() {
     }
   };
 
-  const switchLang = (l: Lang) => {
-    setLang(l);
-    try {
-      localStorage.setItem("testhub_lang_pref", l);
-    } catch {
-      /* ignore */
-    }
-  };
-
   if (state === "loading") return <div className="container-page py-20 text-center text-ink-500">{lang === "hi" ? "लोड हो रहा है…" : "Loading…"}</div>;
   if (state === "error")
     return (
