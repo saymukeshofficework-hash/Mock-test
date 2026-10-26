@@ -191,6 +191,40 @@ body{padding-bottom:88px!important}
 @media(max-width:480px){body{padding-bottom:82px!important}.home-bottom-taskbar{gap:7px;padding:8px 9px calc(8px + env(safe-area-inset-bottom))}.home-bottom-taskbar a{flex-direction:column;gap:3px;min-height:56px;padding:7px 3px;border-radius:12px;font-size:11px}.home-bottom-taskbar .task-icon{font-size:20px}}
 @media(prefers-reduced-motion:reduce){.home-bottom-taskbar a{transition:none}.home-bottom-taskbar a:hover{transform:none}}
 
+
+/* Bright, rounded home category folders with bold, high-contrast labels */
+.home-folder-grid .home-quick-link{
+  position:relative;
+  overflow:hidden;
+  background:linear-gradient(135deg,var(--folder-color),color-mix(in srgb,var(--folder-color) 72%,#21143b))!important;
+  border:1px solid color-mix(in srgb,var(--folder-color) 65%,#fff)!important;
+  border-top:5px solid color-mix(in srgb,var(--folder-color) 75%,#fff)!important;
+  border-radius:22px!important;
+  box-shadow:0 10px 24px color-mix(in srgb,var(--folder-color) 24%,transparent)!important;
+}
+.home-folder-grid .home-quick-link:after{
+  content:"";
+  position:absolute;
+  width:105px;height:105px;
+  right:-32px;bottom:-42px;
+  border-radius:50%;
+  background:#ffffff18;
+  pointer-events:none;
+}
+.home-folder-grid .home-quick-link strong{color:#fff!important;font-weight:900!important;text-shadow:0 1px 2px #0002}
+.home-folder-grid .home-quick-link small{color:#fff!important;opacity:.92;font-weight:600}
+.home-folder-grid .home-quick-icon{
+  background:#ffffff25!important;
+  color:#fff!important;
+  border:1px solid #ffffff55;
+  border-radius:17px!important;
+}
+.home-folder-grid .quick-arrow{color:#fff!important;font-weight:900}
+@media(max-width:700px){
+  .home-folder-grid .home-quick-link{border-radius:18px!important;box-shadow:0 7px 17px #21143b20!important}
+  .home-folder-grid .home-quick-link strong{font-size:14px;font-weight:900}
+}
+
 </style>
 <!-- Homepage is public; only protected actions require login. -->
 </head>
