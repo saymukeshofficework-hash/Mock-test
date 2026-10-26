@@ -137,6 +137,7 @@
     const style = document.createElement("style");
     style.id = "tth-mobile-header-style";
     style.textContent = `
+      .topbar .ttwrap { display:flex; flex-wrap:wrap; align-items:center; }
       header.topbar .topbar-left { display:flex; align-items:center; flex-wrap:wrap; gap:8px; min-width:0; flex:1 1 100%; }
       header.topbar .tth-top-home-link, .hdr .bar .tth-top-home-link, .tbar .tth-top-home-link { display:inline-flex; align-items:center; justify-content:center; padding:5px 7px; border-radius:8px; background:#16856f; border:1px solid #8abbb0; color:#fff; font-size:17px; line-height:1; min-width:30px; min-height:30px; font-weight:800; text-decoration:none; white-space:nowrap; }
       header.topbar .tth-top-home-link:hover, .hdr .bar .tth-top-home-link:hover, .tbar .tth-top-home-link:hover { background:#0f6b5f; }
@@ -414,7 +415,7 @@
     if(!control) control=document.querySelector("#languageSwitch, .lang-switch, #langToggle, #tthLanguageToggle, #langBtn, #langBtnName, #langBtnResult");
     if(!control) return;
     // Keep the existing functional control; move it to the brand/student-ID area.
-    const anchor=account||brand;
+    const anchor=account||header.querySelector("#subtitleText")||brand;
     if(anchor && anchor.parentElement){
       // Move only when needed; repeated DOM moves can retrigger page observers.
       if(control.parentElement !== anchor.parentElement || control.previousElementSibling !== anchor){
@@ -439,9 +440,9 @@
       control.style.setProperty("color","#fff");
       control.style.setProperty("border","1px solid rgba(255,255,255,.4)");
     }
-    control.style.setProperty("padding","3px");
+    control.style.setProperty("padding",header.matches(".topbar") && left.classList.contains("ttwrap") ? "2px 7px" : "3px");
     control.style.setProperty("border-radius","8px");
-    control.style.setProperty("font-size","11px");
+    control.style.setProperty("font-size",header.matches(".topbar") && left.classList.contains("ttwrap") ? "10px" : "11px");
     control.style.setProperty("max-width","max-content");
     control.style.setProperty("flex-shrink","0");
     // Hide extra language controls elsewhere on the page, without hiding test-question language selectors.
