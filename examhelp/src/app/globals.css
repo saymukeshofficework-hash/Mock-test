@@ -256,3 +256,10 @@ html[data-app] [data-sale] { display: none !important; }
 /* Shown only inside the Android app. */
 [data-app-only] { display: none; }
 html[data-app] [data-app-only] { display: revert; }
+
+
+/* On every mock-test catalogue page, remove the global search box and full navigation row. */
+body.mock-test-list-page header form[role="search"],
+body.mock-test-list-page header nav {
+  display: none !important;
+}
