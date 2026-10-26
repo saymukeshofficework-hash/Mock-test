@@ -15,7 +15,7 @@ export function Logo({ light = false }: { light?: boolean }) {
   return (
     <span className="inline-flex items-center gap-2.5">
       <LogoMark />
-      <span className={`text-lg font-extrabold tracking-tight ${light ? "text-white" : "text-brand-900"}`}>
+      <span className={`text-xl sm:text-2xl font-extrabold tracking-tight ${light ? "text-white" : "text-brand-900"}`}>
         TETTEST<span className="text-accent-500">HUB</span>
       </span>
     </span>
