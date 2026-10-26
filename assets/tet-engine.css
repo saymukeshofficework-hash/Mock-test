@@ -140,3 +140,6 @@ table{display:block;overflow-x:auto}
   .action-bar button{flex:1 1 42%;min-width:0;white-space:normal;overflow-wrap:anywhere;padding:9px 6px}
   .sidebar{width:100%}
 }
+
+/* App-like mock tests: hide the website-wide footer without hiding the test instruction footer. */
+.site-footer, .website-footer, .main-footer, #siteFooter { display:none !important; }
