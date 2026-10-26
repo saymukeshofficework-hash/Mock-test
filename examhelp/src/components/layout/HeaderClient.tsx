@@ -44,8 +44,8 @@ export function CatalogueHeaderExtras({ lang }: { lang: Lang }) {
       <button type="button" onClick={toggleTheme} aria-label={dark ? "Light mode" : "Dark mode"} title={dark ? "Light mode" : "Dark mode"} className="grid h-9 w-9 place-items-center rounded-lg border border-ink-200 text-ink-700 hover:bg-ink-100">
         {dark ? <Sun className="h-4 w-4" aria-hidden="true" /> : <Moon className="h-4 w-4" aria-hidden="true" />}
       </button>
-      <Link href="/dashboard.html" className="inline-flex h-9 items-center gap-1 rounded-lg border border-brand-200 bg-brand-50 px-2 text-xs font-bold text-brand-700 hover:bg-brand-100">
-        <ShoppingBag className="h-4 w-4" aria-hidden="true" /> <span>My Purchase</span>
+      <Link href="/dashboard.html" title={lang === "hi" ? "मेरी खरीदारी" : "My Purchase"} aria-label="My Purchase" className="inline-flex h-9 items-center gap-1 rounded-lg border border-brand-200 bg-brand-50 px-2 text-xs font-bold text-brand-700 hover:bg-brand-100">
+        <ShoppingBag className="h-4 w-4" aria-hidden="true" /> <span className="hidden sm:inline">My Purchase</span>
       </Link>
     </div>
   );
