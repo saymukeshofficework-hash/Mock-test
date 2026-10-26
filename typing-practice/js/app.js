@@ -70,7 +70,32 @@ let prefs = loadPrefs();
 let view = "home";
 let session = null; // active test
 let lastResultCtx = null;
+
 let kdFontAvailable = null; // null = unknown yet
+
+// Reflect the existing signed-in account in the header instead of showing a login link.
+async function updateTypingStudentId() {
+  const target = $("typingStudentId");
+  if (!target) return;
+  const lang = currentLang();
+  const fallback = lang === "hi" ? "छात्र ID" : "Student ID";
+  target.textContent = fallback;
+  try {
+    if (typeof window.getSession !== "function") return;
+    const sessionData = await window.getSession();
+    const user = sessionData?.user || sessionData?.data?.session?.user;
+    if (!user) return;
+    let studentId = user.user_metadata?.student_id || user.user_metadata?.studentId || user.user_metadata?.student_code;
+    if (typeof window.getProfile === "function") {
+      const profile = await window.getProfile(user.id);
+      studentId = profile?.student_id || studentId;
+    }
+    if (studentId) target.textContent = (lang === "hi" ? "छात्र ID: " : "Student ID: ") + studentId;
+    else target.textContent = (lang === "hi" ? "छात्र खाता" : "Student Account");
+  } catch (error) {
+    console.warn("Could not load typing page student ID", error);
+  }
+}
 
 // ------------------------------------------------------------------ toast + dialog
 let toastTimer = null;
@@ -974,3 +999,6 @@ try {
     box.hidden = false;
   }
 }
+
+// Update the account label once shared auth helpers are available.
+window.addEventListener("load", updateTypingStudentId);
