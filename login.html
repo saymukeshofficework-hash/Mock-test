@@ -48,6 +48,9 @@ body{min-height:100vh;margin:0;background:radial-gradient(ellipse at 12% 12%,rgb
 .auth-links{display:flex;justify-content:center;gap:7px;flex-wrap:wrap;margin-top:18px;font-size:12.5px;color:var(--muted)}
 .auth-links button{border:0;background:none;color:#624bdc;font-weight:750;cursor:pointer;padding:0}
 .auth-links button:hover{text-decoration:underline}
+.auth-links .create-account-cta{display:inline-flex;align-items:center;gap:4px;padding:7px 11px;margin-top:-6px;border:1px solid #d9d0ff;border-radius:10px;background:linear-gradient(110deg,#f0eaff,#edf6ff);color:#5d43d6;font-weight:800;box-shadow:0 3px 9px rgba(105,83,232,.08)}
+.auth-links .create-account-cta:before{content:"?";display:inline-grid;place-items:center;width:17px;height:17px;border-radius:50%;background:linear-gradient(135deg,#7953ed,#3d9be9);color:#fff;font-size:11px;font-weight:900}
+.auth-links .create-account-cta:hover{background:linear-gradient(110deg,#e8ddff,#e1f1ff);text-decoration:none;box-shadow:0 5px 12px rgba(105,83,232,.14)}
 .auth-small{text-align:center;font-size:11.5px;line-height:1.6;color:#8c86a8;margin:18px 0 0}
 .alert{padding:12px 14px;border-radius:12px;margin:0 0 16px;font-size:13px}.alert.error{background:#fff0f1;color:#a42339;border:1px solid #ffd5dc}.alert.success{background:#e9fff5;color:#096b4d;border:1px solid #c5f5df}
 .site-footer{font-size:11px;color:#77718f;text-align:center;padding:16px}
@@ -75,7 +78,7 @@ body{min-height:100vh;margin:0;background:radial-gradient(ellipse at 12% 12%,rgb
 <div class="field"><label for="loginIdentifier">Email ID</label><input id="loginIdentifier" type="email" autocomplete="email" placeholder="Enter your email ID" required></div>
 <div class="field"><label for="loginPassword">Password</label><div class="password-wrap"><input id="loginPassword" type="password" autocomplete="current-password" required><button type="button" class="eye" data-eye="loginPassword">Show</button></div></div>
 <button class="btn btn-primary btn-block" id="loginBtn" type="submit">LOGIN</button>
-<div class="auth-links"><span>New student?</span><button type="button" data-switch="registerPane">Create account</button><button type="button" data-switch="forgotPane">Forgot password?</button></div>
+<div class="auth-links"><span>New student?</span><button type="button" class="create-account-cta" data-switch="registerPane">Create Account</button><button type="button" data-switch="forgotPane">Forgot password?</button></div>
 </form>
 </div>
 
