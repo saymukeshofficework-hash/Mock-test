@@ -24,6 +24,7 @@ h2{font-size:1.1rem;margin:0 0 4px}
 .f{margin:0 0 14px}
 .f>label,.f>.lbl{display:block;font-weight:500;margin-bottom:4px}
 .req::after{content:" *";color:var(--warn)}
+body.testing .req::after{content:none}
 input[type=text],input[type=tel],input[type=email],input[type=password],textarea,select{width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);font:inherit}
 textarea{min-height:84px;resize:vertical}
 input:focus,textarea:focus,select:focus{outline:2px solid var(--accent);outline-offset:1px}
@@ -79,6 +80,8 @@ const SUBMIT_URL = "";
 // Razorpay Payment Link (Rakesh Pandey's Razorpay account), e.g. "https://rzp.io/l/xxxx". Leave "" to hide the Pay button.
 const PAY_URL = "";
 // WhatsApp number (country code + number, digits only) that receives the form. Submit opens a chat with it.
+// TESTING = true: no red stars and no required fields except choosing at least one assignment. Set to false before real use.
+const TESTING = true;
 const WA_NUMBER = "919669776027";
 const DRAFT = "bridge-form-draft-v1";
 
@@ -647,6 +650,7 @@ $("len").onclick = () => { lang = "en"; saveDraft(); render(); };
 const tick = a => Array.isArray(a) ? a.length > 0 : !!(a && String(a).trim());
 function missing() {
   const bad = [];
+  if (TESTING) return chosenSlots().length ? [] : ["slots"];
   PROFILE.forEach(([id, , , o]) => { if (!o && !tick(S.profile[id])) bad.push("p_" + id); });
   if (tick(S.profile.whatsapp) && String(S.profile.whatsapp).replace(/\D/g, "").replace(/^(91|0)(?=\d{10}$)/, "").length !== 10 && !bad.includes("p_whatsapp")) bad.push("p_whatsapp");
   if (!chosenSlots().length) bad.push("slots");
@@ -760,6 +764,7 @@ f.addEventListener("submit", e => {
   window.scrollTo(0, 0);
 });
 
+if (TESTING) document.body.classList.add("testing");
 render();
 window.__form = { BANK, DATA, buildPayload, toText, S: () => S, SLOTS };
 })();
