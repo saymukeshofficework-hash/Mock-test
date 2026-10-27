@@ -43,6 +43,7 @@ export function Header({ lang }: { lang: Lang }) {
           <CatalogueHeaderExtras lang={lang} />
           <LoginChip className="hidden xl:inline-flex h-10 items-center rounded-xl border border-brand-200 bg-brand-50 px-3 text-sm font-semibold text-brand-700 hover:bg-brand-100" />
           <MobileControls lang={lang} />
+          <CurrentAffairsHeaderLanguage className="current-affairs-student-language" />
         </div>
       </div>
       <DesktopNav lang={lang} />
