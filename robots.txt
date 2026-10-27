@@ -1,6 +1,7 @@
 User-agent: *
 Allow: /
 Disallow: /bridge-course/assignment-form/
+Disallow: /bridge-course/assignment-plan/
 Disallow: /bridge-course/assignment-admin/
 
 Sitemap: https://tettesthub.in/sitemap.xml

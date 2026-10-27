@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>Bridge Assignment Planner</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Mukta:wght@400;500;700&display=swap">
+<style>
+:root{--bg:#f6f7fb;--card:#fff;--ink:#1d2433;--soft:#5b6478;--line:#dde2ec;--accent:#1f4fa3;--accent-ink:#fff;--ok:#1e7a46}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#12161f;--card:#1a2030;--ink:#e8ecf5;--soft:#9aa5bd;--line:#2c3550;--accent:#7fa6f0;--accent-ink:#0d1220;--ok:#6fd09a}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 "Mukta",system-ui,sans-serif}
+main{max-width:860px;margin:0 auto;padding:16px}
+header{display:flex;gap:12px;justify-content:space-between;align-items:flex-start}
+h1{font-size:1.35rem;margin:0}
+.sub{color:var(--soft);margin:0;font-size:.95rem}
+.lang{display:inline-flex;border:1px solid var(--line);border-radius:999px;overflow:hidden;flex:none}
+.lang button{border:0;background:transparent;color:var(--ink);padding:6px 14px;font:inherit;cursor:pointer}
+.lang button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink)}
+section{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;margin:14px 0}
+h2{font-size:1.1rem;margin:0 0 4px}
+h3{font-size:1rem;margin:0 0 8px}
+label{display:block;font-weight:500;margin:8px 0 4px}
+select{width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);font:inherit}
+.hint{color:var(--soft);font-size:.9rem;margin:0 0 8px}
+.btn{border:0;border-radius:10px;background:var(--accent);color:var(--accent-ink);padding:10px 18px;font:inherit;font-weight:700;cursor:pointer}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.card.done h3::after{content:" ✓";color:var(--ok)}
+table{width:100%;border-collapse:collapse;font-size:.95rem}
+th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+th{background:var(--bg)}
+#result[hidden]{display:none}
+@media print{
+  body{background:#fff;color:#000}
+  .noprint,#pick{display:none!important}
+  section{border:0;padding:0;margin:0}
+  th,td{border-color:#000}
+  th{background:#eee!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  tr{break-inside:avoid}
+}
+</style>
+</head>
+<body>
+<main>
+<header>
+  <div><h1 id="title"></h1><p class="sub" id="sub"></p></div>
+  <div class="lang noprint" role="group"><button type="button" data-l="hi">हिं</button><button type="button" data-l="en">EN</button></div>
+</header>
+<section id="pick"></section>
+<section id="result" hidden></section>
+</main>
+<script>
+const DATA = {"courses":{"1":"Course 1: बाल विकास एवं शैक्षिक मनोविज्ञान","2":"Course 2: पाठ्यचर्या, शिक्षणशास्त्र और आकलन","3":"Course 3: भाषा का शिक्षाशास्त्र-1 (हिंदी/क्षेत्रीय भाषा)","4":"Course 4: Pedagogy of Language-II (English)","5":"Course 5: गणित का शिक्षाशास्त्र","6":"Course 6: The World Around Us (TWAU)"},"courseEn":{"1":"Child Development and Educational Psychology","2":"Curriculum, Pedagogy and Assessment","3":"Pedagogy of Language-I (Hindi/Regional Language)","4":"Pedagogy of Language-II (English)","5":"Pedagogy of Mathematics","6":"Pedagogy of The World Around Us"},"courseHi":{"1":"बाल विकास और शैक्षिक मनोविज्ञान","2":"पाठ्यचर्या, शिक्षणशास्त्र और आकलन","3":"भाषा का शिक्षाशास्त्र-1 (हिंदी/क्षेत्रीय भाषा)","4":"भाषा का शिक्षाशास्त्र-2 (अंग्रेज़ी)","5":"गणित का शिक्षाशास्त्र","6":"हमारे आस-पास की दुनिया का शिक्षाशास्त्र"},"tasks":[{"id":"c1t1","c":1,"sec":"","n":1,"short":"विविध पृष्ठभूमि के बच्चों के साथ एक दिन","en":"Spend day with children from diverse backgrounds (different economic status) and prepare a report based on observations (Focusing on various factors: Physical, emotional, social, language, cultural and religious influencing the child on daily basis)."},{"id":"c1t2","c":1,"sec":"","n":2,"short":"सीखने की कठिनाई: व्यक्तिगत हस्तक्षेप (केस स्टडी)","en":"Identify the learning difficulties of Students in different learning areas and the possible reasons for them. Prepare and implement a Personalized Intervention plan for Students with Learning Difficulties - Case Study Report."},{"id":"c1t3","c":1,"sec":"","n":3,"short":"4–5 अभिभावकों से पालन-पोषण पर साक्षात्कार","en":"Conduct interviews with 4 to 5 parents from different socio-cultural and economic background with regard to the child rearing practices and parenting styles."},{"id":"c1t4","c":1,"sec":"","n":4,"short":"पालन-पोषण व बचपन पर 10 अखबारी लेखों का विश्लेषण","en":"Collate at least ten newspaper articles that involve parenting and childhood and critically analyze these."},{"id":"c1t5","c":1,"sec":"","n":5,"short":"पंचकोशीय विकास हेतु गतिविधि","en":"Design an activity to promote Panch-koshiya Vikas (पंचकोशीय विकास) in children of your class."},{"id":"c1t6","c":1,"sec":"","n":6,"short":"खेलते बच्चों का अवलोकन","en":"Children at play- observe how they are engaged in games, express their feelings, cooperate with each other, respond to praise/criticism/winning a game, negotiate and resolve conflicts."},{"id":"c1t7","c":1,"sec":"","n":7,"short":"चिंतनशील निबंध: सांस्कृतिक भिन्नता और समाजीकरण","en":"Reflective Essay- on how cultural differences in socialization impact the learning in the classroom."},{"id":"c2t1","c":2,"sec":"","n":1,"short":"NEP 2020 का आलोचनात्मक विश्लेषण","en":"Critically analyze NEP 2020 and discuss its salient features and implications for the foundational and preparatory stage of school education."},{"id":"c2t2","c":2,"sec":"","n":2,"short":"नवाचारी/वैकल्पिक विद्यालय का भ्रमण","en":"Visit any innovative/alternative school in your area to observe schooling and curricular transaction process and present a report of your observations and learning."},{"id":"c2t3","c":2,"sec":"","n":3,"short":"पाठ्यक्रम में भारतीय ज्ञान परंपरा (IKS) पर निबंध","en":"Write an essay on the importance and possibilities of integrating IKS (Indian Knowledge Systems) in the school curriculum at preparatory level."},{"id":"c2t4","c":2,"sec":"","n":4,"short":"बुनियादी बनाम प्रारंभिक स्तर, और FLN का महत्व","en":"Compare and contrast between curricular goals and competencies of foundational and preparatory stage and discuss the importance of FLN (Foundational Literacy and Numeracy)."},{"id":"c2t5","c":2,"sec":"","n":5,"short":"एक पाठ्यचर्या लक्ष्य: सीखने के प्रतिफल व गतिविधियाँ","en":"Choose any one curricular goal for any school subject area and design learning outcomes and activities for any two competencies of that curricular goal."},{"id":"c2t6","c":2,"sec":"","n":6,"short":"5 अभिभावकों से विद्यालय संबंधी अपेक्षाएँ","en":"Interview 5 parents regarding their expectations from schooling, Parent's role etc. Analyze the responses and write a report."},{"id":"c2t7","c":2,"sec":"","n":7,"short":"PARAKH आकलन कार्ड: 3 विद्यार्थी","en":"Download the assessment cards for preparatory/foundational stage from PARAKH and fill in the sample cards for any 3 students of your class. Submit a detailed report explaining how you have filled up these report cards (i.e. what strategies you have used) and challenges faced."},{"id":"c3At1","c":3,"sec":"A","n":1,"short":"खंड 1 · NCF-FS 2022 में भाषा शिक्षा","en":""},{"id":"c3At2","c":3,"sec":"A","n":2,"short":"खंड 1 · कक्षा 1/2 की भाषा पाठ्यपुस्तक का विश्लेषण","en":""},{"id":"c3At3","c":3,"sec":"A","n":3,"short":"खंड 1 · कक्षा 3–5 की भाषा पाठ्यपुस्तक का विश्लेषण","en":""},{"id":"c3Bt1","c":3,"sec":"B","n":1,"short":"खंड 2 · चार ब्लॉक मॉडल: कक्षायी प्रक्रिया","en":""},{"id":"c3Bt2","c":3,"sec":"B","n":2,"short":"खंड 2 · बाल साहित्य की पुस्तक से गतिविधियाँ","en":""},{"id":"c3Bt3","c":3,"sec":"B","n":3,"short":"खंड 2 · कम लागत की अधिगम-शिक्षण सामग्री","en":""},{"id":"c3Bt4","c":3,"sec":"B","n":4,"short":"खंड 2 · मौखिक भाषा का आकलन (5 रणनीतियाँ)","en":""},{"id":"c4At1","c":4,"sec":"A","n":1,"short":"Section A · NCF-FS & NCF-SE: English","en":"Critically discuss and write a report on curricular and pedagogic recommendations of NCF-FS 2022 and NCF-SE 2023 for English (or Any L-II/L-III) language education at foundational and preparatory stage."},{"id":"c4At2","c":4,"sec":"A","n":2,"short":"Section A · English textbook analysis","en":"Critically analyze the present NCERT / state board English (or any L-II) textbook and present a written report. Aspects of analysis should include learning outcomes of L-II, language, content, illustrations, inclusion, stereotypes, assessment etc."},{"id":"c4At3","c":4,"sec":"A","n":3,"short":"Section A · DIKSHA English video analysis","en":"Watch and critically analyze a English (or any L-II) video programme on any topic of foundational/preparatory stage from DIKSHA portal and present a detailed report."},{"id":"c4Bt1","c":4,"sec":"B","n":1,"short":"Section B · Unit plan (7–10 days), four block model","en":"Prepare a unit plan (7-10 days) on any one topic from foundational or preparatory curriculum using four block model in English (or any L-II)."},{"id":"c4Bt2","c":4,"sec":"B","n":2,"short":"Section B · English in a multilingual classroom","en":"Discuss the challenges regarding English language (or any L-II) learning with special reference to your own multilingual Indian classroom. Suggest some strategies to address these challenges."},{"id":"c4Bt3","c":4,"sec":"B","n":3,"short":"Section B · Oral language assessment (5 strategies)","en":"How would you assess oral language at foundational stage? Use any five strategies in your classroom for the assessment and reflect on your experiences with children."},{"id":"c4Bt4","c":4,"sec":"B","n":4,"short":"Section B · Worksheet folder (5 worksheets)","en":"Prepare a worksheet folder (at least 5 worksheets) to develop reading or writing skills in English language (or any L-II) in the context of four block model at foundational stage."},{"id":"c4Bt5","c":4,"sec":"B","n":5,"short":"Section B · Error analysis in English","en":"Analyze written work (notebook & worksheets) of children of your class and observe the patterns of the errors in English Language (or any L-II) and present a report detailing the types of errors, possible causes for them and suggestive activities/approaches to address them."},{"id":"c4Bt6","c":4,"sec":"B","n":6,"short":"Section B · Low-cost learning material","en":"Prepare effective and useful and low-cost/no-cost learning material to develop language skills in English language (or any L-II) for one of the foundational or preparatory classes. Also, use it in the classroom and to analyze your experiences."},{"id":"c4Bt7","c":4,"sec":"B","n":7,"short":"Section B · Jaadui Pitara / ICT for English","en":"Write a detailed report on how you have used Jaadui Pitara / e-Jaadui Pitara/ ICT resource to develop language skills in English language (or any L-II) and link with the learning outcomes for L-II."},{"id":"c5At1","c":5,"sec":"A","n":1,"short":"Section A · गणित पाठ्यपुस्तक विश्लेषण","en":"Critically analyse the present NCERT / state board Mathematics textbook and present a written report. Aspects of analysis should include language, illustrations, content organisation, inclusion, stereotypes, assessment etc."},{"id":"c5At2","c":5,"sec":"A","n":2,"short":"Section A · DIKSHA गणित वीडियो विश्लेषण","en":"Watch and critically analyze a video on any topic of foundational/preparatory stage from DIKSHA portal and present a detailed report."},{"id":"c5At3","c":5,"sec":"A","n":3,"short":"Section A · NCF-SE & NCF-FS: गणित","en":"Write a report on the curricular and pedagogic recommendations of NCF-SE 2023 and NCF-FS 2022 for mathematics education at foundational and preparatory stage."},{"id":"c5Bt1","c":5,"sec":"B","n":1,"short":"Section B · इकाई योजना (7–10 दिन), चार ब्लॉक","en":"Prepare a unit plan (7-10 days) on any one topic from foundational or preparatory curriculum using four block approach in Mathematics."},{"id":"c5Bt2","c":5,"sec":"B","n":2,"short":"Section B · दो शिक्षण संसाधन + निर्देशिका","en":"Prepare any two teaching learning resources in mathematics along with instructional manual explain the objectives, scope and steps in using the resource."},{"id":"c5Bt3","c":5,"sec":"B","n":3,"short":"Section B · वर्कशीट फ़ोल्डर (5 वर्कशीट)","en":"Prepare a worksheet folder (at least 5 worksheets) to develop foundational numeracy."},{"id":"c5Bt4","c":5,"sec":"B","n":4,"short":"Section B · गणित में त्रुटि विश्लेषण","en":"Analyze written work (notebook & worksheets) of children of your class and observe the patterns of the errors and present a report detailing the types of errors, possible causes for them and suggestive activities/approaches to address them."},{"id":"c5Bt5","c":5,"sec":"B","n":5,"short":"Section B · जादुई पिटारा / ICT से गणित","en":"Write a detailed report on how you have used Jaadui Pitara / e-Jaadui Pitara/ ICT resource to teach a concept in mathematics and link with the learning outcomes."},{"id":"c5Bt6","c":5,"sec":"B","n":6,"short":"Section B · इकाई परीक्षा: बनाना, लेना, विश्लेषण","en":"Prepare a unit test to assess performance of students in one area of mathematics like place value or operations on numbers etc. Administer the test in the class, analyze and prepare a detailed report."},{"id":"c6At1","c":6,"sec":"A","n":1,"short":"Section A · EVS/हमारा अद्भुत संसार पाठ्यपुस्तक विश्लेषण","en":"Critically analyze the present NCERT (Our Wondrous World) / state board EVS textbook and present a written report. Aspects of analysis should include language, illustrations, content organisation, inclusion, stereotypes, assessment etc."},{"id":"c6At2","c":6,"sec":"A","n":2,"short":"Section A · NCF-SE & NCF-FS: TWAU","en":"Write a report on the curricular and pedagogic recommendations of NCF-SE 2023 and NCF-FS 2022 for The World Around Us at preparatory stage."},{"id":"c6At3","c":6,"sec":"A","n":3,"short":"Section A · एकीकृत इकाई योजना (कक्षा 1/2)","en":"Prepare an integrated unit plan to teach a topic in 'The World Around Us' detailing how it can be used to promote interdisciplinarity (Art and sports integration, other curricular areas like languages, Mathematics etc) for class 1 or 2."},{"id":"c6At4","c":6,"sec":"A","n":4,"short":"Section A · DIKSHA वीडियो विश्लेषण","en":"Watch and critically analyze a video on any topic of foundational/preparatory stage from DIKSHA portal and present a detailed report."},{"id":"c6Bt1","c":6,"sec":"B","n":1,"short":"Section B · बच्चों की वैकल्पिक अवधारणाएँ","en":"Choose any topic and probe children's ideas /alternate conceptions held by your class students. Present a detailed report of these, mentioning how you have probed (Hint- interviews, drawings, questionnaire etc)."},{"id":"c6Bt2","c":6,"sec":"B","n":2,"short":"Section B · क्षेत्र भ्रमण (Field trip)","en":"Organise a field trip /visit to museum or historical monument or post office or park or market in your area. Write four learning outcomes for such a trip and explain how it can promote interdisciplinary approach."},{"id":"c6Bt3","c":6,"sec":"B","n":3,"short":"Section B · PARAKH के अनुसार 5 वर्कशीट","en":"Develop 5 worksheets to assess students' learning as per the PARAKH report card guidelines."},{"id":"c6Bt4","c":6,"sec":"B","n":4,"short":"Section B · जादुई पिटारा / ICT से TWAU","en":"Write a detailed report on how you have used Jaadui Pitara /e-Jaadui Pitara/ ICT resource to teach a concept in 'the world around us' and link with the learning outcomes."},{"id":"c6Bt5","c":6,"sec":"B","n":5,"short":"Section B · बोर्ड गेम / EVS किट + निर्देशिका","en":"Prepare a board game/ EVS Kit along with instructional manual detailing its scope and steps. Also mention which process skills can be promoted through this resource."}]};
+const EN_C3 = { c3At1: "NCF-FS 2022 on language education", c3At2: "Analysis of a Class 1/2 language textbook", c3At3: "Analysis of a Class 3–5 language textbook", c3Bt1: "Four block model: classroom process", c3Bt2: "Activities from a children's literature book", c3Bt3: "Low-cost learning material", c3Bt4: "Assessing oral language (5 strategies)" };
+
+const UI = {
+  title: ["असाइनमेंट प्लानर", "Assignment Planner"],
+  sub: ["हर असाइनमेंट के लिए विषय और टॉपिक चुनें। सब चुनते ही नीचे तालिका आ जाएगी।", "Pick a subject and a topic for each assignment. The table appears below once all are chosen."],
+  asg: ["असाइनमेंट", "Assignment"],
+  subj: ["विषय", "Subject"],
+  topic: ["टॉपिक", "Topic"],
+  choose: ["— चुनें —", "— Choose —"],
+  chooseSubj: ["पहले विषय चुनें", "Choose a subject first"],
+  count: ["{n} / 12 चुने गए", "{n} / 12 chosen"],
+  resTitle: ["चुने गए असाइनमेंट", "Selected assignments"],
+  no: ["क्र.", "No."],
+  pdf: ["PDF बनाएँ", "Render PDF"],
+  pdfHint: ["खुलने वाली विंडो में “PDF के रूप में सहेजें” चुनें।", "In the print window choose “Save as PDF”."],
+  clear: ["सब हटाएँ", "Clear all"]
+};
+let lang = "hi";
+const KEY = "bridge-plan-v1";
+let sel = {};
+try { const d = JSON.parse(localStorage.getItem(KEY)); if (d) { sel = d.sel || {}; lang = d.lang || "hi"; } } catch {}
+const save = () => { try { localStorage.setItem(KEY, JSON.stringify({ sel, lang })); } catch {} };
+const t = k => UI[k][lang === "hi" ? 0 : 1];
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+const taskById = id => DATA.tasks.find(x => x.id === id);
+const courseName = c => (lang === "hi" ? DATA.courseHi : DATA.courseEn)[c];
+function taskText(x) {
+  if (lang === "hi") return x.short;
+  const base = x.en ? x.en.replace(/\s+/g, " ") : EN_C3[x.id];
+  const cut = base.length > 140 ? base.slice(0, 137) + "…" : base;
+  return (x.sec ? (x.c === 3 ? (x.sec === "A" ? "Section 1" : "Section 2") : "Section " + x.sec) + " · " : "") + "Task " + x.n + ": " + cut;
+}
+const N = 12;
+const slots = Array.from({ length: N }, (_, i) => i + 1);
+const taken = n => slots.filter(o => o !== n).map(o => sel[o] && sel[o].task).filter(Boolean);
+function render() {
+  $("title").textContent = t("title"); $("sub").textContent = t("sub");
+  document.documentElement.lang = lang;
+  document.querySelectorAll(".lang button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.l === lang)));
+  const done = slots.filter(n => sel[n] && sel[n].task).length;
+  let h = `<h2>${t("count").replace("{n}", done)}</h2><p class="hint"></p>`;
+  for (const n of slots) {
+    const s = sel[n] || {};
+    const subj = Object.keys(DATA.courses).map(c => `<option value="${c}"${String(s.c) === c ? " selected" : ""}>${esc(courseName(c))}</option>`).join("");
+    let topics = `<option value="">${t(s.c ? "choose" : "chooseSubj")}</option>`;
+    if (s.c) topics += DATA.tasks.filter(x => x.c === +s.c && (x.id === s.task || !taken(n).includes(x.id))).map(x => `<option value="${x.id}"${x.id === s.task ? " selected" : ""}>${esc(taskText(x))}</option>`).join("");
+    h += `<div class="card${s.task ? " done" : ""}"><h3>${t("asg")} ${n}</h3><label for="s${n}">${t("subj")}</label><select id="s${n}" data-s="${n}"><option value="">${t("choose")}</option>${subj}</select><label for="t${n}">${t("topic")}</label><select id="t${n}" data-t="${n}"${s.c ? "" : " disabled"}>${topics}</select></div>`;
+  }
+  h += `<div class="row"><button type="button" class="btn ghost" id="clr">${t("clear")}</button></div>`;
+  const keep = document.activeElement && document.activeElement.id, y = window.scrollY;
+  $("pick").innerHTML = h;
+  if (keep && $(keep)) $(keep).focus({ preventScroll: true });
+  window.scrollTo(0, y);
+  const res = $("result");
+  if (done < N) { res.hidden = true; res.innerHTML = ""; return; }
+  res.hidden = false;
+  res.innerHTML = `<h2>${t("resTitle")}</h2><table><thead><tr><th>${t("no")}</th><th>${t("subj")}</th><th>${t("topic")}</th></tr></thead><tbody>` +
+    slots.map(n => { const x = taskById(sel[n].task); return `<tr><td>${n}</td><td>${esc(courseName(x.c))}</td><td>${esc(taskText(x))}</td></tr>`; }).join("") +
+    `</tbody></table><div class="row noprint" style="margin-top:12px"><button type="button" class="btn" id="pdf">${t("pdf")}</button><span class="hint" style="margin:0">${t("pdfHint")}</span></div>`;
+}
+document.addEventListener("change", e => {
+  const a = e.target.dataset;
+  if (a.s) { const n = +a.s; sel[n] = e.target.value ? { c: e.target.value, task: "" } : {}; }
+  else if (a.t) { const n = +a.t; sel[n] = Object.assign({}, sel[n], { task: e.target.value }); }
+  else return;
+  save(); render();
+});
+document.addEventListener("click", e => {
+  const el = e.target.closest("button"); if (!el) return;
+  if (el.dataset.l) { lang = el.dataset.l; save(); render(); }
+  else if (el.id === "clr") { sel = {}; save(); render(); }
+  else if (el.id === "pdf") window.print();
+});
+render();
+</script>
+</body>
+</html>
