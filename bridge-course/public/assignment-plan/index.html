@@ -68,6 +68,8 @@ const UI = {
   no: ["क्र.", "No."],
   pdf: ["PDF बनाएँ", "Render PDF"],
   pdfHint: ["खुलने वाली विंडो में “PDF के रूप में सहेजें” चुनें।", "In the print window choose “Save as PDF”."],
+  full: [" (2 बार चुन लिया)", " (already chosen twice)"],
+  max2: ["एक विषय के 2 असाइनमेंट होते हैं, इसलिए हर विषय अधिकतम 2 बार चुना जा सकता है।", "Each subject has 2 assignments, so a subject can be chosen at most twice."],
   clear: ["सब हटाएँ", "Clear all"]
 };
 let lang = "hi";
@@ -94,10 +96,10 @@ function render() {
   document.documentElement.lang = lang;
   document.querySelectorAll(".lang button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.l === lang)));
   const done = slots.filter(n => sel[n] && sel[n].task).length;
-  let h = `<h2>${t("count").replace("{n}", done)}</h2><p class="hint"></p>`;
+  let h = `<h2>${t("count").replace("{n}", done)}</h2><p class="hint">${t("max2")}</p>`;
   for (const n of slots) {
     const s = sel[n] || {};
-    const subj = Object.keys(DATA.courses).map(c => `<option value="${c}"${String(s.c) === c ? " selected" : ""}>${esc(courseName(c))}</option>`).join("");
+    const subj = Object.keys(DATA.courses).map(c => { const full = slots.filter(o => o !== n && sel[o] && String(sel[o].c) === c).length >= 2; return `<option value="${c}"${String(s.c) === c ? " selected" : ""}${full ? " disabled" : ""}>${esc(courseName(c))}${full ? t("full") : ""}</option>`; }).join("");
     let topics = `<option value="">${t(s.c ? "choose" : "chooseSubj")}</option>`;
     if (s.c) topics += DATA.tasks.filter(x => x.c === +s.c && (x.id === s.task || !taken(n).includes(x.id))).map(x => `<option value="${x.id}"${x.id === s.task ? " selected" : ""}>${esc(taskText(x))}</option>`).join("");
     h += `<div class="card${s.task ? " done" : ""}"><h3>${t("asg")} ${n}</h3><label for="s${n}">${t("subj")}</label><select id="s${n}" data-s="${n}"><option value="">${t("choose")}</option>${subj}</select><label for="t${n}">${t("topic")}</label><select id="t${n}" data-t="${n}"${s.c ? "" : " disabled"}>${topics}</select></div>`;
