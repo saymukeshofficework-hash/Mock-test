@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
-import { Home, ClipboardList, Contact } from "lucide-react";
 import { Logo } from "@/components/brand/Logo";
 import { LoginChip } from "./LoginChip";
 import type { Lang } from "@/types";
@@ -45,13 +44,7 @@ export function DesktopExamHeader({ lang }: { lang: Lang }) {
           <Link href="https://tettesthub.in/index.html" aria-label="TET TestHub Home" className="flex shrink-0 items-center rounded-lg px-1.5 py-1 hover:bg-white/10">
             <span className="[&_svg]:h-7 [&_svg]:w-7"><Logo light /></span>
           </Link>
-          <nav aria-label="Exam navigation" className="flex shrink-0 flex-nowrap items-center gap-1.5">
-            <Link href="https://tettesthub.in/index.html" className="inline-flex h-10 items-center gap-1.5 whitespace-nowrap rounded-lg border border-white/25 bg-white/15 px-2.5 text-sm font-semibold hover:bg-white/25"><Home className="h-4 w-4 shrink-0" />Home</Link>
-            <Link href="/my-tests.html" className="inline-flex h-10 items-center gap-1.5 whitespace-nowrap rounded-lg border border-white/25 bg-white/15 px-2.5 text-sm font-semibold hover:bg-white/25"><ClipboardList className="h-4 w-4 shrink-0" />My Test</Link>
-            <Link href="/contact.html" className="inline-flex h-10 items-center gap-1.5 whitespace-nowrap rounded-lg border border-white/25 bg-white/15 px-2.5 text-sm font-semibold hover:bg-white/25"><Contact className="h-4 w-4 shrink-0" />Contact</Link>
-          </nav>
           <div className="ml-auto flex min-w-0 shrink-0 flex-nowrap items-center gap-1.5">
-            <LoginChip mode="logout" className="inline-flex h-10 shrink-0 items-center gap-1.5 whitespace-nowrap rounded-lg border border-white/25 bg-white/15 px-2.5 text-sm font-semibold hover:bg-white/25" />
             <div role="group" aria-label="Question language / प्रश्नों की भाषा" className="inline-flex h-10 shrink-0 items-center rounded-lg border border-white/70 bg-white p-0.5 text-indigo-950">
               <button type="button" onClick={() => chooseLanguage("hi")} aria-pressed={language === "hi"} className={`h-8 whitespace-nowrap rounded-md px-2 text-xs font-semibold ${language === "hi" ? "bg-indigo-700 text-white" : "text-indigo-950 hover:bg-indigo-100"}`}>हिंदी</button>
               <button type="button" onClick={() => chooseLanguage("en")} aria-pressed={language === "en"} className={`h-8 whitespace-nowrap rounded-md px-2 text-xs font-semibold ${language === "en" ? "bg-indigo-700 text-white" : "text-indigo-950 hover:bg-indigo-100"}`}>English</button>
