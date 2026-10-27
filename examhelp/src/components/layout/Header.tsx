@@ -1,8 +1,6 @@
 import { LoginChip } from "./LoginChip";
-import { CatalogueHeaderExtras, CurrentAffairsHeaderLanguage, MockPageHomeLink } from "./HeaderClient";
-import { Search } from "lucide-react";
+import { CatalogueHeaderExtras, CurrentAffairsHeaderLanguage, MockPageHomeLink, DesktopHeaderSearch } from "./HeaderClient";
 import { Logo } from "@/components/brand/Logo";
-import { dict, tr } from "@/i18n/dictionary";
 import type { Lang } from "@/types";
 import { DesktopNav, MobileControls } from "./HeaderClient";
 import { LanguageSwitcher } from "./LanguageSwitcher";
@@ -23,21 +21,7 @@ export function Header({ lang }: { lang: Lang }) {
           </div>
         </div>
 
-        <form action={`${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/search`} role="search" className="current-affairs-search hidden max-w-md flex-1 xl:block">
-          <label htmlFor="header-search" className="sr-only">
-            {tr(dict.search.label, lang)}
-          </label>
-          <div className="relative">
-            <Search className="pointer-events-none absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-ink-500" aria-hidden="true" />
-            <input
-              id="header-search"
-              name="q"
-              type="search"
-              placeholder={tr(dict.search.placeholder, lang)}
-              className="h-10 w-full rounded-full border border-ink-200 bg-canvas pr-3 pl-9 text-sm outline-none focus:border-brand-500 focus:bg-surface"
-            />
-          </div>
-        </form>
+        <DesktopHeaderSearch lang={lang} />
 
         <div className="flex items-center gap-2">
           <CatalogueHeaderExtras lang={lang} />
