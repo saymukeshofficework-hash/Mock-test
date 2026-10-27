@@ -8,7 +8,7 @@ import { Logo } from "@/components/brand/Logo";
 import { LoginChip } from "./LoginChip";
 import type { Lang } from "@/types";
 
-const TARGET = /(?:^|\/)(?:mp-high-court-assistant-grade-3-mock-tests|mp-police-subedar-asi-mock-tests|mp-police-constable-gd-mock-tests|mp-police-driver-mock-tests|mp-police-si-mock-tests|mp-police-asi-steno-mock-tests|mp-grameen-bank-mock-tests|rrb-station-master-mock-tests|rrb-ntpc-(?:graduate|undergraduate)-mock-tests)(?:\.html|\/index\.html)?\/?$/;
+const TARGET = /(?:^|\/)(?:mp-high-court-assistant-grade-3-mock-tests|mp-police-subedar-asi-mock-tests|mp-police-constable-gd-mock-tests|mp-police-driver-mock-tests|mp-police-si-mock-tests|mp-police-asi-steno-mock-tests|mp-grameen-bank-mock-tests|rrb-station-master-mock-tests|rrb-ntpc-(?:graduate|undergraduate)-mock-tests)(?:\.html)?(?:\/.*)?\/?$/;
 
 export function isDesktopExamHeaderPage(pathname: string) {
   return TARGET.test(pathname);
@@ -45,6 +45,7 @@ export function DesktopExamHeader({ lang }: { lang: Lang }) {
         <div className="flex h-[68px] w-full flex-nowrap items-center gap-2 overflow-visible rounded-2xl border border-indigo-300 bg-gradient-to-r from-indigo-800 via-violet-700 to-fuchsia-700 px-3 text-white shadow-lg">
           <Link href="https://tettesthub.in/index.html" aria-label="TET TestHub Home" className="flex shrink-0 items-center rounded-lg px-1.5 py-1 hover:bg-white/10">
             <span className="[&_svg]:h-7 [&_svg]:w-7"><Logo light /></span>
+            <span className="hidden xl:inline whitespace-nowrap text-sm font-extrabold tracking-wide text-white">TET TestHub</span>
           </Link>
           <nav aria-label="Exam navigation" className="flex shrink-0 flex-nowrap items-center gap-1.5">
             <Link href="https://tettesthub.in/index.html" className={`${navClass} bg-emerald-500`}><Home className="h-4 w-4 shrink-0" aria-hidden="true" /><span>Home</span></Link>
