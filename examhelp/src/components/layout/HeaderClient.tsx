@@ -178,6 +178,7 @@ export function MobileControls({ lang }: { lang: Lang }) {
   const pathname = usePathname();
   const isMockTestList = /(?:^|\/)(?:courses|exams|test-series|my-tests?|dashboard|tet-mock-tests|mp-high-court-assistant-grade-3-mock-tests|mp-police-constable-gd-mock-tests|mp-police-subedar-asi-mock-tests|mp-police-driver-mock-tests|mp-police-si-mock-tests|mp-grameen-bank-mock-tests|rrb-ntpc-(?:graduate|undergraduate)-mock-tests)(?:\/index\.html)?\/?$/.test(pathname);
   const isCurrentAffairs = /(?:^|\/)current-affairs\/?$/.test(pathname);
+  const hideExamHeaderControls = isTargetExamPage(pathname);
   const [open, setOpen] = useState(false);
   const closeRef = useRef<HTMLButtonElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
