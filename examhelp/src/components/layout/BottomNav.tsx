@@ -8,7 +8,7 @@ import { dict, tr } from "@/i18n/dictionary";
 import { isActive } from "@/lib/nav";
 import type { Lang } from "@/types";
 
-/** Shared fixed mobile navigation for all app pages. */
+/** Shared fixed navigation for all app pages and screen sizes. Labels intentionally stay English. */
 export function BottomNav({ lang }: { lang: Lang }) {
   const pathname = usePathname();
   const router = useRouter();
@@ -27,7 +27,8 @@ export function BottomNav({ lang }: { lang: Lang }) {
   return (
     <nav
       aria-label="Bottom navigation"
-      className="fixed inset-x-0 bottom-0 z-40 border-t border-ink-200 bg-surface/95 pb-[env(safe-area-inset-bottom)] backdrop-blur xl:hidden"
+      data-tth-no-translate="true"
+      className="fixed inset-x-0 bottom-0 z-[1000] border-t border-ink-200 bg-surface/95 pb-[env(safe-area-inset-bottom)] shadow-[0_-4px_18px_rgba(15,23,42,0.12)] backdrop-blur xl:left-1/2 xl:right-auto xl:w-[520px] xl:-translate-x-1/2 xl:rounded-t-2xl xl:border-x"
     >
       <ul className="mx-auto grid max-w-lg grid-cols-4">
         {items.map(({ href, label, fixedLabel, Icon, abs, color }) => {
