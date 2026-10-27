@@ -74,6 +74,10 @@ input:focus,textarea:focus,select:focus{outline:2px solid var(--accent);outline-
 "use strict";
 // ---------- settings ----------
 const SCHEMA = "tettesthub-bridge-v1";
+// Where a filled form is sent (your Google Apps Script web app URL). Leave "" to keep the old behaviour: the candidate downloads the .txt.
+const SUBMIT_URL = "";
+// Razorpay Payment Link (Rakesh Pandey's Razorpay account), e.g. "https://rzp.io/l/xxxx". Leave "" to hide the Pay button.
+const PAY_URL = "";
 const DRAFT = "bridge-form-draft-v1";
 
 // ---------- question bank: every task has its own bilingual questions ----------
@@ -446,7 +450,7 @@ const BANK = {
 
 // profile / class / reflection are shared by every task
 const PROFILE = [
-  ["name", "पूरा नाम", "Full name", false], ["enrol", "नामांकन संख्या (Enrolment No.)", "Enrolment number", true],
+  ["name", "पूरा नाम", "Full name", false], ["whatsapp", "WhatsApp नंबर (10 अंक)", "WhatsApp number (10 digits)", false], ["enrol", "नामांकन संख्या (Enrolment No.)", "Enrolment number", true],
   ["school", "विद्यालय का नाम", "School name", false], ["block", "ब्लॉक (विकासखंड)", "Block", false],
   ["district", "जिला", "District", false], ["state", "राज्य", "State", true], ["udise", "यू-डाइस कोड (UDISE)", "UDISE code", true],
   ["roll", "अनुक्रमांक (Roll No.)", "Roll number", true], ["village", "पता: ग्राम", "Address: village", true],
@@ -473,20 +477,29 @@ const UI = {
   course: ["कोर्स चुनें", "Choose the course"], task: ["कार्य (Task) चुनें", "Choose the task"], pick: ["— चुनें —", "— choose —"],
   assignNo: ["यह आपका कौन-सा असाइनमेंट है?", "Which assignment of yours is this?"],
   rule: [["किन्हीं 2 कार्यों की रिपोर्ट जमा करनी है।", "Submit a report for any 2 tasks."], ["खंड 1 से एक और खंड 2 से एक कार्य करना है।", "One task from Section 1 and one from Section 2."], ["Section A से एक और Section B से एक कार्य करना है।", "One task from Section A and one from Section B."]],
-  s3: ["3. आपकी कक्षा", "3. Your class"],
+  s3: ["2. आपकी कक्षा", "2. Your class"],
+  sA: ["3. अपने असाइनमेंट चुनें (एक-एक करके)", "3. Choose your assignments (one by one)"],
+  sAh: ["हर असाइनमेंट के लिए कार्य (Task) चुनें और उसके सवालों के जवाब लिखें, फिर 'अगला' दबाएँ। जितने असाइनमेंट चाहिए उतने चुनें (कम से कम 1)। कोर्स 3 से 6 में असाइनमेंट 1 खंड 1 से और असाइनमेंट 2 खंड 2 से है।", "For each assignment choose a task and answer its questions, then press Next. Choose as many assignments as you need (at least 1). In courses 3 to 6, Assignment 1 is from Section 1 and Assignment 2 from Section 2."],
+  slotName: ["कोर्स {c} · असाइनमेंट {a}", "Course {c} · Assignment {a}"], notChosen: ["अभी नहीं चुना", "Not chosen yet"], chosen: ["चुन लिया ✓", "Chosen ✓"],
+  nextBtn: ["यह पूरा हुआ, अगला असाइनमेंट", "Done, next assignment"], lastBtn: ["यह पूरा हुआ", "Done"],
+  count: ["चुने गए असाइनमेंट: {n} / 12", "Assignments chosen: {n} / 12"],
+  needOne: ["कृपया कम से कम एक असाइनमेंट के लिए कार्य चुनें।", "Please choose a task for at least one assignment."],
+  fillSlot: ["कृपया इस असाइनमेंट के लाल निशान वाले ज़रूरी खाने भरें।", "Please fill the required fields marked in red for this assignment."],
   cls: ["यह काम किस कक्षा में/के लिए किया?", "Which class was this work done in or for?"],
   total: ["कक्षा में कुल कितने बच्चे हैं? (लड़के-लड़कियाँ अलग बताएँ तो और अच्छा)", "How many children in the class? (boys and girls separately if possible)"],
   locale: ["विद्यालय का परिवेश कैसा है? (गाँव/कस्बा, घर की भाषा, अभिभावकों का पेशा)", "What is the school surroundings like? (village or town, home language, parents' occupations)"],
   s4: ["4. आपके कार्य के बारे में", "4. About your task"], s4h: ["ये सवाल आपके चुने कार्य के अनुसार हैं। जो जानकारी असली है वही लिखें; अपनी तरफ़ से आँकड़े न गढ़ें।", "These questions follow the task you chose. Write only what is real; do not make up figures."],
   s4empty: ["पहले ऊपर कोर्स और कार्य चुनिए, फिर इस कार्य के सवाल यहाँ आएँगे।", "Choose the course and task above first; the questions for that task will appear here."],
-  s5: ["5. स्व-चिंतन", "5. Reflection"],
+  s5: ["4. स्व-चिंतन (सभी असाइनमेंट के लिए एक बार)", "4. Reflection (once, for all assignments)"],
   writeLang: ["असाइनमेंट किस भाषा में लिखा जाए?", "In which language should the assignment be written?"],
   consent: ["मैं पुष्टि करता/करती हूँ कि यह जानकारी मेरे अपने कार्य की है।", "I confirm this information is about my own work."],
-  submit: ["टेक्स्ट फ़ाइल बनाएँ और डाउनलोड करें", "Create and download text file"], sending: ["भेजा जा रहा है…", "Sending…"],
+  submit: ["जमा करें", "Submit"], sending: ["भेजा जा रहा है…", "Sending…"],
   optional: ["(वैकल्पिक)", "(optional)"],
   fillReq: ["कृपया लाल निशान वाले ज़रूरी खाने भरें।", "Please fill the required fields marked in red."],
   needConsent: ["कृपया पुष्टि वाला बॉक्स चुनें।", "Please tick the confirmation box."],
-  done: ["आपकी टेक्स्ट फ़ाइल (.txt) डाउनलोड हो गई है।", "Your text file (.txt) has been downloaded."],
+  done: ["आपका फ़ॉर्म जमा हो गया है।", "Your form has been submitted."],
+  pay: ["अभी भुगतान करें", "Pay now"],
+  thanks: ["आपका ड्राफ्ट असाइनमेंट आपके WhatsApp पर 3 से 6 घंटे में भेज दिया जाएगा। धन्यवाद!", "Your draft assignment will be sent to your WhatsApp in 3 to 6 hours. Thank you!"],
   sendIt: ["अब इस फ़ाइल को WhatsApp या ई-मेल से हमें भेज दीजिए। फ़ाइल न मिले तो नीचे दिया बटन दबाकर दोबारा डाउनलोड करें।", "Now send this file to us on WhatsApp or email. If you cannot find it, press the button below to download it again."],
   again2: ["फ़ाइल दोबारा डाउनलोड करें", "Download the file again"],
   copy: ["अपनी कॉपी डाउनलोड करें", "Download your copy"], again: ["नया फ़ॉर्म भरें", "Fill another form"],
@@ -497,7 +510,9 @@ const UI = {
 // ---------- state ----------
 let lang = "hi";
 let S = blank();
-function blank() { return { profile: {}, course: "", taskId: "", assignNo: "", cls: "", total: "", locale: "", writeLang: "", ans: {}, refl: {}, consent: false }; }
+function blank() { return { profile: {}, sel: {}, open: "1-1", cls: "", total: "", locale: "", writeLang: "", ans: {}, refl: {}, consent: false }; }
+// the 12 assignments: 6 courses x 2. In courses 3 to 6, assignment 1 is a Section A task and assignment 2 a Section B task
+const SLOTS = []; for (let c = 1; c <= 6; c++) for (let a = 1; a <= 2; a++) SLOTS.push({ c, a, key: c + "-" + a });
 try { const d = JSON.parse(localStorage.getItem(DRAFT)); if (d && d.S) { S = Object.assign(blank(), d.S); lang = d.lang || "hi"; } } catch {}
 const saveDraft = () => { try { localStorage.setItem(DRAFT, JSON.stringify({ S, lang })); } catch {} };
 const t = k => UI[k][lang === "hi" ? 0 : 1];
@@ -513,6 +528,27 @@ function taskText(x) {
   return `${x.sec ? (x.c === 3 ? (x.sec === "A" ? "Section 1" : "Section 2") : "Section " + x.sec) + " · " : ""}Task ${x.n}: ${cut}`;
 }
 const ruleIdx = c => c <= 2 ? 0 : c === 3 ? 1 : 2;
+
+// ---------- assignment slots ----------
+const slotTasks = sl => DATA.tasks.filter(x => x.c === sl.c && (sl.c < 3 || x.sec === (sl.a === 1 ? "A" : "B")) && !SLOTS.some(o => o.key !== sl.key && S.sel[o.key] === x.id));
+const chosenSlots = () => SLOTS.filter(sl => S.sel[sl.key]);
+function slotHtml(sl, courses) {
+  const tk = S.sel[sl.key] ? taskById(S.sel[sl.key]) : null, open = S.open === sl.key;
+  const name = t("slotName").replace("{c}", sl.c).replace("{a}", sl.a);
+  let h = `<div class="sub-card" data-slot="${sl.key}"><div class="row" style="justify-content:space-between"><h3>${name}<span class="chip ${tk ? "done" : ""}">${tk ? t("chosen") : t("notChosen")}</span></h3><button type="button" class="btn ghost small" data-open="${sl.key}" aria-label="${esc(name)}">${open ? "▲" : "▼"}</button></div>`;
+  if (tk && !open) h += `<p class="hint" style="margin:6px 0 0">${esc(taskText(tk))}</p>`;
+  if (open) {
+    h += `<p class="hint" style="margin:6px 0 10px">Course ${sl.c}: ${esc(courses[sl.c])}</p><div class="f" data-q="slot_${sl.key}"><label for="task_${sl.key}">${t("task")}</label><select id="task_${sl.key}" data-slot-task="${sl.key}"><option value="">${t("pick")}</option>` +
+      slotTasks(sl).map(x => `<option value="${x.id}" ${x.id === (tk && tk.id) ? "selected" : ""}>${esc(taskText(x))}</option>`).join("") + `</select>${tk && lang === "en" && tk.en ? `<div class="taskbox">${esc(tk.en)}</div>` : ""}</div>`;
+    if (tk) {
+      const nxt = SLOTS[SLOTS.indexOf(sl) + 1];
+      h += `<p class="hint">${t("s4h")}</p>` + BANK[tk.id].map((qq, i) => qHtml(tk.id + "_", qq, i, S.ans)).join("") +
+        `<div class="row"><button type="button" class="btn small" data-next="${sl.key}">${nxt ? t("nextBtn") : t("lastBtn")}</button></div>`;
+    }
+  }
+  return h + `</div>`;
+}
+const slotMissing = sl => BANK[S.sel[sl.key]].map((qq, i) => [qq, S.sel[sl.key] + "_" + (i + 1)]).filter(([qq, id]) => !qq.o && !tick(S.ans[id])).map(([, id]) => id);
 
 // ---------- render ----------
 function fieldText(id, label, val, o, attrs) {
@@ -542,16 +578,10 @@ function render() {
   const radio = (name, list, cur) => `<div class="opts">` + list.map((o, j) => `<label class="opt ${String(cur) === String(j) ? "on" : ""}"><input type="radio" name="${name}" data-r="${name}" value="${j}" ${String(cur) === String(j) ? "checked" : ""}><span>${esc(o[lang === "hi" ? 0 : 1])}</span></label>`).join("") + `</div>`;
   let h = `<section><h2>${t("s1")}</h2><p class="hint">${t("s1h")}</p><div class="grid">` +
     PROFILE.map(([id, hi, en, o]) => fieldText("p_" + id, lang === "hi" ? hi : en, S.profile[id], o, id === "mobile" ? 'inputmode="tel"' : id === "email" ? 'inputmode="email"' : "")).join("") + `</div></section>`;
-  h += `<section><h2>${t("s2")}</h2>
-    <div class="f" data-req="1" data-q="course"><label class="req" for="course">${t("course")}</label><select id="course"><option value="">${t("pick")}</option>` +
-    Object.keys(courses).map(c => `<option value="${c}" ${String(c) === String(S.course) ? "selected" : ""}>Course ${c}: ${esc(courses[c])}</option>`).join("") + `</select>${rule ? `<div class="taskbox">${esc(rule)}</div>` : ""}</div>
-    <div class="f" data-req="1" data-q="task"><label class="req" for="task">${t("task")}</label><select id="task" ${cNo ? "" : "disabled"}><option value="">${t("pick")}</option>` +
-    DATA.tasks.filter(x => x.c === cNo).map(x => `<option value="${x.id}" ${x.id === S.taskId ? "selected" : ""}>${esc(taskText(x))}</option>`).join("") + `</select>${tk && lang === "en" && tk.en ? `<div class="taskbox">${esc(tk.en)}</div>` : ""}</div>
-    <div class="f" data-req="1" data-q="assignNo"><div class="lbl req">${t("assignNo")}</div>${radio("assignNo", [["असाइनमेंट 1", "Assignment 1"], ["असाइनमेंट 2", "Assignment 2"]], S.assignNo === "" ? "" : +S.assignNo - 1)}</div></section>`;
   h += `<section><h2>${t("s3")}</h2><div class="f" data-req="1" data-q="cls"><div class="lbl req">${t("cls")}</div>${radio("cls", clsOpts, S.cls)}</div>
     <div class="f" data-req="1" data-q="total"><label class="req" for="total">${t("total")}</label><input type="text" id="total" data-k="total" value="${esc(S.total)}"></div>
     <div class="f" data-req="1" data-q="locale"><label class="req" for="locale">${t("locale")}</label><textarea id="locale" data-k="locale">${esc(S.locale)}</textarea></div></section>`;
-  h += `<section><h2>${t("s4")}</h2>` + (tk ? `<p class="hint">${t("s4h")}</p>` + BANK[tk.id].map((qq, i) => qHtml(tk.id + "_", qq, i, S.ans)).join("") : `<p class="hint">${t("s4empty")}</p>`) + `</section>`;
+  h += `<section><h2>${t("sA")}</h2><p class="hint">${t("sAh")}</p>` + SLOTS.map(sl => slotHtml(sl, courses)).join("") + `<p class="hint" id="cnt" style="margin:10px 0 0">${t("count").replace("{n}", chosenSlots().length)}</p></section>`;
   h += `<section><h2>${t("s5")}</h2>` + REFLECT.map((qq, i) => qHtml("r_", qq, i, S.refl)).join("") +
     `<div class="f" data-req="1" data-q="writeLang"><div class="lbl req">${t("writeLang")}</div>${radio("writeLang", wl, S.writeLang)}</div></section>`;
   h += `<div class="hp" aria-hidden="true"><input type="text" id="hp" tabindex="-1" autocomplete="off"></div>
@@ -575,8 +605,7 @@ f.addEventListener("input", e => {
 });
 f.addEventListener("change", e => {
   const el = e.target;
-  if (el.id === "course") { S.course = el.value; S.taskId = ""; S.ans = {}; saveDraft(); render(); return; }
-  if (el.id === "task") { if (S.taskId !== el.value) S.ans = {}; S.taskId = el.value; saveDraft(); render(); return; }
+  if (el.dataset.slotTask) { const k = el.dataset.slotTask; if (el.value) S.sel[k] = el.value; else delete S.sel[k]; S.open = k; saveDraft(); render(); return; }
   if (el.id === "consent") { S.consent = el.checked; el.closest(".opt").classList.toggle("on", el.checked); saveDraft(); return; }
   if (el.dataset.r) {
     const v = el.value, n = el.dataset.r;
@@ -592,6 +621,21 @@ f.addEventListener("change", e => {
     el.closest(".f").classList.remove("err"); saveDraft();
   }
 });
+f.addEventListener("click", e => {
+  const ob = e.target.closest("[data-open]"), nb = e.target.closest("[data-next]");
+  const go = k => { S.open = k; saveDraft(); render(); const c = f.querySelector(k ? `[data-slot="${k}"]` : "#cnt"); if (c) c.scrollIntoView({ behavior: "smooth", block: "start" }); };
+  if (ob) { go(S.open === ob.dataset.open ? "" : ob.dataset.open); return; }
+  if (nb) {
+    const sl = SLOTS.find(o => o.key === nb.dataset.next), bad = slotMissing(sl);
+    if (bad.length) {
+      bad.forEach(id => { const el = f.querySelector(`[data-q="${id}"]`); if (el) el.classList.add("err"); });
+      const c = f.querySelector(`[data-slot="${sl.key}"]`); let m = c.querySelector(".msg"); if (!m) { m = document.createElement("div"); m.className = "msg bad"; nb.closest(".row").before(m); }
+      m.textContent = t("fillSlot"); const first = c.querySelector(".err"); if (first) first.scrollIntoView({ behavior: "smooth", block: "center" });
+      return;
+    }
+    const nxt = SLOTS[SLOTS.indexOf(sl) + 1]; go(nxt ? nxt.key : "");
+  }
+});
 $("lhi").onclick = () => { lang = "hi"; saveDraft(); render(); };
 $("len").onclick = () => { lang = "en"; saveDraft(); render(); };
 
@@ -600,9 +644,10 @@ const tick = a => Array.isArray(a) ? a.length > 0 : !!(a && String(a).trim());
 function missing() {
   const bad = [];
   PROFILE.forEach(([id, , , o]) => { if (!o && !tick(S.profile[id])) bad.push("p_" + id); });
-  if (!S.course) bad.push("course"); if (!S.taskId) bad.push("task"); if (!S.assignNo) bad.push("assignNo");
+  if (tick(S.profile.whatsapp) && String(S.profile.whatsapp).replace(/\D/g, "").replace(/^(91|0)(?=\d{10}$)/, "").length !== 10 && !bad.includes("p_whatsapp")) bad.push("p_whatsapp");
+  if (!chosenSlots().length) bad.push("slots");
+  chosenSlots().forEach(sl => bad.push(...slotMissing(sl)));
   if (S.cls === "") bad.push("cls"); if (!tick(S.total)) bad.push("total"); if (!tick(S.locale)) bad.push("locale");
-  if (S.taskId) BANK[S.taskId].forEach((qq, i) => { if (!qq.o && !tick(S.ans[S.taskId + "_" + (i + 1)])) bad.push(S.taskId + "_" + (i + 1)); });
   REFLECT.forEach((qq, i) => { if (!qq.o && !tick(S.refl["r_" + (i + 1)])) bad.push("r_" + (i + 1)); });
   if (S.writeLang === "") bad.push("writeLang");
   return bad;
@@ -612,30 +657,39 @@ function answerText(qq, v) {
   return String(v || "").trim();
 }
 function buildPayload() {
-  const tk = taskById(S.taskId);
   const clsHi = ["कक्षा 1", "कक्षा 2", "कक्षा 3", "कक्षा 4", "कक्षा 5", "बहुकक्षा (Multigrade)"][+S.cls];
   const profile = {}; PROFILE.forEach(([id]) => { profile[id] = String(S.profile[id] || "").trim(); });
-  return {
-    schema: SCHEMA, submittedAt: new Date().toISOString(), formLang: lang,
-    profile, course: +S.course, taskId: tk.id, taskLabel: `${tk.n}. ${tk.short}`, assignNo: +S.assignNo,
-    cls: clsHi, total: S.total.trim(), locale: S.locale.trim(), writeLang: S.writeLang === "1" ? "English" : "हिंदी",
-    qa: BANK[tk.id].map((qq, i) => ({ id: tk.id + "_" + (i + 1), q: qq.hi, qEn: qq.en, a: answerText(qq, S.ans[tk.id + "_" + (i + 1)]) })),
-    reflection: REFLECT.map((qq, i) => ({ id: "r_" + (i + 1), q: qq.hi, qEn: qq.en, a: answerText(qq, S.refl["r_" + (i + 1)]) }))
-  };
+  profile.whatsapp = profile.whatsapp.replace(/\D/g, "").replace(/^(91|0)(?=\d{10}$)/, "");
+  // one full form per chosen assignment; the assignment desk reads each ###BRIDGE-JSON### block as its own form
+  return chosenSlots().map(sl => {
+    const tk = taskById(S.sel[sl.key]);
+    return {
+      schema: SCHEMA, submittedAt: new Date().toISOString(), formLang: lang,
+      profile, course: sl.c, taskId: tk.id, taskLabel: `${tk.n}. ${tk.short}`, assignNo: sl.a,
+      cls: clsHi, total: S.total.trim(), locale: S.locale.trim(), writeLang: S.writeLang === "1" ? "English" : "हिंदी",
+      qa: BANK[tk.id].map((qq, i) => ({ id: tk.id + "_" + (i + 1), q: qq.hi, qEn: qq.en, a: answerText(qq, S.ans[tk.id + "_" + (i + 1)]) })),
+      reflection: REFLECT.map((qq, i) => ({ id: "r_" + (i + 1), q: qq.hi, qEn: qq.en, a: answerText(qq, S.refl["r_" + (i + 1)]) }))
+    };
+  });
 }
 const nowStamp = () => new Date().toISOString().slice(0, 10);
-const fileName = p => `bridge_${(p.profile.name || "teacher").trim().replace(/\s+/g, "_")}_${p.taskId}_${nowStamp()}.txt`;
-// the text file reads like a normal note; the JSON block at the end lets the assignment desk load it with one click
-function toText(p) {
-  const hi = p.formLang !== "en";
+const fileName = list => `bridge_${(list[0].profile.name || "teacher").trim().replace(/\s+/g, "_")}_${list.length}assignments_${nowStamp()}.txt`;
+// the text file reads like a normal note; one JSON block per assignment at the end lets the assignment desk load each with one click
+function toText(list) {
+  const p0 = list[0], hi = p0.formLang !== "en";
   const line = (k, v) => v ? `${k}: ${v}\n` : "";
   let o = `BRIDGE COURSE ASSIGNMENT: ${hi ? "शिक्षक की जानकारी" : "TEACHER INFORMATION"}\n${"=".repeat(46)}\n`;
-  o += PROFILE.map(([id, h, e]) => line(hi ? h : e, p.profile[id])).join("");
-  o += `\n${hi ? "कोर्स" : "Course"}: Course ${p.course}\n${hi ? "कार्य" : "Task"}: ${p.taskLabel}\n${hi ? "असाइनमेंट" : "Assignment"}: ${p.assignNo}\n`;
-  o += `${hi ? "कक्षा" : "Class"}: ${p.cls}\n${hi ? "कुल बच्चे" : "Total children"}: ${p.total}\n${hi ? "परिवेश" : "Surroundings"}: ${p.locale}\n${hi ? "लेखन माध्यम" : "Medium"}: ${p.writeLang}\n`;
-  o += `\n${hi ? "कार्य के सवाल और जवाब" : "TASK QUESTIONS AND ANSWERS"}\n${"-".repeat(46)}\n`;
-  [...p.qa, ...p.reflection].forEach((x, i) => { o += `\n${i + 1}. ${hi ? x.q : x.qEn}\n   ${x.a || "—"}\n`; });
-  o += `\n\n${"=".repeat(46)}\n###BRIDGE-JSON-START###\n${JSON.stringify(p)}\n###BRIDGE-JSON-END###\n`;
+  o += PROFILE.map(([id, h, e]) => line(hi ? h : e, p0.profile[id])).join("");
+  o += `${hi ? "कक्षा" : "Class"}: ${p0.cls}\n${hi ? "कुल बच्चे" : "Total children"}: ${p0.total}\n${hi ? "परिवेश" : "Surroundings"}: ${p0.locale}\n${hi ? "लेखन माध्यम" : "Medium"}: ${p0.writeLang}\n`;
+  o += `${hi ? "चुने गए असाइनमेंट" : "Assignments chosen"}: ${list.length}\n`;
+  list.forEach((p, k) => {
+    o += `\n\n${"=".repeat(46)}\n${k + 1}. Course ${p.course} · ${hi ? "असाइनमेंट" : "Assignment"} ${p.assignNo}\n${hi ? "कार्य" : "Task"}: ${p.taskLabel}\n${"-".repeat(46)}\n`;
+    p.qa.forEach((x, i) => { o += `\n${i + 1}. ${hi ? x.q : x.qEn}\n   ${x.a || "—"}\n`; });
+  });
+  o += `\n\n${"=".repeat(46)}\n${hi ? "स्व-चिंतन" : "REFLECTION"}\n${"-".repeat(46)}\n`;
+  p0.reflection.forEach((x, i) => { o += `\n${i + 1}. ${hi ? x.q : x.qEn}\n   ${x.a || "—"}\n`; });
+  o += `\n\n${"=".repeat(46)}\n`;
+  list.forEach(p => { o += `###BRIDGE-JSON-START###\n${JSON.stringify(p)}\n###BRIDGE-JSON-END###\n`; });
   return o;
 }
 async function download(name, text) {
@@ -650,10 +704,13 @@ async function download(name, text) {
 
 f.addEventListener("submit", e => {
   e.preventDefault();
-  const msg = $("fmsg"); msg.innerHTML = "";
   if ($("hp").value) return;
   const bad = missing();
+  const qb = bad.find(id => /^c\d/.test(id));
+  if (qb && !f.querySelector(`[data-q="${qb}"]`)) { const sl = SLOTS.find(o => S.sel[o.key] === qb.split("_")[0]); if (sl) { S.open = sl.key; saveDraft(); render(); } }
+  const msg = $("fmsg");
   f.querySelectorAll(".err").forEach(x => x.classList.remove("err"));
+  if (bad.includes("slots")) { msg.innerHTML = `<div class="msg bad">${t("needOne")}</div>`; return; }
   if (bad.length) {
     bad.forEach(id => { const el = f.querySelector(`[data-q="${id}"]`) || (f.querySelector("#" + id) || {}).closest?.(".f"); if (el) el.classList.add("err"); });
     msg.innerHTML = `<div class="msg bad">${t("fillReq")}</div>`;
@@ -661,17 +718,33 @@ f.addEventListener("submit", e => {
     return;
   }
   if (!S.consent) { msg.innerHTML = `<div class="msg bad">${t("needConsent")}</div>`; f.querySelector('[data-q="consent"]').classList.add("err"); return; }
-  const p = buildPayload(), name = fileName(p), text = toText(p);
-  download(name, text);
-  try { localStorage.removeItem(DRAFT); } catch {}
-  f.innerHTML = `<section><div class="msg good">${t("done")}</div><p>${t("sendIt")}</p><p class="hint">${esc(name)}</p><div class="row"><button type="button" class="btn" id="cpy">${t("again2")}</button><button type="button" class="btn ghost" id="again">${t("again")}</button></div></section>`;
-  $("cpy").onclick = () => download(name, text);
-  $("again").onclick = () => { S = blank(); saveDraft(); render(); window.scrollTo(0, 0); };
+  const list = buildPayload(), name = fileName(list), text = toText(list), p = list[0];
+  const btn = $("sendBtn"); btn.disabled = true; btn.textContent = t("sending");
+  const finish = async () => {
+    let ok = false;
+    if (SUBMIT_URL) {
+      try {
+        // text/plain keeps this a "simple" request, so Apps Script needs no CORS preflight
+        const r = await fetch(SUBMIT_URL, { method: "POST", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify({ name: p.profile.name, whatsapp: p.profile.whatsapp, count: list.length, tasks: list.map(x => `C${x.course}-A${x.assignNo} ${x.taskId}`).join(", "), file: name, text }) });
+        ok = r.ok;
+      } catch {}
+    }
+    if (ok) {
+      try { localStorage.removeItem(DRAFT); } catch {}
+      f.innerHTML = `<section><div class="msg good">${t("done")}</div><p>${t("thanks")}</p><div class="row">${PAY_URL ? `<a class="btn" href="${esc(PAY_URL)}" target="_blank" rel="noopener" style="text-decoration:none">${t("pay")}</a>` : ""}<button type="button" class="btn ghost" id="again">${t("again")}</button></div></section>`;
+    } else {
+      download(name, text);
+      f.innerHTML = `<section><div class="msg ${SUBMIT_URL ? "bad" : "good"}">${SUBMIT_URL ? t("failed") : t("done")}</div><p>${t("sendIt")}</p><p class="hint">${esc(name)}</p><div class="row"><button type="button" class="btn" id="cpy">${t("again2")}</button><button type="button" class="btn ghost" id="again">${t("again")}</button></div></section>`;
+      $("cpy").onclick = () => download(name, text);
+    }
+    $("again").onclick = () => { S = blank(); saveDraft(); render(); window.scrollTo(0, 0); };
+  };
+  finish();
   window.scrollTo(0, 0);
 });
 
 render();
-window.__form = { BANK, DATA, buildPayload, toText, S: () => S };
+window.__form = { BANK, DATA, buildPayload, toText, S: () => S, SLOTS };
 })();
 </script>
 </body>
