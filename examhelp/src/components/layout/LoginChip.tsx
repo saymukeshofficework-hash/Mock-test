@@ -7,7 +7,7 @@ import { ChevronDown, LogOut } from "lucide-react";
 type U = { id?: string; name?: string };
 
 /** Shared account menu shown on every Exam Hub page for signed-in students. */
-export function LoginChip({ className }: { className: string }) {
+export function LoginChip({ className, mode = "default" }: { className: string; mode?: "default" | "logout" | "identity" }) {
   const pathname = usePathname();
   const isCataloguePage = /(?:^|\/)(?:courses|exams|all-test|all-tests|tests)(?:\.html)?\/?$/.test(pathname);
   const [u, setU] = useState<U | null>(null);
@@ -50,8 +50,9 @@ export function LoginChip({ className }: { className: string }) {
     }
   }
 
-  if (!u) return <a href="/login.html" aria-label="लॉगिन या रजिस्टर" className={className}>लॉगिन / रजिस्टर</a>;
-  if (isCataloguePage) {
+  if (mode === "logout") return <button type="button" onClick={signOut} aria-label="Logout" title="Logout" className={className}><LogOut className="h-4 w-4 shrink-0" aria-hidden="true" /><span>Logout</span></button>;
+  if (!u) return <a href="/login.html" aria-label="Login or register" className={className}>Login / Register</a>;
+  if (mode !== "identity" && isCataloguePage) {
     return (
       <button type="button" onClick={signOut} aria-label="Logout" title="Logout" className={className}>
         <LogOut className="h-4 w-4 shrink-0" aria-hidden="true" /> <span>Logout</span>
