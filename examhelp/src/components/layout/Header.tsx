@@ -1,8 +1,6 @@
 import { LoginChip } from "./LoginChip";
 import { CatalogueHeaderExtras, CurrentAffairsHeaderLanguage, MockPageHomeLink, DesktopHeaderSearch } from "./HeaderClient";
-import { Search } from "lucide-react";
 import { Logo } from "@/components/brand/Logo";
-import { dict, tr } from "@/i18n/dictionary";
 import type { Lang } from "@/types";
 import { DesktopNav, MobileControls } from "./HeaderClient";
 import { LanguageSwitcher } from "./LanguageSwitcher";
