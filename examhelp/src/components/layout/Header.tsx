@@ -1,5 +1,5 @@
 import { LoginChip } from "./LoginChip";
-import { CatalogueHeaderExtras, CurrentAffairsHeaderLanguage, MockPageHomeLink } from "./HeaderClient";
+import { CatalogueHeaderExtras, CurrentAffairsHeaderLanguage, MockPageHomeLink, DesktopHeaderSearch } from "./HeaderClient";
 import { Search } from "lucide-react";
 import { Logo } from "@/components/brand/Logo";
 import { dict, tr } from "@/i18n/dictionary";
