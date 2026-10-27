@@ -50,13 +50,13 @@ export function DesktopExamHeader({ lang }: { lang: Lang }) {
             <Link href="/my-tests.html" className="inline-flex h-10 items-center gap-1.5 whitespace-nowrap rounded-lg border border-white/25 bg-white/15 px-2.5 text-sm font-semibold hover:bg-white/25"><ClipboardList className="h-4 w-4 shrink-0" />My Test</Link>
             <Link href="/contact.html" className="inline-flex h-10 items-center gap-1.5 whitespace-nowrap rounded-lg border border-white/25 bg-white/15 px-2.5 text-sm font-semibold hover:bg-white/25"><Contact className="h-4 w-4 shrink-0" />Contact</Link>
           </nav>
-          <div className="ml-auto flex min-w-0 shrink-0 flex-nowrap items-center gap-2">
-            <div role="group" aria-label="Language / भाषा" className="inline-flex h-10 shrink-0 items-center rounded-lg border border-white/70 bg-white p-0.5 text-indigo-950">
+          <div className="ml-auto flex min-w-0 shrink-0 flex-nowrap items-center gap-1.5">
+            <LoginChip mode="logout" className="inline-flex h-10 shrink-0 items-center gap-1.5 whitespace-nowrap rounded-lg border border-white/25 bg-white/15 px-2.5 text-sm font-semibold hover:bg-white/25" />
+            <div role="group" aria-label="Question language / प्रश्नों की भाषा" className="inline-flex h-10 shrink-0 items-center rounded-lg border border-white/70 bg-white p-0.5 text-indigo-950">
               <button type="button" onClick={() => chooseLanguage("hi")} aria-pressed={language === "hi"} className={`h-8 whitespace-nowrap rounded-md px-2 text-xs font-semibold ${language === "hi" ? "bg-indigo-700 text-white" : "text-indigo-950 hover:bg-indigo-100"}`}>हिंदी</button>
               <button type="button" onClick={() => chooseLanguage("en")} aria-pressed={language === "en"} className={`h-8 whitespace-nowrap rounded-md px-2 text-xs font-semibold ${language === "en" ? "bg-indigo-700 text-white" : "text-indigo-950 hover:bg-indigo-100"}`}>English</button>
             </div>
-            {/* Keep the existing yellow account chip as the single Student ID/account display. */}
-            <LoginChip className="inline-flex h-10 max-w-[190px] shrink-0 items-center overflow-hidden rounded-lg border border-amber-200 bg-amber-300 px-3 text-sm font-semibold text-indigo-950 shadow-sm hover:bg-amber-200" />
+            <LoginChip mode="identity" className="inline-flex h-10 max-w-[190px] shrink-0 items-center overflow-hidden rounded-lg border border-amber-200 bg-amber-300 px-3 text-sm font-semibold text-indigo-950 shadow-sm hover:bg-amber-200" />
           </div>
         </div>
       </div>
