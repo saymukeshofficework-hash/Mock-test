@@ -110,7 +110,12 @@
       #tthMockBottomNav .tth-nav-contact { color:#0f9d70; }
       #tthMockBottomNav .tth-nav-logout { color:#ea580c; }
       #tthMockBottomNav a:focus-visible, #tthMockBottomNav button:focus-visible { outline:2px solid #0f766e; outline-offset:2px; }
-      @media(min-width:900px) { #tthMockBottomNav { left:50%; right:auto; width:min(520px,100%); transform:translateX(-50%); border:1px solid #dbe3e8; border-bottom:0; border-radius:14px 14px 0 0; } }
+      @media(min-width:900px) {
+        body.tth-has-mock-bottom-nav { padding-bottom: 24px !important; }
+        #tthMockBottomNav { position:relative; left:auto; right:auto; bottom:auto; width:min(100%,1100px); margin:12px auto 18px; transform:none; border:1px solid #dbe3e8; border-radius:14px; box-shadow:0 4px 16px rgba(15,23,42,.10); padding:8px 12px; }
+        #tthMockBottomNav a, #tthMockBottomNav button { min-height:48px; flex-direction:row; gap:8px; border-radius:10px; font-size:13px; }
+        #tthMockBottomNav .tth-nav-icon { font-size:20px; }
+      }
     `;
     document.head.appendChild(style);
     const nav = document.createElement("nav");
@@ -122,6 +127,8 @@
       <a class="tth-nav-contact" href="/contact.html"><span class="tth-nav-icon" aria-hidden="true">✉</span><span>Contact</span></a>
       <button class="tth-nav-logout" type="button" id="tthBottomLogout"><span class="tth-nav-icon" aria-hidden="true">↪</span><span>Logout</span></button>`;
     document.body.appendChild(nav);
+    const testHeader = document.querySelector("header.topbar, .topbar, .hdr .bar, .top, .tbar");
+    if (testHeader && testHeader.parentNode) testHeader.parentNode.insertBefore(nav, testHeader.nextSibling);
     document.body.classList.add("tth-has-mock-bottom-nav");
     const logout = nav.querySelector("#tthBottomLogout");
     logout.addEventListener("click", async () => {
