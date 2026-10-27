@@ -127,6 +127,20 @@
         #tthMockBottomNav { gap:2px; }
         #tthMockBottomNav a, #tthMockBottomNav button { min-height:27px; gap:2px; padding:4px 3px; font-size:9px; }
         #tthMockBottomNav .tth-nav-icon { font-size:12px; }
+        /* Mobile: keep the four actions in the bottom taskbar; desktop keeps them in the header. */
+        body.tth-has-mock-bottom-nav { padding-bottom:62px !important; }
+        #tthMockBottomNav {
+          position:fixed !important; left:0; right:0; bottom:0; top:auto;
+          z-index:10000; width:100%; margin:0; padding:7px 5px calc(7px + env(safe-area-inset-bottom));
+          display:flex; flex-direction:row; justify-content:space-around; gap:3px;
+          background:#fff !important; border-top:1px solid #e5e7eb; border-radius:0;
+          box-shadow:0 -4px 18px rgba(31,41,55,.12);
+        }
+        #tthMockBottomNav a, #tthMockBottomNav button {
+          flex:1 1 0; min-width:0; min-height:38px; flex-direction:column;
+          gap:3px; padding:5px 2px; font-size:10px;
+        }
+        #tthMockBottomNav .tth-nav-icon { font-size:15px; }
       }
     `;
     document.head.appendChild(style);
