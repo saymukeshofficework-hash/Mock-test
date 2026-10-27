@@ -74,7 +74,6 @@ export function CatalogueHeaderExtras({ lang }: { lang: Lang }) {
 export function CurrentAffairsHeaderLanguage({ className = "" }: { className?: string }) {
   const pathname = usePathname();
   const isCurrentAffairs = /(?:^|\/)current-affairs\/?$/.test(pathname);
-  const hideExamHeaderControls = isTargetExamPage(pathname);
   const [lang, setLang] = useState<"hi" | "en">("hi");
   useEffect(() => {
     if (!isCurrentAffairs) return;
