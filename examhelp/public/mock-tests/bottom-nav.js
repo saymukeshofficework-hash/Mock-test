@@ -10,7 +10,7 @@
     #tthExamBottomNav .contact { color:#0f9d70; }
     #tthExamBottomNav .logout { color:#ea580c; }
     #tthExamBottomNav .ico { font-size:19px; line-height:1; }
-    @media(min-width:900px) { #tthExamBottomNav { left:50%; right:auto; width:min(520px,100%); transform:translateX(-50%); border:1px solid #dbe3e8; border-bottom:0; border-radius:14px 14px 0 0; } }
+    @media(min-width:900px) { body { padding-bottom: 0 !important; } #tthExamBottomNav { display:none !important; } }
   `;
   document.head.appendChild(style);
   const nav = document.createElement("nav");
