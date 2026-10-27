@@ -111,13 +111,19 @@
       #tthMockBottomNav .tth-nav-contact { color:#0f9d70; background:#ecfdf5 !important; border-color:#a7f3d0; }
       #tthMockBottomNav .tth-nav-logout { color:#ea580c; background:#fff7ed !important; border-color:#fed7aa; }
       #tthMockBottomNav a:focus-visible, #tthMockBottomNav button:focus-visible { outline:2px solid #0f766e; outline-offset:2px; }
-      header.topbar { display:flex !important; align-items:center !important; flex-wrap:nowrap !important; gap:8px !important; }
-      header.topbar .topbar-left { flex:0 1 auto !important; min-width:0; }
+      /* Desktop exam papers were capped at a phone-width 720px; give laptop layouts room for the single header row. */
+      #app { max-width:min(1280px,100%) !important; width:100%; }
+      .topbar { display:flex !important; align-items:center !important; flex-wrap:nowrap !important; gap:12px !important; }
+      .topbar .ttwrap { flex:0 1 auto !important; min-width:0; }
+      .topbar .ttext { white-space:nowrap; }
+      .topbar .langBtn { flex:0 0 auto; }
+      #tthMockBottomNav { flex:0 0 auto; margin-left:auto; }
       @media(max-width:700px) {
-        header.topbar { gap:4px !important; padding-left:6px; padding-right:6px; }
-        header.topbar .topbar-left { gap:4px !important; }
-        header.topbar .tth-header-brand { font-size:12px; }
-        header.topbar .tth-student-account-menu { margin-left:0 !important; margin-top:0 !important; flex:0 1 auto !important; max-width:none; }
+        #app { max-width:100% !important; }
+        .topbar { gap:4px !important; padding-left:6px; padding-right:6px; }
+        .topbar .ttwrap { gap:4px !important; }
+        .topbar .ttext { white-space:normal; font-size:12px; }
+        .topbar .langBtn { padding:4px 6px; font-size:10px; }
         #tthMockBottomNav { gap:2px; }
         #tthMockBottomNav a, #tthMockBottomNav button { min-height:27px; gap:2px; padding:4px 3px; font-size:9px; }
         #tthMockBottomNav .tth-nav-icon { font-size:12px; }
