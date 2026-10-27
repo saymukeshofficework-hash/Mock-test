@@ -115,6 +115,8 @@ export function CurrentAffairsClient() {
   }, []);
 
   useEffect(() => {
+    // Mark this route so shared header navigation is consistently hidden on mobile and desktop.
+    document.body.classList.add("current-affairs-page");
     try {
       const q = new URLSearchParams(location.search).get("lang");
       const l = (q || localStorage.getItem("testhub_lang_pref")) as Lang | null;
@@ -123,6 +125,7 @@ export function CurrentAffairsClient() {
       /* ignore */
     }
     openDay();
+    return () => document.body.classList.remove("current-affairs-page");
   }, [openDay]);
 
   useEffect(() => {
