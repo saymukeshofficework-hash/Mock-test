@@ -78,6 +78,8 @@ const SCHEMA = "tettesthub-bridge-v1";
 const SUBMIT_URL = "";
 // Razorpay Payment Link (Rakesh Pandey's Razorpay account), e.g. "https://rzp.io/l/xxxx". Leave "" to hide the Pay button.
 const PAY_URL = "";
+// WhatsApp number (country code + number, digits only) that receives the form. Submit opens a chat with it.
+const WA_NUMBER = "919669776027";
 const DRAFT = "bridge-form-draft-v1";
 
 // ---------- question bank: every task has its own bilingual questions ----------
@@ -499,6 +501,8 @@ const UI = {
   needConsent: ["कृपया पुष्टि वाला बॉक्स चुनें।", "Please tick the confirmation box."],
   done: ["आपका फ़ॉर्म जमा हो गया है।", "Your form has been submitted."],
   pay: ["अभी भुगतान करें", "Pay now"],
+  waMsg: ["नमस्ते, मैंने {n} असाइनमेंट का फ़ॉर्म भरा है। नाम: {name}, WhatsApp: {wa}। भुगतान के बाद मेरा ड्राफ्ट असाइनमेंट इसी चैट में भेज दीजिए।", "Hello, I have filled the form for {n} assignment(s). Name: {name}, WhatsApp: {wa}. After payment, please send my draft assignment in this chat."],
+  waAgain: ["WhatsApp चैट दोबारा खोलें", "Open the WhatsApp chat again"],
   thanks: ["आपका ड्राफ्ट असाइनमेंट आपके WhatsApp पर 3 से 6 घंटे में भेज दिया जाएगा। धन्यवाद!", "Your draft assignment will be sent to your WhatsApp in 3 to 6 hours. Thank you!"],
   sendIt: ["अब इस फ़ाइल को WhatsApp या ई-मेल से हमें भेज दीजिए। फ़ाइल न मिले तो नीचे दिया बटन दबाकर दोबारा डाउनलोड करें।", "Now send this file to us on WhatsApp or email. If you cannot find it, press the button below to download it again."],
   again2: ["फ़ाइल दोबारा डाउनलोड करें", "Download the file again"],
@@ -720,6 +724,18 @@ f.addEventListener("submit", e => {
   if (!S.consent) { msg.innerHTML = `<div class="msg bad">${t("needConsent")}</div>`; f.querySelector('[data-q="consent"]').classList.add("err"); return; }
   const list = buildPayload(), name = fileName(list), text = toText(list), p = list[0];
   const btn = $("sendBtn"); btn.disabled = true; btn.textContent = t("sending");
+  const waText = t("waMsg").replace("{n}", list.length).replace("{name}", p.profile.name).replace("{wa}", p.profile.whatsapp);
+  const waLink = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(waText)}`;
+  // Must start inside this click: browsers only allow share / pop-ups right after a tap.
+  // With file sharing (most phones) the .txt goes into the chat; otherwise the chat opens with the message and the file is downloaded.
+  const sharing = (async () => {
+    try {
+      const file = new File(["\ufeff" + text], name, { type: "text/plain" });
+      if (navigator.canShare && navigator.canShare({ files: [file] })) { await navigator.share({ files: [file], text: waText }); return true; }
+    } catch { return false; }
+    window.open(waLink, "_blank", "noopener");
+    return false;
+  })();
   const finish = async () => {
     let ok = false;
     if (SUBMIT_URL) {
@@ -729,12 +745,13 @@ f.addEventListener("submit", e => {
         ok = r.ok;
       } catch {}
     }
-    if (ok) {
+    const shared = await sharing;
+    if (ok || shared) {
       try { localStorage.removeItem(DRAFT); } catch {}
-      f.innerHTML = `<section><div class="msg good">${t("done")}</div><p>${t("thanks")}</p><div class="row">${PAY_URL ? `<a class="btn" href="${esc(PAY_URL)}" target="_blank" rel="noopener" style="text-decoration:none">${t("pay")}</a>` : ""}<button type="button" class="btn ghost" id="again">${t("again")}</button></div></section>`;
+      f.innerHTML = `<section><div class="msg good">${t("done")}</div><p>${t("thanks")}</p><div class="row"><a class="btn ghost" href="${esc(waLink)}" target="_blank" rel="noopener" style="text-decoration:none">${t("waAgain")}</a>${PAY_URL ? `<a class="btn" href="${esc(PAY_URL)}" target="_blank" rel="noopener" style="text-decoration:none">${t("pay")}</a>` : ""}<button type="button" class="btn ghost" id="again">${t("again")}</button></div></section>`;
     } else {
-      download(name, text);
-      f.innerHTML = `<section><div class="msg ${SUBMIT_URL ? "bad" : "good"}">${SUBMIT_URL ? t("failed") : t("done")}</div><p>${t("sendIt")}</p><p class="hint">${esc(name)}</p><div class="row"><button type="button" class="btn" id="cpy">${t("again2")}</button><button type="button" class="btn ghost" id="again">${t("again")}</button></div></section>`;
+      if (!SUBMIT_URL || !shared) download(name, text);
+      f.innerHTML = `<section><div class="msg ${SUBMIT_URL ? "bad" : "good"}">${SUBMIT_URL ? t("failed") : t("done")}</div><p>${t("sendIt")}</p><p class="hint">${esc(name)}</p>${SUBMIT_URL ? "" : `<p>${t("thanks")}</p>`}<div class="row"><button type="button" class="btn" id="cpy">${t("again2")}</button><button type="button" class="btn ghost" id="again">${t("again")}</button></div></section>`;
       $("cpy").onclick = () => download(name, text);
     }
     $("again").onclick = () => { S = blank(); saveDraft(); render(); window.scrollTo(0, 0); };
