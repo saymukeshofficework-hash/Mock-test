@@ -18,6 +18,26 @@ export function MockPageHomeLink() {
   return <a href="https://tettesthub.in/index.html" aria-label="बैंगनी होमपेज पर जाएँ" title="होम" className="inline-flex h-8 shrink-0 items-center gap-1 rounded-lg border border-brand-200 bg-brand-50 px-2 text-xs font-bold text-brand-700 hover:bg-brand-100">⌂ <span>होम</span></a>;
 }
 
+/** Exam catalogue routes where the top search and menu controls should be omitted. */
+function isTargetExamPage(pathname: string) {
+  return /(?:^|\\/)(?:mp-high-court-assistant-grade-3-mock-tests|mp-police-subedar-asi-mock-tests|mp-police-constable-gd-mock-tests|mp-police-driver-mock-tests|mp-police-si-mock-tests|mp-police-asi-steno-mock-tests|rrb-station-master-mock-tests|rrb-ntpc-(?:graduate|undergraduate)-mock-tests)(?:\\/index\\.html)?\\/?$/.test(pathname);
+}
+
+/** Desktop search is also omitted on the requested exam pages. */
+export function DesktopHeaderSearch({ lang }: { lang: Lang }) {
+  const pathname = usePathname();
+  if (isTargetExamPage(pathname)) return null;
+  return (
+    <form action={`${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/search`} role="search" className="current-affairs-search hidden max-w-md flex-1 xl:block">
+      <label htmlFor="header-search" className="sr-only">{tr(dict.search.label, lang)}</label>
+      <div className="relative">
+        <Search className="pointer-events-none absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-ink-500" aria-hidden="true" />
+        <input id="header-search" name="q" type="search" placeholder={tr(dict.search.placeholder, lang)} className="h-10 w-full rounded-full border border-ink-200 bg-canvas pr-3 pl-9 text-sm outline-none focus:border-brand-500 focus:bg-surface" />
+      </div>
+    </form>
+  );
+}
+
 /** Compact controls shown on the All Tests / Courses catalogue. */
 export function CatalogueHeaderExtras({ lang }: { lang: Lang }) {
   const pathname = usePathname();
@@ -184,7 +204,7 @@ export function MobileControls({ lang }: { lang: Lang }) {
       <Link href="/search" aria-label={tr(dict.nav.search, lang)} className="current-affairs-search-icon grid h-9 w-9 place-items-center rounded-lg text-ink-700 hover:bg-ink-100">
         <Search className="h-5 w-5" aria-hidden="true" />
       </Link>
-      {!isMockTestList && !isCurrentAffairs && <button
+      {!hideExamHeaderControls && !isMockTestList && !isCurrentAffairs && <button
         ref={triggerRef}
         type="button"
         aria-label={tr(dict.nav.openMenu, lang)}
@@ -196,7 +216,7 @@ export function MobileControls({ lang }: { lang: Lang }) {
         <Menu className="h-6 w-6" aria-hidden="true" />
       </button>}
 
-      {!isMockTestList && !isCurrentAffairs && open && (
+      {!hideExamHeaderControls && !isMockTestList && !isCurrentAffairs && open && (
         <div className="fixed inset-0 z-[60]" role="dialog" aria-modal="true" aria-label={tr(dict.nav.menu, lang)} id="mobile-drawer">
           <button type="button" aria-label={tr(dict.nav.closeMenu, lang)} tabIndex={-1} className="absolute inset-0 bg-brand-950/50" onClick={() => setOpen(false)} />
           <div className="absolute inset-y-0 right-0 flex w-[86%] max-w-sm flex-col bg-surface shadow-2xl">
