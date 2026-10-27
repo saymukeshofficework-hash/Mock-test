@@ -20,7 +20,7 @@ export function MockPageHomeLink() {
 
 /** Exam catalogue routes where the top search and menu controls should be omitted. */
 function isTargetExamPage(pathname: string) {
-  return /(?:^|\\/)(?:mp-high-court-assistant-grade-3-mock-tests|mp-police-subedar-asi-mock-tests|mp-police-constable-gd-mock-tests|mp-police-driver-mock-tests|mp-police-si-mock-tests|mp-police-asi-steno-mock-tests|rrb-station-master-mock-tests|rrb-ntpc-(?:graduate|undergraduate)-mock-tests)(?:\\/index\\.html)?\\/?$/.test(pathname);
+  return /(?:^|\/)(?:mp-high-court-assistant-grade-3-mock-tests|mp-police-subedar-asi-mock-tests|mp-police-constable-gd-mock-tests|mp-police-driver-mock-tests|mp-police-si-mock-tests|mp-police-asi-steno-mock-tests|rrb-station-master-mock-tests|rrb-ntpc-(?:graduate|undergraduate)-mock-tests)(?:\/index\.html)?\/?$/.test(pathname);
 }
 
 /** Desktop search is also omitted on the requested exam pages. */
@@ -73,7 +73,7 @@ export function CatalogueHeaderExtras({ lang }: { lang: Lang }) {
 /** Language control for the Current Affairs header in the static site build. */
 export function CurrentAffairsHeaderLanguage({ className = "" }: { className?: string }) {
   const pathname = usePathname();
-  const isCurrentAffairs = /(?:^|\/)current-affairs\/?$/.test(pathname);
+  const isCurrentAffairs = /(?:^|\/)current-affairs\/?$/.test(pathname);\n  const hideExamHeaderControls = isTargetExamPage(pathname);
   const [lang, setLang] = useState<"hi" | "en">("hi");
   useEffect(() => {
     if (!isCurrentAffairs) return;
@@ -201,9 +201,9 @@ export function MobileControls({ lang }: { lang: Lang }) {
   return (
     <div className="flex items-center gap-1 xl:hidden">
       <LoginChip className="inline-flex h-8 max-w-[118px] items-center overflow-hidden rounded-lg border border-brand-200 bg-brand-50 px-1.5 text-[10px] font-semibold text-brand-700 hover:bg-brand-100" />
-      <Link href="/search" aria-label={tr(dict.nav.search, lang)} className="current-affairs-search-icon grid h-9 w-9 place-items-center rounded-lg text-ink-700 hover:bg-ink-100">
+      {!hideExamHeaderControls && (\n      <Link href="/search" aria-label={tr(dict.nav.search, lang)} className="current-affairs-search-icon grid h-9 w-9 place-items-center rounded-lg text-ink-700 hover:bg-ink-100">
         <Search className="h-5 w-5" aria-hidden="true" />
-      </Link>
+      </Link>\n      )}
       {!hideExamHeaderControls && !isMockTestList && !isCurrentAffairs && <button
         ref={triggerRef}
         type="button"
