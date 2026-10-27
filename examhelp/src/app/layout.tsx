@@ -9,7 +9,6 @@ import "./globals.css";
 import { Analytics } from "@/components/layout/Analytics";
 import { BottomNav } from "@/components/layout/BottomNav";
 import { WhatsAppHelp } from "@/components/layout/WhatsAppHelp";
-import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
 import { OfflineBanner } from "@/components/layout/OfflineBanner";
 import { JsonLd } from "@/components/ui/Primitives";
@@ -52,7 +51,6 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <main id="main" className="min-h-[60vh]">
           {children}
         </main>
-        <Footer lang={lang} />
         <BottomNav lang={lang} />
         <WhatsAppHelp />
         <OfflineBanner lang={lang} />

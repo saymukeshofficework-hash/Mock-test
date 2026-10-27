@@ -31,6 +31,7 @@ export const moreNav: NavItem[] = [
   { href: "/terms", label: n.terms },
   { href: "/refund-policy", label: n.refund },
   { href: "/faq", label: n.faq },
+  { href: "/delete-account", label: n.deleteAccount },
 ];
 
 /** Mobile drawer (spec §6). */
