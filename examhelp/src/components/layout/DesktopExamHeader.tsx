@@ -46,9 +46,9 @@ export function DesktopExamHeader({ lang }: { lang: Lang }) {
             <span className="[&_svg]:h-7 [&_svg]:w-7"><Logo light /></span>
           </Link>
           <nav aria-label="Exam navigation" className="flex shrink-0 flex-nowrap items-center gap-1.5">
-            <Link href="https://tettesthub.in/index.html" className="inline-flex h-10 items-center gap-1.5 whitespace-nowrap rounded-lg border border-white/25 bg-white/15 px-2.5 text-sm font-semibold hover:bg-white/25"><Home className="h-4 w-4 shrink-0" />{language === "hi" ? "होम" : "Home"}</Link>
-            <Link href="/my-tests.html" className="inline-flex h-10 items-center gap-1.5 whitespace-nowrap rounded-lg border border-white/25 bg-white/15 px-2.5 text-sm font-semibold hover:bg-white/25"><ClipboardList className="h-4 w-4 shrink-0" />{language === "hi" ? "माई टेस्ट" : "My Test"}</Link>
-            <Link href="/contact.html" className="inline-flex h-10 items-center gap-1.5 whitespace-nowrap rounded-lg border border-white/25 bg-white/15 px-2.5 text-sm font-semibold hover:bg-white/25"><Contact className="h-4 w-4 shrink-0" />{language === "hi" ? "संपर्क" : "Contact"}</Link>
+            <Link href="https://tettesthub.in/index.html" className="inline-flex h-10 items-center gap-1.5 whitespace-nowrap rounded-lg border border-white/25 bg-white/15 px-2.5 text-sm font-semibold hover:bg-white/25"><Home className="h-4 w-4 shrink-0" />Home</Link>
+            <Link href="/my-tests.html" className="inline-flex h-10 items-center gap-1.5 whitespace-nowrap rounded-lg border border-white/25 bg-white/15 px-2.5 text-sm font-semibold hover:bg-white/25"><ClipboardList className="h-4 w-4 shrink-0" />My Test</Link>
+            <Link href="/contact.html" className="inline-flex h-10 items-center gap-1.5 whitespace-nowrap rounded-lg border border-white/25 bg-white/15 px-2.5 text-sm font-semibold hover:bg-white/25"><Contact className="h-4 w-4 shrink-0" />Contact</Link>
           </nav>
           <div className="ml-auto flex min-w-0 shrink-0 flex-nowrap items-center gap-2">
             <div role="group" aria-label="Language / भाषा" className="inline-flex h-10 shrink-0 items-center rounded-lg border border-white/70 bg-white p-0.5 text-indigo-950">
