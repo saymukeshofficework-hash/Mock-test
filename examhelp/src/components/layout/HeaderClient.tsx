@@ -73,7 +73,7 @@ export function CatalogueHeaderExtras({ lang }: { lang: Lang }) {
 /** Language control for the Current Affairs header in the static site build. */
 export function CurrentAffairsHeaderLanguage({ className = "" }: { className?: string }) {
   const pathname = usePathname();
-  const isCurrentAffairs = /(?:^|\/)current-affairs\/?$/.test(pathname);\n  const hideExamHeaderControls = isTargetExamPage(pathname);
+  const isCurrentAffairs = /(?:^|\/)current-affairs\/?$/.test(pathname);\n  const hideExamHeaderControls = isTargetExamPage(pathname);\n  const hideExamHeaderControls = isTargetExamPage(pathname);
   const [lang, setLang] = useState<"hi" | "en">("hi");
   useEffect(() => {
     if (!isCurrentAffairs) return;
