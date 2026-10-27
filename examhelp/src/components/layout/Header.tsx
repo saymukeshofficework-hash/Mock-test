@@ -15,7 +15,7 @@ export function Header({ lang }: { lang: Lang }) {
   return (
     <header className="sticky top-0 z-50 pt-3">
       {examPage && <DesktopExamHeader lang={lang} />}
-      <div className={examPage ? "xl:hidden" : ""}>
+      <div className={examPage ? "lg:hidden" : ""}>
       <div className="container-page">
       <div className="rounded-2xl border border-ink-200 bg-surface/95 shadow-[0_6px_24px_rgba(20,24,31,0.07)] backdrop-blur supports-[backdrop-filter]:bg-surface/90">
       <div className="flex min-h-16 flex-wrap items-center justify-between gap-2 px-3 py-2 sm:px-4">
