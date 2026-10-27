@@ -83,7 +83,7 @@ const INBOX_KEY = "sb_publishable_LXYxPPuR4tX7vGyWg7NIyA_-F_ieSGW";
 const PAY_URL = "";
 // WhatsApp number (country code + number, digits only) that receives the form. Submit opens a chat with it.
 // TESTING = true: no red stars and no required fields except choosing at least one assignment. Set to false before real use.
-const TESTING = true;
+const TESTING = false;
 const WA_NUMBER = "919669776027";
 const DRAFT = "bridge-form-draft-v1";
 
@@ -509,7 +509,7 @@ const UI = {
   waMsg: ["नमस्ते, मैंने {n} असाइनमेंट का फ़ॉर्म भरा है। नाम: {name}, WhatsApp: {wa}। भुगतान के बाद मेरा ड्राफ्ट असाइनमेंट इसी चैट में भेज दीजिए।", "Hello, I have filled the form for {n} assignment(s). Name: {name}, WhatsApp: {wa}. After payment, please send my draft assignment in this chat."],
   waAgain: ["WhatsApp पर संपर्क करें", "Contact on WhatsApp"],
   waHello: ["नमस्ते, मैंने असाइनमेंट फ़ॉर्म भरा है / भरना चाहता/चाहती हूँ।", "Hello, I have filled / want to fill the assignment form."],
-  thanks: ["आपका ड्राफ्ट असाइनमेंट आपके WhatsApp पर 3 से 6 घंटे में भेज दिया जाएगा। धन्यवाद!", "Your draft assignment will be sent to your WhatsApp in 3 to 6 hours. Thank you!"],
+  thanks: ["शुल्क ₹199 है। भुगतान का लिंक आपके WhatsApp पर भेजा जाएगा। भुगतान के बाद आपका ड्राफ्ट असाइनमेंट आपके WhatsApp पर 3 से 6 घंटे में भेज दिया जाएगा। धन्यवाद!", "Fee is ₹199. The payment link will be sent to your WhatsApp. After payment, your draft assignment will be sent to your WhatsApp in 3 to 6 hours. Thank you!"],
   sendIt: ["अब इस फ़ाइल को WhatsApp या ई-मेल से हमें भेज दीजिए। फ़ाइल न मिले तो नीचे दिया बटन दबाकर दोबारा डाउनलोड करें।", "Now send this file to us on WhatsApp or email. If you cannot find it, press the button below to download it again."],
   again2: ["फ़ाइल दोबारा डाउनलोड करें", "Download the file again"],
   copy: ["अपनी कॉपी डाउनलोड करें", "Download your copy"], again: ["नया फ़ॉर्म भरें", "Fill another form"],
