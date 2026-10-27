@@ -101,20 +101,26 @@
     const style = document.createElement("style");
     style.id = "tth-mock-bottom-nav-style";
     style.textContent = `
-      body.tth-has-mock-bottom-nav { padding-bottom: calc(76px + env(safe-area-inset-bottom, 0px)) !important; }
-      #tthMockBottomNav { position:fixed; left:0; right:0; bottom:0; z-index:10000; display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:6px; padding:8px 10px calc(8px + env(safe-area-inset-bottom, 0px)); background:#fff; border-top:1px solid #dbe3e8; box-shadow:0 -4px 18px rgba(15,23,42,.12); }
-      #tthMockBottomNav a, #tthMockBottomNav button { min-width:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:3px; padding:7px 3px; border:0; border-radius:0; background:transparent !important; box-shadow:none !important; text-decoration:none; font:700 11px/1.2 system-ui,-apple-system,"Segoe UI",sans-serif; cursor:pointer; }
-      #tthMockBottomNav .tth-nav-icon { font-size:19px; line-height:1; }
-      #tthMockBottomNav .tth-nav-home { color:#2563eb; }
-      #tthMockBottomNav .tth-nav-mytest { color:#7c3aed; }
-      #tthMockBottomNav .tth-nav-contact { color:#0f9d70; }
-      #tthMockBottomNav .tth-nav-logout { color:#ea580c; }
+      body.tth-has-mock-bottom-nav { padding-bottom: 0 !important; }
+      /* Keep all four test actions inline in the existing TET Test Hub header row. */
+      #tthMockBottomNav { position:static; z-index:10000; display:flex; flex:0 1 auto; align-items:center; justify-content:flex-end; gap:3px; width:auto; min-width:0; margin:0 0 0 auto; padding:0; background:transparent; border:0; border-radius:0; box-shadow:none; }
+      #tthMockBottomNav a, #tthMockBottomNav button { min-width:0; min-height:30px; display:inline-flex; flex-direction:row; align-items:center; justify-content:center; gap:4px; padding:5px 7px; border:1px solid transparent; border-radius:8px; background:transparent !important; box-shadow:none !important; text-decoration:none; white-space:nowrap; font:700 11px/1.1 system-ui,-apple-system,"Segoe UI",sans-serif; cursor:pointer; }
+      #tthMockBottomNav .tth-nav-icon { font-size:14px; line-height:1; }
+      #tthMockBottomNav .tth-nav-home { color:#2563eb; background:#eff6ff !important; border-color:#bfdbfe; }
+      #tthMockBottomNav .tth-nav-mytest { color:#7c3aed; background:#f5f3ff !important; border-color:#ddd6fe; }
+      #tthMockBottomNav .tth-nav-contact { color:#0f9d70; background:#ecfdf5 !important; border-color:#a7f3d0; }
+      #tthMockBottomNav .tth-nav-logout { color:#ea580c; background:#fff7ed !important; border-color:#fed7aa; }
       #tthMockBottomNav a:focus-visible, #tthMockBottomNav button:focus-visible { outline:2px solid #0f766e; outline-offset:2px; }
-      @media(min-width:900px) {
-        body.tth-has-mock-bottom-nav { padding-bottom: 24px !important; }
-        #tthMockBottomNav { position:relative; left:auto; right:auto; bottom:auto; width:min(100%,1100px); margin:12px auto 18px; transform:none; border:1px solid #dbe3e8; border-radius:14px; box-shadow:0 4px 16px rgba(15,23,42,.10); padding:8px 12px; }
-        #tthMockBottomNav a, #tthMockBottomNav button { min-height:48px; flex-direction:row; gap:8px; border-radius:10px; font-size:13px; }
-        #tthMockBottomNav .tth-nav-icon { font-size:20px; }
+      header.topbar { display:flex !important; align-items:center !important; flex-wrap:nowrap !important; gap:8px !important; }
+      header.topbar .topbar-left { flex:0 1 auto !important; min-width:0; }
+      @media(max-width:700px) {
+        header.topbar { gap:4px !important; padding-left:6px; padding-right:6px; }
+        header.topbar .topbar-left { gap:4px !important; }
+        header.topbar .tth-header-brand { font-size:12px; }
+        header.topbar .tth-student-account-menu { margin-left:0 !important; margin-top:0 !important; flex:0 1 auto !important; max-width:none; }
+        #tthMockBottomNav { gap:2px; }
+        #tthMockBottomNav a, #tthMockBottomNav button { min-height:27px; gap:2px; padding:4px 3px; font-size:9px; }
+        #tthMockBottomNav .tth-nav-icon { font-size:12px; }
       }
     `;
     document.head.appendChild(style);
@@ -126,9 +132,9 @@
       <a class="tth-nav-mytest" href="/dashboard.html"><span class="tth-nav-icon" aria-hidden="true">▦</span><span>My Test</span></a>
       <a class="tth-nav-contact" href="/contact.html"><span class="tth-nav-icon" aria-hidden="true">✉</span><span>Contact</span></a>
       <button class="tth-nav-logout" type="button" id="tthBottomLogout"><span class="tth-nav-icon" aria-hidden="true">↪</span><span>Logout</span></button>`;
-    document.body.appendChild(nav);
     const testHeader = document.querySelector("header.topbar, .topbar, .hdr .bar, .top, .tbar");
-    if (testHeader && testHeader.parentNode) testHeader.parentNode.insertBefore(nav, testHeader.nextSibling);
+    if (testHeader) testHeader.appendChild(nav);
+    else document.body.appendChild(nav);
     document.body.classList.add("tth-has-mock-bottom-nav");
     const logout = nav.querySelector("#tthBottomLogout");
     logout.addEventListener("click", async () => {
