@@ -75,8 +75,10 @@ input:focus,textarea:focus,select:focus{outline:2px solid var(--accent);outline-
 "use strict";
 // ---------- settings ----------
 const SCHEMA = "tettesthub-bridge-v1";
-// Where a filled form is sent (your Google Apps Script web app URL). Leave "" to keep the old behaviour: the candidate downloads the .txt.
-const SUBMIT_URL = "";
+// Where a filled form is saved for the owner. If saving fails, the candidate gets the .txt to send on WhatsApp.
+const INBOX_URL = "https://ovaubhekxjtkodkhsybg.supabase.co/rest/v1/assignment_orders";
+// public (publishable) key, same one the Bridge Course store page uses; the table only accepts inserts from it
+const INBOX_KEY = "sb_publishable_LXYxPPuR4tX7vGyWg7NIyA_-F_ieSGW";
 // Razorpay Payment Link (Rakesh Pandey's Razorpay account), e.g. "https://rzp.io/l/xxxx". Leave "" to hide the Pay button.
 const PAY_URL = "";
 // WhatsApp number (country code + number, digits only) that receives the form. Submit opens a chat with it.
@@ -730,32 +732,21 @@ f.addEventListener("submit", e => {
   const btn = $("sendBtn"); btn.disabled = true; btn.textContent = t("sending");
   const waText = t("waMsg").replace("{n}", list.length).replace("{name}", p.profile.name).replace("{wa}", p.profile.whatsapp);
   const waLink = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(waText)}`;
-  // Must start inside this click: browsers only allow share / pop-ups right after a tap.
-  // With file sharing (most phones) the .txt goes into the chat; otherwise the chat opens with the message and the file is downloaded.
-  const sharing = (async () => {
-    try {
-      const file = new File(["\ufeff" + text], name, { type: "text/plain" });
-      if (navigator.canShare && navigator.canShare({ files: [file] })) { await navigator.share({ files: [file], text: waText }); return true; }
-    } catch { return false; }
-    window.open(waLink, "_blank", "noopener");
-    return false;
-  })();
+  // Must open inside this click, or the browser blocks the pop-up. The chat opens with the message already filled in.
+  window.open(waLink, "_blank", "noopener");
   const finish = async () => {
     let ok = false;
-    if (SUBMIT_URL) {
-      try {
-        // text/plain keeps this a "simple" request, so Apps Script needs no CORS preflight
-        const r = await fetch(SUBMIT_URL, { method: "POST", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify({ name: p.profile.name, whatsapp: p.profile.whatsapp, count: list.length, tasks: list.map(x => `C${x.course}-A${x.assignNo} ${x.taskId}`).join(", "), file: name, text }) });
-        ok = r.ok;
-      } catch {}
-    }
-    const shared = await sharing;
-    if (ok || shared) {
+    try {
+      // saved in the Supabase table assignment_orders (insert-only for the public; see supabase/migrations)
+      const r = await fetch(INBOX_URL, { method: "POST", headers: { "Content-Type": "application/json", apikey: INBOX_KEY, Prefer: "return=minimal" }, body: JSON.stringify({ name: p.profile.name, whatsapp: p.profile.whatsapp, assignment_count: list.length, tasks: list.map(x => `C${x.course}-A${x.assignNo} ${x.taskId}`).join(", "), file_name: name, form_text: text }) });
+      ok = r.ok;
+    } catch {}
+    if (ok) {
       try { localStorage.removeItem(DRAFT); } catch {}
       f.innerHTML = `<section><div class="msg good">${t("done")}</div><p>${t("thanks")}</p><div class="row"><a class="btn ghost" href="${esc(waLink)}" target="_blank" rel="noopener" style="text-decoration:none">${t("waAgain")}</a>${PAY_URL ? `<a class="btn" href="${esc(PAY_URL)}" target="_blank" rel="noopener" style="text-decoration:none">${t("pay")}</a>` : ""}<button type="button" class="btn ghost" id="again">${t("again")}</button></div></section>`;
     } else {
-      if (!SUBMIT_URL || !shared) download(name, text);
-      f.innerHTML = `<section><div class="msg ${SUBMIT_URL ? "bad" : "good"}">${SUBMIT_URL ? t("failed") : t("done")}</div><p>${t("sendIt")}</p><p class="hint">${esc(name)}</p>${SUBMIT_URL ? "" : `<p>${t("thanks")}</p>`}<div class="row"><button type="button" class="btn" id="cpy">${t("again2")}</button><button type="button" class="btn ghost" id="again">${t("again")}</button></div></section>`;
+      download(name, text);
+      f.innerHTML = `<section><div class="msg bad">${t("failed")}</div><p>${t("sendIt")}</p><p class="hint">${esc(name)}</p><div class="row"><button type="button" class="btn" id="cpy">${t("again2")}</button><button type="button" class="btn ghost" id="again">${t("again")}</button></div></section>`;
       $("cpy").onclick = () => download(name, text);
     }
     $("again").onclick = () => { S = blank(); saveDraft(); render(); window.scrollTo(0, 0); };
