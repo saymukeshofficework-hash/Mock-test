@@ -73,14 +73,22 @@
   }
 
   function setLang(value) {
-    if (lang() === value) return;
-    // Reuse the page's own language switch so its content updates the usual way.
-    var toggle = document.getElementById("langToggle") || document.getElementById("tthLanguageToggle");
-    if (toggle) toggle.click();
-    else {
-      try { localStorage.setItem("tetLang", value); localStorage.setItem("testhub_lang_pref", value); } catch (e) {}
-      if (typeof window.setLang === "function") window.setLang(value);
+    try { localStorage.setItem("tetLang", value); localStorage.setItem("testhub_lang_pref", value); } catch (e) {}
+    // Prefer the live exam's language controls; changing them must re-render the question.
+    var questionLang = document.getElementById("qLangSelect");
+    var defaultLang = document.getElementById("defaultLang");
+    if (questionLang && questionLang.value !== value) {
+      questionLang.value = value;
+      questionLang.dispatchEvent(new Event("change", { bubbles: true }));
     }
+    if (defaultLang) defaultLang.value = value;
+    // Support older pages that expose their own language toggle/function.
+    var toggle = document.getElementById("langToggle") || document.getElementById("tthLanguageToggle");
+    if (toggle && !questionLang && !defaultLang) toggle.click();
+    if (typeof window.setLang === "function") {
+      try { window.setLang(value); } catch (e) {}
+    }
+    document.dispatchEvent(new CustomEvent("tth:languagechange", { detail: { lang: value } }));
   }
 
   function run() {
