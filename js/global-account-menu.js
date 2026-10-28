@@ -104,12 +104,12 @@
       body.tth-has-mock-bottom-nav { padding-bottom: 0 !important; }
       /* Keep all four test actions inline in the existing TET Test Hub header row. */
       #tthMockBottomNav { position:static; z-index:10000; display:flex; flex:0 1 auto; align-items:center; justify-content:flex-end; gap:3px; width:auto; min-width:0; margin:0 0 0 auto; padding:0; background:transparent; border:0; border-radius:0; box-shadow:none; }
-      #tthMockBottomNav a, #tthMockBottomNav button { min-width:0; min-height:30px; display:inline-flex; flex-direction:row; align-items:center; justify-content:center; gap:4px; padding:5px 7px; border:1px solid transparent; border-radius:8px; background:transparent !important; box-shadow:none !important; text-decoration:none; white-space:nowrap; font:700 11px/1.1 system-ui,-apple-system,"Segoe UI",sans-serif; cursor:pointer; }
+      #tthMockBottomNav a, #tthMockBottomNav button { min-width:0; min-height:30px; display:inline-flex; flex-direction:row; align-items:center; justify-content:center; gap:4px; padding:5px 7px; border:1px solid transparent; border-radius:8px; box-shadow:none; text-decoration:none; white-space:nowrap; font:700 11px/1.1 system-ui,-apple-system,"Segoe UI",sans-serif; cursor:pointer; }
       #tthMockBottomNav .tth-nav-icon { font-size:14px; line-height:1; }
-      #tthMockBottomNav .tth-nav-home { color:#2563eb; background:#eff6ff !important; border-color:#bfdbfe; }
-      #tthMockBottomNav .tth-nav-mytest { color:#7c3aed; background:#f5f3ff !important; border-color:#ddd6fe; }
-      #tthMockBottomNav .tth-nav-contact { color:#0f9d70; background:#ecfdf5 !important; border-color:#a7f3d0; }
-      #tthMockBottomNav .tth-nav-logout { color:#ea580c; background:#fff7ed !important; border-color:#fed7aa; }
+      #tthMockBottomNav .tth-nav-home { color:#1d4ed8; background:#dbeafe !important; border-color:#bfdbfe; }
+      #tthMockBottomNav .tth-nav-courses { color:#047857; background:#d1fae5 !important; border-color:#a7f3d0; }
+      #tthMockBottomNav .tth-nav-mytest { color:#6d28d9; background:#ede9fe !important; border-color:#ddd6fe; }
+      #tthMockBottomNav .tth-nav-logout { color:#c2410c; background:#ffedd5 !important; border-color:#fed7aa; }
       #tthMockBottomNav a:focus-visible, #tthMockBottomNav button:focus-visible { outline:2px solid #0f766e; outline-offset:2px; }
       /* Desktop exam papers were capped at a phone-width 720px; give laptop layouts room for the single header row. */
       #app { max-width:min(1280px,100%) !important; width:100%; }
@@ -149,8 +149,8 @@
     nav.setAttribute("aria-label", "Test navigation");
     nav.innerHTML = `
       <a class="tth-nav-home" href="/index.html"><span class="tth-nav-icon" aria-hidden="true">⌂</span><span>Home</span></a>
+      <a class="tth-nav-courses" href="/course-folders.html"><span class="tth-nav-icon" aria-hidden="true">▤</span><span>Courses</span></a>
       <a class="tth-nav-mytest" href="/dashboard.html"><span class="tth-nav-icon" aria-hidden="true">▦</span><span>My Test</span></a>
-      <a class="tth-nav-contact" href="/contact.html"><span class="tth-nav-icon" aria-hidden="true">✉</span><span>Contact</span></a>
       <button class="tth-nav-logout" type="button" id="tthBottomLogout"><span class="tth-nav-icon" aria-hidden="true">↪</span><span>Logout</span></button>`;
     const testHeader = document.querySelector("header.topbar, .topbar, .hdr .bar, .top, .tbar");
     if (testHeader) testHeader.appendChild(nav);
