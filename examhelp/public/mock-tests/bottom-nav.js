@@ -1,4 +1,24 @@
 (function () {
+  // Hide only the redundant mobile Home link that appears immediately before
+  // the TET Test Hub brand. Keep desktop header navigation and the bottom nav.
+  const hideRedundantMobileHome = () => {
+    const brand = Array.from(document.querySelectorAll('header .brand, header .logo, header [class*="brand"], header [class*="logo"], .topbar .brand, .topbar .logo'))
+      .find((el) => /TET\s*(TEST\s*)?HUB|TET\s*TASTE/i.test(el.textContent || ""));
+    if (!brand) return;
+    const header = brand.closest("header, .top, .topbar, .hdr, nav") || brand.parentElement;
+    if (!header) return;
+    header.querySelectorAll("a, button").forEach((el) => {
+      const label = (el.textContent || "").replace(/\s+/g, " ").trim();
+      const isHome = /^(?:⌂\s*)?(?:home|होम)(?:\s*\/\s*home)?$/i.test(label);
+      const comesBeforeBrand = !!(el.compareDocumentPosition(brand) & Node.DOCUMENT_POSITION_FOLLOWING);
+      if (isHome && comesBeforeBrand) el.classList.add("tth-redundant-mobile-home");
+    });
+  };
+  const mobileHomeStyle = document.createElement("style");
+  mobileHomeStyle.textContent = "@media(max-width:899px){.tth-redundant-mobile-home{display:none!important}}";
+  document.head.appendChild(mobileHomeStyle);
+  hideRedundantMobileHome();
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", hideRedundantMobileHome, { once: true });
   if (document.getElementById("tthExamBottomNav") || document.getElementById("tthMockBottomNav")) return;
   const style = document.createElement("style");
   style.textContent = `
