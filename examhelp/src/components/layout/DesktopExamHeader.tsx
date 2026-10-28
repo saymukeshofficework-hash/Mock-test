@@ -63,7 +63,7 @@ export function DesktopExamHeader({ lang }: { lang: Lang }) {
           {/* A div, not <nav>: globals.css hides every `header nav` on mock-test list pages. */}
           <div role="navigation" aria-label="Exam navigation" className="flex shrink-0 flex-nowrap items-center gap-1.5">
             <Link href="https://tettesthub.in/index.html" className={`${navClass} bg-emerald-500`}><Home className="h-4 w-4 shrink-0" aria-hidden="true" /><span>Home</span></Link>
-            <Link href="/course-folders.html" className={`${navClass} bg-violet-500`}><LayoutGrid className="h-4 w-4 shrink-0" aria-hidden="true" /><span>All Courses</span></Link>
+            <Link href="https://tettesthub.in/course-folders.html" className={`${navClass} bg-violet-500`}><LayoutGrid className="h-4 w-4 shrink-0" aria-hidden="true" /><span>All Courses</span></Link>
             <Link href="/my-tests.html" className={`${navClass} bg-sky-500`}><ClipboardList className="h-4 w-4 shrink-0" aria-hidden="true" /><span>My Test</span></Link>
             <LoginChip mode="logout" className={`${navClass} bg-rose-500`} />
           </div>
