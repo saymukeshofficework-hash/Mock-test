@@ -57,9 +57,9 @@ export function DesktopExamHeader({ lang }: { lang: Lang }) {
     <div className="hidden lg:block">
       <div className="container-page py-2">
         <div className="flex h-[68px] w-full flex-nowrap items-center gap-2 overflow-visible rounded-2xl border border-indigo-300 bg-gradient-to-r from-indigo-800 via-violet-700 to-fuchsia-700 px-3 text-white shadow-lg">
-          <Link href="https://tettesthub.in/index.html" aria-label="TET TestHub Home" className="flex shrink-0 items-center rounded-lg px-1.5 py-1 hover:bg-white/10">
+          <div aria-label="TET TestHub" className="flex shrink-0 items-center rounded-lg px-1.5 py-1">
             <span className="[&_svg]:h-7 [&_svg]:w-7"><Logo light /></span>
-          </Link>
+          </div>
           {/* A div, not <nav>: globals.css hides every `header nav` on mock-test list pages. */}
           <div role="navigation" aria-label="Exam navigation" className="flex shrink-0 flex-nowrap items-center gap-1.5">
             <Link href="https://tettesthub.in/index.html" className={`${navClass} bg-emerald-500`}><Home className="h-4 w-4 shrink-0" aria-hidden="true" /><span>Home</span></Link>
