@@ -416,7 +416,10 @@
     "सामान्य ज्ञान":"General Awareness","गणित":"Mathematics","पहले लॉगिन करें।":"Please log in first.",
     "सीरीज़ अनलॉक है।":"Series unlocked.","सीरीज़ अनलॉक हो गई।":"Series unlocked.",
     "25 पूरे पेपर":"25 full papers","पेपर 1 फ्री।":"Paper 1 is free.",
-    "स्तर चुनें":"Choose a level","विषय चुनें":"Choose a subject","प्राथमिक":"Primary","माध्यमिक":"Secondary"
+    "स्तर चुनें":"Choose a level","विषय चुनें":"Choose a subject","प्राथमिक":"Primary","माध्यमिक":"Secondary",
+    "MP TET 2026 — 25 Full Mock Tests":"MP TET 2026 — 25 फुल मॉक टेस्ट","Exam Pattern":"परीक्षा पैटर्न",
+    "Total 150 questions · 150 marks · 150 minutes · 1 mark each":"कुल 150 प्रश्न · 150 अंक · 150 मिनट · प्रत्येक प्रश्न 1 अंक",
+    "No negative marking.":"ऋणात्मक अंकन नहीं है।","Full Test Series — 25 Full Mock Tests":"पूरी टेस्ट सीरीज़ — 25 फुल मॉक टेस्ट"
   };
   const TTH_ORIGINALS = new WeakMap();
   let tthObserver = null;
@@ -428,7 +431,7 @@
   }
   function tthTranslateNode(node, lang){
     if(!node || node.nodeType!==Node.TEXT_NODE || !node.parentElement) return;
-    if(node.parentElement.closest("script,style,textarea,[data-tth-no-translate],option[data-keep-language],[data-i18n],[data-i18n-html],[data-i18n-placeholder],[data-i18n-alt],#tthMockBottomNav,#tthFolderBottomLogout,[data-tth-bottom-nav],[class*=\"bottom-nav\"],[class*=\"bottom-bar\"],[class*=\"taskbar\"],[class*=\"mobile-nav\"],#qText,#qtext,#optionsList,#options,.qtext,.rqtext,.rsol,.option")) return;
+    if(node.parentElement.closest("script,style,textarea,[data-tth-no-translate],option[data-keep-language],[data-i18n],[data-i18n-html],[data-i18n-placeholder],[data-i18n-alt],#tthMockBottomNav,#tthFolderBottomLogout,[data-tth-bottom-nav],:not(body)[class*=\"bottom-nav\"],:not(body)[class*=\"bottom-bar\"],:not(body)[class*=\"taskbar\"],:not(body)[class*=\"mobile-nav\"],#qText,#qtext,#optionsList,#options,.qtext,.rqtext,.rsol,.option")) return;
     let original=TTH_ORIGINALS.get(node);
     if(original===undefined){original=node.nodeValue;TTH_ORIGINALS.set(node,original);}
     const trimmed=original.trim();
@@ -494,6 +497,7 @@
       const btn=document.getElementById(id);
       if(btn) btn.textContent=lang==="hi"?"English":"हिंदी";
     });
+    document.querySelectorAll("[data-tth-lang]").forEach(b=>b.classList.toggle("active",b.dataset.tthLang===lang));
     // Keep every test engine's own language preference synchronized with the site.
     try { localStorage.setItem("testhub_lang_pref", lang); } catch (_) {}
     ["defaultLang","qLangSelect","langSel"].forEach(id=>{
@@ -512,7 +516,18 @@
     let btn=document.getElementById("langToggle")||document.getElementById("tthLanguageToggle")||document.getElementById("langBtn")||document.getElementById("langBtnName")||document.getElementById("langBtnResult");
     if(btn && btn.hidden) btn=null;
     const hadExistingToggle=!!btn;
-    if(!btn && !document.getElementById("langSel") && !document.getElementById("languageSwitch")){
+    // CPCT/TET headers have their own हिंदी/English buttons; wire them instead of adding another toggle.
+    document.querySelectorAll("[data-tth-lang]").forEach(b=>{
+      if(b.dataset.tthLangBound==="true") return;
+      b.dataset.tthLangBound="true";
+      b.setAttribute("data-tth-no-translate","true");
+      b.addEventListener("click",()=>{
+        const selected=b.dataset.tthLang==="en"?"en":"hi";
+        try{localStorage.setItem("tetLang",selected);localStorage.setItem("testhub_lang_pref",selected);}catch(_){}
+        tthApplyLanguage();
+      });
+    });
+    if(!btn && !document.getElementById("langSel") && !document.getElementById("languageSwitch") && !document.querySelector("[data-tth-lang]")){
       btn=document.createElement("button");btn.type="button";btn.id="tthLanguageToggle";btn.className="tth-language-toggle";
       btn.style.cssText="border:1px solid #8abbb0;background:#fff;color:#155e55;border-radius:8px;padding:6px 10px;font-weight:800;cursor:pointer;white-space:nowrap;";
       const header=document.querySelector("header.topbar .topbar-left")||document.querySelector(".site-header")||document.querySelector(".hdr .bar")||document.querySelector(".tbar")||document.querySelector(".topbar")||document.querySelector("header");

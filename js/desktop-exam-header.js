@@ -75,7 +75,7 @@
   function setLang(value) {
     if (lang() === value) return;
     // Reuse the page's own language switch so its content updates the usual way.
-    var toggle = document.getElementById("langToggle") || document.getElementById("tthLanguageToggle");
+    var toggle = document.querySelector('[data-tth-lang="' + value + '"]') || document.getElementById("langToggle") || document.getElementById("tthLanguageToggle");
     if (toggle) toggle.click();
     else {
       try { localStorage.setItem("tetLang", value); localStorage.setItem("testhub_lang_pref", value); } catch (e) {}
