@@ -23,6 +23,7 @@
   const style = document.createElement("style");
   style.textContent = `
     body { padding-bottom: calc(78px + env(safe-area-inset-bottom, 0px)) !important; }
+    @media (max-width: 899px) { .tth-top-home-option { display: none !important; } }
     #tthExamBottomNav { position:fixed; left:0; right:0; bottom:0; z-index:100000; display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:6px; padding:8px 10px calc(8px + env(safe-area-inset-bottom,0px)); background:#fff; border-top:1px solid #dbe3e8; box-shadow:0 -4px 18px rgba(15,23,42,.12); }
     #tthExamBottomNav a, #tthExamBottomNav button { min-width:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:3px; padding:7px 3px; border:0; border-radius:0; background:transparent !important; box-shadow:none !important; text-decoration:none; font:700 11px/1.2 system-ui,-apple-system,"Segoe UI",sans-serif; cursor:pointer; }
     #tthExamBottomNav .home { color:#2563eb; }
