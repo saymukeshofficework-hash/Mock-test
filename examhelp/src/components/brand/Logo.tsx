@@ -11,11 +11,11 @@ export function LogoMark({ className = "h-9 w-9" }: { className?: string }) {
   );
 }
 
-export function Logo({ light = false }: { light?: boolean }) {
+export function Logo({ light = false, compact = false }: { light?: boolean; compact?: boolean }) {
   return (
-    <span className="inline-flex items-center gap-2.5">
-      <LogoMark />
-      <span className={`text-xl sm:text-2xl font-extrabold tracking-tight ${light ? "text-white" : "text-brand-900"}`}>
+    <span className={`inline-flex min-w-0 items-center ${compact ? "gap-1" : "gap-2.5"}`}>
+      <LogoMark className={compact ? "h-6 w-6" : "h-9 w-9"} />
+      <span className={`${compact ? "text-xs" : "text-xl sm:text-2xl"} min-w-0 whitespace-nowrap font-extrabold tracking-tight ${light ? "text-white" : "text-brand-900"}`}>
         TETTEST<span className="text-accent-500">HUB</span>
       </span>
     </span>
