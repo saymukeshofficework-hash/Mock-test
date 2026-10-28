@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, NotebookPen, Phone, LogOut } from "lucide-react";
+import { Home, NotebookPen, LayoutGrid, LogOut } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { dict, tr } from "@/i18n/dictionary";
 import { isActive } from "@/lib/nav";
@@ -24,8 +24,8 @@ export function BottomNav({ lang }: { lang: Lang }) {
   };
   const items = [
     { href: "https://tettesthub.in/index.html", label: dict.nav.home, fixedLabel: "Home", Icon: Home, abs: true, color: "text-blue-600" },
-    { href: "/test-series", label: dict.nav.tests, fixedLabel: "My Test", Icon: NotebookPen, color: "text-emerald-600" },
-    { href: "/contact", label: dict.nav.contact, fixedLabel: "Contact", Icon: Phone, color: "text-rose-600" },
+    { href: "https://tettesthub.in/course-folders.html", label: dict.nav.tests, fixedLabel: "Courses", Icon: LayoutGrid, abs: true, color: "text-violet-600" },
+    { href: "https://tettesthub.in/dashboard.html", label: dict.nav.tests, fixedLabel: "My Test", Icon: NotebookPen, abs: true, color: "text-sky-600" },
   ];
   return (
     <nav
