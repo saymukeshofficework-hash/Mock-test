@@ -7,11 +7,14 @@ import { useRouter } from "next/navigation";
 import { dict, tr } from "@/i18n/dictionary";
 import { isActive } from "@/lib/nav";
 import type { Lang } from "@/types";
+import { isDesktopExamHeaderPage } from "./DesktopExamHeader";
 
 /** Shared fixed navigation for all app pages and screen sizes. Labels intentionally stay English. */
 export function BottomNav({ lang }: { lang: Lang }) {
   const pathname = usePathname();
   const router = useRouter();
+  // 25-test series pages carry these options in their one-line desktop header.
+  const desktopHidden = isDesktopExamHeaderPage(pathname) ? "lg:hidden" : "";
   const logout = () => {
     try {
       Object.keys(localStorage).filter((key) => key.includes("auth-token") || key.startsWith("sb-")).forEach((key) => localStorage.removeItem(key));
@@ -28,7 +31,7 @@ export function BottomNav({ lang }: { lang: Lang }) {
     <nav
       aria-label="Bottom navigation"
       data-tth-no-translate="true"
-      className="fixed inset-x-0 bottom-0 z-[1000] border-t border-ink-200 bg-surface/95 pb-[env(safe-area-inset-bottom)] shadow-[0_-4px_18px_rgba(15,23,42,0.12)] backdrop-blur xl:inset-x-auto xl:left-1/2 xl:top-[76px] xl:bottom-auto xl:w-[720px] xl:-translate-x-1/2 xl:rounded-b-2xl xl:rounded-t-none xl:border-x xl:border-b xl:border-t-0 xl:pb-0"
+      className={`fixed inset-x-0 bottom-0 z-[1000] border-t border-ink-200 bg-surface/95 pb-[env(safe-area-inset-bottom)] shadow-[0_-4px_18px_rgba(15,23,42,0.12)] backdrop-blur xl:inset-x-auto xl:left-1/2 xl:top-[76px] xl:bottom-auto xl:w-[720px] xl:-translate-x-1/2 xl:rounded-b-2xl xl:rounded-t-none xl:border-x xl:border-b xl:border-t-0 xl:pb-0 ${desktopHidden}`}
     >
       <ul className="mx-auto grid max-w-none grid-cols-4">
         {items.map(({ href, label, fixedLabel, Icon, abs, color }) => {
