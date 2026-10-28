@@ -84,6 +84,23 @@ function setupFontSizeControls(){
 function initExam(loadedSections, testId){
   sections = loadedSections;
   examTestId = testId;
+
+  // CPCT and TET only: carry the course-page language choice into the paper.
+  // Legacy TET papers use /tet-mock-test-N.html and don't have a test ID prefix.
+  const isLegacyTetPaper = /^\/tet-mock-test-\d+\.html$/i.test(window.location.pathname);
+  const isCpctOrTetSeries = /^(?:cpct-exam-|tet[ps]-)/i.test(String(testId || ''));
+  if (isLegacyTetPaper || isCpctOrTetSeries) {
+    try {
+      const savedLanguage = localStorage.getItem('tetLang') || localStorage.getItem('testhub_lang_pref');
+      if (savedLanguage === 'hi' || savedLanguage === 'en') {
+        const defaultLanguageControl = document.getElementById('defaultLang');
+        const questionLanguageControl = document.getElementById('qLangSelect');
+        if (defaultLanguageControl) defaultLanguageControl.value = savedLanguage;
+        if (questionLanguageControl) questionLanguageControl.value = savedLanguage;
+      }
+    } catch (_) { /* Use the exam's existing default if storage is unavailable. */ }
+  }
+
   state = sections.map(sec => sec.questions.map(() => ({status:'notVisited', selected:null})));
 }
 
