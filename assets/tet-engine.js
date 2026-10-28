@@ -1,3 +1,6 @@
+/* Add the four-color mobile navigation on TET/CPCT paper screens only. */
+(function(){const s=document.createElement("script");s.src="/js/mobile-bottom-nav.js?v=1";s.defer=true;document.head.appendChild(s);})();
+
 /* Load the shared account/logout menu on every TET exam screen. */
 (function(){
   const accountScript = document.createElement("script");
