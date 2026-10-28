@@ -97,7 +97,7 @@
       '<div class="tth-dh-nav" role="navigation" aria-label="Exam navigation">' +
       '<a class="tth-dh-btn" style="background:#10b981" href="https://tettesthub.in/index.html">' + ICON.home + '<span>Home</span></a>' +
       '<a class="tth-dh-btn" style="background:#8b5cf6" href="/course-folders.html">' + ICON.grid + '<span>All Courses</span></a>' +
-      '<a class="tth-dh-btn" style="background:#0ea5e9" href="/my-tests.html">' + ICON.list + '<span>My Test</span></a>' +
+      '<a class="tth-dh-btn" style="background:#0ea5e9" href="/dashboard.html">' + ICON.list + '<span>My Test</span></a>' +
       '<button class="tth-dh-btn" style="background:#f43f5e" type="button" data-dh-logout aria-label="Logout">' + ICON.out + '<span>Logout</span></button>' +
       '</div><div class="tth-dh-right">' +
       '<div class="tth-dh-lang" role="group" aria-label="Language / भाषा"><button type="button" data-dh-lang="hi">हिंदी</button><button type="button" data-dh-lang="en">English</button></div>' +
