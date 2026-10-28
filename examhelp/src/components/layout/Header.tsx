@@ -3,7 +3,7 @@
 import { usePathname } from "next/navigation";
 import { DesktopExamHeader, isDesktopExamHeaderPage } from "./DesktopExamHeader";
 import { LoginChip } from "./LoginChip";
-import { CatalogueHeaderExtras, CurrentAffairsHeaderLanguage, MockPageHomeLink, DesktopHeaderSearch } from "./HeaderClient";
+import { CatalogueHeaderExtras, CurrentAffairsHeaderLanguage, MockPageHomeLink, DesktopHeaderSearch, ExamHeaderLanguage } from "./HeaderClient";
 import { Logo } from "@/components/brand/Logo";
 import type { Lang } from "@/types";
 import { DesktopNav, MobileControls } from "./HeaderClient";
@@ -13,7 +13,7 @@ export function Header({ lang }: { lang: Lang }) {
   const pathname = usePathname();
   const examPage = isDesktopExamHeaderPage(pathname);
   return (
-    <header className="sticky top-0 z-50 pt-3">
+    <header className="sticky top-0 z-50 pt-3" data-tth-no-translate={examPage ? "true" : undefined}>
       {examPage && <DesktopExamHeader lang={lang} />}
       <div className={examPage ? "lg:hidden" : ""}>
       <div className="container-page">
@@ -24,9 +24,16 @@ export function Header({ lang }: { lang: Lang }) {
           <div aria-label="TETTESTHUB" className="shrink-0">
             <Logo />
           </div>
-          <div className="current-affairs-global-language shrink-0">
-            <LanguageSwitcher lang={lang} />
-          </div>
+          {examPage ? (
+            <>
+              <ExamHeaderLanguage className="lg:hidden" />
+              <LoginChip mode="identity" className="inline-flex h-8 max-w-[88px] shrink-0 items-center overflow-hidden rounded-lg border border-amber-200 bg-amber-300 px-1.5 text-[10px] font-bold text-indigo-950 shadow-sm lg:hidden" />
+            </>
+          ) : (
+            <div className="current-affairs-global-language shrink-0">
+              <LanguageSwitcher lang={lang} />
+            </div>
+          )}
         </div>
 
         <DesktopHeaderSearch lang={lang} />
