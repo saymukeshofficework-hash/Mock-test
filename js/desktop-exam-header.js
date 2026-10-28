@@ -93,7 +93,7 @@
     el.setAttribute("data-tth-no-translate", "true");
     el.innerHTML =
       '<div class="tth-dh-bar">' +
-      '<a class="tth-dh-logo" href="https://tettesthub.in/index.html" aria-label="TET TestHub Home">' + MARK + '<b>TETTEST<span>HUB</span></b></a>' +
+      '<div class="tth-dh-logo" role="img" aria-label="TET TestHub">' + MARK + '<b>TETTEST<span>HUB</span></b></div>' +
       '<div class="tth-dh-nav" role="navigation" aria-label="Exam navigation">' +
       '<a class="tth-dh-btn" style="background:#10b981" href="https://tettesthub.in/index.html">' + ICON.home + '<span>Home</span></a>' +
       '<a class="tth-dh-btn" style="background:#8b5cf6" href="/course-folders.html">' + ICON.grid + '<span>All Courses</span></a>' +
