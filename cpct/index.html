@@ -35,12 +35,33 @@ h1{font-size:clamp(28px,6vw,40px);line-height:1.2;margin:34px 0 12px;color:#0d3b
 .soon{margin-left:8px;background:#fef3c7;color:#92400e;border-radius:99px;padding:2px 9px;font-size:12px}
 
 .student-account-menu{position:relative;display:inline-flex;align-items:center;height:auto;min-height:40px;padding:0;background:var(--brand2);color:var(--brand);z-index:20}.student-account-menu summary{list-style:none;cursor:pointer;white-space:nowrap}.student-account-menu summary::-webkit-details-marker{display:none}.student-account-dropdown{position:absolute;right:0;top:calc(100% + 8px);min-width:180px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:6px;box-shadow:0 8px 24px rgba(0,0,0,.12);display:grid;gap:4px}.student-account-dropdown a,.student-account-dropdown button{display:block;width:100%;padding:10px 12px;border:0;border-radius:8px;background:#fff;color:var(--ink);font:inherit;font-size:14px;text-align:left;text-decoration:none;cursor:pointer}.student-account-dropdown a:hover,.student-account-dropdown button:hover{background:var(--brand2);color:var(--brand)}
+
+.tth-gradient-header{background:linear-gradient(100deg,#3026a8 0%,#6824cf 52%,#a20caf 100%)!important;border:1px solid #b5a7ff!important;color:#fff!important;display:flex;align-items:center;justify-content:flex-start!important;gap:14px;min-height:68px;flex-wrap:nowrap;padding:9px 14px!important;border-radius:18px!important;box-shadow:0 7px 22px rgba(46,35,130,.18)!important}
+.tth-brand{display:flex;align-items:center;gap:8px;color:#fff!important;white-space:nowrap;font-size:clamp(16px,1.5vw,23px)!important}
+.tth-brand b{color:#ffd45c!important}.brand-icon{display:grid;place-items:center;width:36px;height:36px;background:#ffffff20;border:1px solid #ffffff55;border-radius:10px;font-size:22px}.exam-tag{font-size:.78em;color:#fff;font-weight:800}
+.tth-exam-nav,.tth-header-right,.tth-language{display:flex;align-items:center;gap:7px;flex-wrap:nowrap}.tth-exam-nav{min-width:0}.tth-header-right{margin-left:auto}
+.tth-exam-nav a,.tth-exam-nav button{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:40px;padding:0 12px;border:1px solid #ffffff45;border-radius:11px;color:#fff;text-decoration:none;font-weight:800;font-size:13px;white-space:nowrap;cursor:pointer}
+.tth-nav-home{background:#10b981!important}.tth-nav-courses{background:#8b5cf6!important}.tth-nav-tests{background:#0ea5e9!important}.tth-nav-logout{background:#f43f5e!important}
+.tth-language{background:#fff;padding:3px;border-radius:10px}.tth-language button{border:0;background:#fff;color:#312e81;border-radius:7px;padding:7px 9px;font-weight:800;font-size:12px;white-space:nowrap}.tth-language button.active{background:#3730a3;color:#fff}
+.tth-student{background:#fcd34d!important;color:#312e81!important;border:1px solid #fde68a!important;white-space:nowrap}
+@media(max-width:900px){.tth-gradient-header{flex-wrap:wrap;gap:8px}.tth-header-right{margin-left:0}.tth-exam-nav{order:3;width:100%;justify-content:flex-start}.tth-exam-nav a,.tth-exam-nav button{flex:1;padding:0 6px}.tth-header-right{margin-left:auto}}
+@media(max-width:520px){.tth-gradient-header{padding:8px!important}.tth-brand{font-size:16px!important}.brand-icon{width:30px;height:30px}.tth-exam-nav a,.tth-exam-nav button{font-size:11px;min-height:36px;gap:3px}.tth-header-right{gap:5px}.tth-language button{padding:6px 7px}.tth-student{font-size:11px}}
+
 </style>
 </head>
 <body>
-<div class="hdr"><div class="bar">
-  <a class="logo"><span>TETTEST<b>HUB</b></span></a>
-  <details class="chip student-account-menu" id="studentAccountMenu"><summary id="studentAccountLabel">छात्र ID</summary><div class="student-account-dropdown"><a href="/dashboard.html">डैशबोर्ड / Dashboard</a><button type="button" data-account-logout>लॉगआउट / Logout</button></div></details>
+<div class="hdr"><div class="bar tth-gradient-header">
+  <a class="logo tth-brand" href="/index.html" aria-label="TET TestHub Home"><span class="brand-icon">📚</span><span>CPCT <span class="exam-tag">मॉक टेस्ट</span></span></a>
+  <nav class="tth-exam-nav" aria-label="Main navigation">
+    <a class="tth-nav-home" href="/index.html">⌂ <span>Home</span></a>
+    <a class="tth-nav-courses" href="/course-folders.html">▦ <span>All Courses</span></a>
+    <a class="tth-nav-tests" href="/my-tests.html">▤ <span>My Test</span></a>
+    <button class="tth-nav-logout" type="button" data-account-logout>⇥ <span>Logout</span></button>
+  </nav>
+  <div class="tth-header-right">
+    <div class="tth-language" role="group" aria-label="Question language"><button type="button" data-tth-lang="hi">हिंदी</button><button type="button" data-tth-lang="en" class="active">English</button></div>
+    <details class="chip student-account-menu tth-student" id="studentAccountMenu"><summary id="studentAccountLabel">छात्र ID</summary><div class="student-account-dropdown"><a href="/dashboard.html">डैशबोर्ड / Dashboard</a><button type="button" data-account-logout>लॉगआउट / Logout</button></div></details>
+  </div>
 </div></div>
 <main class="wrap">
   <h1 id="ttl">MP CPCT टेस्ट सीरीज़ / Test Series</h1>
