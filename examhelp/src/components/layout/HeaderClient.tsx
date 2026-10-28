@@ -119,6 +119,7 @@ export function ExamHeaderLanguage({ className = "" }: { className?: string }) {
     try {
       localStorage.setItem("testhub_lang_pref", value);
       document.cookie = "testhub_lang=" + value + "; path=/; max-age=31536000; samesite=lax";
+      document.documentElement.lang = value;
     } catch { /* storage may be unavailable */ }
     window.dispatchEvent(new CustomEvent("testhub-language-change", { detail: value }));
   };
