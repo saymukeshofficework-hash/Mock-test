@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { isDesktopExamHeaderPage } from "@/components/layout/DesktopExamHeader";
+import { isDesktopExamHeaderPage, isDesktopOnlyHeaderPage } from "@/components/layout/DesktopExamHeader";
 import { CheckCircle2, CreditCard, FileText, Lock, PlayCircle, Unlock } from "lucide-react";
 import { MOCK_SERIES } from "@/data/mockTests";
 import { buyNotes, checkout, claimPurchase, mainSiteUnlock } from "@/lib/checkout";
@@ -69,7 +69,8 @@ export function MockTestList({ series = "ag3" }: { series?: string }) {
     window.dispatchEvent(new CustomEvent("testhub-language-change", { detail: value }));
   };
   // On desktop these pages have the toggle in the header, so the body toggle is phone-only.
-  const headerToggle = isDesktopExamHeaderPage(usePathname());
+  const pathname = usePathname();
+  const headerToggle = isDesktopExamHeaderPage(pathname) ? (isDesktopOnlyHeaderPage(pathname) ? "lg:hidden" : "hidden") : "";
   useEffect(() => {
     document.body.classList.add("mock-test-list-page");
     return () => document.body.classList.remove("mock-test-list-page");
@@ -154,7 +155,7 @@ export function MockTestList({ series = "ag3" }: { series?: string }) {
           <h1 className="text-2xl font-extrabold text-brand-900 sm:text-3xl">{S.title[lang]}</h1>
           <p className="mt-2 max-w-2xl text-ink-600">{S.sub[lang]}</p>
         </div>
-        <div className={`flex shrink-0 items-center gap-1 rounded-xl border border-ink-200 bg-surface p-1 ${headerToggle ? "hidden" : ""}`} role="group" aria-label="Language / भाषा">
+        <div className={`flex shrink-0 items-center gap-1 rounded-xl border border-ink-200 bg-surface p-1 ${headerToggle}`} role="group" aria-label="Language / भाषा">
           <button type="button" onClick={() => chooseLang("hi")} aria-pressed={lang === "hi"} className={`rounded-lg px-3 py-2 text-sm font-bold ${lang === "hi" ? "bg-brand-700 text-white" : "text-ink-700"}`}>हिन्दी</button>
           <button type="button" onClick={() => chooseLang("en")} aria-pressed={lang === "en"} className={`rounded-lg px-3 py-2 text-sm font-bold ${lang === "en" ? "bg-brand-700 text-white" : "text-ink-700"}`}>English</button>
         </div>

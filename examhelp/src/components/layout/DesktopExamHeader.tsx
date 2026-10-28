@@ -10,8 +10,15 @@ import type { Lang } from "@/types";
 
 const TARGET = /(?:^|\/)(?:mp-high-court-assistant-grade-3-mock-tests|mp-police-subedar-asi-mock-tests|mp-police-constable-gd-mock-tests|mp-police-driver-mock-tests|mp-police-si-mock-tests|mp-police-asi-steno-mock-tests|mp-grameen-bank-mock-tests|rrb-station-master-mock-tests|rrb-ntpc-(?:graduate|undergraduate)-mock-tests)(?:\.html)?(?:\/.*)?\/?$/;
 
+// Laptop header only; these pages keep their own phone header.
+const DESKTOP_ONLY = /(?:^|\/)(?:tet-mock-tests|current-affairs)\/?$/;
+
+export function isDesktopOnlyHeaderPage(pathname: string) {
+  return DESKTOP_ONLY.test(pathname);
+}
+
 export function isDesktopExamHeaderPage(pathname: string) {
-  return TARGET.test(pathname);
+  return TARGET.test(pathname) || DESKTOP_ONLY.test(pathname);
 }
 
 /** Single-row desktop navigation for all requested mock-test exam pages. */
