@@ -98,6 +98,41 @@ export function CurrentAffairsHeaderLanguage({ className = "" }: { className?: s
   );
 }
 
+
+/** Compact, static-export-safe language switcher for every mock-test header. */
+export function ExamHeaderLanguage({ className = "" }: { className?: string }) {
+  const [language, setLanguage] = useState<"hi" | "en">("hi");
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem("testhub_lang_pref");
+      if (saved === "hi" || saved === "en") setLanguage(saved);
+    } catch { /* storage may be unavailable */ }
+    const onChange = (e: Event) => {
+      const value = (e as CustomEvent).detail;
+      if (value === "hi" || value === "en") setLanguage(value);
+    };
+    window.addEventListener("testhub-language-change", onChange);
+    return () => window.removeEventListener("testhub-language-change", onChange);
+  }, []);
+  const choose = (value: "hi" | "en") => {
+    setLanguage(value);
+    try {
+      localStorage.setItem("testhub_lang_pref", value);
+      document.cookie = "testhub_lang=" + value + "; path=/; max-age=31536000; samesite=lax";
+    } catch { /* storage may be unavailable */ }
+    window.dispatchEvent(new CustomEvent("testhub-language-change", { detail: value }));
+  };
+  return (
+    <div role="group" aria-label="Question language / प्रश्नों की भाषा" data-tth-no-translate="true"
+      className={"inline-flex h-8 shrink-0 items-center rounded-lg border border-indigo-200 bg-gradient-to-r from-indigo-600 to-fuchsia-600 p-0.5 shadow-sm " + className}>
+      <button type="button" onClick={() => choose("hi")} aria-pressed={language === "hi"}
+        className={"h-6 whitespace-nowrap rounded-md px-1.5 text-[11px] font-bold transition-colors " + (language === "hi" ? "bg-white text-indigo-800 shadow" : "text-white hover:bg-white/15")}>हिंदी</button>
+      <button type="button" onClick={() => choose("en")} aria-pressed={language === "en"}
+        className={"h-6 whitespace-nowrap rounded-md px-1.5 text-[11px] font-bold transition-colors " + (language === "en" ? "bg-white text-indigo-800 shadow" : "text-white hover:bg-white/15")}>English</button>
+    </div>
+  );
+}
+
 /** Desktop nav with an accessible "More" dropdown. */
 export function DesktopNav({ lang }: { lang: Lang }) {
   const pathname = usePathname();
@@ -201,7 +236,7 @@ export function MobileControls({ lang }: { lang: Lang }) {
 
   return (
     <div className="flex items-center gap-1 xl:hidden">
-      <LoginChip className="inline-flex h-8 max-w-[118px] items-center overflow-hidden rounded-lg border border-brand-200 bg-brand-50 px-1.5 text-[10px] font-semibold text-brand-700 hover:bg-brand-100" />
+      {!hideExamHeaderControls && <LoginChip className="inline-flex h-8 max-w-[118px] items-center overflow-hidden rounded-lg border border-brand-200 bg-brand-50 px-1.5 text-[10px] font-semibold text-brand-700 hover:bg-brand-100" />}
       {!hideExamHeaderControls && (
       <Link href="/search" aria-label={tr(dict.nav.search, lang)} className="current-affairs-search-icon grid h-9 w-9 place-items-center rounded-lg text-ink-700 hover:bg-ink-100">
         <Search className="h-5 w-5" aria-hidden="true" />
