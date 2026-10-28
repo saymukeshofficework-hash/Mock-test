@@ -20,7 +20,7 @@ export function Header({ lang }: { lang: Lang }) {
       <div className="rounded-2xl border border-ink-200 bg-surface/95 shadow-[0_6px_24px_rgba(20,24,31,0.07)] backdrop-blur supports-[backdrop-filter]:bg-surface/90">
       <div className="flex min-h-16 flex-wrap items-center justify-between gap-2 px-3 py-2 sm:px-4">
         <div className="current-affairs-brand flex min-w-0 shrink items-center gap-2">
-          <MockPageHomeLink />
+          {!examPage && <MockPageHomeLink />}
           <div aria-label="TETTESTHUB" className="shrink-0">
             <Logo />
           </div>
