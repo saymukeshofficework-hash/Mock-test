@@ -162,7 +162,7 @@ jobs:
           cp -r rrb-ntpc _site/rrb-ntpc
           cp saanp-seedhi-multiplayer.html _site/
           # private wedding invitation (not in sitemap, noindex)
-          mkdir -p _site/invite && cp -r invite/durgesh-sanjana _site/invite/durgesh-sanjana
+          cp -r invite _site/invite
           cp 404.html _site/
           cp CNAME _site/
           cp robots.txt sitemap.xml _site/
