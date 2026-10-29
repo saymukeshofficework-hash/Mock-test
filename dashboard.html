@@ -224,11 +224,40 @@ body{padding-bottom:calc(94px + env(safe-area-inset-bottom))}
 
   I18N_ONCHANGE = () => renderTests(lastPurchasedTests);
 
+  // Prevent a slow mobile connection or stalled Supabase request from freezing My Test.
+  function withTimeout(promise, ms, label) {
+    let timer;
+    return Promise.race([
+      promise,
+      new Promise((_, reject) => { timer = setTimeout(() => reject(new Error(label || 'Request timed out')), ms); })
+    ]).finally(() => clearTimeout(timer));
+  }
+  function showDashboardError(message) {
+    document.getElementById('loadingMsg').style.display = 'none';
+    document.getElementById('dashContent').style.display = 'block';
+    document.getElementById('whoName').textContent = t('dash_student_fallback');
+    const notice = document.getElementById('disabledNotice');
+    notice.style.display = 'block';
+    notice.textContent = message;
+  }
+
   (async () => {
-    const session = await requireAuth();
+    let session;
+    try {
+      session = await withTimeout(requireAuth(), 10000, 'Login check timed out');
+    } catch (e) {
+      showDashboardError('Your session is taking too long to load. Please check your internet connection and reload My Test.');
+      return;
+    }
     if (!session) return; // requireAuth already redirected to login.html
 
-    const profile = await getProfile(session.user.id);
+    let profile;
+    try {
+      profile = await withTimeout(getProfile(session.user.id), 10000, 'Student profile request timed out');
+    } catch (e) {
+      showDashboardError('My Test could not connect to your account right now. Please check your internet connection and reload this page.');
+      return;
+    }
     document.getElementById('loadingMsg').style.display = 'none';
     document.getElementById('dashContent').style.display = 'block';
 
