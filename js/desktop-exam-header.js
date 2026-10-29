@@ -73,19 +73,25 @@
   }
 
   function setLang(value) {
-    try { localStorage.setItem("tetLang", value); localStorage.setItem("testhub_lang_pref", value); } catch (e) {}
     // Prefer the live exam's language controls; changing them must re-render the question.
     var questionLang = document.getElementById("qLangSelect");
     var defaultLang = document.getElementById("defaultLang");
+    // CPCT/TET headers have their own हिंदी/English buttons that translate the page.
+    var pageBtn = document.querySelector('[data-tth-lang="' + value + '"]');
+    // Older pages expose a flip toggle; it reads the current language, so storage must not change first.
+    var toggle = document.getElementById("langToggle") || document.getElementById("tthLanguageToggle");
+    var useToggle = !pageBtn && toggle && !questionLang && !defaultLang && lang() !== value;
+    if (!useToggle) {
+      try { localStorage.setItem("tetLang", value); localStorage.setItem("testhub_lang_pref", value); } catch (e) {}
+    }
     if (questionLang && questionLang.value !== value) {
       questionLang.value = value;
       questionLang.dispatchEvent(new Event("change", { bubbles: true }));
     }
     if (defaultLang) defaultLang.value = value;
-    // Support older pages that expose their own language toggle/function.
-    var toggle = document.getElementById("langToggle") || document.getElementById("tthLanguageToggle");
-    if (toggle && !questionLang && !defaultLang) toggle.click();
-    if (typeof window.setLang === "function") {
+    if (pageBtn) pageBtn.click();
+    else if (useToggle) toggle.click();
+    else if (typeof window.setLang === "function") {
       try { window.setLang(value); } catch (e) {}
     }
     document.dispatchEvent(new CustomEvent("tth:languagechange", { detail: { lang: value } }));
@@ -105,7 +111,7 @@
       '<div class="tth-dh-nav" role="navigation" aria-label="Exam navigation">' +
       '<a class="tth-dh-btn" style="background:#10b981" href="https://tettesthub.in/index.html">' + ICON.home + '<span>Home</span></a>' +
       '<a class="tth-dh-btn" style="background:#8b5cf6" href="/course-folders.html">' + ICON.grid + '<span>All Courses</span></a>' +
-      '<a class="tth-dh-btn" style="background:#0ea5e9" href="/my-tests.html">' + ICON.list + '<span>My Test</span></a>' +
+      '<a class="tth-dh-btn" style="background:#0ea5e9" href="/dashboard.html">' + ICON.list + '<span>My Test</span></a>' +
       '<button class="tth-dh-btn" style="background:#f43f5e" type="button" data-dh-logout aria-label="Logout">' + ICON.out + '<span>Logout</span></button>' +
       '</div><div class="tth-dh-right">' +
       '<div class="tth-dh-lang" role="group" aria-label="Language / भाषा"><button type="button" data-dh-lang="hi">हिंदी</button><button type="button" data-dh-lang="en">English</button></div>' +
