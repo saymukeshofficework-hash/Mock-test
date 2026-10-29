@@ -52,3 +52,7 @@ Make the smallest change that does the job. Touch only the files named in the re
 
 ## More detail
 `README.md`, `ADMIN_INSTRUCTIONS.md`, `SECURITY.md`, `TECH_BLOG_ADMIN_INSTRUCTIONS.md`, `docs/`. Read these only when the task needs them.
+
+## Agent team (only when the owner asks)
+- 12 read-only project agents live in `.claude/agents/` (`tt-manager`, `tt-inspector`, `tt-marketing`, `tt-selling`, `tt-performance`, `tt-techlead`, `tt-frontend`, `tt-backend`, `tt-payments`, `tt-qa`, `tt-seotech`, `tt-devops`). List: `docs/AGENT_TEAM.md`.
+- Use them only when the owner asks for a team, a review, or names an agent. The "no sub-agents" rule above still applies otherwise.
