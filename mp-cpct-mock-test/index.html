@@ -54,11 +54,13 @@ td:last-child,th:last-child{text-align:center;width:80px}
 @media(max-width:900px){.tth-gradient-header{flex-wrap:wrap;gap:8px}.tth-header-right{margin-left:0}.tth-exam-nav{order:3;width:100%;justify-content:flex-start}.tth-exam-nav a,.tth-exam-nav button{flex:1;padding:0 6px}.tth-header-right{margin-left:auto}}
 @media(max-width:520px){.tth-gradient-header{padding:8px!important}.tth-brand{font-size:16px!important}.brand-icon{width:30px;height:30px}.tth-exam-nav a,.tth-exam-nav button{font-size:11px;min-height:36px;gap:3px}.tth-header-right{gap:5px}.tth-language button{padding:6px 7px}.tth-student{font-size:11px}}
 
+.tth-brand-desktop{display:flex!important}.tth-brand-mobile{display:none!important}@media(max-width:767px){.tth-brand-desktop{display:none!important}.tth-brand-mobile{display:flex!important}}
 </style>
 </head>
 <body>
 <div class="hdr"><div class="bar tth-gradient-header">
-  <div class="logo tth-brand" aria-label="TET TestHub"><span class="brand-icon">📚</span><span>CPCT <span class="exam-tag">मॉक टेस्ट</span></span></div>
+  <div class="logo tth-brand tth-brand-desktop" aria-label="TET TestHub"><span class="brand-icon">📚</span><span>CPCT <span class="exam-tag">मॉक टेस्ट</span></span></div>
+  <a class="logo tth-brand tth-brand-mobile" href="/index.html" aria-label="TET TestHub Home"><span class="brand-icon">📚</span><span>CPCT <span class="exam-tag">मॉक टेस्ट</span></span></a>
   <nav class="tth-exam-nav" aria-label="Main navigation">
     <a class="tth-nav-home" href="/index.html">⌂ <span>Home</span></a>
     <a class="tth-nav-courses" href="/course-folders.html">▦ <span>All Courses</span></a>

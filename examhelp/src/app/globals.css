@@ -271,8 +271,8 @@ body.current-affairs-page header nav {
 }
 
 
-/* Current Affairs: show only Student ID and the Hindi/English toggle in the header. */
-body.current-affairs-page header .current-affairs-brand,
+/* Current Affairs: keep the large TET TEST HUB brand before Student ID and the Hindi/English toggle; hide only the extra global language control and search. */
+body.current-affairs-page header .current-affairs-global-language,
 body.current-affairs-page header .current-affairs-search,
 body.current-affairs-page header .current-affairs-search-icon {
   display: none !important;

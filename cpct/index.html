@@ -10,6 +10,8 @@
 <style>
 :root{--brand:#0f6b5f;--brand2:#e6f2ef;--ink:#16211f;--muted:#5b6664;--line:#e5e7e4;--bg:#f5f5f2;--ok:#15803d}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans Devanagari",sans-serif}
+/* CPCT only: hide the extra small legacy/shared language control injected before the header. Keep the intended .tth-language selector and the desktop header .tth-dh-lang selector. */
+#tthLanguageToggle,.tth-language-toggle,#languageSwitch,.lang-switch,#langToggle,#langBtn,#langBtnName,#langBtnResult,#langSel,[data-language-toggle],.tth-language-top{display:none!important}
 a{color:inherit}.wrap{max-width:1040px;margin:0 auto;padding:0 16px}
 .hdr{position:sticky;top:10px;z-index:5;margin:12px auto 0;max-width:1040px;padding:0 16px}
 .hdr .bar{display:flex;align-items:center;justify-content:space-between;gap:10px;background:#fff;border:1px solid var(--line);border-radius:22px;padding:10px 14px;box-shadow:0 4px 18px rgba(0,0,0,.05)}
@@ -47,11 +49,14 @@ h1{font-size:clamp(28px,6vw,40px);line-height:1.2;margin:34px 0 12px;color:#0d3b
 @media(max-width:900px){.tth-gradient-header{flex-wrap:wrap;gap:8px}.tth-header-right{margin-left:0}.tth-exam-nav{order:3;width:100%;justify-content:flex-start}.tth-exam-nav a,.tth-exam-nav button{flex:1;padding:0 6px}.tth-header-right{margin-left:auto}}
 @media(max-width:520px){.tth-gradient-header{padding:8px!important}.tth-brand{font-size:16px!important}.brand-icon{width:30px;height:30px}.tth-exam-nav a,.tth-exam-nav button{font-size:11px;min-height:36px;gap:3px}.tth-header-right{gap:5px}.tth-language button{padding:6px 7px}.tth-student{font-size:11px}}
 
+.tth-brand-desktop{display:flex!important}.tth-brand-mobile{display:none!important}@media(max-width:767px){.tth-brand-desktop{display:none!important}.tth-brand-mobile{display:flex!important}}
+@media(max-width:767px){.tth-exam-nav{display:none!important}}
 </style>
 </head>
 <body>
 <div class="hdr"><div class="bar tth-gradient-header">
-  <div class="logo tth-brand" aria-label="TET TestHub"><span class="brand-icon">📚</span><span>CPCT <span class="exam-tag">मॉक टेस्ट</span></span></div>
+  <div class="logo tth-brand tth-brand-desktop" aria-label="TET TestHub"><span class="brand-icon">📚</span><span>CPCT <span class="exam-tag">मॉक टेस्ट</span></span></div>
+  <a class="logo tth-brand tth-brand-mobile" href="/index.html" aria-label="TET TestHub Home"><span class="brand-icon">📚</span><span>CPCT <span class="exam-tag">मॉक टेस्ट</span></span></a>
   <nav class="tth-exam-nav" aria-label="Main navigation">
     <a class="tth-nav-home" href="/index.html">⌂ <span>Home</span></a>
     <a class="tth-nav-courses" href="/course-folders.html">▦ <span>All Courses</span></a>
@@ -188,8 +193,40 @@ h1{font-size:clamp(28px,6vw,40px);line-height:1.2;margin:34px 0 12px;color:#0d3b
 })();
 </script>
 <script src="../js/global-account-menu.js?v=20"></script>
-<script src="/js/desktop-exam-header.js?v=2" data-hide=".hdr"></script>
+<script src="/js/desktop-exam-header.js?v=3" data-hide=".hdr"></script>
 
 <script src="/js/mobile-bottom-nav.js?v=1"></script>
+
+<script>
+(function () {
+  function getLang() {
+    try { return localStorage.getItem("tetLang") || localStorage.getItem("testhub_lang_pref") || "en"; }
+    catch (e) { return "en"; }
+  }
+  function chooseLang(value) {
+    try { localStorage.setItem("tetLang", value); localStorage.setItem("testhub_lang_pref", value); } catch (e) {}
+    document.querySelectorAll("[data-tth-lang]").forEach(function (button) {
+      button.classList.toggle("active", button.getAttribute("data-tth-lang") === value);
+      button.setAttribute("aria-pressed", String(button.getAttribute("data-tth-lang") === value));
+    });
+    var questionLang = document.getElementById("qLangSelect");
+    var defaultLang = document.getElementById("defaultLang");
+    [questionLang, defaultLang].forEach(function (control) {
+      if (control && control.value !== value) {
+        control.value = value;
+        control.dispatchEvent(new Event("change", { bubbles: true }));
+      }
+    });
+    document.dispatchEvent(new CustomEvent("tth:languagechange", { detail: { lang: value } }));
+  }
+  document.addEventListener("click", function (event) {
+    var button = event.target.closest("[data-tth-lang]");
+    if (button) chooseLang(button.getAttribute("data-tth-lang"));
+  });
+  document.addEventListener("DOMContentLoaded", function () { chooseLang(getLang()); }, { once: true });
+  chooseLang(getLang());
+})();
+</script>
+
 </body>
 </html>

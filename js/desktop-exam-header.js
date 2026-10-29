@@ -73,14 +73,28 @@
   }
 
   function setLang(value) {
-    if (lang() === value) return;
-    // Reuse the page's own language switch so its content updates the usual way.
-    var toggle = document.querySelector('[data-tth-lang="' + value + '"]') || document.getElementById("langToggle") || document.getElementById("tthLanguageToggle");
-    if (toggle) toggle.click();
-    else {
+    // Prefer the live exam's language controls; changing them must re-render the question.
+    var questionLang = document.getElementById("qLangSelect");
+    var defaultLang = document.getElementById("defaultLang");
+    // CPCT/TET headers have their own हिंदी/English buttons that translate the page.
+    var pageBtn = document.querySelector('[data-tth-lang="' + value + '"]');
+    // Older pages expose a flip toggle; it reads the current language, so storage must not change first.
+    var toggle = document.getElementById("langToggle") || document.getElementById("tthLanguageToggle");
+    var useToggle = !pageBtn && toggle && !questionLang && !defaultLang && lang() !== value;
+    if (!useToggle) {
       try { localStorage.setItem("tetLang", value); localStorage.setItem("testhub_lang_pref", value); } catch (e) {}
-      if (typeof window.setLang === "function") window.setLang(value);
     }
+    if (questionLang && questionLang.value !== value) {
+      questionLang.value = value;
+      questionLang.dispatchEvent(new Event("change", { bubbles: true }));
+    }
+    if (defaultLang) defaultLang.value = value;
+    if (pageBtn) pageBtn.click();
+    else if (useToggle) toggle.click();
+    else if (typeof window.setLang === "function") {
+      try { window.setLang(value); } catch (e) {}
+    }
+    document.dispatchEvent(new CustomEvent("tth:languagechange", { detail: { lang: value } }));
   }
 
   function run() {
@@ -93,7 +107,7 @@
     el.setAttribute("data-tth-no-translate", "true");
     el.innerHTML =
       '<div class="tth-dh-bar">' +
-      '<a class="tth-dh-logo" href="https://tettesthub.in/index.html" aria-label="TET TestHub Home">' + MARK + '<b>TETTEST<span>HUB</span></b></a>' +
+      '<div class="tth-dh-logo" role="img" aria-label="TET TestHub">' + MARK + '<b>TETTEST<span>HUB</span></b></div>' +
       '<div class="tth-dh-nav" role="navigation" aria-label="Exam navigation">' +
       '<a class="tth-dh-btn" style="background:#10b981" href="https://tettesthub.in/index.html">' + ICON.home + '<span>Home</span></a>' +
       '<a class="tth-dh-btn" style="background:#8b5cf6" href="/course-folders.html">' + ICON.grid + '<span>All Courses</span></a>' +

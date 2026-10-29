@@ -159,6 +159,18 @@
   const loadingEl = document.getElementById('loadingScreen');
   const titleEl = document.getElementById('examTitle');
 
+  // Honor the language selected in the CPCT/TET header on the previous page.
+  try {
+    const savedLanguage = localStorage.getItem('tetLang') || localStorage.getItem('testhub_lang_pref');
+    if (savedLanguage === 'hi' || savedLanguage === 'en') {
+      const defaultLanguageControl = document.getElementById('defaultLang');
+      const questionLanguageControl = document.getElementById('qLangSelect');
+      if (defaultLanguageControl) defaultLanguageControl.value = savedLanguage;
+      if (questionLanguageControl) questionLanguageControl.value = savedLanguage;
+    }
+  } catch (e) {}
+
+
   const meta = TEST_ID ? findCatalogTest(TEST_ID) : null;
   if (!meta) {
     titleEl.textContent = 'Test not found';
