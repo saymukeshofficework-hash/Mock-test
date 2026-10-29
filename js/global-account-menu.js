@@ -469,7 +469,7 @@
       const trail=original.match(/\\s*$/)?.[0]||"";
       const next=lead+translated+trail;
       if(node.nodeValue!==next) node.nodeValue=next;
-    } else if(node.nodeValue!==original && lang!=="hi") {
+    } else if(node.nodeValue!==original) {
       node.nodeValue=original;
     }
   }
