@@ -258,7 +258,7 @@ footer .sign{margin-top:18px;font-family:var(--script);font-size:2.2rem;color:va
     <h2 class="title">हमारे शुभ विवाह की झलक</h2>
     <div class="line"><i></i></div>
     <div class="film">
-      <video id="invvid" src="vivah.mp4" poster="img/poster.jpg" controls playsinline preload="metadata"></video>
+      <video id="invvid" src="vivah.mp4" poster="img/poster.jpg" controls muted playsinline preload="metadata" controlslist="nodownload"></video>
     </div>
     <p class="film-tip">वीडियो चलाने के लिए ▶ दबाएँ</p>
   </section>
@@ -364,14 +364,9 @@ document.documentElement.classList.add('js');
   }
   gate.addEventListener('click',openGate);
 
-  /* pause background music while the invitation video plays */
+  /* video stays silent; the page's own music keeps playing */
   var vid=document.getElementById('invvid');
-  if(vid){
-    vid.addEventListener('play',function(){ if(!bgm.paused){bgm.pause();bgm._vid=1;} });
-    function resume(){ if(bgm._vid){bgm._vid=0;try{var r=bgm.play();if(r&&r.catch)r.catch(function(){});}catch(_){}} }
-    vid.addEventListener('pause',resume); vid.addEventListener('ended',resume);
-    snd.addEventListener('click',function(){ if(!bgm.paused&&!vid.paused) vid.pause(); });
-  }
+  if(vid){ vid.muted=true; vid.addEventListener('volumechange',function(){ if(!vid.muted) vid.muted=true; }); }
 
   /* save the date curtain */
   var stage=document.getElementById('stage');
