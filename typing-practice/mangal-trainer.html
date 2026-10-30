@@ -45,9 +45,10 @@
 .mt-k.hit-shift small{color:var(--blue-dark);font-weight:700}
 .mt-done{margin:12px 0 0}
 .mt-help{font-size:14px;color:var(--muted);line-height:1.6}
-@media (max-width:720px){.mt-card{padding:10px}.mt-k{height:40px;margin:1px;padding:1px 2px;font-size:12px;border-radius:5px}.mt-k small{font-size:8px}.mt-k.wide{font-size:9px}.mt-line{font-size:22px}}
+.mt-caps{margin:6px 0;padding:6px 10px;border-radius:8px;background:#fee2e2;color:#b91c1c;font-size:14px;font-weight:600}
+@media (max-width:720px){.mt-wrap{padding:10px 12px}.mt-wrap h1{font-size:18px;padding-right:48px}.mt-sub{font-size:13px;margin-bottom:8px}.mt-lessons{flex-wrap:nowrap;overflow-x:auto;margin-bottom:8px;padding-bottom:4px}.mt-lessons button{flex:0 0 auto;padding:6px 10px;font-size:13px}.mt-card{padding:10px;margin-bottom:10px}.mt-help{font-size:12px}.mt-k{height:40px;margin:1px;padding:1px 2px;font-size:12px;border-radius:5px}.mt-k small{font-size:8px}.mt-k.wide{font-size:9px}.mt-line{font-size:22px}}
 </style>
-<script type="module" src="js/mangal-trainer.js?v=2"></script>
+<script type="module" src="js/mangal-trainer.js?v=3"></script>
 </head>
 <body>
 <main class="mt-wrap">
@@ -61,6 +62,7 @@
     <div class="mt-line font-mangal" id="line" lang="hi"></div>
     <div class="mt-keys" id="keys" aria-label="अगली keys / Next keys"></div>
     <label for="box" class="mt-help">यहाँ अंग्रेज़ी कीबोर्ड से टाइप करें (Hindi कीबोर्ड बंद रखें) / Type here with the English keyboard (keep Hindi keyboard off)</label>
+    <p class="mt-caps" id="capsWarn" hidden>⚠ Caps Lock चालू है, बंद करें। / Caps Lock is on, turn it off.</p>
     <input class="mt-input" id="box" type="text" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" inputmode="text">
     <div class="mt-stats">
       <div>गति / Speed: <strong id="wpm">0</strong> WPM</div>
@@ -83,6 +85,7 @@
       <li>नीली key दबाएँ। ऊपर का छोटा अक्षर Shift के साथ आता है। / Press the blue key. The small letter on top needs Shift.</li>
       <li>गलत key पर आगे नहीं बढ़ेगा, सही key दबाएँ। / A wrong key does not move ahead; press the right key.</li>
       <li>"ि" की मात्रा पहले लगती है: कि = f + d। / The "ि" matra is typed first: कि = f + d.</li>
+      <li>मोबाइल पर Bluetooth कीबोर्ड भी चलता है: उसे English में रखें, Caps Lock बंद रखें। / Works with a Bluetooth keyboard on mobile too: keep it in English, Caps Lock off.</li>
       <li>पहले शुद्धता, फिर गति। / Accuracy first, then speed.</li>
     </ul>
   </section>

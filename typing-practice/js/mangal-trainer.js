@@ -122,7 +122,7 @@ function newLine() {
   $("done").hidden = true;
   $("box").value = "";
   render();
-  $("box").focus();
+  $("box").focus({ preventScroll: true });
 }
 
 function render() {
@@ -184,14 +184,28 @@ function init() {
   buildKeyboard();
   buildLessons();
   const box = $("box");
+  // Soft keyboards (phone screen keyboard) send text through "input".
   box.addEventListener("input", () => {
     const typed = box.value;
     box.value = "";
     for (const ch of typed) press(ch);
   });
-  box.addEventListener("keydown", (e) => {
-    if (e.key === "Enter" && !$("done").hidden) { e.preventDefault(); newLine(); }
+  // Real keys (laptop or a Bluetooth/USB keyboard on a phone or tablet) are read
+  // straight from keydown, anywhere on the page, so autocorrect, caps or a lost
+  // focus cannot change what was pressed. Soft keyboards report "Unidentified".
+  document.addEventListener("keydown", (e) => {
+    $("capsWarn").hidden = !(e.getModifierState && e.getModifierState("CapsLock"));
+    if (e.ctrlKey || e.metaKey || e.altKey || e.isComposing) return;
+    if (e.key === "Enter" && !$("done").hidden) { e.preventDefault(); newLine(); return; }
+    if (e.key.length !== 1) return;
+    if (e.target !== box && e.target.closest && e.target.closest("button, a")) return;
+    e.preventDefault();
+    if (document.activeElement !== box) box.focus({ preventScroll: true });
+    press(e.key);
   });
+  // Tapping the practice area or the keyboard picture brings typing focus back.
+  document.querySelectorAll(".mt-card").forEach((el) =>
+    el.addEventListener("click", (e) => { if (!e.target.closest("button, a")) box.focus({ preventScroll: true }); }));
   $("nextBtn").addEventListener("click", newLine);
   newLine();
 }
