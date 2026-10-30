@@ -278,15 +278,17 @@
           (["लॉगआउट", "logout", "लॉग आउट"].includes(label) ? "Logout" : "");
         if (!target) return;
         const lastSpan = el.querySelector("span:last-child");
-        if (lastSpan) lastSpan.textContent = target;
+        // Write only when the label differs: an unconditional write is a DOM mutation that
+        // re-fires the page MutationObserver, which calls this again and freezes the test page.
+        if (lastSpan) { if (lastSpan.textContent !== target) lastSpan.textContent = target; }
         else {
           const textNodes = Array.from(el.childNodes).filter(n => n.nodeType === Node.TEXT_NODE && n.nodeValue.trim());
-          if (textNodes.length) textNodes[textNodes.length - 1].nodeValue = target;
-          else el.textContent = target;
+          if (textNodes.length) { if (textNodes[textNodes.length - 1].nodeValue !== target) textNodes[textNodes.length - 1].nodeValue = target; }
+          else if (el.textContent !== target) el.textContent = target;
         }
-        el.setAttribute("data-tth-no-translate", "true");
+        if (el.getAttribute("data-tth-no-translate") !== "true") el.setAttribute("data-tth-no-translate", "true");
       });
-      bar.setAttribute("data-tth-no-translate", "true");
+      if (bar.getAttribute("data-tth-no-translate") !== "true") bar.setAttribute("data-tth-no-translate", "true");
     });
   }
 
