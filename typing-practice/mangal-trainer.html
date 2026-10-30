@@ -35,20 +35,19 @@
 .mt-input:focus{outline:none;border-color:var(--blue)}
 .mt-stats{display:flex;flex-wrap:wrap;gap:16px;margin:10px 0 0;font-size:14px;color:var(--muted)}
 .mt-stats strong{color:var(--ink);font-size:17px}
-.mt-kb{display:grid;gap:5px;user-select:none}
-.mt-row{display:flex;gap:5px;justify-content:center}
-.mt-k{flex:0 0 auto;width:52px;height:52px;border:1px solid var(--border);border-radius:8px;background:#fff;display:flex;flex-direction:column;justify-content:space-between;padding:4px 5px;font-size:15px}
-.mt-k small{font-size:11px;color:var(--muted);text-align:left}
-.mt-k span{text-align:right}
-.mt-k.wide{width:96px;justify-content:center;align-items:center;font-size:12px;color:var(--muted)}
-.mt-k.space{width:300px;justify-content:center;align-items:center;font-size:12px;color:var(--muted)}
+.mt-kb{max-width:820px;margin:0 auto;user-select:none}
+.mt-row{display:grid;grid-template-columns:repeat(60,minmax(0,1fr))}
+.mt-k{grid-column:span 4;margin:2px;height:50px;min-width:0;border:1px solid var(--border);border-radius:8px;background:#fff;display:flex;flex-direction:column;justify-content:space-between;padding:3px 5px;font-size:15px;overflow:hidden}
+.mt-k small{font-size:11px;line-height:1.1;color:var(--muted);text-align:left}
+.mt-k span{text-align:right;line-height:1.2}
+.mt-k.wide{justify-content:center;align-items:center;font-size:12px;color:var(--muted)}
 .mt-k.hit{background:#dbeafe;border-color:var(--blue);box-shadow:0 0 0 2px var(--blue) inset}
 .mt-k.hit-shift small{color:var(--blue-dark);font-weight:700}
 .mt-done{margin:12px 0 0}
 .mt-help{font-size:14px;color:var(--muted);line-height:1.6}
-@media (max-width:720px){.mt-k{width:calc((100vw - 32px - 55px)/12);height:44px;padding:2px 3px;font-size:13px}.mt-k small{font-size:9px}.mt-k.wide{width:60px}.mt-k.space{width:60%}.mt-line{font-size:22px}}
+@media (max-width:720px){.mt-card{padding:10px}.mt-k{height:40px;margin:1px;padding:1px 2px;font-size:12px;border-radius:5px}.mt-k small{font-size:8px}.mt-k.wide{font-size:9px}.mt-line{font-size:22px}}
 </style>
-<script type="module" src="js/mangal-trainer.js?v=1"></script>
+<script type="module" src="js/mangal-trainer.js?v=2"></script>
 </head>
 <body>
 <main class="mt-wrap">

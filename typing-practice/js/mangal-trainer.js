@@ -50,27 +50,40 @@ let wi = 0;       // current word
 let ki = 0;       // current key in word
 let good = 0, bad = 0, started = 0, flash = false;
 
+// Side keys per row (label, width in key units) so the rows stagger like a real
+// keyboard: every row is 15 units wide on a 60-column grid (1 unit = 4 columns).
+const SIDES = [[null, ["⌫", 2]], [["Tab", 1.5], null], [["Caps", 1.75], ["Enter", 2.25]], [["Shift", 2.25], ["Shift", 2.75]]];
+
+function sideKey(label, units) {
+  const el = Object.assign(document.createElement("div"), { className: "mt-k wide", textContent: label });
+  el.style.gridColumn = `span ${units * 4}`;
+  return el;
+}
+
 function buildKeyboard() {
   const kb = $("kb");
   ROWS.forEach((row, r) => {
     const div = document.createElement("div");
     div.className = "mt-row";
-    if (r === 3) div.appendChild(Object.assign(document.createElement("div"), { className: "mt-k wide", textContent: "Shift" }));
+    const [left, right] = SIDES[r];
+    if (left) div.appendChild(sideKey(...left));
     row.forEach(([k, lo, up]) => {
       const el = document.createElement("div");
       el.className = "mt-k font-mangal";
       el.innerHTML = `<small></small><span></span>`;
       el.querySelector("small").textContent = up || "";
       el.querySelector("span").textContent = lo;
+      if (k === "\\") el.style.gridColumn = "span 6"; // 1.5-unit key at the end of the Q row
       div.appendChild(el);
       kbKeys[k] = el;
     });
-    if (r === 3) div.appendChild(Object.assign(document.createElement("div"), { className: "mt-k wide", textContent: "Shift" }));
+    if (right) div.appendChild(sideKey(...right));
     kb.appendChild(div);
   });
   const sp = document.createElement("div");
   sp.className = "mt-row";
-  const space = Object.assign(document.createElement("div"), { className: "mt-k space", textContent: "Space" });
+  const space = sideKey("Space", 7);
+  space.style.gridColumn = "17 / span 28";
   sp.appendChild(space);
   kb.appendChild(sp);
   kbKeys[" "] = space;
