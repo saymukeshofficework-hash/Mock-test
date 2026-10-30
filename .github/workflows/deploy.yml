@@ -171,6 +171,9 @@ jobs:
           cp -r typing-practice _site/typing-practice
           rm -rf _site/typing-practice/tests _site/typing-practice/package.json
 
+          # DA Arrear Calculator for MP teachers (/da-calculator/), static, no build step
+          cp -r da-calculator _site/da-calculator
+
           # Survey data entry (/survey/), static, login-protected via Supabase
           cp -r survey _site/survey
 

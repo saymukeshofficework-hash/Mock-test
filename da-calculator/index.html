@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MP शिक्षक DA एरियर कैलकुलेटर | MP Teachers DA Arrear Calculator - TETTESTHUB</title>
+<meta name="description" content="मध्यप्रदेश शिक्षक वर्ग 1, 2, 3 के लिए DA एरियर कैलकुलेटर (58% से 60%)। DA arrear calculator for MP teachers, Grade 1, 2 and 3.">
+<style>
+  .dac, .dac * { box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans Devanagari", sans-serif; }
+  .dac {
+    --primary:#0f3661; --accent:#c59b27; --success:#15803d; --danger:#b91c1c;
+    --card:#fff; --bg:#f1f5f9; --line:#e2e8f0; --text:#1e293b; --muted:#475569;
+    max-width: 560px; margin: 0 auto; padding: 12px; background: var(--bg); color: var(--text);
+  }
+  body { margin:0; background:#f1f5f9; }
+  .dac .header { background: linear-gradient(135deg,#0f3661,#1e4e79); color:#fff; padding:16px; border-radius:12px; text-align:center; border-bottom:4px solid var(--accent); margin-bottom:12px; }
+  .dac .header h1 { margin:0; font-size:19px; }
+  .dac .header p { margin:4px 0 0; font-size:12.5px; opacity:.9; }
+  .dac .card { background:var(--card); border:1px solid var(--line); border-radius:10px; padding:14px; margin-bottom:12px; box-shadow:0 2px 4px rgba(0,0,0,.05); }
+  .dac .card-header { font-size:13.5px; font-weight:700; color:var(--primary); margin-bottom:10px; display:flex; justify-content:space-between; align-items:center; gap:8px; }
+  .dac .grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+  .dac .form-group { display:flex; flex-direction:column; margin-bottom:8px; }
+  .dac label { font-size:11.5px; font-weight:600; color:var(--muted); margin-bottom:3px; }
+  .dac input, .dac select { padding:9px 10px; border:1.5px solid #cbd5e1; border-radius:6px; font-size:15px; font-weight:700; outline:none; background:#fff; width:100%; color:var(--text); }
+  .dac input:focus, .dac select:focus { border-color:var(--primary); box-shadow:0 0 0 2px rgba(15,54,97,.15); }
+  .dac .tag { background:#e0f2fe; color:#0284c7; padding:2px 8px; border-radius:4px; font-size:11px; font-weight:700; white-space:nowrap; }
+  .dac .tag.gold { background:#fef3c7; color:#92400e; }
+
+  .dac .seg { display:grid; gap:6px; }
+  .dac .seg.c3 { grid-template-columns:repeat(3,1fr); }
+  .dac .seg.c2 { grid-template-columns:repeat(2,1fr); }
+  .dac .seg button { padding:10px 4px; border:1.5px solid #cbd5e1; background:#f8fafc; border-radius:8px; font-size:13px; font-weight:700; color:var(--muted); cursor:pointer; line-height:1.3; }
+  .dac .seg button small { display:block; font-size:10.5px; font-weight:500; opacity:.85; }
+  .dac .seg button.active { background:var(--primary); border-color:var(--primary); color:#fff; }
+
+  .dac .highlight-box { background:linear-gradient(135deg,#ecfdf5,#d1fae5); border:1.5px solid #a7f3d0; border-radius:10px; padding:14px; text-align:center; margin-bottom:12px; }
+  .dac .highlight-box .title { font-size:12.5px; font-weight:700; color:#065f46; }
+  .dac .highlight-box .amt { font-size:30px; font-weight:900; color:var(--success); margin:4px 0; }
+  .dac .highlight-box .details { font-size:12px; color:#047857; display:flex; justify-content:space-around; margin-top:6px; flex-wrap:wrap; gap:4px; }
+
+  .dac .inst-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:6px; }
+  .dac .inst-card { background:#f8fafc; border:1px solid #cbd5e1; border-radius:8px; padding:8px 4px; text-align:center; }
+  .dac .inst-month { font-size:11px; font-weight:700; color:#334155; }
+  .dac .inst-amt { font-size:15px; font-weight:800; color:var(--success); margin:3px 0; }
+  .dac .inst-nps { font-size:10px; color:var(--danger); font-weight:600; }
+
+  .dac .tbl-wrap { overflow-x:auto; }
+  .dac table { width:100%; border-collapse:collapse; font-size:12.5px; margin-top:6px; }
+  .dac th, .dac td { border:1px solid var(--line); padding:6px; text-align:right; white-space:nowrap; }
+  .dac th { background:#f8fafc; color:var(--muted); text-align:center; }
+  .dac td:first-child { text-align:left; }
+  .dac tfoot td { font-weight:800; background:#f8fafc; }
+
+  .dac .btn-row { display:grid; grid-template-columns:2fr 1fr; gap:8px; }
+  .dac .btn { border:none; padding:12px; border-radius:8px; font-size:14px; font-weight:700; cursor:pointer; color:#fff; }
+  .dac .btn.wa { background:#25d366; }
+  .dac .btn.pr { background:var(--primary); }
+  .dac .note { font-size:11px; color:var(--muted); line-height:1.5; margin-top:10px; text-align:center; }
+  .dac .hint { font-size:11px; color:var(--muted); margin-top:2px; }
+
+  @media print { .dac .btn-row, .dac .no-print { display:none !important; } }
+</style>
+</head>
+<body>
+<div class="dac" id="dac">
+  <div class="header">
+    <h1>📊 MP शिक्षक DA एरियर कैलकुलेटर</h1>
+    <p style="font-weight:600;">MP Teachers DA Arrear Calculator</p>
+    <p id="hdr-sub">वर्ग 3 शिक्षक | जनवरी 2026 से सितंबर 2026</p>
+  </div>
+
+  <!-- Category -->
+  <div class="card no-print">
+    <div class="card-header"><span>शिक्षक संवर्ग चुनें</span></div>
+    <div class="seg c3" id="cat-seg">
+      <button data-cat="1">वर्ग 1<small>(Grade 1)</small></button>
+      <button data-cat="2">वर्ग 2<small>(Grade 2)</small></button>
+      <button data-cat="3" class="active">वर्ग 3<small>(Grade 3)</small></button>
+    </div>
+    <div class="card-header" style="margin-top:14px;"><span>पेंशन व्यवस्था</span></div>
+    <div class="seg c2" id="pen-seg">
+      <button data-pen="nps" class="active">NPS<small>10% कटौती</small></button>
+      <button data-pen="old">पुरानी पेंशन<small>कोई NPS कटौती नहीं</small></button>
+    </div>
+  </div>
+
+  <!-- DA rates -->
+  <div class="card">
+    <div class="card-header">
+      <span>DA दर प्रतिशत</span>
+      <span class="tag" id="da-diff-badge">वृद्धि: 2%</span>
+    </div>
+    <div class="grid-2">
+      <div class="form-group">
+        <label>पुराना DA (%)</label>
+        <input type="number" inputmode="decimal" id="old_da" value="58" min="0" step="0.5">
+      </div>
+      <div class="form-group">
+        <label>नया DA (%)</label>
+        <input type="number" inputmode="decimal" id="new_da" value="60" min="0" step="0.5">
+      </div>
+    </div>
+  </div>
+
+  <!-- Basic pay -->
+  <div class="card">
+    <div class="card-header"><span>अवधि-वार मूल वेतन (Basic Pay)</span></div>
+    <div class="form-group">
+      <label>पे लेवल (MP वेतन मैट्रिक्स, 7वाँ वेतनमान)</label>
+      <select id="lvl"></select>
+    </div>
+    <div class="grid-2">
+      <div class="form-group">
+        <label>जन 26 - जून 26 (₹)</label>
+        <input type="number" inputmode="numeric" id="bp1" value="22770" min="0">
+        <select id="st1" style="margin-top:6px;font-size:12.5px;font-weight:600;"></select>
+      </div>
+      <div class="form-group">
+        <label>महीने</label>
+        <input type="number" inputmode="numeric" id="m1" value="6" min="0" max="12">
+      </div>
+    </div>
+    <div class="grid-2">
+      <div class="form-group">
+        <label>जुलाई 26 - सित 26 (₹)</label>
+        <input type="number" inputmode="numeric" id="bp2" value="25300" min="0">
+        <select id="st2" style="margin-top:6px;font-size:12.5px;font-weight:600;"></select>
+      </div>
+      <div class="form-group">
+        <label>महीने</label>
+        <input type="number" inputmode="numeric" id="m2" value="3" min="0" max="12">
+      </div>
+    </div>
+    <div class="hint">संवर्ग चुनने पर पे लेवल अपने आप चुन जाता है (वर्ग 1 → लेवल 10, वर्ग 2 → लेवल 8, वर्ग 3 → लेवल 6)। आपका लेवल अलग हो तो बदल लें। फिर हर अवधि के नीचे ड्रॉपडाउन से अपना इंडेक्स (या परिवीक्षा चरण) चुनें, या वेतन पर्ची के अनुसार खुद लिखें।</div>
+  </div>
+
+  <!-- Installments setup -->
+  <div class="card" style="background:#fffbeb;border-color:#fde68a;">
+    <div class="card-header"><span>📄 शासन आदेश के अनुसार</span><span class="tag gold">वित्त विभाग, 30 अक्टू. 2026</span></div>
+    <div class="hint" style="line-height:1.6;color:#78350f;">
+      • DA 58% से 60% (वृद्धि 2%), 01 जनवरी 2026 से देय।<br>
+      • नकद लाभ 01 अक्टूबर 2026 से (नवंबर 2026 के भुगतान में)।<br>
+      • 01 जनवरी से 30 सितंबर 2026 (9 माह) का एरियर 3 समान किश्तों में: नवंबर 2026, दिसंबर 2026, जनवरी 2027।<br>
+      • इस अवधि में सेवानिवृत्त / मृत कर्मचारी के नामांकित सदस्य को एरियर एकमुश्त मिलेगा।<br>
+      • 50 पैसे या अधिक को अगले रुपये में पूर्णांकित किया जाता है, 50 पैसे से कम छोड़ दिया जाता है।
+    </div>
+  </div>
+
+  <!-- Net result -->
+  <div class="highlight-box">
+    <div class="title">कुल शुद्ध देय एरियर (Net Take-Home Arrear)</div>
+    <div class="amt" id="total-net">₹0</div>
+    <div class="details">
+      <span>सकल DA: <b id="total-gross">₹0</b></span>
+      <span id="nps-label">NPS (10%): <b id="total-nps" style="color:var(--danger);">₹0</b></span>
+    </div>
+  </div>
+
+  <!-- Installments -->
+  <div class="card">
+    <div class="card-header">
+      <span id="inst-title">📅 3 समान किश्तों में देय राशि</span>
+      <span class="tag gold" id="inst-tag">3 बराबर भाग</span>
+    </div>
+    <div class="inst-grid" id="inst-grid"></div>
+  </div>
+
+  <!-- Table -->
+  <div class="card">
+    <div class="card-header"><span>विस्तृत गणना तालिका</span></div>
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr><th>अवधि</th><th>बेसिक</th><th>सकल अंतर</th><th id="th-nps">NPS (10%)</th><th>शुद्ध एरियर</th></tr>
+        </thead>
+        <tbody id="tbl-body"></tbody>
+        <tfoot id="tbl-foot"></tfoot>
+      </table>
+    </div>
+  </div>
+
+  <div class="btn-row">
+    <button class="btn wa" id="btn-wa">📲 WhatsApp पर शेयर करें</button>
+    <button class="btn pr" id="btn-print">🖨️ प्रिंट</button>
+  </div>
+  <div class="note">यह कैलकुलेटर केवल अनुमानित गणना के लिए है। अंतिम राशि के लिए अपने कोषालय / DDO से पुष्टि करें।<br>Estimate only. Confirm the final amount with your treasury / DDO.<br><a href="/" style="color:#0f3661;font-weight:700;">← TETTESTHUB होम / Home</a></div>
+</div>
+
+<script>
+(function () {
+  var MONTHS = ['जनवरी','फरवरी','मार्च','अप्रैल','मई','जून','जुलाई','अगस्त','सितंबर','अक्टूबर','नवंबर','दिसंबर'];
+  var CAT_LABEL = { 1: 'वर्ग 1', 2: 'वर्ग 2', 3: 'वर्ग 3' };
+  var state = { cat: 3, pen: 'nps', summary: null };
+
+  function $(id) { return document.getElementById(id); }
+  function num(id) { var v = parseFloat($(id).value); return isFinite(v) && v > 0 ? v : 0; }
+  function inr(n) { return '₹' + Math.round(n).toLocaleString('en-IN'); }
+
+  // offset 0 = जनवरी 2026
+  function monthName(offset) {
+    var y = 2026 + Math.floor(offset / 12);
+    return MONTHS[offset % 12] + ' ' + y;
+  }
+
+  // Split total into n whole-rupee parts, remainder spread over first parts
+  function split(total, n) {
+    var base = Math.floor(total / n), rem = total - base * n, out = [];
+    for (var i = 0; i < n; i++) out.push(base + (i < rem ? 1 : 0));
+    return out;
+  }
+
+  function buildStartMonths() {
+    var sel = $('start-m'), html = '';
+    for (var off = 10; off <= 20; off++) {
+      html += '<option value="' + off + '"' + (off === 10 ? ' selected' : '') + '>' + monthName(off) + '</option>';
+    }
+    sel.innerHTML = html;
+  }
+
+  function calculate() {
+    var oldDA = num('old_da'), newDA = num('new_da');
+    var diff = Math.max(0, newDA - oldDA);
+    var rate = diff / 100;
+    var npsRate = state.pen === 'nps' ? 0.10 : 0;
+
+    $('da-diff-badge').textContent = 'वृद्धि: ' + (newDA - oldDA).toFixed(1).replace(/\.0$/, '') + '%';
+    $('hdr-sub').textContent = CAT_LABEL[state.cat] + ' शिक्षक | जनवरी 2026 से सितंबर 2026 (DA ' + oldDA + '% से ' + newDA + '%)';
+
+    var bp1 = num('bp1'), m1 = num('m1'), bp2 = num('bp2'), m2 = num('m2');
+    var g1 = Math.round(bp1 * rate * m1), n1 = Math.round(g1 * npsRate), net1 = g1 - n1;
+    var g2 = Math.round(bp2 * rate * m2), n2 = Math.round(g2 * npsRate), net2 = g2 - n2;
+    var tg = g1 + g2, tn = n1 + n2, tnet = net1 + net2;
+
+    $('total-net').textContent = inr(tnet);
+    $('total-gross').textContent = inr(tg);
+    $('total-nps').textContent = inr(tn);
+    $('nps-label').style.display = npsRate ? '' : 'none';
+    $('th-nps').style.display = npsRate ? '' : 'none';
+
+    // Installments
+    var n = 3;      // शासन आदेश: 3 समान किश्तें
+    var start = 10; // नवंबर 2026
+    var nets = split(tnet, n), npss = split(tn, n), cards = '', insts = [];
+    var cols = n === 1 ? 1 : (n === 2 || n === 4 ? 2 : 3);
+    $('inst-grid').style.gridTemplateColumns = 'repeat(' + cols + ',1fr)';
+    for (var i = 0; i < n; i++) {
+      var label = monthName(start + i);
+      insts.push({ label: label, net: nets[i] });
+      cards += '<div class="inst-card"><div class="inst-month">किश्त ' + (i + 1) + '<br>(' + label + ')</div>' +
+        '<div class="inst-amt">' + inr(nets[i]) + '</div>' +
+        (npsRate ? '<div class="inst-nps">NPS: ' + inr(npss[i]) + '</div>' : '') + '</div>';
+    }
+    $('inst-grid').innerHTML = cards;
+    $('inst-title').textContent = n === 1 ? '📅 एकमुश्त भुगतान' : '📅 ' + n + ' समान किश्तों में देय राशि';
+    $('inst-tag').textContent = n === 1 ? '1 भुगतान' : n + ' बराबर भाग';
+
+    // Table
+    function row(lbl, bp, g, np, net) {
+      return '<tr><td>' + lbl + '</td><td>' + inr(bp) + '</td><td>' + inr(g) + '</td>' +
+        (npsRate ? '<td>' + inr(np) + '</td>' : '') + '<td><b>' + inr(net) + '</b></td></tr>';
+    }
+    $('tbl-body').innerHTML =
+      row('जन-जून (' + m1 + ' माह)', bp1, g1, n1, net1) +
+      row('जुलाई-सित (' + m2 + ' माह)', bp2, g2, n2, net2);
+    $('tbl-foot').innerHTML =
+      '<tr><td>कुल</td><td></td><td>' + inr(tg) + '</td>' + (npsRate ? '<td>' + inr(tn) + '</td>' : '') +
+      '<td>' + inr(tnet) + '</td></tr>';
+
+    state.summary = { oldDA: oldDA, newDA: newDA, tg: tg, tn: tn, tnet: tnet, insts: insts, nps: !!npsRate };
+  }
+
+  function share() {
+    var s = state.summary; if (!s) return;
+    var t = '*DA एरियर गणना (' + CAT_LABEL[state.cat] + ' शिक्षक, ' + s.oldDA + '% से ' + s.newDA + '%)*\n' +
+      '• कुल सकल DA: ' + inr(s.tg) + '\n' +
+      (s.nps ? '• NPS कटौती (10%): ' + inr(s.tn) + '\n' : '') +
+      '• *कुल शुद्ध एरियर: ' + inr(s.tnet) + '*\n\n' +
+      '*भुगतान किश्तें:*\n';
+    s.insts.forEach(function (x, i) { t += (i + 1) + '. ' + x.label + ': ' + inr(x.net) + '\n'; });
+    window.open('https://api.whatsapp.com/send?text=' + encodeURIComponent(t), '_blank');
+  }
+
+  // Events
+  ['old_da','new_da','bp1','m1','bp2','m2'].forEach(function (id) {
+    $(id).addEventListener('input', calculate);
+    $(id).addEventListener('change', calculate);
+  });
+  function bindSeg(id, attr, key) {
+    $(id).addEventListener('click', function (e) {
+      var b = e.target.closest('button'); if (!b) return;
+      state[key] = key === 'cat' ? parseInt(b.getAttribute(attr), 10) : b.getAttribute(attr);
+      Array.prototype.forEach.call($(id).children, function (c) { c.classList.toggle('active', c === b); });
+      calculate();
+    });
+  }
+  // MP शासन वेतन मैट्रिक्स (परिशिष्ट-1, 7वाँ वेतनमान): लेवल -> इंडेक्स 1 से 40 तक मूल वेतन
+  var MATRIX = {
+    6: [25300,26100,26900,27700,28500,29400,30300,31200,32100,33100,34100,35100,36200,37300,38400,39600,40800,42000,43300,44600,45900,47300,48700,50200,51700,53300,54900,56500,58200,59900,61700,63600,65500,67500,69500,71600,73700,75900,78200,80500],
+    7: [28700,29600,30500,31400,32300,33300,34300,35300,36400,37500,38600,39800,41000,42200,43500,44800,46100,47500,48900,50400,51900,53500,55100,56800,58500,60300,62100,64000,65900,67900,69900,72000,74200,76400,78700,81100,83500,86000,88600,91300],
+    8: [32800,33800,34800,35800,36900,38000,39100,40300,41500,42700,44000,45300,46700,48100,49500,51000,52500,54100,55700,57400,59100,60900,62700,64600,66500,68500,70600,72700,74900,77100,79400,81800,84300,86800,89400,92100,94900,97700,100600,103600],
+    9: [36200,37300,38400,39600,40800,42000,43300,44600,45900,47300,48700,50200,51700,53300,54900,56500,58200,59900,61700,63600,65500,67500,69500,71600,73700,75900,78200,80500,82900,85400,88000,90600,93300,96100,99000,102000,105100,108300,111500,114800],
+    10: [42700,44000,45300,46700,48100,49500,51000,52500,54100,55700,57400,59100,60900,62700,64600,66500,68500,70600,72700,74900,77100,79400,81800,84300,86800,89400,92100,94900,97700,100600,103600,106700,109900,113200,116600,120100,123700,127400,131200,135100],
+    11: [49100,50600,52100,53700,55300,57000,58700,60500,62300,64200,66100,68100,70100,72200,74400,76600,78900,81300,83700,86200,88800,91500,94200,97000,99900,102900,106000,109200,112500,115900,119400,123000,126700,130500,134400,138400,142600,146900,151300,155800]
+  };
+  var GRADE_PAY = { 6: 2400, 7: 2800, 8: 3200, 9: 3600, 10: 4200, 11: 4800 };
+  var DEFAULT_LEVEL = { 1: 10, 2: 8, 3: 6 };
+  state.level = 6;
+
+  function payFor(key) {
+    var col = MATRIX[state.level];
+    if (key.charAt(0) === 'p') return Math.round(col[0] * parseInt(key.slice(1), 10) / 100); // परिवीक्षा: इंडेक्स 1 का %
+    if (key.charAt(0) === 'i') return col[parseInt(key.slice(1), 10) - 1];
+    return 0;
+  }
+  function fillPayOptions(id, selected) {
+    var h = '<option value="m">खुद लिखें / वेतन पर्ची से</option><optgroup label="परिवीक्षा अवधि (इंडेक्स 1 का %)">';
+    [['p70', 'प्रथम वर्ष (70%)'], ['p80', 'द्वितीय वर्ष (80%)'], ['p90', 'तृतीय वर्ष (90%)']].forEach(function (p) {
+      h += '<option value="' + p[0] + '">' + p[1] + ' — ' + inr(payFor(p[0])) + '</option>';
+    });
+    h += '</optgroup><optgroup label="वेतन मैट्रिक्स इंडेक्स">';
+    for (var i = 1; i <= 40; i++) h += '<option value="i' + i + '">इंडेक्स ' + i + ' — ' + inr(payFor('i' + i)) + '</option>';
+    $(id).innerHTML = h + '</optgroup>';
+    $(id).value = selected;
+  }
+  function applyPay(selId, bpId) {
+    var v = $(selId).value;
+    if (v !== 'm') $(bpId).value = payFor(v);
+  }
+  function refreshPay() {
+    var s1 = $('st1').value, s2 = $('st2').value;
+    fillPayOptions('st1', s1); fillPayOptions('st2', s2);
+    applyPay('st1', 'bp1'); applyPay('st2', 'bp2');
+    calculate();
+  }
+  (function () {
+    var h = '';
+    Object.keys(MATRIX).forEach(function (l) { h += '<option value="' + l + '">लेवल ' + l + ' (ग्रेड पे ' + GRADE_PAY[l] + ')</option>'; });
+    $('lvl').innerHTML = h; $('lvl').value = state.level;
+  })();
+  fillPayOptions('st1', 'p90'); fillPayOptions('st2', 'i1');
+  $('lvl').addEventListener('change', function () { state.level = parseInt($('lvl').value, 10); refreshPay(); });
+  $('st1').addEventListener('change', function () { applyPay('st1', 'bp1'); calculate(); });
+  $('st2').addEventListener('change', function () { applyPay('st2', 'bp2'); calculate(); });
+  $('bp1').addEventListener('input', function () { $('st1').value = 'm'; });
+  $('bp2').addEventListener('input', function () { $('st2').value = 'm'; });
+
+  bindSeg('cat-seg', 'data-cat', 'cat');
+  $('cat-seg').addEventListener('click', function (e) {
+    if (!e.target.closest('button')) return;
+    state.level = DEFAULT_LEVEL[state.cat]; $('lvl').value = state.level; refreshPay();
+  });
+  bindSeg('pen-seg', 'data-pen', 'pen');
+  $('btn-wa').addEventListener('click', share);
+  $('btn-print').addEventListener('click', function () { window.print(); });
+
+  calculate();
+})();
+</script>
+</body>
+</html>
