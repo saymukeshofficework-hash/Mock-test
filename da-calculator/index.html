@@ -58,6 +58,18 @@
   .dac .note { font-size:11px; color:var(--muted); line-height:1.5; margin-top:10px; text-align:center; }
   .dac .hint { font-size:11px; color:var(--muted); margin-top:2px; }
 
+
+  .dac .ad { margin-top:14px; border-radius:14px; overflow:hidden; background:linear-gradient(160deg,#7c1d12 0%,#b4391a 55%,#d97706 100%); color:#fff; text-align:center; box-shadow:0 6px 18px rgba(124,29,18,.35); border:2px solid #fbbf24; }
+  .dac .ad-top { background:rgba(0,0,0,.22); padding:6px 10px; font-size:11px; letter-spacing:.6px; font-weight:700; color:#fde68a; }
+  .dac .ad-body { padding:14px 14px 16px; }
+  .dac .ad-icon { font-size:30px; line-height:1; }
+  .dac .ad-line { margin:8px 0 4px; font-size:14px; font-weight:600; line-height:1.5; }
+  .dac .ad-sub { font-size:11px; opacity:.85; }
+  .dac .ad-call { display:block; margin:10px auto 0; background:#fff; color:#7c1d12; text-decoration:none; font-size:22px; font-weight:900; letter-spacing:1px; padding:10px 8px; border-radius:10px; }
+  .dac .ad-call small { display:block; font-size:10.5px; font-weight:700; letter-spacing:0; color:#b4391a; }
+  .dac .ad-name { margin-top:12px; font-size:16px; font-weight:800; color:#fde68a; line-height:1.4; }
+  .dac .ad-name small { display:block; font-size:12px; font-weight:600; color:#fff; opacity:.9; }
+  @media (min-width:1180px) { .dac .ad { position:fixed; right:20px; top:110px; width:230px; margin-top:0; } }
   @media print { .dac .btn-row, .dac .no-print { display:none !important; } }
 </style>
 </head>
@@ -198,6 +210,17 @@
     <button class="btn pr" id="btn-print">🖨️ प्रिंट</button>
   </div>
   <div class="note">यह कैलकुलेटर केवल अनुमानित गणना के लिए है। अंतिम राशि के लिए अपने कोषालय / DDO से पुष्टि करें।<br>Estimate only. Confirm the final amount with your treasury / DDO.<br><a href="/" style="color:#0f3661;font-weight:700;">← TETTESTHUB होम / Home</a></div>
+  <!-- Side / bottom banner -->
+  <aside class="ad no-print" aria-label="श्री द्वारिका ढाबा एंड रेस्टोरेंट, बुढार">
+    <div class="ad-top">🍽️ खाना ऑर्डर करें · Order Food</div>
+    <div class="ad-body">
+      <div class="ad-icon" aria-hidden="true">🍛</div>
+      <div class="ad-line">अब आप इस नंबर पर कॉल करके खाना मंगवा सकते हैं</div>
+      <div class="ad-sub">Call now to order your food</div>
+      <a class="ad-call" href="tel:+917000363707"><small>📞 अभी कॉल करें</small>70003 63707</a>
+      <div class="ad-name">श्री द्वारिका ढाबा एंड रेस्टोरेंट<small>बुढार</small></div>
+    </div>
+  </aside>
 </div>
 
 <script>
