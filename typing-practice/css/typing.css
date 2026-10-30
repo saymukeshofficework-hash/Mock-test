@@ -93,6 +93,7 @@
 }
 .tp-mode-title{font-weight:700;font-size:15.5px;}
 .tp-mode-desc{font-size:12.5px;color:var(--muted);line-height:1.45;}
+.tp-mode-link{text-decoration:none;grid-column:1/-1;}
 
 .tp-daily-head{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap;}
 .tp-daily-date{font-size:12.5px;font-weight:700;color:var(--muted);}

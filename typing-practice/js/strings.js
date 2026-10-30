@@ -68,6 +68,8 @@ const STR = {
   mode_long_d: { en: "5 minutes — build stamina.", hi: "5 मिनट — लगातार टाइपिंग की आदत।" },
   mode_exam: { en: "Exam Practice", hi: "परीक्षा अभ्यास" },
   mode_exam_d: { en: "Your duration, a fixed passage, exam rules.", hi: "अपना समय, तय पैराग्राफ, परीक्षा जैसे नियम।" },
+  mode_mangal: { en: "Mangal Font Trainer", hi: "मंगल फ़ॉन्ट ट्रेनर" },
+  mode_mangal_d: { en: "Learn Mangal typing key by key (Remington Gail).", hi: "मंगल टाइपिंग एक-एक key करके सीखें (रेमिंगटन गेल)।" },
   mode_start: { en: "Start", hi: "शुरू करें" },
   mode_practice: { en: "Practice", hi: "अभ्यास" },
   mode_daily: { en: "Daily Challenge", hi: "आज का अभ्यास" },

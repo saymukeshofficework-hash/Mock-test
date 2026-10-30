@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, interactive-widget=resizes-content">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; connect-src 'self'; img-src 'self' data:;">
+<title>Mangal Font Typing Trainer (Remington Gail) | TETTESTHUB</title>
+<meta name="description" content="Learn Mangal font Hindi typing on the Remington Gail keyboard, key by key. Free lessons for CPCT, court and clerk typing tests.">
+<link rel="canonical" href="https://tettesthub.in/typing-practice/mangal-trainer.html">
+<meta name="theme-color" content="#ffffff">
+<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;600;700&amp;display=swap">
+<link rel="stylesheet" href="../assets/site.css?v=2">
+<link rel="stylesheet" href="css/typing.css?v=9">
+<style>
+.mt-wrap{max-width:980px;margin:0 auto;padding:16px}
+.mt-wrap h1{font-size:24px;margin:8px 0 4px}
+.mt-sub{color:var(--muted);margin:0 0 14px}
+.mt-lessons{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 14px}
+.mt-lessons button{border:1px solid var(--border);background:#fff;border-radius:999px;padding:7px 12px;font:inherit;font-size:14px;cursor:pointer;color:var(--ink)}
+.mt-lessons button.on{background:var(--blue);border-color:var(--blue);color:#fff}
+.mt-card{padding:16px;margin-bottom:14px}
+.mt-line{font-size:26px;line-height:1.9;word-spacing:6px;margin:0 0 10px}
+.mt-line span{padding:0 2px;border-radius:4px}
+.mt-line .done{color:#15803d}
+.mt-line .cur{background:#fef3c7;border-bottom:3px solid #d97706}
+.mt-keys{display:flex;flex-wrap:wrap;gap:4px;margin:0 0 12px;min-height:34px}
+.mt-keys b{font:600 15px/1 ui-monospace,Consolas,monospace;border:1px solid var(--border);border-radius:6px;padding:7px 9px;background:#f8fafc}
+.mt-keys b.ok{background:#dcfce7;border-color:#86efac;color:#15803d}
+.mt-keys b.next{background:#dbeafe;border-color:var(--blue);color:var(--blue-dark)}
+.mt-keys b.bad{background:#fee2e2;border-color:#fca5a5;color:#b91c1c}
+.mt-input{width:100%;font:16px ui-monospace,Consolas,monospace;padding:10px 12px;border:2px solid var(--border);border-radius:10px}
+.mt-input:focus{outline:none;border-color:var(--blue)}
+.mt-stats{display:flex;flex-wrap:wrap;gap:16px;margin:10px 0 0;font-size:14px;color:var(--muted)}
+.mt-stats strong{color:var(--ink);font-size:17px}
+.mt-kb{max-width:820px;margin:0 auto;user-select:none}
+.mt-row{display:grid;grid-template-columns:repeat(60,minmax(0,1fr))}
+.mt-k{grid-column:span 4;margin:2px;height:50px;min-width:0;border:1px solid var(--border);border-radius:8px;background:#fff;display:flex;flex-direction:column;justify-content:space-between;padding:3px 5px;font-size:15px;overflow:hidden}
+.mt-k small{font-size:11px;line-height:1.1;color:var(--muted);text-align:left}
+.mt-k span{text-align:right;line-height:1.2}
+.mt-k.wide{justify-content:center;align-items:center;font-size:12px;color:var(--muted)}
+.mt-k.hit{background:#dbeafe;border-color:var(--blue);box-shadow:0 0 0 2px var(--blue) inset}
+.mt-k.hit-shift small{color:var(--blue-dark);font-weight:700}
+.mt-done{margin:12px 0 0}
+.mt-help{font-size:14px;color:var(--muted);line-height:1.6}
+.mt-caps{margin:6px 0;padding:6px 10px;border-radius:8px;background:#fee2e2;color:#b91c1c;font-size:14px;font-weight:600}
+@media (max-width:720px){.mt-wrap{padding:10px 12px}.mt-wrap h1{font-size:18px;padding-right:48px}.mt-sub{font-size:13px;margin-bottom:8px}.mt-lessons{flex-wrap:nowrap;overflow-x:auto;margin-bottom:8px;padding-bottom:4px}.mt-lessons button{flex:0 0 auto;padding:6px 10px;font-size:13px}.mt-card{padding:10px;margin-bottom:10px}.mt-help{font-size:12px}.mt-k{height:40px;margin:1px;padding:1px 2px;font-size:12px;border-radius:5px}.mt-k small{font-size:8px}.mt-k.wide{font-size:9px}.mt-line{font-size:22px}}
+</style>
+<script type="module" src="js/mangal-trainer.js?v=3"></script>
+</head>
+<body>
+<main class="mt-wrap">
+  <p><a href="./">← टाइपिंग प्रैक्टिस / Typing Practice</a></p>
+  <h1 class="font-mangal">मंगल फ़ॉन्ट ट्रेनर / Mangal Font Trainer</h1>
+  <p class="mt-sub">रेमिंगटन गेल कीबोर्ड पर मंगल (Unicode) हिंदी टाइपिंग सीखें, एक-एक key करके।<br>Learn Mangal (Unicode) Hindi typing on the Remington Gail keyboard, key by key.</p>
+
+  <nav class="mt-lessons" id="lessons" aria-label="पाठ / Lessons"></nav>
+
+  <section class="card mt-card">
+    <div class="mt-line font-mangal" id="line" lang="hi"></div>
+    <div class="mt-keys" id="keys" aria-label="अगली keys / Next keys"></div>
+    <label for="box" class="mt-help">यहाँ अंग्रेज़ी कीबोर्ड से टाइप करें (Hindi कीबोर्ड बंद रखें) / Type here with the English keyboard (keep Hindi keyboard off)</label>
+    <p class="mt-caps" id="capsWarn" hidden>⚠ Caps Lock चालू है, बंद करें। / Caps Lock is on, turn it off.</p>
+    <input class="mt-input" id="box" type="text" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" inputmode="text">
+    <div class="mt-stats">
+      <div>गति / Speed: <strong id="wpm">0</strong> WPM</div>
+      <div>शुद्धता / Accuracy: <strong id="acc">100</strong>%</div>
+      <div>गलत keys / Wrong keys: <strong id="err">0</strong></div>
+    </div>
+    <div class="mt-done" id="done" hidden>
+      <p><strong>✔ लाइन पूरी! / Line complete!</strong></p>
+      <button class="btn btn-primary" id="nextBtn" type="button">अगली लाइन / Next line</button>
+    </div>
+  </section>
+
+  <section class="card mt-card">
+    <div class="mt-kb" id="kb" aria-hidden="true"></div>
+  </section>
+
+  <section class="card mt-card mt-help">
+    <strong>कैसे सीखें / How to learn</strong>
+    <ul>
+      <li>नीली key दबाएँ। ऊपर का छोटा अक्षर Shift के साथ आता है। / Press the blue key. The small letter on top needs Shift.</li>
+      <li>गलत key पर आगे नहीं बढ़ेगा, सही key दबाएँ। / A wrong key does not move ahead; press the right key.</li>
+      <li>"ि" की मात्रा पहले लगती है: कि = f + d। / The "ि" matra is typed first: कि = f + d.</li>
+      <li>मोबाइल पर Bluetooth कीबोर्ड भी चलता है: उसे English में रखें, Caps Lock बंद रखें। / Works with a Bluetooth keyboard on mobile too: keep it in English, Caps Lock off.</li>
+      <li>पहले शुद्धता, फिर गति। / Accuracy first, then speed.</li>
+    </ul>
+  </section>
+</main>
+<style id="tth-floating-home-style">#tth-floating-home{position:fixed;right:14px;top:14px;bottom:auto;z-index:2147483647;width:44px;height:44px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:#0f766e;color:#fff;border:2px solid #fff;box-shadow:0 3px 12px rgba(0,0,0,.3);text-decoration:none}#tth-floating-home svg{width:22px;height:22px;display:block}@media(max-width:640px){#tth-floating-home{right:12px;top:12px;bottom:auto;width:42px;height:42px}}</style><a id="tth-floating-home" href="/" aria-label="होम पेज पर जाएँ" title="होम"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 10 9-7 9 7"/><path d="M5 9v11h14V9"/><path d="M9 20v-7h6v7"/></svg></a>
+</body>
+</html>
