@@ -51,7 +51,10 @@
   .dac td:first-child { text-align:left; }
   .dac tfoot td { font-weight:800; background:#f8fafc; }
 
-  .dac .btn-row { display:grid; grid-template-columns:2fr 1fr; gap:8px; }
+  .dac .btn-row { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+  .dac .btn:disabled { opacity:.6; cursor:wait; }
+  .dac.pdf-mode .no-print, .dac.pdf-mode .btn-row, .dac.pdf-mode .ad { display:none !important; }
+  .dac.pdf-mode { max-width:560px; width:560px; }
   .dac .btn { border:none; padding:12px; border-radius:8px; font-size:14px; font-weight:700; cursor:pointer; color:#fff; }
   .dac .btn.wa { background:#25d366; }
   .dac .btn.pr { background:var(--primary); }
@@ -70,7 +73,7 @@
   .dac .ad-name { margin-top:12px; font-size:16px; font-weight:800; color:#fde68a; line-height:1.4; }
   .dac .ad-name small { display:block; font-size:12px; font-weight:600; color:#fff; opacity:.9; }
   @media (min-width:1180px) { .dac .ad { position:fixed; right:20px; top:110px; width:230px; margin-top:0; } }
-  @media print { .dac .btn-row, .dac .no-print { display:none !important; } }
+  @media print { .dac .btn-row, .dac .no-print, .dac .ad { display:none !important; } }
 </style>
 </head>
 <body>
@@ -91,7 +94,7 @@
       <li><b>जुलाई में इन्क्रीमेंट लगा हो</b> तो "जुलाई 26 - सित 26" में अगला इंडेक्स चुनें। न लगा हो तो दोनों अवधियों में एक ही इंडेक्स रखें।</li>
       <li><b>परिवीक्षा अवधि वाले शिक्षक</b> ड्रॉपडाउन से 70%, 80% या 90% वाला चरण चुनें। या वेतन पर्ची देखकर मूल वेतन खुद लिख दें (यही सबसे सटीक है)।</li>
       <li><b>महीने जाँचें:</b> आदेश के अनुसार एरियर 1 जनवरी से 30 सितंबर 2026 (9 माह) का है, इसलिए जन-जून 6 और जुलाई-सित 3 माह रखे हैं। नौकरी बीच में लगी हो तो महीने घटा लें।</li>
-      <li><b>नतीजा देखें:</b> कुल शुद्ध एरियर और 3 समान किश्तें (नवंबर 2026, दिसंबर 2026, जनवरी 2027) नीचे दिखेंगी। WhatsApp पर शेयर या प्रिंट कर सकते हैं।</li>
+      <li><b>नतीजा देखें:</b> कुल शुद्ध एरियर और 3 समान किश्तें (नवंबर 2026, दिसंबर 2026, जनवरी 2027) नीचे दिखेंगी। WhatsApp पर शेयर या PDF डाउनलोड कर सकते हैं।</li>
     </ol>
   </details>
 
@@ -207,7 +210,7 @@
 
   <div class="btn-row">
     <button class="btn wa" id="btn-wa">📲 WhatsApp पर शेयर करें</button>
-    <button class="btn pr" id="btn-print">🖨️ प्रिंट</button>
+    <button class="btn pr" id="btn-pdf">📄 PDF डाउनलोड</button>
   </div>
   <div class="note">यह कैलकुलेटर केवल अनुमानित गणना के लिए है। अंतिम राशि के लिए अपने कोषालय / DDO से पुष्टि करें।<br>Estimate only. Confirm the final amount with your treasury / DDO.<br><a href="/" style="color:#0f3661;font-weight:700;">← TETTESTHUB होम / Home</a></div>
   <!-- Side / bottom banner -->
@@ -388,7 +391,59 @@
   });
   bindSeg('pen-seg', 'data-pen', 'pen');
   $('btn-wa').addEventListener('click', share);
-  $('btn-print').addEventListener('click', function () { window.print(); });
+  // PDF: पेज को इमेज बनाकर A4 PDF में डालता है (हिंदी फ़ॉन्ट सही रहते हैं)
+  function loadScript(src) {
+    return new Promise(function (res, rej) {
+      var el = document.createElement('script');
+      el.src = src; el.onload = res; el.onerror = function () { rej(new Error('load ' + src)); };
+      document.head.appendChild(el);
+    });
+  }
+  function ensurePdfLibs() {
+    var p = Promise.resolve();
+    if (!window.html2canvas) p = p.then(function () { return loadScript('https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js'); });
+    if (!(window.jspdf && window.jspdf.jsPDF)) p = p.then(function () { return loadScript('https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js'); });
+    return p;
+  }
+  function makePdf() {
+    var btn = $('btn-pdf'), box = $('dac'), label = btn.textContent, breaks = [];
+    btn.disabled = true; btn.textContent = '⏳ PDF बन रहा है...';
+    ensurePdfLibs().then(function () {
+      box.classList.add('pdf-mode');
+      return window.html2canvas(box, { scale: 2, backgroundColor: '#f1f5f9', useCORS: true, windowWidth: 600,
+        onclone: function (doc) {
+          var b = doc.getElementById('dac'), top = b.getBoundingClientRect().top;
+          Array.prototype.forEach.call(b.children, function (c) {
+            var r = c.getBoundingClientRect();
+            if (r.height > 0) breaks.push(Math.round((r.bottom - top + 6) * 2));
+          });
+        } });
+    }).then(function (canvas) {
+      box.classList.remove('pdf-mode');
+      var pdf = new window.jspdf.jsPDF({ unit: 'pt', format: 'a4' });
+      var pw = pdf.internal.pageSize.getWidth(), ph = pdf.internal.pageSize.getHeight(), m = 20;
+      var imgW = pw - 2 * m, k = imgW / canvas.width, sliceH = Math.floor((ph - 2 * m) / k), y = 0, first = true;
+      while (y < canvas.height) {
+        var end = Math.min(y + sliceH, canvas.height);
+        if (end < canvas.height) {
+          var best = 0;
+          breaks.forEach(function (bk) { if (bk > y + 50 && bk <= end && bk > best) best = bk; });
+          if (best) end = best; // पेज कार्ड के बीच से न कटे
+        }
+        var h = end - y;
+        var part = document.createElement('canvas'); part.width = canvas.width; part.height = h;
+        part.getContext('2d').drawImage(canvas, 0, y, canvas.width, h, 0, 0, canvas.width, h);
+        if (!first) pdf.addPage();
+        pdf.addImage(part.toDataURL('image/jpeg', 0.92), 'JPEG', m, m, imgW, h * k);
+        first = false; y += h;
+      }
+      pdf.save('DA-Arrear-Varg-' + state.cat + '.pdf');
+    }).catch(function () {
+      box.classList.remove('pdf-mode');
+      alert('PDF नहीं बन सका। इंटरनेट जाँचकर दोबारा कोशिश करें।\nCould not create the PDF. Check your internet and try again.');
+    }).then(function () { btn.disabled = false; btn.textContent = label; });
+  }
+  $('btn-pdf').addEventListener('click', makePdf);
 
   calculate();
 })();
