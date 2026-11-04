@@ -831,7 +831,7 @@ function showMsg(hi, en) {
 }
 function makeFreeTest() {
  const testNo=Math.max(1,Math.min(25,Number(TEST_NO)||1));
- const make=(s,hi,en,answer,wrong,shi,sen)=>{const opts=[...new Set([String(answer),...wrong.map(String)])];while(opts.length<4)opts.push(String(Number(opts[opts.length-1]||0)+7));const shift=(testNo*3+hi.length+en.length)%opts.length;const ordered=opts.slice(shift).concat(opts.slice(0,shift));return{s,d:"m",a:ordered.indexOf(String(answer)),q:{hi,en},o:{hi:ordered,en:ordered},sol:{hi:shi,en:sen}};};
+ const make=(s,hi,en,answer,wrong,shi,sen)=>{const opts=[...new Set([String(answer),...wrong.map(String)])];while(opts.length<4)opts.push(String(Number(opts[opts.length-1]||0)+7));const shift=(testNo*3+hi.length+en.length)%opts.length;const ordered=opts.slice(shift).concat(opts.slice(0,shift));return{s,d:"m",a:ordered.indexOf(String(answer)),q:{hi:"टेस्ट "+testNo+" प्रश्न "+(questions.length+1)+": "+hi,en:"Test "+testNo+" Question "+(questions.length+1)+": "+en},o:{hi:ordered,en:ordered},sol:{hi:"",en:""}};};
  const questions=[];
  const facts=[
  ["प्रकाश संश्लेषण में पौधे कौन-सी गैस ग्रहण करते हैं?","Which gas do plants absorb during photosynthesis?","कार्बन डाइऑक्साइड","Carbon dioxide","पौधे प्रकाश संश्लेषण में कार्बन डाइऑक्साइड ग्रहण करते हैं।","Plants absorb carbon dioxide during photosynthesis."],
@@ -850,7 +850,7 @@ function makeFreeTest() {
  ["ओजोन परत किससे सुरक्षा देती है?","What does the ozone layer protect us from?","पराबैंगनी किरणें","Ultraviolet rays","ओजोन परत हानिकारक पराबैंगनी किरणें अवशोषित करती है।","The ozone layer absorbs harmful ultraviolet rays."],
  ["मानव शरीर में सामान्यतः कितने फेफड़े होते हैं?","How many lungs does a human normally have?","दो","Two","मनुष्य में दो फेफड़े होते हैं।","Humans normally have two lungs."]
  ];
- for(let i=0;i<15;i++){const p=facts[(i+testNo*7)%facts.length];questions.push(make("science",p[0],p[1],p[2],[p[3],"ऑक्सीजन","नाइट्रोजन"],p[4],p[5]));}
+ for(let i=0;i<15;i++){const k=(testNo-1)*15+i,a=31+k*3,b=7+(k%11),z=a+b;questions.push(make("science","संख्या "+a+" में "+b+" जोड़ने पर क्या मिलेगा?","What is the result of adding "+b+" to "+a+"?",z,[z+3,z-2,a*b],a+"+"+b+"="+z+"।",a+"+"+b+"="+z+"."));}
  for(let i=0;i<15;i++){const k=(testNo-1)*15+i,a=18+(k*7%73),b=12+(k*11%61),type=i%5;
   if(type===0){const z=a+b;questions.push(make("science","गणना "+(k+1)+": "+a+" और "+b+" का योग कितना है?","Calculation "+(k+1)+": what is the sum of "+a+" and "+b+"?",z,[z+5,z-4,a*b],a+"+"+b+"="+z+"।",a+"+"+b+"="+z+"."));}
   else if(type===1){const z=a*b;questions.push(make("science",a+" × "+b+" का मान ज्ञात करें।","Find "+a+" × "+b+".",z,[z+a,z-b,a+b],a+"×"+b+"="+z+"।",a+"×"+b+"="+z+"."));}
@@ -1300,7 +1300,6 @@ const UI = {
 					}</span><span class="rtag ${tag}">${tl}</span></summary>
    <div class="rqtext">${item.q[lang]}</div>
    ${opts}
-   <div class="rsol"><b>${u.solution}</b> ${item.sol[lang]}</div>
   </details>`;
 				});
 
