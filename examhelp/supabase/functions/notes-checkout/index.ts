@@ -134,6 +134,8 @@ const PASS_DAYS = 30; // current affairs pass length
 // 14-day free offer (owner, 2026-10-21): until this time any logged-in main-site student opens every
 // paid mock test ("test" action with access_token). Same date in js/site-config.js.
 const FREE_ACCESS_UNTIL = Date.parse("2026-11-04T23:59:59+05:30");
+// per-series free week (owner, 2026-11-05)
+const SERIES_FREE_UNTIL: Record<string, number> = { jnv6: Date.parse("2026-11-12T23:59:59+05:30") };
 const MAX_DOWNLOADS = 10;
 const LINK_SECONDS = 600;
 
@@ -338,7 +340,7 @@ Deno.serve(async (req) => {
       // paid mock test paper: token of a paid "tests" order + test number
       const token = body.token ?? "";
       const n = parseInt(String(body.n ?? ""), 10);
-      if (!token && body.access_token && Date.now() < FREE_ACCESS_UNTIL && n >= 1 && n <= 50) {
+      if (!token && body.access_token && (Date.now() < FREE_ACCESS_UNTIL || Date.now() < (SERIES_FREE_UNTIL[String(body.series ?? "")] ?? 0)) && n >= 1 && n <= 50) {
         // free offer: logged-in student, any "tests" series folder
         if (!(await loggedInUser(body.access_token))) return json({ error: "login_required" }, 401);
         const folder = String(body.series ?? "");

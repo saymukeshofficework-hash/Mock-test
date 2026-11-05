@@ -7,6 +7,11 @@
 // and supabase/functions/notes-checkout.
 export const FREE_ACCESS_UNTIL = "2026-11-04T23:59:59+05:30";
 export const freeAccessOn = () => Date.now() < Date.parse(FREE_ACCESS_UNTIL);
+// per-series free week (owner, 2026-11-05): same date in notes-checkout and the series test.html
+export const SERIES_FREE_UNTIL: Record<string, { until: string; hi: string; en: string }> = {
+  jnv6: { until: "2026-11-12T23:59:59+05:30", hi: "12 नवंबर 2026", en: "12 Nov 2026" },
+};
+export const seriesFreeOn = (s: string) => !!SERIES_FREE_UNTIL[s] && Date.now() < Date.parse(SERIES_FREE_UNTIL[s].until);
 
 export const site = {
   name: "TETTESTHUB",
