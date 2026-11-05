@@ -94,6 +94,7 @@ body{padding-bottom:calc(94px + env(safe-area-inset-bottom))}
           <a class="course-card" data-own="ca-30" href="/examhelp/current-affairs/"><span class="course-icon">CA</span><strong>Daily Current Affairs</strong><small>Daily exam-focused current affairs</small><span class="course-btn">Open Course →</span></a>
           <a class="course-card" data-own="pcgd-tests" href="/examhelp/mp-police-constable-gd-mock-tests/"><span class="course-icon">PC</span><strong>MP Police Constable GD</strong><small>Mock tests and preparation</small><span class="course-btn">Open Course →</span></a>
           <a class="course-card" data-own="pcdr-tests" href="/examhelp/mp-police-driver-mock-tests/"><span class="course-icon">PD</span><strong>MP Police Constable Driver</strong><small>Mock tests and preparation</small><span class="course-btn">Open Course →</span></a>
+          <a class="course-card" data-own="jnv6-tests" href="/examhelp/navodaya-class-6-mock-tests/"><span class="course-icon">NV</span><strong>Navodaya Class 6 (JNVST)</strong><small>Mock tests for Class 6 entrance</small><span class="course-btn">Open Course →</span></a>
           <a class="course-card" data-own="asi-tests" href="/examhelp/mp-police-subedar-asi-mock-tests/"><span class="course-icon">ASI</span><strong>MP Police Subedar / ASI</strong><small>Exam-focused mock tests</small><span class="course-btn">Open Course →</span></a>
           <a class="course-card" data-own="bridge" href="/bridge-course/"><span class="course-icon">B.Ed</span><strong>NIOS B.Ed Bridge Course</strong><small>Bridge Course learning resources</small><span class="course-btn">Open Course →</span></a>
         </div>
@@ -167,7 +168,7 @@ body{padding-bottom:calc(94px + env(safe-area-inset-bottom))}
   // order of the logged-in student (or one this browser started). Anon key is public by design.
   const CHECKOUT_URL = 'https://znulepzdihzhjmuvyroi.supabase.co/functions/v1/notes-checkout';
   const CHECKOUT_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpudWxlcHpkaWh6aGptdXZ5cm9pIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTExMjE5MjIsImV4cCI6MjEwNjY5NzkyMn0.XoqC6vNDJkEAxgtXLVPCpTxocv3lAa-ZBeg69OdbhdU';
-  const EXAMHELP_PRODUCTS = ['ag3-tests', 'ag3-hi', 'ag3-en', 'pcgd-tests', 'pcdr-tests', 'asi-tests', 'ca-30'];
+  const EXAMHELP_PRODUCTS = ['ag3-tests', 'ag3-hi', 'ag3-en', 'pcgd-tests', 'pcdr-tests', 'jnv6-tests', 'asi-tests', 'ca-30'];
 
   function lsGet(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
 

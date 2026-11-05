@@ -13,14 +13,14 @@ import { LoginChip } from "./LoginChip";
 /** Small Home option before the TETTESTHUB logo on mock-test catalogues. */
 export function MockPageHomeLink() {
   const pathname = usePathname();
-  const isMockTestList = /(?:^|\/)(?:courses|exams|all-test|all-tests|tests|test-series|my-tests?|dashboard|tet-mock-tests|mp-high-court-assistant-grade-3-mock-tests|mp-police-constable-gd-mock-tests|mp-police-subedar-asi-mock-tests|mp-police-driver-mock-tests|mp-police-si-mock-tests|mp-grameen-bank-mock-tests|rrb-ntpc-(?:graduate|undergraduate)-mock-tests)(?:\/index\.html)?\/?$/.test(pathname);
+  const isMockTestList = /(?:^|\/)(?:courses|exams|all-test|all-tests|tests|test-series|my-tests?|dashboard|tet-mock-tests|mp-high-court-assistant-grade-3-mock-tests|mp-police-constable-gd-mock-tests|mp-police-subedar-asi-mock-tests|mp-police-driver-mock-tests|navodaya-class-6-mock-tests|mp-police-si-mock-tests|mp-grameen-bank-mock-tests|rrb-ntpc-(?:graduate|undergraduate)-mock-tests)(?:\/index\.html)?\/?$/.test(pathname);
   if (!isMockTestList || /(?:^|\/)(?:courses|exams|all-test|all-tests|tests)(?:\.html)?\/?$/.test(pathname)) return null;
   return <a href="https://tettesthub.in/index.html" aria-label="बैंगनी होमपेज पर जाएँ" title="होम" className="inline-flex h-8 shrink-0 items-center gap-1 rounded-lg border border-brand-200 bg-brand-50 px-2 text-xs font-bold text-brand-700 hover:bg-brand-100">⌂ <span>होम</span></a>;
 }
 
 /** Exam catalogue routes where the top search and menu controls should be omitted. */
 function isTargetExamPage(pathname: string) {
-  return /(?:^|\/)(?:mp-high-court-assistant-grade-3-mock-tests|mp-police-subedar-asi-mock-tests|mp-police-constable-gd-mock-tests|mp-police-driver-mock-tests|mp-police-si-mock-tests|mp-police-asi-steno-mock-tests|mp-grameen-bank-mock-tests|rrb-station-master-mock-tests|rrb-ntpc-(?:graduate|undergraduate)-mock-tests)(?:\.html)?(?:\/.*)?\/?$/.test(pathname);
+  return /(?:^|\/)(?:mp-high-court-assistant-grade-3-mock-tests|mp-police-subedar-asi-mock-tests|mp-police-constable-gd-mock-tests|mp-police-driver-mock-tests|navodaya-class-6-mock-tests|mp-police-si-mock-tests|mp-police-asi-steno-mock-tests|mp-grameen-bank-mock-tests|rrb-station-master-mock-tests|rrb-ntpc-(?:graduate|undergraduate)-mock-tests)(?:\.html)?(?:\/.*)?\/?$/.test(pathname);
 }
 
 /** Desktop search is also omitted on the requested exam pages. */
@@ -211,7 +211,7 @@ export function DesktopNav({ lang }: { lang: Lang }) {
 /** Mobile: Search + Menu buttons and the slide-in drawer. */
 export function MobileControls({ lang }: { lang: Lang }) {
   const pathname = usePathname();
-  const isMockTestList = /(?:^|\/)(?:courses|exams|test-series|my-tests?|dashboard|tet-mock-tests|mp-high-court-assistant-grade-3-mock-tests|mp-police-constable-gd-mock-tests|mp-police-subedar-asi-mock-tests|mp-police-driver-mock-tests|mp-police-si-mock-tests|mp-grameen-bank-mock-tests|rrb-ntpc-(?:graduate|undergraduate)-mock-tests)(?:\/index\.html)?\/?$/.test(pathname);
+  const isMockTestList = /(?:^|\/)(?:courses|exams|test-series|my-tests?|dashboard|tet-mock-tests|mp-high-court-assistant-grade-3-mock-tests|mp-police-constable-gd-mock-tests|mp-police-subedar-asi-mock-tests|mp-police-driver-mock-tests|navodaya-class-6-mock-tests|mp-police-si-mock-tests|mp-grameen-bank-mock-tests|rrb-ntpc-(?:graduate|undergraduate)-mock-tests)(?:\/index\.html)?\/?$/.test(pathname);
   const isCurrentAffairs = /(?:^|\/)current-affairs\/?$/.test(pathname);
   const hideExamHeaderControls = isTargetExamPage(pathname);
   const [open, setOpen] = useState(false);

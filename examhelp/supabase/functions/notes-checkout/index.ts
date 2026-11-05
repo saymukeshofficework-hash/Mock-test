@@ -70,6 +70,13 @@ const PRODUCTS: Record<string, { amount: number; file: string; downloadName: str
     downloadName: "",
     title: "MP पुलिस आरक्षक (चालक) 2026 — 25 फुल मॉक टेस्ट",
   },
+  "jnv6-tests": {
+    amount: 9900,
+    kind: "tests",
+    file: "jnv6", // private bucket "tests": jnv6/02.json … jnv6/15.json; test 1 is public
+    downloadName: "",
+    title: "नवोदय विद्यालय (JNVST) कक्षा 6 — 15 फुल मॉक टेस्ट",
+  },
   "mpgrb-tests": {
     amount: 9900,
     kind: "tests",
