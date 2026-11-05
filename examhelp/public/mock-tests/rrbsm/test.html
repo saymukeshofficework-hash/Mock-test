@@ -699,7 +699,7 @@ img,svg,video,canvas,table{max-width:100%}
 				<div>
 					<div class="ttext" data-title>RRB Station Master Mock Test</div>
 					<small id="nSubtitleText"
-						>120 Questions &nbsp;&middot;&nbsp; 90 min</small
+						>100 Questions &nbsp;&middot;&nbsp; 120 min</small
 					>
 				</div>
 				<button class="langBtn" id="langBtnName" type="button">
@@ -733,10 +733,10 @@ img,svg,video,canvas,table{max-width:100%}
 				<div class="ttwrap">
 					<div class="ttext" data-title>RRB Station Master Mock Test</div>
 					<small id="subtitleText"
-						>120 Questions &nbsp;&middot;&nbsp; 90 min</small
+						>100 Questions &nbsp;&middot;&nbsp; 120 min</small
 					>
 				</div>
-				<span class="dtime" id="dTime"><span id="dTimeLbl">Time Left</span> : <b id="timer2">90:00</b></span>
+				<span class="dtime" id="dTime"><span id="dTimeLbl">Time Left</span> : <b id="timer2">120:00</b></span>
 				<button class="langBtn" id="langBtn" type="button">
 					हिंदी
 				</button>
@@ -750,7 +750,7 @@ img,svg,video,canvas,table{max-width:100%}
             </div>
             <div class="timerbar" id="timerbar">
 				<span id="timeLeftLabel">Time Left</span>
-				<span id="timer">90:00</span>
+				<span id="timer">120:00</span>
 			</div>
 			<div class="sectiontabs" id="sectiontabs"></div>
 			<div class="examgrid">
@@ -843,7 +843,7 @@ loadTest()
 function boot() {
 const UI = {
 				en: {
-					subtitle: "Mock Test " + (+TEST_NO) + " \u00b7 120 Questions \u00b7 90 min",
+					subtitle: "Mock Test " + (+TEST_NO) + " \u00b7 100 Questions \u00b7 120 min",
 					timeLeft: "Time Left",
 					legAns: "Answered",
 					legNot: "Not Answered",
@@ -893,7 +893,7 @@ const UI = {
 					defaultName: "Student",
 					back: "\u2190 All tests",
 					rules: [
-						"120 objective questions · 120 marks · 90 minutes.",
+						"100 objective questions · 100 marks · 120 minutes.",
 						"4 sections: Science & Math (30), DI (30), Logical Capability (20), Reasoning (20).",
 						"Every question is in Hindi and English — switch language any time.",
 						"Each correct answer carries 1 mark. A wrong answer deducts ⅓ mark.",
@@ -902,7 +902,7 @@ const UI = {
 					],
 				},
 				hi: {
-					subtitle: "मॉक टेस्ट " + (+TEST_NO) + " · 120 प्रश्न · 90 मिनट",
+					subtitle: "मॉक टेस्ट " + (+TEST_NO) + " · 100 प्रश्न · 120 मिनट",
 					timeLeft: "\u0936\u0947\u0937 \u0938\u092e\u092f",
 					legAns: "\u0909\u0924\u094d\u0924\u0930 \u0926\u093f\u092f\u093e",
 					legNot: "\u0909\u0924\u094d\u0924\u0930 \u0928\u0939\u0940\u0902 \u0926\u093f\u092f\u093e",
@@ -959,7 +959,7 @@ const UI = {
 						"\u0935\u093f\u0926\u094d\u092f\u093e\u0930\u094d\u0925\u0940",
 					back: "\u2190 सभी टेस्ट",
 					rules: [
-						"120 वस्तुनिष्ठ प्रश्न · 120 अंक · 90 मिनट।",
+						"100 वस्तुनिष्ठ प्रश्न · 100 अंक · 120 मिनट।",
 						"4 खंड: Science & Math (30), DI (30), Logical Capability (20), Reasoning (20)।",
 						"हर प्रश्न हिंदी और अंग्रेज़ी दोनों में है — भाषा कभी भी बदलें।",
 						"सही उत्तर पर 1 अंक; गलत उत्तर पर ⅓ अंक की कटौती।",
@@ -975,7 +975,7 @@ const UI = {
 			}
 
 			const TOTAL = Q.length;
-			const DURATION = 90 * 60;
+			const DURATION = 120 * 60;
 			let cur = 0,
 				answers = {},
 				visited = new Set(),
