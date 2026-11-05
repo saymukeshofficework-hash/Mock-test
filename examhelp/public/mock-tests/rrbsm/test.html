@@ -699,7 +699,7 @@ img,svg,video,canvas,table{max-width:100%}
 				<div>
 					<div class="ttext" data-title>RRB Station Master Mock Test</div>
 					<small id="nSubtitleText"
-						>100 Questions &nbsp;&middot;&nbsp; 120 min</small
+						>120 Questions &nbsp;&middot;&nbsp; 90 min</small
 					>
 				</div>
 				<button class="langBtn" id="langBtnName" type="button">
@@ -733,10 +733,10 @@ img,svg,video,canvas,table{max-width:100%}
 				<div class="ttwrap">
 					<div class="ttext" data-title>RRB Station Master Mock Test</div>
 					<small id="subtitleText"
-						>100 Questions &nbsp;&middot;&nbsp; 120 min</small
+						>120 Questions &nbsp;&middot;&nbsp; 90 min</small
 					>
 				</div>
-				<span class="dtime" id="dTime"><span id="dTimeLbl">Time Left</span> : <b id="timer2">120:00</b></span>
+				<span class="dtime" id="dTime"><span id="dTimeLbl">Time Left</span> : <b id="timer2">90:00</b></span>
 				<button class="langBtn" id="langBtn" type="button">
 					हिंदी
 				</button>
@@ -750,7 +750,7 @@ img,svg,video,canvas,table{max-width:100%}
             </div>
             <div class="timerbar" id="timerbar">
 				<span id="timeLeftLabel">Time Left</span>
-				<span id="timer">120:00</span>
+				<span id="timer">90:00</span>
 			</div>
 			<div class="sectiontabs" id="sectiontabs"></div>
 			<div class="examgrid">
@@ -829,66 +829,9 @@ function showMsg(hi, en) {
   document.getElementById("nameInput").parentNode.style.display = "none";
   const back = document.getElementById("backLink"); if (back) back.textContent = L === "en" ? "\u2190 Back to all tests" : "\u2190 सभी टेस्ट पर वापस जाएँ";
 }
-function makeFreeTest() {
- const testNo=Math.max(1,Math.min(25,Number(TEST_NO)||1));
- const make=(s,hi,en,answer,wrong,shi,sen)=>{const opts=[...new Set([String(answer),...wrong.map(String)])];while(opts.length<4)opts.push(String(Number(opts[opts.length-1]||0)+7));const shift=(testNo*3+hi.length+en.length)%opts.length;const ordered=opts.slice(shift).concat(opts.slice(0,shift));const enDirections={"उत्तर":"North","पूर्व":"East","दक्षिण":"South","पश्चिम":"West"};return{s,d:"m",a:ordered.indexOf(String(answer)),q:{hi:"टेस्ट "+testNo+" प्रश्न "+(questions.length+1)+": "+hi,en:"Test "+testNo+" Question "+(questions.length+1)+": "+en},o:{hi:ordered,en:ordered.map(v=>enDirections[v]||v)},sol:{hi:"",en:""}};};
- const questions=[];
- const facts=[
- ["प्रकाश संश्लेषण में पौधे कौन-सी गैस ग्रहण करते हैं?","Which gas do plants absorb during photosynthesis?","कार्बन डाइऑक्साइड","Carbon dioxide","पौधे प्रकाश संश्लेषण में कार्बन डाइऑक्साइड ग्रहण करते हैं।","Plants absorb carbon dioxide during photosynthesis."],
- ["मानव शरीर में रक्त पंप करने वाला अंग कौन-सा है?","Which organ pumps blood in the human body?","हृदय","Heart","हृदय रक्त को पूरे शरीर में पंप करता है।","The heart pumps blood throughout the body."],
- ["बल की SI इकाई क्या है?","What is the SI unit of force?","न्यूटन","Newton","बल की SI इकाई न्यूटन है।","The SI unit of force is the newton."],
- ["पानी का रासायनिक सूत्र क्या है?","What is the chemical formula of water?","H₂O","H₂O","पानी का सूत्र H₂O है।","The formula of water is H₂O."],
- ["मानव शरीर की सबसे बड़ी ग्रंथि कौन-सी है?","What is the largest gland in the human body?","यकृत","Liver","यकृत शरीर की सबसे बड़ी ग्रंथि है।","The liver is the largest gland in the human body."],
- ["ध्वनि किस माध्यम में यात्रा नहीं कर सकती?","Through which medium can sound not travel?","निर्वात","Vacuum","ध्वनि के लिए भौतिक माध्यम आवश्यक है।","Sound requires a physical medium."],
- ["विटामिन C की कमी से कौन-सा रोग होता है?","Which disease is caused by vitamin C deficiency?","स्कर्वी","Scurvy","विटामिन C की कमी से स्कर्वी होता है।","Vitamin C deficiency causes scurvy."],
- ["सामान्य वायुदाब पर पानी का क्वथनांक कितना है?","What is water's boiling point at normal pressure?","100°C","100°C","सामान्य वायुदाब पर पानी 100°C पर उबलता है।","Water boils at 100°C at normal atmospheric pressure."],
- ["विद्युत धारा की SI इकाई क्या है?","What is the SI unit of electric current?","एम्पियर","Ampere","विद्युत धारा की SI इकाई एम्पियर है।","The SI unit of electric current is the ampere."],
- ["पृथ्वी का प्राकृतिक उपग्रह कौन-सा है?","What is Earth's natural satellite?","चंद्रमा","Moon","चंद्रमा पृथ्वी का प्राकृतिक उपग्रह है।","The Moon is Earth's natural satellite."],
- ["हीमोग्लोबिन किस रक्त कोशिका में पाया जाता है?","Which blood cell contains haemoglobin?","लाल रक्त कोशिका","Red blood cell","लाल रक्त कोशिकाओं में हीमोग्लोबिन होता है।","Red blood cells contain haemoglobin."],
- ["पौधों में जल का परिवहन किस ऊतक से होता है?","Which tissue transports water in plants?","जाइलम","Xylem","जाइलम जल और खनिजों का परिवहन करता है।","Xylem transports water and minerals."],
- ["परमाणु के केंद्र में क्या पाया जाता है?","What is found at the centre of an atom?","नाभिक","Nucleus","परमाणु के केंद्र में नाभिक होता है।","The nucleus is at the centre of an atom."],
- ["ओजोन परत किससे सुरक्षा देती है?","What does the ozone layer protect us from?","पराबैंगनी किरणें","Ultraviolet rays","ओजोन परत हानिकारक पराबैंगनी किरणें अवशोषित करती है।","The ozone layer absorbs harmful ultraviolet rays."],
- ["मानव शरीर में सामान्यतः कितने फेफड़े होते हैं?","How many lungs does a human normally have?","दो","Two","मनुष्य में दो फेफड़े होते हैं।","Humans normally have two lungs."]
- ];
- for(let i=0;i<30;i++){const k=(testNo-1)*30+i,a=36+(k*7%91),b=8+(k*11%37),c=3+(k%9),type=i%6;
-  if(type===0){const z=a*b;questions.push(make("science","एक मशीन "+a+" इकाई प्रति घंटे बनाती है। "+b+" घंटे में कुल उत्पादन कितना होगा?","A machine produces "+a+" units per hour. How many units will it produce in "+b+" hours?",z,[z+a,z-b,a+b],"उत्पादन = "+a+"×"+b+" = "+z+"।","Production = "+a+"×"+b+" = "+z+"."));}
-  else if(type===1){const total=(b*10)+a%10,p=15+(k%6)*5,z=total*p/100;questions.push(make("science","₹"+total+" की वस्तु पर "+p+"% छूट मिले, तो छूट की राशि कितनी होगी?","An item costs ₹"+total+" and has a "+p+"% discount. Find the discount amount.",z,[z+5,z-5,total-p],"छूट = "+total+"×"+p+"/100 = ₹"+z+"।","Discount = "+total+"×"+p+"/100 = ₹"+z+"."));}
-  else if(type===2){const x=4+(k%17),z=3*x+2;questions.push(make("science","यदि 3x + 2 = "+z+" है, तो x का मान क्या होगा?","If 3x + 2 = "+z+", find x.",x,[x+1,x-1,z-2],"3x = "+(z-2)+", इसलिए x = "+x+"।","3x = "+(z-2)+", so x = "+x+"."));}
-  else if(type===3){const n=12+(k%19),z=n*(n+1)/2;questions.push(make("science","पहली "+n+" प्राकृतिक संख्याओं का योग कितना है?","What is the sum of the first "+n+" natural numbers?",z,[z+n,z-1,n*n],"योग = n(n+1)/2 = "+z+"।","Sum = n(n+1)/2 = "+z+"."));}
-  else if(type===4){const speed=36+(k%12)*4,time=1+(k%5),z=speed*time;questions.push(make("science","एक ट्रेन "+speed+" किमी/घंटा की गति से "+time+" घंटे चलती है। दूरी कितनी होगी?","A train travels at "+speed+" km/h for "+time+" hours. Find the distance.",z,[z+speed,z-time,speed+time],"दूरी = गति × समय = "+speed+"×"+time+" = "+z+" किमी।","Distance = speed × time = "+speed+"×"+time+" = "+z+" km."));}
-  else{const ratio=2+(k%5),unit=7+(k%13),z=ratio*unit;questions.push(make("science","दो संख्याओं का अनुपात "+ratio+":1 है। छोटी संख्या "+unit+" है। बड़ी संख्या क्या होगी?","Two numbers are in the ratio "+ratio+":1. The smaller number is "+unit+". Find the larger number.",z,[z+unit,z-ratio,ratio+unit],"बड़ी संख्या = "+ratio+"×"+unit+" = "+z+"।","Larger number = "+ratio+"×"+unit+" = "+z+"."));}
- }
- for(let i=0;i<30;i++){const k=(testNo-1)*30+i,a=24+(k*13%87),b=18+(k*17%79),c=12+(k*19%65),type=i%5;
-  if(type===0){const z=a+b;questions.push(make("di","सोमवार "+a+" और मंगलवार "+b+" टिकट बिके। कुल कितने टिकट बिके?",""+a+" tickets were sold Monday and "+b+" Tuesday. Find the total.",z,[z+10,z-5,a*b],a+"+"+b+"="+z+" टिकट।",a+"+"+b+"="+z+" tickets."));}
-  else if(type===1){const z=a-b;questions.push(make("di","केंद्र A में "+a+" और B में "+b+" आवेदन आए। A में कितने अधिक आए?","Centre A received "+a+" applications and B received "+b+". How many more did A receive?",z,[a+b,z+5,b-a],a+"−"+b+"="+z+"।",a+"−"+b+"="+z+"."));}
-  else if(type===2){const z=a*2;questions.push(make("di","चार्ट में "+a+" इकाइयाँ हैं। संख्या दोगुनी हो तो कितनी होगी?","A chart shows "+a+" units. What is double this number?",z,[z+a,a+2,z-2],a+"×2="+z+"।",a+"×2="+z+"."));}
-  else if(type===3){const z=a+b+c;questions.push(make("di","तीन स्टेशनों पर यात्रियों की संख्या "+a+", "+b+", "+c+" है। कुल कितने?","Passenger counts at three stations are "+a+", "+b+", "+c+". Find the total.",z,[z+10,z-10,a*b],a+"+"+b+"+"+c+"="+z+"।",a+"+"+b+"+"+c+"="+z+"."));}
-  else{const z=Math.round(a/(a+b)*100);questions.push(make("di","कुल "+(a+b)+" अभ्यर्थियों में "+a+" सफल हुए। सफलता प्रतिशत लगभग कितना है?","Out of "+(a+b)+" candidates, "+a+" passed. Find the approximate pass percentage.",z,[z+5,z-5,100-z],"("+a+"/"+(a+b)+")×100≈"+z+"%。","("+a+"/"+(a+b)+")×100≈"+z+"%."));}
- }
- for(let i=0;i<20;i++){const k=(testNo-1)*20+i,a=14+(k*5%61),b=3+(k*7%19),type=i%5;
-  if(type===0){const z=a-b;questions.push(make("logical","एक डिब्बे में "+a+" वस्तुएँ थीं, "+b+" निकाल दी गईं। कितनी बचीं?","A box had "+a+" items and "+b+" were removed. How many remain?",z,[a+b,z+b,b],a+"−"+b+"="+z+"।",a+"−"+b+"="+z+"."));}
-  else if(type===1){const z=a+b*2;questions.push(make("logical","यदि A="+a+" और B="+b+", तो A+2B कितना है?","If A="+a+" and B="+b+", what is A+2B?",z,[a+b,z+2,a*b],a+"+2×"+b+"="+z+"।",a+"+2×"+b+"="+z+"."));}
-  else if(type===2){const z=a%4+1;questions.push(make("logical",a+" को 4 से भाग देने पर शेषफल में 1 जोड़ें। परिणाम?","Add 1 to the remainder when "+a+" is divided by 4. Result?",z,[z+1,z+2,4],"शेषफल "+(a%4)+"; उसमें 1 जोड़ने पर "+z+"।","Remainder "+(a%4)+"; adding 1 gives "+z+"."));}
-  else if(type===3){const z=a*3;questions.push(make("logical","प्रत्येक समूह में "+a+" सदस्य हैं। 3 समूहों में कुल कितने?","Each group has "+a+" members. How many in 3 groups?",z,[z+a,a+3,z-3],a+"×3="+z+"।",a+"×3="+z+"."));}
-  else{const z=a+10;questions.push(make("logical",a+" से 10 अधिक संख्या क्या है?","What number is 10 greater than "+a+"?",z,[z-10,z+10,a*10],a+"+10="+z+"।",a+"+10="+z+".");}
- }
- const words=["SIGNAL","ENGINE","PLATFORM","TICKET","COACH","TRACK","STATION","GUARD","EXPRESS","JOURNEY","SAFETY","RAILWAY","DRIVER","ROUTE","FREIGHT","SLEEPER","CABIN","BRIDGE","TUNNEL","SCHEDULE","CONTROL","CROSSING","RESERVATION","LOCOMOTIVE","PASSENGER"];
- for(let i=0;i<20;i++){const k=(testNo-1)*20+i,step=2+(k%13),start=5+(k*3%70),type=i%4;
-  if(type===0){const seq=[start,start+step,start+2*step,start+3*step],z=start+4*step;questions.push(make("reason","श्रृंखला पूरी करें: "+seq.join(", ")+", ?","Complete the series: "+seq.join(", ")+", ?",z,[z+step,z-step,z+2*step],"हर बार "+step+" जुड़ता है; अगली संख्या "+z+" है।","Add "+step+" each time; the next number is "+z+"."));}
-  else if(type===1){const w=String.fromCharCode(65+(k%26))+String.fromCharCode(65+(Math.floor(k/26)%26))+String.fromCharCode(65+(Math.floor(k/676)%26)),sh=1+(k%5),z=w.split("").map(ch=>String.fromCharCode((ch.charCodeAt(0)-65+sh)%26+65)).join("");questions.push(make("reason",w+" के प्रत्येक अक्षर को "+sh+" स्थान आगे करने पर कोड क्या होगा?","Shift every letter of "+w+" forward by "+sh+" places. What is the code?",z,[w,z.split("").reverse().join(""),w.split("").reverse().join("")],"हर अक्षर "+sh+" स्थान आगे करने पर "+z+" मिलता है।","Shifting each letter forward "+sh+" places gives "+z+"."));}
-  else if(type===2){const dirs=["उत्तर","पूर्व","दक्षिण","पश्चिम"],en=["North","East","South","West"],d=k%4,z=dirs[(d+1)%4];questions.push(make("reason","कोई व्यक्ति "+dirs[d]+" की ओर मुख करके दाएँ मुड़ता है। अब किस दिशा में है?","A person faces "+en[d]+" and turns right. Which direction now?",z,dirs.filter(x=>x!==z).slice(0,3),"दाएँ मुड़ने पर "+z+" दिशा होगी।","A right turn from "+en[d]+" faces "+en[(d+1)%4]+"."));}
-  else{const a=2+k,z=a*2;questions.push(make("reason","P, Q से "+a+" वर्ष बड़ा है और Q की आयु "+a+" वर्ष है। P की आयु?","P is "+a+" years older than Q. Q is "+a+" years old. How old is P?",z,[z+a,z-1,a],a+"+"+a+"="+z+" वर्ष।",a+"+"+a+"="+z+" years."));}
- }
- return{test:testNo,title:{hi:"RRB स्टेशन मास्टर — मॉक टेस्ट "+testNo,en:"RRB Station Master — Mock Test "+testNo},sections:[
- {key:"science",label:{hi:"Science & Math (विज्ञान एवं गणित)",en:"Science & Math"}},
- {key:"di",label:{hi:"DI (Data Interpretation)",en:"DI (Data Interpretation)"}},
- {key:"logical",label:{hi:"Logical Capability",en:"Logical Capability"}},
- {key:"reason",label:{hi:"Reasoning",en:"Reasoning"}}
- ],questions};
-}
 function loadTest() {
   // All 25 tests are free; no payment API, token, or login gate is used.
-  return Promise.resolve(makeFreeTest());
+  return fetch("/examhelp/mock-tests/rrbsm/tests/" + TEST_NO + ".json").then((r) => { if (!r.ok) throw new Error("x"); return r.json(); });
 }
 loadTest()
   .then((d) => { SECTIONS = d.sections; Q = d.questions; boot(); })
@@ -900,7 +843,7 @@ loadTest()
 function boot() {
 const UI = {
 				en: {
-					subtitle: "Mock Test " + (+TEST_NO) + " \u00b7 100 Questions \u00b7 120 min",
+					subtitle: "Mock Test " + (+TEST_NO) + " \u00b7 120 Questions \u00b7 90 min",
 					timeLeft: "Time Left",
 					legAns: "Answered",
 					legNot: "Not Answered",
@@ -950,7 +893,7 @@ const UI = {
 					defaultName: "Student",
 					back: "\u2190 All tests",
 					rules: [
-						"100 objective questions · 100 marks · 120 minutes.",
+						"120 objective questions · 120 marks · 90 minutes.",
 						"4 sections: Science & Math (30), DI (30), Logical Capability (20), Reasoning (20).",
 						"Every question is in Hindi and English — switch language any time.",
 						"Each correct answer carries 1 mark. A wrong answer deducts ⅓ mark.",
@@ -959,7 +902,7 @@ const UI = {
 					],
 				},
 				hi: {
-					subtitle: "मॉक टेस्ट " + (+TEST_NO) + " · 100 प्रश्न · 120 मिनट",
+					subtitle: "मॉक टेस्ट " + (+TEST_NO) + " · 120 प्रश्न · 90 मिनट",
 					timeLeft: "\u0936\u0947\u0937 \u0938\u092e\u092f",
 					legAns: "\u0909\u0924\u094d\u0924\u0930 \u0926\u093f\u092f\u093e",
 					legNot: "\u0909\u0924\u094d\u0924\u0930 \u0928\u0939\u0940\u0902 \u0926\u093f\u092f\u093e",
@@ -1016,7 +959,7 @@ const UI = {
 						"\u0935\u093f\u0926\u094d\u092f\u093e\u0930\u094d\u0925\u0940",
 					back: "\u2190 सभी टेस्ट",
 					rules: [
-						"100 वस्तुनिष्ठ प्रश्न · 100 अंक · 120 मिनट।",
+						"120 वस्तुनिष्ठ प्रश्न · 120 अंक · 90 मिनट।",
 						"4 खंड: Science & Math (30), DI (30), Logical Capability (20), Reasoning (20)।",
 						"हर प्रश्न हिंदी और अंग्रेज़ी दोनों में है — भाषा कभी भी बदलें।",
 						"सही उत्तर पर 1 अंक; गलत उत्तर पर ⅓ अंक की कटौती।",
@@ -1032,7 +975,7 @@ const UI = {
 			}
 
 			const TOTAL = Q.length;
-			const DURATION = 120 * 60;
+			const DURATION = 90 * 60;
 			let cur = 0,
 				answers = {},
 				visited = new Set(),
