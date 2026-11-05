@@ -7,7 +7,7 @@ import { isDesktopExamHeaderPage, isDesktopOnlyHeaderPage } from "@/components/l
 import { CheckCircle2, CreditCard, FileText, Lock, PlayCircle, Unlock } from "lucide-react";
 import { MOCK_SERIES } from "@/data/mockTests";
 import { buyNotes, checkout, claimPurchase, mainSiteUnlock } from "@/lib/checkout";
-import { freeAccessOn } from "@/lib/site";
+import { freeAccessOn, seriesFreeOn, SERIES_FREE_UNTIL } from "@/lib/site";
 
 type Lang = "hi" | "en";
 type Best = { last: number; best: number; total: number; at: number };
@@ -46,7 +46,7 @@ export function MockTestList({ series = "ag3" }: { series?: string }) {
   const [loggedIn, setLoggedIn] = useState(false);
   const [loginHref, setLoginHref] = useState("/login.html");
   useEffect(() => {
-    setFreeNow(freeAccessOn());
+    setFreeNow(freeAccessOn() || seriesFreeOn(series));
     setLoginHref(`/login.html?next=${encodeURIComponent(location.pathname)}`);
     try {
       setLoggedIn(!!localStorage.getItem("sb-ovaubhekxjtkodkhsybg-auth-token"));
@@ -194,7 +194,7 @@ export function MockTestList({ series = "ag3" }: { series?: string }) {
         <div className="shrink-0 sm:w-72">
           {freeNow ? (
             <div className="rounded-lg bg-success-50 px-4 py-3 text-center text-success-700">
-              <p className="font-semibold">{t("freeTitle")}</p>
+              <p className="font-semibold">{SERIES_FREE_UNTIL[series] && seriesFreeOn(series) ? (lang === "hi" ? `🎉 ${SERIES_FREE_UNTIL[series].hi} तक सभी टेस्ट फ्री` : `🎉 All tests free till ${SERIES_FREE_UNTIL[series].en}`) : t("freeTitle")}</p>
               {loggedIn ? null : (
                 <>
                   <p className="mt-1 text-sm">{t("freeLogin")}</p>
