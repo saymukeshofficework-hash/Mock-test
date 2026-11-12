@@ -12,6 +12,7 @@ const SERIES = [
   { id: "jnv6", label: "Navodaya JNVST Class 6 (jnv6)" },
   { id: "ag3", label: "MP High Court AG-3 (ag3)" },
   { id: "mpgrb", label: "Madhya Pradesh Gramin Bank (mpgrb)" },
+  { id: "group4", label: "MPESB Group-4 Assistant Grade-3 (group4)" },
 ];
 const JSZIP = "https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js";
 

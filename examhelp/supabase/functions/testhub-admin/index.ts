@@ -30,7 +30,7 @@ function safeEqual(a: string, b: string) {
   for (let i = 0; i < a.length; i++) r |= a.charCodeAt(i) ^ b.charCodeAt(i);
   return r === 0;
 }
-const SERIES = ["ag3", "pcgd", "asi", "mpgrb", "pcdr", "jnv6"];
+const SERIES = ["ag3", "pcgd", "asi", "mpgrb", "pcdr", "jnv6", "group4"];
 const COLS = "id,product,amount,status,rzp_order_id,rzp_payment_id,email,phone,downloads,download_token,created_at,paid_at";
 
 Deno.serve(async (req) => {
@@ -61,7 +61,7 @@ Deno.serve(async (req) => {
 
   switch (body.action) {
     case "login": {
-      const { data } = await db.from("orders").select("amount,paid_at").eq("status", "paid").limit(10000);
+      const { data } = await db.from("orders").select("amount,paid_at").eq("status", "paid").not("rzp_order_id", "like", "owner_tester_%").limit(10000);
       const now = new Date();
       const ist = (d: Date) => new Date(d.getTime() + 5.5 * 3600e3).toISOString().slice(0, 10);
       const today = ist(now);
@@ -76,7 +76,8 @@ Deno.serve(async (req) => {
       return json({ ok: true, stats: s });
     }
     case "list": {
-      let q = db.from("orders").select(COLS).order("created_at", { ascending: false }).limit(100);
+      // tester accounts (rzp_order_id owner_tester_*) are free passes, not sales: hidden here
+      let q = db.from("orders").select(COLS).not("rzp_order_id", "like", "owner_tester_%").order("created_at", { ascending: false }).limit(100);
       const st = body.status ?? "paid";
       if (st === "paid") q = q.eq("status", "paid");
       else if (st === "cancelled") q = q.eq("status", "cancelled");
@@ -112,6 +113,7 @@ Deno.serve(async (req) => {
       if (!SERIES.includes(series) || !(n >= 1 && n <= 50)) return json({ error: "bad_request" }, 400);
       const d = typeof body.data === "string" ? JSON.parse(body.data) : body.data;
       const qs = d?.questions;
+      // deno-lint-ignore no-explicit-any
       const okQ = Array.isArray(qs) && qs.length >= 50 && qs.every((q: any) =>
         q && typeof q.s === "string" && [0, 1, 2, 3].includes(q.a) && q.q?.hi && q.q?.en && q.o?.hi?.length === 4 && q.o?.en?.length === 4);
       if (!Array.isArray(d?.sections) || !okQ) return json({ error: "bad_test_file" }, 400);
