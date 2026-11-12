@@ -60,6 +60,17 @@ const COURSES = (lang: Lang): Course[] => {
       price: 99, href: "/mp-high-court-assistant-grade-3-mock-tests",
     },
     {
+      f: ["new", "tests"], tone: "indigo", art: "test", isNew: true,
+      kick: hi ? "MPESB ग्रुप-4 • सहायक ग्रेड-3" : "MPESB Group-4 • Assistant Grade-3",
+      big: hi ? "ग्रुप-4 सहायक ग्रेड-3" : "Group-4 Assistant Grade-3",
+      sub: hi ? ["25 टेस्ट प्रस्तावित", "तैयारी जारी"] : ["25 tests planned", "In preparation"],
+      tags: hi ? ["MPESB", "ग्रुप-4"] : ["MPESB", "Group-4"],
+      meta: [hi ? "पेपर पैटर्न" : "Paper pattern", hi ? "100 प्रश्न · 120 मिनट" : "100 Qs · 120 min"],
+      title: hi ? "MPESB ग्रुप-4 सहायक ग्रेड-3 — मॉक टेस्ट सीरीज़" : "MPESB Group-4 Assistant Grade-3 — Mock Test Series",
+      desc: hi ? "2024 नियमपुस्तिका के अनुसार छह विषयों पर आधारित द्विभाषी टेस्ट सीरीज़ तैयार की जा रही है।" : "Bilingual test series based on the six subjects in the 2024 rulebook is being prepared.",
+      price: 0, href: "/group4-assistant-grade-3-mock-tests",
+    },
+    {
       f: ["new", "notes"], tone: "amber", art: "book", isNew: true,
       kick: hi ? "रोज़ अपडेट • MP + भारत + विश्व" : "Daily • MP + India + World", big: hi ? "दैनिक करेंट अफेयर्स" : "Daily Current Affairs",
       sub: hi ? ["रोज़ की खबरें", "PDF डाउनलोड", "क्विज़"] : ["Daily news", "PDF download", "Quiz"],
