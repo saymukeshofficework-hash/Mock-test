@@ -74,4 +74,60 @@
       navigator.serviceWorker.register("/examhelp/sw.js", { scope: "/examhelp/" }).catch(function () {});
     });
   }
+  // Daily alerts (Web Push): small popup on first visit; "Yes" asks the browser for permission. Asks again after 3 days if closed.
+  var PUSH_KEY = "BDRIthDF0G3luX_-8wjFpsuUW9u0pj0JE5eVbAR3lT8RACdQwRm42TRHMHBcJl9oRxN-K6G2YtcatqWrAr6-SBw";
+  var CA_FN = "https://znulepzdihzhjmuvyroi.supabase.co/functions/v1/ca-push", CA_ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpudWxlcHpkaWh6aGptdXZ5cm9pIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTExMjE5MjIsImV4cCI6MjEwNjY5NzkyMn0.XoqC6vNDJkEAxgtXLVPCpTxocv3lAa-ZBeg69OdbhdU";
+  function pushCall(body) {
+    return fetch(CA_FN, { method: "POST", headers: { apikey: CA_ANON, Authorization: "Bearer " + CA_ANON, "Content-Type": "application/json" }, body: JSON.stringify(body) });
+  }
+  function pushKey() {
+    var b = PUSH_KEY.replace(/-/g, "+").replace(/_/g, "/"), s = atob(b + "===".slice((b.length + 3) % 4));
+    return Uint8Array.from(s, function (c) { return c.charCodeAt(0); });
+  }
+  function pushLang() { try { return localStorage.getItem("testhub_lang_pref") === "en" ? "en" : "hi"; } catch (e) { return "hi"; } }
+  function pushSubscribe(welcome) {
+    return navigator.serviceWorker.ready.then(function (reg) {
+      return reg.pushManager.getSubscription().then(function (s) { return s || reg.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey: pushKey() }); });
+    }).then(function (sub) {
+      return pushCall({ action: "subscribe", subscription: sub.toJSON(), lang: pushLang() }).then(function () {
+        if (welcome) pushCall({ action: "test", endpoint: sub.endpoint });
+      });
+    }).catch(function () {});
+  }
+  function showPushAsk() {
+    if (document.getElementById("tth-rate") || document.getElementById("tth-push")) return;
+    try { localStorage.setItem("tth-push-ask", String(Date.now())); } catch (e) {}
+    var st = document.createElement("style");
+    st.textContent = "#tth-push{position:fixed;left:12px;right:12px;bottom:12px;z-index:99998;max-width:380px;margin:0 auto;background:#fff;color:#163377;border-radius:16px;padding:16px;box-shadow:0 10px 36px rgba(0,0,0,.28);font-family:inherit;transform:translateY(140%);transition:transform .35s ease}" +
+      "#tth-push.on{transform:none}#tth-push b{display:block;font-size:16px;margin-bottom:2px}#tth-push p{margin:0 0 12px;font-size:13px;color:#555}" +
+      "#tth-push .r{display:flex;gap:8px;justify-content:flex-end}#tth-push button{border:0;border-radius:10px;padding:9px 14px;font-size:14px;cursor:pointer}" +
+      "#tth-push .y{background:#163377;color:#fff;font-weight:600}#tth-push .n{background:#eef1f7;color:#163377}";
+    document.head.appendChild(st);
+    var o = document.createElement("div"); o.id = "tth-push"; o.setAttribute("role", "dialog");
+    o.innerHTML = "<b>🔔 रोज़ की सूचना पाएँ?</b><p>हर सुबह नए करेंट अफेयर्स, नई टेस्ट सीरीज़ और अपडेट की सूचना।<br>Get alerts for daily current affairs, new test series and updates.</p>" +
+      '<div class="r"><button class="n">बाद में / Later</button><button class="y">हाँ, चालू करें / Allow</button></div>';
+    function close() { o.classList.remove("on"); setTimeout(function () { o.remove(); }, 400); }
+    o.querySelector(".n").onclick = close;
+    o.querySelector(".y").onclick = function () {
+      close();
+      Notification.requestPermission().then(function (p) { if (p === "granted") pushSubscribe(true); });
+    };
+    document.body.appendChild(o);
+    requestAnimationFrame(function () { requestAnimationFrame(function () { o.classList.add("on"); }); });
+  }
+  try {
+    if ("serviceWorker" in navigator && "PushManager" in window && "Notification" in window) {
+      window.addEventListener("load", function () {
+        if (Notification.permission === "granted") { // re-save the subscription once a day
+          var d = new Date().toDateString();
+          if (localStorage.getItem("tth-push-sync") !== d) { localStorage.setItem("tth-push-sync", d); pushSubscribe(false); }
+          return;
+        }
+        if (Notification.permission !== "default") return;
+        var last = +(localStorage.getItem("tth-push-ask") || 0);
+        if (Date.now() - last < 3 * 864e5) return;
+        setTimeout(showPushAsk, 6000);
+      });
+    }
+  } catch (e) {}
 })();
