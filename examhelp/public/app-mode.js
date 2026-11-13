@@ -105,7 +105,7 @@
     document.head.appendChild(st);
     var o = document.createElement("div"); o.id = "tth-push"; o.setAttribute("role", "dialog");
     o.innerHTML = "<b>🔔 रोज़ की सूचना पाएँ?</b><p>हर सुबह नए करेंट अफेयर्स, नई टेस्ट सीरीज़ और अपडेट की सूचना।<br>Get alerts for daily current affairs, new test series and updates.</p>" +
-      '<div class="r"><button class="n">बाद में / Later</button><button class="y">हाँ, चालू करें / Allow</button></div>';
+      '<div class="r"><button class="n">Later</button><button class="y">Allow</button></div>';
     function close() { o.classList.remove("on"); setTimeout(function () { o.remove(); }, 400); }
     o.querySelector(".n").onclick = close;
     o.querySelector(".y").onclick = function () {
