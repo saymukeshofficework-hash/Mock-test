@@ -143,3 +143,19 @@ table{display:block;overflow-x:auto}
 
 /* App-like mock tests: hide the website-wide footer without hiding the test instruction footer. */
 .site-footer, .website-footer, .main-footer, #siteFooter { display:none !important; }
+
+/* ---------- Colorful, data-driven exam pattern panel ---------- */
+.exam-pattern-card{margin:16px;border:2px solid #3157c9;border-radius:22px;overflow:hidden;background:#fff;box-shadow:0 5px 16px rgba(24,39,90,.12)}
+.exam-pattern-title{margin:0;padding:12px 16px;text-align:center;color:#fff;font-size:clamp(19px,4vw,28px);font-weight:900;background:linear-gradient(100deg,#5512c9,#8700c9);border-radius:0 0 24px 24px;max-width:460px;margin-inline:auto}
+.exam-pattern-head{margin:10px 12px 14px;padding:14px 16px;text-align:center;border:2px solid #e6bd42;border-radius:18px;background:linear-gradient(110deg,#fff7ce,#fff);color:#142d72;font-weight:800;line-height:1.45}
+.exam-pattern-head .exam-pattern-name{display:block;font-size:clamp(17px,3.8vw,25px);color:#075b48}
+.exam-pattern-head .exam-pattern-summary{display:block;font-size:clamp(14px,3vw,18px)}
+.exam-pattern-head .exam-pattern-note{display:block;color:#d52222;font-size:clamp(13px,2.8vw,17px);margin-top:4px}
+.exam-pattern-table{width:calc(100% - 20px);margin:0 10px 12px;border-collapse:separate;border-spacing:0;border:2px solid #3157c9;border-radius:14px;overflow:hidden;color:#102b75;font-weight:750}
+.exam-pattern-table td{padding:9px 10px;border-bottom:1px solid #a8c8f4;font-size:clamp(13px,2.7vw,18px);line-height:1.35}
+.exam-pattern-table tr:last-child td{border-bottom:0}
+.exam-pattern-table td:nth-child(2){width:64px;text-align:center;color:#e32626;font-size:1.12em;border-left:1px solid #7394e8;border-right:1px solid #7394e8}
+.exam-pattern-table td:nth-child(3){width:30%;text-align:center;font-weight:700}
+.exam-pattern-total{margin:0 10px 12px;padding:12px 14px;text-align:center;border-radius:14px;background:linear-gradient(100deg,#075b48,#007b60);color:#fff;font-size:clamp(13px,2.8vw,18px);font-weight:800;line-height:1.5}
+.exam-pattern-total strong{color:#fff000}
+@media(max-width:420px){.exam-pattern-card{margin:10px}.exam-pattern-head{margin:8px;padding:10px}.exam-pattern-table td{padding:8px 6px}.exam-pattern-table td:nth-child(3){width:28%}}
