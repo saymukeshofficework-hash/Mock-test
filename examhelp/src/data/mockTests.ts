@@ -503,6 +503,47 @@ export const MOCK_SERIES: Record<string, MockSeries> = {
     unlockBtn: { hi: "सभी टेस्ट अनलॉक करें", en: "Unlock all tests" },
     links: [],
   },
+  mppsc: {
+    id: "mppsc",
+    total: 25,
+    free: [1],
+    product: "mppsc-tests",
+    price: 99,
+    enginePath: "/mock-tests/mppsc/test.html",
+    scorePrefix: "testhub_mppsc_mock_",
+    listPath: "/mppsc-prelims-mock-tests",
+    meta: { hi: "100 प्रश्न · 120 मिनट", en: "100 Qs · 120 min" },
+    title: { hi: "MPPSC राज्य सेवा प्रारंभिक परीक्षा — 25 मॉक टेस्ट (सामान्य अध्ययन)", en: "MPPSC State Service Prelims — 25 Mock Tests (General Studies)" },
+    sub: {
+      hi: "MPPSC प्रारंभिक परीक्षा, सामान्य अध्ययन (प्रश्नपत्र-1) के 10 इकाई वाले पाठ्यक्रम पर: 100 प्रश्न, 200 अंक, 120 मिनट। हर प्रश्न हिंदी/English में, व्याख्या सहित। यह अभ्यास पेपर है, आधिकारिक प्रश्नपत्र नहीं। प्रश्नपत्र-2 (सामान्य अभिरुचि) इसमें शामिल नहीं है।",
+      en: "On the 10-unit syllabus of MPPSC Prelims General Studies (Paper 1): 100 questions, 200 marks, 120 minutes. Every question in Hindi/English with an explanation. Practice papers, not official papers. Paper 2 (General Aptitude) is not included.",
+    },
+    rows: {
+      hi: [
+        ["इकाई 1–2: भारत का इतिहास; म.प्र. का इतिहास, संस्कृति एवं साहित्य", "20", "हिंदी/English"],
+        ["इकाई 3–4: भारत का भूगोल; म.प्र. का भूगोल", "20", "हिंदी/English"],
+        ["इकाई 5–6: संवैधानिक व्यवस्था; अर्थव्यवस्था (भारत एवं म.प्र.)", "20", "हिंदी/English"],
+        ["इकाई 7–8: विज्ञान, पर्यावरण एवं स्वास्थ्य; समसामयिक घटनाएँ", "20", "हिंदी/English"],
+        ["इकाई 9–10: सूचना एवं संचार प्रौद्योगिकी; म.प्र. की जनजातियाँ", "20", "हिंदी/English"],
+      ],
+      en: [
+        ["Units 1–2: History of India; History, Culture and Literature of MP", "20", "Hindi/English"],
+        ["Units 3–4: Geography of India; Geography of MP", "20", "Hindi/English"],
+        ["Units 5–6: Constitutional system; Economy (India and MP)", "20", "Hindi/English"],
+        ["Units 7–8: Science, Environment and Health; Current Affairs", "20", "Hindi/English"],
+        ["Units 9–10: Information and Communication Technology; Tribes of MP", "20", "Hindi/English"],
+      ],
+    },
+    totalLine: { hi: "कुल: 100 प्रश्न · 200 अंक · 120 मिनट", en: "Total: 100 questions · 200 marks · 120 minutes" },
+    neg: { hi: "प्रत्येक सही उत्तर 2 अंक, ऋणात्मक अंकन नहीं।", en: "2 marks per correct answer, no negative marking." },
+    unlockTitle: { hi: "पूरी टेस्ट सीरीज़ — 25 मॉक टेस्ट", en: "Full test series — 25 mock tests" },
+    unlockSub: {
+      hi: "टेस्ट 1 फ्री है। बाकी 24 टेस्ट एक बार ₹99 देकर अनलॉक करें — इसी डिवाइस पर तुरंत खुल जाएंगे।",
+      en: "Test 1 is free. Unlock the other 24 tests once for ₹99 — they open instantly on this device.",
+    },
+    unlockBtn: { hi: "सभी टेस्ट अनलॉक करें", en: "Unlock all tests" },
+    links: [{ href: "/exams/mppsc-state-service-2026/", label: { hi: "परीक्षा की पूरी जानकारी →", en: "Full exam details →" }, tone: "brand" }],
+  },
 };
 
 /** Back-compat for the AG-3 landing page. */

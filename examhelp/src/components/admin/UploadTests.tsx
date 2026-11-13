@@ -13,6 +13,7 @@ const SERIES = [
   { id: "ag3", label: "MP High Court AG-3 (ag3)" },
   { id: "mpgrb", label: "Madhya Pradesh Gramin Bank (mpgrb)" },
   { id: "group4", label: "MPESB Group-4 Assistant Grade-3 (group4)" },
+  { id: "mppsc", label: "MPPSC State Service Prelims (mppsc)" },
 ];
 const JSZIP = "https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js";
 
