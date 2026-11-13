@@ -96,7 +96,7 @@
   }
   function showPushAsk() {
     if (document.getElementById("tth-rate") || document.getElementById("tth-push")) return;
-    try { localStorage.setItem("tth-push-ask", String(Date.now())); } catch (e) {}
+    try { localStorage.setItem("tth-push-ask2", String(Date.now())); } catch (e) {}
     var st = document.createElement("style");
     st.textContent = "#tth-push{position:fixed;left:12px;right:12px;bottom:12px;z-index:99998;max-width:380px;margin:0 auto;background:#fff;color:#163377;border-radius:16px;padding:16px;box-shadow:0 10px 36px rgba(0,0,0,.28);font-family:inherit;transform:translateY(140%);transition:transform .35s ease}" +
       "#tth-push.on{transform:none}#tth-push b{display:block;font-size:16px;margin-bottom:2px}#tth-push p{margin:0 0 12px;font-size:13px;color:#555}" +
@@ -124,12 +124,18 @@
           return;
         }
         if (Notification.permission !== "default") return;
-        var last = +(localStorage.getItem("tth-push-ask") || 0);
+        var last = +(localStorage.getItem("tth-push-ask2") || 0);
         if (Date.now() - last < 3 * 864e5) return;
-        setTimeout(function () { // browser's own Allow / Block popup, no extra card
-          try { localStorage.setItem("tth-push-ask", String(Date.now())); } catch (e) {}
-          Notification.requestPermission().then(function (p) { if (p === "granted") pushSubscribe(true); });
-        }, 3000);
+        var asked = false;
+        function ask() { // browser's own Allow / Block popup, no extra card
+          if (asked || Notification.permission !== "default") return;
+          asked = true;
+          try { localStorage.setItem("tth-push-ask2", String(Date.now())); } catch (e) {}
+          Notification.requestPermission().then(function (p) { if (p === "granted") pushSubscribe(true); else asked = p !== "default"; });
+        }
+        setTimeout(ask, 3000);
+        // Some browsers ignore a request without a tap: ask again on the first tap anywhere.
+        document.addEventListener("click", function () { asked = false; ask(); }, { once: true, capture: true });
       });
     }
   } catch (e) {}
