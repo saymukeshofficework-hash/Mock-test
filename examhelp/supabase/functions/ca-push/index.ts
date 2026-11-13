@@ -1,5 +1,5 @@
 // TETTESTHUB — daily current affairs alerts (Web Push). Deploy with verify_jwt false.
-// Actions: subscribe / unsubscribe / test (from the site), daily (from the ca_days trigger, needs x-push-key).
+// Actions: subscribe / unsubscribe / test (from the site), daily (from the ca_days trigger), announce (any news); daily/announce need x-push-key.
 // Secrets live in Supabase Vault (ca_push_vapid_private, ca_push_trigger_key), read via rpc ca_push_secret.
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import { createClient } from "npm:@supabase/supabase-js@2";
@@ -80,6 +80,23 @@ Deno.serve(async (req) => {
       await setup();
       const r = await sendTo(data as Row[], (row) => ({ ...daily(row, todayIST()), title: row.lang === "en" ? "Test alert ✅ TETTESTHUB" : "टेस्ट सूचना ✅ TETTESTHUB", tag: "ca-test" }));
       return json({ ok: r.sent === 1 });
+    }
+    if (b.action === "announce") {
+      // Any announcement (new test series, new notes...). Needs x-push-key. Fields: title_hi, body_hi, title_en, body_en, url.
+      if (req.headers.get("x-push-key") !== (await secret("ca_push_trigger_key"))) return json({ error: "forbidden" }, 403);
+      const t = (v: unknown) => String(v ?? "").slice(0, 150);
+      const url = String(b.url ?? "/examhelp/").startsWith("/examhelp/") ? String(b.url ?? "/examhelp/") : "/examhelp/";
+      const tag = "news-" + Date.now();
+      const work = (async () => {
+        await setup();
+        const { data } = await db.from("push_subscriptions").select("endpoint,p256dh,auth,lang");
+        const r = await sendTo((data ?? []) as Row[], (row) => row.lang === "en" && b.title_en
+          ? { title: t(b.title_en), body: t(b.body_en), url, tag }
+          : { title: t(b.title_hi || b.title_en), body: t(b.body_hi || b.body_en), url, tag });
+        console.log("announce", r);
+      })();
+      EdgeRuntime.waitUntil(work);
+      return json({ ok: true, queued: true }, 202);
     }
     if (b.action === "daily") {
       if (req.headers.get("x-push-key") !== (await secret("ca_push_trigger_key"))) return json({ error: "forbidden" }, 403);
