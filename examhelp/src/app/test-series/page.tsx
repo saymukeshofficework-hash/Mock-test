@@ -99,7 +99,7 @@ export default async function Page() {
         <div>
           <p className="text-xs font-bold uppercase tracking-wide text-accent-700">{lang === "hi" ? "नया" : "New"}</p>
           <p className="mt-1 text-lg font-extrabold text-brand-900">{lang === "hi" ? "MPPSC राज्य सेवा प्रारंभिक — 25 मॉक टेस्ट" : "MPPSC State Service Prelims — 25 mock tests"}</p>
-          <p className="mt-1 text-sm text-ink-600">{lang === "hi" ? "सामान्य अध्ययन · 100 प्रश्न · हिंदी/English · अभी सभी टेस्ट फ्री" : "General Studies · 100 Qs · Hindi/English · All tests free for now"}</p>
+          <p className="mt-1 text-sm text-ink-600">{lang === "hi" ? "प्रश्नपत्र-1 (सामान्य अध्ययन) · प्रश्नपत्र-2 जल्द · हिंदी/English · अभी सभी टेस्ट फ्री" : "Paper 1 (General Studies) · Paper 2 coming soon · Hindi/English · All tests free for now"}</p>
         </div>
         <span className="btn-primary shrink-0">{lang === "hi" ? "टेस्ट चुनें →" : "Choose tests →"}</span>
       </Link>
