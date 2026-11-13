@@ -138,6 +138,7 @@
 
 </div>
 
+<script src="/examhelp/mock-tests/free-pass.js?v=1"></script>
 <script>
 (() => {
   const $ = id => document.getElementById(id);
@@ -164,6 +165,15 @@
       return r.json();
     }
     let tok = null; try { tok = localStorage.getItem('testhub_dl_group4-tests'); } catch (e) {}
+    // Group 4 series is free for good (owner, 2026-11-13): any logged-in student opens every test
+    if (!tok && window.tthFree) {
+      const at = await tthFree.token();
+      if (!at) throw new Error('login');
+      const r = await fetch(CHECKOUT_URL, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ action: 'test', access_token: at, n: +TEST_NO, series: 'group4' }) });
+      if (r.status === 401) throw new Error('login');
+      if (!r.ok) throw new Error('x');
+      return r.json();
+    }
     if (!tok) throw new Error('locked');
     const r = await fetch(CHECKOUT_URL, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ action: 'test', token: tok, n: +TEST_NO, series: 'group4' }) });
     if (r.status === 404 || r.status === 403) { try { localStorage.removeItem('testhub_dl_group4-tests'); } catch (e) {} throw new Error('locked'); }
@@ -175,7 +185,9 @@
     try {
       data = await fetchTest();
     } catch (e) {
-      $('loadingScreen').innerHTML = e.message === 'locked'
+      $('loadingScreen').innerHTML = e.message === 'login'
+        ? `सभी टेस्ट फ्री हैं। टेस्ट देने के लिए लॉगिन करें। / All tests are free. Please log in to take this test.<br><br><a href="/login.html?next=${encodeURIComponent(location.pathname + location.search)}" class="btn-primary" style="display:inline-block;padding:10px 16px;text-decoration:none">लॉगिन करें / Log in</a>`
+        : e.message === 'locked'
         ? `यह टेस्ट, टेस्ट सीरीज़ (₹99) का हिस्सा है। / This test is part of the test series (₹99).<br><br><a href="${LIST_URL}" class="btn-primary" style="display:inline-block;padding:10px 16px;text-decoration:none">सभी टेस्ट अनलॉक करें / Unlock all tests</a>`
         : `प्रश्नपत्र लोड नहीं हो पाया। कृपया पेज रीफ्रेश करें। / Could not load the test. Please refresh.<br><br><a href="${LIST_URL}">← सभी टेस्ट / All tests</a>`;
       return;

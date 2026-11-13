@@ -142,7 +142,7 @@ const PASS_DAYS = 30; // current affairs pass length
 // paid mock test ("test" action with access_token). Same date in js/site-config.js.
 const FREE_ACCESS_UNTIL = Date.parse("2026-11-04T23:59:59+05:30");
 // per-series free week (owner, 2026-11-05)
-const SERIES_FREE_UNTIL: Record<string, number> = { jnv6: Date.parse("2026-11-12T23:59:59+05:30") };
+const SERIES_FREE_UNTIL: Record<string, number> = { jnv6: Date.parse("2026-11-12T23:59:59+05:30"), group4: Date.parse("2099-12-31T23:59:59+05:30") }; // group4 free for good (owner, 2026-11-13)
 const MAX_DOWNLOADS = 10;
 const LINK_SECONDS = 600;
 

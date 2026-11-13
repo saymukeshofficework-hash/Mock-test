@@ -194,7 +194,7 @@ export function MockTestList({ series = "ag3" }: { series?: string }) {
         <div className="shrink-0 sm:w-72">
           {freeNow ? (
             <div className="rounded-lg bg-success-50 px-4 py-3 text-center text-success-700">
-              <p className="font-semibold">{SERIES_FREE_UNTIL[series] && seriesFreeOn(series) ? (lang === "hi" ? `🎉 ${SERIES_FREE_UNTIL[series].hi} तक सभी टेस्ट फ्री` : `🎉 All tests free till ${SERIES_FREE_UNTIL[series].en}`) : t("freeTitle")}</p>
+              <p className="font-semibold">{SERIES_FREE_UNTIL[series] && seriesFreeOn(series) && !SERIES_FREE_UNTIL[series].en ? (lang === "hi" ? "🎉 सभी टेस्ट फ्री" : "🎉 All tests free") : SERIES_FREE_UNTIL[series] && seriesFreeOn(series) ? (lang === "hi" ? `🎉 ${SERIES_FREE_UNTIL[series].hi} तक सभी टेस्ट फ्री` : `🎉 All tests free till ${SERIES_FREE_UNTIL[series].en}`) : t("freeTitle")}</p>
               {loggedIn ? null : (
                 <>
                   <p className="mt-1 text-sm">{t("freeLogin")}</p>
