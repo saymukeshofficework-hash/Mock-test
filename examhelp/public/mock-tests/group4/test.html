@@ -1,10 +1,291 @@
-<!doctype html><html lang="hi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>MPESB Group-4 Mock Test 1 | TET TestHub</title><style>
-*{box-sizing:border-box}body{margin:0;background:#f3f5fb;color:#17213b;font-family:system-ui,-apple-system,"Noto Sans Devanagari",sans-serif}header{background:#253b80;color:white;padding:14px 16px;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}header b{font-size:18px}button{cursor:pointer;border:0;border-radius:9px;padding:10px 14px;font-weight:700}.lang{background:#fff;color:#253b80}.wrap{max-width:850px;margin:18px auto;padding:0 12px}.panel{background:white;border:1px solid #dfe4f0;border-radius:16px;padding:18px;box-shadow:0 5px 20px #1b2a5010}.meta{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;color:#4c5a7c;font-weight:700}.progress{height:7px;background:#e8ecf5;border-radius:8px;margin:14px 0;overflow:hidden}.progress span{display:block;height:100%;background:#4569d4;width:1%}h2{font-size:20px;line-height:1.55}.opts{display:grid;gap:10px}.opt{display:flex;gap:10px;align-items:flex-start;text-align:left;background:#f8f9fd;border:1px solid #dfe4f0;color:#17213b;width:100%;padding:13px;border-radius:10px;font-size:16px}.opt.sel{background:#eaf0ff;border-color:#4569d4}.nav{display:flex;justify-content:space-between;gap:10px;margin-top:18px}.primary{background:#3158c9;color:#fff}.secondary{background:#e9edf7;color:#253b80}.grid{display:grid;grid-template-columns:repeat(10,1fr);gap:6px;margin-top:16px}.grid button{padding:8px 0;background:#edf0f7;color:#253b80}.grid button.done{background:#16875f;color:#fff}.grid button.active{outline:2px solid #253b80}.muted{color:#65708b;font-size:13px}.hide{display:none}@media(max-width:520px){.grid{grid-template-columns:repeat(8,1fr)}h2{font-size:18px}}
-</style></head><body><header><b>TET TESTHUB · MPESB GROUP-4</b><button class="lang" id="lang">English</button></header><div class="wrap"><div class="panel" id="app"><div class="meta"><span id="testtitle">टेस्ट 1</span><span id="counter">प्रश्न 1 / 100</span><span>120:00</span></div><div class="progress"><span id="bar"></span></div><div class="muted" id="section"></div><h2 id="question">प्रश्न लोड हो रहा है…</h2><div class="opts" id="options"></div><div class="nav"><button class="secondary" id="prev">पिछला</button><button class="primary" id="next">अगला</button></div><div class="grid" id="palette"></div><p class="muted">उत्तर चुनने के बाद हरे प्रश्न नंबर से स्थिति दिखेगी। सबमिट करने पर परिणाम और उत्तर-कुंजी दिखाई जाएगी।</p><button class="primary" id="submit" style="width:100%">टेस्ट सबमिट करें</button></div><div class="panel hide" id="result"></div></div>
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>MPESB Group-4 Mock Test 1 | TETTESTHUB</title>
+<link rel="stylesheet" href="/assets/tet-engine.css?v=2">
+<style>
+  .option.picked{color:#0b5d36;font-weight:600}
+  .rev{border:1px solid #ddd;border-radius:10px;padding:10px 12px;margin:8px 0;background:#fff}
+  .rev summary{cursor:pointer;font-weight:600}
+  .rev p{margin:6px 0}
+</style>
+</head>
+<body>
+<div id="app">
+
+  <header class="topbar">
+    <div class="topbar-left"><h1 id="examTitle">MPESB Group-4 — Mock Test 1</h1></div>
+    <div class="timer" id="timerDisplay">Time Left : 120:00</div>
+  </header>
+
+  <div id="loadingScreen" style="background:#fff;margin:16px auto;border:1px solid var(--border);padding:30px 20px;text-align:center;max-width:420px;">
+    प्रश्नपत्र लोड हो रहा है… / Loading test…
+  </div>
+
+  <!-- INSTRUCTIONS -->
+  <div id="instructionsScreen" style="display:none;">
+    <div class="instr-header">निर्देश / Instructions</div>
+    <div class="instr-body">
+      <h3>कृपया निर्देश ध्यान से पढ़ें / Please read the instructions carefully</h3>
+      <ol>
+        <li>कुल समय <strong>120 मिनट</strong>। / Total duration is <strong>120 minutes</strong>.</li>
+        <li><strong>100 प्रश्न</strong>, हर प्रश्न 1 अंक, कोई ऋणात्मक अंकन नहीं। / <strong>100 questions</strong>, 1 mark each, no negative marking.</li>
+        <li>समय समाप्त होने पर टेस्ट अपने-आप सबमिट हो जाएगा। / The test auto-submits when the timer reaches zero.</li>
+        <li>दाईं ओर प्रश्न-पैलेट हर प्रश्न की स्थिति दिखाता है: / The palette on the right shows each question's status:</li>
+      </ol>
+      <div class="status-chip"><span class="box grey">1</span> नहीं देखा / Not visited</div><br>
+      <div class="status-chip"><span class="box red">2</span> उत्तर नहीं दिया / Not answered</div><br>
+      <div class="status-chip"><span class="box green">3</span> उत्तर दिया / Answered</div><br>
+      <div class="status-chip"><span class="box purple">4</span> समीक्षा के लिए चिह्नित / Marked for review</div><br>
+      <ol start="5">
+        <li>विकल्प चुनकर “Save &amp; Next” दबाएँ। / Select an option and click “Save &amp; Next”.</li>
+        <li>उत्तर हटाने के लिए “Clear Response” दबाएँ। / Click “Clear Response” to remove your answer.</li>
+        <li>विषय ऊपर टैब में हैं; किसी भी विषय या प्रश्न पर कभी भी जा सकते हैं। / Subjects are tabs at the top; you can move to any subject or question anytime.</li>
+      </ol>
+      <p>भाषा चुनें / Choose your language:</p>
+      <select id="defaultLang">
+        <option value="hi">हिन्दी (Hindi)</option>
+        <option value="en">English</option>
+      </select>
+      <div class="agree-row">
+        <input type="checkbox" id="agreeBox">
+        <label for="agreeBox">मैंने निर्देश पढ़ और समझ लिए हैं। / I have read and understood the instructions.</label>
+      </div>
+    </div>
+    <div class="instr-footer">
+      <span style="font-size:12px;color:#777;">TETTESTHUB</span>
+      <button class="btn-primary" id="beginBtn" disabled>शुरू करें / I am ready to begin</button>
+    </div>
+  </div>
+
+  <!-- TEST -->
+  <div id="testScreen">
+    <div class="section-tabs" id="sectionTabs"></div>
+    <div class="main-layout">
+      <div class="question-panel">
+        <div class="qtype-bar">
+          <span>Question Type: MCQ</span>
+          <span>Marks: 1 | Negative: 0</span>
+        </div>
+        <div class="view-lang">
+          View in:
+          <select id="qLangSelect">
+            <option value="hi">हिन्दी</option>
+            <option value="en">English</option>
+          </select>
+        </div>
+        <div class="question-body">
+          <h3 id="qNoLabel">Question No. 1</h3>
+          <div class="qtext" id="qText"></div>
+          <div id="optionsList"></div>
+        </div>
+        <div class="action-bar">
+          <div class="left-btns">
+            <button id="markBtn">Mark for Review &amp; Next</button>
+            <button id="clearBtn">Clear Response</button>
+          </div>
+          <div class="right-btns">
+            <button id="prevBtn">Previous</button>
+            <button class="btn-primary" id="saveBtn">Save &amp; Next</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="sidebar">
+        <div class="candidate">
+          <div class="avatar">🧑</div>
+          <div><strong>Candidate / परीक्षार्थी</strong></div>
+        </div>
+        <div class="legend">
+          <div class="item"><span class="num" style="background:var(--green)" id="cntAnswered">0</span> Answered</div>
+          <div class="item"><span class="num" style="background:var(--red)" id="cntNotAnswered">0</span> Not Answered</div>
+          <div class="item"><span class="num" style="background:var(--grey)" id="cntNotVisited">0</span> Not Visited</div>
+          <div class="item"><span class="num" style="background:var(--purple)" id="cntMarked">0</span> Marked for Review</div>
+        </div>
+        <div class="sec-select-title" id="sidebarSectionName">SECTION</div>
+        <div class="palette-title">Choose a Question</div>
+        <div class="palette" id="palette"></div>
+        <div class="submit-row">
+          <button class="btn-primary" id="submitBtn">Submit / सबमिट</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RESULT -->
+  <div id="resultScreen">
+    <h2>Test Submitted / टेस्ट सबमिट हो गया</h2>
+    <div class="result-grid">
+      <div class="result-card score"><div class="num" id="resScore">0</div><div>Score / अंक</div></div>
+      <div class="result-card correct"><div class="num" id="resCorrect">0</div><div>Correct / सही</div></div>
+      <div class="result-card incorrect"><div class="num" id="resIncorrect">0</div><div>Incorrect / गलत</div></div>
+      <div class="result-card unattempted"><div class="num" id="resUnattempted">0</div><div>Unattempted / छोड़े</div></div>
+    </div>
+    <div class="sec-breakdown-wrap">
+      <table class="sec-breakdown" id="secTable">
+        <thead><tr><th>Section</th><th>Total</th><th>Correct</th><th>Incorrect</th><th>Unattempted</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <h3 style="margin:22px 0 6px">उत्तर और व्याख्या / Answers and explanations</h3>
+    <p style="color:#555;font-size:14px;margin:0 0 6px">किसी भी प्रश्न पर टैप करें। ✅ सही, ❌ गलत, ⚪ छोड़ा। / Tap any question. ✅ right, ❌ wrong, ⚪ skipped.</p>
+    <div id="review"></div>
+    <p style="margin-top:16px"><button class="btn-primary" onclick="location.reload()">फिर से दें / Restart</button></p>
+  </div>
+
+</div>
+
 <script>
-let data,lang='hi',idx=0,answers={};const $=id=>document.getElementById(id);
-const txt=(o)=>o?.[lang]??o?.hi??'';async function init(){try{let r=await fetch('/examhelp/mock-tests/group4/tests/01.json');if(!r.ok)throw Error('लोड नहीं हुआ');data=await r.json();$('testtitle').textContent=txt(data.title);draw()}catch(e){$('question').textContent='प्रश्नपत्र लोड नहीं हो पाया। कृपया पेज रीफ्रेश करें।'}}
-function draw(){let q=data.questions[idx];$('counter').textContent=(lang==='hi'?'प्रश्न ':'Question ')+(idx+1)+' / '+data.questions.length;$('bar').style.width=((idx+1)/data.questions.length*100)+'%';let s=data.sections.find(x=>x.key===q.s);$('section').textContent=txt(s?.label);$('question').textContent=txt(q.q);$('options').innerHTML='';q.o[lang].forEach((v,n)=>{let b=document.createElement('button');b.className='opt'+(answers[idx]===n?' sel':'');b.textContent=String.fromCharCode(65+n)+'. '+v;b.onclick=()=>{answers[idx]=n;draw()};$('options').appendChild(b)});$('prev').disabled=idx===0;$('next').textContent=idx===data.questions.length-1?(lang==='hi'?'अंतिम प्रश्न':'Last question'):(lang==='hi'?'अगला':'Next');$('palette').innerHTML='';data.questions.forEach((_,n)=>{let b=document.createElement('button');b.textContent=n+1;b.className=(answers[n]!==undefined?'done ':'')+(n===idx?'active':'');b.onclick=()=>{idx=n;draw()};$('palette').appendChild(b)});$('prev').textContent=lang==='hi'?'पिछला':'Previous';$('submit').textContent=lang==='hi'?'टेस्ट सबमिट करें':'Submit test'}
-$('prev').onclick=()=>{idx=Math.max(0,idx-1);draw()};$('next').onclick=()=>{idx=Math.min(data.questions.length-1,idx+1);draw()};$('lang').onclick=()=>{lang=lang==='hi'?'en':'hi';$('lang').textContent=lang==='hi'?'English':'हिंदी';draw()};$('submit').onclick=()=>{let score=0;data.questions.forEach((q,n)=>{if(answers[n]===q.a)score++});$('app').classList.add('hide');$('result').classList.remove('hide');$('result').innerHTML='<h2>'+(lang==='hi'?'आपका परिणाम':'Your Result')+'</h2><p style="font-size:28px;font-weight:800">'+score+' / '+data.questions.length+'</p><p>'+(lang==='hi'?'सही उत्तर':'Correct answers')+': '+score+' · '+(lang==='hi'?'अनुत्तरित':'Unanswered')+': '+(data.questions.length-Object.keys(answers).length)+'</p><h3>'+(lang==='hi'?'उत्तर-कुंजी':'Answer key')+'</h3>'+data.questions.map((q,n)=>'<p><b>'+(n+1)+'. '+String.fromCharCode(65+q.a)+'</b> — '+txt(q.sol)+'</p>').join('')+'<button onclick="location.reload()" class="primary">रीस्टार्ट / Restart</button>'};
-init();
-</script></body></html>
+(() => {
+  const $ = id => document.getElementById(id);
+  const L = 'ABCD';
+  const esc = t => String(t ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  let data, secs = [], state = [], cs = 0, cq = 0, lang = 'hi', timeLeft = 120 * 60, timer = null, done = false;
+
+  try { const s = localStorage.getItem('tetLang') || localStorage.getItem('testhub_lang_pref'); if (s === 'hi' || s === 'en') lang = s; } catch (e) {}
+  $('defaultLang').value = lang;
+
+  const tx = o => (o && (o[lang] ?? o.hi)) ?? '';
+
+  async function load() {
+    try {
+      const r = await fetch('/examhelp/mock-tests/group4/tests/01.json', { cache: 'no-cache' });
+      if (!r.ok) throw new Error();
+      data = await r.json();
+    } catch (e) {
+      $('loadingScreen').textContent = 'प्रश्नपत्र लोड नहीं हो पाया। कृपया पेज रीफ्रेश करें। / Could not load the test. Please refresh.';
+      return;
+    }
+    secs = data.sections.map(s => ({ key: s.key, label: s.label, qs: data.questions.filter(q => q.s === s.key) })).filter(s => s.qs.length);
+    state = secs.map(s => s.qs.map(() => ({ sel: null, pick: null, st: 'notVisited' })));
+    $('examTitle').textContent = tx(data.title);
+    $('loadingScreen').style.display = 'none';
+    $('instructionsScreen').style.display = 'block';
+  }
+
+  $('agreeBox').onchange = e => { $('beginBtn').disabled = !e.target.checked; };
+  $('beginBtn').onclick = () => {
+    lang = $('defaultLang').value; $('qLangSelect').value = lang;
+    $('instructionsScreen').style.display = 'none';
+    $('testScreen').style.display = 'block';
+    go(0, 0);
+    timer = setInterval(tick, 1000);
+  };
+  $('qLangSelect').onchange = e => { lang = e.target.value; render(); };
+
+  function tick() {
+    timeLeft--;
+    const m = Math.max(0, Math.floor(timeLeft / 60)), s = Math.max(0, timeLeft % 60);
+    $('timerDisplay').textContent = `Time Left : ${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+    if (timeLeft <= 0) submit();
+  }
+
+  function go(si, qi) {
+    const cur = state[cs] && state[cs][cq];
+    if (cur && cur.st === 'notVisited') cur.st = 'notAnswered';
+    cs = si; cq = qi;
+    const st = state[cs][cq];
+    st.pick = st.sel;
+    if (st.st === 'notVisited') st.st = 'notAnswered';
+    render();
+  }
+
+  function render() {
+    // tabs
+    $('sectionTabs').innerHTML = '';
+    secs.forEach((s, i) => {
+      const t = document.createElement('div');
+      t.className = 'section-tab' + (i === cs ? ' active' : '');
+      t.textContent = tx(s.label);
+      t.onclick = () => go(i, 0);
+      $('sectionTabs').appendChild(t);
+    });
+    // question
+    const q = secs[cs].qs[cq], st = state[cs][cq];
+    let n = cq + 1; for (let i = 0; i < cs; i++) n += secs[i].qs.length;
+    $('qNoLabel').textContent = (lang === 'hi' ? 'प्रश्न संख्या ' : 'Question No. ') + n;
+    $('qText').textContent = tx(q.q);
+    $('optionsList').innerHTML = '';
+    (q.o[lang] || q.o.hi).forEach((o, i) => {
+      const lab = document.createElement('label');
+      lab.className = 'option';
+      const inp = document.createElement('input');
+      inp.type = 'radio'; inp.name = 'opt'; inp.checked = st.pick === i;
+      inp.onchange = () => { st.pick = i; };
+      const sp = document.createElement('span');
+      sp.textContent = `(${L[i]}) ${o}`;
+      lab.append(inp, ' ', sp);
+      $('optionsList').appendChild(lab);
+    });
+    $('sidebarSectionName').textContent = tx(secs[cs].label).toUpperCase();
+    // palette
+    const col = s => ({ answered: 'var(--green)', notAnswered: 'var(--red)', marked: 'var(--purple)', answeredMarked: 'var(--purple)' }[s] || 'var(--grey)');
+    $('palette').innerHTML = '';
+    secs[cs].qs.forEach((_, i) => {
+      const b = document.createElement('div');
+      b.className = 'qnum' + (i === cq ? ' current' : '');
+      b.style.background = col(state[cs][i].st);
+      b.textContent = i + 1;
+      b.onclick = () => go(cs, i);
+      $('palette').appendChild(b);
+    });
+    // counts
+    const all = state.flat();
+    $('cntAnswered').textContent = all.filter(x => x.st === 'answered').length;
+    $('cntNotAnswered').textContent = all.filter(x => x.st === 'notAnswered').length;
+    $('cntNotVisited').textContent = all.filter(x => x.st === 'notVisited').length;
+    $('cntMarked').textContent = all.filter(x => x.st === 'marked' || x.st === 'answeredMarked').length;
+  }
+
+  function next() {
+    if (cq < secs[cs].qs.length - 1) go(cs, cq + 1);
+    else if (cs < secs.length - 1) go(cs + 1, 0);
+    else render();
+  }
+  $('saveBtn').onclick = () => { const st = state[cs][cq]; st.sel = st.pick; st.st = st.sel == null ? 'notAnswered' : 'answered'; next(); };
+  $('markBtn').onclick = () => { const st = state[cs][cq]; st.sel = st.pick; st.st = st.sel == null ? 'marked' : 'answeredMarked'; next(); };
+  $('clearBtn').onclick = () => { const st = state[cs][cq]; st.sel = st.pick = null; st.st = 'notAnswered'; render(); };
+  $('prevBtn').onclick = () => { if (cq > 0) go(cs, cq - 1); else if (cs > 0) go(cs - 1, secs[cs - 1].qs.length - 1); };
+  $('submitBtn').onclick = () => {
+    const left = state.flat().filter(x => x.sel == null).length;
+    if (confirm(`क्या आप टेस्ट सबमिट करना चाहते हैं? अनुत्तरित: ${left}\nSubmit the test? Unanswered: ${left}`)) submit();
+  };
+
+  function submit() {
+    if (done) return; done = true; clearInterval(timer);
+    $('testScreen').style.display = 'none';
+    $('resultScreen').style.display = 'block';
+    let C = 0, W = 0, U = 0, rows = '', rev = '', n = 0;
+    secs.forEach((s, si) => {
+      let c = 0, w = 0, u = 0;
+      s.qs.forEach((q, qi) => {
+        const sel = state[si][qi].sel; n++;
+        if (sel == null) u++; else if (sel === q.a) c++; else w++;
+        const opt = i => i == null ? '—' : `(${L[i]}) ${esc(q.o.hi[i])}${q.o.en[i] !== q.o.hi[i] ? ' / ' + esc(q.o.en[i]) : ''}`;
+        const mark = sel == null ? '⚪' : sel === q.a ? '✅' : '❌';
+        rev += `<details class="rev"><summary>${mark} Q${n}. ${esc(q.q.hi)}</summary>` +
+          (q.q.en ? `<p>${esc(q.q.en)}</p>` : '') +
+          `<p>आपका उत्तर / Your answer: <b style="color:${sel === q.a ? '#15803d' : '#b91c1c'}">${opt(sel)}</b></p>` +
+          `<p>सही उत्तर / Correct answer: <b style="color:#15803d">${opt(q.a)}</b></p>` +
+          `<p style="color:#555">व्याख्या / Explanation: ${esc(q.sol?.hi || '')}${q.sol?.en ? ' / ' + esc(q.sol.en) : ''}</p></details>`;
+      });
+      C += c; W += w; U += u;
+      rows += `<tr><td>${esc(s.label.hi)} / ${esc(s.label.en)}</td><td>${s.qs.length}</td><td>${c}</td><td>${w}</td><td>${u}</td></tr>`;
+    });
+    $('resScore').textContent = C;
+    $('resCorrect').textContent = C;
+    $('resIncorrect').textContent = W;
+    $('resUnattempted').textContent = U;
+    $('secTable').querySelector('tbody').innerHTML = rows;
+    $('review').innerHTML = rev;
+    window.scrollTo(0, 0);
+  }
+
+  load();
+})();
+</script>
+</body>
+</html>
