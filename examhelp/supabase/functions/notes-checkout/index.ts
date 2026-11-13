@@ -91,6 +91,13 @@ const PRODUCTS: Record<string, { amount: number; file: string; downloadName: str
     downloadName: "",
     title: "MPESB ग्रुप-4 सहायक ग्रेड-3 — 25 मॉक टेस्ट / Group-4 Assistant Grade-3 — 25 Mock Tests",
   },
+  "mppsc-tests": {
+    amount: 9900,
+    kind: "tests",
+    file: "mppsc", // private bucket "tests": mppsc/02.json … mppsc/25.json; test 1 is public
+    downloadName: "",
+    title: "MPPSC राज्य सेवा प्रारंभिक — 25 मॉक टेस्ट / MPPSC Prelims — 25 Mock Tests",
+  },
   "rrbg-tests": {
     amount: 8500,
     // tests live in the main site's test_content (rrbntpc-g-full-NN); like TET, login required and
@@ -142,7 +149,7 @@ const PASS_DAYS = 30; // current affairs pass length
 // paid mock test ("test" action with access_token). Same date in js/site-config.js.
 const FREE_ACCESS_UNTIL = Date.parse("2026-11-04T23:59:59+05:30");
 // per-series free week (owner, 2026-11-05)
-const SERIES_FREE_UNTIL: Record<string, number> = { jnv6: Date.parse("2026-11-12T23:59:59+05:30"), group4: Date.parse("2099-12-31T23:59:59+05:30") }; // group4 free for good (owner, 2026-11-13)
+const SERIES_FREE_UNTIL: Record<string, number> = { jnv6: Date.parse("2026-11-12T23:59:59+05:30"), group4: Date.parse("2099-12-31T23:59:59+05:30"), mppsc: Date.parse("2099-12-31T23:59:59+05:30") }; // group4 free for good, mppsc free for now (owner, 2026-11-13)
 const MAX_DOWNLOADS = 10;
 const LINK_SECONDS = 600;
 

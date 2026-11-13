@@ -95,6 +95,14 @@ export default async function Page() {
         </div>
         <span className="btn-primary shrink-0">{lang === "hi" ? "टेस्ट चुनें →" : "Choose tests →"}</span>
       </Link>
+      <Link href="/mppsc-prelims-mock-tests" className="card mt-4 flex flex-col gap-3 border-2 border-brand-700 p-5 transition hover:shadow-md sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <p className="text-xs font-bold uppercase tracking-wide text-accent-700">{lang === "hi" ? "नया" : "New"}</p>
+          <p className="mt-1 text-lg font-extrabold text-brand-900">{lang === "hi" ? "MPPSC राज्य सेवा प्रारंभिक — 25 मॉक टेस्ट" : "MPPSC State Service Prelims — 25 mock tests"}</p>
+          <p className="mt-1 text-sm text-ink-600">{lang === "hi" ? "सामान्य अध्ययन · 100 प्रश्न · हिंदी/English · अभी सभी टेस्ट फ्री" : "General Studies · 100 Qs · Hindi/English · All tests free for now"}</p>
+        </div>
+        <span className="btn-primary shrink-0">{lang === "hi" ? "टेस्ट चुनें →" : "Choose tests →"}</span>
+      </Link>
     </div>
     <SectionLanding
       lang={lang}

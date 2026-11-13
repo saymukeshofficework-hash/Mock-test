@@ -485,6 +485,12 @@ export const exams: Exam[] = [
     officialUrl: PSC,
     featured: true,
     popular: true,
+    testSeries: {
+      href: "/mppsc-prelims-mock-tests/",
+      title: { hi: "MPPSC प्रारंभिक — 25 मॉक टेस्ट", en: "MPPSC Prelims — 25 mock tests" },
+      sub: { hi: "सामान्य अध्ययन · 100 प्रश्न · 120 मिनट · अभी सभी टेस्ट फ्री", en: "General Studies · 100 Qs · 120 min · All tests free for now" },
+      cta: { hi: "टेस्ट देखें", en: "View tests" },
+    },
     source: { label: "MPPSC Proposed Exam Calendar 2026 (15.05.2026)", url: PSC_CAL, checkedOn: CHECKED },
     updatedAt: CHECKED,
   },
