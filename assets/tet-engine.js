@@ -81,9 +81,32 @@ function setupFontSizeControls(){
 // `loadedSections` comes from the get_test_questions() RPC and never contains the
 // correct-answer field — scoring happens server-side in submitTest(), via the
 // score_test_attempt() RPC, which is the only place that ever sees the answer key.
+function renderExamPattern(loadedSections){
+  const host = document.getElementById('examPatternCard');
+  if(!host) return;
+  const esc = value => String(value == null ? '' : value).replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+  const rows = (loadedSections || []).map(section => {
+    const count = Array.isArray(section.questions) ? section.questions.length : 0;
+    const mode = section.mode || 'bilingual';
+    const language = mode === 'hi' ? 'हिंदी' : mode === 'en' ? 'English' : 'हिंदी / English';
+    return '<tr><td>' + esc(section.name || 'Section') + '</td><td>' + count + '</td><td>' + language + '</td></tr>';
+  });
+  const total = (loadedSections || []).reduce((sum, section) => sum + (Array.isArray(section.questions) ? section.questions.length : 0), 0);
+  const minutes = Math.round(TOTAL_SECONDS / 60);
+  const examName = (document.getElementById('examTitle')?.textContent || 'Mock Test').replace(/\s*\([^)]*\)\s*$/, '').trim();
+  host.innerHTML =
+    '<div class="exam-pattern-head"><span class="exam-pattern-name">' + esc(examName) + '</span>' +
+    '<span class="exam-pattern-summary">परीक्षा पैटर्न / Exam Pattern · ' + total + ' प्रश्न · ' + minutes + ' मिनट</span>' +
+    '<span class="exam-pattern-note">हर विषय की भाषा और प्रश्न संख्या नीचे दी गई है</span></div>' +
+    '<h2 class="exam-pattern-title">Exam Pattern</h2>' +
+    '<table class="exam-pattern-table"><tbody>' + rows.join('') + '</tbody></table>' +
+    '<div class="exam-pattern-total">कुल <strong>' + total + '</strong> प्रश्न · <strong>' + total + '</strong> अंक · <strong>' + minutes + '</strong> मिनट · प्रत्येक प्रश्न 1 अंक</div>';
+}
+
 function initExam(loadedSections, testId){
   sections = loadedSections;
   examTestId = testId;
+  renderExamPattern(loadedSections);
 
   // CPCT and TET only: carry the course-page language choice into the paper.
   // Legacy TET papers use /tet-mock-test-N.html and don't have a test ID prefix.
