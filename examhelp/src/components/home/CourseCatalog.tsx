@@ -97,6 +97,15 @@ const COURSES = (lang: Lang): Course[] => {
       price: 0, href: "/mp-police-si-mock-tests",
     },
     {
+      f: ["new", "tests"], tone: "amber", art: "test", isNew: true,
+      kick: hi ? "MPESB • 73 पद" : "MPESB • 73 posts", big: hi ? "नायब तहसीलदार" : "Naib Tehsildar",
+      sub: hi ? ["25 फुल टेस्ट", "सभी फ्री"] : ["25 full tests", "All free"],
+      tags: hi ? ["राजस्व", "टेस्ट सीरीज़"] : ["Revenue", "Test series"], meta: [hi ? "हर टेस्ट" : "Each test", hi ? "200 प्रश्न · 240 मिनट" : "200 Qs · 240 min"],
+      title: hi ? "नायब तहसीलदार सीमित परीक्षा — 25 फुल मॉक टेस्ट" : "Naib Tehsildar limited exam — 25 full mock tests",
+      desc: hi ? "✅ प्रश्नपत्र I + II ✅ भू-राजस्व संहिता, RBC, सेवा नियम ✅ सभी 25 टेस्ट फ्री, हिंदी/English" : "✅ Paper I + II ✅ Land Revenue Code, RBC, service rules ✅ All 25 tests free, Hindi/English",
+      price: 0, href: "/mp-naib-tehsildar-mock-tests",
+    },
+    {
       f: ["new", "tests"], tone: "teal", art: "test", isNew: true,
       kick: hi ? "RRB रेलवे • स्टेशन मास्टर" : "RRB Railway • Station Master",
       big: hi ? "RRB स्टेशन मास्टर" : "RRB Station Master",
