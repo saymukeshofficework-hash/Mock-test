@@ -87,6 +87,14 @@ export default async function Page() {
         </div>
         <span className="btn-primary shrink-0">{lang === "hi" ? "टेस्ट चुनें →" : "Choose tests →"}</span>
       </Link>
+      <Link href="/mp-naib-tehsildar-mock-tests" className="card mt-4 flex flex-col gap-3 border-2 border-brand-700 p-5 transition hover:shadow-md sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <p className="text-xs font-bold uppercase tracking-wide text-accent-700">{lang === "hi" ? "नया" : "New"}</p>
+          <p className="mt-1 text-lg font-extrabold text-brand-900">{lang === "hi" ? "नायब तहसीलदार सीमित परीक्षा — 25 फुल मॉक टेस्ट" : "Naib Tehsildar limited exam — 25 full mock tests"}</p>
+          <p className="mt-1 text-sm text-ink-600">{lang === "hi" ? "प्रश्नपत्र I + II · हिंदी/English · सभी टेस्ट फ्री" : "Paper I + II · Hindi/English · All tests free"}</p>
+        </div>
+        <span className="btn-primary shrink-0">{lang === "hi" ? "टेस्ट चुनें →" : "Choose tests →"}</span>
+      </Link>
     </div>
     <SectionLanding
       lang={lang}
