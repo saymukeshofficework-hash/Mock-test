@@ -126,7 +126,10 @@
         if (Notification.permission !== "default") return;
         var last = +(localStorage.getItem("tth-push-ask") || 0);
         if (Date.now() - last < 3 * 864e5) return;
-        setTimeout(showPushAsk, 6000);
+        setTimeout(function () { // browser's own Allow / Block popup, no extra card
+          try { localStorage.setItem("tth-push-ask", String(Date.now())); } catch (e) {}
+          Notification.requestPermission().then(function (p) { if (p === "granted") pushSubscribe(true); });
+        }, 3000);
       });
     }
   } catch (e) {}
