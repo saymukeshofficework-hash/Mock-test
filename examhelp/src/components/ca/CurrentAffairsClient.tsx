@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Download, Globe2, Landmark, MapPin, Newspaper, ShieldCheck, Sparkles } from "lucide-react";
+import { PushOptIn } from "./PushOptIn";
 
 /**
  * Daily current affairs (MP, India, World), free for everyone.
@@ -191,6 +192,7 @@ export function CurrentAffairsClient() {
             <Download className="h-4 w-4" aria-hidden="true" />
             {pdfBusy ? (lang === "hi" ? "PDF बन रही है…" : "Making PDF…") : lang === "hi" ? "आज की PDF डाउनलोड" : "Download PDF"}
           </button>
+          <PushOptIn lang={lang} />
         </div>
       </div>
 

@@ -12,9 +12,9 @@
   "backgroundColor": "#ffffff",
   "display": "standalone",
   "orientation": "default",
-  "enableNotifications": false,
-  "appVersionName": "1.0.0",
-  "appVersionCode": 1,
+  "enableNotifications": true,
+  "appVersionName": "1.1.0",
+  "appVersionCode": 2,
   "signingKey": {
     "path": "./upload-keystore.jks",
     "alias": "upload"
