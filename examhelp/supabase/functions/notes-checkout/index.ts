@@ -84,6 +84,13 @@ const PRODUCTS: Record<string, { amount: number; file: string; downloadName: str
     downloadName: "",
     title: "मध्य प्रदेश ग्रामीण बैंक — 25 मॉक टेस्ट (80 प्रश्न)",
   },
+  "group4-tests": {
+    amount: 9900,
+    kind: "tests",
+    file: "group4", // private bucket "tests": group4/02.json … group4/25.json; test 1 is public
+    downloadName: "",
+    title: "MPESB ग्रुप-4 सहायक ग्रेड-3 — 25 मॉक टेस्ट / Group-4 Assistant Grade-3 — 25 Mock Tests",
+  },
   "rrbg-tests": {
     amount: 8500,
     // tests live in the main site's test_content (rrbntpc-g-full-NN); like TET, login required and

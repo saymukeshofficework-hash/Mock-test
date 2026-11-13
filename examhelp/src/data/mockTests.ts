@@ -431,6 +431,49 @@ export const MOCK_SERIES: Record<string, MockSeries> = {
     unlockBtn: { hi: "अभी भुगतान करें", en: "Pay Now" },
     links: [],
   },
+  group4: {
+    id: "group4",
+    total: 25,
+    free: [1],
+    product: "group4-tests",
+    price: 99,
+    enginePath: "/mock-tests/group4/test.html",
+    scorePrefix: "testhub_group4_mock_",
+    listPath: "/group4-assistant-grade-3-mock-tests",
+    meta: { hi: "100 प्रश्न · 120 मिनट", en: "100 Qs · 120 min" },
+    title: { hi: "MPESB ग्रुप-4 सहायक ग्रेड-3 — 25 मॉक टेस्ट", en: "MPESB Group-4 Assistant Grade-3 — 25 Mock Tests" },
+    sub: {
+      hi: "MPESB समूह-4 पैटर्न पर: 100 प्रश्न, 100 अंक, 120 मिनट, 6 विषय, ऋणात्मक अंकन नहीं। हर प्रश्न हिंदी/English में, व्याख्या सहित। किसी भी टेस्ट में प्रश्न दोहराए नहीं गए। यह अभ्यास पेपर है, आधिकारिक प्रश्नपत्र नहीं।",
+      en: "On the MPESB Group-4 pattern: 100 questions, 100 marks, 120 minutes, 6 subjects, no negative marking. Every question in Hindi/English with an explanation. No question repeats across tests. Practice papers, not official papers.",
+    },
+    rows: {
+      hi: [
+        ["सामान्य ज्ञान", "17", "हिंदी/English"],
+        ["सामान्य हिंदी", "17", "हिंदी/English"],
+        ["सामान्य अंग्रेज़ी", "16", "हिंदी/English"],
+        ["सामान्य गणित", "17", "हिंदी/English"],
+        ["सामान्य कंप्यूटर ज्ञान", "16", "हिंदी/English"],
+        ["सामान्य अभिक्षमता", "17", "हिंदी/English"],
+      ],
+      en: [
+        ["General Knowledge", "17", "Hindi/English"],
+        ["General Hindi", "17", "Hindi/English"],
+        ["General English", "16", "Hindi/English"],
+        ["General Mathematics", "17", "Hindi/English"],
+        ["General Computer Knowledge", "16", "Hindi/English"],
+        ["General Aptitude", "17", "Hindi/English"],
+      ],
+    },
+    totalLine: { hi: "कुल: 100 प्रश्न · 100 अंक · 120 मिनट", en: "Total: 100 questions · 100 marks · 120 minutes" },
+    neg: { hi: "ऋणात्मक अंकन नहीं।", en: "No negative marking." },
+    unlockTitle: { hi: "पूरी टेस्ट सीरीज़ — 25 मॉक टेस्ट", en: "Full test series — 25 mock tests" },
+    unlockSub: {
+      hi: "टेस्ट 1 फ्री है। बाकी 24 टेस्ट एक बार ₹99 देकर अनलॉक करें — इसी डिवाइस पर तुरंत खुल जाएंगे।",
+      en: "Test 1 is free. Unlock the other 24 tests once for ₹99 — they open instantly on this device.",
+    },
+    unlockBtn: { hi: "सभी टेस्ट अनलॉक करें", en: "Unlock all tests" },
+    links: [],
+  },
 };
 
 /** Back-compat for the AG-3 landing page. */

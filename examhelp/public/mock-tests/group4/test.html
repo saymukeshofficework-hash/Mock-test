@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex">
-<title>MPESB Group-4 Mock Test 1 | TETTESTHUB</title>
+<title>MPESB Group-4 Mock Test | TETTESTHUB</title>
 <link rel="stylesheet" href="/assets/tet-engine.css?v=2">
 <style>
   .option.picked{color:#0b5d36;font-weight:600}
@@ -17,7 +17,7 @@
 <div id="app">
 
   <header class="topbar">
-    <div class="topbar-left"><h1 id="examTitle">MPESB Group-4 — Mock Test 1</h1></div>
+    <div class="topbar-left"><h1 id="examTitle">MPESB Group-4 Mock Test</h1></div>
     <div class="timer" id="timerDisplay">Time Left : 120:00</div>
   </header>
 
@@ -133,7 +133,7 @@
     <h3 style="margin:22px 0 6px">उत्तर और व्याख्या / Answers and explanations</h3>
     <p style="color:#555;font-size:14px;margin:0 0 6px">किसी भी प्रश्न पर टैप करें। ✅ सही, ❌ गलत, ⚪ छोड़ा। / Tap any question. ✅ right, ❌ wrong, ⚪ skipped.</p>
     <div id="review"></div>
-    <p style="margin-top:16px"><button class="btn-primary" onclick="location.reload()">फिर से दें / Restart</button></p>
+    <p style="margin-top:16px"><button class="btn-primary" onclick="location.reload()">फिर से दें / Restart</button> <a href="/examhelp/group4-assistant-grade-3-mock-tests/" style="margin-left:10px">← सभी टेस्ट / All tests</a></p>
   </div>
 
 </div>
@@ -150,13 +150,34 @@
 
   const tx = o => (o && (o[lang] ?? o.hi)) ?? '';
 
+  const params = new URLSearchParams(location.search);
+  const TEST_NO = String(Math.min(25, Math.max(1, parseInt(params.get('t') || '1', 10) || 1))).padStart(2, '0');
+  const CHECKOUT_URL = 'https://znulepzdihzhjmuvyroi.supabase.co/functions/v1/notes-checkout';
+  const LIST_URL = '/examhelp/group4-assistant-grade-3-mock-tests/';
+  if (params.get('lang') === 'hi' || params.get('lang') === 'en') lang = params.get('lang');
+  $('defaultLang').value = lang;
+
+  async function fetchTest() {
+    if (TEST_NO === '01') {
+      const r = await fetch('/examhelp/mock-tests/group4/tests/01.json', { cache: 'no-cache' });
+      if (!r.ok) throw new Error('x');
+      return r.json();
+    }
+    let tok = null; try { tok = localStorage.getItem('testhub_dl_group4-tests'); } catch (e) {}
+    if (!tok) throw new Error('locked');
+    const r = await fetch(CHECKOUT_URL, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ action: 'test', token: tok, n: +TEST_NO, series: 'group4' }) });
+    if (r.status === 404 || r.status === 403) { try { localStorage.removeItem('testhub_dl_group4-tests'); } catch (e) {} throw new Error('locked'); }
+    if (!r.ok) throw new Error('x');
+    return r.json();
+  }
+
   async function load() {
     try {
-      const r = await fetch('/examhelp/mock-tests/group4/tests/01.json', { cache: 'no-cache' });
-      if (!r.ok) throw new Error();
-      data = await r.json();
+      data = await fetchTest();
     } catch (e) {
-      $('loadingScreen').textContent = 'प्रश्नपत्र लोड नहीं हो पाया। कृपया पेज रीफ्रेश करें। / Could not load the test. Please refresh.';
+      $('loadingScreen').innerHTML = e.message === 'locked'
+        ? `यह टेस्ट, टेस्ट सीरीज़ (₹99) का हिस्सा है। / This test is part of the test series (₹99).<br><br><a href="${LIST_URL}" class="btn-primary" style="display:inline-block;padding:10px 16px;text-decoration:none">सभी टेस्ट अनलॉक करें / Unlock all tests</a>`
+        : `प्रश्नपत्र लोड नहीं हो पाया। कृपया पेज रीफ्रेश करें। / Could not load the test. Please refresh.<br><br><a href="${LIST_URL}">← सभी टेस्ट / All tests</a>`;
       return;
     }
     secs = data.sections.map(s => ({ key: s.key, label: s.label, qs: data.questions.filter(q => q.s === s.key) })).filter(s => s.qs.length);
@@ -281,6 +302,10 @@
     $('resUnattempted').textContent = U;
     $('secTable').querySelector('tbody').innerHTML = rows;
     $('review').innerHTML = rev;
+    try {
+      const key = 'testhub_group4_mock_' + TEST_NO, prev = JSON.parse(localStorage.getItem(key) || 'null');
+      localStorage.setItem(key, JSON.stringify({ last: C, best: Math.max(C, prev ? prev.best : 0), total: n, at: Date.now() }));
+    } catch (e) {}
     window.scrollTo(0, 0);
   }
 
