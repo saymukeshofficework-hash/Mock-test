@@ -31,7 +31,7 @@ const facts=[
 ["भारत का राष्ट्रीय फूल कौन-सा है?","What is India's national flower?",["कमल","गुलाब","चमेली","गेंदा"],["Lotus","Rose","Jasmine","Marigold"]]
 ];
 const words=[["प्रकाश","Light","उजाला","Brightness"],["परिश्रम","Hard work","मेहनत","Effort"],["साहस","Courage","वीरता","Bravery"],["निर्मल","Pure","स्वच्छ","Clean"],["प्राचीन","Ancient","पुराना","Old"],["विस्तार","Expansion","फैलाव","Spread"],["उन्नति","Progress","प्रगति","Advancement"],["विनम्र","Humble","नम्र","Modest"],["दुर्लभ","Rare","असामान्य","Uncommon"],["आनंद","Joy","खुशी","Happiness"],["सत्य","Truth","सच","Fact"],["आरंभ","Beginning","शुरुआत","Start"],["समाप्त","Finished","पूर्ण","Complete"],["शांत","Calm","स्थिर","Quiet"],["कठिन","Difficult","मुश्किल","Hard"],["लाभ","Benefit","फायदा","Advantage"],["हानि","Loss","नुकसान","Damage"],["स्वतंत्र","Independent","आजाद","Free"],["आवश्यक","Necessary","जरूरी","Essential"],["विशाल","Huge","बड़ा","Enormous"]];
-function makeQ(s,qh,qe,oh,oe,correct){return {s:s,d:"m",a:correct,q:{hi:qh,en:qe},o:{hi:oh,en:oe},sol:{hi:"सही विकल्प चुनें।",en:"Choose the correct option."}}}
+let optionCounter=0;function makeQ(s,qh,qe,oh,oe,correct){const shift=(optionCounter++*7+3)%4;const order=[0,1,2,3].map((_,i)=>(i+shift)%4);return {s:s,d:"m",a:order.indexOf(correct),q:{hi:qh,en:qe},o:{hi:order.map(i=>oh[i]),en:order.map(i=>oe[i])},sol:{hi:"सही विकल्प चुनें।",en:"Choose the correct option."}}}
 for(let n=1;n<=25;n++){
  const q=[];
  for(let i=0;i<20;i++){let a=(n*13+i*7)%43+8,b=(n*5+i*3)%17+4,k=i%4,ans,txtH,txtE,opts;
