@@ -4,7 +4,7 @@
   "description": "MP TET, RRB NTPC, High Court and Police exam mock tests, notes and current affairs.",
   "lang": "hi",
   "id": "/examhelp/",
-  "start_url": "/examhelp/?source=android",
+  "start_url": "/examhelp/?source=homescreen",
   "scope": "/",
   "display": "standalone",
   "orientation": "any",
