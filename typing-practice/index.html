@@ -26,6 +26,27 @@
 <script src="../js/auth.js?v=3"></script>
 <script src="../js/i18n.js?v=4"></script>
 <script type="module" src="js/app.js?v=5"></script>
+<style>
+/* CPCT entry choices */
+.cpct-choice-wrap{max-width:1000px;margin:18px auto 24px;padding:0 16px}
+.cpct-choice-heading{text-align:center;margin:0 0 14px}
+.cpct-choice-heading>span{display:inline-block;padding:5px 10px;border-radius:999px;background:#fce7f3;color:#9d174d;font-size:10px;font-weight:900;letter-spacing:1px}
+.cpct-choice-heading h2{margin:9px 0 5px;color:#28213c;font-size:clamp(20px,3vw,26px)}
+.cpct-choice-heading p{margin:0;color:#70677f;font-size:13px}
+.cpct-choice-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.cpct-choice-card{display:flex;flex-direction:column;align-items:flex-start;min-width:0;min-height:190px;padding:19px;border:1px solid #e7dff0;border-radius:18px;background:#fff;text-decoration:none;box-shadow:0 8px 24px #30204f12;transition:transform .18s,box-shadow .18s}
+.cpct-choice-card:hover{transform:translateY(-3px);box-shadow:0 13px 28px #30204f1c}
+.cpct-choice-icon{display:grid;place-items:center;width:46px;height:46px;margin-bottom:12px;border-radius:14px;font-size:24px}
+.cpct-mock .cpct-choice-icon{background:#e0f2fe}
+.cpct-typing .cpct-choice-icon{background:#fce7f3}
+.cpct-choice-title{color:#30204f;font-size:17px;font-weight:900}
+.cpct-choice-desc{margin-top:7px;color:#70677f;font-size:12px;line-height:1.55}
+.cpct-choice-action{display:flex;justify-content:space-between;align-items:center;width:100%;margin-top:auto;padding-top:15px;color:#5b36a8;font-size:12px;font-weight:900}
+.cpct-choice-action b{font-size:22px;line-height:1}
+@media(max-width:520px){.cpct-choice-wrap{padding:0 10px}.cpct-choice-grid{gap:9px}.cpct-choice-card{min-height:176px;padding:13px;border-radius:15px}.cpct-choice-title{font-size:14px}.cpct-choice-desc{font-size:11px}.cpct-choice-action{font-size:10px}}
+@media(max-width:350px){.cpct-choice-grid{grid-template-columns:1fr}}
+</style>
+
 </head>
 <body>
 
@@ -50,6 +71,28 @@
       <div class="hero-actions">
         <a class="btn btn-primary" href="#setup" data-tp="hero_cta">Start Typing Practice</a>
         <a class="btn btn-secondary" href="#how" data-tp="hero_how">How It Works</a>
+      </div>
+    </section>
+
+    <section class="container cpct-choice-wrap" aria-label="CPCT test options">
+      <div class="cpct-choice-heading">
+        <span>CPCT PREPARATION</span>
+        <h2>Choose Your CPCT Test</h2>
+        <p>मॉक टेस्ट और टाइपिंग टेस्ट के लिए अलग-अलग विकल्प चुनें।</p>
+      </div>
+      <div class="cpct-choice-grid">
+        <a class="cpct-choice-card cpct-mock" href="/cpct/">
+          <span class="cpct-choice-icon" aria-hidden="true">📝</span>
+          <span class="cpct-choice-title">CPCT Mock Test</span>
+          <span class="cpct-choice-desc">CPCT के प्रश्नों का ऑनलाइन मॉक टेस्ट दें।</span>
+          <span class="cpct-choice-action">Start Mock Test <b aria-hidden="true">›</b></span>
+        </a>
+        <a class="cpct-choice-card cpct-typing" href="/cpct/typing.html">
+          <span class="cpct-choice-icon" aria-hidden="true">⌨️</span>
+          <span class="cpct-choice-title">CPCT Typing Test</span>
+          <span class="cpct-choice-desc">CPCT के लिए हिंदी और अंग्रेज़ी टाइपिंग का अभ्यास करें।</span>
+          <span class="cpct-choice-action">Start Typing Test <b aria-hidden="true">›</b></span>
+        </a>
       </div>
     </section>
 
