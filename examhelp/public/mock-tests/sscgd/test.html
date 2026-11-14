@@ -971,7 +971,7 @@ const UI = {
 				},
 			};
 
-			let lang = (function(){ const q = params.get("lang"); if (q === "en" || q === "hi") return q; try { return localStorage.getItem("testhub_lang_pref") || "hi"; } catch (e) { return "hi"; } })();
+			let lang = (function(){ const q = params.get("lang"); if (q === "en" || q === "hi") return q; try { const saved = localStorage.getItem("testhub_lang_pref"); return saved === "en" || saved === "hi" ? saved : "hi"; } catch (e) { return "hi"; } })();
 			function t() {
 				return UI[lang];
 			}
@@ -1355,11 +1355,9 @@ const UI = {
 				setLanguage(lang === "en" ? "hi" : "en");
 			}
 
-			document.getElementById("langBtn").addEventListener("click", toggleLang);
-			document.getElementById("langBtnName").addEventListener("click", toggleLang);
-			document.getElementById("langSel").addEventListener("change", (e) => {
-				setLanguage(e.target.value);
-			});
+			document.getElementById("langBtn").onclick = toggleLang;
+			document.getElementById("langBtnName").onclick = toggleLang;
+			document.getElementById("langSel").onchange = (e) => setLanguage(e.target.value);
 
 			function beginTest() {
 				const val = document.getElementById("nameInput").value.trim();
