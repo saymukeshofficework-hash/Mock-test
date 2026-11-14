@@ -29,21 +29,35 @@ h1{font-size:clamp(25px,4vw,38px);margin:14px 0 8px;line-height:1.2}.intro{color
 <span class="eyebrow">COURSES · EXAM FOLDERS</span>
 <h1>अपनी परीक्षा चुनें</h1>
 <p class="intro">यहाँ हर परीक्षा का अलग फोल्डर है। जिस परीक्षा की तैयारी करनी है, उसी पर टैप करें—सीधे उस परीक्षा के मॉक टेस्ट खुलेंगे।</p>
-<div class="grid">
-<a class="card" style="--accent:#a78bfa" href="/examhelp/group4-assistant-grade-3-mock-tests/"><span class="icon">📝</span><span><strong>MPESB Group-4</strong><small>सहायक ग्रेड-3 मॉक टेस्ट</small></span><span class="arrow">›</span></a>
-<a class="card" style="--accent:#2dd4bf" href="/examhelp/mp-high-court-assistant-grade-3-mock-tests/"><span class="icon">⚖️</span><span><strong>MP High Court</strong><small>सहायक ग्रेड-3 मॉक टेस्ट</small></span><span class="arrow">›</span></a>
-<a class="card" style="--accent:#60a5fa" href="/examhelp/mp-grameen-bank-mock-tests/"><span class="icon">🏦</span><span><strong>MP Gramin Bank</strong><small>ग्रामीण बैंक प्रैक्टिस सेट</small></span><span class="arrow">›</span></a>
-<a class="card" style="--accent:#818cf8" href="/examhelp/mp-police-constable-gd-mock-tests/"><span class="icon">👮</span><span><strong>Police Constable GD</strong><small>आरक्षक जीडी मॉक टेस्ट</small></span><span class="arrow">›</span></a>
-<a class="card" style="--accent:#fbbf24" href="/examhelp/mp-police-driver-mock-tests/"><span class="icon">🚔</span><span><strong>Police Constable Driver</strong><small>आरक्षक चालक मॉक टेस्ट</small></span><span class="arrow">›</span></a>
-<a class="card" style="--accent:#f97316" href="/examhelp/navodaya-class-6-mock-tests/"><span class="icon">🏫</span><span><strong>Navodaya Class 6</strong><small>नवोदय कक्षा 6 मॉक टेस्ट</small></span><span class="arrow">›</span></a>
-<a class="card" style="--accent:#fb7185" href="/examhelp/mp-police-si-mock-tests/"><span class="icon">🎖️</span><span><strong>Police SI / Subedar</strong><small>एसआई और सूबेदार टेस्ट</small></span><span class="arrow">›</span></a>
-<a class="card" style="--accent:#a78bfa" href="/naib-tehsildar/"><span class="icon">📜</span><span><strong>Naib Tehsildar</strong><small>नायब तहसीलदार टेस्ट</small></span><span class="arrow">›</span></a>
-<a class="card" style="--accent:#f472b6" href="/examhelp/mppsc-prelims-mock-tests/"><span class="icon">🏛️</span><span><strong>MPPSC Prelims</strong><small>राज्य सेवा प्रारंभिक मॉक टेस्ट</small></span><span class="arrow">›</span></a>
-<a class="card" style="--accent:#34d399" href="/examhelp/mp-police-subedar-asi-mock-tests/"><span class="icon">⌨️</span><span><strong>Subedar / ASI Steno</strong><small>शीघ्रलेखक और एएसआई टेस्ट</small></span><span class="arrow">›</span></a>
-<a class="card" style="--accent:#c084fc" href="/examhelp/rrb-ntpc-graduate-mock-tests/"><span class="icon">🚆</span><span><strong>RRB NTPC Graduate</strong><small>ग्रेजुएट लेवल मॉक टेस्ट</small></span><span class="arrow">›</span></a>
-<a class="card" style="--accent:#38bdf8" href="/examhelp/rrb-ntpc-undergraduate-mock-tests/"><span class="icon">🚉</span><span><strong>RRB NTPC 10+2</strong><small>अंडरग्रेजुएट मॉक टेस्ट</small></span><span class="arrow">›</span></a>
-<a class="card" style="--accent:#f97316" href="/examhelp/rrb-station-master-mock-tests/"><span class="icon">🚄</span><span><strong>RRB Station Master</strong><small>स्टेशन मास्टर प्रैक्टिस सेट</small></span><span class="arrow">›</span></a>
-<a class="card" style="--accent:#a3e635" href="/tests.html"><span class="icon">📚</span><span><strong>TET Mock Tests</strong><small>शिक्षक पात्रता परीक्षा</small></span><span class="arrow">›</span></a>
+<style>
+.category-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:0 0 26px}
+.category{border:1px solid var(--line);border-radius:13px;background:linear-gradient(135deg,#241b35,#191425);overflow:hidden}
+.category summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:9px;padding:11px 12px;min-height:58px;font-size:13px;font-weight:850}
+.category summary::-webkit-details-marker{display:none}
+.category summary .mini-icon{display:grid;place-items:center;width:31px;height:31px;flex:0 0 31px;border-radius:9px;background:color-mix(in srgb,var(--accent) 22%,transparent);font-size:17px}
+.category summary .chev{margin-left:auto;color:var(--accent);font-size:18px}
+.category[open] summary{border-bottom:1px solid var(--line);color:var(--accent)}
+.category-links{display:grid;gap:7px;padding:10px}
+.category-links a,.other-links a{display:block;padding:8px 9px;border-radius:8px;background:#ffffff0a;color:#f7f3ff;text-decoration:none;font-size:12px;font-weight:650}
+.category-links a:hover,.other-links a:hover{background:#ffffff18}
+.other-title{font-size:15px;margin:22px 0 10px}
+.other-links{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+@media(max-width:700px){.category-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.category summary{padding:9px;min-height:54px;font-size:12px;gap:7px}.category summary .mini-icon{width:28px;height:28px;flex-basis:28px;font-size:15px}.other-links{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:380px){.category-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+</style>
+<div class="category-grid">
+<details class="category" style="--accent:#2dd4bf"><summary><span class="mini-icon">⚖️</span>MP High Court<span class="chev">⌄</span></summary><div class="category-links"><a href="/examhelp/mp-high-court-assistant-grade-3-mock-tests/">MP High Court Assistant Grade-3 Mock Tests</a></div></details>
+<details class="category" style="--accent:#fb7185"><summary><span class="mini-icon">👮</span>MP Police<span class="chev">⌄</span></summary><div class="category-links"><a href="/examhelp/mp-police-constable-gd-mock-tests/">Police Constable GD</a><a href="/examhelp/mp-police-driver-mock-tests/">Police Constable Driver</a><a href="/examhelp/mp-police-si-mock-tests/">Police SI / Subedar</a><a href="/examhelp/mp-police-subedar-asi-mock-tests/">Subedar / ASI Steno</a></div></details>
+<details class="category" style="--accent:#38bdf8"><summary><span class="mini-icon">🚆</span>RRB Railway<span class="chev">⌄</span></summary><div class="category-links"><a href="/examhelp/rrb-ntpc-graduate-mock-tests/">RRB NTPC Graduate</a><a href="/examhelp/rrb-ntpc-undergraduate-mock-tests/">RRB NTPC 10+2</a><a href="/examhelp/rrb-station-master-mock-tests/">RRB Station Master</a></div></details>
+<details class="category" style="--accent:#c084fc"><summary><span class="mini-icon">🏛️</span>MPPSC<span class="chev">⌄</span></summary><div class="category-links"><a href="/examhelp/mppsc-prelims-mock-tests/">MPPSC Prelims</a></div></details>
+<details class="category" style="--accent:#a3e635"><summary><span class="mini-icon">📚</span>Teacher Eligibility Test<span class="chev">⌄</span></summary><div class="category-links"><a href="/tests.html">TET Mock Tests</a></div></details>
+<details class="category" style="--accent:#f97316"><summary><span class="mini-icon">🏫</span>School Entrance Exam<span class="chev">⌄</span></summary><div class="category-links"><a href="/examhelp/navodaya-class-6-mock-tests/">Navodaya Class 6 Entrance Mock Tests</a></div></details>
+</div>
+<h2 class="other-title">अन्य उपलब्ध मॉक टेस्ट</h2>
+<div class="other-links">
+<a href="/examhelp/group4-assistant-grade-3-mock-tests/">MPESB Group-4 Assistant Grade-3</a>
+<a href="/examhelp/mp-grameen-bank-mock-tests/">MP Gramin Bank</a>
+<a href="/naib-tehsildar/">Naib Tehsildar</a>
 </div>
 </main>
 </body>
