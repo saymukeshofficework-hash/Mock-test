@@ -303,7 +303,7 @@ jobs:
           SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
         run: |
           if [ -n "$SUPABASE_ACCESS_TOKEN" ]; then
-            npx --yes supabase@latest functions deploy ca-push --project-ref ovaubhekxjtkodkhsybg
+            npx --yes supabase@latest functions deploy ca-push --project-ref znulepzdihzhjmuvyroi
           else
             echo "SUPABASE_ACCESS_TOKEN is not configured; Edge Function deployment skipped."
           fi
