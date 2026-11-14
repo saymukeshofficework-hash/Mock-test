@@ -133,6 +133,7 @@ jobs:
           NEXT_PUBLIC_BASE_PATH: /examhelp
           NEXT_PUBLIC_SITE_URL: https://tettesthub.in/examhelp
         run: |
+          node scripts/generate-sscgd.mjs
           npm ci
           rm -rf src/app/api
           npx next build
