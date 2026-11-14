@@ -158,19 +158,17 @@ export const MOCK_SERIES: Record<string, MockSeries> = {
     meta: { hi: "80 प्रश्न · 120 मिनट", en: "80 Qs · 120 min" },
     title: { hi: "नवोदय विद्यालय (JNVST) कक्षा 6 — 15 फुल मॉक टेस्ट", en: "Navodaya Vidyalaya (JNVST) Class 6 — 15 Full Mock Tests" },
     sub: {
-      hi: "JNVST कक्षा 6 के नए पैटर्न पर (EVS सहित): 80 प्रश्न, 100 अंक, 2 घंटे। मानसिक योग्यता के चित्र वाले प्रश्न, बड़े अक्षर और आसान रंग। हर प्रश्न हिंदी/English में। सभी प्रश्न नए, किसी टेस्ट में दोहराए नहीं गए।",
-      en: "On the new JNVST Class 6 pattern (with EVS): 80 questions, 100 marks, 2 hours. Picture questions for mental ability, big letters and simple colours. Every question in Hindi/English. All questions are new and none repeats across tests.",
+      hi: "JNVST कक्षा 6 के प्रवेश परीक्षा पैटर्न पर: मानसिक योग्यता 40, अंकगणित 20 और भाषा 20 प्रश्न; कुल 80 प्रश्न, 100 अंक, 2 घंटे। मानसिक योग्यता के चित्र वाले प्रश्न, बड़े अक्षर और आसान रंग। हर प्रश्न हिंदी/English में। सभी प्रश्न नए, किसी टेस्ट में दोहराए नहीं गए।",
+      en: "On the JNVST Class 6 entrance pattern: 40 Mental Ability, 20 Arithmetic and 20 Language questions; 80 questions, 100 marks, 2 hours. Picture questions for mental ability, big letters and simple colours. Every question in Hindi/English. All questions are new and none repeats across tests.",
     },
     rows: {
       hi: [
-        ["मानसिक योग्यता (चित्र वाले प्रश्न)", "20", "हिंदी/English"],
-        ["पर्यावरण अध्ययन (EVS)", "20", "हिंदी/English"],
+        ["मानसिक योग्यता", "40", "हिंदी/English"],
         ["अंकगणित", "20", "हिंदी/English"],
         ["भाषा (4 गद्यांश)", "20", "हिंदी/English"],
       ],
       en: [
-        ["Mental Ability (picture questions)", "20", "Hindi/English"],
-        ["Environmental Studies (EVS)", "20", "Hindi/English"],
+        ["Mental Ability", "40", "Hindi/English"],
         ["Arithmetic", "20", "Hindi/English"],
         ["Language (4 passages)", "20", "Hindi/English"],
       ],
