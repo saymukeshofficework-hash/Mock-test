@@ -1,6 +1,7 @@
 -- Daily current affairs push alerts (Web Push).
 -- Secrets live only in Supabase Vault (names: ca_push_vapid_private, ca_push_trigger_key), never in this repo.
 create extension if not exists pg_net;
+create extension if not exists pg_cron;
 
 create table if not exists public.push_subscriptions (
   endpoint text primary key,
@@ -32,12 +33,17 @@ grant execute on function public.ca_push_secret(text) to service_role;
 create or replace function public.ca_days_push_notify()
 returns trigger language plpgsql security definer set search_path = '' as $$
 begin
-  perform net.http_post(
-    url := 'https://znulepzdihzhjmuvyroi.supabase.co/functions/v1/ca-push',
-    body := jsonb_build_object('action', 'daily', 'day', new.day),
-    headers := jsonb_build_object('Content-Type', 'application/json',
-      'x-push-key', (select decrypted_secret from vault.decrypted_secrets where name = 'ca_push_trigger_key'))
-  );
+  -- The 08:00 IST cron sends the normal daily alert. If today's content is
+  -- published later, send it on save instead; ca_push_log prevents duplicates.
+  if new.day = (now() at time zone 'Asia/Kolkata')::date
+     and (now() at time zone 'Asia/Kolkata')::time >= time '08:00' then
+    perform net.http_post(
+      url := 'https://znulepzdihzhjmuvyroi.supabase.co/functions/v1/ca-push',
+      body := jsonb_build_object('action', 'daily', 'day', new.day),
+      headers := jsonb_build_object('Content-Type', 'application/json',
+        'x-push-key', (select decrypted_secret from vault.decrypted_secrets where name = 'ca_push_trigger_key'))
+    );
+  end if;
   return new;
 exception when others then
   return new; -- never block saving current affairs
@@ -48,3 +54,28 @@ revoke all on function public.ca_days_push_notify() from public, anon, authentic
 drop trigger if exists ca_days_push_notify on public.ca_days;
 create trigger ca_days_push_notify after insert or update on public.ca_days
   for each row execute function public.ca_days_push_notify();
+
+
+-- Send the daily Current Affairs alert at 08:00 India time, but only when
+-- today's content has been published. A later content update is handled by
+-- the guarded table trigger above.
+select cron.unschedule(jobid)
+from cron.job
+where jobname = 'tth-daily-current-affairs-push';
+
+select cron.schedule(
+  'tth-daily-current-affairs-push',
+  '30 2 * * *',
+  $job$
+    select net.http_post(
+      url := 'https://znulepzdihzhjmuvyroi.supabase.co/functions/v1/ca-push',
+      body := jsonb_build_object('action', 'daily', 'day', (now() at time zone 'Asia/Kolkata')::date),
+      headers := jsonb_build_object('Content-Type', 'application/json',
+        'x-push-key', (select decrypted_secret from vault.decrypted_secrets where name = 'ca_push_trigger_key'))
+    )
+    where exists (
+      select 1 from public.ca_days
+      where day = (now() at time zone 'Asia/Kolkata')::date
+    );
+  $job$
+);
