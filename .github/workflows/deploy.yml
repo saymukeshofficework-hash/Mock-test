@@ -137,11 +137,25 @@ jobs:
           rm -rf src/app/api
           npx next build
 
+      - name: Set up Chrome for PDF export
+        uses: browser-actions/setup-chrome@v1
+
+      - name: Generate Hindi and English 2025 Current Affairs PDFs
+        run: |
+          set -e
+          chrome --version
+          chrome --headless --no-sandbox --disable-gpu --disable-dev-shm-usage --no-pdf-header-footer --print-to-pdf="$GITHUB_WORKSPACE/current-affairs-2025-hindi.pdf" "file://$GITHUB_WORKSPACE/current-affairs-2025-hindi.html"
+          chrome --headless --no-sandbox --disable-gpu --disable-dev-shm-usage --no-pdf-header-footer --print-to-pdf="$GITHUB_WORKSPACE/current-affairs-2025-english.pdf" "file://$GITHUB_WORKSPACE/current-affairs-2025-english.html"
+          test -s current-affairs-2025-hindi.pdf
+          test -s current-affairs-2025-english.pdf
+          ls -lh current-affairs-2025-*.pdf
+
       - name: Assemble combined site
         run: |
           set -e
           rm -rf _site
           mkdir -p _site
+          cp ebook-pdf-notes.html current-affairs-2025-hindi.html current-affairs-2025-english.html current-affairs-2025-hindi.pdf current-affairs-2025-english.pdf _site/
 
           # TET Test Hub: marketing site + test pages at the site root
           cp index.html tests.html login.html reset-password.html dashboard.html about.html contact.html attendance.html welcome.html _site/
