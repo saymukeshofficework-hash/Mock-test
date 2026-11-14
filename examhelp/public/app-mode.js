@@ -96,7 +96,6 @@
   }
   function showPushAsk() {
     if (document.getElementById("tth-rate") || document.getElementById("tth-push")) return;
-    try { localStorage.setItem("tth-push-ask2", String(Date.now())); } catch (e) {}
     var st = document.createElement("style");
     st.textContent = "#tth-push{position:fixed;left:12px;right:12px;bottom:12px;z-index:99998;max-width:380px;margin:0 auto;background:#fff;color:#163377;border-radius:16px;padding:16px;box-shadow:0 10px 36px rgba(0,0,0,.28);font-family:inherit;transform:translateY(140%);transition:transform .35s ease}" +
       "#tth-push.on{transform:none}#tth-push b{display:block;font-size:16px;margin-bottom:2px}#tth-push p{margin:0 0 12px;font-size:13px;color:#555}" +
@@ -107,10 +106,13 @@
     o.innerHTML = "<b>🔔 रोज़ की सूचना पाएँ?</b><p>हर सुबह नए करेंट अफेयर्स, नई टेस्ट सीरीज़ और अपडेट की सूचना।<br>Get alerts for daily current affairs, new test series and updates.</p>" +
       '<div class="r"><button class="n">Later</button><button class="y">Allow</button></div>';
     function close() { o.classList.remove("on"); setTimeout(function () { o.remove(); }, 400); }
-    o.querySelector(".n").onclick = close;
+    o.querySelector(".n").onclick = function () { try { localStorage.setItem("tth-push-later", String(Date.now())); } catch (e) {} close(); };
     o.querySelector(".y").onclick = function () {
-      close();
-      Notification.requestPermission().then(function (p) { if (p === "granted") pushSubscribe(true); });
+      Notification.requestPermission().then(function (p) {
+        if (p === "granted") { close(); pushSubscribe(true); return; }
+        o.querySelector("p").innerHTML = "Chrome ने सूचना रोक दी है। ऊपर 🔒 पर टैप करें → Permissions → Notifications → Allow.<br>Chrome blocked it. Tap 🔒 in the address bar → Permissions → Notifications → Allow.";
+        o.querySelector(".y").remove();
+      });
     };
     document.body.appendChild(o);
     requestAnimationFrame(function () { requestAnimationFrame(function () { o.classList.add("on"); }); });
@@ -124,18 +126,10 @@
           return;
         }
         if (Notification.permission !== "default") return;
-        var last = +(localStorage.getItem("tth-push-ask2") || 0);
-        if (Date.now() - last < 3 * 864e5) return;
-        var asked = false;
-        function ask() { // browser's own Allow / Block popup, no extra card
-          if (asked || Notification.permission !== "default") return;
-          asked = true;
-          try { localStorage.setItem("tth-push-ask2", String(Date.now())); } catch (e) {}
-          Notification.requestPermission().then(function (p) { if (p === "granted") pushSubscribe(true); else asked = p !== "default"; });
-        }
-        setTimeout(ask, 3000);
-        // Some browsers ignore a request without a tap: ask again on the first tap anywhere.
-        document.addEventListener("click", function () { asked = false; ask(); }, { once: true, capture: true });
+        // Small card with an Allow button: a tap is needed, Chrome on phones often hides prompts asked without one.
+        var later = +(localStorage.getItem("tth-push-later") || 0);
+        if (Date.now() - later < 864e5) return;
+        setTimeout(showPushAsk, 3000);
       });
     }
   } catch (e) {}
