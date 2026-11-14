@@ -1,7 +1,7 @@
-# Supabase CLI config — only the Bridge Course Edge Functions are managed by the CLI.
-# The older SQL files in this folder (schema.sql, blog_admin_schema.sql) were applied by
-# hand in the SQL Editor and are NOT migrations; don't run `supabase db reset` against
-# the live project. See docs/SUPABASE_SETUP.md.
+# Supabase CLI config for Bridge Course functions and the TETTESTHUB ca-push function.
+# Bridge Course uses the configured project_id below; ca-push is deployed explicitly
+# to the separate Current Affairs project with --project-ref znulepzdihzhjmuvyroi.
+# Older SQL files were applied manually; never run `supabase db reset` against live projects. See docs/SUPABASE_SETUP.md.
 project_id = "ovaubhekxjtkodkhsybg"
 
 # All functions are called with the publishable key (sb_publishable_...), which is not a
