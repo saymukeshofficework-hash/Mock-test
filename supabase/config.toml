@@ -24,3 +24,7 @@ verify_jwt = false
 
 [functions.tet-unlock]
 verify_jwt = false
+
+# Opt-in Web Push alerts for daily current affairs and newly added test papers.
+[functions.ca-push]
+verify_jwt = false
