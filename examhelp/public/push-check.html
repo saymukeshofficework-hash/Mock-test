@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="hi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex">
+<title>सूचना जाँच / Alert check – TETTESTHUB</title>
+<style>body{font-family:system-ui,sans-serif;max-width:480px;margin:0 auto;padding:16px;color:#163377}button{width:100%;padding:14px;font-size:17px;border:0;border-radius:12px;background:#163377;color:#fff;margin:8px 0}pre{background:#f3f5fa;padding:12px;border-radius:10px;white-space:pre-wrap;font-size:13px}</style></head>
+<body>
+<h2>🔔 सूचना जाँच / Alert check</h2>
+<p>नीचे बटन दबाएँ, फिर Allow करें। जो लिखा आए उसका स्क्रीनशॉट भेजें।<br>Tap the button, allow, and send a screenshot of the result.</p>
+<button id="go">सूचना चालू करें / Turn on alerts</button>
+<pre id="out">...</pre>
+<script>
+var KEY="BDRIthDF0G3luX_-8wjFpsuUW9u0pj0JE5eVbAR3lT8RACdQwRm42TRHMHBcJl9oRxN-K6G2YtcatqWrAr6-SBw";
+var FN="https://znulepzdihzhjmuvyroi.supabase.co/functions/v1/ca-push",AN="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpudWxlcHpkaWh6aGptdXZ5cm9pIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTExMjE5MjIsImV4cCI6MjEwNjY5NzkyMn0.XoqC6vNDJkEAxgtXLVPCpTxocv3lAa-ZBeg69OdbhdU";
+var out=document.getElementById("out");function log(s){out.textContent+="\n"+s;}
+out.textContent="Browser: "+navigator.userAgent.replace(/\).*/, ")")+"\nserviceWorker: "+("serviceWorker" in navigator)+"\nPushManager: "+("PushManager" in window)+"\nNotification: "+("Notification" in window)+"\nPermission: "+(window.Notification?Notification.permission:"-");
+function key(){var b=KEY.replace(/-/g,"+").replace(/_/g,"/"),s=atob(b+"===".slice((b.length+3)%4));return Uint8Array.from(s,function(c){return c.charCodeAt(0);});}
+function call(body){return fetch(FN,{method:"POST",headers:{apikey:AN,Authorization:"Bearer "+AN,"Content-Type":"application/json"},body:JSON.stringify(body)}).then(function(r){log(body.action+" → "+r.status);return r;});}
+document.getElementById("go").onclick=async function(){
+  try{
+    var p=await Notification.requestPermission();log("Permission now: "+p);
+    if(p!=="granted"){log("❌ Chrome ने रोका। 🔒 → Permissions → Notifications → Allow / Blocked by Chrome. Tap 🔒 → Permissions → Notifications → Allow.");return;}
+    var reg=await navigator.serviceWorker.register("/examhelp/sw.js",{scope:"/examhelp/"});await navigator.serviceWorker.ready;log("Service worker: ok");
+    var sub=(await reg.pushManager.getSubscription())||(await reg.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:key()}));log("Subscribed: ok");
+    await call({action:"subscribe",subscription:sub.toJSON(),lang:"hi"});
+    await call({action:"test",endpoint:sub.endpoint});
+    log("✅ हो गया! कुछ सेकंड में टेस्ट सूचना आएगी। / Done! Test alert coming.");
+  }catch(e){log("❌ Error: "+(e&&e.message||e));}
+};
+</script>
+</body></html>
