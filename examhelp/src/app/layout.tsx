@@ -11,7 +11,6 @@ import { BottomNav } from "@/components/layout/BottomNav";
 import { WhatsAppHelp } from "@/components/layout/WhatsAppHelp";
 import { Header } from "@/components/layout/Header";
 import { OfflineBanner } from "@/components/layout/OfflineBanner";
-import { PushAlerts } from "@/components/layout/PushAlerts";
 import { JsonLd } from "@/components/ui/Primitives";
 import { dict, tr } from "@/i18n/dictionary";
 import { getLang } from "@/i18n/server";
@@ -55,7 +54,6 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <BottomNav lang={lang} />
         <WhatsAppHelp />
         <OfflineBanner lang={lang} />
-        <PushAlerts />
         <JsonLd data={organizationSchema()} />
         <JsonLd data={websiteSchema()} />
         <Analytics />
