@@ -124,7 +124,7 @@ where order_id = (select id from orders where public_reference = 'BCN-XXXXXXXXXX
 
 The opt-in Web Push UI is shown across the Exam Hub app at `/examhelp/`. Students must tap **सूचनाएँ चालू करें / Enable alerts** and allow browser notifications. The service worker is `/examhelp/sw.js`.
 
-The additive migration is `supabase/migrations/20261114090000_tet_push_notifications.sql`. Apply it once in the Supabase SQL Editor for project `znulepzdihzhjmuvyroi` (the TETTESTHUB project used by the Current Affairs API). It creates the private subscription table, a once-per-day send log, and an 08:00 India-time cron job that sends only when today's content exists. If today's content is published after 08:00, the guarded `ca_days` trigger sends it on save. The send log prevents duplicate daily alerts. Do not run `db reset`.
+First configure the two Supabase Vault secrets listed below. Then apply the additive migration `supabase/migrations/20261114090000_tet_push_notifications.sql` once in the SQL Editor for project `znulepzdihzhjmuvyroi` (the TETTESTHUB project used by the Current Affairs API). It creates the private subscription table, a once-per-day send log, and an 08:00 India-time cron job that sends only when today's content exists. If today's content is published after 08:00, the guarded `ca_days` trigger sends it on save. The send log prevents duplicate daily alerts. Do not run `db reset`.
 
 The Edge Function source is `supabase/functions/ca-push/index.ts`. Deploy it to the same Supabase project:
 ```bash
