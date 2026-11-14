@@ -326,7 +326,7 @@ jobs:
           fi
           git fetch --no-tags origin "$BEFORE_SHA" 2>/dev/null || true
           CHANGED="$(git diff --name-only "$BEFORE_SHA" "$AFTER_SHA" 2>/dev/null || true)"
-          if printf '%s\n' "$CHANGED" | grep -Eq '^(examhelp/public/mock-tests/|rrb-ntpc/|cpct/|mp-cpct-mock-test/|naib-tehsildar/|tet-mock-test-[0-9]+\\.html$|home/catalogue\\.html$|course-folders\\.html$|assets/(ebooks|notes)/)'; then
+          if printf '%s\n' "$CHANGED" | grep -Eq '^(examhelp/public/mock-tests/|rrb-ntpc/|cpct/|mp-cpct-mock-test/|naib-tehsildar/|tet-mock-test-[0-9]+\.html$|home/catalogue\.html$|course-folders\.html$|assets/(ebooks|notes)/)'; then
             curl --silent --show-error --max-time 20 \
               -X POST "https://znulepzdihzhjmuvyroi.supabase.co/functions/v1/ca-push" \
               -H "Content-Type: application/json" \
