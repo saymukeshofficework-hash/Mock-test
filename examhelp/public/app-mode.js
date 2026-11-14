@@ -95,7 +95,9 @@
     }).catch(function () {});
   }
   function showPushAsk() {
-    if (document.getElementById("tth-rate") || document.getElementById("tth-push")) return;
+    if (document.getElementById("tth-push")) return;
+    // If the first-launch rating card is open, wait and show the push opt-in afterwards.
+    if (document.getElementById("tth-rate")) { setTimeout(showPushAsk, 800); return; }
     var st = document.createElement("style");
     st.textContent = "#tth-push{position:fixed;left:12px;right:12px;bottom:12px;z-index:99998;max-width:380px;margin:0 auto;background:#fff;color:#163377;border-radius:16px;padding:16px;box-shadow:0 10px 36px rgba(0,0,0,.28);font-family:inherit;transform:translateY(140%);transition:transform .35s ease}" +
       "#tth-push.on{transform:none}#tth-push b{display:block;font-size:16px;margin-bottom:2px}#tth-push p{margin:0 0 12px;font-size:13px;color:#555}" +
