@@ -140,7 +140,7 @@ jobs:
       - name: Set up Chrome for PDF export
         uses: browser-actions/setup-chrome@v1
 
-      - name: Generate Hindi and English 2025 Current Affairs PDFs
+      - name: Generate Hindi and English 2025 and 2026 Current Affairs PDFs
         run: |
           set -e
           chrome --version
@@ -148,14 +148,29 @@ jobs:
           chrome --headless --no-sandbox --disable-gpu --disable-dev-shm-usage --no-pdf-header-footer --print-to-pdf="$GITHUB_WORKSPACE/current-affairs-2025-english.pdf" "file://$GITHUB_WORKSPACE/current-affairs-2025-english.html"
           test -s current-affairs-2025-hindi.pdf
           test -s current-affairs-2025-english.pdf
-          ls -lh current-affairs-2025-*.pdf
+          chrome --headless --no-sandbox --disable-gpu --disable-dev-shm-usage --no-pdf-header-footer --print-to-pdf="$GITHUB_WORKSPACE/current-affairs-2026-hindi.pdf" "file://$GITHUB_WORKSPACE/current-affairs-2026-hindi.html"
+          chrome --headless --no-sandbox --disable-gpu --disable-dev-shm-usage --no-pdf-header-footer --print-to-pdf="$GITHUB_WORKSPACE/current-affairs-2026-english.pdf" "file://$GITHUB_WORKSPACE/current-affairs-2026-english.html"
+          test -s current-affairs-2026-hindi.pdf
+          test -s current-affairs-2026-english.pdf
+          ls -lh current-affairs-2025-*.pdf current-affairs-2026-*.pdf
 
       - name: Assemble combined site
         run: |
           set -e
           rm -rf _site
           mkdir -p _site
-          cp ebook-pdf-notes.html current-affairs-2025-hindi.html current-affairs-2025-english.html current-affairs-2025-hindi.pdf current-affairs-2025-english.pdf _site/
+          cp ebook-pdf-notes.html current-affairs-2025-hindi.html current-affairs-2025-english.html current-affairs-2025-hindi.pdf current-affairs-2025-english.pdf current-affairs-2026-hindi.html current-affairs-2026-english.html current-affairs-2026-hindi.pdf current-affairs-2026-english.pdf _site/
+          mkdir -p _site/current-affairs-ebook/2025-current-affairs _site/current-affairs-ebook/2026-current-affairs
+          cp current-affairs-2025-hindi.html _site/current-affairs-ebook/2025-current-affairs/hindi.html
+          cp current-affairs-2025-english.html _site/current-affairs-ebook/2025-current-affairs/english.html
+          cp current-affairs-2025-hindi.pdf _site/current-affairs-ebook/2025-current-affairs/hindi.pdf
+          cp current-affairs-2025-english.pdf _site/current-affairs-ebook/2025-current-affairs/english.pdf
+          cp current-affairs-ebook/2025-current-affairs/index.html _site/current-affairs-ebook/2025-current-affairs/index.html
+          cp current-affairs-2026-hindi.html _site/current-affairs-ebook/2026-current-affairs/hindi.html
+          cp current-affairs-2026-english.html _site/current-affairs-ebook/2026-current-affairs/english.html
+          cp current-affairs-2026-hindi.pdf _site/current-affairs-ebook/2026-current-affairs/hindi.pdf
+          cp current-affairs-2026-english.pdf _site/current-affairs-ebook/2026-current-affairs/english.pdf
+          cp current-affairs-ebook/2026-current-affairs/index.html _site/current-affairs-ebook/2026-current-affairs/index.html
 
           # TET Test Hub: marketing site + test pages at the site root
           cp index.html tests.html login.html reset-password.html dashboard.html about.html contact.html attendance.html welcome.html _site/
