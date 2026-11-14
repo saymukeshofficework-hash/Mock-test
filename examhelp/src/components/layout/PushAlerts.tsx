@@ -5,7 +5,7 @@ import { Bell, BellRing, X } from "lucide-react";
 
 const VAPID_PUBLIC = "BDRIthDF0G3luX_-8wjFpsuUW9u0pj0JE5eVbAR3lT8RACdQwRm42TRHMHBcJl9oRxN-K6G2YtcatqWrAr6-SBw";
 const PUSH_URL = "https://znulepzdihzhjmuvyroi.supabase.co/functions/v1/ca-push";
-const ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpudWxlcHpkaWh6aGptdXZ5cm9pIiwiaWF0IjoxNzkxMTIxOTIyLCJleHAiOjIxMDY2OTc5MjJ9.XoqC6vNDJkEAxgtXLVPCpTxocv3lAa-ZBeg69OdbhdU";
+const ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpudWxlcHpkaWh6aGptdXZ5cm9pIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTExMjE5MjIsImV4cCI6MjEwNjY5NzkyMn0.XoqC6vNDJkEAxgtXLVPCpTxocv3lAa-ZBeg69OdbhdU";
 
 function applicationKey() {
   const raw = VAPID_PUBLIC.replace(/-/g, "+").replace(/_/g, "/");
