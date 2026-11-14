@@ -159,7 +159,7 @@ jobs:
           set -e
           rm -rf _site
           mkdir -p _site
-          cp ebook-pdf-notes.html current-affairs-2025-hindi.html current-affairs-2025-english.html current-affairs-2025-hindi.pdf current-affairs-2025-english.pdf current-affairs-2026-hindi.html current-affairs-2026-english.html current-affairs-2026-hindi.pdf current-affairs-2026-english.pdf _site/
+          cp ebook-pdf-notes.html current-affairs-ebook.html current-affairs-2025-hindi.html current-affairs-2025-english.html current-affairs-2025-hindi.pdf current-affairs-2025-english.pdf current-affairs-2026-hindi.html current-affairs-2026-english.html current-affairs-2026-hindi.pdf current-affairs-2026-english.pdf _site/
           mkdir -p _site/current-affairs-ebook/2025-current-affairs _site/current-affairs-ebook/2026-current-affairs
           cp current-affairs-2025-hindi.html _site/current-affairs-ebook/2025-current-affairs/hindi.html
           cp current-affairs-2025-english.html _site/current-affairs-ebook/2025-current-affairs/english.html
