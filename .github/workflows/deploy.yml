@@ -292,7 +292,6 @@ jobs:
         uses: actions/deploy-pages@v4
 
       - name: Checkout commit for notification change detection
-        if: ${{ github.event_name == 'push' }}
         uses: actions/checkout@v4
         with:
           ref: ${{ github.sha }}
@@ -300,21 +299,28 @@ jobs:
 
       # Deploy the push endpoint when the repository has a Supabase access token.
       - name: Deploy TETTESTHUB push function
-        if: ${{ secrets.SUPABASE_ACCESS_TOKEN != '' }}
         env:
           SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
         run: |
-          npx --yes supabase@latest functions deploy ca-push --project-ref ovaubhekxjtkodkhsybg
+          if [ -n "$SUPABASE_ACCESS_TOKEN" ]; then
+            npx --yes supabase@latest functions deploy ca-push --project-ref ovaubhekxjtkodkhsybg
+          else
+            echo "SUPABASE_ACCESS_TOKEN is not configured; Edge Function deployment skipped."
+          fi
 
       # Announce newly committed test papers to students who opted in to notifications.
       - name: Notify students about new test papers
-        if: ${{ github.event_name == 'push' && secrets.CA_PUSH_TRIGGER_KEY != '' }}
+        if: ${{ github.event_name == 'push' }}
         env:
           PUSH_KEY: ${{ secrets.CA_PUSH_TRIGGER_KEY }}
           BEFORE_SHA: ${{ github.event.before }}
           AFTER_SHA: ${{ github.sha }}
         run: |
           set -eu
+          if [ -z "$PUSH_KEY" ]; then
+            echo "CA_PUSH_TRIGGER_KEY is not configured; announcement skipped."
+            exit 0
+          fi
           if [ "$BEFORE_SHA" = "0000000000000000000000000000000000000000" ]; then
             BEFORE_SHA="$(git rev-parse "$AFTER_SHA^" 2>/dev/null || echo "$AFTER_SHA")"
           fi
