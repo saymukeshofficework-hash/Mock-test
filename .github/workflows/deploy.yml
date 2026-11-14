@@ -290,3 +290,36 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+      # Deploy the push endpoint when the repository has a Supabase access token.
+      - name: Deploy TETTESTHUB push function
+        if: ${{ secrets.SUPABASE_ACCESS_TOKEN != '' }}
+        env:
+          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+        run: |
+          npx --yes supabase@latest functions deploy ca-push --project-ref ovaubhekxjtkodkhsybg
+
+      # Announce newly committed test papers to students who opted in to notifications.
+      - name: Notify students about new test papers
+        if: ${{ github.event_name == 'push' && secrets.CA_PUSH_TRIGGER_KEY != '' }}
+        env:
+          PUSH_KEY: ${{ secrets.CA_PUSH_TRIGGER_KEY }}
+          BEFORE_SHA: ${{ github.event.before }}
+          AFTER_SHA: ${{ github.sha }}
+        run: |
+          set -eu
+          if [ "$BEFORE_SHA" = "0000000000000000000000000000000000000000" ]; then
+            BEFORE_SHA="$(git rev-parse "$AFTER_SHA^" 2>/dev/null || echo "$AFTER_SHA")"
+          fi
+          git fetch --no-tags origin "$BEFORE_SHA" 2>/dev/null || true
+          CHANGED="$(git diff --name-only "$BEFORE_SHA" "$AFTER_SHA" 2>/dev/null || true)"
+          if printf '%s\n' "$CHANGED" | grep -Eq '^examhelp/public/mock-tests/'; then
+            curl --silent --show-error --max-time 20 \
+              -X POST "https://znulepzdihzhjmuvyroi.supabase.co/functions/v1/ca-push" \
+              -H "Content-Type: application/json" \
+              -H "x-push-key: $PUSH_KEY" \
+              --data '{"action":"announce","title_hi":"नया टेस्ट पेपर उपलब्ध 📚","body_hi":"TETTESTHUB पर नया टेस्ट पेपर जोड़ा गया है। अभी देखें।","title_en":"New test paper available 📚","body_en":"A new test paper has been added to TETTESTHUB. Open it now.","url":"/examhelp/courses/"}' \
+              || echo "Push announcement could not be sent; check Supabase function and secrets."
+          else
+            echo "No new mock-test files in this push; no announcement needed."
+          fi
