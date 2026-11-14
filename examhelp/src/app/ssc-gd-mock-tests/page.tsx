@@ -14,29 +14,21 @@ const subjects = [
     key: "reasoning",
     hi: "रीजनिंग एवं सामान्य बुद्धिमत्ता",
     en: "Reasoning & General Intelligence",
-    descHi: "समानता, संख्या एवं अक्षर श्रृंखला, कोडिंग-डिकोडिंग, दिशा ज्ञान, रक्त संबंध, क्रम व्यवस्था, वर्गीकरण और तार्किक प्रश्न।",
-    descEn: "Analogy, number and letter series, coding-decoding, directions, blood relations, order and ranking, classification and logical questions.",
   },
   {
     key: "gk",
     hi: "सामान्य ज्ञान एवं सामान्य जागरूकता",
     en: "General Knowledge & General Awareness",
-    descHi: "भारत का इतिहास, भूगोल, संविधान, अर्थव्यवस्था, संस्कृति, सामान्य विज्ञान, खेल और महत्वपूर्ण समसामयिक घटनाएँ।",
-    descEn: "Indian history, geography, Constitution, economy, culture, general science, sports and important current affairs.",
   },
   {
     key: "maths",
     hi: "प्रारंभिक गणित",
     en: "Elementary Mathematics",
-    descHi: "संख्या पद्धति, दशमलव और भिन्न, प्रतिशत, अनुपात-समानुपात, औसत, लाभ-हानि, ब्याज, समय-कार्य, चाल-दूरी और क्षेत्रमिति।",
-    descEn: "Number system, decimals and fractions, percentage, ratio and proportion, average, profit and loss, interest, time and work, speed and distance, and mensuration.",
   },
   {
     key: "language",
     hi: "हिंदी / English",
     en: "Hindi / English",
-    descHi: "शब्दावली, पर्यायवाची-विलोम, वाक्य शुद्धि, व्याकरण, रिक्त स्थान और गद्यांश आधारित प्रश्न।",
-    descEn: "Vocabulary, synonyms and antonyms, sentence correction, grammar, fill-in-the-blanks and comprehension questions.",
   },
 ];
 
@@ -57,7 +49,7 @@ export default async function Page() {
 
       <section className="mt-6" aria-labelledby="subjects-heading">
         <h2 id="subjects-heading" className="text-xl font-extrabold text-brand-900">
-          {hi ? "विषय एवं उनका विवरण" : "Subjects & Description"}
+          {hi ? "विषयवार प्रश्न एवं अंक" : "Subject-wise Questions & Marks"}
         </h2>
         <div className="mt-3 grid gap-3 sm:grid-cols-2">
           {subjects.map((subject, index) => (
@@ -66,8 +58,8 @@ export default async function Page() {
                 <span className="mr-2 text-indigo-600">{index + 1}.</span>
                 {hi ? subject.hi : subject.en}
               </h3>
-              <p className="mt-2 text-sm leading-6 text-ink-600">
-                {hi ? subject.descHi : subject.descEn}
+              <p className="mt-2 text-sm font-semibold text-ink-600">
+                {hi ? "20 प्रश्न · 40 अंक" : "20 Questions · 40 Marks"}
               </p>
             </article>
           ))}
@@ -76,11 +68,6 @@ export default async function Page() {
 
       <div className="card mt-6 p-4">
         <b>{hi ? "सभी 25 टेस्ट फ्री हैं — कोई भुगतान या लॉगिन लॉक नहीं।" : "All 25 tests are free — no payment or login lock."}</b>
-        <p className="mt-1 text-sm text-ink-500">
-          {hi
-            ? "ये अभ्यास प्रश्नपत्र हैं, आधिकारिक SSC प्रश्नपत्र नहीं। टेस्ट खोलने पर पुलिस/हाई कोर्ट मॉक टेस्ट जैसा CBT इंटरफेस मिलेगा।"
-            : "These are practice papers, not official SSC question papers. Each paper opens in the same CBT-style interface used by the Police and High Court mock tests."}
-        </p>
       </div>
 
       <section className="mt-7" aria-labelledby="papers-heading">
