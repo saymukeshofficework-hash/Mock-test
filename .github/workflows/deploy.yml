@@ -291,6 +291,13 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v4
 
+      - name: Checkout commit for notification change detection
+        if: ${{ github.event_name == 'push' }}
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+
       # Deploy the push endpoint when the repository has a Supabase access token.
       - name: Deploy TETTESTHUB push function
         if: ${{ secrets.SUPABASE_ACCESS_TOKEN != '' }}
