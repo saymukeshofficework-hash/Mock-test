@@ -118,3 +118,26 @@ update products set max_downloads = 2 where slug = 'bridge-course-notes';
 update purchases set max_downloads = max_downloads + 2
 where order_id = (select id from orders where public_reference = 'BCN-XXXXXXXXXX');
 ```
+
+
+## 6. TETTESTHUB student push notifications
+
+The opt-in Web Push UI is shown across the Exam Hub app at `/examhelp/`. Students must tap **सूचनाएँ चालू करें / Enable alerts** and allow browser notifications. The service worker is `/examhelp/sw.js`.
+
+The additive migration is `supabase/migrations/20261114090000_tet_push_notifications.sql`. Apply it once in the Supabase SQL Editor for project `znulepzdihzhjmuvyroi` (the TETTESTHUB project used by the Current Affairs API). It creates the private subscription table, a once-per-day send log, and a trigger on `ca_days` that requests the daily alert when today's content is saved. Do not run `db reset`.
+
+The Edge Function source is `supabase/functions/ca-push/index.ts`. Deploy it to the same Supabase project:
+```bash
+supabase functions deploy ca-push --project-ref znulepzdihzhjmuvyroi
+```
+The GitHub Pages workflow will also deploy this function automatically when the repository secret `SUPABASE_ACCESS_TOKEN` is configured.
+
+In Supabase Dashboard → Project `znulepzdihzhjmuvyroi` → Edge Functions → Secrets, configure:
+- `ca_push_vapid_private`: the private VAPID key that matches the public key already in `PushAlerts.tsx` and `ca-push/index.ts`.
+- `ca_push_trigger_key`: a long random secret used only by the database trigger and trusted publisher workflow.
+
+Add the same `ca_push_trigger_key` value as GitHub repository Actions secret `CA_PUSH_TRIGGER_KEY`. Add a Supabase personal access token as repository Actions secret `SUPABASE_ACCESS_TOKEN` if automatic Edge Function deployment is desired. Never commit either secret to the repository.
+
+The workflow sends an announcement only when files under `examhelp/public/mock-tests/` change on a push to `main`. The database trigger sends the daily Current Affairs alert after today's `ca_days` row is inserted or updated. Students who have not opted in receive no push.
+
+After setup, test on an installed Android PWA: open `https://tettesthub.in/examhelp/push-check.html` or use the in-app bell, allow notifications, and verify the test alert. iOS requires the site to be installed to the Home Screen and notification permission granted. Browser settings can block alerts even after installation.
