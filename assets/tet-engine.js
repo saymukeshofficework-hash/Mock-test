@@ -204,6 +204,7 @@ function goToQuestion(secIdx, qIdx){
 }
 
 function renderQuestion(){
+  if (!sections || !sections[curSection]) return; // language toggle can fire before the test loads
   const item = sections[curSection].questions[curQuestion];
   const mode = sections[curSection].mode || 'bilingual';
   const langBar = document.getElementById('langBarWrap');
