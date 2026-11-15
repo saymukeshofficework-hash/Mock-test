@@ -47,6 +47,16 @@ h1{font-size:clamp(28px,6vw,40px);line-height:1.2;margin:34px 0 12px;color:#0d3b
 @media(max-width:520px){.tth-gradient-header{padding:8px!important}.tth-brand{font-size:16px!important}.brand-icon{width:30px;height:30px}.tth-exam-nav a,.tth-exam-nav button{font-size:11px;min-height:36px;gap:3px}.tth-header-right{gap:5px}.tth-language button{padding:6px 7px}.tth-student{font-size:11px}}
 
 .tth-brand-desktop{display:flex!important}.tth-brand-mobile{display:none!important}@media(max-width:767px){.tth-brand-desktop{display:none!important}.tth-brand-mobile{display:flex!important}}
+
+/* Colorful TET pattern panel on the 25-test subject listing */
+.exam-pattern-panel{padding:0!important;border:2px solid #3157c9!important;border-radius:22px!important;overflow:hidden;background:#fff!important;box-shadow:0 5px 16px rgba(24,39,90,.12)!important;margin:0 0 18px!important}
+.exam-pattern-head{margin:10px 12px 14px;padding:14px 16px;text-align:center;border:2px solid #e6bd42;border-radius:18px;background:linear-gradient(110deg,#fff7ce,#fff);color:#142d72;font-weight:800;line-height:1.45}
+.exam-pattern-name{display:block;font-size:clamp(17px,3.8vw,25px);color:#075b48}.exam-pattern-summary{display:block;font-size:clamp(14px,3vw,18px)}.exam-pattern-note{display:block;color:#d52222;font-size:clamp(13px,2.8vw,17px);margin-top:4px}
+.exam-pattern-title{margin:0 auto 12px!important;padding:12px 16px;text-align:center;color:#fff!important;font-size:clamp(19px,4vw,26px);font-weight:900;background:linear-gradient(100deg,#5512c9,#8700c9);max-width:460px;border-radius:0 0 20px 20px}
+.exam-pattern-table{width:calc(100% - 20px)!important;margin:0 10px 12px!important;border-collapse:separate!important;border-spacing:0!important;border:2px solid #3157c9!important;border-radius:14px;overflow:hidden;color:#102b75;font-weight:750}
+.exam-pattern-table td{padding:9px 10px!important;border:0!important;border-bottom:1px solid #a8c8f4!important;font-size:clamp(13px,2.7vw,18px);line-height:1.35}.exam-pattern-table tr:nth-child(odd){background:#eaf3ff}.exam-pattern-table tr:nth-child(even){background:#fff5df}.exam-pattern-table tr:first-child{background:#d9e8ff}.exam-pattern-table td:nth-child(2){text-align:center;color:#e32626;font-size:1.12em;border-left:1px solid #7394e8!important;border-right:1px solid #7394e8!important}
+.exam-pattern-total{margin:0 10px 12px!important;padding:12px 14px;text-align:center;border-radius:14px;background:linear-gradient(100deg,#075b48,#007b60);color:#fff;font-size:clamp(13px,2.8vw,18px);font-weight:800;line-height:1.5}.exam-pattern-total strong{color:#fff000}
+@media(max-width:420px){.exam-pattern-head{margin:8px;padding:10px}.exam-pattern-table td{padding:8px 6px!important}}
 </style>
 </head>
 <body>
@@ -96,6 +106,11 @@ h1{font-size:clamp(28px,6vw,40px);line-height:1.2;margin:34px 0 12px;color:#0d3b
   $('crumb').innerHTML = `<a href="?level=${lvKey}">← ${esc(lv.hi)} / ${esc(lv.en)}</a>`;
   $('ttl').textContent = sub.hi + ' / ' + sub.en;
   $('sub').innerHTML = `${esc(lv.hi)} · ${TET_TESTS_PER_SUBJECT} टेस्ट, टेस्ट 1 फ्री।<br>${esc(lv.en)} · ${TET_TESTS_PER_SUBJECT} tests, test 1 free.`;
+  // Colorful exam-pattern panel belongs on the subject page that lists all 25 tests.
+  const pattern = document.createElement('section');
+  pattern.className = 'card pat exam-pattern-panel';
+  pattern.innerHTML = '<div class="exam-pattern-head"><span class="exam-pattern-name">TET मॉक टेस्ट — ' + esc(sub.hi) + '</span><span class="exam-pattern-summary">विषयवार टेस्ट सीरीज़ / Subject-wise Test Series</span><span class="exam-pattern-note">कुल 25 अभ्यास टेस्ट · टेस्ट 1 निःशुल्क</span></div><h2 class="exam-pattern-title">परीक्षा पैटर्न / Exam Pattern</h2><table class="exam-pattern-table"><tbody><tr><td>विषय / Subject</td><td>टेस्ट / Tests</td><td>भाषा / Language</td></tr><tr><td>' + esc(sub.hi) + ' / ' + esc(sub.en) + '</td><td>25</td><td>हिंदी / English</td></tr></tbody></table><p class="exam-pattern-total">कुल <strong>25 टेस्ट</strong> · टेस्ट 1 फ्री · टेस्ट 2–25 सीरीज़ के अंतर्गत</p>';
+  grid.insertAdjacentElement('beforebegin', pattern);
   let html = '';
   for (let n = 1; n <= TET_TESTS_PER_SUBJECT; n++) {
     const id = sub.legacy ? 'test' + String(n).padStart(2, '0') : 'tet' + lvKey[0] + '-' + sub.key + '-' + String(n).padStart(2, '0');
