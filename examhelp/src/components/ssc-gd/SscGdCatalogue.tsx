@@ -49,34 +49,48 @@ export function SscGdCatalogue() {
           : "80 questions per paper · 60 minutes · Hindi/English · +2 for correct answers · −0.25 for wrong answers · 0 for unattempted."}
       </p>
 
-      <section className="mt-6" aria-labelledby="subjects-heading">
-        <h2 id="subjects-heading" className="text-xl font-extrabold text-brand-900">
-          {hi ? "विषयवार प्रश्न एवं अंक" : "Subject-wise Questions & Marks"}
-        </h2>
-        <div className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-4">
-          {subjects.map((subject, index) => {
-            const colors = subjectColors[index];
-            return (
-              <article
-                key={subject.key}
-                className={`rounded-2xl border-l-4 p-4 shadow-sm ${colors.card}`}
-              >
-                <h3 className="font-bold leading-snug text-ink-900">
-                  <span className={`mr-2 font-extrabold ${colors.number}`}>{index + 1}.</span>
-                  {hi ? subject.hi : subject.en}
-                </h3>
-                <div className="mt-3 flex flex-wrap gap-2">
-                  <span className={`rounded-full px-3 py-1 text-xs font-bold ${colors.detail}`}>
-                    {hi ? "20 प्रश्न" : "20 Questions"}
-                  </span>
-                  <span className={`rounded-full px-3 py-1 text-xs font-bold ${colors.detail}`}>
-                    {hi ? "40 अंक" : "40 Marks"}
-                  </span>
-                </div>
-              </article>
-            );
-          })}
+      <section className="exam-pattern-panel mt-6" aria-labelledby="subjects-heading">
+        <div className="exam-pattern-intro">
+          <h2 className="exam-pattern-exam-name">{hi ? "SSC GD परीक्षा पैटर्न" : "SSC GD Exam Pattern"}</h2>
+          <p className="exam-pattern-description">
+            {hi
+              ? "कंप्यूटर आधारित परीक्षा · 80 प्रश्न · 60 मिनट · कुल 160 अंक"
+              : "Computer Based Examination · 80 Questions · 60 Minutes · 160 Marks"}
+          </p>
         </div>
+        <h3 id="subjects-heading" className="exam-pattern-ribbon">
+          {hi ? "विषयवार प्रश्न एवं अंक" : "Subject-wise Questions & Marks"}
+        </h3>
+        <div className="overflow-x-auto">
+          <table className="exam-pattern-table w-full text-sm">
+            <thead>
+              <tr>
+                <th scope="col">{hi ? "विषय" : "Subject"}</th>
+                <th scope="col">{hi ? "प्रश्न / अंक" : "Questions / Marks"}</th>
+                <th scope="col">{hi ? "भाषा" : "Language"}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {subjects.map((subject, index) => (
+                <tr key={subject.key} className={index % 2 === 0 ? "exam-pattern-row-even" : "exam-pattern-row-odd"}>
+                  <td className="exam-pattern-subject">{hi ? subject.hi : subject.en}</td>
+                  <td className="exam-pattern-count">20 / 40</td>
+                  <td className="exam-pattern-language">
+                    {subject.key === "language"
+                      ? (hi ? "हिंदी या English" : "Hindi or English")
+                      : (hi ? "हिंदी / English" : "Hindi / English")}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p className="exam-pattern-total">
+          {hi ? "कुल: 80 प्रश्न · 160 अंक · समय: 60 मिनट" : "Total: 80 Questions · 160 Marks · Time: 60 Minutes"}
+        </p>
+        <p className="exam-pattern-negative">
+          {hi ? "सही उत्तर: +2 अंक · गलत उत्तर: −0.25 अंक · अनुत्तरित: 0 अंक" : "Correct: +2 marks · Incorrect: −0.25 marks · Unattempted: 0 marks"}
+        </p>
       </section>
 
       <div className="card mt-6 p-4">
