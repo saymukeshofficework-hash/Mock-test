@@ -24,8 +24,8 @@ export function BottomNav({ lang }: { lang: Lang }) {
   };
   const items = [
     { href: "https://tettesthub.in/index.html", label: dict.nav.home, fixedLabel: "Home", Icon: Home, abs: true, color: "text-blue-600" },
-    { href: "https://tettesthub.in/course-folders.html", label: dict.nav.tests, fixedLabel: "Courses", Icon: LayoutGrid, abs: true, color: "text-violet-600" },
-    { href: "https://tettesthub.in/dashboard.html", label: dict.nav.tests, fixedLabel: "My Test", Icon: NotebookPen, abs: true, color: "text-sky-600" },
+    { href: "https://tettesthub.in/course-folders.html", label: dict.nav.tests, fixedLabel: "Test Series", Icon: LayoutGrid, abs: true, color: "text-violet-600" },
+    { href: "https://tettesthub.in/dashboard.html", label: dict.nav.tests, fixedLabel: "Paid Test", Icon: NotebookPen, abs: true, color: "text-sky-600" },
   ];
   return (
     <nav
