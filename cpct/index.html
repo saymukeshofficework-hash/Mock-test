@@ -51,6 +51,22 @@ h1{font-size:clamp(28px,6vw,40px);line-height:1.2;margin:34px 0 12px;color:#0d3b
 
 .tth-brand-desktop{display:flex!important}.tth-brand-mobile{display:none!important}@media(max-width:767px){.tth-brand-desktop{display:none!important}.tth-brand-mobile{display:flex!important}}
 @media(max-width:767px){.tth-exam-nav{display:none!important}}
+
+/* Colourful exam-pattern panel matching the shared 25-test catalogue design */
+.exam-pattern-panel{overflow:hidden;border:2px solid #3157c9;border-radius:22px;background:#fff;box-shadow:0 6px 18px rgba(22,38,83,.12);padding:0!important}
+.exam-pattern-intro{margin:10px;padding:14px 16px;text-align:center;border:2px solid #e6bd42;border-radius:18px;background:linear-gradient(110deg,#fff6c9,#fffdf2);color:#142d72}
+.exam-pattern-intro h2{margin:0 0 6px;color:#075b48;font-size:clamp(18px,3.7vw,25px);font-weight:900}
+.exam-pattern-intro p{margin:0;color:#142d72;font-weight:700;line-height:1.5}
+.exam-pattern-ribbon{width:max-content;max-width:90%;margin:0 auto 12px;padding:8px 30px;border-radius:0 0 20px 20px;background:linear-gradient(100deg,#5512c9,#8500c9);color:#fff;font-size:clamp(19px,3.6vw,25px);font-weight:900;text-align:center}
+.exam-pattern-table{width:calc(100% - 20px);margin:0 10px;border:2px solid #3157c9;border-radius:14px;overflow:hidden;border-collapse:separate;border-spacing:0}
+.exam-pattern-table th{padding:9px;background:#e8edff;color:#102b75;font-weight:900;text-align:left}
+.exam-pattern-table td{padding:9px 10px;border-top:1px solid #a8c8f4;font-weight:700;line-height:1.4}
+.exam-pattern-table tr:nth-child(odd) td{background:#f0f6ff}
+.exam-pattern-table td:last-child,.exam-pattern-table th:last-child{text-align:center;width:90px;color:#df2525;font-weight:900}
+.exam-pattern-total{margin:12px 10px 0;padding:12px;border-radius:14px;background:linear-gradient(100deg,#075b48,#007b60);color:#fff;font-weight:900;line-height:1.5}
+.exam-pattern-note{margin:0;padding:10px 14px 12px;color:#7b2d16;font-size:13px;font-weight:700;line-height:1.5}
+@media(max-width:520px){.exam-pattern-panel{border-radius:16px}.exam-pattern-intro{margin:8px;padding:10px}.exam-pattern-table{width:calc(100% - 14px);margin:0 7px}.exam-pattern-table th,.exam-pattern-table td{padding:8px 6px;font-size:12px}}
+
 </style>
 </head>
 <body>
@@ -85,14 +101,17 @@ h1{font-size:clamp(28px,6vw,40px);line-height:1.2;margin:34px 0 12px;color:#0d3b
   // then Part 3 Hindi typing (cpct/typing.html, which links each part to the next).
   // Official pattern (MAP_IT, cpct.mp.gov.in): 75 MCQ in 75 min, +1 each, no negative marking;
   // English typing 15 min (30 NWPM) and Hindi typing 15 min (20 NWPM).
-  $('pat').innerHTML = '<h2>पेपर पैटर्न / Paper pattern</h2><table>' +
-    '<tr><th colspan="2">भाग 1: MCQ (75 प्रश्न, 75 मिनट) / Part 1: MCQ (75 Q, 75 min)</th></tr>' +
+  $('pat').className = 'exam-pattern-panel';
+  $('pat').innerHTML = '<div class="exam-pattern-intro"><h2>MP CPCT परीक्षा पैटर्न / Exam Pattern</h2><p>75 प्रश्न · 75 मिनट · MCQ + अंग्रेज़ी एवं हिंदी टाइपिंग</p></div>' +
+    '<h3 class="exam-pattern-ribbon">विषयवार प्रश्न / Subject-wise Questions</h3>' +
+    '<table class="exam-pattern-table"><thead><tr><th>विषय / Section</th><th>प्रश्न / Qs</th></tr></thead><tbody>' +
     [['कंप्यूटर दक्षता / Computer Proficiency & IT', 52], ['अपठित गद्यांश / Reading Comprehension', 5], ['गणित / Quantitative Aptitude', 6],
      ['तर्कशक्ति / Mental Ability & Reasoning', 6], ['सामान्य ज्ञान / General Awareness', 6]]
       .map(r => `<tr><td>${r[0]}</td><td>${r[1]}</td></tr>`).join('') +
-    '<tr><td>भाग 2: अंग्रेज़ी टाइपिंग / Part 2: English typing (30 NWPM)</td><td>15 मि.</td></tr>' +
-    '<tr><td>भाग 3: हिंदी टाइपिंग, मंगल या कृतिदेव / Part 3: Hindi typing, Mangal or Krutidev (20 NWPM)</td><td>15 मि.</td></tr></table>' +
-    '<p class="neg">MCQ में गलत उत्तर पर अंक नहीं कटते। पास: 38/75। / No negative marking in MCQ. Pass: 38/75.</p>';
+    '<tr><td>भाग 2: अंग्रेज़ी टाइपिंग / English typing (30 NWPM)</td><td>15 मिनट</td></tr>' +
+    '<tr><td>भाग 3: हिंदी टाइपिंग / Hindi typing (20 NWPM)</td><td>15 मिनट</td></tr></tbody></table>' +
+    '<p class="exam-pattern-total">कुल MCQ: 75 प्रश्न · 75 अंक · 75 मिनट</p>' +
+    '<p class="exam-pattern-note">कोई नेगेटिव मार्किंग नहीं। पास: 38/75। अंग्रेज़ी टाइपिंग 15 मिनट और हिंदी टाइपिंग 15 मिनट।</p>';
 
   const ready = CPCT_SERIES.exam.ready && CPCT_SERIES.typing.ready, N = CPCT_SERIES.tests, price = CPCT_SERIES.price;
   let html = '';
