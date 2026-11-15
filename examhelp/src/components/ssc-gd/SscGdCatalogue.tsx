@@ -12,6 +12,13 @@ const subjects = [
   { key: "language", hi: "हिंदी / English", en: "Hindi / English" },
 ];
 
+const subjectColors = [
+  { card: "border-sky-300 bg-sky-50", number: "text-sky-700", detail: "bg-sky-100 text-sky-800" },
+  { card: "border-emerald-300 bg-emerald-50", number: "text-emerald-700", detail: "bg-emerald-100 text-emerald-800" },
+  { card: "border-amber-300 bg-amber-50", number: "text-amber-700", detail: "bg-amber-100 text-amber-800" },
+  { card: "border-violet-300 bg-violet-50", number: "text-violet-700", detail: "bg-violet-100 text-violet-800" },
+];
+
 export function SscGdCatalogue() {
   const [lang, setLang] = useState<Lang>("hi");
 
@@ -46,18 +53,29 @@ export function SscGdCatalogue() {
         <h2 id="subjects-heading" className="text-xl font-extrabold text-brand-900">
           {hi ? "विषयवार प्रश्न एवं अंक" : "Subject-wise Questions & Marks"}
         </h2>
-        <div className="mt-3 grid gap-3 sm:grid-cols-2">
-          {subjects.map((subject, index) => (
-            <article key={subject.key} className="card border-l-4 border-l-indigo-500 p-4">
-              <h3 className="font-bold text-ink-900">
-                <span className="mr-2 text-indigo-600">{index + 1}.</span>
-                {hi ? subject.hi : subject.en}
-              </h3>
-              <p className="mt-2 text-sm font-semibold text-ink-600">
-                {hi ? "20 प्रश्न · 40 अंक" : "20 Questions · 40 Marks"}
-              </p>
-            </article>
-          ))}
+        <div className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-4">
+          {subjects.map((subject, index) => {
+            const colors = subjectColors[index];
+            return (
+              <article
+                key={subject.key}
+                className={`rounded-2xl border-l-4 p-4 shadow-sm ${colors.card}`}
+              >
+                <h3 className="font-bold leading-snug text-ink-900">
+                  <span className={`mr-2 font-extrabold ${colors.number}`}>{index + 1}.</span>
+                  {hi ? subject.hi : subject.en}
+                </h3>
+                <div className="mt-3 flex flex-wrap gap-2">
+                  <span className={`rounded-full px-3 py-1 text-xs font-bold ${colors.detail}`}>
+                    {hi ? "20 प्रश्न" : "20 Questions"}
+                  </span>
+                  <span className={`rounded-full px-3 py-1 text-xs font-bold ${colors.detail}`}>
+                    {hi ? "40 अंक" : "40 Marks"}
+                  </span>
+                </div>
+              </article>
+            );
+          })}
         </div>
       </section>
 
