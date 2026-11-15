@@ -279,3 +279,22 @@ body.current-affairs-page header .current-affairs-search-icon {
 }
 
 
+
+/* Colourful exam-pattern description shared by every 25-test catalogue page */
+.exam-pattern-panel{overflow:hidden;border:2px solid #3157c9;border-radius:22px;background:#fff;box-shadow:0 6px 18px rgb(22 38 83 / .12)}
+.exam-pattern-intro{margin:10px 10px 14px;padding:14px 16px;text-align:center;border:2px solid #e6bd42;border-radius:18px;background:linear-gradient(110deg,#fff6c9,#fffdf2);color:#142d72}
+.exam-pattern-exam-name{margin:0;color:#075b48;font-size:clamp(18px,3.7vw,26px);font-weight:900;line-height:1.35}
+.exam-pattern-description{margin:7px 0 0;color:#142d72;font-size:clamp(13px,2.5vw,16px);font-weight:700;line-height:1.55}
+.exam-pattern-ribbon{position:relative;width:max-content;max-width:90%;margin:-2px auto 12px;padding:8px 34px;border-radius:0 0 20px 20px;background:linear-gradient(100deg,#5512c9,#8500c9);color:#fff;text-align:center;font-size:clamp(19px,3.6vw,26px);font-weight:900;box-shadow:0 3px 9px rgb(62 25 133 / .22)}
+.exam-pattern-table{border-collapse:separate;border-spacing:0;margin:0 10px;width:calc(100% - 20px);border:2px solid #3157c9;border-radius:14px;overflow:hidden;color:#102b75}
+.exam-pattern-table th{padding:9px 10px;background:#e8edff;color:#102b75;text-align:left;font-weight:900;border-bottom:2px solid #7394e8}
+.exam-pattern-table th:nth-child(2),.exam-pattern-table th:nth-child(3){text-align:center}
+.exam-pattern-table td{padding:9px 10px;border-bottom:1px solid #a8c8f4;line-height:1.4;font-weight:700}
+.exam-pattern-table tbody tr:last-child td{border-bottom:0}
+.exam-pattern-row-even{background:#fff}
+.exam-pattern-row-odd{background:#f0f6ff}
+.exam-pattern-table .exam-pattern-count{width:76px;text-align:center;color:#df2525;font-size:1.12em;font-weight:900;border-left:1px solid #9bb3ed;border-right:1px solid #9bb3ed}
+.exam-pattern-table .exam-pattern-language{width:30%;text-align:center;color:#142d72;font-weight:800}
+.exam-pattern-total{margin:12px 10px 0;padding:12px 14px;border-radius:14px;background:linear-gradient(100deg,#075b48,#007b60);color:#fff;text-align:center;font-size:clamp(13px,2.7vw,17px);font-weight:900;line-height:1.5}
+.exam-pattern-negative{margin:0;padding:9px 14px 12px;color:#7b2d16;text-align:center;font-size:12px;font-weight:700;line-height:1.5}
+@media(max-width:420px){.exam-pattern-panel{border-radius:16px}.exam-pattern-intro{margin:8px;padding:10px}.exam-pattern-table{margin:0 7px;width:calc(100% - 14px)}.exam-pattern-table th,.exam-pattern-table td{padding:8px 6px;font-size:12px}.exam-pattern-table .exam-pattern-count{width:54px}.exam-pattern-table .exam-pattern-language{width:28%}.exam-pattern-ribbon{padding:7px 24px}}
