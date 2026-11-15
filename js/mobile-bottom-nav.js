@@ -29,8 +29,8 @@
   nav.setAttribute("data-tth-no-translate", "true");
   nav.innerHTML = `
     <a class="home" href="/index.html"><span class="ico" aria-hidden="true">⌂</span><span>Home</span></a>
-    <a class="courses" href="/course-folders.html"><span class="ico" aria-hidden="true">▤</span><span>Courses</span></a>
-    <a class="mytest" href="/dashboard.html"><span class="ico" aria-hidden="true">▦</span><span>My Test</span></a>
+    <a class="courses" href="/course-folders.html"><span class="ico" aria-hidden="true">▤</span><span>Test Series</span></a>
+    <a class="mytest" href="/dashboard.html"><span class="ico" aria-hidden="true">▦</span><span>Paid Test</span></a>
     <button class="logout" type="button"><span class="ico" aria-hidden="true">↪</span><span>Logout</span></button>`;
   document.body.appendChild(nav);
 
