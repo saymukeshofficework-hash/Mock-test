@@ -176,14 +176,14 @@ export function CurrentAffairsClient() {
   // ---------------- subscriber view ----------------
   const allItems = day?.items ?? [];
   return (
-    <div className="container-page ca-color-page py-8 sm:py-10">
+    <div className="container-page ca-color-page rounded-3xl bg-gradient-to-br from-sky-50 via-violet-50 to-amber-50 px-3 py-6 sm:px-6 sm:py-10">
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div>
           <p className="flex items-center gap-1.5 text-sm font-semibold text-success-700">
             <ShieldCheck className="h-4 w-4" aria-hidden="true" />
             {lang === "hi" ? "सभी के लिए मुफ़्त" : "Free for everyone"}
           </p>
-          <h1 className="mt-1 text-3xl font-extrabold tracking-tight text-ink-900">{lang === "hi" ? "दैनिक करेंट अफेयर्स" : "Daily Current Affairs"}</h1>
+          <h1 className="mt-1 inline-block rounded-xl bg-gradient-to-r from-indigo-700 via-violet-700 to-fuchsia-700 px-4 py-2 text-2xl font-extrabold tracking-tight text-white shadow-lg sm:text-3xl">{lang === "hi" ? "दैनिक करेंट अफेयर्स" : "Daily Current Affairs"}</h1>
           {day ? <p className="mt-1 text-ink-500">{fmtDay(day.day, lang, true)}</p> : null}
         </div>
         <div className="flex flex-wrap items-center gap-2">
@@ -195,7 +195,7 @@ export function CurrentAffairsClient() {
       </div>
 
       {/* Select any date in the historical range. */}
-      <div className="mt-6 flex flex-wrap items-end gap-3 rounded-2xl border border-ink-200 bg-surface p-4">
+      <div className="mt-6 flex flex-wrap items-end gap-3 rounded-2xl border border-sky-200 bg-gradient-to-r from-sky-100 via-white to-violet-100 p-4 shadow-sm">
         <label className="grid gap-1 text-sm font-semibold text-ink-700">
           {lang === "hi" ? "तारीख चुनें" : "Choose a date"}
           <input type="date" value={selectedDate} min={MIN_CURRENT_AFFAIRS_DATE} max={todayInIndia()} onChange={(event) => setSelectedDate(event.target.value)} className="rounded-lg border border-ink-200 bg-white px-3 py-2 text-ink-900" />
@@ -217,12 +217,12 @@ export function CurrentAffairsClient() {
       ) : (
         <>
           {/* regions */}
-          <div className="mt-5 flex flex-wrap gap-2">
+          <div className="mt-5 flex flex-wrap gap-2 rounded-2xl border border-violet-200 bg-white/80 p-3 shadow-sm">
             {REGIONS.map(({ key, label, Icon }) => {
               const n = key === "all" ? allItems.length : allItems.filter((i) => i.region === key).length;
               return (
                 <button key={key} type="button" onClick={() => setRegion(key)} aria-pressed={region === key}
-                  className={`inline-flex items-center gap-1.5 rounded-lg border px-3 py-1.5 text-sm font-semibold ${region === key ? "border-brand-700 bg-brand-50 text-brand-800" : "border-ink-200 bg-surface text-ink-700"}`}>
+                  className={`inline-flex items-center gap-1.5 rounded-xl border px-3 py-2 text-sm font-bold shadow-sm transition-all ${region === key ? "border-indigo-700 bg-gradient-to-r from-indigo-600 to-violet-600 text-white shadow-md" : "border-slate-200 bg-white text-slate-700 hover:border-violet-300 hover:bg-violet-50"}`}>
                   <Icon className="h-4 w-4" aria-hidden="true" />
                   {L(label)} <span className="text-xs font-normal text-ink-500">{n}</span>
                 </button>
@@ -230,19 +230,19 @@ export function CurrentAffairsClient() {
             })}
           </div>
 
-          <div className="mt-6 grid gap-6 lg:grid-cols-[1fr_340px]">
-            <ol className="space-y-4">
+          <div className="mt-6 grid gap-6 lg:grid-cols-[minmax(0,1fr)_340px]">
+            <ol className="grid grid-cols-1 gap-4 xl:grid-cols-2">
               {items.map((it, i) => (
-                <li key={it.id} className="rounded-2xl border border-ink-200 bg-surface p-5">
+                <li key={it.id} className={`relative overflow-hidden rounded-2xl border bg-white p-4 shadow-md transition-transform hover:-translate-y-0.5 hover:shadow-lg sm:p-5 ${["border-l-4 border-l-sky-500 border-sky-200","border-l-4 border-l-violet-500 border-violet-200","border-l-4 border-l-emerald-500 border-emerald-200","border-l-4 border-l-amber-500 border-amber-200","border-l-4 border-l-rose-500 border-rose-200","border-l-4 border-l-cyan-500 border-cyan-200"][i % 6]}`}>
                   <div className="flex flex-wrap items-center gap-2 text-xs">
-                    <span className="rounded-md bg-brand-50 px-2 py-0.5 font-semibold text-brand-800">{L(REGION_LABEL[it.region])}</span>
-                    <span className="rounded-md border border-ink-200 px-2 py-0.5 text-ink-500">{L(CATS[it.cat] ?? CATS.other)}</span>
+                    <span className="rounded-md bg-gradient-to-r from-indigo-600 to-violet-600 px-2.5 py-1 font-bold text-white shadow-sm">{L(REGION_LABEL[it.region])}</span>
+                    <span className="rounded-md border border-amber-200 bg-amber-50 px-2.5 py-1 font-semibold text-amber-800">{L(CATS[it.cat] ?? CATS.other)}</span>
                     <span className="ml-auto text-ink-500">#{i + 1}</span>
                   </div>
-                  <h2 className="mt-2 text-lg leading-snug font-bold text-ink-900">{L(it.title)}</h2>
+                  <h2 className="mt-3 rounded-lg bg-gradient-to-r from-slate-50 to-indigo-50 px-3 py-2 text-lg font-extrabold leading-snug text-slate-900">{L(it.title)}</h2>
                   <p className="mt-1.5 text-[15px] text-ink-700">{L(it.summary)}</p>
                   {(it.points[lang] ?? it.points.hi)?.length ? (
-                    <ul className="mt-3 space-y-1.5 rounded-xl bg-canvas p-3 text-sm text-ink-700">
+                    <ul className="mt-3 space-y-2 rounded-xl border border-cyan-100 bg-gradient-to-br from-cyan-50 to-sky-50 p-3 text-sm text-slate-700">
                       {(it.points[lang] ?? it.points.hi).map((p) => (
                         <li key={p} className="flex gap-2">
                           <Sparkles className="mt-0.5 h-4 w-4 shrink-0 text-accent-600" aria-hidden="true" />
@@ -268,7 +268,7 @@ export function CurrentAffairsClient() {
 
             <aside className="space-y-6 lg:sticky lg:top-36 lg:self-start">
               {day.oneliners?.[lang]?.length ? (
-                <section className="rounded-2xl border border-ink-200 bg-surface p-5">
+                <section className="rounded-2xl border border-amber-200 bg-gradient-to-br from-amber-50 to-orange-50 p-5 shadow-md">
                   <h2 className="font-bold text-ink-900">{lang === "hi" ? "एक-पंक्ति तथ्य" : "One-liners"}</h2>
                   <ol className="mt-3 list-decimal space-y-2 pl-5 text-sm text-ink-700">
                     {day.oneliners[lang].map((o) => <li key={o}>{o}</li>)}
@@ -276,7 +276,7 @@ export function CurrentAffairsClient() {
                 </section>
               ) : null}
               {day.quiz?.length ? (
-                <section className="rounded-2xl border border-ink-200 bg-surface p-5">
+                <section className="rounded-2xl border border-fuchsia-200 bg-gradient-to-br from-fuchsia-50 to-violet-50 p-5 shadow-md">
                   <h2 className="font-bold text-ink-900">{lang === "hi" ? "आज का क्विज़" : "Today's quiz"}</h2>
                   <ol className="mt-3 space-y-4">
                     {day.quiz.map((qz, qi) => (
