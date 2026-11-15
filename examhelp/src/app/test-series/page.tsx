@@ -31,6 +31,9 @@ export default async function Page() {
         </div>
         <span className="btn-primary shrink-0">{lang === "hi" ? "टेस्ट चुनें →" : "Choose tests →"}</span>
       </Link>
+      <Link href="/panchayat-secretary-mock-tests/" className="card mb-4 flex flex-col gap-3 border-2 border-emerald-700 bg-emerald-50/50 p-5 transition hover:shadow-md sm:flex-row sm:items-center sm:justify-between">
+        <div><p className="text-xs font-bold uppercase tracking-wide text-emerald-700">{lang === "hi" ? "सभी 25 टेस्ट मुफ्त" : "All 25 tests free"}</p><p className="mt-1 text-lg font-extrabold text-brand-900">{lang === "hi" ? "पंचायत सचिव भर्ती — 25 मॉक टेस्ट" : "Panchayat Secretary Recruitment — 25 Mock Tests"}</p><p className="mt-1 text-sm text-ink-600">{lang === "hi" ? "100 प्रश्न · 120 मिनट · हिंदी/English · बिना नेगेटिव मार्किंग" : "100 questions · 120 minutes · Hindi/English · no negative marking"}</p></div><span className="btn-primary shrink-0">{lang === "hi" ? "फ्री टेस्ट चुनें →" : "Choose free tests →"}</span>
+      </Link>
       <Link href="/mp-grameen-bank-mock-tests/" className="card mb-4 flex flex-col gap-3 border-2 border-emerald-700 bg-emerald-50/50 p-5 transition hover:shadow-md sm:flex-row sm:items-center sm:justify-between">
         <div>
           <p className="text-xs font-bold uppercase tracking-wide text-emerald-700">{lang === "hi" ? "सभी 25 टेस्ट मुफ्त" : "All 25 tests free"}</p>
