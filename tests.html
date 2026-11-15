@@ -123,10 +123,12 @@ h1{color:#352054;margin-top:24px;font-size:clamp(24px,5vw,34px)}
     const all = TEST_CATALOG.every(it => (FREE_TESTS||[]).includes(it.id) || owned.includes(it.id));
     document.getElementById('unlockBox').style.display = all && !freeAccessOn() ? 'none' : '';
   }
-  window.__tetOwned = []; I18N_ONCHANGE = function(){ applyTetCatalogueLanguage(); };\n  // 14-day free offer: every test opens (the test page still checks login), no price shown
+  window.__tetOwned = []; I18N_ONCHANGE = function(){ applyTetCatalogueLanguage(); };
+  // 14-day free offer: every test opens (the test page still checks login), no price shown
   const FREE_ALL = TEST_CATALOG.map(it => it.id);
   if (freeAccessOn()) document.getElementById('unlockBox').innerHTML = FREE_OFFER_HTML;
-  window.__tetOwned = freeAccessOn() ? FREE_ALL : [];\n  renderCards(window.__tetOwned);
+  window.__tetOwned = freeAccessOn() ? FREE_ALL : [];
+  renderCards(window.__tetOwned);
   (async () => {
     const session = await getSession(); if (!session) return;
     const p = await getProfile(session.user.id);
@@ -141,7 +143,8 @@ h1{color:#352054;margin-top:24px;font-size:clamp(24px,5vw,34px)}
 </script>
 <script src="js/global-account-menu.js?v=21"></script>
 <script src="/js/desktop-exam-header.js?v=3" data-hide=".hdr"></script>
-<script>if (typeof applyI18n === "function") applyI18n();\nif (typeof applyTetCatalogueLanguage === "function") applyTetCatalogueLanguage();</script>
+<script>if (typeof applyI18n === "function") applyI18n();
+if (typeof applyTetCatalogueLanguage === "function") applyTetCatalogueLanguage();</script>
 
 <script>
 (function(){
@@ -170,5 +173,6 @@ h1{color:#352054;margin-top:24px;font-size:clamp(24px,5vw,34px)}
   const oldRender=window.renderCards;
 })();
 </script>
-\n</body>
+
+</body>
 </html>
