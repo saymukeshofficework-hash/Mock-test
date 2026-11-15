@@ -161,21 +161,34 @@ export function MockTestList({ series = "ag3" }: { series?: string }) {
         </div>
       </div>
 
-      <section className="card mt-6 overflow-x-auto p-5" aria-labelledby="pat-h">
-        <h2 id="pat-h" className="font-bold text-ink-900">{t("pattern")}</h2>
-        <table className="mt-3 w-full text-sm">
-          <tbody>
-            {S.rows[lang].map(([a, b, c]) => (
-              <tr key={a} className="border-t border-ink-100">
-                <td className="py-2 pr-3 font-medium text-ink-900">{a}</td>
-                <td className="px-3 py-2">{b}</td>
-                <td className="py-2 pl-3 text-ink-600">{c}</td>
+      <section className="exam-pattern-panel mt-6" aria-labelledby="pat-h">
+        <div className="exam-pattern-intro">
+          <h2 className="exam-pattern-exam-name">{S.title[lang]}</h2>
+          <p className="exam-pattern-description">{S.sub[lang]}</p>
+        </div>
+        <h3 id="pat-h" className="exam-pattern-ribbon">{t("pattern")}</h3>
+        <div className="overflow-x-auto">
+          <table className="exam-pattern-table w-full text-sm">
+            <thead>
+              <tr>
+                <th scope="col">{lang === "hi" ? "विषय" : "Subject"}</th>
+                <th scope="col">{lang === "hi" ? "प्रश्न" : "Questions"}</th>
+                <th scope="col">{lang === "hi" ? "भाषा" : "Language"}</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-        <p className="mt-3 text-sm font-semibold text-ink-800">{S.totalLine[lang]}</p>
-        <p className="mt-1 text-xs text-ink-500">{S.neg[lang]}</p>
+            </thead>
+            <tbody>
+              {S.rows[lang].map(([a, b, c], index) => (
+                <tr key={a} className={index % 2 === 0 ? "exam-pattern-row-even" : "exam-pattern-row-odd"}>
+                  <td className="exam-pattern-subject">{a}</td>
+                  <td className="exam-pattern-count">{b}</td>
+                  <td className="exam-pattern-language">{c}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p className="exam-pattern-total">{S.totalLine[lang]}</p>
+        <p className="exam-pattern-negative">{S.neg[lang]}</p>
       </section>
 
       <section data-sale className="card mt-6 flex flex-col gap-4 border-accent-100 bg-accent-50 p-5 sm:flex-row sm:items-center sm:justify-between">
