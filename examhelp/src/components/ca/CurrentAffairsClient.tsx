@@ -176,7 +176,7 @@ export function CurrentAffairsClient() {
   // ---------------- subscriber view ----------------
   const allItems = day?.items ?? [];
   return (
-    <div className="container-page py-8 sm:py-10">
+    <div className="container-page ca-color-page py-8 sm:py-10">
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div>
           <p className="flex items-center gap-1.5 text-sm font-semibold text-success-700">
