@@ -76,20 +76,21 @@ h1{color:#352054;margin-top:24px;font-size:clamp(24px,5vw,34px)}
 <body>
 <div class="hdr"><div class="bar">
   <a class="logo"><i><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></i><span>TETTEST<b>HUB</b></span></a>
+  <button class="chip" type="button" id="langToggle" onclick="toggleLang()" aria-label="Change language">EN</button>
   <details class="chip student-account-menu" id="studentAccountMenu"><summary id="studentAccountLabel">छात्र ID</summary><div class="student-account-dropdown"><a href="/dashboard.html">डैशबोर्ड / Dashboard</a><button type="button" data-account-logout>लॉगआउट / Logout</button></div></details>
 </div></div>
 <main class="wrap">
-  <h1>MP TET 2026 — 25 फुल मॉक टेस्ट</h1>
-  <p class="sub">हर टेस्ट में 150 प्रश्न, 150 मिनट, 5 खंड। हर प्रश्न हिंदी/English में। टेस्ट 1 फ्री, बाकी 24 टेस्ट ₹<span id="priceAll18">199</span> में।</p>
-  <section class="card" style="margin:0 0 20px"><h2 style="margin:0 0 6px;font-size:19px">विषयवार टेस्ट / Subject-wise Tests</h2><p style="margin:0 0 12px;color:var(--muted)">प्राथमिक और माध्यमिक, हर विषय में 25 टेस्ट। Primary and Secondary, 25 tests per subject.</p><a class="btn btn-p" href="tet/?level=primary">प्राथमिक / Primary</a> <a class="btn btn-p" href="tet/?level=secondary">माध्यमिक / Secondary</a></section>
-  <section class="card pat"><h2>परीक्षा पैटर्न</h2><table>
+  <h1 id="tetPageTitle">MP TET 2026 — 25 फुल मॉक टेस्ट</h1>
+  <p class="sub" id="tetPageLead">हर टेस्ट में 150 प्रश्न, 150 मिनट, 5 खंड। हर प्रश्न हिंदी/English में। टेस्ट 1 फ्री, बाकी 24 टेस्ट ₹<span id="priceAll18">199</span> में।</p>
+  <section class="card" style="margin:0 0 20px"><h2 id="tetSubjectTitle" style="margin:0 0 6px;font-size:19px">विषयवार टेस्ट</h2><p id="tetSubjectLead" style="margin:0 0 12px;color:var(--muted)">प्राथमिक और माध्यमिक, हर विषय में 25 टेस्ट।</p><a class="btn btn-p" id="tetPrimaryLink" href="tet/?level=primary">प्राथमिक</a> <a class="btn btn-p" id="tetSecondaryLink" href="tet/?level=secondary">माध्यमिक</a></section>
+  <section class="card pat"><h2 id="tetPatternTitle">परीक्षा पैटर्न</h2><table>
     <tr><td>बाल विकास एवं शिक्षाशास्त्र</td><td>30</td><td>हिंदी/English</td></tr>
     <tr><td>भाषा-1 (English)</td><td>30</td><td>English</td></tr>
     <tr><td>भाषा-2 (हिंदी)</td><td>30</td><td>हिंदी</td></tr>
     <tr><td>गणित</td><td>30</td><td>हिंदी/English</td></tr>
     <tr><td>पर्यावरण अध्ययन</td><td>30</td><td>हिंदी/English</td></tr>
-  </table><p class="tot">कुल 150 प्रश्न · 150 अंक · 150 मिनट · प्रत्येक प्रश्न 1 अंक</p><p class="neg">ऋणात्मक अंकन नहीं है।</p></section>
-  <section class="card unlock" id="unlockBox"><h2>पूरी टेस्ट सीरीज़ — 25 फुल मॉक टेस्ट</h2><a class="btn btn-p" id="bundleBuyBtn" href="contact.html" target="_blank" rel="noopener">सभी टेस्ट अनलॉक करें — ₹99</a></section>
+  </table><p class="tot" id="tetPatternTotal">कुल 150 प्रश्न · 150 अंक · 150 मिनट · प्रत्येक प्रश्न 1 अंक</p><p class="neg" id="tetNegative">ऋणात्मक अंकन नहीं है।</p></section>
+  <section class="card unlock" id="unlockBox"><h2 id="tetBundleTitle">पूरी टेस्ट सीरीज़ — 25 फुल मॉक टेस्ट</h2><a class="btn btn-p" id="bundleBuyBtn" href="contact.html" target="_blank" rel="noopener">सभी टेस्ट अनलॉक करें — ₹99</a></section>
   <div class="grid" id="testGrid"></div>
 </main>
 <div class="foot">TETTESTHUB · <a href="/contact.html" data-i18n="nav_contact">संपर्क</a></div>
@@ -115,17 +116,17 @@ h1{color:#352054;margin-top:24px;font-size:clamp(24px,5vw,34px)}
       const isFree = FREE_TESTS && FREE_TESTS.includes(item.id);
       const ok = isFree || owned.includes(item.id);
       const c = document.createElement('div'); c.className = 'card t';
-      c.innerHTML = `<h3>टेस्ट ${i + 1}${isFree ? '<span class="free">फ्री</span>' : ''}</h3><p class="m">📄 ${item.questions} प्रश्न · ${item.minutes} मिनट</p>` +
-        (ok ? `<a class="btn btn-p w" href="${item.file}">▶ टेस्ट शुरू करें</a>` : `<a class="btn btn-l w" href="${buyLinkHref()}" target="_blank" rel="noopener">🔒 लॉक</a>`);
+      c.innerHTML = `<h3>${getLang()==="hi" ? "टेस्ट" : "Test"} ${i + 1}${isFree ? `<span class="free">${getLang()==="hi" ? "फ्री" : "FREE"}</span>` : ""}</h3><p class="m">📄 ${item.questions} ${getLang()==="hi" ? "प्रश्न" : "Questions"} · ${item.minutes} ${getLang()==="hi" ? "मिनट" : "Minutes"}</p>` +
+        (ok ? `<a class="btn btn-p w" href="${item.file}">▶ ${getLang()==="hi" ? "टेस्ट शुरू करें" : "START TEST"}</a>` : `<a class="btn btn-l w" href="${buyLinkHref()}" target="_blank" rel="noopener">🔒 ${getLang()==="hi" ? "लॉक" : "LOCKED"}</a>`);
       grid.appendChild(c);
     });
     const all = TEST_CATALOG.every(it => (FREE_TESTS||[]).includes(it.id) || owned.includes(it.id));
     document.getElementById('unlockBox').style.display = all && !freeAccessOn() ? 'none' : '';
   }
-  // 14-day free offer: every test opens (the test page still checks login), no price shown
+  window.__tetOwned = []; I18N_ONCHANGE = function(){ applyTetCatalogueLanguage(); };\n  // 14-day free offer: every test opens (the test page still checks login), no price shown
   const FREE_ALL = TEST_CATALOG.map(it => it.id);
   if (freeAccessOn()) document.getElementById('unlockBox').innerHTML = FREE_OFFER_HTML;
-  renderCards(freeAccessOn() ? FREE_ALL : []);
+  window.__tetOwned = freeAccessOn() ? FREE_ALL : [];\n  renderCards(window.__tetOwned);
   (async () => {
     const session = await getSession(); if (!session) return;
     const p = await getProfile(session.user.id);
@@ -140,6 +141,34 @@ h1{color:#352054;margin-top:24px;font-size:clamp(24px,5vw,34px)}
 </script>
 <script src="js/global-account-menu.js?v=21"></script>
 <script src="/js/desktop-exam-header.js?v=3" data-hide=".hdr"></script>
-<script>if (typeof applyI18n === "function") applyI18n();</script>
-</body>
+<script>if (typeof applyI18n === "function") applyI18n();\nif (typeof applyTetCatalogueLanguage === "function") applyTetCatalogueLanguage();</script>
+
+<script>
+(function(){
+  const copy={
+    hi:{title:"MP TET 2026 — 25 फुल मॉक टेस्ट",lead:"हर टेस्ट में 150 प्रश्न, 150 मिनट और 5 खंड हैं। हर प्रश्न हिंदी/English में उपलब्ध है। टेस्ट 1 मुफ्त, बाकी 24 टेस्ट ₹",subject:"विषयवार टेस्ट",subjectLead:"प्राथमिक और माध्यमिक, हर विषय में 25 टेस्ट।",primary:"प्राथमिक",secondary:"माध्यमिक",pattern:"परीक्षा पैटर्न",rows:["बाल विकास एवं शिक्षाशास्त्र","भाषा-1 (English)","भाषा-2 (हिंदी)","गणित","पर्यावरण अध्ययन"],total:"कुल 150 प्रश्न · 150 अंक · 150 मिनट · प्रत्येक प्रश्न 1 अंक",negative:"ऋणात्मक अंकन नहीं है।",bundle:"पूरी टेस्ट सीरीज़ — 25 फुल मॉक टेस्ट",buy:"सभी टेस्ट अनलॉक करें — ₹99",contact:"संपर्क"},
+    en:{title:"MP TET 2026 — 25 Full Mock Tests",lead:"Each test has 150 questions, 150 minutes and 5 sections. Questions are available in Hindi and English. Test 1 is free; the remaining 24 tests are ₹",subject:"Subject-wise Tests",subjectLead:"Primary and Secondary, 25 tests in each subject.",primary:"Primary",secondary:"Secondary",pattern:"Exam Pattern",rows:["Child Development & Pedagogy","Language-1 (English)","Language-2 (Hindi)","Mathematics","Environmental Studies"],total:"Total: 150 Questions · 150 Marks · 150 Minutes · 1 mark per question",negative:"There is no negative marking.",bundle:"Complete Test Series — 25 Full Mock Tests",buy:"Unlock All Tests — ₹99",contact:"Contact"}
+  };
+  window.applyTetCatalogueLanguage=function(){
+    const lang=getLang()==="en"?"en":"hi",x=copy[lang];
+    document.getElementById("tetPageTitle").textContent=x.title;
+    const lead=document.getElementById("tetPageLead");lead.innerHTML=x.lead+'<span id="priceAll18">'+PRICES.all18+'</span>'+(lang==="hi"?" में।":" total.");
+    document.getElementById("tetSubjectTitle").textContent=x.subject;
+    document.getElementById("tetSubjectLead").textContent=x.subjectLead;
+    document.getElementById("tetPrimaryLink").textContent=x.primary;
+    document.getElementById("tetSecondaryLink").textContent=x.secondary;
+    document.getElementById("tetPatternTitle").textContent=x.pattern;
+    document.querySelectorAll(".pat table tr").forEach((tr,i)=>{if(x.rows[i])tr.cells[0].textContent=x.rows[i];tr.cells[2].textContent=(lang==="en"?(i===1?"English":i===2?"Hindi":"Hindi / English"):(i===1?"English":i===2?"हिंदी":"हिंदी/English"));});
+    document.getElementById("tetPatternTotal").textContent=x.total;
+    document.getElementById("tetNegative").textContent=x.negative;
+    document.getElementById("tetBundleTitle").textContent=x.bundle;
+    document.getElementById("bundleBuyBtn").textContent=x.buy;
+    document.querySelector(".foot").childNodes[0].textContent="TETTESTHUB · ";
+    document.querySelector(".foot a").textContent=x.contact;
+    if(typeof renderCards==="function")renderCards(window.__tetOwned||[]);
+  };
+  const oldRender=window.renderCards;
+})();
+</script>
+\n</body>
 </html>
