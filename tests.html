@@ -133,7 +133,7 @@ h1{color:#352054;margin-top:24px;font-size:clamp(24px,5vw,34px)}
     const session = await getSession(); if (!session) return;
     const p = await getProfile(session.user.id);
     if (p) { const ch = document.getElementById('studentAccountLabel'); ch.textContent = 'छात्र ID: ' + (p.student_id || ''); }
-    if (p && p.status === 'active' && !freeAccessOn()) renderCards(p.purchased_tests || []);
+    if (p && p.status === 'active' && !freeAccessOn()) { window.__tetOwned = p.purchased_tests || []; renderCards(window.__tetOwned); }
   })();
 </script>
 
@@ -171,6 +171,7 @@ if (typeof applyTetCatalogueLanguage === "function") applyTetCatalogueLanguage()
     if(typeof renderCards==="function")renderCards(window.__tetOwned||[]);
   };
   const oldRender=window.renderCards;
+  applyTetCatalogueLanguage();
 })();
 </script>
 
