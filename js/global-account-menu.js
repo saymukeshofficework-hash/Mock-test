@@ -149,8 +149,8 @@
     nav.setAttribute("aria-label", "Test navigation");
     nav.innerHTML = `
       <a class="tth-nav-home" href="/index.html"><span class="tth-nav-icon" aria-hidden="true">⌂</span><span>Home</span></a>
-      <a class="tth-nav-courses" href="/course-folders.html"><span class="tth-nav-icon" aria-hidden="true">▤</span><span>Courses</span></a>
-      <a class="tth-nav-mytest" href="/dashboard.html"><span class="tth-nav-icon" aria-hidden="true">▦</span><span>My Test</span></a>
+      <a class="tth-nav-courses" href="/course-folders.html"><span class="tth-nav-icon" aria-hidden="true">▤</span><span>Test Series</span></a>
+      <a class="tth-nav-mytest" href="/dashboard.html"><span class="tth-nav-icon" aria-hidden="true">▦</span><span>Paid Test</span></a>
       <button class="tth-nav-logout" type="button" id="tthBottomLogout"><span class="tth-nav-icon" aria-hidden="true">↪</span><span>Logout</span></button>`;
     const testHeader = document.querySelector("header.topbar, .topbar, .hdr .bar, .top, .tbar");
     if (testHeader) testHeader.appendChild(nav);
