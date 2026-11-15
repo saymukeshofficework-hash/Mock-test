@@ -208,12 +208,19 @@ function renderQuestion(){
   const mode = sections[curSection].mode || 'bilingual';
   const langBar = document.getElementById('langBarWrap');
   const hasBothLanguages = !!(item && item.en && item.hi);
+  const isTetPaper = /^\/tet-mock-test-\d+\.html$/i.test(window.location.pathname) || /^(?:tet[ps]-)/i.test(String(examTestId || ''));
   let lang;
-  if(hasBothLanguages || mode === 'bilingual'){
+  // TET papers must always expose the language selector. Some TET sections are
+  // tagged with a single-language mode even though their question rows contain
+  // both translations; the old mode check incorrectly hid the selector.
+  if(isTetPaper || hasBothLanguages || mode === 'bilingual'){
     langBar.style.display = 'flex';
     const selector = document.getElementById('qLangSelect');
-    lang = selector.value || 'en';
-    try { localStorage.setItem('tetLang', lang); } catch (_) {}
+    lang = selector.value || defaultLang || 'en';
+    try {
+      localStorage.setItem('tetLang', lang);
+      localStorage.setItem('testhub_lang_pref', lang);
+    } catch (_) {}
   } else {
     langBar.style.display = 'none';
     lang = mode;
