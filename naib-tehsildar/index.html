@@ -51,6 +51,16 @@ h1{font-size:clamp(28px,6vw,40px);line-height:1.2;margin:34px 0 12px;color:#0d3b
 
 .tth-brand-desktop{display:flex!important}.tth-brand-mobile{display:none!important}@media(max-width:767px){.tth-brand-desktop{display:none!important}.tth-brand-mobile{display:flex!important}}
 @media(max-width:767px){.tth-exam-nav{display:none!important}}
+
+/* Colorful exam pattern on the 25-test listing pages */
+.pat{padding:0!important;border:2px solid #3157c9!important;border-radius:22px!important;overflow:hidden;background:#fff!important;box-shadow:0 5px 16px rgba(24,39,90,.12)!important}
+.exam-pattern-head{margin:10px 12px 14px;padding:14px 16px;text-align:center;border:2px solid #e6bd42;border-radius:18px;background:linear-gradient(110deg,#fff7ce,#fff);color:#142d72;font-weight:800;line-height:1.45}
+.exam-pattern-name{display:block;font-size:clamp(17px,3.8vw,25px);color:#075b48}.exam-pattern-summary{display:block;font-size:clamp(14px,3vw,18px)}.exam-pattern-note{display:block;color:#d52222;font-size:clamp(13px,2.8vw,17px);margin-top:4px}
+.exam-pattern-title,.pat h2{margin:0 auto 12px!important;padding:12px 16px;text-align:center;color:#fff!important;font-size:clamp(19px,4vw,26px);font-weight:900;background:linear-gradient(100deg,#5512c9,#8700c9);max-width:460px;border-radius:0 0 20px 20px}
+.pat table,.exam-pattern-table{width:calc(100% - 20px)!important;margin:0 10px 12px!important;border-collapse:separate!important;border-spacing:0!important;border:2px solid #3157c9!important;border-radius:14px;overflow:hidden;color:#102b75;font-weight:750}
+.pat table td,.exam-pattern-table td{padding:9px 10px!important;border-top:0!important;border-bottom:1px solid #a8c8f4!important;font-size:clamp(13px,2.7vw,18px);line-height:1.35}.pat table tr:nth-child(odd),.exam-pattern-table tr:nth-child(odd){background:#eaf3ff}.pat table tr:nth-child(even),.exam-pattern-table tr:nth-child(even){background:#fff5df}.pat table tr:first-child,.exam-pattern-table tr:first-child{background:#d9e8ff}.pat table td:nth-child(2),.exam-pattern-table td:nth-child(2){width:64px;text-align:center;color:#e32626;font-size:1.12em;border-left:1px solid #7394e8;border-right:1px solid #7394e8}
+.exam-pattern-total,.pat .tot{margin:0 10px 12px!important;padding:12px 14px;text-align:center;border-radius:14px;background:linear-gradient(100deg,#075b48,#007b60);color:#fff;font-size:clamp(13px,2.8vw,18px);font-weight:800;line-height:1.5}.exam-pattern-total strong,.pat .tot strong{color:#fff000}
+@media(max-width:420px){.pat{margin-inline:0}.exam-pattern-head{margin:8px;padding:10px}.pat table td,.exam-pattern-table td{padding:8px 6px!important}}
 </style>
 </head>
 <body>
@@ -86,10 +96,10 @@ h1{font-size:clamp(28px,6vw,40px);line-height:1.2;margin:34px 0 12px;color:#0d3b
     ['सामान्य अंग्रेज़ी / General English', 10], ['गणित / Mathematics', 10], ['सामान्य विज्ञान / General Science', 10], ['कंप्यूटर ज्ञान / Computer Knowledge', 15],
     ['प्रश्नपत्र II — शासकीय सेवा नियम / Govt Service Rules', 30], ['राजस्व शब्दावली / Revenue Terminology', 20], ['म.प्र. भू-राजस्व संहिता 1959 / MP Land Revenue Code', 25],
     ['राजस्व पुस्तक परिपत्र / Revenue Book Circular', 15], ['भू-अभिलेख नियमावली / Land Records Manual', 10]];
-  $('pat').innerHTML = '<h2>पेपर पैटर्न / Paper pattern</h2><table>' +
+  $('pat').innerHTML = '<div class="exam-pattern-head"><span class="exam-pattern-name">MP नायब तहसीलदार मॉक टेस्ट</span><span class="exam-pattern-summary">परीक्षा पैटर्न / Exam Pattern · 200 प्रश्न · 240 मिनट</span><span class="exam-pattern-note">प्रश्नपत्र I और II का विषयवार विवरण</span></div><h2 class="exam-pattern-title">परीक्षा पैटर्न / Exam Pattern</h2><table class="exam-pattern-table">' +
     '<tr><th colspan="2">200 प्रश्न, 240 मिनट (प्रश्नपत्र I: 100 + प्रश्नपत्र II: 100) / 200 Q, 240 min (Paper I 100 + Paper II 100)</th></tr>' +
     rows.map(r => `<tr><td>${r[0]}</td><td>${r[1]}</td></tr>`).join('') + '</table>' +
-    '<p class="neg">हर प्रश्न 1 अंक, इन मॉक टेस्ट में ऋणात्मक अंकन नहीं। / 1 mark each, no negative marking in these mocks.</p>';
+    '<p class="exam-pattern-total">कुल <strong>200 प्रश्न</strong> · <strong>200 अंक</strong> · <strong>240 मिनट</strong> · ऋणात्मक अंकन नहीं</p>';
   let html = '';
   for (let n = 1; n <= 25; n++) {
     html += `<div class="card t"><h3>टेस्ट / Test ${n}<span class="free">फ्री / Free</span></h3>` +
