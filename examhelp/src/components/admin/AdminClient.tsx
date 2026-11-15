@@ -33,6 +33,7 @@ const PRODUCT: Record<string, string> = {
   "pcdr-tests": "Police Constable Driver — 25 tests",
   "group4-tests": "MPESB Group-4 Asst Grade-3 — 25 tests",
   "mppsc-tests": "MPPSC Prelims — 25 tests",
+  "mppsc2-tests": "MPPSC Prelims CSAT — 25 tests",
   "jnv6-tests": "Navodaya Class 6 — 15 tests",
   "mpgrb-tests": "MP Gramin Bank — 25 tests",
   "ca-30": "Current affairs — 30-day pass",
