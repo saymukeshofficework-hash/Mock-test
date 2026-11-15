@@ -14,6 +14,8 @@ export const SERIES_FREE_UNTIL: Record<string, { until: string; hi: string; en: 
   group4: { until: "2099-12-31T23:59:59+05:30", hi: "", en: "" },
   // MPPSC Prelims series free for now (owner, 2026-11-13); remove here and in notes-checkout to charge ₹99
   mppsc: { until: "2099-12-31T23:59:59+05:30", hi: "", en: "" },
+  // MPPSC Prelims Paper 2 (CSAT) free like Paper 1 (owner, 2026-11-15)
+  mppsc2: { until: "2099-12-31T23:59:59+05:30", hi: "", en: "" },
 };
 export const seriesFreeOn = (s: string) => !!SERIES_FREE_UNTIL[s] && Date.now() < Date.parse(SERIES_FREE_UNTIL[s].until);
 

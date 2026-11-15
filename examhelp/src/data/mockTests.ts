@@ -542,6 +542,47 @@ export const MOCK_SERIES: Record<string, MockSeries> = {
     unlockBtn: { hi: "सभी टेस्ट अनलॉक करें", en: "Unlock all tests" },
     links: [{ href: "/exams/mppsc-state-service-2026/", label: { hi: "परीक्षा की पूरी जानकारी →", en: "Full exam details →" }, tone: "brand" }],
   },
+  mppsc2: {
+    id: "mppsc2",
+    total: 25,
+    free: [1],
+    product: "mppsc2-tests",
+    price: 99,
+    enginePath: "/mock-tests/mppsc2/test.html",
+    scorePrefix: "testhub_mppsc2_mock_",
+    listPath: "/mppsc-csat-mock-tests",
+    meta: { hi: "100 प्रश्न · 120 मिनट", en: "100 Qs · 120 min" },
+    title: { hi: "MPPSC राज्य सेवा प्रारंभिक परीक्षा — 25 मॉक टेस्ट (प्रश्नपत्र-2, CSAT)", en: "MPPSC State Service Prelims — 25 Mock Tests (Paper 2, CSAT)" },
+    sub: {
+      hi: "MPPSC प्रारंभिक परीक्षा, सामान्य अभिरुचि परीक्षण (प्रश्नपत्र-2) पर: 100 प्रश्न, 200 अंक, 120 मिनट। हर प्रश्न हिंदी/English में, हल सहित (हिंदी बोधगम्यता केवल हिंदी में)। खंडवार प्रश्न संख्या TETTESTHUB का अभ्यास अनुमान है। यह अभ्यास पेपर है, आधिकारिक प्रश्नपत्र नहीं।",
+      en: "On MPPSC Prelims General Aptitude Test (Paper 2): 100 questions, 200 marks, 120 minutes. Every question in Hindi/English with a solution (Hindi comprehension in Hindi only). Section-wise counts are a TETTESTHUB practice estimate. Practice papers, not official papers.",
+    },
+    rows: {
+      hi: [
+        ["बोधगम्यता; संचार सहित अंतर-वैयक्तिक कौशल", "25", "हिंदी/English"],
+        ["तार्किक एवं विश्लेषणात्मक क्षमता; निर्णय लेना एवं समस्या समाधान", "25", "हिंदी/English"],
+        ["सामान्य मानसिक योग्यता; आधारभूत संख्यात्मकता (कक्षा 10)", "30", "हिंदी/English"],
+        ["आँकड़ों का निर्वचन (कक्षा 10)", "10", "हिंदी/English"],
+        ["हिंदी भाषा में बोधगम्यता (कक्षा 10)", "10", "हिंदी"],
+      ],
+      en: [
+        ["Comprehension; Interpersonal skills incl. communication", "25", "Hindi/English"],
+        ["Logical and analytical ability; Decision making and problem solving", "25", "Hindi/English"],
+        ["General mental ability; Basic numeracy (Class X)", "30", "Hindi/English"],
+        ["Data interpretation (Class X)", "10", "Hindi/English"],
+        ["Hindi language comprehension (Class X)", "10", "Hindi"],
+      ],
+    },
+    totalLine: { hi: "कुल: 100 प्रश्न · 200 अंक · 120 मिनट", en: "Total: 100 questions · 200 marks · 120 minutes" },
+    neg: { hi: "प्रत्येक सही उत्तर 2 अंक, ऋणात्मक अंकन नहीं। यह क्वालिफ़ाइंग पेपर है।", en: "2 marks per correct answer, no negative marking. This is a qualifying paper." },
+    unlockTitle: { hi: "पूरी टेस्ट सीरीज़ — 25 मॉक टेस्ट", en: "Full test series — 25 mock tests" },
+    unlockSub: {
+      hi: "टेस्ट 1 फ्री है। बाकी 24 टेस्ट एक बार ₹99 देकर अनलॉक करें — इसी डिवाइस पर तुरंत खुल जाएंगे।",
+      en: "Test 1 is free. Unlock the other 24 tests once for ₹99 — they open instantly on this device.",
+    },
+    unlockBtn: { hi: "सभी टेस्ट अनलॉक करें", en: "Unlock all tests" },
+    links: [{ href: "/mppsc-prelims-mock-tests/", label: { hi: "प्रश्नपत्र-1 (सामान्य अध्ययन) टेस्ट →", en: "Paper 1 (General Studies) tests →" }, tone: "brand" }],
+  },
 };
 
 /** Back-compat for the AG-3 landing page. */

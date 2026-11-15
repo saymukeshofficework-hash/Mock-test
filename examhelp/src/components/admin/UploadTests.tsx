@@ -14,6 +14,7 @@ const SERIES = [
   { id: "mpgrb", label: "Madhya Pradesh Gramin Bank (mpgrb)" },
   { id: "group4", label: "MPESB Group-4 Assistant Grade-3 (group4)" },
   { id: "mppsc", label: "MPPSC State Service Prelims (mppsc)" },
+  { id: "mppsc2", label: "MPPSC Prelims Paper 2 CSAT (mppsc2)" },
 ];
 const JSZIP = "https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js";
 
