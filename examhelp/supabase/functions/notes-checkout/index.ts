@@ -158,6 +158,13 @@ const FREE_ACCESS_UNTIL = Date.parse("2026-11-04T23:59:59+05:30");
 // per-series free week (owner, 2026-11-05)
 const SERIES_FREE_UNTIL: Record<string, number> = { jnv6: Date.parse("2026-11-12T23:59:59+05:30"), group4: Date.parse("2099-12-31T23:59:59+05:30"), mppsc: Date.parse("2099-12-31T23:59:59+05:30"), mppsc2: Date.parse("2099-12-31T23:59:59+05:30") }; // group4 free for good, mppsc free for now (owner, 2026-11-13)
 const MAX_DOWNLOADS = 10;
+// Read-only e-books (owner, 2026-11-16): page images in the private "books" bucket
+// (books/<id>/p-01.jpg …). Any logged-in main-site student can read; no PDF is ever served.
+const BOOKS: Record<string, { pages: number; hi: string; en: string }> = {
+  "hc-ag3": { pages: 75, hi: "न्यायालय भर्ती विशेषांक — MP हाई कोर्ट सहायक ग्रेड-3 (2026)", en: "Court Recruitment Special — MP High Court Assistant Grade-3 (2026)" },
+  "mp-ca-hi": { pages: 75, hi: "सामान्य ज्ञान नवीन संस्करण — मध्यप्रदेश समसामयिकी (मई–नवंबर 2026)", en: "MP Current Affairs May–Nov 2026 (Hindi)" },
+  "mp-ca-en": { pages: 75, hi: "मध्यप्रदेश समसामयिकी (English) — मई–नवंबर 2026", en: "General Knowledge New Edition — MP Current Affairs May–Nov 2026 (English)" },
+};
 const LINK_SECONDS = 600;
 
 const cors = {
@@ -355,6 +362,24 @@ Deno.serve(async (req) => {
       const { data: rows } = await q;
       const row = rows?.[0];
       return json({ day: row?.day ?? null, data: row?.data ?? null });
+    }
+
+    case "book_list": {
+      return json({ books: Object.entries(BOOKS).map(([id, b]) => ({ id, ...b })) });
+    }
+
+    case "book_pages": {
+      // logged-in students only; short-lived links to a few page images at a time
+      const b = BOOKS[String(body.book ?? "")];
+      if (!b) return json({ error: "not_found" }, 404);
+      if (!(await loggedInUser(body.access_token))) return json({ error: "login_required" }, 401);
+      const from = Math.max(1, Math.min(b.pages, parseInt(String(body.from ?? "1"), 10) || 1));
+      const count = Math.max(1, Math.min(4, parseInt(String(body.count ?? "2"), 10) || 2));
+      const paths = [];
+      for (let n = from; n < from + count && n <= b.pages; n++) paths.push(`${body.book}/p-${String(n).padStart(2, "0")}.jpg`);
+      const { data, error } = await db.storage.from("books").createSignedUrls(paths, 180);
+      if (error || !data) return json({ error: "storage" }, 500);
+      return json({ pages: b.pages, from, urls: data.map((d) => d.signedUrl) });
     }
 
     case "test": {

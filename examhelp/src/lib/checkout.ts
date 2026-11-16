@@ -78,7 +78,7 @@ const SESSION_KEY = "sb-ovaubhekxjtkodkhsybg-auth-token";
  * Access token of the student logged in on the main site, refreshed if it has expired
  * (the saved session is updated so the main site keeps working). Undefined when logged out.
  */
-async function mainSiteAccessToken(): Promise<string | undefined> {
+export async function mainSiteAccessToken(): Promise<string | undefined> {
   try {
     const sess = JSON.parse(localStorage.getItem(SESSION_KEY) || "null");
     if (!sess?.access_token) return undefined;
