@@ -635,6 +635,31 @@
       el.style.setProperty("display","none","important");
     });
   }
+  // Rename only the desktop exam-catalogue header actions; leave mobile navigation unchanged.
+  function renameDesktopCatalogueNav() {
+    const desktop = window.matchMedia && window.matchMedia("(min-width: 701px)").matches;
+    if (!desktop) return;
+    const header = document.querySelector(".hdr .bar");
+    if (!header) return;
+    const labels = new Map([
+      ["all courses", "Test Series"],
+      ["my test", "Paid Test"]
+    ]);
+    header.querySelectorAll("a, button").forEach(control => {
+      const current = String(control.textContent || "").replace(/[\\s\\u00a0]+/g, " ").trim().toLowerCase();
+      const replacement = labels.get(current);
+      if (!replacement) return;
+      const label = control.querySelector("span:last-child") || control;
+      if (label.textContent.trim() !== replacement) label.textContent = replacement;
+      control.setAttribute("data-tth-no-translate", "true");
+    });
+  }
+  window.addEventListener("resize", renameDesktopCatalogueNav, { passive: true });
+  if (document.body && !window.__tthDesktopCatalogueNavObserver) {
+    window.__tthDesktopCatalogueNavObserver = new MutationObserver(renameDesktopCatalogueNav);
+    window.__tthDesktopCatalogueNavObserver.observe(document.body, { childList: true, subtree: true });
+  }
+
   function run() {
     installStyles();
     if (isLoginPage || isHomePage) {
