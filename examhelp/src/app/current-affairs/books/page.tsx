@@ -1,13 +1,12 @@
-import { BookReader } from "@/components/ca/BookReader";
+import { MovedToMainSite } from "./Moved";
 import { pageMeta } from "@/lib/seo";
 
 export const metadata = pageMeta({
-  title: "Current Affairs Magazines — Read Online | पत्रिकाएँ ऑनलाइन पढ़ें",
-  description:
-    "मध्यप्रदेश समसामयिकी और MP हाई कोर्ट सहायक ग्रेड-3 विशेषांक — लॉगिन करके मुफ़्त ऑनलाइन पढ़ें। Read TETTESTHUB magazines online, free after login.",
+  title: "Magazines moved | पत्रिकाएँ",
+  description: "पत्रिकाएँ अब tettesthub.in/current-affairs-ebook.html पर पढ़ें। Magazines are now on the main site e-book page.",
   path: "/current-affairs/books",
 });
 
 export default function Page() {
-  return <BookReader />;
+  return <MovedToMainSite />;
 }
