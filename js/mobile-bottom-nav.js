@@ -19,7 +19,7 @@
     #tthColorBottomNav .courses { color:#047857; background:#d1fae5 !important; border-color:#a7f3d0; }
     #tthColorBottomNav .mytest { color:#6d28d9; background:#ede9fe !important; border-color:#ddd6fe; }
     #tthColorBottomNav .logout { color:#c2410c; background:#ffedd5 !important; border-color:#fed7aa; }
-    @media(min-width:900px) { body { padding-bottom:0 !important; } #tthColorBottomNav { display:none !important; } }
+    @media(min-width:768px) { body { padding-bottom:0 !important; } #tthColorBottomNav { display:none !important; } }
   `;
   document.head.appendChild(style);
 
