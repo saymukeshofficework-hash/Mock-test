@@ -2,6 +2,7 @@
   const path = window.location.pathname;
   const testId = new URLSearchParams(window.location.search).get("t") || "";
   const isTargetPage =
+    /^\/naib-tehsildar\/?$/.test(path) ||
     /^\/cpct\/?$/.test(path) ||
     /^\/tet\/?$/.test(path) ||
     /^\/cpct\/typing\.html$/.test(path) ||
