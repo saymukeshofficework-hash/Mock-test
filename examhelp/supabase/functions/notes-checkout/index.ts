@@ -156,7 +156,7 @@ const PASS_DAYS = 30; // current affairs pass length
 // paid mock test ("test" action with access_token). Same date in js/site-config.js.
 const FREE_ACCESS_UNTIL = Date.parse("2026-11-04T23:59:59+05:30");
 // per-series free week (owner, 2026-11-05)
-const SERIES_FREE_UNTIL: Record<string, number> = { jnv6: Date.parse("2026-11-12T23:59:59+05:30"), group4: Date.parse("2099-12-31T23:59:59+05:30"), mppsc: Date.parse("2099-12-31T23:59:59+05:30"), mppsc2: Date.parse("2099-12-31T23:59:59+05:30") }; // group4 free for good, mppsc free for now (owner, 2026-11-13)
+const SERIES_FREE_UNTIL: Record<string, number> = { jnv6: Date.parse("2099-12-31T23:59:59+05:30"), group4: Date.parse("2099-12-31T23:59:59+05:30"), mppsc: Date.parse("2099-12-31T23:59:59+05:30"), mppsc2: Date.parse("2099-12-31T23:59:59+05:30") }; // group4 free for good, mppsc free for now (owner, 2026-11-13); jnv6 free for good (owner, 2026-11-17)
 const MAX_DOWNLOADS = 10;
 // Read-only e-books (owner, 2026-11-16): page images in the private "books" bucket
 // (books/<id>/p-01.jpg …). Any logged-in main-site student can read; no PDF is ever served.
