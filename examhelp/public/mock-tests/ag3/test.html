@@ -984,6 +984,18 @@ const UI = {
 				return UI[lang];
 			}
 
+			// Keep all five MP High Court section tabs in the selected language.
+			const SECTION_LABELS = {
+				gk: { hi: "सामान्य ज्ञान + सामान्य अध्ययन (म.प्र. सहित)", en: "GK + General Studies (incl. M.P.)" },
+				mr: { hi: "गणित + तार्किक विवेचना", en: "Maths + Logical Reasoning" },
+				hi: { hi: "सामान्य हिंदी", en: "General Hindi" },
+				en: { hi: "अंग्रेज़ी", en: "English" },
+				co: { hi: "कंप्यूटर ज्ञान", en: "Computer Knowledge" }
+			};
+			function sectionLabel(sec) {
+				return SECTION_LABELS[sec.key]?.[lang] || sec.label?.[lang] || sec.label?.hi || "";
+			}
+
 			const TOTAL = Q.length;
 			const DURATION = 120 * 60;
 			let cur = 0,
@@ -1014,7 +1026,7 @@ const UI = {
 				elTabs.innerHTML = "";
 				SECTIONS.forEach((sec) => {
 					const b = document.createElement("button");
-					b.textContent = sec.label[lang];
+					b.textContent = sectionLabel(sec);
 					b.dataset.key = sec.key;
 					b.onclick = () => {
 						cur = secRange[sec.key].start;
@@ -1068,7 +1080,7 @@ const UI = {
 				document.getElementById("cMark").textContent = m;
 				document.getElementById("cVis").textContent = v;
 				const sec = SECTIONS.find((s) => s.key === Q[cur].s);
-				document.getElementById("dSecName").textContent = sec.label[lang];
+				document.getElementById("dSecName").textContent = sectionLabel(sec);
 				document.getElementById("dName").textContent = studentName || t().defaultName;
 			}
 
@@ -1085,7 +1097,7 @@ const UI = {
 					cur + 1,
 					TOTAL
 				);
-				document.getElementById("qsec").textContent = sec.label[lang];
+				document.getElementById("qsec").textContent = sectionLabel(sec);
 				document.getElementById("qnoD").textContent = t().qnoD + (cur + 1);
 				document.getElementById("qtext").textContent = item.q[lang];
 				const optDiv = document.getElementById("options");
@@ -1248,7 +1260,7 @@ const UI = {
 					review += `<details class="qreview"><summary><span>${
 						u.qLabelPrefix
 					}${i + 1}. ${
-						SECTIONS.find((s) => s.key === item.s).label[lang]
+						sectionLabel(SECTIONS.find((s) => s.key === item.s))
 					}</span><span class="rtag ${tag}">${tl}</span></summary>
    <div class="rqtext">${item.q[lang]}</div>
    ${opts}
