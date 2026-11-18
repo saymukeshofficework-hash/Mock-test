@@ -10,13 +10,14 @@ const SHOTS = [
 ];
 
 /** Instagram-ad landing hero: shows Login / Register until the visitor is logged in. */
-export function AdLoginHero() {
+export function AdLoginHero({ children }: { children?: React.ReactNode }) {
   const [loggedIn, setLoggedIn] = useState(false);
   const [loginHref, setLoginHref] = useState("/login.html");
   const base = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
   const freeTest = `${base}/mock-tests/ag3/test.html?t=01&lang=hi`;
   useEffect(() => {
-    setLoginHref(`/login.html?next=${encodeURIComponent(location.pathname)}`);
+    // after login the visitor lands straight on the free test
+    setLoginHref(`/login.html?next=${encodeURIComponent(freeTest)}`);
     try {
       setLoggedIn(!!localStorage.getItem("sb-ovaubhekxjtkodkhsybg-auth-token"));
     } catch {
@@ -25,6 +26,7 @@ export function AdLoginHero() {
   }, []);
 
   return (
+    <>
     <section className="container-page pt-6">
       <div className="card border-brand-200 bg-brand-50 p-5 text-center sm:p-6">
         <p className="text-xs font-bold uppercase tracking-wide text-accent-700">MP High Court Assistant Grade-3</p>
@@ -57,6 +59,20 @@ export function AdLoginHero() {
         </div>
       </div>
 
+      {loggedIn ? null : (
+        <div className="card mx-auto mt-4 max-w-md p-4 text-center">
+          <h3 className="font-bold text-ink-900">
+            मॉक टेस्ट 1 / Mock Test 1
+            <span className="ml-2 rounded-full bg-success-50 px-2 py-0.5 text-xs font-semibold text-success-700">फ्री / Free</span>
+          </h3>
+          <p className="mt-1 text-xs text-ink-500">100 प्रश्न · 120 मिनट / 100 Qs · 120 min</p>
+          <a href={loginHref} className="btn-primary mt-3 w-full">
+            <PlayCircle className="h-4 w-4" aria-hidden="true" />
+            लॉगिन करके शुरू करें / Log in to start
+          </a>
+        </div>
+      )}
+
       <div className="mt-6">
         <h2 className="text-center text-lg font-extrabold text-brand-900 sm:text-xl">
           टेस्ट ऐसा दिखता है
@@ -78,5 +94,8 @@ export function AdLoginHero() {
         </div>
       </div>
     </section>
+    {/* Test list only after login: a visitor from the ad sees login/register and screenshots only */}
+    {loggedIn ? children : null}
+    </>
   );
 }
