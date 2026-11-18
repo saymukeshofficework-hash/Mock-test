@@ -74,10 +74,6 @@ export function AdLoginHero({ children }: { children?: React.ReactNode }) {
       )}
 
       <div className="mt-6">
-        <h2 className="text-center text-lg font-extrabold text-brand-900 sm:text-xl">
-          टेस्ट ऐसा दिखता है
-          <span className="block text-sm font-semibold text-ink-700">This is how the test looks</span>
-        </h2>
         <div className="mt-4 grid gap-4 sm:grid-cols-3">
           {SHOTS.map((s) => (
             <figure key={s.file} className="card overflow-hidden p-2 text-center">
