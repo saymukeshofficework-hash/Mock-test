@@ -4,19 +4,20 @@ import { useEffect, useState } from "react";
 import { LogIn, PlayCircle } from "lucide-react";
 
 const SHOTS = [
-  { file: "hc-question.jpg", hi: "असली परीक्षा जैसा टाइमर व प्रश्न-पैलेट", en: "Real exam timer and question palette" },
+  { file: "hc-question.jpg", hi: "", en: "" },
   { file: "hc-result.jpg", hi: "तुरंत रिज़ल्ट और विषयवार विश्लेषण", en: "Instant result with section-wise analysis" },
   { file: "hc-solution.jpg", hi: "हर प्रश्न का सही उत्तर व्याख्या सहित", en: "Correct answer with explanation for every question" },
 ];
 
 /** Instagram-ad landing hero: shows Login / Register until the visitor is logged in. */
-export function AdLoginHero() {
+export function AdLoginHero({ children }: { children?: React.ReactNode }) {
   const [loggedIn, setLoggedIn] = useState(false);
   const [loginHref, setLoginHref] = useState("/login.html");
   const base = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
   const freeTest = `${base}/mock-tests/ag3/test.html?t=01&lang=hi`;
   useEffect(() => {
-    setLoginHref(`/login.html?next=${encodeURIComponent(location.pathname)}`);
+    // after login the visitor lands straight on the free test
+    setLoginHref(`/login.html?next=${encodeURIComponent(freeTest)}`);
     try {
       setLoggedIn(!!localStorage.getItem("sb-ovaubhekxjtkodkhsybg-auth-token"));
     } catch {
@@ -25,6 +26,7 @@ export function AdLoginHero() {
   }, []);
 
   return (
+    <>
     <section className="container-page pt-6">
       <div className="card border-brand-200 bg-brand-50 p-5 text-center sm:p-6">
         <p className="text-xs font-bold uppercase tracking-wide text-accent-700">MP High Court Assistant Grade-3</p>
@@ -57,24 +59,39 @@ export function AdLoginHero() {
         </div>
       </div>
 
+      {loggedIn ? null : (
+        <div className="card mx-auto mt-4 max-w-md p-4 text-center">
+          <h3 className="font-bold text-ink-900">
+            मॉक टेस्ट 1 / Mock Test 1
+            <span className="ml-2 rounded-full bg-success-50 px-2 py-0.5 text-xs font-semibold text-success-700">फ्री / Free</span>
+          </h3>
+          <p className="mt-1 text-xs text-ink-500">100 प्रश्न · 120 मिनट / 100 Qs · 120 min</p>
+          <a href={loginHref} className="btn-primary mt-3 w-full">
+            <PlayCircle className="h-4 w-4" aria-hidden="true" />
+            लॉगिन करके शुरू करें / Log in to start
+          </a>
+        </div>
+      )}
+
       <div className="mt-6">
-        <h2 className="text-center text-lg font-extrabold text-brand-900 sm:text-xl">
-          टेस्ट ऐसा दिखता है
-          <span className="block text-sm font-semibold text-ink-700">This is how the test looks</span>
-        </h2>
         <div className="mt-4 grid gap-4 sm:grid-cols-3">
           {SHOTS.map((s) => (
             <figure key={s.file} className="card overflow-hidden p-2 text-center">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={`${base}/ad-shots/${s.file}`} alt={s.hi} loading="lazy" className="mx-auto w-full rounded-lg" />
-              <figcaption className="mt-2 text-sm font-semibold text-ink-800">
-                {s.hi}
-                <span className="block text-xs font-normal text-ink-600">{s.en}</span>
-              </figcaption>
+              <img src={`${base}/ad-shots/${s.file}`} alt={s.hi || "Mock test screen"} loading="lazy" className="mx-auto w-full rounded-lg" />
+              {s.hi ? (
+                <figcaption className="mt-2 text-sm font-semibold text-ink-800">
+                  {s.hi}
+                  <span className="block text-xs font-normal text-ink-600">{s.en}</span>
+                </figcaption>
+              ) : null}
             </figure>
           ))}
         </div>
       </div>
     </section>
+    {/* Test list only after login: a visitor from the ad sees login/register and screenshots only */}
+    {loggedIn ? children : null}
+    </>
   );
 }
