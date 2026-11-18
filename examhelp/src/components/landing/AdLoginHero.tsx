@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { LogIn, PlayCircle } from "lucide-react";
 
 const SHOTS = [
-  { file: "hc-question.jpg", hi: "असली परीक्षा जैसा टाइमर व प्रश्न-पैलेट", en: "Real exam timer and question palette" },
+  { file: "hc-question.jpg", hi: "", en: "" },
   { file: "hc-result.jpg", hi: "तुरंत रिज़ल्ट और विषयवार विश्लेषण", en: "Instant result with section-wise analysis" },
   { file: "hc-solution.jpg", hi: "हर प्रश्न का सही उत्तर व्याख्या सहित", en: "Correct answer with explanation for every question" },
 ];
@@ -66,11 +66,13 @@ export function AdLoginHero() {
           {SHOTS.map((s) => (
             <figure key={s.file} className="card overflow-hidden p-2 text-center">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={`${base}/ad-shots/${s.file}`} alt={s.hi} loading="lazy" className="mx-auto w-full rounded-lg" />
-              <figcaption className="mt-2 text-sm font-semibold text-ink-800">
-                {s.hi}
-                <span className="block text-xs font-normal text-ink-600">{s.en}</span>
-              </figcaption>
+              <img src={`${base}/ad-shots/${s.file}`} alt={s.hi || "Mock test screen"} loading="lazy" className="mx-auto w-full rounded-lg" />
+              {s.hi ? (
+                <figcaption className="mt-2 text-sm font-semibold text-ink-800">
+                  {s.hi}
+                  <span className="block text-xs font-normal text-ink-600">{s.en}</span>
+                </figcaption>
+              ) : null}
             </figure>
           ))}
         </div>
