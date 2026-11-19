@@ -181,8 +181,7 @@ jobs:
           cp uptet.html up-tgt.html up-pgt.html ctet.html up-teacher-exams.html exam-test.html _site/
           cp tet-mock-test-*.html _site/
           cp -r assets _site/assets
-          mkdir -p _site/landing
-          cp landing/index.html _site/landing/index.html
+          cp -r landing _site/landing
           cp -r js _site/js
           cp -r tet _site/tet
           cp -r .well-known _site/.well-known
