@@ -125,6 +125,7 @@ function nextUrl(){const p=new URLSearchParams(location.search),n=p.get('next');
 function switchPane(id){hideAlert();document.querySelectorAll('.auth-pane').forEach(x=>x.classList.toggle('active',x.id===id));document.querySelectorAll('.auth-tab').forEach(x=>x.classList.toggle('active',x.dataset.pane===id));}
 document.querySelectorAll('[data-pane]').forEach(b=>b.onclick=()=>switchPane(b.dataset.pane));
 document.querySelectorAll('[data-switch]').forEach(b=>b.onclick=()=>switchPane(b.dataset.switch));
+if(new URLSearchParams(location.search).get('mode')==='signup') switchPane('registerPane');
 document.querySelectorAll('[data-eye]').forEach(b=>b.onclick=()=>{const i=document.getElementById(b.dataset.eye);i.type=i.type==='password'?'text':'password';b.textContent=i.type==='password'?'Show':'Hide'});
 // Opening the Login option always starts a fresh sign-in: clear any existing session
 // so the student must enter their email ID and password instead of seeing Continue.
