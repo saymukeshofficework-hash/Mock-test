@@ -13,8 +13,8 @@
   "display": "standalone",
   "orientation": "default",
   "enableNotifications": true,
-  "appVersionName": "1.1.0",
-  "appVersionCode": 2,
+  "appVersionName": "1.2.0",
+  "appVersionCode": 3,
   "signingKey": {
     "path": "./upload-keystore.jks",
     "alias": "upload"
