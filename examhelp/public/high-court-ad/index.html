@@ -47,6 +47,13 @@ li em{display:block;font-style:normal;color:var(--muted);font-size:13px}
 .sticky{position:fixed;left:0;right:0;bottom:0;background:rgba(11,22,64,.96);border-top:1px solid rgba(198,244,50,.3);padding:10px 16px calc(10px + env(safe-area-inset-bottom));z-index:9}
 .sticky .row{width:min(560px,100%);margin:0 auto;display:flex;gap:10px}
 .sticky .btn{flex:1;min-height:50px;font-size:17px;border-radius:14px}
+.clock{margin:18px 0 0;text-align:center;background:var(--navy2);border:1px solid rgba(198,244,50,.35);border-radius:16px;padding:14px 10px}
+.clock p{margin:0 0 8px;font-weight:700}
+.clock p small{display:block;font-weight:500;color:var(--muted);font-size:13px}
+.cd{display:flex;justify-content:center;gap:8px}
+.cd div{min-width:66px;background:var(--navy);border-radius:12px;padding:6px 4px}
+.cd b{display:block;font-size:28px;color:var(--lime);line-height:1.2}
+.cd span{font-size:12px;color:var(--muted)}
 [hidden]{display:none!important}
 </style>
 </head>
@@ -68,6 +75,16 @@ li em{display:block;font-style:normal;color:var(--muted);font-size:13px}
     <a class="btn btn-line" href="/examhelp/mp-high-court-assistant-grade-3-test-series/">सभी 25 टेस्ट देखें<small>See all 25 tests</small></a>
   </div>
   <p class="note">पहला मॉक टेस्ट बिल्कुल फ्री · First mock test is free</p>
+
+  <div class="clock" id="clock">
+    <p id="clockTitle">परीक्षा 23 और 25 नवंबर को — तैयारी का समय बचा है<small>Exam on 23 &amp; 25 Nov — time left to prepare</small></p>
+    <div class="cd">
+      <div><b id="cdD">0</b><span>दिन / Days</span></div>
+      <div><b id="cdH">00</b><span>घंटे / Hrs</span></div>
+      <div><b id="cdM">00</b><span>मिनट / Min</span></div>
+      <div><b id="cdS">00</b><span>सेकंड / Sec</span></div>
+    </div>
+  </div>
 
   <h1>टेस्ट सीरीज़ की <span>3 ख़ास बातें</span></h1>
   <p class="sub">MP हाईकोर्ट असिस्टेंट ग्रेड-3 (ग्रेड C)<br>3 key features of the test series</p>
@@ -111,6 +128,22 @@ li em{display:block;font-style:normal;color:var(--muted);font-size:13px}
     document.querySelectorAll('.js-out').forEach(function(el){ el.hidden = true; });
     document.querySelectorAll('.js-in').forEach(function(el){ el.hidden = false; });
   }
+  // Countdown to the exam days (23 and 25 Nov 2026, IST). Hidden after 25 Nov.
+  var days = [new Date('2026-11-23T00:00:00+05:30'), new Date('2026-11-25T00:00:00+05:30')];
+  var box = document.getElementById('clock');
+  function pad(n){ return (n < 10 ? '0' : '') + n; }
+  function tick(){
+    var now = Date.now(), target = null;
+    for (var i = 0; i < days.length; i++) { if (days[i].getTime() > now) { target = days[i]; break; } }
+    if (!target) { box.hidden = true; return; }
+    if (target === days[1]) document.getElementById('clockTitle').innerHTML = '25 नवंबर की परीक्षा में समय बचा है<small>Time left for the 25 Nov exam</small>';
+    var t = Math.floor((target.getTime() - now) / 1000);
+    document.getElementById('cdD').textContent = Math.floor(t / 86400);
+    document.getElementById('cdH').textContent = pad(Math.floor(t % 86400 / 3600));
+    document.getElementById('cdM').textContent = pad(Math.floor(t % 3600 / 60));
+    document.getElementById('cdS').textContent = pad(t % 60);
+  }
+  tick(); setInterval(tick, 1000);
 })();
 </script>
 </body>
