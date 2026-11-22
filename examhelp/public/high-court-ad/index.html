@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>MP हाईकोर्ट AG-3 टेस्ट सीरीज़ | TETTESTHUB</title>
-<meta name="description" content="MP हाईकोर्ट असिस्टेंट ग्रेड-3 (ग्रेड C) टेस्ट सीरीज़: 25 फुल मॉक टेस्ट, पहला टेस्ट फ्री। Key features of the MP High Court Assistant Grade-3 test series.">
+<title>MP हाईकोर्ट असिस्टेंट ग्रेड-3 (स्टेनो) टेस्ट सीरीज़ | TETTESTHUB</title>
+<meta name="description" content="MP हाईकोर्ट असिस्टेंट ग्रेड-3 (स्टेनो) टेस्ट सीरीज़: 25 फुल मॉक टेस्ट, पहला टेस्ट फ्री। Key features of the MP High Court Assistant Grade-3 test series.">
 <meta name="robots" content="noindex, follow">
 <meta name="theme-color" content="#0b1640">
 <meta property="og:title" content="MP हाईकोर्ट असिस्टेंट ग्रेड-3 टेस्ट सीरीज़ — पहला टेस्ट फ्री">
@@ -44,7 +44,9 @@ li em{display:block;font-style:normal;color:var(--muted);font-size:13px}
 .price strong{color:var(--lime);font-size:30px}
 .foot{text-align:center;padding:22px 0 10px;font-weight:700;font-size:18px}
 .foot small{display:block;font-weight:500;color:var(--muted);font-size:12px}
-.clock{margin:0 0 14px;text-align:center;background:var(--navy2);border:1px solid rgba(198,244,50,.35);border-radius:16px;padding:14px 10px}
+.tag{margin:0 0 14px;text-align:center;font-weight:800;font-size:18px;color:var(--lime)}
+.tag small{display:block;font-weight:500;font-size:13px;color:var(--muted)}
+.clock{margin:0 0 14px;text-align:center;background:var(--navy2);border:1px solid rgba(198,244,50,.35);border-radius:16px;padding:12px 10px}
 .clock p{margin:0 0 8px;font-weight:700}
 .clock p small{display:block;font-weight:500;color:var(--muted);font-size:13px}
 .cd{display:flex;justify-content:center;gap:8px}
@@ -60,8 +62,10 @@ li em{display:block;font-style:normal;color:var(--muted);font-size:13px}
     <span class="logo">TETTESTHUB</span>
   </header>
 
+  <p class="tag">MP हाईकोर्ट असिस्टेंट ग्रेड-3 (स्टेनो) टेस्ट सीरीज़<small>MP High Court Assistant Grade-3 (Steno) Test Series</small></p>
+
   <div class="clock" id="clock">
-    <p id="clockTitle">परीक्षा 23 और 25 नवंबर को — तैयारी का समय बचा है<small>Exam on 23 &amp; 25 Nov — time left to prepare</small></p>
+    <p>25 नवंबर तक बचा समय<small>Time left till 25 Nov</small></p>
     <div class="cd">
       <div><b id="cdD">0</b><span>दिन / Days</span></div>
       <div><b id="cdH">00</b><span>घंटे / Hrs</span></div>
@@ -70,7 +74,7 @@ li em{display:block;font-style:normal;color:var(--muted);font-size:13px}
     </div>
   </div>
 
-  <img class="hero" src="hero.jpg" width="900" height="1125" alt="MP हाईकोर्ट असिस्टेंट ग्रेड-3 (ग्रेड C) टेस्ट सीरीज़ — TETTESTHUB">
+  <img class="hero" src="hero.jpg" width="900" height="1125" alt="MP हाईकोर्ट असिस्टेंट ग्रेड-3 (स्टेनो) टेस्ट सीरीज़ — TETTESTHUB">
 
   <div class="cta js-out">
     <a class="btn btn-lime js-reg" href="/login.html?mode=signup">नया रजिस्टर करें — फ्री टेस्ट दें<small>Register free (1 minute)</small></a>
@@ -81,7 +85,7 @@ li em{display:block;font-style:normal;color:var(--muted);font-size:13px}
     <a class="btn btn-line" href="/examhelp/mp-high-court-assistant-grade-3-test-series/">सभी 25 टेस्ट देखें<small>See all 25 tests</small></a>
   </div>
   <h1>टेस्ट सीरीज़ की <span>3 प्रमुख बातें</span></h1>
-  <p class="sub">MP हाईकोर्ट असिस्टेंट ग्रेड-3 (ग्रेड C)<br>3 key features of the test series</p>
+  <p class="sub">MP हाईकोर्ट असिस्टेंट ग्रेड-3 (स्टेनो)<br>3 key features of the test series</p>
   <div class="bar"></div>
 
   <ol>
@@ -110,16 +114,13 @@ li em{display:block;font-style:normal;color:var(--muted);font-size:13px}
     document.querySelectorAll('.js-out').forEach(function(el){ el.hidden = true; });
     document.querySelectorAll('.js-in').forEach(function(el){ el.hidden = false; });
   }
-  // Countdown to the exam days (23 and 25 Nov 2026, IST). Hidden after 25 Nov.
-  var days = [new Date('2026-11-23T00:00:00+05:30'), new Date('2026-11-25T00:00:00+05:30')];
+  // Countdown to the end of 25 Nov 2026 (IST). Hidden after that.
+  var end = new Date('2026-11-25T23:59:59+05:30').getTime();
   var box = document.getElementById('clock');
   function pad(n){ return (n < 10 ? '0' : '') + n; }
   function tick(){
-    var now = Date.now(), target = null;
-    for (var i = 0; i < days.length; i++) { if (days[i].getTime() > now) { target = days[i]; break; } }
-    if (!target) { box.hidden = true; return; }
-    if (target === days[1]) document.getElementById('clockTitle').innerHTML = '25 नवंबर की परीक्षा में समय बचा है<small>Time left for the 25 Nov exam</small>';
-    var t = Math.floor((target.getTime() - now) / 1000);
+    var t = Math.floor((end - Date.now()) / 1000);
+    if (t <= 0) { box.hidden = true; return; }
     document.getElementById('cdD').textContent = Math.floor(t / 86400);
     document.getElementById('cdH').textContent = pad(Math.floor(t % 86400 / 3600));
     document.getElementById('cdM').textContent = pad(Math.floor(t % 3600 / 60));
