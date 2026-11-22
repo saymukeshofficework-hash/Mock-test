@@ -63,6 +63,21 @@ const fmtDay = (d: string, lang: Lang, long = false) =>
     timeZone: "Asia/Kolkata",
   });
 
+const AD_PAGES = ["/ca-ads/ad-1.jpg", "/ca-ads/ad-2.jpg"];
+const AD_LINK = "https://tettesthub.in/examhelp/mp-high-court-assistant-grade-3-notes/";
+
+async function toDataUrl(src: string): Promise<string> {
+  const res = await fetch(src);
+  if (!res.ok) throw new Error(`ad ${res.status}`);
+  const blob = await res.blob();
+  return new Promise((resolve, reject) => {
+    const r = new FileReader();
+    r.onload = () => resolve(String(r.result));
+    r.onerror = reject;
+    r.readAsDataURL(blob);
+  });
+}
+
 function loadScript(src: string): Promise<void> {
   return new Promise((resolve, reject) => {
     if (document.querySelector(`script[src="${src}"]`)) return resolve();
@@ -146,17 +161,35 @@ export function CurrentAffairsClient() {
       await loadScript(PDF_LIB);
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const h2p = (window as any).html2pdf;
-      await h2p()
+      const filename = `TETTESTHUB-Current-Affairs-${day.day}-${lang}.pdf`;
+      const worker = h2p()
         .set({
           margin: [8, 8, 10, 8],
-          filename: `TETTESTHUB-Current-Affairs-${day.day}-${lang}.pdf`,
+          filename,
           image: { type: "jpeg", quality: 0.92 },
           html2canvas: { scale: 2, useCORS: true, backgroundColor: "#ffffff", scrollX: 0, scrollY: 0, x: 0, y: 0, windowWidth: 734 },
           jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
           pagebreak: { mode: ["css", "legacy"], avoid: [".ca-avoid"] },
         })
         .from(printRef.current)
-        .save();
+        .toPdf();
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const pdf: any = await worker.get("pdf");
+      // Two full-page advert pages at the end (same as the AG3 free sample PDF). Skipped if images fail to load.
+      try {
+        const base = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+        const ads = await Promise.all(AD_PAGES.map((p) => toDataUrl(`${base}${p}`)));
+        const w = pdf.internal.pageSize.getWidth();
+        const h = pdf.internal.pageSize.getHeight();
+        for (const img of ads) {
+          pdf.addPage();
+          pdf.addImage(img, "JPEG", 0, 0, w, h);
+          pdf.link(0, 0, w, h, { url: AD_LINK });
+        }
+      } catch {
+        /* keep the PDF without adverts */
+      }
+      pdf.save(filename);
     } catch {
       window.print();
     } finally {
