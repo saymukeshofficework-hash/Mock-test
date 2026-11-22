@@ -5,6 +5,7 @@ import { Ban, Copy, LogOut, MessageCircle, RefreshCw, RotateCcw, Search, ShieldC
 import { ADMIN_USER_KEY, adminCall, downloadPath } from "@/lib/checkout";
 import { UploadTests } from "@/components/admin/UploadTests";
 import { BridgeAdmin } from "@/components/admin/BridgeAdmin";
+import { UsersAdmin } from "@/components/admin/UsersAdmin";
 
 type Order = {
   id: string;
@@ -187,6 +188,7 @@ export function AdminClient() {
           TETTESTHUB Admin
         </h1>
         <div className="flex gap-2">
+        <a href="#users" className="btn-outline">Users / यूज़र ↓</a>
         <a href="#bridge" className="btn-outline">Bridge Course ↓</a>
         <button type="button" onClick={logout} className="btn-outline">
           <LogOut className="h-4 w-4" aria-hidden="true" />
@@ -305,6 +307,7 @@ export function AdminClient() {
         })}
       </ul>
       <UploadTests pw={pw} />
+      <UsersAdmin />
       <BridgeAdmin />
       <p className="mt-6 text-xs text-ink-500">Showing the latest 100 matching orders. Refunds themselves are done in the Razorpay dashboard; cancel access here after refunding.</p>
     </div>
