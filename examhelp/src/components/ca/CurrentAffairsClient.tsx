@@ -64,9 +64,10 @@ const fmtDay = (d: string, lang: Lang, long = false) =>
   });
 
 // Advert pages added at the end of the PDF; each page is a tap link.
+const AD_URL = "https://tettesthub.in/examhelp/all-exams-ad/";
 const AD_PAGES = [
-  { img: "/ca-ads/ad-1.jpg", url: "https://tettesthub.in/examhelp/test-series/" },
-  { img: "/ca-ads/ad-2.jpg", url: "https://tettesthub.in/testhub/mock-tests/ag3/test.html?t=01&lang=en" },
+  { img: "/ca-ads/ad-1.jpg", url: AD_URL },
+  { img: "/ca-ads/ad-2.jpg", url: AD_URL },
 ];
 
 async function toDataUrl(src: string): Promise<string> {
