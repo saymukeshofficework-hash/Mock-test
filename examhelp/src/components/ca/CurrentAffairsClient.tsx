@@ -63,8 +63,11 @@ const fmtDay = (d: string, lang: Lang, long = false) =>
     timeZone: "Asia/Kolkata",
   });
 
-const AD_PAGES = ["/ca-ads/ad-1.jpg", "/ca-ads/ad-2.jpg"];
-const AD_LINK = "https://tettesthub.in/examhelp/mp-high-court-assistant-grade-3-notes/";
+// Advert pages added at the end of the PDF; each page is a tap link.
+const AD_PAGES = [
+  { img: "/ca-ads/ad-1.jpg", url: "https://tettesthub.in/examhelp/test-series/" },
+  { img: "/ca-ads/ad-2.jpg", url: "https://tettesthub.in/testhub/mock-tests/ag3/test.html?t=01&lang=en" },
+];
 
 async function toDataUrl(src: string): Promise<string> {
   const res = await fetch(src);
@@ -178,14 +181,14 @@ export function CurrentAffairsClient() {
       // Two full-page advert pages at the end (same as the AG3 free sample PDF). Skipped if images fail to load.
       try {
         const base = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
-        const ads = await Promise.all(AD_PAGES.map((p) => toDataUrl(`${base}${p}`)));
+        const ads = await Promise.all(AD_PAGES.map((p) => toDataUrl(`${base}${p.img}`)));
         const w = pdf.internal.pageSize.getWidth();
         const h = pdf.internal.pageSize.getHeight();
-        for (const img of ads) {
+        ads.forEach((img, i) => {
           pdf.addPage();
           pdf.addImage(img, "JPEG", 0, 0, w, h);
-          pdf.link(0, 0, w, h, { url: AD_LINK });
-        }
+          pdf.link(0, 0, w, h, { url: AD_PAGES[i].url });
+        });
       } catch {
         /* keep the PDF without adverts */
       }
