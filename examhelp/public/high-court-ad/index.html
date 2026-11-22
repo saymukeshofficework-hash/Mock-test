@@ -46,6 +46,13 @@ li em{display:block;font-style:normal;color:var(--muted);font-size:13px}
 .foot small{display:block;font-weight:500;color:var(--muted);font-size:12px}
 .tag{margin:0 0 14px;text-align:center;font-weight:800;font-size:18px;color:var(--lime)}
 .tag small{display:block;font-weight:500;font-size:13px;color:var(--muted)}
+.clock{margin:0 0 14px;text-align:center;background:var(--navy2);border:1px solid rgba(198,244,50,.35);border-radius:16px;padding:12px 10px}
+.clock p{margin:0 0 8px;font-weight:700}
+.clock p small{display:block;font-weight:500;color:var(--muted);font-size:13px}
+.cd{display:flex;justify-content:center;gap:8px}
+.cd div{min-width:66px;background:var(--navy);border-radius:12px;padding:6px 4px}
+.cd b{display:block;font-size:28px;color:var(--lime);line-height:1.2}
+.cd span{font-size:12px;color:var(--muted)}
 [hidden]{display:none!important}
 </style>
 </head>
@@ -56,6 +63,16 @@ li em{display:block;font-style:normal;color:var(--muted);font-size:13px}
   </header>
 
   <p class="tag">MP हाईकोर्ट असिस्टेंट ग्रेड-3 (स्टेनो) टेस्ट सीरीज़<small>MP High Court Assistant Grade-3 (Steno) Test Series</small></p>
+
+  <div class="clock" id="clock">
+    <p>25 नवंबर तक बचा समय<small>Time left till 25 Nov</small></p>
+    <div class="cd">
+      <div><b id="cdD">0</b><span>दिन / Days</span></div>
+      <div><b id="cdH">00</b><span>घंटे / Hrs</span></div>
+      <div><b id="cdM">00</b><span>मिनट / Min</span></div>
+      <div><b id="cdS">00</b><span>सेकंड / Sec</span></div>
+    </div>
+  </div>
 
   <img class="hero" src="hero.jpg" width="900" height="1125" alt="MP हाईकोर्ट असिस्टेंट ग्रेड-3 (स्टेनो) टेस्ट सीरीज़ — TETTESTHUB">
 
@@ -97,6 +114,19 @@ li em{display:block;font-style:normal;color:var(--muted);font-size:13px}
     document.querySelectorAll('.js-out').forEach(function(el){ el.hidden = true; });
     document.querySelectorAll('.js-in').forEach(function(el){ el.hidden = false; });
   }
+  // Countdown to the end of 25 Nov 2026 (IST). Hidden after that.
+  var end = new Date('2026-11-25T23:59:59+05:30').getTime();
+  var box = document.getElementById('clock');
+  function pad(n){ return (n < 10 ? '0' : '') + n; }
+  function tick(){
+    var t = Math.floor((end - Date.now()) / 1000);
+    if (t <= 0) { box.hidden = true; return; }
+    document.getElementById('cdD').textContent = Math.floor(t / 86400);
+    document.getElementById('cdH').textContent = pad(Math.floor(t % 86400 / 3600));
+    document.getElementById('cdM').textContent = pad(Math.floor(t % 3600 / 60));
+    document.getElementById('cdS').textContent = pad(t % 60);
+  }
+  tick(); setInterval(tick, 1000);
 })();
 </script>
 </body>
