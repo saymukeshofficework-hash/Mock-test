@@ -45,11 +45,11 @@ export const exams: Exam[] = [
       applicationEnd: { date: "2026-10-06", status: "CONFIRMED" },
       correctionEnd: { date: "2026-10-11", status: "CONFIRMED" },
       exam: {
-        date: "2026-11-19",
-        status: "TENTATIVE",
+        date: "2026-12-08",
+        status: "CONFIRMED",
         note: {
-          hi: "नियमपुस्तिका में \"संभावित परीक्षा दिनांक — 19-11-2026 से प्रारंभ\" लिखा है।",
-          en: "Rulebook lists this as the probable start date (\"संभावित\").",
+          hi: "MPESB ने परीक्षा तिथि 08.12.2026 घोषित की है।",
+          en: "MPESB has announced the exam date: 8 Dec 2026.",
         },
       },
     },
