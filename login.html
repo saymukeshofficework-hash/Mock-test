@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; connect-src 'self' https://*.supabase.co; img-src 'self' data:;">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://connect.facebook.net 'unsafe-inline' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; connect-src 'self' https://connect.facebook.net https://www.facebook.com https://*.supabase.co; img-src 'self' data: https://www.facebook.com;">
 <title>Login & Register — TET Test Hub</title>
 <meta name="description" content="Login or create your TET Test Hub student account.">
 <link rel="canonical" href="https://tettesthub.in/login.html">
@@ -63,6 +63,7 @@ body{min-height:100vh;margin:0;background:radial-gradient(ellipse at 12% 12%,rgb
 @media(max-width:520px){.site-header{padding-left:14px;padding-right:14px}.auth-wrap{padding:28px 14px;min-height:calc(100vh - 130px)}.auth-card{padding:28px 21px;border-radius:23px;box-shadow:0 17px 45px rgba(67,48,140,.14)}.auth-pane h2{font-size:23px}.auth-wrap:before{left:-100px;top:8%}.auth-wrap:after{right:-140px;bottom:6%}}
 @media(prefers-reduced-motion:reduce){.auth-pane.active{animation:none}*,*:before,*:after{transition:none!important}}</style>
 <script>try{if(/[?&]source=android/.test(location.search))localStorage.setItem('tth-app','1');if(localStorage.getItem('tth-app')==='1')document.documentElement.setAttribute('data-app','1')}catch(e){}try{if(localStorage.getItem('tth-app')==='1'){var s=document.createElement('script');s.src='/examhelp/app-words.js?v=2';s.defer=true;document.head.appendChild(s)}}catch(e){}</script>
+<script src="/js/meta-pixel.js" defer></script>
 </head>
 <body>
 <header class="site-header">
