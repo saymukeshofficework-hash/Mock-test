@@ -132,6 +132,7 @@ jobs:
           NEXT_PUBLIC_STATIC_EXPORT: "1"
           NEXT_PUBLIC_BASE_PATH: /examhelp
           NEXT_PUBLIC_SITE_URL: https://tettesthub.in/examhelp
+          NEXT_PUBLIC_META_PIXEL_ID: "2274221146864757"
         run: |
           npm ci
           rm -rf src/app/api
