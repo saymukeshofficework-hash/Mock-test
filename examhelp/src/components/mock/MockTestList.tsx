@@ -8,6 +8,7 @@ import { CheckCircle2, CreditCard, FileText, Lock, PlayCircle, Unlock } from "lu
 import { MOCK_SERIES } from "@/data/mockTests";
 import { buyNotes, checkout, claimPurchase, mainSiteUnlock } from "@/lib/checkout";
 import { freeAccessOn, seriesFreeOn, SERIES_FREE_UNTIL } from "@/lib/site";
+import { priceSafe } from "@/lib/format";
 
 type Lang = "hi" | "en";
 type Best = { last: number; best: number; total: number; at: number };
@@ -153,7 +154,7 @@ export function MockTestList({ series = "ag3" }: { series?: string }) {
       <div className="flex min-w-0 items-start justify-between gap-3">
         <div className="min-w-0 flex-1">
           <h1 className="text-2xl font-extrabold text-brand-900 sm:text-3xl">{S.title[lang]}</h1>
-          <p className="mt-2 max-w-2xl text-ink-600">{S.sub[lang]}</p>
+          <p className="mt-2 max-w-2xl text-ink-600"><span data-sale>{S.sub[lang]}</span><span data-app-only>{priceSafe(S.sub[lang]).app}</span></p>
         </div>
         <div className={`flex shrink-0 items-center gap-1 rounded-xl border border-ink-200 bg-surface p-1 ${headerToggle}`} role="group" aria-label="Language / भाषा">
           <button type="button" onClick={() => chooseLang("hi")} aria-pressed={lang === "hi"} className={`rounded-lg px-3 py-2 text-sm font-bold ${lang === "hi" ? "bg-brand-700 text-white" : "text-ink-700"}`}>हिन्दी</button>
@@ -164,7 +165,7 @@ export function MockTestList({ series = "ag3" }: { series?: string }) {
       <section className="exam-pattern-panel mt-6" aria-labelledby="pat-h">
         <div className="exam-pattern-intro">
           <h2 className="exam-pattern-exam-name">{S.title[lang]}</h2>
-          <p className="exam-pattern-description">{S.sub[lang]}</p>
+          <p className="exam-pattern-description"><span data-sale>{S.sub[lang]}</span><span data-app-only>{priceSafe(S.sub[lang]).app}</span></p>
         </div>
         <h3 id="pat-h" className="exam-pattern-ribbon">{t("pattern")}</h3>
         <div className="overflow-x-auto">
