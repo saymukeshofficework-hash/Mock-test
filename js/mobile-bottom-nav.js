@@ -52,4 +52,4 @@
     window.location.href = "/login.html";
   });
 })();
-;try{if(localStorage.getItem('tth-app')==='1'){var s=document.createElement('script');s.src='/examhelp/app-words.js?v=1';s.defer=true;document.head.appendChild(s)}}catch(e){}
+;try{if(localStorage.getItem('tth-app')==='1'){var s=document.createElement('script');s.src='/examhelp/app-words.js?v=2';s.defer=true;document.head.appendChild(s)}}catch(e){}

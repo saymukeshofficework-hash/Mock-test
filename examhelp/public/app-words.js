@@ -31,7 +31,7 @@
     if (!el || SKIP[el.tagName] || el.closest("[data-app-words-done]")) return;
     var t = n.nodeValue;
     if (!t || t.trim().length < 2) return;
-    var s = t.replace(PAID_RE, "Test Series").replace(HI_PAID_RE, "$1टेस्ट सीरीज़");
+    var s = t.replace(PAID_RE, "My Test").replace(HI_PAID_RE, "$1मेरे टेस्ट");
     var has = s !== t || HI_RE.test(s) || EN_RE.test(s);
     HI_RE.lastIndex = 0; EN_RE.lastIndex = 0;
     if (!has) return;
@@ -51,7 +51,7 @@
     list.forEach(fixNode);
     if (root.querySelectorAll) root.querySelectorAll("[placeholder],[aria-label],[title],[alt]").forEach(function (e) {
       ["placeholder", "aria-label", "title", "alt"].forEach(function (a) {
-        var v = e.getAttribute(a); if (v && (PAID_RE.test(v) || EN_RE.test(v) || HI_RE.test(v))) e.setAttribute(a, v.replace(PAID_RE, "Test Series").replace(HI_RE, "$1").replace(EN_RE, "").trim());
+        var v = e.getAttribute(a); if (v && (PAID_RE.test(v) || EN_RE.test(v) || HI_RE.test(v))) e.setAttribute(a, v.replace(PAID_RE, "My Test").replace(HI_RE, "$1").replace(EN_RE, "").trim());
         PAID_RE.lastIndex = 0; EN_RE.lastIndex = 0; HI_RE.lastIndex = 0;
       });
     });
@@ -64,7 +64,7 @@
         m.addedNodes && m.addedNodes.forEach(function (a) { scan(a); });
       });
     }).observe(document.body, { childList: true, subtree: true, characterData: true });
-    if (document.title) document.title = document.title.replace(PAID_RE, "Test Series").replace(EN_RE, "").replace(/\s{2,}/g, " ");
+    if (document.title) document.title = document.title.replace(PAID_RE, "My Test").replace(EN_RE, "").replace(/\s{2,}/g, " ");
   }
   if (document.body) start(); else document.addEventListener("DOMContentLoaded", start);
 })();
