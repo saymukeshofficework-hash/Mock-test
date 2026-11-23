@@ -45,11 +45,11 @@ export const exams: Exam[] = [
       applicationEnd: { date: "2026-10-06", status: "CONFIRMED" },
       correctionEnd: { date: "2026-10-11", status: "CONFIRMED" },
       exam: {
-        date: "2026-12-08",
+        date: "2026-12-09",
         status: "CONFIRMED",
         note: {
-          hi: "MPESB ने परीक्षा तिथि 08.12.2026 घोषित की है।",
-          en: "MPESB has announced the exam date: 8 Dec 2026.",
+          hi: "MPESB की सूचना दिनांक 23.11.2026 के अनुसार परीक्षा 09 दिसंबर 2026 से प्रारंभ होगी। प्रवेश-पत्र शीघ्र जारी होंगे।",
+          en: "Per MPESB notice dated 23 Nov 2026, the exam starts from 9 Dec 2026. Admit cards will be issued soon.",
         },
       },
     },
