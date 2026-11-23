@@ -82,6 +82,9 @@ h1{color:#352054;margin-top:24px;font-size:clamp(24px,5vw,34px)}
 @media(max-width:420px){.pat{margin-inline:0}.exam-pattern-head{margin:8px;padding:10px}.pat table td,.exam-pattern-table td{padding:8px 6px!important}}
 </style>
  <link rel="stylesheet" href="assets/exam-layout.css?v=2">
+<!-- Inside the Android app hide the buy box (Google Play billing policy). Same flag as /examhelp/app-mode.js. -->
+<script>try{if(/[?&]source=android/.test(location.search)||/^android-app:/.test(document.referrer))localStorage.setItem('tth-app','1');if(localStorage.getItem('tth-app')==='1')document.documentElement.setAttribute('data-app','1')}catch(e){}</script>
+<style>html[data-app] #unlockBox{display:none!important}</style>
 </head>
 <body>
 <div class="hdr"><div class="bar">

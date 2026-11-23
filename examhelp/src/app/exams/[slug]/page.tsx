@@ -12,6 +12,7 @@ import { DateStatusBadge, PhaseBadge } from "@/components/ui/StatusBadge";
 import { dict, tr } from "@/i18n/dictionary";
 import { getLang } from "@/i18n/server";
 import { examPhase, formatDate, formatExamDate } from "@/lib/dates";
+import { priceSafe } from "@/lib/format";
 import { getCategory, getExamBySlug, getExams, getNotesForExam, getNotificationsForExam, getRelatedExams } from "@/lib/repo";
 import { pageMeta } from "@/lib/seo";
 import { site } from "@/lib/site";
@@ -161,7 +162,7 @@ export default async function ExamDetailPage({ params }: { params: Params }) {
                 </span>
                 <span>
                   <span className="block text-lg font-bold text-ink-900">{tr(exam.testSeries.title, lang)}</span>
-                  <span className="mt-0.5 block text-sm text-ink-500">{tr(exam.testSeries.sub, lang)}</span>
+                  <span className="mt-0.5 block text-sm text-ink-500"><span data-sale>{tr(exam.testSeries.sub, lang)}</span><span data-app-only>{priceSafe(tr(exam.testSeries.sub, lang)).app}</span></span>
                 </span>
               </span>
               <span className="btn-primary shrink-0">{tr(exam.testSeries.cta, lang)}</span>
