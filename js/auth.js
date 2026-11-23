@@ -55,6 +55,7 @@ async function registerAccount(fullName,identifier,password) {
       if(msg.includes("already registered")||msg.includes("already exists")) return {ok:false,message:"This email is already registered. Please login."};
       return {ok:false,message:error.message||"Unable to create account."};
     }
+    try{ if(window.fbq) fbq('track','CompleteRegistration'); }catch(_){}
     return {ok:true,session:data.session,message:data.session?"Account created successfully.":"Account created. Please check your email to confirm your account."};
   } catch(e) { return {ok:false,message:"Unable to create account. Please try again."}; }
 }
