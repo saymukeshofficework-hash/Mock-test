@@ -363,10 +363,11 @@ Deno.serve(async (req) => {
         isAdmin = r.ok && (await r.json()) === true;
       } catch { /* not admin */ }
       if (!isAdmin) return json({ error: "forbidden" }, 403);
-      const { data: rows, error } = await db.from("orders").select("buyer_user_id,email,phone,product,amount,paid_at")
+      const { data: rows, error } = await db.from("orders").select("buyer_user_id,email,phone,product,amount,paid_at,rzp_payment_id")
         .eq("status", "paid").gt("amount", 0).order("paid_at", { ascending: false }).limit(5000);
       if (error) return json({ error: "db" }, 500);
-      return json({ orders: (rows ?? []).map((r) => ({ ...r, title: PRODUCTS[r.product]?.title ?? r.product })) });
+      // the full payment id is never sent: only its last 6 characters, to tell orders apart
+      return json({ orders: (rows ?? []).map(({ rzp_payment_id, ...r }) => ({ ...r, pay_last: String(rzp_payment_id ?? "").slice(-6), title: PRODUCTS[r.product]?.title ?? r.product })) });
     }
 
     case "recover": {

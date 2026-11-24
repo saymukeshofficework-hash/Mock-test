@@ -30,7 +30,7 @@ type Row = {
   is_paid: boolean;
   paid_users: number;
 };
-type Order = { buyer_user_id: string | null; email: string | null; phone: string | null; product: string; amount: number; paid_at: string | null; title: string };
+type Order = { buyer_user_id: string | null; email: string | null; phone: string | null; product: string; amount: number; paid_at: string | null; title: string; pay_last: string };
 type Paid = { ids: string[]; contacts: string[]; orders: Order[] };
 
 const digits10 = (s: string | null) => {
@@ -48,6 +48,9 @@ const rupees = (paise: number) => "₹" + (paise / 100).toLocaleString("en-IN");
 const when = (s: string | null) =>
   s ? new Date(s).toLocaleString("en-IN", { day: "2-digit", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit", timeZone: "Asia/Kolkata" }) : "—";
 
+// distinct buyers among orders: by phone, else email
+const buyersOf = (orders: Order[]) => new Set(orders.map((o) => digits10(o.phone) || (o.email ?? "").toLowerCase() || o.pay_last)).size;
+
 export function UsersAdmin({ standalone = false }: { standalone?: boolean }) {
   const [token, setToken] = useState("");
   const [email, setEmail] = useState("");
@@ -55,6 +58,7 @@ export function UsersAdmin({ standalone = false }: { standalone?: boolean }) {
   const [paid, setPaid] = useState<Paid | null>(null);
   const [total, setTotal] = useState<number | null>(null);
   const [paidCount, setPaidCount] = useState(0);
+  const [unlinked, setUnlinked] = useState<Order[] | null>(null);
   const [q, setQ] = useState("");
   const [term, setTerm] = useState("");
   const [busy, setBusy] = useState(false);
@@ -142,6 +146,31 @@ export function UsersAdmin({ standalone = false }: { standalone?: boolean }) {
     }
   };
 
+  // paid orders that belong to no registered account (bought without logging in)
+  useEffect(() => {
+    if (!token || !paid) return;
+    let off = false;
+    (async () => {
+      try {
+        const r = await fetch(`${SB_URL}/rest/v1/rpc/admin_list_users`, {
+          method: "POST",
+          headers: { apikey: SB_KEY, Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
+          body: JSON.stringify({ p_limit: 200, p_offset: 0, p_paid: true, p_paid_ids: paid.ids, p_paid_contacts: paid.contacts }),
+        });
+        if (!r.ok || off) return;
+        const users = (await r.json()) as Row[];
+        const used = new Set<Order>();
+        users.forEach((u) => ordersOf(u, paid).forEach((o) => used.add(o)));
+        setUnlinked(paid.orders.filter((o) => !used.has(o)));
+      } catch {
+        /* the two boxes above still work */
+      }
+    })();
+    return () => {
+      off = true;
+    };
+  }, [token, paid]);
+
   const onCounts = useCallback((t: number, p: number) => {
     setTotal(t);
     setPaidCount(p);
@@ -194,13 +223,19 @@ export function UsersAdmin({ standalone = false }: { standalone?: boolean }) {
           </div>
           <div className="card p-4">
             <dt className="text-xs font-semibold text-ink-500 sm:text-sm">Paid / पेमेंट किया</dt>
-            <dd className="mt-1 text-2xl font-extrabold text-success-700">{paidCount.toLocaleString("en-IN")}</dd>
+            <dd className="mt-1 text-2xl font-extrabold text-success-700">{(paidCount + (unlinked ? buyersOf(unlinked) : 0)).toLocaleString("en-IN")}</dd>
           </div>
           <div className="card p-4">
             <dt className="text-xs font-semibold text-ink-500 sm:text-sm">Non-paid / सिर्फ़ रजिस्टर</dt>
             <dd className="mt-1 text-2xl font-extrabold text-ink-900">{(total - paidCount).toLocaleString("en-IN")}</dd>
           </div>
         </dl>
+      ) : null}
+
+      {token && paid && unlinked ? (
+        <p className="mt-3 text-sm text-ink-700">
+          Paid includes {buyersOf(unlinked)} buyers without an account (shown at the end of the Paid list) / पेड में {buyersOf(unlinked)} बिना अकाउंट वाले खरीदार भी शामिल हैं · {paid.orders.length} orders, {rupees(paid.orders.reduce((a, o) => a + o.amount, 0))}
+        </p>
       ) : null}
 
       {token && paid ? (
@@ -223,7 +258,7 @@ export function UsersAdmin({ standalone = false }: { standalone?: boolean }) {
             </button>
           </form>
 
-          <UserTable token={token} paid={paid} term={term} isPaid onCounts={onCounts} onError={onError}
+          <UserTable token={token} paid={paid} term={term} isPaid extra={unlinked ?? []} onCounts={onCounts} onError={onError}
             title="Paid users / पेमेंट करने वाले यूज़र" />
           <UserTable token={token} paid={paid} term={term} isPaid={false} onCounts={onCounts} onError={onError}
             title="Non-paid users (only registered) / बिना पेमेंट वाले (सिर्फ़ रजिस्टर)" />
@@ -233,11 +268,12 @@ export function UsersAdmin({ standalone = false }: { standalone?: boolean }) {
   );
 }
 
-function UserTable({ token, paid, term, isPaid, title, onCounts, onError }: {
+function UserTable({ token, paid, term, isPaid, extra = [], title, onCounts, onError }: {
   token: string;
   paid: Paid;
   term: string;
   isPaid: boolean;
+  extra?: Order[]; // paid orders without an account, listed at the end of the Paid table
   title: string;
   onCounts: (total: number, paid: number) => void;
   onError: (msg: string, expired: boolean) => void;
@@ -275,12 +311,21 @@ function UserTable({ token, paid, term, isPaid, title, onCounts, onError }: {
 
   const pages = Math.max(1, Math.ceil(matched / PAGE));
   const cols = isPaid ? 6 : 5;
+  const groups: Order[][] = [];
+  if (isPaid && !term) {
+    const by = new Map<string, Order[]>();
+    extra.forEach((o) => {
+      const k = digits10(o.phone) || (o.email ?? "").toLowerCase() || o.pay_last;
+      by.set(k, [...(by.get(k) ?? []), o]);
+    });
+    by.forEach((v) => groups.push(v));
+  }
 
   return (
     <div className={`mt-6 overflow-hidden rounded-2xl border-2 bg-white ${isPaid ? "border-success-700" : "border-ink-300"}`}>
       <h3 className={`flex items-center justify-between gap-3 px-4 py-3 text-lg font-extrabold ${isPaid ? "bg-success-700 text-white" : "bg-ink-100 text-ink-900"}`}>
         <span>{title}</span>
-        <span className="text-2xl">{matched.toLocaleString("en-IN")}</span>
+        <span className="text-2xl">{(matched + groups.length).toLocaleString("en-IN")}</span>
       </h3>
       <div className="overflow-x-auto p-0">
         <table className="w-full min-w-[640px] text-left text-sm">
@@ -295,7 +340,7 @@ function UserTable({ token, paid, term, isPaid, title, onCounts, onError }: {
             </tr>
           </thead>
           <tbody>
-            {rows.length === 0 && !busy ? (
+            {rows.length === 0 && groups.length === 0 && !busy ? (
               <tr>
                 <td colSpan={cols} className="px-3 py-5 text-center text-ink-500">No users found. / कोई यूज़र नहीं मिला।</td>
               </tr>
@@ -327,6 +372,25 @@ function UserTable({ token, paid, term, isPaid, title, onCounts, onError }: {
                 </tr>
               );
             })}
+            {page + 1 >= pages
+              ? groups.map((g, gi) => (
+                  <tr key={`nl${gi}`} className="border-t border-ink-100 align-top bg-ink-50/50">
+                    <td className="px-3 py-2 text-ink-500">{matched + gi + 1}</td>
+                    <td className="px-3 py-2 font-semibold text-ink-700">No account / बिना अकाउंट</td>
+                    <td className="px-3 py-2 text-ink-700">{digits10(g[0].phone) ? `••••${digits10(g[0].phone).slice(-4)}` : "—"}</td>
+                    <td className="min-w-[240px] px-3 py-2 text-ink-700">
+                      {g.map((o, k) => (
+                        <span key={k} className="block text-xs">
+                          {o.title} — <b>{rupees(o.amount)}</b> <span className="text-ink-500">({when(o.paid_at)}{o.pay_last ? ` · …${o.pay_last}` : ""})</span>
+                        </span>
+                      ))}
+                      {g.length > 1 ? <span className="mt-1 block text-xs font-bold">Total / कुल: {rupees(g.reduce((a, o) => a + o.amount, 0))}</span> : null}
+                    </td>
+                    <td className="px-3 py-2 text-ink-700">—</td>
+                    <td className="px-3 py-2 text-ink-700">—</td>
+                  </tr>
+                ))
+              : null}
           </tbody>
         </table>
       </div>
