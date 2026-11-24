@@ -237,8 +237,19 @@ export async function buyNotes(
     } catch {
       /* private mode */
     }
+    // fill the logged-in student's email and name in Razorpay (phone is still typed there)
+    const prefill: Record<string, string> = {};
+    try {
+      const u = JSON.parse(localStorage.getItem(SESSION_KEY) || "null")?.user;
+      if (typeof u?.email === "string" && u.email.includes("@")) prefill.email = u.email;
+      const nm = u?.user_metadata?.full_name;
+      if (typeof nm === "string" && nm.trim()) prefill.name = nm.trim().slice(0, 60);
+    } catch {
+      /* private mode */
+    }
     const rzp = new window.Razorpay!({
       key: order.key_id,
+      prefill,
       order_id: order.order_id,
       amount: order.amount,
       currency: order.currency,
