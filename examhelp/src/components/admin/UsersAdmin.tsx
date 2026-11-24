@@ -48,7 +48,7 @@ const rupees = (paise: number) => "₹" + (paise / 100).toLocaleString("en-IN");
 const when = (s: string | null) =>
   s ? new Date(s).toLocaleString("en-IN", { day: "2-digit", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit", timeZone: "Asia/Kolkata" }) : "—";
 
-export function UsersAdmin() {
+export function UsersAdmin({ standalone = false }: { standalone?: boolean }) {
   const [token, setToken] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -152,7 +152,7 @@ export function UsersAdmin() {
   }, [signOut]);
 
   return (
-    <section id="users" className="mt-10 border-t border-ink-200 pt-8">
+    <section id="users" className={standalone ? "pt-2" : "mt-10 border-t border-ink-200 pt-8"}>
       <div className="flex flex-wrap items-center justify-between gap-3">
         <h2 className="flex items-center gap-2 text-xl font-extrabold text-brand-900">
           <Users className="h-5 w-5 text-accent-600" aria-hidden="true" />
@@ -311,7 +311,7 @@ function UserTable({ token, paid, term, isPaid, title, onCounts, onError }: {
                     {u.email && u.email !== u.contact && u.contact ? <span className="block text-xs text-ink-500">{u.email}</span> : null}
                   </td>
                   {isPaid ? (
-                    <td className="px-3 py-2 text-ink-700">
+                    <td className="min-w-[240px] px-3 py-2 text-ink-700">
                       {bought.map((o, k) => (
                         <span key={k} className="block text-xs">
                           {o.title} — <b>{rupees(o.amount)}</b> <span className="text-ink-500">({when(o.paid_at)})</span>
