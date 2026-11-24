@@ -21,7 +21,7 @@ const T = {
   best: { hi: "सर्वश्रेष्ठ", en: "Best" },
   meta: { hi: "100 प्रश्न · 120 मिनट", en: "100 Qs · 120 min" },
   free: { hi: "फ्री", en: "Free" },
-  locked: { hi: "टेस्ट सीरीज़ में", en: "In test series" },
+  locked: { hi: "लॉक्ड", en: "Locked" },
   unlocked: { hi: "टेस्ट सीरीज़ अनलॉक है ✓", en: "Test series unlocked ✓" },
   wait: { hi: "कृपया प्रतीक्षा करें…", en: "Please wait…" },
   payErr: { hi: "भुगतान पूरा नहीं हुआ। कृपया दोबारा प्रयास करें।", en: "Payment didn't go through. Please try again." },
@@ -195,20 +195,8 @@ export function MockTestList({ series = "ag3" }: { series?: string }) {
         <p className="exam-pattern-negative">{S.neg[lang]}</p>
       </section>
 
-      <section data-sale className="card mt-6 flex flex-col gap-4 border-accent-100 bg-accent-50 p-5 sm:flex-row sm:items-center sm:justify-between">
-        <div>
-          <h2 className="font-bold text-ink-900">{S.unlockTitle[lang]}</h2>
-          {S.links.map((l) => {
-            const [path, hash] = l.href.split("#");
-            return (
-              <a key={l.href} href={`${base}${path}${lang === "en" ? "?lang=en" : ""}${hash ? "#" + hash : ""}`} className={`mt-2 mr-4 inline-block text-sm font-semibold underline ${l.tone === "accent" ? "text-accent-700" : "text-brand-700"}`}>
-                {l.label[lang]}
-              </a>
-            );
-          })}
-        </div>
-        {S.free.length < S.total ? (
-        <div className="shrink-0 sm:w-72">
+      {S.free.length < S.total ? (
+        <section data-sale className="mt-6">
           {freeNow ? (
             <div className="rounded-lg bg-success-50 px-4 py-3 text-center text-success-700">
               <p className="font-semibold">{SERIES_FREE_UNTIL[series] && seriesFreeOn(series) && !SERIES_FREE_UNTIL[series].en ? (lang === "hi" ? "🎉 सभी टेस्ट फ्री" : "🎉 All tests free") : SERIES_FREE_UNTIL[series] && seriesFreeOn(series) ? (lang === "hi" ? `🎉 ${SERIES_FREE_UNTIL[series].hi} तक सभी टेस्ट फ्री` : `🎉 All tests free till ${SERIES_FREE_UNTIL[series].en}`) : t("freeTitle")}</p>
@@ -221,26 +209,23 @@ export function MockTestList({ series = "ag3" }: { series?: string }) {
             </div>
           ) : S.unlockHref ? (
             <a href={S.unlockHref} className="btn-primary w-full">
-              <CreditCard className="h-4 w-4" aria-hidden="true" />
-              {S.unlockBtn[lang]}
+              <Lock className="h-4 w-4" aria-hidden="true" />
+              {lang === "hi" ? `बाकी ${S.total - S.free.length} टेस्ट अनलॉक करें – ₹${S.price}` : `Unlock remaining ${S.total - S.free.length} tests – ₹${S.price}`}
             </a>
           ) : token ? (
-            <>
-              <p className="rounded-lg bg-success-50 px-4 py-2 text-center font-semibold text-success-700">{t("unlocked")}</p>
-            </>
+            <p className="rounded-lg bg-success-50 px-4 py-3 text-center font-semibold text-success-700">{t("unlocked")}</p>
           ) : (
-            <>
+            <div>
               <button type="button" onClick={unlock} disabled={(!canBuy && !mainSite) || payState !== "idle"} className="btn-primary w-full disabled:opacity-60">
-                <CreditCard className="h-4 w-4" aria-hidden="true" />
-                {payState !== "idle" ? t("wait") : (canBuy || mainSite) ? (amount > 0 ? `${S.unlockBtn[lang]} · ₹${amount / 100}` : S.unlockBtn[lang]) : t("soon")}
+                <Lock className="h-4 w-4" aria-hidden="true" />
+                {payState !== "idle" ? t("wait") : (lang === "hi" ? `बाकी ${S.total - S.free.length} टेस्ट अनलॉक करें – ₹${S.price}` : `Unlock remaining ${S.total - S.free.length} tests – ₹${S.price}`)}
               </button>
               {payErr ? <p role="alert" className="mt-2 text-sm text-danger-700">{payErr}</p> : null}
               <a href={`${base}/download/?recover=1`} className="mt-2 block text-center text-xs text-brand-700 underline">{t("otherDevice")}</a>
-            </>
+            </div>
           )}
-        </div>
-        ) : null}
-      </section>
+        </section>
+      ) : null}
 
 
       <ol className="mock-test-grid mt-8 grid gap-3">
@@ -275,17 +260,10 @@ export function MockTestList({ series = "ag3" }: { series?: string }) {
                     {b ? t("again") : t("start")}
                   </a>
                 ) : (
-                  S.unlockHref && !freeNow ? (
-                    <a href={S.unlockHref} className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-canvas px-3 py-2 text-sm font-semibold text-ink-500 ring-1 ring-ink-200">
-                      <Lock className="h-4 w-4" aria-hidden="true" />
-                      {t("locked")}
-                    </a>
-                  ) : (
                   <span className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-canvas px-3 py-2 text-sm font-semibold text-ink-500 ring-1 ring-ink-200">
                     {lockedPaid ? <Lock className="h-4 w-4" aria-hidden="true" /> : <Unlock className="h-4 w-4" aria-hidden="true" />}
                     {lockedPaid ? t("locked") : t("soon")}
                   </span>
-                  )
                 )}
               </div>
             </li>
