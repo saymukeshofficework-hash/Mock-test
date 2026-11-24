@@ -5,6 +5,23 @@
   var KEY = "sb-ovaubhekxjtkodkhsybg-auth-token";
   var MAIN_URL = "https://ovaubhekxjtkodkhsybg.supabase.co";
   var MAIN_ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpudWxlcHpkaWh6aGptdXZ5cm9pIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTExMjE5MjIsImV4cCI6MjEwNjY5NzkyMn0.XoqC6vNDJkEAxgtXLVPCpTxocv3lAa-ZBeg69OdbhdU";
+  // Paid-series tokens (testhub_dl_*) belong to the account that saved them: drop them when a
+  // different account is logged in on this browser. Same rule in src/lib/checkout.ts.
+  try {
+    var sess = JSON.parse(localStorage.getItem(KEY) || "null");
+    var uid = (sess && sess.user && sess.user.id) || "anon";
+    var owner = localStorage.getItem("testhub_tokens_owner");
+    // logged out: keep the tokens and who they belong to, so the next login is still checked
+    if (owner !== uid && !(uid === "anon" && owner)) {
+      if (uid !== "anon" && owner !== "anon") {
+        for (var i = localStorage.length - 1; i >= 0; i--) {
+          var k = localStorage.key(i);
+          if (k && (k.indexOf("testhub_dl_") === 0 || k.indexOf("testhub_pending_") === 0)) localStorage.removeItem(k);
+        }
+      }
+      localStorage.setItem("testhub_tokens_owner", uid);
+    }
+  } catch (e) {}
   function on() { return Date.now() < FREE_UNTIL; }
   // main-site access token, refreshed when it is about to expire; null when logged out
   function token() {

@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { MOCK_SERIES } from "@/data/mockTests";
 import { CheckCircle2, Download, KeyRound, Loader2 } from "lucide-react";
-import { checkout, downloadPath } from "@/lib/checkout";
+import { checkout, downloadPath, forgetOtherAccountTokens } from "@/lib/checkout";
 import { site } from "@/lib/site";
 
 /** Private download page for paid notes: /download/?t=<token>. Bilingual (Hindi first). */
@@ -30,6 +30,7 @@ export function DownloadClient() {
   const [recoverMsg, setRecoverMsg] = useState("");
 
   useEffect(() => {
+    forgetOtherAccountTokens();
     const q = new URLSearchParams(window.location.search);
     const tk = q.get("t");
     setToken(tk);
