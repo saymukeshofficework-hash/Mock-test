@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="hi"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Exam Previous Papers | TET Test Hub</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f7f4ff;color:#302448;font-family:Arial,sans-serif}header{padding:15px max(16px,calc((100% - 900px)/2));background:#fff;box-shadow:0 2px 12px #25104412;display:flex;justify-content:space-between;gap:12px}.brand{font-size:19px;font-weight:900;color:#5b36a8;text-decoration:none}.back{color:#5b36a8;text-decoration:none;font-weight:800}main{max-width:900px;margin:25px auto;padding:0 16px}.hero{padding:25px;border-radius:18px;background:linear-gradient(125deg,#392078,#7846d0);color:white}.hero h1{margin:0 0 8px}.hero p{margin:0;color:#f1eaff;line-height:1.6}.years{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:12px;margin-top:20px}.year{background:white;border:1px solid #e8def7;border-radius:14px;padding:17px}.year strong{display:block;font-size:19px;color:#4c2d91}.status{display:inline-block;margin-top:10px;padding:6px 9px;border-radius:20px;background:#fff4d8;color:#805900;font-size:12px;font-weight:800}.info{margin-top:18px;background:#fff;border:1px solid #e8def7;border-radius:13px;padding:16px;line-height:1.65;color:#665b78;font-size:14px}
+</style></head><body><header><a class="brand" href="/index.html">TET TEST HUB</a><a class="back" href="/previous-paper-folder.html">← All Exam Folders</a></header>
+<main><section class="hero"><h1 id="examTitle">Previous Papers</h1><p>पिछले पाँच वर्षों के प्रश्नपत्र वर्ष के अनुसार यहाँ रखे जाएँगे। हिंदी/अंग्रेज़ी संस्करण जहाँ उपलब्ध होंगे, अलग दिखेंगे।</p></section>
+<section class="years" id="yearList" aria-label="Year-wise papers"></section>
+<div class="info"><strong>नोट:</strong> केवल आधिकारिक या विश्वसनीय स्रोत से सत्यापित प्रश्नपत्र ही PDF के रूप में अपलोड किए जाएँगे। फिलहाल इस नए सेक्शन में PDF फ़ाइलें उपलब्ध नहीं हैं; इसलिए किसी वर्ष को अपलोडेड नहीं बताया जा रहा है।</div></main>
+<script>
+const names={'mp-police':'MP Police Constable','mp-high-court':'MP High Court','tet':'TET','ssc-gd':'SSC GD','railway-ntpc':'Railway NTPC','mp-patwari':'MP Patwari','group-3-sub-engineer':'Group 3 Sub Engineer','cpct':'CPCT','other':'Other Competitive Exams'};
+const key=new URLSearchParams(location.search).get('exam')||'other';
+const name=names[key]||names.other;document.getElementById('examTitle').textContent=name+' – Previous Papers';
+document.title=name+' Previous Papers | TET Test Hub';
+document.getElementById('yearList').innerHTML=[2025,2024,2023,2022,2021].map(y=>'<article class="year"><strong>'+y+'</strong><span class="status">PDF जल्द उपलब्ध</span></article>').join('');
+</script></body></html>
