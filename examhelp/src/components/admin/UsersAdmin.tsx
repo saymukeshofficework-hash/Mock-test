@@ -277,11 +277,12 @@ function UserTable({ token, paid, term, isPaid, title, onCounts, onError }: {
   const cols = isPaid ? 6 : 5;
 
   return (
-    <div className="mt-6">
-      <h3 className="text-lg font-extrabold text-brand-900">
-        {title} <span className="text-ink-500">({matched.toLocaleString("en-IN")})</span>
+    <div className={`mt-6 overflow-hidden rounded-2xl border-2 bg-white ${isPaid ? "border-success-700" : "border-ink-300"}`}>
+      <h3 className={`flex items-center justify-between gap-3 px-4 py-3 text-lg font-extrabold ${isPaid ? "bg-success-700 text-white" : "bg-ink-100 text-ink-900"}`}>
+        <span>{title}</span>
+        <span className="text-2xl">{matched.toLocaleString("en-IN")}</span>
       </h3>
-      <div className="card mt-2 overflow-x-auto p-0">
+      <div className="overflow-x-auto p-0">
         <table className="w-full min-w-[640px] text-left text-sm">
           <thead className="bg-ink-50 text-xs uppercase text-ink-500">
             <tr>
@@ -330,7 +331,7 @@ function UserTable({ token, paid, term, isPaid, title, onCounts, onError }: {
         </table>
       </div>
 
-      <div className="mt-3 flex items-center justify-between gap-2 text-sm">
+      <div className="flex items-center justify-between gap-2 border-t border-ink-100 p-3 text-sm">
         <button type="button" className="btn-outline px-3 py-1.5" disabled={busy || page === 0} onClick={() => load(page - 1)}>
           <ChevronLeft className="h-4 w-4" aria-hidden="true" /> Prev
         </button>
