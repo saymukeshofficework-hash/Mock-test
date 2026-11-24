@@ -70,7 +70,7 @@ export function LoginChip({ className, mode = "default" }: { className: string; 
         className={className}
       >
         <span className="text-left leading-tight">
-          <span className="block text-[10px] font-medium opacity-80">स्वागत है 👋</span>
+          <span className="block text-[10px] font-medium opacity-80">नमस्कार 🙏</span>
           <span className="block truncate max-w-full">{first || "मेरा खाता"}{u.id ? ` · ${u.id}` : ""}</span>
         </span>
         <ChevronDown className={`ml-1 h-4 w-4 shrink-0 transition-transform ${open ? "rotate-180" : ""}`} aria-hidden="true" />

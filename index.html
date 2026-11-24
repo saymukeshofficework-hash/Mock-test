@@ -308,6 +308,22 @@ body{padding-bottom:88px!important}
 <!-- Homepage is public; only protected actions require login. -->
 <script>try{if(/[?&]source=android/.test(location.search))localStorage.setItem('tth-app','1');if(localStorage.getItem('tth-app')==='1')document.documentElement.setAttribute('data-app','1')}catch(e){}try{if(localStorage.getItem('tth-app')==='1'){var s=document.createElement('script');s.src='/examhelp/app-words.js?v=2';s.defer=true;document.head.appendChild(s)}}catch(e){}</script><style>html[data-app] a[href$="bridge-course-folder.html"]{display:none!important}</style>
 <script src="/js/meta-pixel.js" defer></script>
+<style>
+.home-welcome-bar[hidden]{display:none!important}
+.home-welcome-bar{display:flex;align-items:center;gap:8px;background:linear-gradient(90deg,#f5efff,#fff7e6);border-bottom:1px solid #e7dcf6;padding:6px 10px;font-size:13px;color:#30204f}
+.home-greeting{flex:0 0 auto;max-width:42%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:600;background:#fff;border:1px solid #e1d3f3;border-radius:999px;padding:4px 10px}
+.home-greeting strong{color:#6d28d9}
+.home-ticker{flex:1 1 auto;min-width:0;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 16px,#000 calc(100% - 16px),transparent);mask-image:linear-gradient(90deg,transparent,#000 16px,#000 calc(100% - 16px),transparent)}
+.home-ticker-track{display:flex;width:max-content;animation:homeTicker 45s linear infinite}
+.home-ticker:hover .home-ticker-track,.home-ticker:focus-within .home-ticker-track{animation-play-state:paused}
+.home-ticker-set{display:flex;gap:8px;padding-right:8px}
+.home-ticker a{white-space:nowrap;text-decoration:none;color:#4c1d95;background:#fff;border:1px solid #e1d3f3;border-radius:999px;padding:4px 10px;font-weight:600}
+.home-ticker a small{color:#7c6a96;font-weight:500;margin-left:2px}
+.home-ticker a:hover{background:#ede9fe}
+@keyframes homeTicker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media (max-width:560px){.home-welcome-bar{font-size:12px;padding:5px 8px;gap:6px}.home-greeting{max-width:45%;padding:3px 8px}.home-ticker a{padding:3px 8px}}
+@media (prefers-reduced-motion:reduce){.home-ticker{overflow-x:auto}.home-ticker-track{animation:none}.home-ticker-set[aria-hidden]{display:none}}
+</style>
 </head>
 <body>
 
@@ -329,6 +345,13 @@ body{padding-bottom:88px!important}
     </div>
     <a href="login.html" class="account-menu top-account-menu account-menu-toggle header-login-link" id="homeHeaderLoginLink" hidden >Student Login</a>
   </header>
+
+  <div class="home-welcome-bar" id="homeWelcomeBar" hidden>
+    <span class="home-greeting">🙏 नमस्कार, <strong id="homeGreetingName">Student</strong></span>
+    <div class="home-ticker" aria-label="Test series / टेस्ट सीरीज़">
+      <div class="home-ticker-track"><span class="home-ticker-set"><a href="/examhelp/mp-police-constable-gd-mock-tests/">📘 पुलिस आरक्षक GD <small>MP Police GD</small></a><a href="/examhelp/mp-high-court-assistant-grade-3-mock-tests/">📘 हाई कोर्ट AG-3 <small>High Court AG-3</small></a><a href="/examhelp/tet-mock-tests/">📘 MP TET <small>Teacher Exam</small></a><a href="/ctet.html">📘 CTET <small>Paper 1 &amp; 2</small></a><a href="/examhelp/rrb-ntpc-graduate-mock-tests/">📘 RRB NTPC <small>Graduate / UG</small></a><a href="/examhelp/ssc-gd-mock-tests/">📘 SSC GD <small>Constable</small></a><a href="/examhelp/mppsc-prelims-mock-tests/">📘 MPPSC प्रारंभिक <small>MPPSC Prelims</small></a><a href="/examhelp/mp-police-si-mock-tests/">📘 MP पुलिस SI <small>MP Police SI</small></a><a href="/naib-tehsildar/">📘 नायब तहसीलदार <small>Naib Tehsildar</small></a><a href="/examhelp/navodaya-class-6-mock-tests/">📘 नवोदय कक्षा 6 <small>Navodaya Class 6</small></a><a href="/typing-practice/">📘 MP CPCT <small>Typing &amp; Test</small></a><a href="/current-affairs-folder.html">📘 करंट अफेयर्स <small>Daily Current Affairs</small></a></span><span class="home-ticker-set" aria-hidden="true"><a href="/examhelp/mp-police-constable-gd-mock-tests/">📘 पुलिस आरक्षक GD <small>MP Police GD</small></a><a href="/examhelp/mp-high-court-assistant-grade-3-mock-tests/">📘 हाई कोर्ट AG-3 <small>High Court AG-3</small></a><a href="/examhelp/tet-mock-tests/">📘 MP TET <small>Teacher Exam</small></a><a href="/ctet.html">📘 CTET <small>Paper 1 &amp; 2</small></a><a href="/examhelp/rrb-ntpc-graduate-mock-tests/">📘 RRB NTPC <small>Graduate / UG</small></a><a href="/examhelp/ssc-gd-mock-tests/">📘 SSC GD <small>Constable</small></a><a href="/examhelp/mppsc-prelims-mock-tests/">📘 MPPSC प्रारंभिक <small>MPPSC Prelims</small></a><a href="/examhelp/mp-police-si-mock-tests/">📘 MP पुलिस SI <small>MP Police SI</small></a><a href="/naib-tehsildar/">📘 नायब तहसीलदार <small>Naib Tehsildar</small></a><a href="/examhelp/navodaya-class-6-mock-tests/">📘 नवोदय कक्षा 6 <small>Navodaya Class 6</small></a><a href="/typing-practice/">📘 MP CPCT <small>Typing &amp; Test</small></a><a href="/current-affairs-folder.html">📘 करंट अफेयर्स <small>Daily Current Affairs</small></a></span></div>
+    </div>
+  </div>
 
   <nav class="home-bottom-taskbar" aria-label="Home page navigation">
     <a class="task-home" href="/index.html"><span class="task-icon" aria-hidden="true">⌂</span><span>Home</span></a>
@@ -419,14 +442,22 @@ body{padding-bottom:88px!important}
       accountMenu.hidden = false;
       const idEl = document.getElementById('accountStudentId');
       let studentId = session.user?.user_metadata?.student_id || session.user?.user_metadata?.contact_identifier || '';
+      let profile = null;
       try {
         if (typeof getProfile === 'function' && session.user?.id) {
-          const profile = await getProfile(session.user.id);
+          profile = await getProfile(session.user.id);
           if (profile?.student_id) studentId = profile.student_id;
         }
       } catch (_) {}
       if (!studentId && session.user?.email) studentId = session.user.email.split('@')[0];
       idEl.textContent = studentId || 'Not available';
+      try {
+        let greetName = (profile && profile.full_name) || session.user?.user_metadata?.full_name || '';
+        if (!greetName && session.user?.email) greetName = session.user.email.split('@')[0];
+        greetName = String(greetName || '').trim().split(/\s+/).slice(0, 2).join(' ');
+        if (greetName) document.getElementById('homeGreetingName').textContent = greetName;
+        document.getElementById('homeWelcomeBar').hidden = false;
+      } catch (_) {}
     } else {
       if (navLoginLink) navLoginLink.hidden = false;
       accountMenu.hidden = true;
