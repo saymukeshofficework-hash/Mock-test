@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { MetaLeadOnRegister } from "@/components/layout/MetaLeadOnRegister";
 import { MockTestList } from "@/components/mock/MockTestList";
 import { JsonLd } from "@/components/ui/Primitives";
 import { pageMeta } from "@/lib/seo";
@@ -45,6 +46,7 @@ const LINKS = [
 export default function Page() {
   return (
     <>
+      <MetaLeadOnRegister />
       <MockTestList series="pcgd" />
       <div className="container-page space-y-8 pb-12">
         <section aria-labelledby="gd-start-h" className="card flex flex-col gap-3 p-5 sm:flex-row sm:items-center sm:justify-between sm:p-6">

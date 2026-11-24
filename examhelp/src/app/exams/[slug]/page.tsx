@@ -5,6 +5,7 @@ import { BookOpen, ClipboardCheck, FileClock, FileText, Info, Newspaper, Noteboo
 import { Countdown } from "@/components/exam/Countdown";
 import { ExamCard } from "@/components/exam/ExamCard";
 import { NotificationItem } from "@/components/exam/NotificationItem";
+import { MetaLeadOnRegister } from "@/components/layout/MetaLeadOnRegister";
 import { NotesCard } from "@/components/notes/NotesCard";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { ExternalButton, JsonLd } from "@/components/ui/Primitives";
@@ -100,6 +101,7 @@ export default async function ExamDetailPage({ params }: { params: Params }) {
 
   return (
     <>
+      {exam.slug === "mp-police-constable-2026" && <MetaLeadOnRegister />}
       <div className="border-b border-ink-200 bg-gradient-to-b from-brand-50 to-canvas">
         <div className="container-page py-8 sm:py-10">
           <Breadcrumbs
