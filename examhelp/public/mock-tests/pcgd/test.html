@@ -847,7 +847,7 @@ loadTest()
   .then((d) => { SECTIONS = d.sections; Q = d.questions; boot(); })
   .catch((e) => {
     if (e.message === "login") { showMsg("4 नवंबर तक सभी टेस्ट फ्री हैं। टेस्ट देने के लिए लॉगिन करें।", "All tests are free till 4 Nov. Please log in to take this test."); const b = document.getElementById("backLink"); if (b) { b.href = "/login.html?next=" + encodeURIComponent(location.pathname + location.search); b.textContent = "लॉगिन करें / Log in \u2192"; } }
-    else if (e.message === "locked") showMsg("यह टेस्ट, टेस्ट सीरीज़ (₹99) का हिस्सा है। सभी टेस्ट अनलॉक करने के लिए वापस जाएँ।", "This test is part of the test series (₹99). Go back to unlock all tests.");
+    else if (e.message === "locked") showMsg("यह टेस्ट, टेस्ट सीरीज़ (₹49) का हिस्सा है। सभी टेस्ट अनलॉक करने के लिए वापस जाएँ।", "This test is part of the test series (₹49). Go back to unlock all tests.");
     else showMsg("यह टेस्ट अभी उपलब्ध नहीं है।", "This test is not available yet.");
   });
 function boot() {
