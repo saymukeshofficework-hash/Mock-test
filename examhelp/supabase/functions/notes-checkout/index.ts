@@ -348,6 +348,27 @@ Deno.serve(async (req) => {
       return json({ series });
     }
 
+    case "admin_paid_users": {
+      // admin Users page (examhelp /admin): real paid orders (₹0 owner orders left out). Only a main-site
+      // admin token passes: is_bridge_admin() is checked on the main project with that token.
+      const t = String(body.access_token ?? "");
+      if (t.length < 20) return json({ error: "login_required" }, 401);
+      let isAdmin = false;
+      try {
+        const r = await fetch(`${MAIN_URL}/rest/v1/rpc/is_bridge_admin`, {
+          method: "POST",
+          headers: { apikey: MAIN_ANON, Authorization: `Bearer ${t}`, "Content-Type": "application/json" },
+          body: "{}",
+        });
+        isAdmin = r.ok && (await r.json()) === true;
+      } catch { /* not admin */ }
+      if (!isAdmin) return json({ error: "forbidden" }, 403);
+      const { data: rows, error } = await db.from("orders").select("buyer_user_id,email,phone,product,amount,paid_at")
+        .eq("status", "paid").gt("amount", 0).order("paid_at", { ascending: false }).limit(5000);
+      if (error) return json({ error: "db" }, 500);
+      return json({ orders: (rows ?? []).map((r) => ({ ...r, title: PRODUCTS[r.product]?.title ?? r.product })) });
+    }
+
     case "recover": {
       // buyer lost the page: payment id + email or phone used at checkout
       const pid = (body.payment_id ?? "").trim();
