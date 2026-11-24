@@ -40,6 +40,8 @@ export function MockTestList({ series = "ag3" }: { series?: string }) {
   const [token, setToken] = useState<string | null>(null);
   const [paidReady, setPaidReady] = useState<number[]>([]);
   const [canBuy, setCanBuy] = useState(false);
+  // Price in paise from the server, shown on the buy button so ₹ is seen before Razorpay opens
+  const [amount, setAmount] = useState(0);
   const [payState, setPayState] = useState("idle");
   const [payErr, setPayErr] = useState("");
   // 14-day free offer: read on the client so the static build never freezes it
@@ -108,9 +110,10 @@ export function MockTestList({ series = "ag3" }: { series?: string }) {
     } else {
       claimPurchase(S.product).then((t) => t && setToken(t));
     }
-    checkout<{ ready: boolean; tests?: number[] }>({ action: "status", product: S.product })
+    checkout<{ ready: boolean; tests?: number[]; amount?: number }>({ action: "status", product: S.product })
       .then((r) => {
         setCanBuy(!!r.ready);
+        setAmount(r.amount ?? 0);
         setPaidReady(r.tests ?? []);
       })
       .catch(() => {});
@@ -229,7 +232,7 @@ export function MockTestList({ series = "ag3" }: { series?: string }) {
             <>
               <button type="button" onClick={unlock} disabled={(!canBuy && !mainSite) || payState !== "idle"} className="btn-primary w-full disabled:opacity-60">
                 <CreditCard className="h-4 w-4" aria-hidden="true" />
-                {payState !== "idle" ? t("wait") : (canBuy || mainSite) ? S.unlockBtn[lang] : t("soon")}
+                {payState !== "idle" ? t("wait") : (canBuy || mainSite) ? (amount > 0 ? `${S.unlockBtn[lang]} · ₹${amount / 100}` : S.unlockBtn[lang]) : t("soon")}
               </button>
               {payErr ? <p role="alert" className="mt-2 text-sm text-danger-700">{payErr}</p> : null}
               <a href={`${base}/download/?recover=1`} className="mt-2 block text-center text-xs text-brand-700 underline">{t("otherDevice")}</a>
