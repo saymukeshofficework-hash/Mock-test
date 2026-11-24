@@ -324,6 +324,16 @@ body{padding-bottom:88px!important}
 @media (max-width:560px){.home-welcome-bar{font-size:12px;padding:5px 8px;gap:6px}.home-greeting{max-width:45%;padding:3px 8px}.home-ticker a{padding:3px 8px}}
 @media (prefers-reduced-motion:reduce){.home-ticker{overflow-x:auto}.home-ticker-track{animation:none}.home-ticker-set[aria-hidden]{display:none}}
 </style>
+<style>
+.home-social[hidden],.home-social a[hidden]{display:none!important}
+.home-social{margin:18px 0 8px;text-align:center}
+.home-social-title{font-weight:800;color:#30204f;font-size:15px;margin-bottom:10px}
+.home-social-row{display:flex;flex-wrap:wrap;justify-content:center;gap:10px}
+.home-social a{display:inline-flex;align-items:center;gap:9px;background:#fff;border:1px solid #e1d3f3;border-radius:14px;padding:8px 14px 8px 10px;text-decoration:none;color:#30204f;font-weight:700;font-size:14px;box-shadow:0 3px 10px #39214b12;text-align:left}
+.home-social a span{display:flex;flex-direction:column;line-height:1.2}
+.home-social a small{font-weight:500;font-size:11px;color:#7c6a96}
+@media (max-width:560px){.home-social a{flex:1 1 calc(50% - 10px);min-width:0;padding:8px 10px}}
+</style>
 </head>
 <body>
 
@@ -385,6 +395,15 @@ body{padding-bottom:88px!important}
         </div>
       </section>
 
+
+      <section class="home-social" id="homeSocial" aria-label="Follow us / हमसे जुड़ें" hidden>
+        <div class="home-social-title">हमसे जुड़ें / Follow us</div>
+        <div class="home-social-row">
+          <a id="socTg" href="#" target="_blank" rel="noopener" hidden><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><circle cx="12" cy="12" r="12" fill="#229ED9"/><path d="M5.4 11.8l11.5-4.4c.5-.2 1 .1.8.9l-2 9.2c-.1.6-.5.8-1 .5l-3-2.2-1.4 1.4c-.2.2-.3.3-.6.3l.2-3 5.4-4.9c.2-.2 0-.3-.4-.1l-6.7 4.2-2.9-.9c-.6-.2-.6-.6.1-.9z" fill="#fff"/></svg><span>Telegram<small>ग्रुप जॉइन करें</small></span></a>
+          <a id="socFb" href="#" target="_blank" rel="noopener" hidden><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><circle cx="12" cy="12" r="12" fill="#1877F2"/><path d="M13.3 19.5v-6.6h2.2l.4-2.6h-2.6V8.6c0-.8.3-1.3 1.4-1.3h1.3V5c-.3 0-1.1-.1-2-.1-2 0-3.3 1.2-3.3 3.4v1.9H8.500v2.6h2.200v6.700z" fill="#fff"/></svg><span>Facebook<small>पेज फॉलो करें</small></span></a>
+          <a id="socIg" href="https://www.instagram.com/tettesthub/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><defs><linearGradient id="igG" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#feda75"/><stop offset=".35" stop-color="#fa7e1e"/><stop offset=".65" stop-color="#d62976"/><stop offset="1" stop-color="#4f5bd5"/></linearGradient></defs><circle cx="12" cy="12" r="12" fill="url(#igG)"/><rect x="6.5" y="6.5" width="11" height="11" rx="3.2" fill="none" stroke="#fff" stroke-width="1.6"/><circle cx="12" cy="12" r="2.7" fill="none" stroke="#fff" stroke-width="1.6"/><circle cx="15.3" cy="8.7" r=".9" fill="#fff"/></svg><span>Instagram<small>@tettesthub</small></span></a>
+        </div>
+      </section>
       <!-- Exam cards are intentionally kept on the All Tests page, not duplicated on Home. -->
       
 
@@ -457,6 +476,13 @@ body{padding-bottom:88px!important}
         greetName = String(greetName || '').trim().split(/\s+/).slice(0, 2).join(' ');
         if (greetName) document.getElementById('homeGreetingName').textContent = greetName;
         document.getElementById('homeWelcomeBar').hidden = false;
+      } catch (_) {}
+      try {
+        // Telegram / Facebook links: add the URL here; an empty URL keeps that icon hidden.
+        const SOCIAL = { socTg: '', socFb: '' };
+        let any = true;
+        Object.keys(SOCIAL).forEach(id => { const a = document.getElementById(id); if (a && /^https:\/\//.test(SOCIAL[id])) { a.href = SOCIAL[id]; a.hidden = false; } });
+        document.getElementById('homeSocial').hidden = !any;
       } catch (_) {}
     } else {
       if (navLoginLink) navLoginLink.hidden = false;
