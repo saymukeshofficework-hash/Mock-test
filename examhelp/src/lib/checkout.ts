@@ -125,8 +125,27 @@ export function forgetOtherAccountTokens() {
   }
 }
 
+/**
+ * After the login page sends the student back with ?buy=<product>, runs `start(product)` once
+ * (opens Razorpay) if they are now logged in, and removes the parameter from the address bar.
+ */
+export function resumeBuyAfterLogin(products: string[], start: (product: string) => void) {
+  try {
+    const u = new URL(location.href);
+    const product = u.searchParams.get("buy");
+    if (!product || !products.includes(product)) return;
+    u.searchParams.delete("buy");
+    history.replaceState(null, "", u.pathname + u.search + u.hash);
+    if (localStorage.getItem(SESSION_KEY)) start(product);
+  } catch {
+    /* ignore */
+  }
+}
+
 /** Products whose tests open on the main site (profiles.purchased_tests via tet-unlock). */
-const needsLogin = (product: string) => product.startsWith("tet-") || product === "rrbg-tests" || product === "rrbu-tests";
+// Every test series (and the AG-3 combos, which include the tests) needs a login first, so the
+// purchase is linked to the student's account and opens on any device (owner, 2026-11-24).
+const needsLogin = (product: string) => product.startsWith("tet-") || product.endsWith("-tests") || product.startsWith("ag3-combo");
 
 /** Asks the main site to add every paid TET / RRB series to the logged-in student's tests. */
 export async function mainSiteUnlock(): Promise<boolean> {
@@ -193,10 +212,12 @@ export async function buyNotes(
     onState("creating");
     // purchases belong to the student's login, so they open on any device: log in first
     const access_token = await mainSiteAccessToken();
-    // TET and RRB NTPC series unlock on the student's main-site profile, so they need a login.
-    // Other test series and notes work without one.
+    // Test series need a login (see needsLogin); PDF notes still work without one.
     if (!access_token && needsLogin(product)) {
-      window.location.href = `/login.html?next=${encodeURIComponent(location.pathname + location.search)}`;
+      // come back with ?buy=<product> so the payment opens right after login / sign-up
+      const q = new URLSearchParams(location.search);
+      q.set("buy", product);
+      window.location.href = `/login.html?next=${encodeURIComponent(`${location.pathname}?${q.toString()}`)}`;
       return;
     }
     await loadRazorpay();

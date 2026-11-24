@@ -23,7 +23,7 @@ import {
   Users,
 } from "lucide-react";
 import { formatExamDate } from "@/lib/dates";
-import { buyNotes, checkout, downloadPath, forgetOtherAccountTokens } from "@/lib/checkout";
+import { buyNotes, checkout, downloadPath, forgetOtherAccountTokens, resumeBuyAfterLogin } from "@/lib/checkout";
 import { formatINR } from "@/lib/format";
 import type { Bilingual, Exam, ExamDate, Lang, NoteProduct } from "@/types";
 
@@ -208,7 +208,11 @@ export function AG3Landing({
     const products = [notes.hi?.checkoutProduct, notes.en?.checkoutProduct, notes.hi?.comboProduct, notes.en?.comboProduct].filter(Boolean) as string[];
     products.forEach((p) => {
       checkout<{ ready: boolean }>({ action: "status", product: p })
-        .then((r) => setPayReady((m) => ({ ...m, [p]: !!r.ready })))
+        .then((r) => {
+          setPayReady((m) => ({ ...m, [p]: !!r.ready }));
+          // back from login / sign-up: open the payment straight away
+          if (r.ready) resumeBuyAfterLogin([p], (x) => startBuy(x));
+        })
         .catch(() => {});
       try {
         const tok = localStorage.getItem(`testhub_dl_${p}`);
