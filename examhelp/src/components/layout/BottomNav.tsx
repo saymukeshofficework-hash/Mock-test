@@ -13,6 +13,14 @@ import { isDesktopExamHeaderPage } from "./DesktopExamHeader";
 export function BottomNav({ lang }: { lang: Lang }) {
   const pathname = usePathname();
   const router = useRouter();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  useEffect(() => {
+    try {
+      const raw = localStorage.getItem("sb-ovaubhekxjtkodkhsybg-auth-token");
+      const session = raw ? JSON.parse(raw) : null;
+      setIsLoggedIn(Boolean(session?.access_token && session?.user));
+    } catch { setIsLoggedIn(false); }
+  }, []);
   // 25-test series pages carry these options in their one-line desktop header.
   const desktopHidden = isDesktopExamHeaderPage(pathname) ? "lg:hidden" : "";
   const logout = () => {
@@ -27,6 +35,8 @@ export function BottomNav({ lang }: { lang: Lang }) {
     { href: "https://tettesthub.in/course-folders.html", label: dict.nav.tests, fixedLabel: "Test Series", Icon: LayoutGrid, abs: true, color: "text-violet-600" },
     { href: "https://tettesthub.in/dashboard.html", label: dict.nav.tests, fixedLabel: "Paid Test", Icon: NotebookPen, abs: true, color: "text-sky-600" },
   ];
+  if (!isLoggedIn) return null;
+
   return (
     <nav
       aria-label="Bottom navigation"
