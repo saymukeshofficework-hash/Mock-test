@@ -23,6 +23,14 @@
       localStorage.setItem("testhub_tokens_owner", uid);
     }
   } catch (e) {}
+  // Free Test 1 also needs a login / sign-up (owner, 2026-11-24). No payment: after login the
+  // student comes straight back to the test. Paid tests keep their own checks (token or login).
+  try {
+    var signedIn = !!(JSON.parse(localStorage.getItem(KEY) || "null") || {}).access_token;
+    var series = location.pathname.match(/\/mock-tests\/(ag3|asi|pcgd|pcdr|jnv6|group4|mppsc|mppsc2)\/test\.html$/);
+    var testNo = parseInt(new URLSearchParams(location.search).get("t") || "1", 10);
+    if (series && testNo === 1 && !signedIn) location.replace("/login.html?next=" + encodeURIComponent(location.pathname + location.search));
+  } catch (e) {}
   function on() { return Date.now() < FREE_UNTIL; }
   // main-site access token, refreshed when it is about to expire; null when logged out
   function token() {
