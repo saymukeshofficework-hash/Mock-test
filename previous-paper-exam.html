@@ -2,15 +2,35 @@
 <html lang="hi"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Exam Previous Papers | TET Test Hub</title>
 <style>
-*{box-sizing:border-box}body{margin:0;background:#f7f4ff;color:#302448;font-family:Arial,sans-serif}header{padding:15px max(16px,calc((100% - 900px)/2));background:#fff;box-shadow:0 2px 12px #25104412;display:flex;justify-content:space-between;gap:12px}.brand{font-size:19px;font-weight:900;color:#5b36a8;text-decoration:none}.back{color:#5b36a8;text-decoration:none;font-weight:800}main{max-width:900px;margin:25px auto;padding:0 16px}.hero{padding:25px;border-radius:18px;background:linear-gradient(125deg,#392078,#7846d0);color:white}.hero h1{margin:0 0 8px}.hero p{margin:0;color:#f1eaff;line-height:1.6}.years{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:12px;margin-top:20px}.year{background:white;border:1px solid #e8def7;border-radius:14px;padding:17px}.year strong{display:block;font-size:19px;color:#4c2d91}.status{display:inline-block;margin-top:10px;padding:6px 9px;border-radius:20px;background:#fff4d8;color:#805900;font-size:12px;font-weight:800}.info{margin-top:18px;background:#fff;border:1px solid #e8def7;border-radius:13px;padding:16px;line-height:1.65;color:#665b78;font-size:14px}
+*{box-sizing:border-box}body{margin:0;background:#f7f4ff;color:#302448;font-family:Arial,sans-serif}header{padding:15px max(16px,calc((100% - 900px)/2));background:#fff;box-shadow:0 2px 12px #25104412;display:flex;justify-content:space-between;gap:12px}.brand{font-size:19px;font-weight:900;color:#5b36a8;text-decoration:none}.back{color:#5b36a8;text-decoration:none;font-weight:800}main{max-width:900px;margin:25px auto;padding:0 16px}.hero{padding:25px;border-radius:18px;background:linear-gradient(125deg,#392078,#7846d0);color:white}.hero h1{margin:0 0 8px}.hero p{margin:0;color:#f1eaff;line-height:1.6}.years{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:12px;margin-top:20px}.year{background:white;border:1px solid #e8def7;border-radius:14px;padding:17px}.year strong{display:block;font-size:19px;color:#4c2d91}.status{display:inline-block;margin-top:10px;padding:6px 9px;border-radius:20px;background:#e8f7ec;color:#176b35;font-size:12px;font-weight:800}.year a{display:inline-block;margin-top:12px;padding:9px 11px;border-radius:9px;background:#5b36a8;color:white;text-decoration:none;font-weight:800;font-size:13px}.info{margin-top:18px;background:#fff;border:1px solid #e8def7;border-radius:13px;padding:16px;line-height:1.65;color:#665b78;font-size:14px}.source{display:block;margin-top:12px;color:#5b36a8;font-weight:800;overflow-wrap:anywhere}
 </style></head><body><header><a class="brand" href="/index.html">TET TEST HUB</a><a class="back" href="/previous-paper-folder.html">← All Exam Folders</a></header>
-<main><section class="hero"><h1 id="examTitle">Previous Papers</h1><p>पिछले पाँच वर्षों के प्रश्नपत्र वर्ष के अनुसार यहाँ रखे जाएँगे। हिंदी/अंग्रेज़ी संस्करण जहाँ उपलब्ध होंगे, अलग दिखेंगे।</p></section>
+<main><section class="hero"><h1 id="examTitle">Previous Papers</h1><p>वर्ष के अनुसार उपलब्ध प्रश्नपत्र देखें। जहाँ परीक्षा बोर्ड ने आधिकारिक पेपर सार्वजनिक किए हैं, वहाँ सीधे आधिकारिक स्रोत का लिंक दिया गया है।</p></section>
 <section class="years" id="yearList" aria-label="Year-wise papers"></section>
-<div class="info"><strong>नोट:</strong> केवल आधिकारिक या विश्वसनीय स्रोत से सत्यापित प्रश्नपत्र ही PDF के रूप में अपलोड किए जाएँगे। फिलहाल इस नए सेक्शन में PDF फ़ाइलें उपलब्ध नहीं हैं; इसलिए किसी वर्ष को अपलोडेड नहीं बताया जा रहा है।</div></main>
+<div class="info" id="sourceNote"><strong>महत्वपूर्ण:</strong> पेपर केवल तभी उपलब्ध दिखाया गया है जब उसका आधिकारिक स्रोत सत्यापित है। कुछ बोर्ड पुराने प्रश्नपत्र सार्वजनिक रूप से उपलब्ध नहीं रखते या केवल सीमित समय के लिए उम्मीदवार के लॉगिन में देते हैं।</div></main>
 <script>
 const names={'mp-police':'MP Police Constable','mp-high-court':'MP High Court','tet':'TET','ssc-gd':'SSC GD','railway-ntpc':'Railway NTPC','mp-patwari':'MP Patwari','group-3-sub-engineer':'Group 3 Sub Engineer','cpct':'CPCT','other':'Other Competitive Exams'};
+const sources={
+ 'mp-police':{label:'MPESB आधिकारिक पुराने प्रश्नपत्र',url:'https://esb.mp.gov.in/Old_Question_Papers/old_question_papers.htm',years:[2025,2023,2020,2017]},
+ 'mp-patwari':{label:'MPESB आधिकारिक पुराने प्रश्नपत्र',url:'https://esb.mp.gov.in/Old_Question_Papers/old_question_papers.htm',years:[2022,2017]},
+ 'group-3-sub-engineer':{label:'MPESB आधिकारिक पुराने प्रश्नपत्र',url:'https://esb.mp.gov.in/Old_Question_Papers/old_question_papers.htm',years:[2024,2022,2018]},
+ 'tet':{label:'MPESB TET / CTET आधिकारिक प्रश्नपत्र संग्रह',url:'https://esb.mp.gov.in/Old_Question_Papers/old_question_papers.htm',years:[2025,2024,2023,2022,2020],extra:'https://ctet.nic.in/archive/'},
+ 'mp-high-court':{label:'मध्य प्रदेश हाईकोर्ट आधिकारिक Previous Year Question Papers',url:'https://portal.mphc.gov.in/recruitment-result?qt-recruitment_result=2',years:[2024,2023,2022,2021,2020]},
+ 'ssc-gd':{label:'SSC आधिकारिक Answer Key / Response Sheet',url:'https://ssc.gov.in/home/answer-key',years:[2025],note:'SSC प्रश्नपत्र और response sheet उम्मीदवार के लॉगिन में सीमित अवधि के लिए उपलब्ध कराता है।'},
+ 'railway-ntpc':{label:'RRB आधिकारिक वेबसाइट',url:'https://www.rrbcdg.gov.in/',years:[],note:'पुराने NTPC प्रश्नपत्रों का स्थायी आधिकारिक सार्वजनिक PDF संग्रह सत्यापित नहीं हुआ।'},
+ 'cpct':{label:'CPCT आधिकारिक वेबसाइट',url:'https://www.cpct.mp.gov.in/',years:[],note:'इस समय सत्यापित सार्वजनिक पुराने प्रश्नपत्र PDF लिंक उपलब्ध नहीं मिला।'},
+ 'other':{label:'MPESB आधिकारिक पुराने प्रश्नपत्र',url:'https://esb.mp.gov.in/Old_Question_Papers/old_question_papers.htm',years:[2025,2024,2023,2022,2020]}
+};
 const key=new URLSearchParams(location.search).get('exam')||'other';
-const name=names[key]||names.other;document.getElementById('examTitle').textContent=name+' – Previous Papers';
+const name=names[key]||names.other, source=sources[key]||sources.other;
+document.getElementById('examTitle').textContent=name+' – Previous Papers';
 document.title=name+' Previous Papers | TET Test Hub';
-document.getElementById('yearList').innerHTML=[2025,2024,2023,2022,2021].map(y=>'<article class="year"><strong>'+y+'</strong><span class="status">PDF जल्द उपलब्ध</span></article>').join('');
+document.getElementById('yearList').innerHTML=[2025,2024,2023,2022,2021].map(y=>{
+ const available=source.years.includes(y);
+ return '<article class="year"><strong>'+y+'</strong><span class="status" style="'+(available?'':'background:#fff4d8;color:#805900')+'">'+(available?'आधिकारिक स्रोत उपलब्ध':'अभी सत्यापित पेपर नहीं')+'</span>'+(available?'<a href="'+source.url+'" target="_blank" rel="noopener">पेपर देखें ↗</a>':'')+'</article>';
+}).join('');
+let note='<strong>स्रोत:</strong> <a class="source" href="'+source.url+'" target="_blank" rel="noopener">'+source.label+' ↗</a>';
+if(source.extra) note+='<a class="source" href="'+source.extra+'" target="_blank" rel="noopener">CTET आधिकारिक प्रश्नपत्र आर्काइव ↗</a>';
+if(source.note) note+='<p>'+source.note+'</p>';
+note+='<p>यहाँ दिए गए लिंक संबंधित परीक्षा बोर्ड के आधिकारिक पेज पर ले जाते हैं। उपलब्धता और डाउनलोड की शर्तें बोर्ड के नियंत्रण में हैं।</p>';
+document.getElementById('sourceNote').innerHTML=note;
 </script></body></html>
