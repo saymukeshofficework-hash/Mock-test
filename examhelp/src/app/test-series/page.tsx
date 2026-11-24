@@ -33,11 +33,11 @@ export default async function Page() {
       </Link>
       <Link href="/mp-grameen-bank-mock-tests/" className="card mb-4 flex flex-col gap-3 border-2 border-emerald-700 bg-emerald-50/50 p-5 transition hover:shadow-md sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <p className="text-xs font-bold uppercase tracking-wide text-emerald-700">{lang === "hi" ? "टेस्ट 1 फ्री" : "Test 1 free"}</p>
+          <p className="text-xs font-bold uppercase tracking-wide text-emerald-700">{lang === "hi" ? "सभी 25 टेस्ट मुफ्त" : "All 25 tests free"}</p>
           <p className="mt-1 text-lg font-extrabold text-brand-900">{lang === "hi" ? "मध्य प्रदेश ग्रामीण बैंक — 25 मॉक टेस्ट" : "Madhya Pradesh Gramin Bank — 25 mock tests"}</p>
-          <p className="mt-1 text-sm text-ink-600">{lang === "hi" ? "80 प्रश्न · 45 मिनट · रीजनिंग + संख्यात्मक योग्यता · बाकी 24 टेस्ट ₹99" : "80 questions · 45 minutes · Reasoning + Numerical Ability · other 24 tests ₹99"}</p>
+          <p className="mt-1 text-sm text-ink-600">{lang === "hi" ? "80 प्रश्न · 45 मिनट · रीजनिंग + संख्यात्मक योग्यता · कोई भुगतान नहीं" : "80 questions · 45 minutes · Reasoning + Numerical Ability · no payment required"}</p>
         </div>
-        <span className="btn-primary shrink-0">{lang === "hi" ? "टेस्ट चुनें →" : "Choose tests →"}</span>
+        <span className="btn-primary shrink-0">{lang === "hi" ? "मुफ्त टेस्ट चुनें →" : "Choose free tests →"}</span>
       </Link>
       <Link href="/ssc-gd-mock-tests/" className="card mb-4 flex flex-col gap-3 border-2 border-orange-600 bg-orange-50/50 p-5 transition hover:shadow-md sm:flex-row sm:items-center sm:justify-between">
         <div><p className="text-xs font-bold uppercase tracking-wide text-orange-700">{lang === "hi" ? "टेस्ट 1 फ्री" : "Test 1 free"}</p><p className="mt-1 text-lg font-extrabold text-brand-900">SSC GD — 25 मॉक टेस्ट</p><p className="mt-1 text-sm text-ink-600">{lang === "hi" ? "80 प्रश्न · 60 मिनट · हिंदी/English · सही +2, गलत −0.25" : "80 questions · 60 minutes · Hindi/English · Correct +2, wrong −0.25"}</p></div><span className="btn-primary shrink-0">{lang === "hi" ? "टेस्ट चुनें →" : "Choose tests →"}</span>
