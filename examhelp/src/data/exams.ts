@@ -139,7 +139,7 @@ export const exams: Exam[] = [
     testSeries: {
       href: "/mp-naib-tehsildar-mock-tests/",
       title: { hi: "नायब तहसीलदार — 25 फुल मॉक टेस्ट", en: "Naib Tehsildar — 25 full mock tests" },
-      sub: { hi: "200 प्रश्न · 240 मिनट · प्रश्नपत्र I + II · सभी टेस्ट फ्री", en: "200 Qs · 240 min · Paper I + II · All tests free" },
+      sub: { hi: "200 प्रश्न · 240 मिनट · प्रश्नपत्र I + II · टेस्ट 1 फ्री", en: "200 Qs · 240 min · Paper I + II · Test 1 free" },
       cta: { hi: "टेस्ट देखें", en: "View tests" },
     },
     source: { label: "MPESB notice dated 11.11.2026 (exam date 10.01.2027)", url: "https://esb.mp.gov.in/student_dashboard.htm", checkedOn: CHECKED },
@@ -288,7 +288,7 @@ export const exams: Exam[] = [
     testSeries: {
       href: "/mp-police-si-mock-tests/",
       title: { hi: "SI / सूबेदार 2026 — 25 फुल मॉक टेस्ट", en: "SI / Subedar 2026 — 25 full mock tests" },
-      sub: { hi: "15 प्रारंभिक + 10 मुख्य टेस्ट · 100 प्रश्न · 120 मिनट · सभी टेस्ट फ्री", en: "15 prelims + 10 mains tests · 100 Qs · 120 min · All tests free" },
+      sub: { hi: "15 प्रारंभिक + 10 मुख्य टेस्ट · 100 प्रश्न · 120 मिनट · टेस्ट 1 फ्री", en: "15 prelims + 10 mains tests · 100 Qs · 120 min · Test 1 free" },
       cta: { hi: "टेस्ट देखें", en: "View tests" },
     },
     updatedAt: CHECKED,
@@ -488,7 +488,7 @@ export const exams: Exam[] = [
     testSeries: {
       href: "/mppsc-prelims-mock-tests/",
       title: { hi: "MPPSC प्रारंभिक — 25 मॉक टेस्ट", en: "MPPSC Prelims — 25 mock tests" },
-      sub: { hi: "सामान्य अध्ययन · 100 प्रश्न · 120 मिनट · अभी सभी टेस्ट फ्री", en: "General Studies · 100 Qs · 120 min · All tests free for now" },
+      sub: { hi: "सामान्य अध्ययन · 100 प्रश्न · 120 मिनट · टेस्ट 1 फ्री", en: "General Studies · 100 Qs · 120 min · Test 1 free" },
       cta: { hi: "टेस्ट देखें", en: "View tests" },
     },
     source: { label: "MPPSC Proposed Exam Calendar 2026 (15.05.2026)", url: PSC_CAL, checkedOn: CHECKED },
@@ -596,16 +596,16 @@ export const exams: Exam[] = [
     examType: "RECRUITMENT",
     mode: { hi: "ऑनलाइन अभ्यास टेस्ट", en: "Online practice tests" },
     description: {
-      hi: "IBPS RRB प्रारंभिक परीक्षा के अभ्यास पैटर्न पर 25 मुफ्त द्विभाषी मॉक टेस्ट।",
-      en: "25 free bilingual practice mock tests based on the IBPS RRB preliminary exam pattern.",
+      hi: "IBPS RRB प्रारंभिक परीक्षा के अभ्यास पैटर्न पर 25 द्विभाषी मॉक टेस्ट (टेस्ट 1 फ्री)।",
+      en: "25 bilingual practice mock tests (Test 1 free) based on the IBPS RRB preliminary exam pattern.",
     },
     dates: {},
     officialUrl: "https://www.ibps.in/",
     testSeries: {
       href: "/mp-grameen-bank-mock-tests/",
-      title: { hi: "मध्य प्रदेश ग्रामीण बैंक — 25 फ्री मॉक टेस्ट", en: "Madhya Pradesh Gramin Bank — 25 Free Mock Tests" },
-      sub: { hi: "80 प्रश्न · 45 मिनट · हिंदी/English · कोई भुगतान नहीं", en: "80 questions · 45 minutes · Hindi/English · no payment" },
-      cta: { hi: "मुफ्त टेस्ट दें", en: "Take free tests" },
+      title: { hi: "मध्य प्रदेश ग्रामीण बैंक — 25 मॉक टेस्ट", en: "Madhya Pradesh Gramin Bank — 25 Mock Tests" },
+      sub: { hi: "80 प्रश्न · 45 मिनट · हिंदी/English · टेस्ट 1 फ्री", en: "80 questions · 45 minutes · Hindi/English · Test 1 free" },
+      cta: { hi: "टेस्ट दें", en: "Take tests" },
     },
     featured: true,
     popular: true,

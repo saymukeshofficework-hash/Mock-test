@@ -33,14 +33,14 @@ export default async function Page() {
       </Link>
       <Link href="/mp-grameen-bank-mock-tests/" className="card mb-4 flex flex-col gap-3 border-2 border-emerald-700 bg-emerald-50/50 p-5 transition hover:shadow-md sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <p className="text-xs font-bold uppercase tracking-wide text-emerald-700">{lang === "hi" ? "सभी 25 टेस्ट मुफ्त" : "All 25 tests free"}</p>
+          <p className="text-xs font-bold uppercase tracking-wide text-emerald-700">{lang === "hi" ? "टेस्ट 1 फ्री" : "Test 1 free"}</p>
           <p className="mt-1 text-lg font-extrabold text-brand-900">{lang === "hi" ? "मध्य प्रदेश ग्रामीण बैंक — 25 मॉक टेस्ट" : "Madhya Pradesh Gramin Bank — 25 mock tests"}</p>
-          <p className="mt-1 text-sm text-ink-600">{lang === "hi" ? "80 प्रश्न · 45 मिनट · रीजनिंग + संख्यात्मक योग्यता · कोई भुगतान नहीं" : "80 questions · 45 minutes · Reasoning + Numerical Ability · no payment required"}</p>
+          <p className="mt-1 text-sm text-ink-600">{lang === "hi" ? "80 प्रश्न · 45 मिनट · रीजनिंग + संख्यात्मक योग्यता · बाकी 24 टेस्ट ₹99" : "80 questions · 45 minutes · Reasoning + Numerical Ability · other 24 tests ₹99"}</p>
         </div>
-        <span className="btn-primary shrink-0">{lang === "hi" ? "मुफ्त टेस्ट चुनें →" : "Choose free tests →"}</span>
+        <span className="btn-primary shrink-0">{lang === "hi" ? "टेस्ट चुनें →" : "Choose tests →"}</span>
       </Link>
       <Link href="/ssc-gd-mock-tests/" className="card mb-4 flex flex-col gap-3 border-2 border-orange-600 bg-orange-50/50 p-5 transition hover:shadow-md sm:flex-row sm:items-center sm:justify-between">
-        <div><p className="text-xs font-bold uppercase tracking-wide text-orange-700">{lang === "hi" ? "सभी 25 टेस्ट मुफ्त" : "All 25 tests free"}</p><p className="mt-1 text-lg font-extrabold text-brand-900">SSC GD — 25 फ्री मॉक टेस्ट</p><p className="mt-1 text-sm text-ink-600">{lang === "hi" ? "80 प्रश्न · 60 मिनट · हिंदी/English · सही +2, गलत −0.25" : "80 questions · 60 minutes · Hindi/English · Correct +2, wrong −0.25"}</p></div><span className="btn-primary shrink-0">{lang === "hi" ? "फ्री टेस्ट चुनें →" : "Choose free tests →"}</span>
+        <div><p className="text-xs font-bold uppercase tracking-wide text-orange-700">{lang === "hi" ? "टेस्ट 1 फ्री" : "Test 1 free"}</p><p className="mt-1 text-lg font-extrabold text-brand-900">SSC GD — 25 मॉक टेस्ट</p><p className="mt-1 text-sm text-ink-600">{lang === "hi" ? "80 प्रश्न · 60 मिनट · हिंदी/English · सही +2, गलत −0.25" : "80 questions · 60 minutes · Hindi/English · Correct +2, wrong −0.25"}</p></div><span className="btn-primary shrink-0">{lang === "hi" ? "टेस्ट चुनें →" : "Choose tests →"}</span>
       </Link>
       <Link href="/mp-high-court-assistant-grade-3-mock-tests" className="card flex flex-col gap-3 border-2 border-brand-700 p-5 transition hover:shadow-md sm:flex-row sm:items-center sm:justify-between">
         <div>
@@ -86,7 +86,7 @@ export default async function Page() {
         <div>
           <p className="text-xs font-bold uppercase tracking-wide text-accent-700">{lang === "hi" ? "नया" : "New"}</p>
           <p className="mt-1 text-lg font-extrabold text-brand-900">{lang === "hi" ? "MP पुलिस SI / सूबेदार 2026 — 25 फुल मॉक टेस्ट" : "MP Police SI / Subedar 2026 — 25 full mock tests"}</p>
-          <p className="mt-1 text-sm text-ink-600">{lang === "hi" ? "प्रारंभिक + मुख्य · हिंदी/English · सभी टेस्ट फ्री" : "Prelims + Mains · Hindi/English · All tests free"}</p>
+          <p className="mt-1 text-sm text-ink-600">{lang === "hi" ? "प्रारंभिक + मुख्य · हिंदी/English · टेस्ट 1 फ्री" : "Prelims + Mains · Hindi/English · Test 1 free"}</p>
         </div>
         <span className="btn-primary shrink-0">{lang === "hi" ? "टेस्ट चुनें →" : "Choose tests →"}</span>
       </Link>
@@ -94,7 +94,7 @@ export default async function Page() {
         <div>
           <p className="text-xs font-bold uppercase tracking-wide text-accent-700">{lang === "hi" ? "नया" : "New"}</p>
           <p className="mt-1 text-lg font-extrabold text-brand-900">{lang === "hi" ? "नायब तहसीलदार सीमित परीक्षा — 25 फुल मॉक टेस्ट" : "Naib Tehsildar limited exam — 25 full mock tests"}</p>
-          <p className="mt-1 text-sm text-ink-600">{lang === "hi" ? "प्रश्नपत्र I + II · हिंदी/English · सभी टेस्ट फ्री" : "Paper I + II · Hindi/English · All tests free"}</p>
+          <p className="mt-1 text-sm text-ink-600">{lang === "hi" ? "प्रश्नपत्र I + II · हिंदी/English · टेस्ट 1 फ्री" : "Paper I + II · Hindi/English · Test 1 free"}</p>
         </div>
         <span className="btn-primary shrink-0">{lang === "hi" ? "टेस्ट चुनें →" : "Choose tests →"}</span>
       </Link>
@@ -102,7 +102,7 @@ export default async function Page() {
         <div>
           <p className="text-xs font-bold uppercase tracking-wide text-accent-700">{lang === "hi" ? "नया" : "New"}</p>
           <p className="mt-1 text-lg font-extrabold text-brand-900">{lang === "hi" ? "MPPSC राज्य सेवा प्रारंभिक — 25 मॉक टेस्ट" : "MPPSC State Service Prelims — 25 mock tests"}</p>
-          <p className="mt-1 text-sm text-ink-600">{lang === "hi" ? "प्रश्नपत्र-1 (सामान्य अध्ययन) · प्रश्नपत्र-2 जल्द · हिंदी/English · अभी सभी टेस्ट फ्री" : "Paper 1 (General Studies) · Paper 2 coming soon · Hindi/English · All tests free for now"}</p>
+          <p className="mt-1 text-sm text-ink-600">{lang === "hi" ? "प्रश्नपत्र-1 (सामान्य अध्ययन) · प्रश्नपत्र-2 जल्द · हिंदी/English · टेस्ट 1 फ्री" : "Paper 1 (General Studies) · Paper 2 coming soon · Hindi/English · Test 1 free"}</p>
         </div>
         <span className="btn-primary shrink-0">{lang === "hi" ? "टेस्ट चुनें →" : "Choose tests →"}</span>
       </Link>

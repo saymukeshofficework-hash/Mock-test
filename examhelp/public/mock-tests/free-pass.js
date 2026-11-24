@@ -27,7 +27,7 @@
   // student comes straight back to the test. Paid tests keep their own checks (token or login).
   try {
     var signedIn = !!(JSON.parse(localStorage.getItem(KEY) || "null") || {}).access_token;
-    var series = location.pathname.match(/\/mock-tests\/(ag3|asi|pcgd|pcdr|jnv6|group4|mppsc|mppsc2)\/test\.html$/);
+    var series = location.pathname.match(/\/mock-tests\/(ag3|asi|pcgd|pcdr|jnv6|group4|mppsc|mppsc2|mpsi|nt|rrbsm|sscgd|mpgrb)\/test\.html$/);
     var testNo = parseInt(new URLSearchParams(location.search).get("t") || "1", 10);
     if (series && testNo === 1 && !signedIn) location.replace("/login.html?next=" + encodeURIComponent(location.pathname + location.search));
   } catch (e) {}

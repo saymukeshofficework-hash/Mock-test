@@ -15,6 +15,10 @@ const SERIES = [
   { id: "group4", label: "MPESB Group-4 Assistant Grade-3 (group4)" },
   { id: "mppsc", label: "MPPSC State Service Prelims (mppsc)" },
   { id: "mppsc2", label: "MPPSC Prelims Paper 2 CSAT (mppsc2)" },
+  { id: "mpsi", label: "MP Police SI / Subedar (mpsi)" },
+  { id: "nt", label: "MP Naib Tehsildar (nt)" },
+  { id: "rrbsm", label: "RRB Station Master (rrbsm)" },
+  { id: "sscgd", label: "SSC GD (sscgd)" },
 ];
 const JSZIP = "https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js";
 
