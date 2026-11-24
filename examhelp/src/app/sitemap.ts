@@ -15,6 +15,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { path: "/mp-high-court-assistant-grade-3-notes", priority: 0.9, freq: "weekly" },
     { path: "/test-series", priority: 0.6, freq: "weekly" },
     { path: "/mp-high-court-assistant-grade-3-test-series", priority: 0.8, freq: "weekly" },
+    { path: "/mp-police-constable-gd-mock-tests", priority: 0.9, freq: "weekly" },
+    { path: "/mp-police-subedar-asi-mock-tests", priority: 0.8, freq: "weekly" },
+    { path: "/mp-high-court-assistant-grade-3-mock-tests", priority: 0.8, freq: "weekly" },
+    { path: "/group4-assistant-grade-3-mock-tests", priority: 0.8, freq: "weekly" },
+    { path: "/ssc-gd-mock-tests", priority: 0.8, freq: "weekly" },
+    { path: "/rrb-ntpc-graduate-mock-tests", priority: 0.8, freq: "weekly" },
+    { path: "/rrb-ntpc-undergraduate-mock-tests", priority: 0.8, freq: "weekly" },
+    { path: "/rrb-station-master-mock-tests", priority: 0.8, freq: "weekly" },
+    { path: "/tet-mock-tests", priority: 0.8, freq: "weekly" },
     { path: "/mp-grameen-bank-mock-tests", priority: 0.8, freq: "weekly" },
     { path: "/mp-police-driver-mock-tests", priority: 0.8, freq: "weekly" },
     { path: "/navodaya-class-6-mock-tests", priority: 0.8, freq: "weekly" },
@@ -36,8 +45,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { path: "/refund-policy", priority: 0.2, freq: "yearly" },
   ];
   return [
-    ...staticPaths.map((p) => ({ url: `${site.url}${p.path}`, changeFrequency: p.freq, priority: p.priority })),
-    ...exams.map((e) => ({ url: `${site.url}/exams/${e.slug}`, lastModified: new Date(e.updatedAt), changeFrequency: "daily" as const, priority: 0.8 })),
-    ...notes.map((n) => ({ url: `${site.url}/notes/${n.slug}`, lastModified: new Date(n.updatedAt), changeFrequency: "weekly" as const, priority: 0.6 })),
+    ...staticPaths.map((p) => ({ url: `${site.url}${p.path}/`, changeFrequency: p.freq, priority: p.priority })),
+    ...exams.map((e) => ({ url: `${site.url}/exams/${e.slug}/`, lastModified: new Date(e.updatedAt), changeFrequency: "daily" as const, priority: 0.8 })),
+    ...notes.map((n) => ({ url: `${site.url}/notes/${n.slug}/`, lastModified: new Date(n.updatedAt), changeFrequency: "weekly" as const, priority: 0.6 })),
   ];
 }

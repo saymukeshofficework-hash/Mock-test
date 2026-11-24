@@ -32,8 +32,10 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
   if (!exam) return {};
   const dateText = formatExamDate(exam.dates.exam, "en");
   return pageMeta({
-    title: `${exam.name.en} — Dates, Status & Official Links`,
-    description: `${exam.name.en} by ${exam.organization}${dateText ? `: exam ${dateText}` : ""}. Application dates, date status, official notification and preparation resources.`,
+    title: exam.seoTitle ?? `${exam.name.en} — Dates, Status & Official Links`,
+    description:
+      exam.seoDescription ??
+      `${exam.name.en} by ${exam.organization}${dateText ? `: exam ${dateText}` : ""}. Application dates, date status, official notification and preparation resources.`,
     path: `/exams/${exam.slug}`,
   });
 }
@@ -91,7 +93,7 @@ export default async function ExamDetailPage({ params }: { params: Params }) {
           eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
           location: { "@type": "Place", name: "Examination centres, Madhya Pradesh", address: { "@type": "PostalAddress", addressRegion: "MP", addressCountry: "IN" } },
           organizer: { "@type": "Organization", name: exam.organization, url: exam.officialUrl },
-          url: `${site.url}/exams/${exam.slug}`,
+          url: `${site.url}/exams/${exam.slug}/`,
           description: `${exam.name.en}. Date status: ${examDate.status}. Verify on the official website.`,
         }
       : null;
@@ -116,7 +118,10 @@ export default async function ExamDetailPage({ params }: { params: Params }) {
             )}
             <PhaseBadge phase={phase} lang={lang} />
           </div>
-          <h1 className="mt-3 max-w-4xl text-2xl font-extrabold text-brand-900 sm:text-3xl lg:text-4xl">{name}</h1>
+          <h1 className="mt-3 max-w-4xl text-2xl font-extrabold text-brand-900 sm:text-3xl lg:text-4xl">
+            {name}
+            {exam.seoTitle && <span className="mt-1 block text-base font-semibold text-ink-600 sm:text-lg">{exam.name.en}</span>}
+          </h1>
           {exam.description && <p className="mt-3 max-w-3xl text-ink-700">{tr(exam.description, lang)}</p>}
           <p className="mt-3 text-sm text-ink-500">
             {tr(e.source, lang)}:{" "}
@@ -252,6 +257,25 @@ export default async function ExamDetailPage({ params }: { params: Params }) {
           </section>
 
 
+          {exam.faqs && exam.faqs.length > 0 && (
+            <section aria-labelledby="faq-h" className="space-y-3">
+              <h2 id="faq-h" className="text-xl font-bold text-brand-900">
+                {lang === "hi" ? "अक्सर पूछे जाने वाले प्रश्न (FAQ)" : "Frequently asked questions"}
+              </h2>
+              {exam.faqs.map((f) => (
+                <details key={f.q.en} className="group card">
+                  <summary className="flex cursor-pointer list-none items-center justify-between gap-3 px-5 py-4 font-semibold text-ink-900 [&::-webkit-details-marker]:hidden">
+                    {tr(f.q, lang)}
+                    <span className="text-ink-500 transition-transform group-open:rotate-45" aria-hidden="true">
+                      +
+                    </span>
+                  </summary>
+                  <p className="px-5 pb-5 text-ink-700">{tr(f.a, lang)}</p>
+                </details>
+              ))}
+            </section>
+          )}
+
           {/* Preparation resources */}
           <section aria-labelledby="res-h">
             <h2 id="res-h" className="mb-4 text-xl font-bold text-brand-900">
@@ -343,6 +367,19 @@ export default async function ExamDetailPage({ params }: { params: Params }) {
         </aside>
       </div>
       {eventSchema && <JsonLd data={eventSchema} />}
+      {exam.faqs && exam.faqs.length > 0 && (
+        <JsonLd
+          data={{
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: exam.faqs.map((f) => ({
+              "@type": "Question",
+              name: f.q.hi,
+              acceptedAnswer: { "@type": "Answer", text: f.a.hi },
+            })),
+          }}
+        />
+      )}
     </>
   );
 }

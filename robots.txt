@@ -5,3 +5,4 @@ Disallow: /bridge-course/assignment-plan/
 Disallow: /bridge-course/assignment-admin/
 
 Sitemap: https://tettesthub.in/sitemap.xml
+Sitemap: https://tettesthub.in/examhelp/sitemap.xml
