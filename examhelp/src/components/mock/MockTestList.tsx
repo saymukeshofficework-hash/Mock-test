@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import { isDesktopExamHeaderPage, isDesktopOnlyHeaderPage } from "@/components/layout/DesktopExamHeader";
 import { CheckCircle2, CreditCard, FileText, Lock, PlayCircle, Unlock } from "lucide-react";
 import { MOCK_SERIES } from "@/data/mockTests";
-import { buyNotes, checkout, claimPurchase, mainSiteUnlock } from "@/lib/checkout";
+import { buyNotes, checkout, claimPurchase, forgetOtherAccountTokens, mainSiteUnlock } from "@/lib/checkout";
 import { freeAccessOn, seriesFreeOn, SERIES_FREE_UNTIL } from "@/lib/site";
 import { priceSafe } from "@/lib/format";
 
@@ -84,6 +84,7 @@ export function MockTestList({ series = "ag3" }: { series?: string }) {
   useEffect(() => {
     // Fully free series (e.g. MP Gramin Bank) must not call checkout/status or purchase-claim APIs.
     if (S.free.length === S.total) return;
+    forgetOtherAccountTokens();
     let tk: string | null = null;
     try {
       tk = localStorage.getItem(TOKEN_KEY);

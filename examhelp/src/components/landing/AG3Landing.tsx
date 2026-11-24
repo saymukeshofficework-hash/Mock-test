@@ -23,7 +23,7 @@ import {
   Users,
 } from "lucide-react";
 import { formatExamDate } from "@/lib/dates";
-import { buyNotes, checkout, downloadPath } from "@/lib/checkout";
+import { buyNotes, checkout, downloadPath, forgetOtherAccountTokens } from "@/lib/checkout";
 import { formatINR } from "@/lib/format";
 import type { Bilingual, Exam, ExamDate, Lang, NoteProduct } from "@/types";
 
@@ -204,6 +204,7 @@ export function AG3Landing({
 
   // Is secure checkout live for these products? (server answers; no redeploy needed once keys are added)
   useEffect(() => {
+    forgetOtherAccountTokens();
     const products = [notes.hi?.checkoutProduct, notes.en?.checkoutProduct, notes.hi?.comboProduct, notes.en?.comboProduct].filter(Boolean) as string[];
     products.forEach((p) => {
       checkout<{ ready: boolean }>({ action: "status", product: p })

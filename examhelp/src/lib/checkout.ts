@@ -99,6 +99,31 @@ export async function mainSiteAccessToken(): Promise<string | undefined> {
   }
 }
 
+/**
+ * Paid-series tokens (testhub_dl_*) are saved per browser. They belong to the account that was
+ * logged in when they were saved, so when a different account logs in on the same browser they
+ * are dropped (the server "claim" gives the new account its own purchases back). Same rule in
+ * public/mock-tests/free-pass.js.
+ */
+export function forgetOtherAccountTokens() {
+  try {
+    const sess = JSON.parse(localStorage.getItem(SESSION_KEY) || "null");
+    const uid: string = sess?.user?.id || "anon";
+    const owner = localStorage.getItem("testhub_tokens_owner");
+    // logged out: keep the tokens and who they belong to, so the next login is still checked
+    if (owner === uid || (uid === "anon" && owner)) return;
+    if (uid !== "anon" && owner !== "anon") {
+      for (let i = localStorage.length - 1; i >= 0; i--) {
+        const k = localStorage.key(i);
+        if (k && (k.startsWith("testhub_dl_") || k.startsWith("testhub_pending_"))) localStorage.removeItem(k);
+      }
+    }
+    localStorage.setItem("testhub_tokens_owner", uid);
+  } catch {
+    /* private mode */
+  }
+}
+
 /** Products whose tests open on the main site (profiles.purchased_tests via tet-unlock). */
 const needsLogin = (product: string) => product.startsWith("tet-") || product === "rrbg-tests" || product === "rrbu-tests";
 
