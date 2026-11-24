@@ -112,7 +112,8 @@ export function forgetOtherAccountTokens() {
     const owner = localStorage.getItem("testhub_tokens_owner");
     // logged out: keep the tokens and who they belong to, so the next login is still checked
     if (owner === uid || (uid === "anon" && owner)) return;
-    if (uid !== "anon" && owner !== "anon") {
+    // owner unknown (saved before this rule): keep them, so old buyers never lose access
+    if (uid !== "anon" && owner && owner !== "anon") {
       for (let i = localStorage.length - 1; i >= 0; i--) {
         const k = localStorage.key(i);
         if (k && (k.startsWith("testhub_dl_") || k.startsWith("testhub_pending_"))) localStorage.removeItem(k);

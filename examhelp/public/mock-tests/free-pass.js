@@ -13,7 +13,8 @@
     var owner = localStorage.getItem("testhub_tokens_owner");
     // logged out: keep the tokens and who they belong to, so the next login is still checked
     if (owner !== uid && !(uid === "anon" && owner)) {
-      if (uid !== "anon" && owner !== "anon") {
+      // owner unknown (saved before this rule): keep them, so old buyers never lose access
+      if (uid !== "anon" && owner && owner !== "anon") {
         for (var i = localStorage.length - 1; i >= 0; i--) {
           var k = localStorage.key(i);
           if (k && (k.indexOf("testhub_dl_") === 0 || k.indexOf("testhub_pending_") === 0)) localStorage.removeItem(k);
