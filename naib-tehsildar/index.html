@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>नायब तहसीलदार मॉक टेस्ट | MP Naib Tehsildar Mock Tests</title>
-<meta name="description" content="MP नायब तहसीलदार सीमित प्रतियोगिता परीक्षा: 25 फ्री फुल मॉक टेस्ट (200 प्रश्न, 240 मिनट)। 25 free full mock tests for MP Naib Tehsildar limited exam.">
+<meta name="description" content="MP नायब तहसीलदार सीमित प्रतियोगिता परीक्षा: 25 फुल मॉक टेस्ट (200 प्रश्न, 240 मिनट), टेस्ट 1 फ्री। 25 full mock tests for MP Naib Tehsildar limited exam.">
 <link rel="canonical" href="https://tettesthub.in/naib-tehsildar/">
 <link rel="icon" href="data:,">
 <style>
@@ -61,8 +61,9 @@ h1{font-size:clamp(28px,6vw,40px);line-height:1.2;margin:34px 0 12px;color:#0d3b
 .pat table td,.exam-pattern-table td{padding:9px 10px!important;border-top:0!important;border-bottom:1px solid #a8c8f4!important;font-size:clamp(13px,2.7vw,18px);line-height:1.35}.pat table tr:nth-child(odd),.exam-pattern-table tr:nth-child(odd){background:#eaf3ff}.pat table tr:nth-child(even),.exam-pattern-table tr:nth-child(even){background:#fff5df}.pat table tr:first-child,.exam-pattern-table tr:first-child{background:#d9e8ff}.pat table td:nth-child(2),.exam-pattern-table td:nth-child(2){width:64px;text-align:center;color:#e32626;font-size:1.12em;border-left:1px solid #7394e8;border-right:1px solid #7394e8}
 .exam-pattern-total,.pat .tot{margin:0 10px 12px!important;padding:12px 14px;text-align:center;border-radius:14px;background:linear-gradient(100deg,#075b48,#007b60);color:#fff;font-size:clamp(13px,2.8vw,18px);font-weight:800;line-height:1.5}.exam-pattern-total strong,.pat .tot strong{color:#fff000}
 @media(max-width:420px){.pat{margin-inline:0}.exam-pattern-head{margin:8px;padding:10px}.pat table td,.exam-pattern-table td{padding:8px 6px!important}}
+html[data-app] [data-sale]{display:none!important}html:not([data-app]) [data-app-only]{display:none}
 </style>
-<script>try{if(localStorage.getItem('tth-app')==='1'){var s=document.createElement('script');s.src='/examhelp/app-words.js?v=2';s.defer=true;document.head.appendChild(s)}}catch(e){}</script>
+<script>try{if(localStorage.getItem('tth-app')==='1'){document.documentElement.setAttribute('data-app','1');var s=document.createElement('script');s.src='/examhelp/app-words.js?v=2';s.defer=true;document.head.appendChild(s)}}catch(e){}</script>
 </head>
 <body>
 <div class="hdr"><div class="bar tth-gradient-header">
@@ -82,7 +83,7 @@ h1{font-size:clamp(28px,6vw,40px);line-height:1.2;margin:34px 0 12px;color:#0d3b
 </div></div>
 <main class="wrap">
   <h1 id="ttl">MP नायब तहसीलदार टेस्ट सीरीज़ / MP Naib Tehsildar Test Series</h1>
-  U फुल मॉक टेस्ट — प्रश्नपत्र I + II, सभी फ्री।<br>25 full mock tests — Paper I + II, all free.</p>
+  <p>25 फुल मॉक टेस्ट — प्रश्नपत्र I + II.<span data-sale> टेस्ट 1 फ्री, बाकी 24 टेस्ट ₹99 में।</span><br>25 full mock tests — Paper I + II.<span data-sale> Test 1 is free, the other 24 tests are ₹99.</span></p>
   <section class="card pat" id="pat"></section>
   <div class="grid" id="grid" style="margin-top:18px"></div>
 </main>
@@ -104,9 +105,10 @@ h1{font-size:clamp(28px,6vw,40px);line-height:1.2;margin:34px 0 12px;color:#0d3b
     '<p class="exam-pattern-total">कुल <strong>200 प्रश्न</strong> · <strong>200 अंक</strong> · <strong>240 मिनट</strong> · ऋणात्मक अंकन नहीं</p>';
   let html = '';
   for (let n = 1; n <= 25; n++) {
-    html += `<div class="card t"><h3>टेस्ट / Test ${n}<span class="free">फ्री / Free</span></h3>` +
+    html += `<div class="card t"><h3>टेस्ट / Test ${n}${n === 1 ? '<span class="free">फ्री / Free</span>' : ''}</h3>` +
       '<p class="m">200 प्रश्न · 240 मिनट<br>200 questions · 240 min</p>' +
-      `<a class="btn btn-p w" href="/examhelp/mock-tests/nt/test.html?t=${n}">▶ टेस्ट शुरू करें / Start test</a></div>`;
+      (n === 1 ? `<a class="btn btn-p w" href="/examhelp/mock-tests/nt/test.html?t=01">▶ टेस्ट शुरू करें / Start test</a></div>`
+        : `<a class="btn btn-p w" href="/examhelp/mp-naib-tehsildar-mock-tests/"><span data-sale>🔒 ₹99 में अनलॉक करें / Unlock for ₹99</span><span data-app-only>🔒 टेस्ट सीरीज़ / Test Series</span></a></div>`);
   }
   $('grid').innerHTML = html;
 })();

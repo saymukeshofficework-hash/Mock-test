@@ -841,7 +841,7 @@ async function loadTest() {
     return r.json();
   }
   let tok = null; try { tok = localStorage.getItem("testhub_dl_mppsc2-tests"); } catch (e) {}
-  if (!tok && window.tthFree) {
+  if (!tok && window.tthFree && tthFree.on()) {
     const at = await tthFree.token();
     if (!at) throw new Error("login");
     const r = await fetch(CHECKOUT_URL, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ action: "test", access_token: at, n: +TEST_NO, series: "mppsc2" }) });

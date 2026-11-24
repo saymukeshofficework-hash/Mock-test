@@ -5,7 +5,7 @@ import { pageMeta } from "@/lib/seo";
 export const metadata = pageMeta({
   title: "MPPSC Prelims CSAT Mock Test 2027 — 25 Full Tests (Paper 2, Hindi/English)",
   description:
-    "MPPSC राज्य सेवा प्रारंभिक परीक्षा प्रश्नपत्र-2 (सामान्य अभिरुचि परीक्षण, CSAT) के 25 मॉक टेस्ट — हर टेस्ट 100 प्रश्न: बोधगम्यता, तर्कशक्ति, निर्णय क्षमता, संख्यात्मकता, आँकड़ों का निर्वचन, हिंदी बोधगम्यता, हल सहित। अभी सभी टेस्ट फ्री। 25 CSAT mock tests for MPPSC Prelims Paper 2.",
+    "MPPSC राज्य सेवा प्रारंभिक परीक्षा प्रश्नपत्र-2 (सामान्य अभिरुचि परीक्षण, CSAT) के 25 मॉक टेस्ट — हर टेस्ट 100 प्रश्न: बोधगम्यता, तर्कशक्ति, निर्णय क्षमता, संख्यात्मकता, आँकड़ों का निर्वचन, हिंदी बोधगम्यता, हल सहित। टेस्ट 1 फ्री, बाकी 24 टेस्ट ₹99 में। 25 CSAT mock tests for MPPSC Prelims Paper 2.",
   path: "/mppsc-csat-mock-tests",
 });
 

@@ -186,7 +186,7 @@ export const MOCK_SERIES: Record<string, MockSeries> = {
   mpsi: {
     id: "mpsi",
     total: 25,
-    free: Array.from({ length: 25 }, (_, i) => i + 1),
+    free: [1],
     product: "mpsi-tests",
     price: 99,
     enginePath: "/mock-tests/mpsi/test.html",
@@ -208,15 +208,18 @@ export const MOCK_SERIES: Record<string, MockSeries> = {
     },
     totalLine: { hi: "हर टेस्ट 100 प्रश्न · 120 मिनट · प्रारंभिक 100 अंक, मुख्य 300 अंक", en: "Each test 100 questions · 120 minutes · Prelims 100 marks, Mains 300 marks" },
     neg: { hi: "प्रारंभिक टेस्ट: प्रत्येक प्रश्न 1 अंक, ऋणात्मक अंकन नहीं। मुख्य टेस्ट: सही +3, गलत −1।", en: "Prelims tests: 1 mark each, no negative marking. Mains tests: +3 correct, −1 wrong." },
-    unlockTitle: { hi: "सभी 25 टेस्ट फ्री हैं", en: "All 25 tests are free" },
-    unlockSub: { hi: "कोई भुगतान नहीं — कोई भी टेस्ट अभी शुरू करें।", en: "No payment — start any test now." },
-    unlockBtn: { hi: "टेस्ट शुरू करें", en: "Start a test" },
+    unlockTitle: { hi: "पूरी टेस्ट सीरीज़ — 25 फुल मॉक टेस्ट", en: "Full test series — 25 full mock tests" },
+    unlockSub: {
+      hi: "टेस्ट 1 फ्री है। बाकी 24 टेस्ट एक बार ₹99 देकर अनलॉक करें — इसी डिवाइस पर तुरंत खुल जाएंगे।",
+      en: "Test 1 is free. Unlock the other 24 tests once for ₹99 — they open instantly on this device.",
+    },
+    unlockBtn: { hi: "सभी टेस्ट अनलॉक करें", en: "Unlock all tests" },
     links: [{ href: "/exams/mp-subedar-si-2026/", label: { hi: "परीक्षा की पूरी जानकारी →", en: "Full exam details →" }, tone: "brand" }],
   },
   nt: {
     id: "nt",
     total: 25,
-    free: Array.from({ length: 25 }, (_, i) => i + 1),
+    free: [1],
     product: "nt-tests",
     price: 99,
     enginePath: "/mock-tests/nt/test.html",
@@ -237,9 +240,12 @@ export const MOCK_SERIES: Record<string, MockSeries> = {
     },
     totalLine: { hi: "हर टेस्ट 200 प्रश्न · 200 अंक · 240 मिनट (प्रत्येक प्रश्नपत्र 100)", en: "Each test 200 questions · 200 marks · 240 minutes (100 per paper)" },
     neg: { hi: "प्रत्येक प्रश्न 1 अंक, इन मॉक टेस्ट में ऋणात्मक अंकन नहीं। सही पैटर्न के लिए MPESB नियम पुस्तिका देखें।", en: "1 mark per question, no negative marking in these mocks. Check the MPESB rule book for the official scheme." },
-    unlockTitle: { hi: "सभी 25 टेस्ट फ्री हैं", en: "All 25 tests are free" },
-    unlockSub: { hi: "कोई भुगतान नहीं — कोई भी टेस्ट अभी शुरू करें।", en: "No payment — start any test now." },
-    unlockBtn: { hi: "टेस्ट शुरू करें", en: "Start a test" },
+    unlockTitle: { hi: "पूरी टेस्ट सीरीज़ — 25 फुल मॉक टेस्ट", en: "Full test series — 25 full mock tests" },
+    unlockSub: {
+      hi: "टेस्ट 1 फ्री है। बाकी 24 टेस्ट एक बार ₹99 देकर अनलॉक करें — इसी डिवाइस पर तुरंत खुल जाएंगे।",
+      en: "Test 1 is free. Unlock the other 24 tests once for ₹99 — they open instantly on this device.",
+    },
+    unlockBtn: { hi: "सभी टेस्ट अनलॉक करें", en: "Unlock all tests" },
     links: [{ href: "/exams/mp-nayab-tahsildar-2026/", label: { hi: "परीक्षा की पूरी जानकारी →", en: "Full exam details →" }, tone: "brand" }],
   },
   tet: {
@@ -313,18 +319,18 @@ export const MOCK_SERIES: Record<string, MockSeries> = {
   rrbsm: {
     id: "rrbsm",
     total: 25,
-    free: Array.from({ length: 25 }, (_, i) => i + 1),
-    product: "rrbsm-free-tests",
-    price: 0,
+    free: [1],
+    product: "rrbsm-tests",
+    price: 99,
     enginePath: "",
     scorePrefix: "testhub_rrbsm_mock_",
     listPath: "/rrb-station-master-mock-tests",
     meta: { hi: "100 प्रश्न · 120 मिनट", en: "100 Qs · 120 min" },
     testHref: (n) => `/examhelp/mock-tests/rrbsm/test.html?t=${String(n).padStart(2, "0")}&lang=hi`,
-    title: { hi: "RRB स्टेशन मास्टर भर्ती — 25 फ्री मॉक टेस्ट", en: "RRB Station Master Recruitment — 25 Free Mock Tests" },
+    title: { hi: "RRB स्टेशन मास्टर भर्ती — 25 मॉक टेस्ट", en: "RRB Station Master Recruitment — 25 Mock Tests" },
     sub: {
-      hi: "स्टेशन मास्टर भर्ती की तैयारी के लिए 100 प्रश्न, 120 मिनट, हिंदी/English और कठिनाई-स्तर वाले अभ्यास प्रश्न। सभी 25 टेस्ट निःशुल्क; कोई भुगतान या अनलॉक नहीं।",
-      en: "Practice for Station Master recruitment with 100 questions, 90 minutes, Hindi/English and exam-level practice. All 25 tests are free; no payment or unlock.",
+      hi: "स्टेशन मास्टर भर्ती की तैयारी के लिए 100 प्रश्न, 120 मिनट, हिंदी/English और कठिनाई-स्तर वाले अभ्यास प्रश्न। टेस्ट 1 फ्री, बाकी 24 टेस्ट ₹99 में।",
+      en: "Practice for Station Master recruitment with 100 questions, 120 minutes, Hindi/English and exam-level practice. Test 1 is free; the other 24 tests are ₹99.",
     },
     rows: {
       hi: [
@@ -342,11 +348,13 @@ export const MOCK_SERIES: Record<string, MockSeries> = {
     },
     totalLine: { hi: "कुल 100 प्रश्न · 100 अंक · 120 मिनट", en: "100 questions · 100 marks · 120 minutes" },
     neg: { hi: "अभ्यास हेतु प्रत्येक सही उत्तर +1 और गलत उत्तर −⅓ अंक माना गया है। आधिकारिक भर्ती सूचना में दिए गए नियमों को प्राथमिकता दें।", en: "For practice, each correct answer is +1 and each wrong answer −⅓. Follow the official recruitment notice for the final rules." },
-    unlockTitle: { hi: "सभी 25 टेस्ट निःशुल्क", en: "All 25 tests are free" },
-    unlockSub: { hi: "कोई भुगतान, रिचार्ज या अनलॉक आवश्यक नहीं।", en: "No payment, recharge or unlock is required." },
-    unlockBtn: { hi: "टेस्ट शुरू करें", en: "Start test" },
+    unlockTitle: { hi: "पूरी टेस्ट सीरीज़ — 25 फुल मॉक टेस्ट", en: "Full test series — 25 full mock tests" },
+    unlockSub: {
+      hi: "टेस्ट 1 फ्री है। बाकी 24 टेस्ट एक बार ₹99 देकर अनलॉक करें — इसी डिवाइस पर तुरंत खुल जाएंगे।",
+      en: "Test 1 is free. Unlock the other 24 tests once for ₹99 — they open instantly on this device.",
+    },
+    unlockBtn: { hi: "सभी टेस्ट अनलॉक करें", en: "Unlock all tests" },
     links: [],
-    openAll: true,
   },
   mpgrb: {
     id: "mpgrb",
@@ -381,6 +389,7 @@ export const MOCK_SERIES: Record<string, MockSeries> = {
     unlockBtn: { hi: "टेस्ट शुरू करें", en: "Start test" },
     links: [],
   },
+
   rrbg: {
     id: "rrbg",
     total: 25,

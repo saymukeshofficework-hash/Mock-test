@@ -139,7 +139,7 @@ export const exams: Exam[] = [
     testSeries: {
       href: "/mp-naib-tehsildar-mock-tests/",
       title: { hi: "नायब तहसीलदार — 25 फुल मॉक टेस्ट", en: "Naib Tehsildar — 25 full mock tests" },
-      sub: { hi: "200 प्रश्न · 240 मिनट · प्रश्नपत्र I + II · सभी टेस्ट फ्री", en: "200 Qs · 240 min · Paper I + II · All tests free" },
+      sub: { hi: "200 प्रश्न · 240 मिनट · प्रश्नपत्र I + II · टेस्ट 1 फ्री", en: "200 Qs · 240 min · Paper I + II · Test 1 free" },
       cta: { hi: "टेस्ट देखें", en: "View tests" },
     },
     source: { label: "MPESB notice dated 11.11.2026 (exam date 10.01.2027)", url: "https://esb.mp.gov.in/student_dashboard.htm", checkedOn: CHECKED },
@@ -288,7 +288,7 @@ export const exams: Exam[] = [
     testSeries: {
       href: "/mp-police-si-mock-tests/",
       title: { hi: "SI / सूबेदार 2026 — 25 फुल मॉक टेस्ट", en: "SI / Subedar 2026 — 25 full mock tests" },
-      sub: { hi: "15 प्रारंभिक + 10 मुख्य टेस्ट · 100 प्रश्न · 120 मिनट · सभी टेस्ट फ्री", en: "15 prelims + 10 mains tests · 100 Qs · 120 min · All tests free" },
+      sub: { hi: "15 प्रारंभिक + 10 मुख्य टेस्ट · 100 प्रश्न · 120 मिनट · टेस्ट 1 फ्री", en: "15 prelims + 10 mains tests · 100 Qs · 120 min · Test 1 free" },
       cta: { hi: "टेस्ट देखें", en: "View tests" },
     },
     updatedAt: CHECKED,
@@ -488,7 +488,7 @@ export const exams: Exam[] = [
     testSeries: {
       href: "/mppsc-prelims-mock-tests/",
       title: { hi: "MPPSC प्रारंभिक — 25 मॉक टेस्ट", en: "MPPSC Prelims — 25 mock tests" },
-      sub: { hi: "सामान्य अध्ययन · 100 प्रश्न · 120 मिनट · अभी सभी टेस्ट फ्री", en: "General Studies · 100 Qs · 120 min · All tests free for now" },
+      sub: { hi: "सामान्य अध्ययन · 100 प्रश्न · 120 मिनट · टेस्ट 1 फ्री", en: "General Studies · 100 Qs · 120 min · Test 1 free" },
       cta: { hi: "टेस्ट देखें", en: "View tests" },
     },
     source: { label: "MPPSC Proposed Exam Calendar 2026 (15.05.2026)", url: PSC_CAL, checkedOn: CHECKED },

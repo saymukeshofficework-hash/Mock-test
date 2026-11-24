@@ -724,7 +724,7 @@ img,svg,video,canvas,table{max-width:100%}
 					/>
 				</div>
 				<button id="startBtn" type="button">Start Test</button>
-				<a class="backlink" id="backLink" href="../../mp-police-si-mock-tests/">← All tests</a>
+				<a class="backlink" id="backLink" href="../../mp-naib-tehsildar-mock-tests/">← All tests</a>
 			</div>
 		</div>
 
@@ -816,7 +816,8 @@ img,svg,video,canvas,table{max-width:100%}
 
 		<div id="resultScreen"></div>
 
-		<script>
+		<script src="/examhelp/mock-tests/free-pass.js?v=1"></script>
+<script>
 			let SECTIONS = [], Q = [];
 			
 const params = new URLSearchParams(location.search);
@@ -832,8 +833,11 @@ function showMsg(hi, en) {
 }
 let MAINS = false, MK = { c: 1, w: 0 };
 function loadTest() {
-  // all 25 tests are free and public
-  return fetch("/examhelp/mock-tests/nt/tests/" + TEST_NO + ".json").then((r) => { if (!r.ok) throw new Error("x"); return r.json(); });
+  if (TEST_NO === "01") return fetch("/examhelp/mock-tests/nt/tests/01.json").then((r) => { if (!r.ok) throw new Error("x"); return r.json(); });
+  let tok = null; try { tok = localStorage.getItem("testhub_dl_nt-tests"); } catch (e) {}
+  if (!tok) return Promise.reject(new Error("locked"));
+  return fetch(CHECKOUT_URL, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ action: "test", token: tok, n: +TEST_NO, series: "nt" }) })
+    .then((r) => { if (r.status === 404 || r.status === 403) { try { localStorage.removeItem("testhub_dl_nt-tests"); } catch (e) {} throw new Error("locked"); } if (!r.ok) throw new Error("x"); return r.json(); });
 }
 loadTest()
   .then((d) => { SECTIONS = d.sections; Q = d.questions; MAINS = false; MK = d.marks || { c: 1, w: 0 }; boot(); })
@@ -1268,7 +1272,7 @@ const UI = {
    <p class="rnote">${u.rnote}</p>
    ${review}
    <button id="retakeBtn">${u.retake}</button>
-   <div style="text-align:center"><a class="backlink" href="../../mp-police-si-mock-tests/">${u.back}</a></div>
+   <div style="text-align:center"><a class="backlink" href="../../mp-naib-tehsildar-mock-tests/">${u.back}</a></div>
   </div>`;
 
 				document.getElementById("langBtnResult").onclick = toggleLang;

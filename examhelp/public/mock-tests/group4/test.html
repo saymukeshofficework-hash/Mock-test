@@ -834,7 +834,7 @@ function showMsg(hi, en) {
 function loadTest() {
   if (TEST_NO === "01") return fetch("/examhelp/mock-tests/group4/tests/01.json").then((r) => { if (!r.ok) throw new Error("x"); return r.json(); });
   let tok = null; try { tok = localStorage.getItem("testhub_dl_group4-tests"); } catch (e) {}
-  if (!tok && window.tthFree) return tthFree.token().then((at) => {
+  if (!tok && window.tthFree && tthFree.on()) return tthFree.token().then((at) => {
     if (!at) throw new Error("login");
     return fetch(CHECKOUT_URL, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ action: "test", access_token: at, n: +TEST_NO, series: "group4" }) })
       .then((r) => { if (r.status === 401) throw new Error("login"); if (!r.ok) throw new Error("x"); return r.json(); });

@@ -84,6 +84,34 @@ const PRODUCTS: Record<string, { amount: number; file: string; downloadName: str
     downloadName: "",
     title: "मध्य प्रदेश ग्रामीण बैंक — 25 मॉक टेस्ट (80 प्रश्न)",
   },
+  "mpsi-tests": {
+    amount: 9900,
+    kind: "tests",
+    file: "mpsi", // private bucket "tests": mpsi/02.json … mpsi/25.json; test 1 is public
+    downloadName: "",
+    title: "MP पुलिस SI / सूबेदार 2026 — 25 फुल मॉक टेस्ट",
+  },
+  "nt-tests": {
+    amount: 9900,
+    kind: "tests",
+    file: "nt", // private bucket "tests": nt/02.json … nt/25.json; test 1 is public
+    downloadName: "",
+    title: "MP नायब तहसीलदार — 25 फुल मॉक टेस्ट / MP Naib Tehsildar — 25 Mock Tests",
+  },
+  "rrbsm-tests": {
+    amount: 9900,
+    kind: "tests",
+    file: "rrbsm", // private bucket "tests": rrbsm/02.json … rrbsm/25.json; test 1 is public
+    downloadName: "",
+    title: "RRB स्टेशन मास्टर — 25 मॉक टेस्ट / RRB Station Master — 25 Mock Tests",
+  },
+  "sscgd-tests": {
+    amount: 9900,
+    kind: "tests",
+    file: "sscgd", // private bucket "tests": sscgd/02.json … sscgd/25.json; test 1 is public
+    downloadName: "",
+    title: "SSC GD — 25 मॉक टेस्ट / SSC GD — 25 Mock Tests",
+  },
   "group4-tests": {
     amount: 9900,
     kind: "tests",
@@ -156,7 +184,7 @@ const PASS_DAYS = 30; // current affairs pass length
 // paid mock test ("test" action with access_token). Same date in js/site-config.js.
 const FREE_ACCESS_UNTIL = Date.parse("2026-11-04T23:59:59+05:30");
 // per-series free week (owner, 2026-11-05)
-const SERIES_FREE_UNTIL: Record<string, number> = { jnv6: Date.parse("2099-12-31T23:59:59+05:30"), group4: Date.parse("2099-12-31T23:59:59+05:30"), mppsc: Date.parse("2099-12-31T23:59:59+05:30"), mppsc2: Date.parse("2099-12-31T23:59:59+05:30") }; // group4 free for good, mppsc free for now (owner, 2026-11-13); jnv6 free for good (owner, 2026-11-17)
+const SERIES_FREE_UNTIL: Record<string, number> = {}; // every series locked at ₹99, Test 1 free (owner, 2026-11-24)
 const MAX_DOWNLOADS = 10;
 // Read-only e-books (owner, 2026-11-16): page images in the private "books" bucket
 // (books/<id>/p-01.jpg …). Any logged-in main-site student can read; no PDF is ever served.

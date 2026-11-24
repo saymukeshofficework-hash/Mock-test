@@ -37,6 +37,10 @@ const PRODUCT: Record<string, string> = {
   "mppsc2-tests": "MPPSC Prelims CSAT — 25 tests",
   "jnv6-tests": "Navodaya Class 6 — 15 tests",
   "mpgrb-tests": "MP Gramin Bank — 25 tests",
+  "mpsi-tests": "MP Police SI / Subedar — 25 tests",
+  "nt-tests": "MP Naib Tehsildar — 25 tests",
+  "rrbsm-tests": "RRB Station Master — 25 tests",
+  "sscgd-tests": "SSC GD — 25 tests",
   "ca-30": "Current affairs — 30-day pass",
 };
 const hasPdf = (p: string) => !p.endsWith("-tests") && p !== "ca-30";
