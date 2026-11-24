@@ -50,7 +50,7 @@ const PRODUCTS: Record<string, { amount: number; file: string; downloadName: str
     title: "कॉम्बो: MP हाई कोर्ट सहायक ग्रेड-3 2026 हिंदी नोट्स (PDF) + 25 मॉक टेस्ट",
   },
   "pcgd-tests": {
-    amount: 9900,
+    amount: 4900,
     kind: "tests",
     file: "pcgd", // bucket "tests": pcgd/03.json … (tests 1–2 are free, public)
     downloadName: "",

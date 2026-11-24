@@ -87,7 +87,7 @@ const COURSES = (lang: Lang): Course[] => {
       tags: hi ? ["MP पुलिस", "टेस्ट सीरीज़"] : ["MP Police", "Test series"], meta: [hi ? "हर टेस्ट" : "Each test", hi ? "100 प्रश्न · 120 मिनट" : "100 Qs · 120 min"],
       title: hi ? "MP पुलिस आरक्षक (जी.डी.) — 25 फुल मॉक टेस्ट" : "MP Police Constable (GD) — 25 full mock tests",
       desc: hi ? "✅ MPESB पैटर्न: 3 खंड, 100 प्रश्न ✅ टेस्ट 1 फ्री ✅ हिंदी/English, हर प्रश्न की व्याख्या" : "✅ MPESB pattern: 3 sections, 100 Qs ✅ Test 1 free ✅ Hindi/English, explanation for every question",
-      price: 99, href: "/mp-police-constable-gd-mock-tests",
+      price: 49, href: "/mp-police-constable-gd-mock-tests",
     },
     {
       f: ["new", "tests"], tone: "sage", art: "test", isNew: true,

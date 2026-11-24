@@ -63,7 +63,7 @@ export const exams: Exam[] = [
     testSeries: {
       href: "/mp-police-constable-gd-mock-tests/",
       title: { hi: "आरक्षक (जी.डी.) 2026 — 25 फुल मॉक टेस्ट", en: "Police Constable GD 2026 — 25 full mock tests" },
-      sub: { hi: "MPESB पैटर्न: 100 प्रश्न · 120 मिनट · 3 खंड · टेस्ट 1 फ्री, बाकी 24 टेस्ट ₹99 में", en: "MPESB pattern: 100 Qs · 120 min · 3 sections · Test 1 free, other 24 for ₹99" },
+      sub: { hi: "MPESB पैटर्न: 100 प्रश्न · 120 मिनट · 3 खंड · टेस्ट 1 फ्री, बाकी 24 टेस्ट ₹49 में", en: "MPESB pattern: 100 Qs · 120 min · 3 sections · Test 1 free, other 24 for ₹49" },
       cta: { hi: "टेस्ट देखें", en: "View tests" },
     },
     updatedAt: CHECKED,
