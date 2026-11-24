@@ -25,6 +25,16 @@ export function isDesktopExamHeaderPage(pathname: string) {
 export function DesktopExamHeader({ lang }: { lang: Lang }) {
   const pathname = usePathname();
   const [language, setLanguage] = useState<"hi" | "en">(lang === "en" ? "en" : "hi");
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    // Show the four exam navigation options only for an authenticated student.
+    try {
+      const raw = localStorage.getItem("sb-ovaubhekxjtkodkhsybg-auth-token");
+      const session = raw ? JSON.parse(raw) : null;
+      setIsLoggedIn(Boolean(session?.access_token && session?.user));
+    } catch { setIsLoggedIn(false); }
+  }, []);
 
   useEffect(() => {
     try {
@@ -61,12 +71,12 @@ export function DesktopExamHeader({ lang }: { lang: Lang }) {
             <span className="[&_svg]:h-7 [&_svg]:w-7"><Logo light /></span>
           </div>
           {/* A div, not <nav>: globals.css hides every `header nav` on mock-test list pages. */}
-          <div role="navigation" aria-label="Exam navigation" className="flex shrink-0 flex-nowrap items-center gap-1.5">
+          {isLoggedIn && <div role="navigation" aria-label="Exam navigation" className="flex shrink-0 flex-nowrap items-center gap-1.5">
             <Link href="https://tettesthub.in/index.html" className={`${navClass} bg-emerald-500`}><Home className="h-4 w-4 shrink-0" aria-hidden="true" /><span>Home</span></Link>
             <Link href="https://tettesthub.in/course-folders.html" className={`${navClass} bg-violet-500`}><LayoutGrid className="h-4 w-4 shrink-0" aria-hidden="true" /><span>Test Series</span></Link>
             <Link href="/dashboard.html" className={`${navClass} bg-sky-500`}><ClipboardList className="h-4 w-4 shrink-0" aria-hidden="true" /><span>Paid Test</span></Link>
             <LoginChip mode="logout" className={`${navClass} bg-rose-500`} />
-          </div>
+          </div>}
           <div className="ml-auto flex min-w-0 shrink-0 flex-nowrap items-center gap-1.5">
             <div role="group" aria-label="Question language / प्रश्नों की भाषा" className="inline-flex h-9 shrink-0 items-center rounded-lg border border-white/70 bg-white p-0.5 text-indigo-950">
               <button type="button" onClick={() => chooseLanguage("hi")} aria-pressed={language === "hi"} className={`h-7 whitespace-nowrap rounded-md px-2 text-xs font-semibold ${language === "hi" ? "bg-indigo-700 text-white" : "text-indigo-950 hover:bg-indigo-100"}`}>हिंदी</button>
