@@ -40,8 +40,6 @@ export function MockTestList({ series = "ag3" }: { series?: string }) {
   const [token, setToken] = useState<string | null>(null);
   const [paidReady, setPaidReady] = useState<number[]>([]);
   const [canBuy, setCanBuy] = useState(false);
-  // Price in paise from the server, shown on the buy button so ₹ is seen before Razorpay opens
-  const [amount, setAmount] = useState(0);
   const [payState, setPayState] = useState("idle");
   const [payErr, setPayErr] = useState("");
   // 14-day free offer: read on the client so the static build never freezes it
@@ -110,10 +108,9 @@ export function MockTestList({ series = "ag3" }: { series?: string }) {
     } else {
       claimPurchase(S.product).then((t) => t && setToken(t));
     }
-    checkout<{ ready: boolean; tests?: number[]; amount?: number }>({ action: "status", product: S.product })
+    checkout<{ ready: boolean; tests?: number[] }>({ action: "status", product: S.product })
       .then((r) => {
         setCanBuy(!!r.ready);
-        setAmount(r.amount ?? 0);
         setPaidReady(r.tests ?? []);
       })
       .catch(() => {});
