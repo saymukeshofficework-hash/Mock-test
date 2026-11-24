@@ -18,7 +18,7 @@ import {
   Trophy,
 } from "lucide-react";
 import { AG3_MOCK } from "@/data/mockTests";
-import { buyNotes, checkout, claimPurchase, forgetOtherAccountTokens } from "@/lib/checkout";
+import { buyNotes, checkout, claimPurchase, forgetOtherAccountTokens, resumeBuyAfterLogin } from "@/lib/checkout";
 import { site } from "@/lib/site";
 
 type Lang = "hi" | "en";
@@ -91,13 +91,20 @@ export function TestSeriesLanding() {
       forgetOtherAccountTokens();
       const saved = localStorage.getItem(TOKEN_KEY);
       setToken(saved);
-      if (!saved) claimPurchase(AG3_MOCK.product).then((t) => t && setToken(t));
+      const claimed = saved ? Promise.resolve(saved) : claimPurchase(AG3_MOCK.product).then((t) => {
+        if (t) setToken(t);
+        return t;
+      });
+      checkout<{ ready: boolean }>({ action: "status", product: AG3_MOCK.product })
+        .then((r) => {
+          setCanBuy(!!r.ready);
+          // back from login / sign-up: open the payment straight away
+          if (r.ready) claimed.then((had) => { if (!had) resumeBuyAfterLogin([AG3_MOCK.product], () => buy()); });
+        })
+        .catch(() => {});
     } catch {
       /* ignore */
     }
-    checkout<{ ready: boolean }>({ action: "status", product: AG3_MOCK.product })
-      .then((r) => setCanBuy(!!r.ready))
-      .catch(() => {});
   }, []);
 
   const switchLang = (l: Lang) => {

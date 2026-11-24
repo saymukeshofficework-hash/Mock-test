@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import { isDesktopExamHeaderPage, isDesktopOnlyHeaderPage } from "@/components/layout/DesktopExamHeader";
 import { CheckCircle2, CreditCard, FileText, Lock, PlayCircle, Unlock } from "lucide-react";
 import { MOCK_SERIES } from "@/data/mockTests";
-import { buyNotes, checkout, claimPurchase, forgetOtherAccountTokens, mainSiteUnlock } from "@/lib/checkout";
+import { buyNotes, checkout, claimPurchase, forgetOtherAccountTokens, mainSiteUnlock, resumeBuyAfterLogin } from "@/lib/checkout";
 import { freeAccessOn, seriesFreeOn, SERIES_FREE_UNTIL } from "@/lib/site";
 import { priceSafe } from "@/lib/format";
 
@@ -106,13 +106,19 @@ export function MockTestList({ series = "ag3" }: { series?: string }) {
           }
         })
         .catch(() => {});
-    } else {
-      claimPurchase(S.product).then((t) => t && setToken(t));
     }
+    const claimed: Promise<string | null> = tk
+      ? Promise.resolve(tk)
+      : claimPurchase(S.product).then((t) => {
+          if (t) setToken(t);
+          return t;
+        });
     checkout<{ ready: boolean; tests?: number[] }>({ action: "status", product: S.product })
       .then((r) => {
         setCanBuy(!!r.ready);
         setPaidReady(r.tests ?? []);
+        // back from login / sign-up: open the payment straight away
+        if (r.ready && !S.unlockHref) claimed.then((had) => { if (!had) resumeBuyAfterLogin([S.product], () => unlock()); });
       })
       .catch(() => {});
   // eslint-disable-next-line react-hooks/exhaustive-deps
