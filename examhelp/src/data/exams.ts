@@ -60,10 +60,45 @@ export const exams: Exam[] = [
     featured: true,
     popular: true,
     source: { label: "MPESB Rulebook (revised page 1, 15.09.2026)", url: `${ESB_RB}PCRT_2026_Rulebook_Revised_Page_01_15092026.pdf`, checkedOn: CHECKED },
+    seoTitle: "MP Police Constable Vacancy 2026: 7500 पद, परीक्षा 9 दिसंबर",
+    seoDescription:
+      "MP पुलिस आरक्षक (जी.डी.) भर्ती 2026: कुल 7,500 पद, परीक्षा 09 दिसंबर 2026 से (MPESB सूचना 23.11.2026)। तिथियाँ, परीक्षा पैटर्न, नियम पुस्तिका व आधिकारिक लिंक। MP Police Constable GD Vacancy 2026: 7,500 posts, exam from 9 Dec 2026, dates, pattern and official links.",
+    description: {
+      hi: "MP पुलिस आरक्षक (जी.डी.) भर्ती 2026 (MP Police Constable GD Vacancy 2026) — मध्यप्रदेश कर्मचारी चयन मंडल (MPESB) द्वारा कुल 7,500 पदों के लिए ऑनलाइन परीक्षा (नियम पुस्तिका दिनांक 09.09.2026, संशोधित पृष्ठ 1 दिनांक 15.09.2026)। आवेदन 22.09.2026 से 06.10.2026 तक हुए थे। MPESB की सूचना दिनांक 23.11.2026 के अनुसार परीक्षा 09 दिसंबर 2026 से शुरू होगी। पात्रता, आयु सीमा, शुल्क और शारीरिक मापदंड के लिए आधिकारिक नियम पुस्तिका देखें।",
+      en: "MP Police Constable (GD) Recruitment 2026 — an online test by the MP Employees Selection Board (MPESB) for 7,500 posts (rule book dated 09.09.2026, revised page 1 dated 15.09.2026). Applications ran from 22.09.2026 to 06.10.2026. Per the MPESB notice dated 23.11.2026, the exam starts on 9 December 2026. See the official rule book for eligibility, age limit, fee and physical standards.",
+    },
+    details: {
+      pattern: {
+        hi: "MPESB नियम पुस्तिका 2026 के अनुसार: कुल 100 प्रश्न, 100 अंक, 120 मिनट। सामान्य ज्ञान एवं तार्किक ज्ञान 40, बौद्धिक क्षमता एवं मानसिक अभिरुचि 30, विज्ञान एवं सरल अंकगणित 30 प्रश्न। हर प्रश्न 1 अंक, ऋणात्मक अंकन नहीं। प्रश्न हिंदी और English में।",
+        en: "As per the MPESB rule book 2026: 100 questions, 100 marks, 120 minutes. General Knowledge & Logical Knowledge 40, Intellectual Ability & Mental Aptitude 30, Science & Simple Arithmetic 30. 1 mark each, no negative marking. Questions in Hindi and English.",
+      },
+    },
+    faqs: [
+      {
+        q: { hi: "MP पुलिस आरक्षक (जी.डी.) भर्ती 2026 में कितने पद हैं?", en: "How many posts are in MP Police Constable GD Vacancy 2026?" },
+        a: { hi: "MPESB नियम पुस्तिका (संशोधित पृष्ठ 1, 15.09.2026) के अनुसार कुल 7,500 पद हैं।", en: "7,500 posts, as per the MPESB rule book (revised page 1, 15.09.2026)." },
+      },
+      {
+        q: { hi: "MP पुलिस आरक्षक परीक्षा 2026 कब है?", en: "When is the MP Police Constable exam 2026?" },
+        a: { hi: "MPESB की सूचना दिनांक 23.11.2026 के अनुसार परीक्षा 09 दिसंबर 2026 से शुरू होगी।", en: "Per the MPESB notice dated 23 Nov 2026, the exam starts on 9 December 2026." },
+      },
+      {
+        q: { hi: "MP पुलिस आरक्षक 2026 का प्रवेश पत्र कब आएगा?", en: "When will the MP Police Constable 2026 admit card come?" },
+        a: { hi: "MPESB ने कहा है कि प्रवेश पत्र शीघ्र जारी होंगे। तारीख आते ही इस पेज पर अपडेट करेंगे। प्रवेश पत्र केवल esb.mp.gov.in से डाउनलोड करें।", en: "MPESB has said admit cards will be issued soon. We will update this page when the date is out. Download it only from esb.mp.gov.in." },
+      },
+      {
+        q: { hi: "लिखित परीक्षा का पैटर्न क्या है?", en: "What is the written exam pattern?" },
+        a: { hi: "100 प्रश्न, 100 अंक, 120 मिनट, 3 खंड (40 + 30 + 30 प्रश्न), ऋणात्मक अंकन नहीं — MPESB नियम पुस्तिका 2026 के अनुसार।", en: "100 questions, 100 marks, 120 minutes, 3 sections (40 + 30 + 30), no negative marking — as per the MPESB rule book 2026." },
+      },
+      {
+        q: { hi: "क्या अभी आवेदन कर सकते हैं?", en: "Can I still apply?" },
+        a: { hi: "नहीं। ऑनलाइन आवेदन 22.09.2026 से 06.10.2026 तक थे और सुधार 11.10.2026 तक।", en: "No. Online applications ran from 22.09.2026 to 06.10.2026, with corrections until 11.10.2026." },
+      },
+    ],
     testSeries: {
       href: "/mp-police-constable-gd-mock-tests/",
       title: { hi: "आरक्षक (जी.डी.) 2026 — 25 फुल मॉक टेस्ट", en: "Police Constable GD 2026 — 25 full mock tests" },
-      sub: { hi: "MPESB पैटर्न: 100 प्रश्न · 120 मिनट · 3 खंड · टेस्ट 1 फ्री, बाकी 24 टेस्ट ₹49 में", en: "MPESB pattern: 100 Qs · 120 min · 3 sections · Test 1 free, other 24 for ₹49" },
+      sub: { hi: "MPESB पैटर्न: 100 प्रश्न · 120 मिनट · 3 खंड · सभी 25 टेस्ट ₹49 में", en: "MPESB pattern: 100 Qs · 120 min · 3 sections · all 25 tests for ₹49" },
       cta: { hi: "टेस्ट देखें", en: "View tests" },
     },
     updatedAt: CHECKED,

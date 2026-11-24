@@ -112,6 +112,11 @@ export interface Exam {
     pattern?: Bilingual;
     syllabus?: Bilingual;
   };
+  /** Optional search-friendly title/description for the exam page (falls back to the default). */
+  seoTitle?: string;
+  seoDescription?: string;
+  /** Optional FAQ shown on the exam page and sent to Google as FAQPage schema. Official facts only. */
+  faqs?: { q: Bilingual; a: Bilingual }[];
   featured: boolean;
   popular?: boolean;
   source: SourceRef;
