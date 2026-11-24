@@ -479,7 +479,7 @@ body{padding-bottom:88px!important}
       } catch (_) {}
       try {
         // Telegram / Facebook links: add the URL here; an empty URL keeps that icon hidden.
-        const SOCIAL = { socTg: '', socFb: '' };
+        const SOCIAL = { socTg: '', socFb: 'https://www.facebook.com/share/18gtBX1C7J/' };
         let any = true;
         Object.keys(SOCIAL).forEach(id => { const a = document.getElementById(id); if (a && /^https:\/\//.test(SOCIAL[id])) { a.href = SOCIAL[id]; a.hidden = false; } });
         document.getElementById('homeSocial').hidden = !any;
