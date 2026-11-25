@@ -713,6 +713,45 @@ export const MOCK_SERIES: Record<string, MockSeries> = {
     unlockBtn: { hi: "सभी टेस्ट अनलॉक करें", en: "Unlock all tests" },
     links: [{ href: "/ugc-net-paper-1-mock-tests/", label: { hi: "पेपर 1 (सामान्य) टेस्ट →", en: "Paper 1 (General) tests →" }, tone: "brand" }],
   },
+  uptet: {
+    id: "uptet",
+    total: 25,
+    free: [1],
+    product: "uptet-tests",
+    price: 99,
+    enginePath: "/mock-tests/uptet/test.html",
+    scorePrefix: "testhub_uptet_mock_",
+    listPath: "/uptet-mock-tests",
+    meta: { hi: "150 प्रश्न · 150 मिनट", en: "150 Qs · 150 min" },
+    title: { hi: "UPTET 2026 — 25 मॉक टेस्ट (पेपर 1 + पेपर 2)", en: "UPTET 2026 — 25 Mock Tests (Paper 1 + Paper 2)" },
+    sub: {
+      hi: "टेस्ट 1–13: पेपर 1 (कक्षा 1–5) · टेस्ट 14–19: पेपर 2 गणित-विज्ञान (कक्षा 6–8) · टेस्ट 20–25: पेपर 2 सामाजिक अध्ययन। हर टेस्ट 150 प्रश्न, 150 मिनट, व्याख्या सहित। यह अभ्यास पेपर है, आधिकारिक प्रश्नपत्र नहीं।",
+      en: "Tests 1–13: Paper 1 (Classes 1–5) · Tests 14–19: Paper 2 Maths-Science (Classes 6–8) · Tests 20–25: Paper 2 Social Studies. Every test has 150 questions, 150 minutes and explanations. Practice papers, not official papers.",
+    },
+    rows: {
+      hi: [
+        ["बाल विकास एवं शिक्षण विधि", "30", "हिंदी/English"],
+        ["भाषा I : हिंदी", "30", "हिंदी"],
+        ["भाषा II : अंग्रेज़ी", "30", "English"],
+        ["गणित + पर्यावरण अध्ययन (पेपर 1) / गणित + विज्ञान या सामाजिक अध्ययन (पेपर 2)", "60", "हिंदी/English"],
+      ],
+      en: [
+        ["Child Development and Pedagogy", "30", "Hindi/English"],
+        ["Language I: Hindi", "30", "Hindi"],
+        ["Language II: English", "30", "English"],
+        ["Maths + EVS (Paper 1) / Maths + Science or Social Studies (Paper 2)", "60", "Hindi/English"],
+      ],
+    },
+    totalLine: { hi: "कुल: 150 प्रश्न · 150 अंक · 150 मिनट", en: "Total: 150 questions · 150 marks · 150 minutes" },
+    neg: { hi: "प्रत्येक सही उत्तर 1 अंक, ऋणात्मक अंकन नहीं।", en: "1 mark per correct answer, no negative marking." },
+    unlockTitle: { hi: "UPTET 2026 — सभी 25 मॉक टेस्ट", en: "UPTET 2026 — all 25 mock tests" },
+    unlockSub: {
+      hi: "टेस्ट 1 लॉगिन के बाद खुलता है। एक बार ₹99 देकर बाकी 24 टेस्ट अनलॉक करें।",
+      en: "Test 1 opens after login. Pay ₹99 once to unlock the other 24 tests.",
+    },
+    unlockBtn: { hi: "सभी टेस्ट अनलॉक करें", en: "Unlock all tests" },
+    links: [],
+  },
 };
 
 /** Back-compat for the AG-3 landing page. */

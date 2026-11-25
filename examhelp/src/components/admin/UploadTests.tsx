@@ -21,6 +21,7 @@ const SERIES = [
   { id: "sscgd", label: "SSC GD (sscgd)" },
   { id: "netp1", label: "UGC NET Paper 1 (netp1)" },
   { id: "neteng", label: "UGC NET English Paper 2 (neteng)" },
+  { id: "uptet", label: "UPTET 2026 (uptet)" },
 ];
 const JSZIP = "https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js";
 

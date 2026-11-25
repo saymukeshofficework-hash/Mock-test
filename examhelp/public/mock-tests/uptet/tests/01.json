@@ -1,0 +1,4252 @@
+{
+ "test": 1,
+ "paper": "P1",
+ "title": {
+  "hi": "UPTET 2026 पेपर 1 (कक्षा 1–5) — मॉक टेस्ट 1",
+  "en": "UPTET 2026 Paper 1 (Classes 1–5) — Mock Test 1"
+ },
+ "marks": {
+  "c": 1,
+  "w": 0
+ },
+ "minutes": 150,
+ "sections": [
+  {
+   "key": "cdp",
+   "label": {
+    "hi": "बाल विकास एवं शिक्षण विधि",
+    "en": "Child Development and Pedagogy"
+   }
+  },
+  {
+   "key": "hin",
+   "label": {
+    "hi": "भाषा I : हिंदी",
+    "en": "Language I: Hindi"
+   }
+  },
+  {
+   "key": "eng",
+   "label": {
+    "hi": "भाषा II : अंग्रेज़ी",
+    "en": "Language II: English"
+   }
+  },
+  {
+   "key": "math",
+   "label": {
+    "hi": "गणित",
+    "en": "Mathematics"
+   }
+  },
+  {
+   "key": "evs",
+   "label": {
+    "hi": "पर्यावरण अध्ययन",
+    "en": "Environmental Studies"
+   }
+  }
+ ],
+ "questions": [
+  {
+   "s": "cdp",
+   "ty": "direct",
+   "d": "e",
+   "a": 1,
+   "q": {
+    "hi": "बाल विकास के संदर्भ में निम्नलिखित में से कौन-सा कथन 'वृद्धि' और 'विकास' के अंतर को सबसे सटीक रूप से स्पष्ट करता है?",
+    "en": "In the context of child development, which of the following statements most accurately clarifies the difference between 'growth' and 'development'?"
+   },
+   "o": {
+    "hi": [
+     "वृद्धि जीवनभर चलने वाली प्रक्रिया है, जबकि विकास किशोरावस्था में रुक जाता है।",
+     "वृद्धि मुख्यतः मात्रात्मक एवं मापनीय होती है, जबकि विकास गुणात्मक एवं व्यापक होता है।",
+     "वृद्धि केवल संज्ञानात्मक पक्ष से संबंधित है, जबकि विकास केवल शारीरिक आकार से जुड़ा है।",
+     "वृद्धि और विकास दोनों केवल आनुवंशिक कारकों द्वारा ही पूर्णतः निर्धारित होते हैं।"
+    ],
+    "en": [
+     "Growth is a lifelong process, whereas development stops during adolescence.",
+     "Growth is primarily quantitative and measurable, whereas development is qualitative and comprehensive.",
+     "Growth relates only to the cognitive domain, whereas development relates only to physical size.",
+     "Both growth and development are determined solely by hereditary factors."
+    ]
+   },
+   "sol": {
+    "hi": "वृद्धि शारीरिक आकार, भार और ऊँचाई में होने वाले मात्रात्मक परिवर्तन को दर्शाती है जिसे मापा जा सकता है। इसके विपरीत विकास एक व्यापक और गुणात्मक प्रक्रिया है जिसमें शारीरिक, मानसिक, सामाजिक और संवेगात्मक परिवर्तन शामिल होते हैं।",
+    "en": "Growth refers to quantitative, measurable changes in physical size, weight, and height. Development, by contrast, is a broader qualitative process encompassing physical, mental, social, and emotional changes."
+   }
+  },
+  {
+   "s": "cdp",
+   "ty": "statement",
+   "d": "m",
+   "a": 2,
+   "q": {
+    "hi": "विकास की दिशा के सिद्धांत के संदर्भ में निम्नलिखित कथनों पर विचार कीजिए:\nकथन I: शीर्षगामी सिद्धांत के अनुसार बालक का विकास सिर से पैर की ओर होता है।\nकथन II: समीपदूराभिमुख सिद्धांत के अनुसार विकास शरीर के बाहरी अंगों से केंद्र की ओर होता है।\nउपर्युक्त में से कौन-सा/से कथन सही है/हैं?",
+    "en": "Consider the following statements regarding the principle of direction of development:\nStatement I: According to the cephalocaudal principle, a child's development proceeds from head to toe.\nStatement II: According to the proximodistal principle, development proceeds from the outer parts of the body toward the center.\nWhich of the above statements is/are correct?"
+   },
+   "o": {
+    "hi": [
+     "कथन I और II दोनों सही हैं",
+     "न तो कथन I और न ही कथन II सही है",
+     "केवल कथन I सही है",
+     "केवल कथन II सही है"
+    ],
+    "en": [
+     "Both Statement I and Statement II are correct",
+     "Neither Statement I nor Statement II is correct",
+     "Only Statement I is correct",
+     "Only Statement II is correct"
+    ]
+   },
+   "sol": {
+    "hi": "शीर्षगामी विकास सिर से पैर की ओर होता है, जैसे शिशु पहले सिर संभालना सीखता है और बाद में चलना। समीपदूराभिमुख विकास केंद्र (रीढ़ की हड्डी) से बाहर की ओर (हाथ-पैर की उँगलियों) होता है, इसलिए कथन II गलत है।",
+    "en": "Cephalocaudal development proceeds from head to toe, such as an infant learning head control before walking. Proximodistal development moves from the center outward to the extremities, making Statement II incorrect."
+   }
+  },
+  {
+   "s": "cdp",
+   "ty": "direct",
+   "d": "e",
+   "a": 0,
+   "q": {
+    "hi": "मानव विकास गर्भावस्था से प्रारंभ होकर जीवनपर्यंत चलता रहता है। यह किस विकासात्मक सिद्धांत को दर्शाता है?",
+    "en": "Human development begins in the womb and continues throughout life. Which developmental principle does this illustrate?"
+   },
+   "o": {
+    "hi": [
+     "निरंतरता का सिद्धांत",
+     "एकीकरण का सिद्धांत",
+     "वैयक्तिक भिन्नता का सिद्धांत",
+     "समान प्रतिमान का सिद्धांत"
+    ],
+    "en": [
+     "Principle of continuity",
+     "Principle of integration",
+     "Principle of individual differences",
+     "Principle of uniform pattern"
+    ]
+   },
+   "sol": {
+    "hi": "निरंतरता के सिद्धांत के अनुसार विकास एक अविराम प्रक्रिया है जो गर्भाधान से लेकर मृत्यु तक किसी न किसी रूप में चलती रहती है। यद्यपि इसकी गति विभिन्न अवस्थाओं में कम या अधिक हो सकती है।",
+    "en": "According to the principle of continuity, development is an uninterrupted process that continues from conception until death, although its pace may vary across different stages."
+   }
+  },
+  {
+   "s": "cdp",
+   "ty": "ar",
+   "d": "m",
+   "a": 0,
+   "q": {
+    "hi": "नीचे दो कथन दिए गए हैं, एक को अभिकथन (A) और दूसरे को कारण (R) कहा गया है:\nअभिकथन (A): दो जुड़वाँ बच्चे, जो एकसमान आनुवंशिकता रखते हैं, अलग-अलग सामाजिक वातावरण में पलने पर भिन्न व्यक्तित्व प्रदर्शित कर सकते हैं।\nकारण (R): बालक का विकास आनुवंशिकता और वातावरण के योगात्मक नहीं, बल्कि गुणात्मक एवं जटिल अंतःक्रिया का परिणाम होता है।\nसही विकल्प चुनिए:",
+    "en": "Given below are two statements, one labelled as Assertion (A) and the other as Reason (R):\nAssertion (A): Two identical twins sharing the same heredity may display different personalities when raised in different social environments.\nReason (R): A child's development is the result of a complex, multiplicative interaction between heredity and environment rather than a mere additive sum.\nChoose the correct option:"
+   },
+   "o": {
+    "hi": [
+     "A और R दोनों सत्य हैं तथा R, A की सही व्याख्या करता है।",
+     "A और R दोनों सत्य हैं, परंतु R, A की सही व्याख्या नहीं करता है।",
+     "A सत्य है, परंतु R असत्य है।",
+     "A असत्य है, परंतु R सत्य है।"
+    ],
+    "en": [
+     "Assertion (A) and Reason (R) are both true and R is the correct explanation of A.",
+     "Assertion (A) and Reason (R) are both true, but R is not the correct explanation of A.",
+     "A is true, but R is false.",
+     "A is false, but R is true."
+    ]
+   },
+   "sol": {
+    "hi": "वुडवर्थ के अनुसार विकास आनुवंशिकता और वातावरण का गुणनफल है। समान आनुवंशिकता होने पर भी भिन्न वातावरण बच्चों की क्षमताओं और व्यक्तित्व को अलग दिशा दे सकता है, अतः दोनों सत्य हैं और R सही व्याख्या है।",
+    "en": "According to Woodworth, development is the product of heredity and environment. Even with identical heredity, different environments shape personality differently, so both are true and R correctly explains A."
+   }
+  },
+  {
+   "s": "cdp",
+   "ty": "situation",
+   "d": "m",
+   "a": 3,
+   "q": {
+    "hi": "कक्षा 4 की एक शिक्षिका देखती हैं कि कुछ विद्यार्थी गणित के शाब्दिक प्रश्नों को शीघ्र हल कर लेते हैं, जबकि कुछ विद्यार्थियों को चित्रों और ठोस वस्तुओं की सहायता से समझाने की आवश्यकता होती है। यह स्थिति विकास के किस सिद्धांत की पुष्टि करती है?",
+    "en": "A Class 4 teacher observes that some students solve math word problems quickly, while others need pictures and concrete objects to understand them. Which principle of development does this situation confirm?"
+   },
+   "o": {
+    "hi": [
+     "विकास की निश्चित दिशा का सिद्धांत",
+     "विकास के समान प्रतिमान का सिद्धांत",
+     "विकास की भविष्यवाणी का सिद्धांत",
+     "वैयक्तिक भिन्नता का सिद्धांत"
+    ],
+    "en": [
+     "Principle of fixed direction of development",
+     "Principle of uniform pattern of development",
+     "Principle of predictability of development",
+     "Principle of individual differences"
+    ]
+   },
+   "sol": {
+    "hi": "प्रत्येक बालक के सीखने की गति, रुचि और संज्ञानात्मक शैली अलग होती है। यही वैयक्तिक भिन्नता का सिद्धांत है, जो शिक्षक को विविध शिक्षण विधियाँ अपनाने के लिए प्रेरित करता है।",
+    "en": "Every child has a unique learning pace, interest, and cognitive style. This illustrates the principle of individual differences, encouraging teachers to adopt varied instructional methods."
+   }
+  },
+  {
+   "s": "cdp",
+   "ty": "direct",
+   "d": "e",
+   "a": 2,
+   "q": {
+    "hi": "एक शिशु पहले किसी खिलौने को पकड़ने के लिए पूरे हाथ का उपयोग करता है और बाद में केवल अँगूठे तथा तर्जनी का उपयोग करना सीखता है। यह किस सिद्धांत का उदाहरण है?",
+    "en": "An infant initially uses the entire hand to grasp a toy and later learns to pick it up using just the thumb and index finger. This is an example of which principle?"
+   },
+   "o": {
+    "hi": [
+     "चक्राकार प्रगति का सिद्धांत व्यवहार में",
+     "निरंतरता का सिद्धांत",
+     "सामान्य से विशिष्ट की ओर का सिद्धांत",
+     "अंतर्संबंध का सिद्धांत"
+    ],
+    "en": [
+     "Principle of spiral advancement",
+     "Principle of continuity",
+     "Principle of general to specific",
+     "Principle of interrelation"
+    ]
+   },
+   "sol": {
+    "hi": "विकास में पहले सामान्य और व्यापक क्रियाएँ होती हैं, फिर सूक्ष्म और विशिष्ट क्रियाएँ विकसित होती हैं। पूरे हाथ से पकड़ना सामान्य क्रिया है, जबकि अँगुली और अँगूठे से पकड़ना विशिष्ट क्रिया है।",
+    "en": "Development moves from broad, general responses to fine, specific actions. Grasping with the whole hand is a general response, whereas picking up with thumb and forefinger is specific."
+   }
+  },
+  {
+   "s": "cdp",
+   "ty": "match",
+   "d": "h",
+   "a": 1,
+   "q": {
+    "hi": "सूची-I (आनुवंशिकता संबंधी नियम/सिद्धांत) को सूची-II (प्रमुख विचारक) से सुमेलित कीजिए:\nसूची-I\n(a) प्रत्यागमन का नियम\n(b) जननद्रव्य की निरंतरता\n(c) आनुवंशिकता के नियम (मटर प्रयोग)\n(d) उत्परिवर्तन सिद्धांत\n\nसूची-II\n1. फ्रांसिस गाल्टन\n2. ग्रेगर जॉन मेंडल\n3. ऑगस्ट वीजमैन\n4. ह्यूगो डी व्रीज\nकूट:",
+    "en": "Match List-I (Heredity laws/concepts) with List-II (Key thinkers):\nList-I\n(a) Law of Regression\n(b) Continuity of Germplasm\n(c) Laws of Heredity (Pea experiment)\n(d) Mutation Theory\n\nList-II\n1. Francis Galton\n2. Gregor Johann Mendel\n3. August Weismann\n4. Hugo de Vries\nCodes:"
+   },
+   "o": {
+    "hi": [
+     "(a)-3, (b)-1, (c)-2, (d)-4",
+     "(a)-1, (b)-3, (c)-2, (d)-4",
+     "(a)-2, (b)-3, (c)-1, (d)-4",
+     "(a)-1, (b)-2, (c)-3, (d)-4"
+    ],
+    "en": [
+     "(a)-3, (b)-1, (c)-2, (d)-4",
+     "(a)-1, (b)-3, (c)-2, (d)-4",
+     "(a)-2, (b)-3, (c)-1, (d)-4",
+     "(a)-1, (b)-2, (c)-3, (d)-4"
+    ]
+   },
+   "sol": {
+    "hi": "प्रत्यागमन का नियम फ्रांसिस गाल्टन का, जननद्रव्य की निरंतरता ऑगस्ट वीजमैन की, मटर प्रयोग से आनुवंशिकता के नियम ग्रेगर मेंडल के तथा उत्परिवर्तन सिद्धांत ह्यूगो डी व्रीज का है।",
+    "en": "The Law of Regression is Francis Galton's, continuity of germplasm is August Weismann's, the laws of heredity from pea experiments are Gregor Mendel's, and the Mutation Theory is Hugo de Vries'."
+   }
+  },
+  {
+   "s": "cdp",
+   "ty": "direct",
+   "d": "e",
+   "a": 2,
+   "q": {
+    "hi": "मनुष्य की एक सामान्य कोशिका में गुणसूत्रों की कुल संख्या कितनी होती है तथा बालक का लिंग मुख्यतः किसके गुणसूत्र पर निर्भर करता है?",
+    "en": "How many total chromosomes are present in a normal human cell, and whose chromosome primarily determines the biological sex of a child?"
+   },
+   "o": {
+    "hi": [
+     "44 गुणसूत्र; माता के गुणसूत्र पर व्यवहार में",
+     "46 गुणसूत्र; माता के गुणसूत्र पर",
+     "46 गुणसूत्र; पिता के गुणसूत्र पर",
+     "23 गुणसूत्र; दोनों के समान गुणसूत्र पर"
+    ],
+    "en": [
+     "44 chromosomes; mother's chromosome",
+     "46 chromosomes; mother's chromosome",
+     "46 chromosomes; father's chromosome",
+     "23 chromosomes; both equally"
+    ]
+   },
+   "sol": {
+    "hi": "मानव कोशिका में 23 जोड़े अर्थात् कुल 46 गुणसूत्र होते हैं। माता के पास केवल X लिंग गुणसूत्र होते हैं जबकि पिता के पास X और Y दोनों होते हैं, अतः संतान का लिंग पिता के गुणसूत्र से तय होता है।",
+    "en": "A normal human cell has 23 pairs, or 46 chromosomes. Since the mother contributes only an X sex chromosome while the father contributes either X or Y, the father's chromosome determines the child's sex."
+   }
+  },
+  {
+   "s": "cdp",
+   "ty": "direct",
+   "d": "m",
+   "a": 3,
+   "q": {
+    "hi": "6 से 11 वर्ष की आयु (उत्तर बाल्यावस्था) के संबंध में निम्नलिखित में से कौन-सी विशेषता उपयुक्त नहीं है?",
+    "en": "Which of the following characteristics is NOT appropriate regarding the age group of 6 to 11 years (later childhood)?"
+   },
+   "o": {
+    "hi": [
+     "समवयस्क समूह या टोली के प्रति प्रबल लगाव विकसित होना व्यवहार में",
+     "तार्किक एवं मूर्त चिंतन की क्षमता में क्रमिक वृद्धि होना",
+     "संग्रह करने की प्रवृत्ति तथा खेलों में नियमों का पालन करना",
+     "अमूर्त परिकल्पनात्मक चिंतन और तीव्र यौवनारंभ का चरम स्तर"
+    ],
+    "en": [
+     "Developing strong attachment toward a peer group or gang",
+     "Gradual increase in logical and concrete thinking abilities",
+     "Tendency to collect things and follow rules in games",
+     "Peak level of abstract hypothetical thinking and rapid puberty"
+    ]
+   },
+   "sol": {
+    "hi": "6 से 11 वर्ष की उत्तर बाल्यावस्था में टोली की भावना, मूर्त चिंतन और संग्रह प्रवृत्ति प्रमुख होती है। अमूर्त परिकल्पनात्मक चिंतन और तीव्र यौवनारंभ किशोरावस्था (11 वर्ष के बाद) की विशेषताएँ हैं।",
+    "en": "In later childhood (6–11 years), peer-group belonging, concrete thinking, and collecting tendencies are prominent. Abstract hypothetical thinking and rapid puberty characterize adolescence after age 11."
+   }
+  },
+  {
+   "s": "cdp",
+   "ty": "statement",
+   "d": "m",
+   "a": 0,
+   "q": {
+    "hi": "विकास की गति और स्वरूप के विषय में निम्नलिखित कथनों पर विचार कीजिए:\nकथन I: बालक का विकास सीधी रेखा में न होकर वर्तुलाकार (चक्राकार) होता है।\nकथन II: विकास के विभिन्न क्षेत्र जैसे शारीरिक, मानसिक और सामाजिक परस्पर स्वतंत्र रूप से कार्य करते हैं।\nसही उत्तर चुनिए:",
+    "en": "Consider the following statements regarding the pace and pattern of development:\nStatement I: A child's development is spiral rather than strictly linear.\nStatement II: Different domains of development, such as physical, mental, and social, operate completely independently of one another.\nChoose the correct answer:"
+   },
+   "o": {
+    "hi": [
+     "केवल कथन I सही है",
+     "केवल कथन II सही है",
+     "कथन I और II दोनों सही हैं",
+     "न तो कथन I और न ही कथन II सही है"
+    ],
+    "en": [
+     "Only Statement I is correct",
+     "Only Statement II is correct",
+     "Both Statement I and Statement II are correct",
+     "Neither Statement I nor Statement II is correct"
+    ]
+   },
+   "sol": {
+    "hi": "विकास वर्तुलाकार होता है क्योंकि बालक एक ही गति से आगे नहीं बढ़ता, बल्कि पीछे मुड़कर अपनी परिपक्वता को सुदृढ़ करते हुए आगे बढ़ता है। विकास के सभी पक्ष परस्पर अंतर्संबंधित होते हैं, इसलिए कथन II गलत है।",
+    "en": "Development is spiral because a child pauses to consolidate earlier gains before advancing. All domains of development are interrelated rather than independent, making Statement II incorrect."
+   }
+  },
+  {
+   "s": "cdp",
+   "ty": "direct",
+   "d": "m",
+   "a": 1,
+   "q": {
+    "hi": "जब कक्षा 2 का एक छात्र पहले पेंसिल पकड़ना, फिर अक्षर लिखना और अंततः पूरे वाक्य लिखने के लिए हाथ, आँख और मस्तिष्क का समन्वय करता है, तो यह किस विकासात्मक सिद्धांत का उदाहरण है?",
+    "en": "When a Class 2 student coordinates hand, eye, and brain first to hold a pencil, then to form letters, and finally to write complete sentences, which developmental principle does this exemplify?"
+   },
+   "o": {
+    "hi": [
+     "समान प्रतिमान का सिद्धांत",
+     "एकीकरण का सिद्धांत",
+     "शीर्षगामी विकास का सिद्धांत",
+     "आनुवंशिक स्थिरता का सिद्धांत"
+    ],
+    "en": [
+     "Principle of uniform pattern",
+     "Principle of integration",
+     "Principle of cephalocaudal development",
+     "Principle of genetic stability"
+    ]
+   },
+   "sol": {
+    "hi": "एकीकरण के सिद्धांत के अनुसार बालक पहले संपूर्ण अंगों और फिर उनके विशिष्ट भागों को चलाना सीखता है और बाद में उन सभी भागों को एक साथ समन्वित कर जटिल कौशल करता है।",
+    "en": "According to the principle of integration, a child first learns to control whole body parts, then specific parts, and finally integrates those specific movements into a coordinated complex skill."
+   }
+  },
+  {
+   "s": "cdp",
+   "ty": "situation",
+   "d": "m",
+   "a": 2,
+   "q": {
+    "hi": "उत्तर प्रदेश के एक प्राथमिक विद्यालय में पढ़ने वाले 8 वर्षीय रोहन के घर में पुस्तकें पढ़ने का समृद्ध वातावरण है और माता-पिता उसकी जिज्ञासाओं का धैर्यपूर्वक उत्तर देते हैं। रोहन की शब्दावली और पठन रुचि पर इस प्रभाव को किस कारक के अंतर्गत रखा जाएगा?",
+    "en": "Eight-year-old Rohan, studying in a primary school in Uttar Pradesh, has a print-rich home environment where his parents patiently answer his questions. Under which factor would this influence on Rohan's vocabulary and reading interest be categorized?"
+   },
+   "o": {
+    "hi": [
+     "केवल जैविक एवं आनुवंशिक परिपक्वता व्यवहार में",
+     "जन्मजात संवेगात्मक प्रवृत्ति",
+     "पोषक एवं पारिवारिक पर्यावरणीय कारक",
+     "अंतःस्रावी ग्रंथियों की सक्रियता"
+    ],
+    "en": [
+     "Solely biological and genetic maturation",
+     "Innate emotional predisposition",
+     "Nurturing and family environmental factors",
+     "Activity of endocrine glands"
+    ]
+   },
+   "sol": {
+    "hi": "घर में पुस्तकों की उपलब्धता और माता-पिता का संवाद सामाजिक-पारिवारिक वातावरण का हिस्सा हैं। यह पर्यावरणीय कारक बालक के भाषाई और संज्ञानात्मक विकास को सीधे प्रोत्साहित करता है।",
+    "en": "Availability of books at home and parental dialogue are part of the socio-familial environment. Such environmental factors directly stimulate a child's linguistic and cognitive development."
+   }
+  },
+  {
+   "s": "cdp",
+   "ty": "direct",
+   "d": "e",
+   "a": 0,
+   "q": {
+    "hi": "प्राथमिक स्तर के बालक के समाजीकरण में 'परिवार' और 'विद्यालय' की भूमिका क्रमशः क्या मानी जाती है?",
+    "en": "What are the respective roles of 'family' and 'school' considered to be in the socialization of a primary-level child?"
+   },
+   "o": {
+    "hi": [
+     "परिवार प्राथमिक अभिकरण है तथा विद्यालय द्वितीयक अभिकरण है",
+     "परिवार द्वितीयक अभिकरण है तथा विद्यालय प्राथमिक अभिकरण है",
+     "परिवार और विद्यालय दोनों ही केवल औपचारिक अभिकरण हैं",
+     "विद्यालय और संचार माध्यम दोनों प्राथमिक अभिकरण हैं"
+    ],
+    "en": [
+     "Family is the primary agency and school is the secondary agency",
+     "Family is the secondary agency and school is the primary agency",
+     "Both family and school are strictly formal agencies",
+     "Both school and mass media are primary agencies"
+    ]
+   },
+   "sol": {
+    "hi": "बालक का प्रथम समाजीकरण परिवार में होता है, इसलिए परिवार को प्राथमिक अभिकरण कहा जाता है। विद्यालय में बच्चा औपचारिक नियमों और व्यापक समाज से जुड़ता है, अतः विद्यालय द्वितीयक अभिकरण है।",
+    "en": "A child's earliest socialization occurs within the family, making it the primary agency. School introduces formal rules and a wider peer society, making it a secondary agency."
+   }
+  },
+  {
+   "s": "cdp",
+   "ty": "ar",
+   "d": "h",
+   "a": 2,
+   "q": {
+    "hi": "अभिकथन (A): बिना पर्याप्त शारीरिक और तंत्रिका-तंत्र संबंधी परिपक्वता के किसी कौशल को सिखाने का अत्यधिक प्रयास स्थायी अधिगम नहीं दे पाता।\nकारण (R): परिपक्वता और अधिगम दोनों एक-दूसरे से स्वतंत्र प्रक्रियाएँ हैं जिनका आपस में कोई संबंध नहीं होता।\nसही विकल्प का चयन कीजिए:",
+    "en": "Assertion (A): Excessive effort to teach a skill without adequate physical and neurological maturation fails to produce lasting learning.\nReason (R): Maturation and learning are two completely independent processes that have no relationship with each other.\nSelect the correct option:"
+   },
+   "o": {
+    "hi": [
+     "A और R दोनों सत्य हैं तथा R, A की सही व्याख्या है।",
+     "A और R दोनों सत्य हैं, परंतु R, A की सही व्याख्या नहीं है।",
+     "A सत्य है, परंतु R असत्य है।",
+     "A असत्य है, परंतु R सत्य है।"
+    ],
+    "en": [
+     "Assertion (A) and Reason (R) are both true and R is the correct explanation of A.",
+     "Assertion (A) and Reason (R) are both true, but R is not the correct explanation of A.",
+     "A is true, but R is false.",
+     "A is false, but R is true."
+    ]
+   },
+   "sol": {
+    "hi": "परिपक्वता अधिगम के लिए जैविक आधार और तत्परता प्रदान करती है, इसलिए परिपक्वता के बिना अभ्यास व्यर्थ हो सकता है। चूँकि परिपक्वता और अधिगम परस्पर घनिष्ठ रूप से जुड़े हैं, अतः कारण (R) असत्य है।",
+    "en": "Maturation provides the biological readiness needed for learning, so training without maturation is ineffective. Because maturation and learning are closely interrelated, Reason (R) is false."
+   }
+  },
+  {
+   "s": "cdp",
+   "ty": "direct",
+   "d": "m",
+   "a": 3,
+   "q": {
+    "hi": "समरूप जुड़वाँ और भ्रातृ जुड़वाँ बच्चों के आनुवंशिक अध्ययन से बाल विकास के बारे में क्या प्रमुख निष्कर्ष निकलता है?",
+    "en": "What major conclusion about child development emerges from genetic studies of identical and fraternal twins?"
+   },
+   "o": {
+    "hi": [
+     "दोनों प्रकार के जुड़वाँ बच्चों में सदैव शत-प्रतिशत समान बुद्धि-लब्धि पाई जाती है",
+     "भ्रातृ जुड़वाँ बच्चों का आनुवंशिक संगठन समरूप जुड़वाँ से अधिक समान होता है",
+     "वातावरण में बदलाव का समरूप जुड़वाँ बच्चों पर कोई प्रभाव नहीं पड़ता है",
+     "समरूप जुड़वाँ में समान आनुवंशिकता के बावजूद विभिन्न वातावरण भिन्नता उत्पन्न कर सकते हैं"
+    ],
+    "en": [
+     "Both types of twins always exhibit 100% identical IQ scores",
+     "Fraternal twins share a more similar genetic makeup than identical twins",
+     "Changes in environment have no effect whatsoever on identical twins",
+     "Despite identical heredity in identical twins, different environments can produce differences"
+    ]
+   },
+   "sol": {
+    "hi": "समरूप जुड़वाँ एक ही निषेचित अंडाणु से बनते हैं अतः उनका आनुवंशिक संगठन समान होता है, फिर भी अलग-अलग वातावरण में पालन-पोषण होने पर उनके व्यवहार, रुचियों और उपलब्धियों में अंतर देखा जाता है।",
+    "en": "Identical twins develop from a single fertilized egg and share identical genes, yet when raised in different environments, measurable differences emerge in their behavior and achievements."
+   }
+  },
+  {
+   "s": "cdp",
+   "ty": "direct",
+   "d": "e",
+   "a": 1,
+   "q": {
+    "hi": "यदि कक्षा 3 का कोई विद्यार्थी लंबे समय से कुपोषण और बार-बार होने वाले बुखार से ग्रस्त है, तो इससे उसका एकाग्रता स्तर और कक्षा में सहभागिता भी घट जाती है। यह स्थिति किस सिद्धांत को उजागर करती है?",
+    "en": "If a Class 3 student suffers from prolonged malnutrition and frequent fever, their concentration and classroom participation also decline. Which principle does this situation highlight?"
+   },
+   "o": {
+    "hi": [
+     "विकास की अपरिवर्तनीयता का सिद्धांत",
+     "विकास के विभिन्न पक्षों के अंतर्संबंध का सिद्धांत",
+     "लैंगिक विभेदीकरण का सिद्धांत",
+     "विकास की आकस्मिकता का सिद्धांत"
+    ],
+    "en": [
+     "Principle of irreversibility of development",
+     "Principle of interrelation of different domains of development",
+     "Principle of gender differentiation",
+     "Principle of suddenness of development"
+    ]
+   },
+   "sol": {
+    "hi": "शारीरिक, संज्ञानात्मक, सामाजिक और संवेगात्मक विकास एक-दूसरे से जुड़े होते हैं। शारीरिक अस्वस्थता का संज्ञानात्मक एकाग्रता और सामाजिक सहभागिता पर प्रभाव पड़ना अंतर्संबंध के सिद्धांत को दर्शाता है।",
+    "en": "Physical, cognitive, social, and emotional development are interconnected. Physical illness affecting cognitive concentration and social participation demonstrates the principle of interrelation."
+   }
+  },
+  {
+   "s": "cdp",
+   "ty": "match",
+   "d": "h",
+   "a": 2,
+   "q": {
+    "hi": "सूची-I (विकास की अवस्थाएँ) को सूची-II (उनकी प्रमुख विकासात्मक विशेषता) से सुमेलित कीजिए:\nसूची-I\n(a) शैशवावस्था (जन्म से 2 वर्ष)\n(b) पूर्व बाल्यावस्था (2 से 6 वर्ष)\n(c) उत्तर बाल्यावस्था (6 से 11 वर्ष)\n(d) किशोरावस्था (11 से 18 वर्ष)\n\nसूची-II\n1. प्रारंभिक विद्यालय आयु एवं टोली की भावना\n2. खिलौनों की आयु एवं भाषा विस्फोट\n3. पहचान निर्माण एवं अमूर्त चिंतन\n4. तीव्र शारीरिक वृद्धि एवं संवेदी-गामक अन्वेषण\nकूट:",
+    "en": "Match List-I (Stages of development) with List-II (Primary developmental characteristic):\nList-I\n(a) Infancy (Birth to 2 years)\n(b) Early Childhood (2 to 6 years)\n(c) Later Childhood (6 to 11 years)\n(d) Adolescence (11 to 18 years)\n\nList-II\n1. Elementary school age and gang spirit\n2. Toy age and rapid language explosion\n3. Identity formation and abstract thinking\n4. Rapid physical growth and sensorimotor exploration\nCodes:"
+   },
+   "o": {
+    "hi": [
+     "(a)-4, (b)-1, (c)-2, (d)-3",
+     "(a)-2, (b)-4, (c)-1, (d)-3",
+     "(a)-4, (b)-2, (c)-1, (d)-3",
+     "(a)-3, (b)-2, (c)-1, (d)-4"
+    ],
+    "en": [
+     "(a)-4, (b)-1, (c)-2, (d)-3",
+     "(a)-2, (b)-4, (c)-1, (d)-3",
+     "(a)-4, (b)-2, (c)-1, (d)-3",
+     "(a)-3, (b)-2, (c)-1, (d)-4"
+    ]
+   },
+   "sol": {
+    "hi": "शैशवावस्था में तीव्र शारीरिक वृद्धि और संवेदी-गामक सीखना होता है। पूर्व बाल्यावस्था को खिलौनों की आयु, उत्तर बाल्यावस्था को प्रारंभिक विद्यालय आयु व टोली आयु, तथा किशोरावस्था को पहचान निर्माण की अवस्था कहा जाता है।",
+    "en": "Infancy involves rapid physical growth and sensorimotor exploration. Early childhood is the toy age, later childhood is elementary school/gang age, and adolescence is marked by identity formation and abstract thought."
+   }
+  },
+  {
+   "s": "cdp",
+   "ty": "situation",
+   "d": "m",
+   "a": 1,
+   "q": {
+    "hi": "एक प्राथमिक शिक्षक के रूप में आप अपनी कक्षा में बच्चों की आनुवंशिक और पर्यावरणीय पृष्ठभूमि के प्रति किस दृष्टिकोण को सर्वाधिक व्यावहारिक मानेंगे?",
+    "en": "As a primary school teacher, which approach toward students' hereditary and environmental backgrounds would you consider most practical?"
+   },
+   "o": {
+    "hi": [
+     "बच्चों की आनुवंशिक सीमाओं को देखकर उनकी क्षमता के प्रति पहले से ही कम अपेक्षाएँ तय कर लेना।",
+     "आनुवंशिकता को स्थिर मानते हुए समृद्ध, सुरक्षित और प्रेरक कक्षा वातावरण तैयार करने पर ध्यान देना।",
+     "केवल उच्च आनुवंशिक क्षमता वाले विद्यार्थियों के लिए ही विशेष शैक्षिक गतिविधियाँ आयोजित करना।",
+     "बच्चों के पारिवारिक वातावरण को अनदेखा कर सभी को एक ही कठोर गति से पढ़ाना।"
+    ],
+    "en": [
+     "Setting low expectations in advance after assuming hereditary limitations of students.",
+     "Recognizing heredity as given while focusing on creating a rich, safe, and stimulating classroom environment.",
+     "Organizing special educational activities only for students perceived to have high hereditary potential.",
+     "Ignoring students' home environments and teaching everyone at a single rigid pace."
+    ]
+   },
+   "sol": {
+    "hi": "शिक्षक बालक की आनुवंशिकता को नहीं बदल सकता, परंतु वह समृद्ध और सहयोगी शैक्षिक वातावरण प्रदान कर प्रत्येक बच्चे की अंतर्निहित क्षमता को अधिकतम स्तर तक विकसित कर सकता है।",
+    "en": "A teacher cannot alter a child's heredity, but by providing a rich and supportive learning environment, the teacher can help maximize every student's innate potential."
+   }
+  },
+  {
+   "s": "cdp",
+   "ty": "direct",
+   "d": "e",
+   "a": 0,
+   "q": {
+    "hi": "कलाई की हड्डियों के एक्स-रे या प्रारंभिक शारीरिक वृद्धि दर के आधार पर बालक के भावी शारीरिक कद का अनुमान लगाना विकास के किस सिद्धांत पर आधारित है?",
+    "en": "Estimating a child's future physical height based on wrist-bone X-rays or early physical growth rate is based on which principle of development?"
+   },
+   "o": {
+    "hi": [
+     "विकास की भविष्यवाणी का सिद्धांत",
+     "विकास में प्रतिवर्तन का सिद्धांत",
+     "एकीकरण की अनियमितता का सिद्धांत",
+     "संवेगात्मक अस्थिरता का सिद्धांत"
+    ],
+    "en": [
+     "Principle of predictability of development",
+     "Principle of regression in development",
+     "Principle of irregularity of integration",
+     "Principle of emotional instability"
+    ]
+   },
+   "sol": {
+    "hi": "विकास एक निश्चित क्रम और प्रतिमान का अनुसरण करता है, जिसके कारण प्रारंभिक शारीरिक या मानसिक संकेतकों के आधार पर बालक के भावी विकास की काफी हद तक भविष्यवाणी की जा सकती है।",
+    "en": "Because development follows an orderly pattern and sequence, early physical or cognitive indicators allow reasonable predictions about a child's future development."
+   }
+  },
+  {
+   "s": "cdp",
+   "ty": "direct",
+   "d": "h",
+   "a": 3,
+   "q": {
+    "hi": "यूरी ब्रॉनफेनब्रेनर के पारिस्थितिकी तंत्र सिद्धांत के अनुसार, बच्चे के माता-पिता के कार्यस्थल की नीतियाँ (जैसे अवकाश या कार्य के घंटे), जिनसे बच्चा सीधे नहीं जुड़ता पर अप्रत्यक्ष रूप से प्रभावित होता है, किस तंत्र में आती हैं?",
+    "en": "According to Urie Bronfenbrenner's ecological systems theory, policies at the parents' workplace (such as leave or work hours) that do not involve the child directly yet affect the child indirectly belong to which system?"
+   },
+   "o": {
+    "hi": [
+     "सूक्ष्म तंत्र",
+     "मध्य तंत्र",
+     "वृहत् तंत्र",
+     "बाह्य तंत्र"
+    ],
+    "en": [
+     "Microsystem",
+     "Mesosystem",
+     "Macrosystem",
+     "Exosystem"
+    ]
+   },
+   "sol": {
+    "hi": "बाह्य तंत्र में वे सामाजिक परिस्थितियाँ आती हैं जिनमें बच्चा स्वयं सक्रिय भागीदार नहीं होता, जैसे माता-पिता का कार्यस्थल या विद्यालय प्रबंधन समिति, परंतु ये बच्चे के तात्कालिक वातावरण को प्रभावित करती हैं।",
+    "en": "The exosystem comprises settings in which the child does not actively participate, such as parents' workplaces or school boards, yet decisions made there indirectly influence the child's immediate environment."
+   }
+  },
+  {
+   "s": "cdp",
+   "ty": "direct",
+   "d": "e",
+   "a": 2,
+   "q": {
+    "hi": "जीन पियाजे के अनुसार 7 से 11 वर्ष की आयु के बच्चे जब यह समझ जाते हैं कि चौड़े गिलास का पानी पतले लंबे गिलास में डालने पर भी पानी की मात्रा समान रहती है, तो यह किस संज्ञानात्मक उपलब्धि को दर्शाता है?",
+    "en": "According to Jean Piaget, when children aged 7 to 11 understand that pouring water from a wide glass into a tall, narrow glass does not change the amount of water, which cognitive milestone does this demonstrate?"
+   },
+   "o": {
+    "hi": [
+     "वस्तु स्थायित्व",
+     "जीववाद",
+     "संरक्षण",
+     "अहंकेन्द्रितता"
+    ],
+    "en": [
+     "Object permanence",
+     "Animism",
+     "Conservation",
+     "Egocentrism"
+    ]
+   },
+   "sol": {
+    "hi": "संरक्षण का तात्पर्य यह समझने से है कि बाहरी रूप या आकार बदलने पर भी किसी पदार्थ की मात्रा, संख्या या आयतन अपरिवर्तित रहता है। यह मूर्त संक्रियात्मक अवस्था (7–11 वर्ष) की प्रमुख विशेषता है।",
+    "en": "Conservation is the understanding that quantity, number, or volume remains unchanged despite changes in outward appearance or container shape. It is a hallmark of the concrete operational stage (7–11 years)."
+   }
+  },
+  {
+   "s": "cdp",
+   "ty": "situation",
+   "d": "m",
+   "a": 1,
+   "q": {
+    "hi": "कक्षा 3 की एक छात्रा भिन्न के जोड़ का प्रश्न स्वयं हल करने में अटक जाती है। शिक्षक उसे केवल पहला चरण संकेत के रूप में बताते हैं और फिर वह शेष प्रश्न स्वयं पूरा कर लेती है। लेव वाइगोत्स्की के सिद्धांत में शिक्षक की यह सहायता क्या कहलाती है?",
+    "en": "A Class 3 student gets stuck while solving a fraction addition problem on her own. The teacher gives a hint for just the first step, after which she completes the rest independently. In Lev Vygotsky's theory, what is this teacher assistance called?"
+   },
+   "o": {
+    "hi": [
+     "अनुकूलन एवं आत्मसात्करण",
+     "पाड़ या ढाँचा निर्माण",
+     "अधिगम का पठार",
+     "सकारात्मक पुनर्बलन"
+    ],
+    "en": [
+     "Adaptation and assimilation",
+     "Scaffolding",
+     "Learning plateau",
+     "Positive reinforcement"
+    ]
+   },
+   "sol": {
+    "hi": "वाइगोत्स्की के सामाजिक-सांस्कृतिक सिद्धांत में किसी अधिक जानकार व्यक्ति द्वारा बालक के समीपस्थ विकास क्षेत्र में दी जाने वाली अस्थायी और आवश्यकतानुसार सहायता को पाड़ या ढाँचा निर्माण कहते हैं।",
+    "en": "In Vygotsky's sociocultural theory, temporary, tailored support provided by a more knowledgeable other within the child's Zone of Proximal Development is called scaffolding."
+   }
+  },
+  {
+   "s": "cdp",
+   "ty": "direct",
+   "d": "m",
+   "a": 0,
+   "q": {
+    "hi": "लॉरेंस कोहलबर्ग के नैतिक विकास सिद्धांत के अनुसार, यदि 9 वर्षीय मीरा अपना गृहकार्य समय पर इसलिए पूरा करती है ताकि उसके माता-पिता और शिक्षक उसे 'अच्छी लड़की' कहकर सराहें, तो वह किस चरण में है?",
+    "en": "According to Lawrence Kohlberg's theory of moral development, if 9-year-old Meera completes her homework on time so her parents and teachers praise her as a 'good girl', which stage is she in?"
+   },
+   "o": {
+    "hi": [
+     "अच्छा लड़का–अच्छी लड़की अभिविन्यास",
+     "दंड तथा आज्ञापालन अभिविन्यास",
+     "सामाजिक अनुबंध अभिविन्यास",
+     "सार्वभौमिक नैतिक सिद्धांत अभिविन्यास"
+    ],
+    "en": [
+     "Good boy–nice girl orientation",
+     "Punishment and obedience orientation",
+     "Social contract orientation",
+     "Universal ethical principle orientation"
+    ]
+   },
+   "sol": {
+    "hi": "परंपरागत स्तर के तीसरे चरण 'अच्छा लड़का–अच्छी लड़की अभिविन्यास' में बालक दूसरों की स्वीकृति, प्रशंसा और अच्छे संबंध बनाए रखने के लिए नियमों का पालन करता है।",
+    "en": "In Stage 3 (Conventional level) of Kohlberg's theory, the 'good boy–nice girl orientation', children conform to rules to gain approval, praise, and maintain positive relationships."
+   }
+  },
+  {
+   "s": "cdp",
+   "ty": "direct",
+   "d": "m",
+   "a": 3,
+   "q": {
+    "hi": "हावर्ड गार्डनर के बहुबुद्धि सिद्धांत के अनुसार, कक्षा 5 का एक छात्र जो बिना नक्शे को देखे अपने गाँव के रास्तों, खेतों और तालाबों का सटीक चित्र कागज़ पर बना देता है, उसमें किस बुद्धि की प्रबलता है?",
+    "en": "According to Howard Gardner's theory of multiple intelligences, a Class 5 student who accurately draws the paths, fields, and ponds of his village on paper from memory possesses strong:"
+   },
+   "o": {
+    "hi": [
+     "अंतर्वैयक्तिक बुद्धि",
+     "संगीतपरक बुद्धि",
+     "तार्किक-गणितीय बुद्धि",
+     "स्थानिक बुद्धि"
+    ],
+    "en": [
+     "Interpersonal intelligence",
+     "Musical intelligence",
+     "Logical-mathematical intelligence",
+     "Spatial intelligence"
+    ]
+   },
+   "sol": {
+    "hi": "स्थानिक बुद्धि में दृश्य-स्थानिक संसार को सटीकता से देखने, मानसिक चित्र बनाने और दिशाओं-आकृतियों को कागज़ या मन में व्यवस्थित करने की क्षमता शामिल होती है।",
+    "en": "Spatial intelligence involves the ability to perceive the visual-spatial world accurately, form mental maps, and represent directions and shapes effectively."
+   }
+  },
+  {
+   "s": "cdp",
+   "ty": "statement",
+   "d": "h",
+   "a": 2,
+   "q": {
+    "hi": "निःशुल्क और अनिवार्य बाल शिक्षा का अधिकार अधिनियम (RTE 2009) के संदर्भ में प्राथमिक स्तर (कक्षा 1 से 5) के लिए निम्नलिखित कथनों पर विचार कीजिए:\nकथन I: 60 बच्चों तक के नामांकन वाले प्राथमिक विद्यालय में दो शिक्षक होने चाहिए।\nकथन II: प्राथमिक स्तर पर न्यूनतम कार्यदिवस प्रति शैक्षणिक वर्ष 220 दिन निर्धारित हैं।\nउपर्युक्त में से कौन-सा/से कथन सही है/हैं?",
+    "en": "With reference to the Right of Children to Free and Compulsory Education Act (RTE 2009) for primary level (Classes 1 to 5), consider the following statements:\nStatement I: A primary school with up to 60 enrolled children should have two teachers.\nStatement II: The minimum number of working days per academic year at the primary level is fixed at 220 days.\nWhich of the above statements is/are correct?"
+   },
+   "o": {
+    "hi": [
+     "कथन I और II दोनों सही हैं",
+     "केवल कथन II सही है",
+     "केवल कथन I सही है",
+     "न तो कथन I और न ही कथन II सही है"
+    ],
+    "en": [
+     "Both Statement I and Statement II are correct",
+     "Only Statement II is correct",
+     "Only Statement I is correct",
+     "Neither Statement I nor Statement II is correct"
+    ]
+   },
+   "sol": {
+    "hi": "RTE 2009 की अनुसूची के अनुसार कक्षा 1 से 5 में 60 छात्रों तक 2 शिक्षक अनिवार्य हैं। परंतु प्राथमिक स्तर पर न्यूनतम कार्यदिवस 200 दिन (800 शिक्षण घंटे) हैं, जबकि 220 दिन उच्च प्राथमिक स्तर (कक्षा 6–8) के लिए हैं।",
+    "en": "Under the RTE 2009 Schedule, two teachers are mandated for up to 60 students in Classes 1–5. However, minimum working days for primary level are 200 days (800 instructional hours), whereas 220 days apply to upper primary."
+   }
+  },
+  {
+   "s": "cdp",
+   "ty": "direct",
+   "d": "e",
+   "a": 1,
+   "q": {
+    "hi": "राष्ट्रीय शिक्षा नीति (NEP) 2020 के अंतर्गत 'निपुण भारत' मिशन का मुख्य उद्देश्य किस कक्षा तक प्रत्येक बच्चे में बुनियादी साक्षरता और संख्याज्ञान सुनिश्चित करना है?",
+    "en": "Under the National Education Policy (NEP) 2020, the primary objective of the 'NIPUN Bharat' Mission is to ensure foundational literacy and numeracy for every child by which grade?"
+   },
+   "o": {
+    "hi": [
+     "कक्षा 2 के अंत तक",
+     "कक्षा 3 के अंत तक",
+     "कक्षा 5 के अंत तक",
+     "कक्षा 8 के अंत तक"
+    ],
+    "en": [
+     "By the end of Grade 2",
+     "By the end of Grade 3",
+     "By the end of Grade 5",
+     "By the end of Grade 8"
+    ]
+   },
+   "sol": {
+    "hi": "निपुण भारत मिशन का लक्ष्य यह सुनिश्चित करना है कि देश का प्रत्येक बच्चा वर्ष 2026–27 तक कक्षा 3 के अंत तक बुनियादी साक्षरता और संख्याज्ञान (FLN) की दक्षता प्राप्त कर ले।",
+    "en": "The NIPUN Bharat Mission aims to ensure that every child achieves foundational literacy and numeracy (FLN) competencies by the end of Grade 3."
+   }
+  },
+  {
+   "s": "cdp",
+   "ty": "direct",
+   "d": "m",
+   "a": 0,
+   "q": {
+    "hi": "कक्षा 4 का एक छात्र मौखिक प्रश्नों के उत्तर बहुत अच्छे से देता है, परंतु लिखते समय अक्षरों की बनावट में कठिनाई, अनियमित आकार और वर्तनी की बार-बार त्रुटियाँ करता है। वह संभावित रूप से किस अधिगम अक्षमता से जूझ रहा है?",
+    "en": "A Class 4 student answers oral questions very well, but while writing he struggles with letter formation, irregular spacing, and frequent spelling errors. Which learning disability is he most likely experiencing?"
+   },
+   "o": {
+    "hi": [
+     "डिसग्राफिया",
+     "डिसकैलकुलिया",
+     "डिसफेजिया",
+     "डिसप्रैक्सिया"
+    ],
+    "en": [
+     "Dysgraphia",
+     "Dyscalculia",
+     "Dysphasia",
+     "Dyspraxia"
+    ]
+   },
+   "sol": {
+    "hi": "डिसग्राफिया एक लेखन-संबंधी अधिगम अक्षमता है जिसमें बालक को सुसंगत हस्तलेखन, अक्षर निर्माण, पंक्तिबद्धता और लिखित अभिव्यक्ति में कठिनाई होती है।",
+    "en": "Dysgraphia is a specific learning disability affecting writing abilities, characterized by difficulties in letter formation, handwriting legibility, spacing, and written expression."
+   }
+  },
+  {
+   "s": "cdp",
+   "ty": "situation",
+   "d": "m",
+   "a": 2,
+   "q": {
+    "hi": "शिक्षण सत्र के बीच में कक्षा 5 की ईवीएस शिक्षिका पाठ पढ़ाते समय बच्चों से छोटे-छोटे प्रश्न पूछती हैं, समूह कार्य का अवलोकन करती हैं और तुरंत फीडबैक देकर अपनी शिक्षण विधि में सुधार करती हैं। यह किस प्रकार के मूल्यांकन का उदाहरण है?",
+    "en": "Mid-session, a Class 5 EVS teacher asks short questions during lessons, observes group work, and provides immediate feedback while adjusting her teaching method. What type of assessment is this an example of?"
+   },
+   "o": {
+    "hi": [
+     "योगात्मक मूल्यांकन",
+     "स्थानापन मूल्यांकन",
+     "रचनात्मक मूल्यांकन",
+     "मानदंड-संदर्भित अंतिम परीक्षा"
+    ],
+    "en": [
+     "Summative assessment",
+     "Placement assessment",
+     "Formative assessment",
+     "Criterion-referenced final examination"
+    ]
+   },
+   "sol": {
+    "hi": "शिक्षण प्रक्रिया के दौरान निरंतर अवलोकन, फीडबैक और सुधार के उद्देश्य से किया जाने वाला मूल्यांकन 'रचनात्मक मूल्यांकन' (अधिगम के लिए आकलन) कहलाता है।",
+    "en": "Assessment conducted continuously during instruction to monitor learning, provide feedback, and improve teaching methods is called formative assessment (assessment for learning)."
+   }
+  },
+  {
+   "s": "cdp",
+   "ty": "direct",
+   "d": "e",
+   "a": 3,
+   "q": {
+    "hi": "निम्नलिखित में से कौन-सा उदाहरण प्राथमिक विद्यालय के बच्चे में 'आंतरिक अभिप्रेरणा' को दर्शाता है?",
+    "en": "Which of the following examples demonstrates 'intrinsic motivation' in a primary school child?"
+   },
+   "o": {
+    "hi": [
+     "अंशुल चॉकलेट पाने के लिए अपनी कॉपी का सारा काम पूरा करता है।",
+     "प्रिया पिताजी से नई साइकिल मिलने के लालच में प्रथम आना चाहती है।",
+     "सौरभ कक्षा में डाँट से बचने के लिए कविता याद करता है।",
+     "काव्या तितलियों के जीवन चक्र को जानने की उत्सुकता से स्वयं पुस्तकालय से किताब पढ़ती है।"
+    ],
+    "en": [
+     "Anshul finishes all his notebook work to get a chocolate.",
+     "Priya wants to rank first in hopes of getting a new bicycle from her father.",
+     "Saurabh memorizes a poem to avoid being scolded in class.",
+     "Kavya reads a library book on her own out of curiosity to learn about the life cycle of butterflies."
+    ]
+   },
+   "sol": {
+    "hi": "जब कोई बालक बाहरी पुरस्कार या दंड के भय के बिना, केवल अपनी जिज्ञासा, रुचि और आनंद के लिए कोई कार्य करता है, तो वह आंतरिक अभिप्रेरणा का उदाहरण होता है।",
+    "en": "When a child engages in an activity purely out of curiosity, interest, and personal satisfaction rather than for external rewards or to avoid punishment, it exemplifies intrinsic motivation."
+   }
+  },
+  {
+   "s": "cdp",
+   "ty": "statement",
+   "d": "h",
+   "a": 1,
+   "q": {
+    "hi": "राष्ट्रीय पाठ्यचर्या की रूपरेखा (NCF) 2005 के पाँच मार्गदर्शक सिद्धांतों के संबंध में निम्नलिखित में से कौन-से कथन सही हैं?\n1. ज्ञान को विद्यालय के बाहरी जीवन से जोड़ना।\n2. पढ़ाई को रटंत प्रणाली से मुक्त करना।\n3. पाठ्यचर्या को केवल पाठ्यपुस्तक पर केंद्रित रखना।\n4. परीक्षा को अधिक लचीला बनाना और कक्षा की गतिविधियों से जोड़ना।\nसही कूट चुनिए:",
+    "en": "Which of the following statements are correct regarding the five guiding principles of the National Curriculum Framework (NCF) 2005?\n1. Connecting knowledge to life outside the school.\n2. Ensuring that learning shifts away from rote methods.\n3. Keeping the curriculum strictly textbook-centric.\n4. Making examinations more flexible and integrated with classroom life.\nChoose the correct code:"
+   },
+   "o": {
+    "hi": [
+     "केवल 1, 2 और 3",
+     "केवल 1, 2 और 4",
+     "केवल 2, 3 और 4",
+     "1, 2, 3 और 4 सभी"
+    ],
+    "en": [
+     "Only 1, 2, and 3",
+     "Only 1, 2, and 4",
+     "Only 2, 3, and 4",
+     "All 1, 2, 3, and 4"
+    ]
+   },
+   "sol": {
+    "hi": "NCF 2005 पाठ्यचर्या को समृद्ध करने पर बल देता है ताकि वह 'केवल पाठ्यपुस्तक केंद्रित न रहे', इसलिए कथन 3 गलत है। शेष तीनों (1, 2 और 4) NCF 2005 के मुख्य मार्गदर्शक सिद्धांत हैं।",
+    "en": "NCF 2005 explicitly emphasizes enriching the curriculum so that it goes beyond textbooks rather than remaining textbook-centric, making statement 3 incorrect. Statements 1, 2, and 4 are core guiding principles."
+   }
+  },
+  {
+   "s": "hin",
+   "ty": "passage",
+   "d": "e",
+   "a": 2,
+   "q": {
+    "hi": "निम्नलिखित गद्यांश को पढ़कर पूछे गए प्रश्नों के सही उत्तर चुनिए:\nभोर की पहली किरण के साथ ही रामपुर गाँव में चहल-पहल शुरू हो जाती है। नीम की ठंडी छाया में किसान अपने हल-बैल तैयार करते हैं, तो वहीं पनघट पर स्त्रियों के हँसी-ठिठोली भरे स्वर गूँजने लगते हैं। गाँव की पगडंडियों पर सरसों के पीले खेत और दूर तक फैली हरियाली मन को मोह लेती है। शाम ढलते ही चौपाल पर बुजुर्गों की बैठक जमती है, जहाँ लोकगीतों और आपसी सुख-दुःख की बातें होती हैं। यद्यपि अब गाँवों में भी पक्की सड़कें और बिजली पहुँच गई है, फिर भी यहाँ का सादगीपूर्ण जीवन, शुद्ध वायु और आपसी भाईचारा आज भी इसकी सबसे बड़ी धरोहर है।\n\nप्रश्न: गद्यांश के अनुसार गाँव के जीवन की सबसे बड़ी धरोहर क्या है?",
+    "en": "निम्नलिखित गद्यांश को पढ़कर पूछे गए प्रश्नों के सही उत्तर चुनिए:\nभोर की पहली किरण के साथ ही रामपुर गाँव में चहल-पहल शुरू हो जाती है। नीम की ठंडी छाया में किसान अपने हल-बैल तैयार करते हैं, तो वहीं पनघट पर स्त्रियों के हँसी-ठिठोली भरे स्वर गूँजने लगते हैं। गाँव की पगडंडियों पर सरसों के पीले खेत और दूर तक फैली हरियाली मन को मोह लेती है। शाम ढलते ही चौपाल पर बुजुर्गों की बैठक जमती है, जहाँ लोकगीतों और आपसी सुख-दुःख की बातें होती हैं। यद्यपि अब गाँवों में भी पक्की सड़कें और बिजली पहुँच गई है, फिर भी यहाँ का सादगीपूर्ण जीवन, शुद्ध वायु और आपसी भाईचारा आज भी इसकी सबसे बड़ी धरोहर है।\n\nप्रश्न: गद्यांश के अनुसार गाँव के जीवन की सबसे बड़ी धरोहर क्या है?"
+   },
+   "o": {
+    "hi": [
+     "केवल पक्की सड़कों और बिजली की सुविधा",
+     "सरसों के पीले खेतों से मिलने वाली आय",
+     "सादगीपूर्ण जीवन, शुद्ध वायु और आपसी भाईचारा",
+     "चौपाल पर आयोजित होने वाले आधुनिक मेले"
+    ],
+    "en": [
+     "केवल पक्की सड़कों और बिजली की सुविधा",
+     "सरसों के पीले खेतों से मिलने वाली आय",
+     "सादगीपूर्ण जीवन, शुद्ध वायु और आपसी भाईचारा",
+     "चौपाल पर आयोजित होने वाले आधुनिक मेले"
+    ]
+   },
+   "sol": {
+    "hi": "गद्यांश के अंतिम वाक्य में स्पष्ट कहा गया है कि आधुनिक सुविधाओं के बावजूद गाँव का सादगीपूर्ण जीवन, शुद्ध वायु और आपसी भाईचारा उसकी सबसे बड़ी धरोहर है।",
+    "en": "गद्यांश के अंतिम वाक्य में स्पष्ट कहा गया है कि आधुनिक सुविधाओं के बावजूद गाँव का सादगीपूर्ण जीवन, शुद्ध वायु और आपसी भाईचारा उसकी सबसे बड़ी धरोहर है।"
+   }
+  },
+  {
+   "s": "hin",
+   "ty": "passage",
+   "d": "m",
+   "a": 0,
+   "q": {
+    "hi": "उपर्युक्त गद्यांश के आधार पर 'प्रत्येक' या गद्यांश में प्रयुक्त शब्द 'स्वागत' की भाँति, गद्यांश के शब्द 'यद्यपि' का सही संधि-विच्छेद क्या होगा?",
+    "en": "उपर्युक्त गद्यांश के आधार पर 'प्रत्येक' या गद्यांश में प्रयुक्त शब्द 'स्वागत' की भाँति, गद्यांश के शब्द 'यद्यपि' का सही संधि-विच्छेद क्या होगा?"
+   },
+   "o": {
+    "hi": [
+     "यदि + अपि",
+     "यद्य + अपि",
+     "यति + अपि",
+     "यद् + यपि"
+    ],
+    "en": [
+     "यदि + अपि",
+     "यद्य + अपि",
+     "यति + अपि",
+     "यद् + यपि"
+    ]
+   },
+   "sol": {
+    "hi": "‘यद्यपि’ में यण स्वर संधि है। ‘यदि + अपि’ में ‘इ’ और ‘अ’ के मेल से ‘य’ बनता है, जिससे ‘यद्यपि’ शब्द निर्मित होता है।",
+    "en": "‘यद्यपि’ में यण स्वर संधि है। ‘यदि + अपि’ में ‘इ’ और ‘अ’ के मेल से ‘य’ बनता है, जिससे ‘यद्यपि’ शब्द निर्मित होता है।"
+   }
+  },
+  {
+   "s": "hin",
+   "ty": "passage",
+   "d": "m",
+   "a": 1,
+   "q": {
+    "hi": "उपर्युक्त गद्यांश के आधार पर गद्यांश में प्रयुक्त 'चहल-पहल' और 'चौपाल' शब्दों में प्रथम वर्ण क्रमशः 'च' और 'प' के उच्चारण स्थान क्या हैं?",
+    "en": "उपर्युक्त गद्यांश के आधार पर गद्यांश में प्रयुक्त 'चहल-पहल' और 'चौपाल' शब्दों में प्रथम वर्ण क्रमशः 'च' और 'प' के उच्चारण स्थान क्या हैं?"
+   },
+   "o": {
+    "hi": [
+     "कंठ्य और तालव्य",
+     "तालव्य और ओष्ठ्य",
+     "मूर्धन्य और दंत्य",
+     "दंत्य और ओष्ठ्य"
+    ],
+    "en": [
+     "कंठ्य और तालव्य",
+     "तालव्य और ओष्ठ्य",
+     "मूर्धन्य और दंत्य",
+     "दंत्य और ओष्ठ्य"
+    ]
+   },
+   "sol": {
+    "hi": "‘च’ वर्ग (च, छ, ज, झ, ञ) का उच्चारण स्थान तालु (तालव्य) होता है तथा ‘प’ वर्ग (प, फ, ब, भ, म) का उच्चारण स्थान ओष्ठ (ओष्ठ्य) होता है।",
+    "en": "‘च’ वर्ग (च, छ, ज, झ, ञ) का उच्चारण स्थान तालु (तालव्य) होता है तथा ‘प’ वर्ग (प, फ, ब, भ, म) का उच्चारण स्थान ओष्ठ (ओष्ठ्य) होता है।"
+   }
+  },
+  {
+   "s": "hin",
+   "ty": "passage",
+   "d": "e",
+   "a": 3,
+   "q": {
+    "hi": "उपर्युक्त गद्यांश के आधार पर 'भोर' शब्द का सर्वाधिक उपयुक्त अर्थ क्या है?",
+    "en": "उपर्युक्त गद्यांश के आधार पर 'भोर' शब्द का सर्वाधिक उपयुक्त अर्थ क्या है?"
+   },
+   "o": {
+    "hi": [
+     "दोपहर का समय",
+     "संध्या का समय",
+     "अर्धरात्रि का समय",
+     "प्रातःकाल या सवेरा"
+    ],
+    "en": [
+     "दोपहर का समय",
+     "संध्या का समय",
+     "अर्धरात्रि का समय",
+     "प्रातःकाल या सवेरा"
+    ]
+   },
+   "sol": {
+    "hi": "गद्यांश में ‘भोर की पहली किरण’ का प्रयोग हुआ है, जिसका अर्थ प्रातःकाल या सवेरे का समय होता है।",
+    "en": "गद्यांश में ‘भोर की पहली किरण’ का प्रयोग हुआ है, जिसका अर्थ प्रातःकाल या सवेरे का समय होता है।"
+   }
+  },
+  {
+   "s": "hin",
+   "ty": "passage",
+   "d": "m",
+   "a": 2,
+   "q": {
+    "hi": "उपर्युक्त गद्यांश के आधार पर 'दुःख' शब्द में कौन-सी संधि या चिह्न प्रयुक्त हुआ है तथा 'निः + छल' की संधि क्या होगी?",
+    "en": "उपर्युक्त गद्यांश के आधार पर 'दुःख' शब्द में कौन-सी संधि या चिह्न प्रयुक्त हुआ है तथा 'निः + छल' की संधि क्या होगी?"
+   },
+   "o": {
+    "hi": [
+     "अनुस्वार; निछल",
+     "दीर्घ संधि; निश्छल",
+     "विसर्ग संधि; निश्छल",
+     "व्यंजन संधि; निष्छल"
+    ],
+    "en": [
+     "अनुस्वार; निछल",
+     "दीर्घ संधि; निश्छल",
+     "विसर्ग संधि; निश्छल",
+     "व्यंजन संधि; निष्छल"
+    ]
+   },
+   "sol": {
+    "hi": "‘दुःख’ में विसर्ग (ः) का प्रयोग है। विसर्ग संधि के नियमानुसार विसर्ग के बाद ‘च’ या ‘छ’ आने पर विसर्ग ‘श्’ में बदल जाता है, अतः ‘निः + छल = निश्छल’ होता है।",
+    "en": "‘दुःख’ में विसर्ग (ः) का प्रयोग है। विसर्ग संधि के नियमानुसार विसर्ग के बाद ‘च’ या ‘छ’ आने पर विसर्ग ‘श्’ में बदल जाता है, अतः ‘निः + छल = निश्छल’ होता है।"
+   }
+  },
+  {
+   "s": "hin",
+   "ty": "direct",
+   "d": "e",
+   "a": 1,
+   "q": {
+    "hi": "हिंदी वर्णमाला में उच्चारण के आधार पर मूल स्वरों की संख्या कितनी मानी जाती है तथा इनमें से कौन-सा 'ह्रस्व स्वर' नहीं है?",
+    "en": "हिंदी वर्णमाला में उच्चारण के आधार पर मूल स्वरों की संख्या कितनी मानी जाती है तथा इनमें से कौन-सा 'ह्रस्व स्वर' नहीं है?"
+   },
+   "o": {
+    "hi": [
+     "चार मूल स्वर; ऋ",
+     "चार मूल स्वर; ऐ",
+     "पाँच मूल स्वर; उ",
+     "तीन मूल स्वर; इ"
+    ],
+    "en": [
+     "चार मूल स्वर; ऋ",
+     "चार मूल स्वर; ऐ",
+     "पाँच मूल स्वर; उ",
+     "तीन मूल स्वर; इ"
+    ]
+   },
+   "sol": {
+    "hi": "हिंदी वर्णमाला में चार ह्रस्व (मूल) स्वर— अ, इ, उ, ऋ होते हैं। ‘ऐ’ एक दीर्घ/संयुक्त स्वर है, ह्रस्व स्वर नहीं है।",
+    "en": "हिंदी वर्णमाला में चार ह्रस्व (मूल) स्वर— अ, इ, उ, ऋ होते हैं। ‘ऐ’ एक दीर्घ/संयुक्त स्वर है, ह्रस्व स्वर नहीं है।"
+   }
+  },
+  {
+   "s": "hin",
+   "ty": "statement",
+   "d": "m",
+   "a": 0,
+   "q": {
+    "hi": "हिंदी व्यंजनों के वर्गीकरण के संदर्भ में निम्नलिखित कथनों पर विचार कीजिए:\nकथन I: प्रत्येक स्पर्श व्यंजन वर्ग का पहला, तीसरा और पाँचवाँ वर्ण अल्पप्राण होता है।\nकथन II: सभी ऊष्म व्यंजन (श, ष, स, ह) अल्पप्राण ध्वनियाँ कहलाती हैं।\nसही उत्तर चुनिए:",
+    "en": "हिंदी व्यंजनों के वर्गीकरण के संदर्भ में निम्नलिखित कथनों पर विचार कीजिए:\nकथन I: प्रत्येक स्पर्श व्यंजन वर्ग का पहला, तीसरा और पाँचवाँ वर्ण अल्पप्राण होता है।\nकथन II: सभी ऊष्म व्यंजन (श, ष, स, ह) अल्पप्राण ध्वनियाँ कहलाती हैं।\nसही उत्तर चुनिए:"
+   },
+   "o": {
+    "hi": [
+     "केवल कथन I सही है",
+     "केवल कथन II सही है",
+     "कथन I और II दोनों सही हैं",
+     "न तो कथन I और न ही कथन II सही है"
+    ],
+    "en": [
+     "केवल कथन I सही है",
+     "केवल कथन II सही है",
+     "कथन I और II दोनों सही हैं",
+     "न तो कथन I और न ही कथन II सही है"
+    ]
+   },
+   "sol": {
+    "hi": "प्रत्येक वर्ग का पहला, तीसरा और पाँचवाँ व्यंजन तथा य, र, ल, व अल्पप्राण होते हैं। सभी ऊष्म व्यंजन (श, ष, स, ह) महाप्राण होते हैं, अतः कथन II गलत है।",
+    "en": "प्रत्येक वर्ग का पहला, तीसरा और पाँचवाँ व्यंजन तथा य, र, ल, व अल्पप्राण होते हैं। सभी ऊष्म व्यंजन (श, ष, स, ह) महाप्राण होते हैं, अतः कथन II गलत है।"
+   }
+  },
+  {
+   "s": "hin",
+   "ty": "direct",
+   "d": "m",
+   "a": 3,
+   "q": {
+    "hi": "निम्नलिखित में से किस विकल्प के सभी वर्ण 'अघोष' ध्वनियाँ हैं?",
+    "en": "निम्नलिखित में से किस विकल्प के सभी वर्ण 'अघोष' ध्वनियाँ हैं?"
+   },
+   "o": {
+    "hi": [
+     "ग, घ, ज",
+     "ब, भ, म",
+     "द, ध, न",
+     "क, ख, च"
+    ],
+    "en": [
+     "ग, घ, ज",
+     "ब, भ, म",
+     "द, ध, न",
+     "क, ख, च"
+    ]
+   },
+   "sol": {
+    "hi": "प्रत्येक वर्ग का पहला और दूसरा व्यंजन (क, ख; च, छ; ट, ठ; त, थ; प, फ) तथा श, ष, स अघोष होते हैं। शेष विकल्पों में सघोष वर्ण शामिल हैं।",
+    "en": "प्रत्येक वर्ग का पहला और दूसरा व्यंजन (क, ख; च, छ; ट, ठ; त, थ; प, फ) तथा श, ष, स अघोष होते हैं। शेष विकल्पों में सघोष वर्ण शामिल हैं।"
+   }
+  },
+  {
+   "s": "hin",
+   "ty": "direct",
+   "d": "e",
+   "a": 2,
+   "q": {
+    "hi": "हिंदी वर्णमाला में 'ड़' और 'ढ़' ध्वनियों को किस नाम से जाना जाता है?",
+    "en": "हिंदी वर्णमाला में 'ड़' और 'ढ़' ध्वनियों को किस नाम से जाना जाता है?"
+   },
+   "o": {
+    "hi": [
+     "संयुक्त व्यंजन",
+     "अयोगवाह ध्वनियाँ",
+     "उत्क्षिप्त या द्विगुण व्यंजन",
+     "अंतःस्थ व्यंजन"
+    ],
+    "en": [
+     "संयुक्त व्यंजन",
+     "अयोगवाह ध्वनियाँ",
+     "उत्क्षिप्त या द्विगुण व्यंजन",
+     "अंतःस्थ व्यंजन"
+    ]
+   },
+   "sol": {
+    "hi": "‘ड़’ और ‘ढ़’ के उच्चारण में जीभ ऊपर उठकर झटके से नीचे गिरती है, इसलिए इन्हें उत्क्षिप्त या द्विगुण व्यंजन कहा जाता है।",
+    "en": "‘ड़’ और ‘ढ़’ के उच्चारण में जीभ ऊपर उठकर झटके से नीचे गिरती है, इसलिए इन्हें उत्क्षिप्त या द्विगुण व्यंजन कहा जाता है।"
+   }
+  },
+  {
+   "s": "hin",
+   "ty": "match",
+   "d": "e",
+   "a": 1,
+   "q": {
+    "hi": "सूची-I (संयुक्त व्यंजन) को सूची-II (उनके वर्ण-विच्छेद) से सुमेलित कीजिए:\nसूची-I\n(a) क्ष\n(b) त्र\n(c) ज्ञ\n(d) श्र\n\nसूची-II\n1. त् + र\n2. श् + र\n3. क् + ष\n4. ज् + ञ\nकूट:",
+    "en": "सूची-I (संयुक्त व्यंजन) को सूची-II (उनके वर्ण-विच्छेद) से सुमेलित कीजिए:\nसूची-I\n(a) क्ष\n(b) त्र\n(c) ज्ञ\n(d) श्र\n\nसूची-II\n1. त् + र\n2. श् + र\n3. क् + ष\n4. ज् + ञ\nकूट:"
+   },
+   "o": {
+    "hi": [
+     "(a)-3, (b)-4, (c)-1, (d)-2",
+     "(a)-3, (b)-1, (c)-4, (d)-2",
+     "(a)-1, (b)-3, (c)-4, (d)-2",
+     "(a)-3, (b)-1, (c)-2, (d)-4"
+    ],
+    "en": [
+     "(a)-3, (b)-4, (c)-1, (d)-2",
+     "(a)-3, (b)-1, (c)-4, (d)-2",
+     "(a)-1, (b)-3, (c)-4, (d)-2",
+     "(a)-3, (b)-1, (c)-2, (d)-4"
+    ]
+   },
+   "sol": {
+    "hi": "हिंदी के चार संयुक्त व्यंजनों का मानक विच्छेद क्रमशः क्ष = क् + ष, त्र = त् + र, ज्ञ = ज् + ञ और श्र = श् + र होता है।",
+    "en": "हिंदी के चार संयुक्त व्यंजनों का मानक विच्छेद क्रमशः क्ष = क् + ष, त्र = त् + र, ज्ञ = ज् + ञ और श्र = श् + र होता है।"
+   }
+  },
+  {
+   "s": "hin",
+   "ty": "ar",
+   "d": "m",
+   "a": 0,
+   "q": {
+    "hi": "अभिकथन (A): 'अं' और 'अः' को हिंदी वर्णमाला में अयोगवाह कहा जाता है।\nकारण (R): ये ध्वनियाँ न तो पूर्णतः स्वर हैं और न ही व्यंजन, फिर भी ये अर्थ वहन करती हैं और स्वरों के साथ जुड़कर आती हैं।\nसही विकल्प चुनिए:",
+    "en": "अभिकथन (A): 'अं' और 'अः' को हिंदी वर्णमाला में अयोगवाह कहा जाता है।\nकारण (R): ये ध्वनियाँ न तो पूर्णतः स्वर हैं और न ही व्यंजन, फिर भी ये अर्थ वहन करती हैं और स्वरों के साथ जुड़कर आती हैं।\nसही विकल्प चुनिए:"
+   },
+   "o": {
+    "hi": [
+     "A और R दोनों सत्य हैं तथा R, A की सही व्याख्या है।",
+     "A और R दोनों सत्य हैं, परंतु R, A की सही व्याख्या नहीं है।",
+     "A सत्य है, परंतु R असत्य है।",
+     "A असत्य है, परंतु R सत्य है।"
+    ],
+    "en": [
+     "A और R दोनों सत्य हैं तथा R, A की सही व्याख्या है।",
+     "A और R दोनों सत्य हैं, परंतु R, A की सही व्याख्या नहीं है।",
+     "A सत्य है, परंतु R असत्य है।",
+     "A असत्य है, परंतु R सत्य है।"
+    ]
+   },
+   "sol": {
+    "hi": "आचार्य किशोरीदास वाजपेयी के अनुसार अनुस्वार (अं) और विसर्ग (अः) स्वर या व्यंजन के योग से बिना जुड़े भी अर्थ का वहन करते हैं, इसलिए इन्हें अयोगवाह कहा जाता है।",
+    "en": "आचार्य किशोरीदास वाजपेयी के अनुसार अनुस्वार (अं) और विसर्ग (अः) स्वर या व्यंजन के योग से बिना जुड़े भी अर्थ का वहन करते हैं, इसलिए इन्हें अयोगवाह कहा जाता है।"
+   }
+  },
+  {
+   "s": "hin",
+   "ty": "match",
+   "d": "h",
+   "a": 3,
+   "q": {
+    "hi": "सूची-I (वर्ण) को सूची-II (उच्चारण स्थान) से सुमेलित कीजिए:\nसूची-I\n(a) ए, ऐ\n(b) ओ, औ\n(c) व\n(d) ट, ठ\n\nसूची-II\n1. दंतोष्ठ्य\n2. मूर्धन्य\n3. कंठतालव्य\n4. कंठोष्ठ्य\nकूट:",
+    "en": "सूची-I (वर्ण) को सूची-II (उच्चारण स्थान) से सुमेलित कीजिए:\nसूची-I\n(a) ए, ऐ\n(b) ओ, औ\n(c) व\n(d) ट, ठ\n\nसूची-II\n1. दंतोष्ठ्य\n2. मूर्धन्य\n3. कंठतालव्य\n4. कंठोष्ठ्य\nकूट:"
+   },
+   "o": {
+    "hi": [
+     "(a)-4, (b)-3, (c)-1, (d)-2",
+     "(a)-3, (b)-4, (c)-2, (d)-1",
+     "(a)-2, (b)-4, (c)-1, (d)-3",
+     "(a)-3, (b)-4, (c)-1, (d)-2"
+    ],
+    "en": [
+     "(a)-4, (b)-3, (c)-1, (d)-2",
+     "(a)-3, (b)-4, (c)-2, (d)-1",
+     "(a)-2, (b)-4, (c)-1, (d)-3",
+     "(a)-3, (b)-4, (c)-1, (d)-2"
+    ]
+   },
+   "sol": {
+    "hi": "‘ए, ऐ’ का उच्चारण कंठ और तालु से (कंठतालव्य), ‘ओ, औ’ का कंठ और ओष्ठ से (कंठोष्ठ्य), ‘व’ का दंत और ओष्ठ से (दंतोष्ठ्य) तथा ‘ट, ठ’ का मूर्धा से (मूर्धन्य) होता है।",
+    "en": "‘ए, ऐ’ का उच्चारण कंठ और तालु से (कंठतालव्य), ‘ओ, औ’ का कंठ और ओष्ठ से (कंठोष्ठ्य), ‘व’ का दंत और ओष्ठ से (दंतोष्ठ्य) तथा ‘ट, ठ’ का मूर्धा से (मूर्धन्य) होता है।"
+   }
+  },
+  {
+   "s": "hin",
+   "ty": "direct",
+   "d": "e",
+   "a": 0,
+   "q": {
+    "hi": "'गिरीश' शब्द का सही संधि-विच्छेद और संधि का नाम क्या होगा?",
+    "en": "'गिरीश' शब्द का सही संधि-विच्छेद और संधि का नाम क्या होगा?"
+   },
+   "o": {
+    "hi": [
+     "गिरि + ईश (दीर्घ स्वर संधि)",
+     "गिरी + इष (गुण स्वर संधि)",
+     "गिरि + एश (गुण स्वर संधि)",
+     "गिरि + इश (यण स्वर संधि)"
+    ],
+    "en": [
+     "गिरि + ईश (दीर्घ स्वर संधि)",
+     "गिरी + इष (गुण स्वर संधि)",
+     "गिरि + एश (गुण स्वर संधि)",
+     "गिरि + इश (यण स्वर संधि)"
+    ]
+   },
+   "sol": {
+    "hi": "‘गिरि + ईश’ में ह्रस्व ‘इ’ और दीर्घ ‘ई’ के मेल से दीर्घ ‘ई’ बनता है, अतः यहाँ दीर्घ स्वर संधि है।",
+    "en": "‘गिरि + ईश’ में ह्रस्व ‘इ’ और दीर्घ ‘ई’ के मेल से दीर्घ ‘ई’ बनता है, अतः यहाँ दीर्घ स्वर संधि है।"
+   }
+  },
+  {
+   "s": "hin",
+   "ty": "direct",
+   "d": "m",
+   "a": 2,
+   "q": {
+    "hi": "'महोत्सव' और 'देवर्षि' दोनों शब्दों में कौन-सी संधि विद्यमान है?",
+    "en": "'महोत्सव' और 'देवर्षि' दोनों शब्दों में कौन-सी संधि विद्यमान है?"
+   },
+   "o": {
+    "hi": [
+     "वृद्धि स्वर संधि",
+     "यण स्वर संधि",
+     "गुण स्वर संधि",
+     "अयादि स्वर संधि"
+    ],
+    "en": [
+     "वृद्धि स्वर संधि",
+     "यण स्वर संधि",
+     "गुण स्वर संधि",
+     "अयादि स्वर संधि"
+    ]
+   },
+   "sol": {
+    "hi": "‘महा + उत्सव = महोत्सव’ (आ + उ = ओ) तथा ‘देव + ऋषि = देवर्षि’ (अ + ऋ = अर्) दोनों में गुण स्वर संधि के नियम लागू होते हैं।",
+    "en": "‘महा + उत्सव = महोत्सव’ (आ + उ = ओ) तथा ‘देव + ऋषि = देवर्षि’ (अ + ऋ = अर्) दोनों में गुण स्वर संधि के नियम लागू होते हैं।"
+   }
+  },
+  {
+   "s": "hin",
+   "ty": "direct",
+   "d": "m",
+   "a": 1,
+   "q": {
+    "hi": "निम्नलिखित में से किस शब्द में 'वृद्धि स्वर संधि' का प्रयोग हुआ है?",
+    "en": "निम्नलिखित में से किस शब्द में 'वृद्धि स्वर संधि' का प्रयोग हुआ है?"
+   },
+   "o": {
+    "hi": [
+     "सूर्योदय",
+     "वनौषधि",
+     "प्रत्युपकार",
+     "गायक"
+    ],
+    "en": [
+     "सूर्योदय",
+     "वनौषधि",
+     "प्रत्युपकार",
+     "गायक"
+    ]
+   },
+   "sol": {
+    "hi": "‘वन + औषधि = वनौषधि’ में ‘अ’ और ‘औ’ के मेल से ‘औ’ बना है, जो वृद्धि स्वर संधि का उदाहरण है। सूर्योदय में गुण, प्रत्युपकार में यण और गायक में अयादि संधि है।",
+    "en": "‘वन + औषधि = वनौषधि’ में ‘अ’ और ‘औ’ के मेल से ‘औ’ बना है, जो वृद्धि स्वर संधि का उदाहरण है। सूर्योदय में गुण, प्रत्युपकार में यण और गायक में अयादि संधि है।"
+   }
+  },
+  {
+   "s": "hin",
+   "ty": "statement",
+   "d": "h",
+   "a": 3,
+   "q": {
+    "hi": "निम्नलिखित संधि-विच्छेद युग्मों पर विचार कीजिए:\n1. अन्वय = अनु + अय\n2. पित्राज्ञा = पितृ + आज्ञा\n3. नयन = ने + अन\n4. स्वागत = सु + आगत\nउपर्युक्त में से कौन-से युग्म 'यण स्वर संधि' के उदाहरण हैं?",
+    "en": "निम्नलिखित संधि-विच्छेद युग्मों पर विचार कीजिए:\n1. अन्वय = अनु + अय\n2. पित्राज्ञा = पितृ + आज्ञा\n3. नयन = ने + अन\n4. स्वागत = सु + आगत\nउपर्युक्त में से कौन-से युग्म 'यण स्वर संधि' के उदाहरण हैं?"
+   },
+   "o": {
+    "hi": [
+     "केवल 1 और 4",
+     "केवल 2, 3 और 4",
+     "केवल 1, 3 और 4",
+     "केवल 1, 2 और 4"
+    ],
+    "en": [
+     "केवल 1 और 4",
+     "केवल 2, 3 और 4",
+     "केवल 1, 3 और 4",
+     "केवल 1, 2 और 4"
+    ]
+   },
+   "sol": {
+    "hi": "‘अन्वय’ (उ + अ = व), ‘पित्राज्ञा’ (ऋ + आ = रा) और ‘स्वागत’ (उ + आ = वा) यण स्वर संधि के उदाहरण हैं। ‘नयन’ (ने + अन) अयादि स्वर संधि का उदाहरण है।",
+    "en": "‘अन्वय’ (उ + अ = व), ‘पित्राज्ञा’ (ऋ + आ = रा) और ‘स्वागत’ (उ + आ = वा) यण स्वर संधि के उदाहरण हैं। ‘नयन’ (ने + अन) अयादि स्वर संधि का उदाहरण है।"
+   }
+  },
+  {
+   "s": "hin",
+   "ty": "direct",
+   "d": "m",
+   "a": 0,
+   "q": {
+    "hi": "'पावक' शब्द का शुद्ध संधि-विच्छेद निम्नलिखित में से कौन-सा है?",
+    "en": "'पावक' शब्द का शुद्ध संधि-विच्छेद निम्नलिखित में से कौन-सा है?"
+   },
+   "o": {
+    "hi": [
+     "पौ + अक",
+     "पव् + अक",
+     "पा + वक",
+     "पौ + आवक"
+    ],
+    "en": [
+     "पौ + अक",
+     "पव् + अक",
+     "पा + वक",
+     "पौ + आवक"
+    ]
+   },
+   "sol": {
+    "hi": "अयादि संधि के नियमानुसार ‘औ’ के बाद कोई भिन्न स्वर आने पर ‘औ’ का ‘आव्’ हो जाता है। अतः ‘पौ + अक = पावक’ होता है।",
+    "en": "अयादि संधि के नियमानुसार ‘औ’ के बाद कोई भिन्न स्वर आने पर ‘औ’ का ‘आव्’ हो जाता है। अतः ‘पौ + अक = पावक’ होता है।"
+   }
+  },
+  {
+   "s": "hin",
+   "ty": "match",
+   "d": "h",
+   "a": 2,
+   "q": {
+    "hi": "सूची-I (व्यंजन संधि शब्द) को सूची-II (संधि-विच्छेद) से सुमेलित कीजिए:\nसूची-I\n(a) वाग्दान\n(b) सज्जन\n(c) तल्लीन\n(d) दिग्गज\n\nसूची-II\n1. सत् + जन\n2. दिक् + गज\n3. वाक् + दान\n4. तत् + लीन\nकूट:",
+    "en": "सूची-I (व्यंजन संधि शब्द) को सूची-II (संधि-विच्छेद) से सुमेलित कीजिए:\nसूची-I\n(a) वाग्दान\n(b) सज्जन\n(c) तल्लीन\n(d) दिग्गज\n\nसूची-II\n1. सत् + जन\n2. दिक् + गज\n3. वाक् + दान\n4. तत् + लीन\nकूट:"
+   },
+   "o": {
+    "hi": [
+     "(a)-3, (b)-4, (c)-1, (d)-2",
+     "(a)-2, (b)-1, (c)-4, (d)-3",
+     "(a)-3, (b)-1, (c)-4, (d)-2",
+     "(a)-1, (b)-3, (c)-4, (d)-2"
+    ],
+    "en": [
+     "(a)-3, (b)-4, (c)-1, (d)-2",
+     "(a)-2, (b)-1, (c)-4, (d)-3",
+     "(a)-3, (b)-1, (c)-4, (d)-2",
+     "(a)-1, (b)-3, (c)-4, (d)-2"
+    ]
+   },
+   "sol": {
+    "hi": "व्यंजन संधि के नियमानुसार वर्ग के प्रथम वर्ण के बाद सघोष आने पर वह तीसरे वर्ण में बदलता है (वाक्+दान=वाग्दान, दिक्+गज=दिग्गज), तथा ‘त्’ के बाद ‘ज’ या ‘ल’ आने पर क्रमशः ‘ज्’ व ‘ल्’ हो जाता है।",
+    "en": "व्यंजन संधि के नियमानुसार वर्ग के प्रथम वर्ण के बाद सघोष आने पर वह तीसरे वर्ण में बदलता है (वाक्+दान=वाग्दान, दिक्+गज=दिग्गज), तथा ‘त्’ के बाद ‘ज’ या ‘ल’ आने पर क्रमशः ‘ज्’ व ‘ल्’ हो जाता है।"
+   }
+  },
+  {
+   "s": "hin",
+   "ty": "direct",
+   "d": "m",
+   "a": 1,
+   "q": {
+    "hi": "'मनोरथ' तथा 'यशोदा' शब्दों में किस संधि का नियम कार्य करता है?",
+    "en": "'मनोरथ' तथा 'यशोदा' शब्दों में किस संधि का नियम कार्य करता है?"
+   },
+   "o": {
+    "hi": [
+     "गुण स्वर संधि",
+     "विसर्ग संधि",
+     "व्यंजन संधि",
+     "वृद्धि स्वर संधि"
+    ],
+    "en": [
+     "गुण स्वर संधि",
+     "विसर्ग संधि",
+     "व्यंजन संधि",
+     "वृद्धि स्वर संधि"
+    ]
+   },
+   "sol": {
+    "hi": "‘मनः + रथ = मनोरथ’ और ‘यशः + दा = यशोदा’ में विसर्ग से पहले ‘अ’ तथा बाद में सघोष व्यंजन आने पर विसर्ग ‘ओ’ में परिवर्तित हो जाता है, अतः यहाँ विसर्ग संधि है।",
+    "en": "‘मनः + रथ = मनोरथ’ और ‘यशः + दा = यशोदा’ में विसर्ग से पहले ‘अ’ तथा बाद में सघोष व्यंजन आने पर विसर्ग ‘ओ’ में परिवर्तित हो जाता है, अतः यहाँ विसर्ग संधि है।"
+   }
+  },
+  {
+   "s": "hin",
+   "ty": "direct",
+   "d": "h",
+   "a": 3,
+   "q": {
+    "hi": "हिंदी वर्णमाला में किन व्यंजनों को 'अर्धस्वर' की श्रेणी में रखा जाता है?",
+    "en": "हिंदी वर्णमाला में किन व्यंजनों को 'अर्धस्वर' की श्रेणी में रखा जाता है?"
+   },
+   "o": {
+    "hi": [
+     "र और ल",
+     "श और स",
+     "ड और ढ",
+     "य और व"
+    ],
+    "en": [
+     "र और ल",
+     "श और स",
+     "ड और ढ",
+     "य और व"
+    ]
+   },
+   "sol": {
+    "hi": "‘य’ और ‘व’ का उच्चारण स्वर और व्यंजन के मध्य की स्थिति में होता है, इसलिए भाषाविद् इन्हें ‘अर्धस्वर’ कहते हैं, जबकि ‘र’ को लुंठित और ‘ल’ को पार्श्विक व्यंजन कहते हैं।",
+    "en": "‘य’ और ‘व’ का उच्चारण स्वर और व्यंजन के मध्य की स्थिति में होता है, इसलिए भाषाविद् इन्हें ‘अर्धस्वर’ कहते हैं, जबकि ‘र’ को लुंठित और ‘ल’ को पार्श्विक व्यंजन कहते हैं।"
+   }
+  },
+  {
+   "s": "hin",
+   "ty": "direct",
+   "d": "e",
+   "a": 0,
+   "q": {
+    "hi": "प्राथमिक स्तर पर भाषा सीखने और भाषा अर्जन के बीच सबसे प्रमुख अंतर किस आधार पर होता है?",
+    "en": "प्राथमिक स्तर पर भाषा सीखने और भाषा अर्जन के बीच सबसे प्रमुख अंतर किस आधार पर होता है?"
+   },
+   "o": {
+    "hi": [
+     "भाषा परिवेश और स्वाभाविकता के आधार पर",
+     "पाठ्यपुस्तकों की मोटाई और मूल्य के आधार पर",
+     "व्याकरणिक नियमों को कंठस्थ करने के आधार पर",
+     "केवल लिखित परीक्षा के अंकों के आधार पर"
+    ],
+    "en": [
+     "भाषा परिवेश और स्वाभाविकता के आधार पर",
+     "पाठ्यपुस्तकों की मोटाई और मूल्य के आधार पर",
+     "व्याकरणिक नियमों को कंठस्थ करने के आधार पर",
+     "केवल लिखित परीक्षा के अंकों के आधार पर"
+    ]
+   },
+   "sol": {
+    "hi": "भाषा अर्जन बिना किसी औपचारिक शिक्षण के सहज और स्वाभाविक परिवेश में होता है, जबकि भाषा अधिगम में सचेत प्रयास, नियम और विद्यालयी परिवेश की आवश्यकता होती है।",
+    "en": "भाषा अर्जन बिना किसी औपचारिक शिक्षण के सहज और स्वाभाविक परिवेश में होता है, जबकि भाषा अधिगम में सचेत प्रयास, नियम और विद्यालयी परिवेश की आवश्यकता होती है।"
+   }
+  },
+  {
+   "s": "hin",
+   "ty": "statement",
+   "d": "m",
+   "a": 2,
+   "q": {
+    "hi": "हिंदी भाषा के चार प्रमुख कौशलों (सुनना, बोलना, पढ़ना, लिखना) के संबंध में निम्नलिखित कथनों पर विचार कीजिए:\nकथन I: प्राथमिक कक्षाओं में इन चारों कौशलों का विकास एकीकृत रूप से किया जाना चाहिए।\nकथन II: सुनना और पढ़ना अभिव्यक्तात्मक कौशल हैं, जबकि बोलना और लिखना ग्रहणात्मक कौशल हैं।\nसही विकल्प चुनिए:",
+    "en": "हिंदी भाषा के चार प्रमुख कौशलों (सुनना, बोलना, पढ़ना, लिखना) के संबंध में निम्नलिखित कथनों पर विचार कीजिए:\nकथन I: प्राथमिक कक्षाओं में इन चारों कौशलों का विकास एकीकृत रूप से किया जाना चाहिए।\nकथन II: सुनना और पढ़ना अभिव्यक्तात्मक कौशल हैं, जबकि बोलना और लिखना ग्रहणात्मक कौशल हैं।\nसही विकल्प चुनिए:"
+   },
+   "o": {
+    "hi": [
+     "कथन I और II दोनों सही हैं",
+     "न तो कथन I और न ही कथन II सही है",
+     "केवल कथन I सही है",
+     "केवल कथन II सही है"
+    ],
+    "en": [
+     "कथन I और II दोनों सही हैं",
+     "न तो कथन I और न ही कथन II सही है",
+     "केवल कथन I सही है",
+     "केवल कथन II सही है"
+    ]
+   },
+   "sol": {
+    "hi": "चारों भाषा कौशल परस्पर अंतर्संबंधित हैं इसलिए उन्हें एकीकृत रूप से सिखाया जाता है। सुनना और पढ़ना ग्रहणात्मक कौशल हैं जबकि बोलना और लिखना अभिव्यक्तात्मक कौशल हैं, अतः कथन II गलत है।",
+    "en": "चारों भाषा कौशल परस्पर अंतर्संबंधित हैं इसलिए उन्हें एकीकृत रूप से सिखाया जाता है। सुनना और पढ़ना ग्रहणात्मक कौशल हैं जबकि बोलना और लिखना अभिव्यक्तात्मक कौशल हैं, अतः कथन II गलत है।"
+   }
+  },
+  {
+   "s": "hin",
+   "ty": "situation",
+   "d": "m",
+   "a": 1,
+   "q": {
+    "hi": "उत्तर प्रदेश के एक ग्रामीण प्राथमिक विद्यालय की कक्षा 1 में बच्चे अवधी, भोजपुरी और ब्रज जैसी घरेलू बोलियों के शब्दों का प्रयोग करते हुए हिंदी बोलते हैं। एक शिक्षक के रूप में आप क्या करेंगे?",
+    "en": "उत्तर प्रदेश के एक ग्रामीण प्राथमिक विद्यालय की कक्षा 1 में बच्चे अवधी, भोजपुरी और ब्रज जैसी घरेलू बोलियों के शब्दों का प्रयोग करते हुए हिंदी बोलते हैं। एक शिक्षक के रूप में आप क्या करेंगे?"
+   },
+   "o": {
+    "hi": [
+     "बच्चों को तुरंत टोककर केवल मानक खड़ी बोली में बोलने के लिए बाध्य करेंगे।",
+     "बच्चों की घरेलू बोलियों को सम्मान देते हुए उन्हें मानक हिंदी से जोड़ने का अवसर देंगे।",
+     "उन विद्यार्थियों को कक्षा के अंतिम बेंच पर बैठाकर मौन रहने को कहेंगे।",
+     "केवल पाठ्यपुस्तक के कठिन शब्दों को दस बार लिखवाने का कार्य देंगे।"
+    ],
+    "en": [
+     "बच्चों को तुरंत टोककर केवल मानक खड़ी बोली में बोलने के लिए बाध्य करेंगे।",
+     "बच्चों की घरेलू बोलियों को सम्मान देते हुए उन्हें मानक हिंदी से जोड़ने का अवसर देंगे।",
+     "उन विद्यार्थियों को कक्षा के अंतिम बेंच पर बैठाकर मौन रहने को कहेंगे।",
+     "केवल पाठ्यपुस्तक के कठिन शब्दों को दस बार लिखवाने का कार्य देंगे।"
+    ]
+   },
+   "sol": {
+    "hi": "राष्ट्रीय पाठ्यचर्या की रूपरेखा 2005 और राष्ट्रीय शिक्षा नीति 2020 के अनुसार बच्चों की मातृभाषा और घरेलू बोली को कक्षा में एक संसाधन के रूप में स्वीकार कर मानक भाषा से जोड़ना चाहिए।",
+    "en": "राष्ट्रीय पाठ्यचर्या की रूपरेखा 2005 और राष्ट्रीय शिक्षा नीति 2020 के अनुसार बच्चों की मातृभाषा और घरेलू बोली को कक्षा में एक संसाधन के रूप में स्वीकार कर मानक भाषा से जोड़ना चाहिए।"
+   }
+  },
+  {
+   "s": "hin",
+   "ty": "situation",
+   "d": "m",
+   "a": 3,
+   "q": {
+    "hi": "कक्षा 3 का छात्र अमन 'स' और 'श' के उच्चारण तथा लेखन में बार-बार भ्रमित होता है। हिंदी शिक्षिका को सर्वप्रथम क्या करना चाहिए?",
+    "en": "कक्षा 3 का छात्र अमन 'स' और 'श' के उच्चारण तथा लेखन में बार-बार भ्रमित होता है। हिंदी शिक्षिका को सर्वप्रथम क्या करना चाहिए?"
+   },
+   "o": {
+    "hi": [
+     "उसे पूरी कक्षा के सामने खड़े होकर पाठ पढ़ने का दंड देना चाहिए।",
+     "उसकी उत्तरपुस्तिका में लाल स्याही से शून्य अंक दे देना चाहिए।",
+     "अभिभावकों को बुलाकर विद्यालय से नाम कटवाने की सलाह देनी चाहिए।",
+     "निदानात्मक परीक्षण द्वारा त्रुटि का कारण जानकर उपचारात्मक शिक्षण देना चाहिए।"
+    ],
+    "en": [
+     "उसे पूरी कक्षा के सामने खड़े होकर पाठ पढ़ने का दंड देना चाहिए।",
+     "उसकी उत्तरपुस्तिका में लाल स्याही से शून्य अंक दे देना चाहिए।",
+     "अभिभावकों को बुलाकर विद्यालय से नाम कटवाने की सलाह देनी चाहिए।",
+     "निदानात्मक परीक्षण द्वारा त्रुटि का कारण जानकर उपचारात्मक शिक्षण देना चाहिए।"
+    ]
+   },
+   "sol": {
+    "hi": "उपचारात्मक शिक्षण से पहले निदानात्मक परीक्षण द्वारा यह पता लगाना आवश्यक होता है कि बच्चा ‘स’ और ‘श’ में त्रुटि क्षेत्रीय उच्चारण, श्रवण भेद या अभ्यास की कमी किस कारण से कर रहा है।",
+    "en": "उपचारात्मक शिक्षण से पहले निदानात्मक परीक्षण द्वारा यह पता लगाना आवश्यक होता है कि बच्चा ‘स’ और ‘श’ में त्रुटि क्षेत्रीय उच्चारण, श्रवण भेद या अभ्यास की कमी किस कारण से कर रहा है।"
+   }
+  },
+  {
+   "s": "hin",
+   "ty": "direct",
+   "d": "e",
+   "a": 2,
+   "q": {
+    "hi": "प्राथमिक स्तर पर 'मौन पठन' का मुख्य उद्देश्य क्या होता है?",
+    "en": "प्राथमिक स्तर पर 'मौन पठन' का मुख्य उद्देश्य क्या होता है?"
+   },
+   "o": {
+    "hi": [
+     "ध्वनियों के उच्चारण को जोर-जोर से दोहराना",
+     "अक्षरों की सुंदर बनावट का अभ्यास करना",
+     "कम समय में तीव्र गति से पढ़कर अर्थ ग्रहण करना",
+     "कक्षा में अनुशासन बनाए रखने के लिए चुप बैठना"
+    ],
+    "en": [
+     "ध्वनियों के उच्चारण को जोर-जोर से दोहराना",
+     "अक्षरों की सुंदर बनावट का अभ्यास करना",
+     "कम समय में तीव्र गति से पढ़कर अर्थ ग्रहण करना",
+     "कक्षा में अनुशासन बनाए रखने के लिए चुप बैठना"
+    ]
+   },
+   "sol": {
+    "hi": "मौन पठन का प्रमुख उद्देश्य बिना होंठ हिलाए तीव्र गति से पढ़ते हुए पाठ के भाव और अर्थ को गहराई से ग्रहण करना है।",
+    "en": "मौन पठन का प्रमुख उद्देश्य बिना होंठ हिलाए तीव्र गति से पढ़ते हुए पाठ के भाव और अर्थ को गहराई से ग्रहण करना है।"
+   }
+  },
+  {
+   "s": "hin",
+   "ty": "direct",
+   "d": "m",
+   "a": 0,
+   "q": {
+    "hi": "कक्षा 1 के बच्चों को प्रारंभिक लेखन सिखाने के लिए रेगमाल के अक्षरों पर अँगुली फेरने की विधि किस शिक्षाशास्त्री द्वारा प्रस्तावित की गई थी?",
+    "en": "कक्षा 1 के बच्चों को प्रारंभिक लेखन सिखाने के लिए रेगमाल के अक्षरों पर अँगुली फेरने की विधि किस शिक्षाशास्त्री द्वारा प्रस्तावित की गई थी?"
+   },
+   "o": {
+    "hi": [
+     "मारिया मोंटेसरी",
+     "फ्रेडरिक फ्रोबेल",
+     "जॉन डीवी",
+     "बी. एफ. स्किनर"
+    ],
+    "en": [
+     "मारिया मोंटेसरी",
+     "फ्रेडरिक फ्रोबेल",
+     "जॉन डीवी",
+     "बी. एफ. स्किनर"
+    ]
+   },
+   "sol": {
+    "hi": "मारिया मोंटेसरी ने प्रारंभिक लेखन शिक्षण में स्पर्शेंद्रिय और दृश्येंद्रिय के समन्वय हेतु रेगमाल से बने अक्षरों पर अँगुली फेरने की विधि को प्रभावी बताया था।",
+    "en": "मारिया मोंटेसरी ने प्रारंभिक लेखन शिक्षण में स्पर्शेंद्रिय और दृश्येंद्रिय के समन्वय हेतु रेगमाल से बने अक्षरों पर अँगुली फेरने की विधि को प्रभावी बताया था।"
+   }
+  },
+  {
+   "s": "hin",
+   "ty": "direct",
+   "d": "e",
+   "a": 1,
+   "q": {
+    "hi": "प्राथमिक कक्षाओं में कविता शिक्षण का सर्वाधिक महत्वपूर्ण उद्देश्य क्या है?",
+    "en": "प्राथमिक कक्षाओं में कविता शिक्षण का सर्वाधिक महत्वपूर्ण उद्देश्य क्या है?"
+   },
+   "o": {
+    "hi": [
+     "अलंकारों और छंदों के कठिन लक्षण याद कराना",
+     "कविता के लय, ताल और भाव का आनंद उठाना",
+     "प्रत्येक शब्द का व्याकरणिक पद-परिचय लिखवाना",
+     "कवियों के जन्म-मरण की तिथियाँ कंठस्थ कराना"
+    ],
+    "en": [
+     "अलंकारों और छंदों के कठिन लक्षण याद कराना",
+     "कविता के लय, ताल और भाव का आनंद उठाना",
+     "प्रत्येक शब्द का व्याकरणिक पद-परिचय लिखवाना",
+     "कवियों के जन्म-मरण की तिथियाँ कंठस्थ कराना"
+    ]
+   },
+   "sol": {
+    "hi": "प्राथमिक स्तर पर कविता शिक्षण का मुख्य उद्देश्य बच्चों में भाषा के प्रति रुचि जगाना और उन्हें कविता की लय, संगीतात्मकता तथा भाव का रसास्वादन कराना है।",
+    "en": "प्राथमिक स्तर पर कविता शिक्षण का मुख्य उद्देश्य बच्चों में भाषा के प्रति रुचि जगाना और उन्हें कविता की लय, संगीतात्मकता तथा भाव का रसास्वादन कराना है।"
+   }
+  },
+  {
+   "s": "hin",
+   "ty": "ar",
+   "d": "h",
+   "a": 0,
+   "q": {
+    "hi": "अभिकथन (A): हिंदी भाषा के मूल्यांकन में पोर्टफोलियो को एक अत्यंत प्रभावी उपकरण माना जाता है।\nकारण (R): पोर्टफोलियो एक निश्चित समयावधि में विद्यार्थी द्वारा किए गए विविध लेखन, चित्र और कार्य-नमूनों का क्रमिक संग्रह होता है जो उसकी प्रगति दर्शाता है।\nसही विकल्प चुनिए:",
+    "en": "अभिकथन (A): हिंदी भाषा के मूल्यांकन में पोर्टफोलियो को एक अत्यंत प्रभावी उपकरण माना जाता है।\nकारण (R): पोर्टफोलियो एक निश्चित समयावधि में विद्यार्थी द्वारा किए गए विविध लेखन, चित्र और कार्य-नमूनों का क्रमिक संग्रह होता है जो उसकी प्रगति दर्शाता है।\nसही विकल्प चुनिए:"
+   },
+   "o": {
+    "hi": [
+     "A और R दोनों सत्य हैं तथा R, A की सही व्याख्या करता है।",
+     "A और R दोनों सत्य हैं, परंतु R, A की सही व्याख्या नहीं करता है।",
+     "A सत्य है, परंतु R असत्य है।",
+     "A असत्य है, परंतु R सत्य है।"
+    ],
+    "en": [
+     "A और R दोनों सत्य हैं तथा R, A की सही व्याख्या करता है।",
+     "A और R दोनों सत्य हैं, परंतु R, A की सही व्याख्या नहीं करता है।",
+     "A सत्य है, परंतु R असत्य है।",
+     "A असत्य है, परंतु R सत्य है।"
+    ]
+   },
+   "sol": {
+    "hi": "पोर्टफोलियो में विद्यार्थी के समय-दर-समय किए गए कार्यों का व्यवस्थित संग्रह रहता है, जिससे शिक्षक और अभिभावक दोनों बच्चे की भाषाई प्रगति का सटीक आकलन कर सकते हैं।",
+    "en": "पोर्टफोलियो में विद्यार्थी के समय-दर-समय किए गए कार्यों का व्यवस्थित संग्रह रहता है, जिससे शिक्षक और अभिभावक दोनों बच्चे की भाषाई प्रगति का सटीक आकलन कर सकते हैं।"
+   }
+  },
+  {
+   "s": "hin",
+   "ty": "direct",
+   "d": "m",
+   "a": 3,
+   "q": {
+    "hi": "प्राथमिक स्तर पर हिंदी भाषा शिक्षण में 'कहानी सुनाना' किस कौशल के विकास में सर्वाधिक सहायक होता है?",
+    "en": "प्राथमिक स्तर पर हिंदी भाषा शिक्षण में 'कहानी सुनाना' किस कौशल के विकास में सर्वाधिक सहायक होता है?"
+   },
+   "o": {
+    "hi": [
+     "केवल वर्तनी की अशुद्धियाँ सुधारने में",
+     "केवल व्याकरण के सूत्र रटने में",
+     "केवल सुलेख की गति बढ़ाने में",
+     "श्रवण कौशल, कल्पनाशीलता और मौखिक अभिव्यक्ति में"
+    ],
+    "en": [
+     "केवल वर्तनी की अशुद्धियाँ सुधारने में",
+     "केवल व्याकरण के सूत्र रटने में",
+     "केवल सुलेख की गति बढ़ाने में",
+     "श्रवण कौशल, कल्पनाशीलता और मौखिक अभिव्यक्ति में"
+    ]
+   },
+   "sol": {
+    "hi": "कहानी सुनने से बच्चों की एकाग्रता और श्रवण कौशल विकसित होता है, साथ ही वे पात्रों और घटनाओं की कल्पना करते हुए अपने शब्दों में मौखिक अभिव्यक्ति करना सीखते हैं।",
+    "en": "कहानी सुनने से बच्चों की एकाग्रता और श्रवण कौशल विकसित होता है, साथ ही वे पात्रों और घटनाओं की कल्पना करते हुए अपने शब्दों में मौखिक अभिव्यक्ति करना सीखते हैं।"
+   }
+  },
+  {
+   "s": "hin",
+   "ty": "situation",
+   "d": "h",
+   "a": 1,
+   "q": {
+    "hi": "कक्षा 4 की शिक्षिका पहले बच्चों से उनके पसंदीदा फलों, मित्रों और गाँव के नाम पूछकर श्यामपट्ट पर लिखती हैं, और फिर उन उदाहरणों के आधार पर 'संज्ञा' की परिभाषा निकलवाती हैं। वह व्याकरण शिक्षण की किस विधि का प्रयोग कर रही हैं?",
+    "en": "कक्षा 4 की शिक्षिका पहले बच्चों से उनके पसंदीदा फलों, मित्रों और गाँव के नाम पूछकर श्यामपट्ट पर लिखती हैं, और फिर उन उदाहरणों के आधार पर 'संज्ञा' की परिभाषा निकलवाती हैं। वह व्याकरण शिक्षण की किस विधि का प्रयोग कर रही हैं?"
+   },
+   "o": {
+    "hi": [
+     "निगमन विधि",
+     "आगमन विधि",
+     "सूत्र विधि",
+     "पाठ्यपुस्तक विधि"
+    ],
+    "en": [
+     "निगमन विधि",
+     "आगमन विधि",
+     "सूत्र विधि",
+     "पाठ्यपुस्तक विधि"
+    ]
+   },
+   "sol": {
+    "hi": "आगमन विधि में शिक्षक पहले अनेक परिचित उदाहरण प्रस्तुत करता है और फिर विद्यार्थियों की सहायता से सामान्य नियम या परिभाषा की ओर बढ़ता है।",
+    "en": "आगमन विधि में शिक्षक पहले अनेक परिचित उदाहरण प्रस्तुत करता है और फिर विद्यार्थियों की सहायता से सामान्य नियम या परिभाषा की ओर बढ़ता है।"
+   }
+  },
+  {
+   "s": "eng",
+   "ty": "passage",
+   "d": "e",
+   "a": 1,
+   "q": {
+    "hi": "Read the following passage carefully and answer the questions given below:\nAt dawn, the narrow earthen lane leading to Kishanpur village awakens to the gentle chime of temple bells and the rhythmic thud of wooden churns. Farmers walk briskly toward the dew-kissed wheat fields, carrying brass vessels of buttermilk. Under the sprawling banyan tree near the well, elders gather to discuss irrigation schedules and upcoming harvest fairs, while children hurry toward the primary school with canvas satchels slung over their shoulders. Although smartphones and solar lanterns have quietly entered almost every courtyard, the villagers still preserve their habit of sharing evening meals and lending a helping hand during sowing season.\n\nQuestion: According to the passage, what do the elders discuss under the sprawling banyan tree?",
+    "en": "Read the following passage carefully and answer the questions given below:\nAt dawn, the narrow earthen lane leading to Kishanpur village awakens to the gentle chime of temple bells and the rhythmic thud of wooden churns. Farmers walk briskly toward the dew-kissed wheat fields, carrying brass vessels of buttermilk. Under the sprawling banyan tree near the well, elders gather to discuss irrigation schedules and upcoming harvest fairs, while children hurry toward the primary school with canvas satchels slung over their shoulders. Although smartphones and solar lanterns have quietly entered almost every courtyard, the villagers still preserve their habit of sharing evening meals and lending a helping hand during sowing season.\n\nQuestion: According to the passage, what do the elders discuss under the sprawling banyan tree?"
+   },
+   "o": {
+    "hi": [
+     "Prices of smartphones and solar lanterns",
+     "Irrigation schedules and upcoming harvest fairs",
+     "Syllabus changes in the village primary school",
+     "Construction of new paved highways"
+    ],
+    "en": [
+     "Prices of smartphones and solar lanterns",
+     "Irrigation schedules and upcoming harvest fairs",
+     "Syllabus changes in the village primary school",
+     "Construction of new paved highways"
+    ]
+   },
+   "sol": {
+    "hi": "गद्यांश के तीसरे वाक्य में बताया गया है कि बुजुर्ग बरगद के पेड़ के नीचे सिंचाई के समय-चक्र और आगामी फसल मेलों पर चर्चा करते हैं।",
+    "en": "The third sentence of the passage states that elders gather under the banyan tree to discuss irrigation schedules and upcoming harvest fairs."
+   }
+  },
+  {
+   "s": "eng",
+   "ty": "passage",
+   "d": "m",
+   "a": 2,
+   "q": {
+    "hi": "Based on the above passage, identify the part of speech of the word 'briskly' in the sentence: 'Farmers walk briskly toward the dew-kissed wheat fields.'",
+    "en": "Based on the above passage, identify the part of speech of the word 'briskly' in the sentence: 'Farmers walk briskly toward the dew-kissed wheat fields.'"
+   },
+   "o": {
+    "hi": [
+     "Adjective",
+     "Preposition",
+     "Adverb",
+     "Conjunction"
+    ],
+    "en": [
+     "Adjective",
+     "Preposition",
+     "Adverb",
+     "Conjunction"
+    ]
+   },
+   "sol": {
+    "hi": "'Briskly' शब्द क्रिया 'walk' की विशेषता बता रहा है कि किसान कैसे चलते हैं, अतः यह एक क्रिया-विशेषण है।",
+    "en": "'Briskly' modifies the verb 'walk' by describing the manner of walking, so it functions as an adverb of manner."
+   }
+  },
+  {
+   "s": "eng",
+   "ty": "passage",
+   "d": "m",
+   "a": 0,
+   "q": {
+    "hi": "Based on the above passage, which part of speech is the word 'sprawling' in the phrase 'the sprawling banyan tree'?",
+    "en": "Based on the above passage, which part of speech is the word 'sprawling' in the phrase 'the sprawling banyan tree'?"
+   },
+   "o": {
+    "hi": [
+     "Participial adjective",
+     "Finite verb",
+     "Abstract noun",
+     "Subordinating conjunction"
+    ],
+    "en": [
+     "Participial adjective",
+     "Finite verb",
+     "Abstract noun",
+     "Subordinating conjunction"
+    ]
+   },
+   "sol": {
+    "hi": "'Sprawling' यहाँ संज्ञा 'banyan tree' के विस्तार और रूप का वर्णन कर रहा है, इसलिए यह कृदंत विशेषण के रूप में प्रयुक्त हुआ है।",
+    "en": "Here, 'sprawling' modifies the noun phrase 'banyan tree' by describing its shape and spread, functioning as a participial adjective."
+   }
+  },
+  {
+   "s": "eng",
+   "ty": "passage",
+   "d": "e",
+   "a": 3,
+   "q": {
+    "hi": "Based on the above passage, identify the preposition in the phrase: 'with canvas satchels slung over their shoulders'.",
+    "en": "Based on the above passage, identify the preposition in the phrase: 'with canvas satchels slung over their shoulders'."
+   },
+   "o": {
+    "hi": [
+     "canvas",
+     "satchels",
+     "their",
+     "over"
+    ],
+    "en": [
+     "canvas",
+     "satchels",
+     "their",
+     "over"
+    ]
+   },
+   "sol": {
+    "hi": "'Over' एक पूर्वसर्ग है जो 'slung' और 'their shoulders' के बीच स्थानिक संबंध दर्शाता है।",
+    "en": "'Over' is a preposition showing the spatial relationship between 'slung' and 'their shoulders'."
+   }
+  },
+  {
+   "s": "eng",
+   "ty": "passage",
+   "d": "m",
+   "a": 1,
+   "q": {
+    "hi": "Based on the above passage, what does the phrase 'preserve their habit' most nearly mean?",
+    "en": "Based on the above passage, what does the phrase 'preserve their habit' most nearly mean?"
+   },
+   "o": {
+    "hi": [
+     "Abandon old customs completely",
+     "Continue to maintain a traditional practice",
+     "Record village stories in a library",
+     "Exchange crops during festivals"
+    ],
+    "en": [
+     "Abandon old customs completely",
+     "Continue to maintain a traditional practice",
+     "Record village stories in a library",
+     "Exchange crops during festivals"
+    ]
+   },
+   "sol": {
+    "hi": "गद्यांश के अनुसार आधुनिक वस्तुओं के आने के बाद भी ग्रामीण शाम का भोजन बाँटने और बुवाई में मदद करने की अपनी पुरानी परंपरा को बनाए रखते हैं।",
+    "en": "In context, 'preserve their habit' means continuing to maintain their traditional practices of sharing meals and helping each other despite modern changes."
+   }
+  },
+  {
+   "s": "eng",
+   "ty": "direct",
+   "d": "e",
+   "a": 0,
+   "q": {
+    "hi": "Which of the following sentences contains an abstract noun?",
+    "en": "Which of the following sentences contains an abstract noun?"
+   },
+   "o": {
+    "hi": [
+     "Honesty is valued by every member of the community.",
+     "The carpenter repaired the wooden bench yesterday.",
+     "A flock of sparrows perched on the courtyard wall.",
+     "She placed three copper pots near the kitchen stove."
+    ],
+    "en": [
+     "Honesty is valued by every member of the community.",
+     "The carpenter repaired the wooden bench yesterday.",
+     "A flock of sparrows perched on the courtyard wall.",
+     "She placed three copper pots near the kitchen stove."
+    ]
+   },
+   "sol": {
+    "hi": "पहले वाक्य में 'Honesty' (ईमानदारी) एक गुण या भाव को दर्शाती है जिसे देखा या छुआ नहीं जा सकता, अतः यह भाववाचक संज्ञा है।",
+    "en": "'Honesty' denotes an intangible quality or idea rather than a physical object, making it an abstract noun."
+   }
+  },
+  {
+   "s": "eng",
+   "ty": "statement",
+   "d": "m",
+   "a": 2,
+   "q": {
+    "hi": "Consider the following statements about nouns:\nStatement I: A collective noun takes a singular verb when the group acts as a single unified unit.\nStatement II: Uncountable nouns such as 'advice' and 'luggage' routinely take the plural suffix '-s' in standard English.\nWhich of the above statements is/are correct?",
+    "en": "Consider the following statements about nouns:\nStatement I: A collective noun takes a singular verb when the group acts as a single unified unit.\nStatement II: Uncountable nouns such as 'advice' and 'luggage' routinely take the plural suffix '-s' in standard English.\nWhich of the above statements is/are correct?"
+   },
+   "o": {
+    "hi": [
+     "Both Statement I and Statement II are correct",
+     "Neither Statement I nor Statement II is correct",
+     "Only Statement I is correct",
+     "Only Statement II is correct"
+    ],
+    "en": [
+     "Both Statement I and Statement II are correct",
+     "Neither Statement I nor Statement II is correct",
+     "Only Statement I is correct",
+     "Only Statement II is correct"
+    ]
+   },
+   "sol": {
+    "hi": "जब समूहवाचक संज्ञा एक इकाई के रूप में कार्य करती है तो एकवचन क्रिया लगती है। परंतु 'advice' और 'luggage' अगणनीय संज्ञाएँ हैं, जिनमें बहुवचन '-s' नहीं जोड़ा जाता।",
+    "en": "A collective noun takes a singular verb when acting as one unit. However, uncountable nouns like 'advice' and 'luggage' do not take '-s' in standard English, so Statement II is incorrect."
+   }
+  },
+  {
+   "s": "eng",
+   "ty": "direct",
+   "d": "m",
+   "a": 3,
+   "q": {
+    "hi": "Identify the type of pronoun underlined in the sentence: 'The headmaster *himself* distributed the textbooks to Class 4 students.'",
+    "en": "Identify the type of pronoun underlined in the sentence: 'The headmaster *himself* distributed the textbooks to Class 4 students.'"
+   },
+   "o": {
+    "hi": [
+     "Relative pronoun",
+     "Indefinite pronoun",
+     "Demonstrative pronoun",
+     "Emphatic pronoun"
+    ],
+    "en": [
+     "Relative pronoun",
+     "Indefinite pronoun",
+     "Demonstrative pronoun",
+     "Emphatic pronoun"
+    ]
+   },
+   "sol": {
+    "hi": "यहाँ 'himself' कर्ता 'The headmaster' के तुरंत बाद आकर उस पर बल दे रहा है, अतः यह निजवाचक न होकर बलदायक सर्वनाम है।",
+    "en": "Placed immediately after the subject 'The headmaster' to add emphasis, 'himself' functions as an emphatic (intensive) pronoun rather than a reflexive pronoun."
+   }
+  },
+  {
+   "s": "eng",
+   "ty": "direct",
+   "d": "m",
+   "a": 1,
+   "q": {
+    "hi": "Choose the grammatically correct sentence that uses the comparative degree properly:",
+    "en": "Choose the grammatically correct sentence that uses the comparative degree properly:"
+   },
+   "o": {
+    "hi": [
+     "This cotton saree is more softer than the silk one.",
+     "This cotton saree is softer than the silk one.",
+     "This cotton saree is softest than the silk one.",
+     "This cotton saree is most soft than the silk one."
+    ],
+    "en": [
+     "This cotton saree is more softer than the silk one.",
+     "This cotton saree is softer than the silk one.",
+     "This cotton saree is softest than the silk one.",
+     "This cotton saree is most soft than the silk one."
+    ]
+   },
+   "sol": {
+    "hi": "एक शब्दांश वाले विशेषण 'soft' का तुलनात्मक रूप 'softer' होता है; इसके साथ 'more' लगाना दोहरा तुलनात्मक दोष है।",
+    "en": "The one-syllable adjective 'soft' forms its comparative as 'softer'; adding 'more' creates an ungrammatical double comparative."
+   }
+  },
+  {
+   "s": "eng",
+   "ty": "statement",
+   "d": "h",
+   "a": 0,
+   "q": {
+    "hi": "Examine the two sentences below:\nSentence I: 'The river flows swiftly after the monsoon.'\nSentence II: 'The gardener waters the saplings every morning.'\nWhich classification is accurate?",
+    "en": "Examine the two sentences below:\nSentence I: 'The river flows swiftly after the monsoon.'\nSentence II: 'The gardener waters the saplings every morning.'\nWhich classification is accurate?"
+   },
+   "o": {
+    "hi": [
+     "Sentence I has an intransitive verb; Sentence II has a transitive verb.",
+     "Sentence I has a transitive verb; Sentence II has an intransitive verb.",
+     "Both sentences contain transitive verbs.",
+     "Both sentences contain linking verbs."
+    ],
+    "en": [
+     "Sentence I has an intransitive verb; Sentence II has a transitive verb.",
+     "Sentence I has a transitive verb; Sentence II has an intransitive verb.",
+     "Both sentences contain transitive verbs.",
+     "Both sentences contain linking verbs."
+    ]
+   },
+   "sol": {
+    "hi": "पहले वाक्य में 'flows' के बाद कोई कर्म नहीं है अतः यह अकर्मक क्रिया है, जबकि दूसरे वाक्य में 'waters' का कर्म 'the saplings' है अतः यह सकर्मक क्रिया है।",
+    "en": "In Sentence I, 'flows' takes no direct object (intransitive), whereas in Sentence II, 'waters' acts directly on the object 'the saplings' (transitive)."
+   }
+  },
+  {
+   "s": "eng",
+   "ty": "match",
+   "d": "h",
+   "a": 2,
+   "q": {
+    "hi": "Match the underlined words in List-I with their parts of speech in List-II:\nList-I\n(a) *Fast* runners win races.\n(b) She ran very *fast*.\n(c) They *fast* during festivals.\n(d) He broke his *fast* at sunset.\n\nList-II\n1. Verb\n2. Noun\n3. Adjective\n4. Adverb\nCodes:",
+    "en": "Match the underlined words in List-I with their parts of speech in List-II:\nList-I\n(a) *Fast* runners win races.\n(b) She ran very *fast*.\n(c) They *fast* during festivals.\n(d) He broke his *fast* at sunset.\n\nList-II\n1. Verb\n2. Noun\n3. Adjective\n4. Adverb\nCodes:"
+   },
+   "o": {
+    "hi": [
+     "(a)-4, (b)-3, (c)-1, (d)-2",
+     "(a)-3, (b)-4, (c)-2, (d)-1",
+     "(a)-3, (b)-4, (c)-1, (d)-2",
+     "(a)-2, (b)-4, (c)-1, (d)-3"
+    ],
+    "en": [
+     "(a)-4, (b)-3, (c)-1, (d)-2",
+     "(a)-3, (b)-4, (c)-2, (d)-1",
+     "(a)-3, (b)-4, (c)-1, (d)-2",
+     "(a)-2, (b)-4, (c)-1, (d)-3"
+    ]
+   },
+   "sol": {
+    "hi": "पहले वाक्य में 'fast' संज्ञा 'runners' की विशेषता (विशेषण), दूसरे में क्रिया 'ran' की विशेषता (क्रिया-विशेषण), तीसरे में क्रिया (व्रत रखना) और चौथे में संज्ञा (उपवास) के रूप में प्रयुक्त है।",
+    "en": "'Fast' modifies 'runners' as an adjective in (a), modifies 'ran' as an adverb in (b), acts as a verb in (c), and serves as a noun object in (d)."
+   }
+  },
+  {
+   "s": "eng",
+   "ty": "direct",
+   "d": "m",
+   "a": 1,
+   "q": {
+    "hi": "Select the option that correctly completes the sentence using a correlative conjunction:\n'Hardly had the morning bell rung ______ the students assembled in the courtyard.'",
+    "en": "Select the option that correctly completes the sentence using a correlative conjunction:\n'Hardly had the morning bell rung ______ the students assembled in the courtyard.'"
+   },
+   "o": {
+    "hi": [
+     "than",
+     "when",
+     "while",
+     "since"
+    ],
+    "en": [
+     "than",
+     "when",
+     "while",
+     "since"
+    ]
+   },
+   "sol": {
+    "hi": "अंग्रेजी व्याकरण में 'Hardly' और 'Scarcely' के साथ सह-संबंधी समुच्चयबोधक के रूप में सदैव 'when' का प्रयोग होता है, 'than' का नहीं।",
+    "en": "In standard English grammar, 'hardly' and 'scarcely' pair with the correlative conjunction 'when' (whereas 'no sooner' pairs with 'than')."
+   }
+  },
+  {
+   "s": "eng",
+   "ty": "direct",
+   "d": "e",
+   "a": 3,
+   "q": {
+    "hi": "Fill in the blank with the most appropriate preposition:\n'The teacher divided the colourful chalks ______ the five groups of learners.'",
+    "en": "Fill in the blank with the most appropriate preposition:\n'The teacher divided the colourful chalks ______ the five groups of learners.'"
+   },
+   "o": {
+    "hi": [
+     "between",
+     "beside",
+     "against",
+     "among"
+    ],
+    "en": [
+     "between",
+     "beside",
+     "against",
+     "among"
+    ]
+   },
+   "sol": {
+    "hi": "दो से अधिक समूहों या व्यक्तियों के बीच वितरण दर्शाने के लिए 'among' का प्रयोग किया जाता है, जबकि दो के लिए 'between' प्रयुक्त होता है।",
+    "en": "'Among' is used when distributing something to more than two distinct groups or individuals, whereas 'between' is typically used for two."
+   }
+  },
+  {
+   "s": "eng",
+   "ty": "direct",
+   "d": "e",
+   "a": 0,
+   "q": {
+    "hi": "Which word in the sentence 'Alas! The old banyan tree fell during the storm.' functions as an interjection?",
+    "en": "Which word in the sentence 'Alas! The old banyan tree fell during the storm.' functions as an interjection?"
+   },
+   "o": {
+    "hi": [
+     "Alas",
+     "old",
+     "fell",
+     "during"
+    ],
+    "en": [
+     "Alas",
+     "old",
+     "fell",
+     "during"
+    ]
+   },
+   "sol": {
+    "hi": "'Alas!' एक विस्मयादिबोधक शब्द है जो अचानक शोक या दुःख की तीव्र भावना को व्यक्त करता है।",
+    "en": "'Alas!' is an interjection used to express sudden sorrow or regret."
+   }
+  },
+  {
+   "s": "eng",
+   "ty": "ar",
+   "d": "h",
+   "a": 0,
+   "q": {
+    "hi": "Assertion (A): In the sentence 'Swimming keeps children active', the word 'Swimming' functions as a gerund.\nReason (R): A gerund ends in '-ing' and performs the grammatical role of a noun, such as the subject of a verb.\nChoose the correct option:",
+    "en": "Assertion (A): In the sentence 'Swimming keeps children active', the word 'Swimming' functions as a gerund.\nReason (R): A gerund ends in '-ing' and performs the grammatical role of a noun, such as the subject of a verb.\nChoose the correct option:"
+   },
+   "o": {
+    "hi": [
+     "Assertion (A) and Reason (R) are both true and R is the correct explanation of A.",
+     "Assertion (A) and Reason (R) are both true, but R is not the correct explanation of A.",
+     "A is true, but R is false.",
+     "A is false, but R is true."
+    ],
+    "en": [
+     "Assertion (A) and Reason (R) are both true and R is the correct explanation of A.",
+     "Assertion (A) and Reason (R) are both true, but R is not the correct explanation of A.",
+     "A is true, but R is false.",
+     "A is false, but R is true."
+    ]
+   },
+   "sol": {
+    "hi": "वाक्य में 'Swimming' क्रिया 'keeps' के कर्ता के रूप में संज्ञा का कार्य कर रहा है और '-ing' रूप में है, अतः यह क्रियार्थक संज्ञा (जेरंड) है। दोनों कथन सत्य हैं और R सही व्याख्या है।",
+    "en": "'Swimming' ends in '-ing' and acts as the subject noun of the verb 'keeps', which is the defining property of a gerund. Thus both A and R are true and R explains A."
+   }
+  },
+  {
+   "s": "eng",
+   "ty": "direct",
+   "d": "m",
+   "a": 2,
+   "q": {
+    "hi": "Choose the correct determiner to complete the sentence:\n'There is ______ milk left in the jug, so we can make two cups of tea.'",
+    "en": "Choose the correct determiner to complete the sentence:\n'There is ______ milk left in the jug, so we can make two cups of tea.'"
+   },
+   "o": {
+    "hi": [
+     "few",
+     "many",
+     "a little",
+     "several"
+    ],
+    "en": [
+     "few",
+     "many",
+     "a little",
+     "several"
+    ]
+   },
+   "sol": {
+    "hi": "'Milk' एक अगणनीय संज्ञा है, और सकारात्मक मात्रा ('थोड़ा सा, जिससे काम चल जाए') दर्शाने के लिए 'a little' का प्रयोग होता है।",
+    "en": "'Milk' is an uncountable noun, and 'a little' expresses a small but sufficient positive quantity."
+   }
+  },
+  {
+   "s": "eng",
+   "ty": "direct",
+   "d": "m",
+   "a": 1,
+   "q": {
+    "hi": "Which sentence places the adverb of frequency correctly?",
+    "en": "Which sentence places the adverb of frequency correctly?"
+   },
+   "o": {
+    "hi": [
+     "She arrives at school never late.",
+     "She never arrives late at school.",
+     "Never she arrives at school late.",
+     "She arrives never late at school."
+    ],
+    "en": [
+     "She arrives at school never late.",
+     "She never arrives late at school.",
+     "Never she arrives at school late.",
+     "She arrives never late at school."
+    ]
+   },
+   "sol": {
+    "hi": "आवृत्तिवाचक क्रिया-विशेषण 'never' सामान्यतः मुख्य क्रिया ('arrives') से ठीक पहले रखा जाता है।",
+    "en": "An adverb of frequency such as 'never' is normally placed directly before the main verb ('arrives')."
+   }
+  },
+  {
+   "s": "eng",
+   "ty": "direct",
+   "d": "m",
+   "a": 3,
+   "q": {
+    "hi": "In the sentence 'Those mangoes are sweeter than these', what grammatical roles do 'Those' and 'these' play respectively?",
+    "en": "In the sentence 'Those mangoes are sweeter than these', what grammatical roles do 'Those' and 'these' play respectively?"
+   },
+   "o": {
+    "hi": [
+     "Demonstrative pronoun and demonstrative adjective",
+     "Indefinite pronoun and possessive adjective",
+     "Possessive adjective and demonstrative pronoun",
+     "Demonstrative adjective and demonstrative pronoun"
+    ],
+    "en": [
+     "Demonstrative pronoun and demonstrative adjective",
+     "Indefinite pronoun and possessive adjective",
+     "Possessive adjective and demonstrative pronoun",
+     "Demonstrative adjective and demonstrative pronoun"
+    ]
+   },
+   "sol": {
+    "hi": "'Those' संज्ञा 'mangoes' से पहले आकर उसकी ओर संकेत कर रहा है अतः यह संकेतवाचक विशेषण है, जबकि 'these' अकेले संज्ञा के स्थान पर प्रयुक्त हुआ है अतः यह संकेतवाचक सर्वनाम है।",
+    "en": "'Those' modifies the noun 'mangoes' (demonstrative adjective), whereas 'these' stands alone in place of the noun (demonstrative pronoun)."
+   }
+  },
+  {
+   "s": "eng",
+   "ty": "direct",
+   "d": "e",
+   "a": 0,
+   "q": {
+    "hi": "Which modal verb best expresses polite permission in a primary classroom?",
+    "en": "Which modal verb best expresses polite permission in a primary classroom?"
+   },
+   "o": {
+    "hi": [
+     "May I come in, teacher?",
+     "Must I come in, teacher?",
+     "Shall I came in, teacher?",
+     "Ought I come in, teacher?"
+    ],
+    "en": [
+     "May I come in, teacher?",
+     "Must I come in, teacher?",
+     "Shall I came in, teacher?",
+     "Ought I come in, teacher?"
+    ]
+   },
+   "sol": {
+    "hi": "औपचारिक और विनम्र अनुमति माँगने के लिए 'May' सहायक क्रिया का प्रयोग सर्वाधिक उपयुक्त माना जाता है।",
+    "en": "'May' is the standard modal verb used for asking polite, formal permission."
+   }
+  },
+  {
+   "s": "eng",
+   "ty": "match",
+   "d": "h",
+   "a": 2,
+   "q": {
+    "hi": "Match the conjunctions in List-I with their categories in List-II:\nList-I\n(a) Although\n(b) Neither ... nor\n(c) But\n(d) Because\n\nList-II\n1. Coordinating conjunction (contrast)\n2. Subordinating conjunction (reason)\n3. Subordinating conjunction (concession)\n4. Correlative conjunction\nCodes:",
+    "en": "Match the conjunctions in List-I with their categories in List-II:\nList-I\n(a) Although\n(b) Neither ... nor\n(c) But\n(d) Because\n\nList-II\n1. Coordinating conjunction (contrast)\n2. Subordinating conjunction (reason)\n3. Subordinating conjunction (concession)\n4. Correlative conjunction\nCodes:"
+   },
+   "o": {
+    "hi": [
+     "(a)-2, (b)-4, (c)-1, (d)-3",
+     "(a)-3, (b)-1, (c)-4, (d)-2",
+     "(a)-3, (b)-4, (c)-1, (d)-2",
+     "(a)-4, (b)-3, (c)-2, (d)-1"
+    ],
+    "en": [
+     "(a)-2, (b)-4, (c)-1, (d)-3",
+     "(a)-3, (b)-1, (c)-4, (d)-2",
+     "(a)-3, (b)-4, (c)-1, (d)-2",
+     "(a)-4, (b)-3, (c)-2, (d)-1"
+    ]
+   },
+   "sol": {
+    "hi": "'Although' रियायत या विरोध दर्शाने वाला आश्रित समुच्चयबोधक है, 'Neither...nor' सह-संबंधी है, 'But' समन्वयकारी है और 'Because' कारण बताने वाला आश्रित समुच्चयबोधक है।",
+    "en": "'Although' is a subordinating conjunction of concession, 'neither...nor' is correlative, 'but' is coordinating (contrast), and 'because' is a subordinating conjunction of reason."
+   }
+  },
+  {
+   "s": "eng",
+   "ty": "direct",
+   "d": "e",
+   "a": 1,
+   "q": {
+    "hi": "According to Stephen Krashen, what distinguishes 'language acquisition' from 'language learning'?",
+    "en": "According to Stephen Krashen, what distinguishes 'language acquisition' from 'language learning'?"
+   },
+   "o": {
+    "hi": [
+     "Acquisition requires strict memorization of grammar rules.",
+     "Acquisition is a subconscious, natural process similar to how children pick up their first language.",
+     "Learning occurs only outside the classroom without any teacher.",
+     "Learning is completely unconscious and never involves error correction."
+    ],
+    "en": [
+     "Acquisition requires strict memorization of grammar rules.",
+     "Acquisition is a subconscious, natural process similar to how children pick up their first language.",
+     "Learning occurs only outside the classroom without any teacher.",
+     "Learning is completely unconscious and never involves error correction."
+    ]
+   },
+   "sol": {
+    "hi": "स्टीफन क्रैशन के अनुसार भाषा अर्जन एक अवचेतन और स्वाभाविक प्रक्रिया है जो सार्थक संवाद के माध्यम से होती है, जबकि भाषा अधिगम सचेत और नियम-आधारित होता है।",
+    "en": "According to Stephen Krashen, language acquisition is a subconscious, natural process driven by meaningful communication, whereas learning is conscious study of rules."
+   }
+  },
+  {
+   "s": "eng",
+   "ty": "direct",
+   "d": "m",
+   "a": 2,
+   "q": {
+    "hi": "Which principle is a defining feature of the Direct Method of teaching English?",
+    "en": "Which principle is a defining feature of the Direct Method of teaching English?"
+   },
+   "o": {
+    "hi": [
+     "Translating every English sentence word-for-word into the mother tongue",
+     "Focusing exclusively on silent reading and written translation",
+     "Establishing a direct bond between English words and their meanings without mother-tongue translation",
+     "Teaching isolated grammar paradigms before any spoken practice"
+    ],
+    "en": [
+     "Translating every English sentence word-for-word into the mother tongue",
+     "Focusing exclusively on silent reading and written translation",
+     "Establishing a direct bond between English words and their meanings without mother-tongue translation",
+     "Teaching isolated grammar paradigms before any spoken practice"
+    ]
+   },
+   "sol": {
+    "hi": "प्रत्यक्ष विधि में मातृभाषा के अनुवाद के बिना ही लक्ष्य भाषा (अंग्रेज़ी) के शब्दों को सीधे वस्तुओं, चित्रों और संदर्भों से जोड़ा जाता है।",
+    "en": "The Direct Method avoids mother-tongue translation and builds a direct association between English words, objects, and meaning through oral practice."
+   }
+  },
+  {
+   "s": "eng",
+   "ty": "situation",
+   "d": "m",
+   "a": 0,
+   "q": {
+    "hi": "In a Class 2 classroom in Uttar Pradesh, students hesitate to speak English because they fear making mistakes. Which strategy by the teacher will best build their oral confidence?",
+    "en": "In a Class 2 classroom in Uttar Pradesh, students hesitate to speak English because they fear making mistakes. Which strategy by the teacher will best build their oral confidence?"
+   },
+   "o": {
+    "hi": [
+     "Encourage children to use familiar home words alongside simple English phrases in pair activities.",
+     "Penalize students whenever they use a Hindi word during the English period.",
+     "Ask students to copy English paragraphs silently for the entire period.",
+     "Conduct weekly written spelling tests before allowing any speaking."
+    ],
+    "en": [
+     "Encourage children to use familiar home words alongside simple English phrases in pair activities.",
+     "Penalize students whenever they use a Hindi word during the English period.",
+     "Ask students to copy English paragraphs silently for the entire period.",
+     "Conduct weekly written spelling tests before allowing any speaking."
+    ]
+   },
+   "sol": {
+    "hi": "प्रारंभिक स्तर पर बच्चों को परिचित मातृभाषा के शब्दों के साथ सरल अंग्रेज़ी वाक्यांश बोलने की छूट देने से उनकी झिझक दूर होती है और बोलने का आत्मविश्वास बढ़ता है।",
+    "en": "Allowing young learners to bridge familiar home-language words with simple English phrases in low-stress pair work reduces anxiety and builds oral confidence."
+   }
+  },
+  {
+   "s": "eng",
+   "ty": "situation",
+   "d": "m",
+   "a": 3,
+   "q": {
+    "hi": "A Class 1 teacher shows flashcards of common words like 'the', 'come', and 'here' so children recognize them instantly without sounding out each letter. Which reading approach is being used?",
+    "en": "A Class 1 teacher shows flashcards of common words like 'the', 'come', and 'here' so children recognize them instantly without sounding out each letter. Which reading approach is being used?"
+   },
+   "o": {
+    "hi": [
+     "Grammar-translation drill",
+     "Dictation-only method",
+     "Morphological parsing",
+     "Sight-word (whole-word) recognition"
+    ],
+    "en": [
+     "Grammar-translation drill",
+     "Dictation-only method",
+     "Morphological parsing",
+     "Sight-word (whole-word) recognition"
+    ]
+   },
+   "sol": {
+    "hi": "सामान्य और अनियमित वर्तनी वाले शब्दों को बिना अक्षर-अक्षर जोड़े सीधे देखकर पहचानने के अभ्यास को दृश्य-शब्द (साइट-वर्ड) पहचान विधि कहते हैं।",
+    "en": "Teaching learners to recognize high-frequency words instantly as whole units on flashcards is the sight-word (whole-word) recognition approach."
+   }
+  },
+  {
+   "s": "eng",
+   "ty": "situation",
+   "d": "m",
+   "a": 1,
+   "q": {
+    "hi": "While checking Class 4 notebooks, a teacher notices several students consistently write 'goed' instead of 'went'. What should the teacher's immediate pedagogical step be?",
+    "en": "While checking Class 4 notebooks, a teacher notices several students consistently write 'goed' instead of 'went'. What should the teacher's immediate pedagogical step be?"
+   },
+   "o": {
+    "hi": [
+     "Mark all notebooks with red crosses and assign fifty lines of punishment writing.",
+     "Recognize this as overgeneralization of past-tense rules and provide contextual practice with irregular verbs.",
+     "Stop teaching past tense completely until Class 6.",
+     "Tell parents that the students lack ability to learn English."
+    ],
+    "en": [
+     "Mark all notebooks with red crosses and assign fifty lines of punishment writing.",
+     "Recognize this as overgeneralization of past-tense rules and provide contextual practice with irregular verbs.",
+     "Stop teaching past tense completely until Class 6.",
+     "Tell parents that the students lack ability to learn English."
+    ]
+   },
+   "sol": {
+    "hi": "'Goed' लिखना भूतकाल के '-ed' नियम के अति-सामान्यीकरण को दर्शाता है, जो भाषा सीखने की स्वाभाविक त्रुटि है। शिक्षक को अनियमित क्रियाओं का संदर्भयुक्त अभ्यास कराना चाहिए।",
+    "en": "Writing 'goed' reflects natural overgeneralization of the regular '-ed' rule; the teacher should address it with meaningful contextual practice of irregular verbs."
+   }
+  },
+  {
+   "s": "eng",
+   "ty": "statement",
+   "d": "h",
+   "a": 2,
+   "q": {
+    "hi": "Consider the following statements regarding listening comprehension in English:\nStatement I: Top-down processing relies on the listener's background knowledge and context to predict meaning.\nStatement II: Bottom-up processing focuses on decoding individual sounds, words, and grammatical structures.\nWhich of the above statements is/are correct?",
+    "en": "Consider the following statements regarding listening comprehension in English:\nStatement I: Top-down processing relies on the listener's background knowledge and context to predict meaning.\nStatement II: Bottom-up processing focuses on decoding individual sounds, words, and grammatical structures.\nWhich of the above statements is/are correct?"
+   },
+   "o": {
+    "hi": [
+     "Only Statement I is correct",
+     "Only Statement II is correct",
+     "Both Statement I and Statement II are correct",
+     "Neither Statement I nor Statement II is correct"
+    ],
+    "en": [
+     "Only Statement I is correct",
+     "Only Statement II is correct",
+     "Both Statement I and Statement II are correct",
+     "Neither Statement I nor Statement II is correct"
+    ]
+   },
+   "sol": {
+    "hi": "टॉप-डाउन प्रक्रिया में श्रोता पूर्व ज्ञान और संदर्भ से अर्थ का अनुमान लगाता है, जबकि बॉटम-अप प्रक्रिया में वह ध्वनियों, शब्दों और व्याकरणिक इकाइयों को जोड़कर अर्थ समझता है।",
+    "en": "Top-down listening uses prior knowledge and context to construct meaning, while bottom-up listening decodes sounds, words, and grammar step by step. Both statements are correct."
+   }
+  },
+  {
+   "s": "eng",
+   "ty": "direct",
+   "d": "e",
+   "a": 0,
+   "q": {
+    "hi": "What is the primary goal of Communicative Language Teaching (CLT) in primary English classrooms?",
+    "en": "What is the primary goal of Communicative Language Teaching (CLT) in primary English classrooms?"
+   },
+   "o": {
+    "hi": [
+     "Developing communicative competence to use language meaningfully in real-life situations",
+     "Memorizing bilingual word lists without sentence context",
+     "Mastering literary criticism of classical English poetry",
+     "Achieving native-like accent through mechanical drills alone"
+    ],
+    "en": [
+     "Developing communicative competence to use language meaningfully in real-life situations",
+     "Memorizing bilingual word lists without sentence context",
+     "Mastering literary criticism of classical English poetry",
+     "Achieving native-like accent through mechanical drills alone"
+    ]
+   },
+   "sol": {
+    "hi": "संप्रेषणात्मक भाषा शिक्षण का मुख्य उद्देश्य विद्यार्थियों में वास्तविक जीवन की परिस्थितियों में भाषा का सार्थक और प्रभावी उपयोग करने की क्षमता विकसित करना है।",
+    "en": "Communicative Language Teaching primarily aims to build communicative competence so learners can use English meaningfully in real-life contexts."
+   }
+  },
+  {
+   "s": "eng",
+   "ty": "ar",
+   "d": "h",
+   "a": 0,
+   "q": {
+    "hi": "Assertion (A): Using a simple rubric for assessing primary students' English storytelling makes evaluation fairer and more transparent.\nReason (R): A rubric specifies clear criteria such as vocabulary use, sequence of ideas, and fluency at different performance levels.\nChoose the correct option:",
+    "en": "Assertion (A): Using a simple rubric for assessing primary students' English storytelling makes evaluation fairer and more transparent.\nReason (R): A rubric specifies clear criteria such as vocabulary use, sequence of ideas, and fluency at different performance levels.\nChoose the correct option:"
+   },
+   "o": {
+    "hi": [
+     "Assertion (A) and Reason (R) are both true and R is the correct explanation of A.",
+     "Assertion (A) and Reason (R) are both true, but R is not the correct explanation of A.",
+     "A is true, but R is false.",
+     "A is false, but R is true."
+    ],
+    "en": [
+     "Assertion (A) and Reason (R) are both true and R is the correct explanation of A.",
+     "Assertion (A) and Reason (R) are both true, but R is not the correct explanation of A.",
+     "A is true, but R is false.",
+     "A is false, but R is true."
+    ]
+   },
+   "sol": {
+    "hi": "रूब्रिक में मूल्यांकन के स्पष्ट मानदंड (जैसे शब्दावली, विचारों का क्रम और प्रवाह) पहले से तय होते हैं, जिससे आकलन निष्पक्ष और पारदर्शी बनता है।",
+    "en": "A rubric defines explicit criteria and performance levels (such as vocabulary, sequencing, and fluency), making assessment fairer and more transparent."
+   }
+  },
+  {
+   "s": "eng",
+   "ty": "direct",
+   "d": "e",
+   "a": 3,
+   "q": {
+    "hi": "When an English teacher brings actual fruits, coins, and bus tickets into the classroom to teach vocabulary, these everyday objects are known as:",
+    "en": "When an English teacher brings actual fruits, coins, and bus tickets into the classroom to teach vocabulary, these everyday objects are known as:"
+   },
+   "o": {
+    "hi": [
+     "Abstract symbols",
+     "Phonetic transcripts",
+     "Audio-lingual tapes",
+     "Realia"
+    ],
+    "en": [
+     "Abstract symbols",
+     "Phonetic transcripts",
+     "Audio-lingual tapes",
+     "Realia"
+    ]
+   },
+   "sol": {
+    "hi": "कक्षा में भाषा शिक्षण को जीवंत और मूर्त बनाने के लिए उपयोग की जाने वाली वास्तविक दैनिक वस्तुओं को 'रिएलिया' (वास्तविक वस्तुएँ) कहा जाता है।",
+    "en": "Authentic everyday objects brought into the classroom to make vocabulary teaching concrete and meaningful are called realia."
+   }
+  },
+  {
+   "s": "eng",
+   "ty": "direct",
+   "d": "m",
+   "a": 2,
+   "q": {
+    "hi": "Which sequence correctly represents the stages of the 'Process Approach' to writing in English?",
+    "en": "Which sequence correctly represents the stages of the 'Process Approach' to writing in English?"
+   },
+   "o": {
+    "hi": [
+     "Copying, memorizing, testing, grading",
+     "Dictation, spelling test, punishment, rewriting",
+     "Brainstorming, drafting, revising, editing",
+     "Translation, recitation, silent reading, copying"
+    ],
+    "en": [
+     "Copying, memorizing, testing, grading",
+     "Dictation, spelling test, punishment, rewriting",
+     "Brainstorming, drafting, revising, editing",
+     "Translation, recitation, silent reading, copying"
+    ]
+   },
+   "sol": {
+    "hi": "लेखन के प्रक्रिया उपागम में विद्यार्थी विचार-मंथन, प्रारूप लेखन, पुनरीक्षण और संपादन के चरणों से गुजरते हुए अपने लेखन को परिष्कृत करते हैं।",
+    "en": "The process approach to writing guides learners through brainstorming, drafting, revising, and editing rather than treating writing as a single-shot product."
+   }
+  },
+  {
+   "s": "math",
+   "ty": "numeric",
+   "d": "e",
+   "a": 2,
+   "q": {
+    "hi": "संख्या 8,74,593 में अंक 7 के स्थानीय मान और जातीय मान (अंकित मान) के बीच कितना अंतर है?",
+    "en": "What is the difference between the place value and the face value of the digit 7 in the number 8,74,593?"
+   },
+   "o": {
+    "hi": [
+     "69,930",
+     "70,007",
+     "69,993",
+     "63,000"
+    ],
+    "en": [
+     "69,930",
+     "70,007",
+     "69,993",
+     "63,000"
+    ]
+   },
+   "sol": {
+    "hi": "संख्या 8,74,593 में 7 दस-हज़ार के स्थान पर है, अतः इसका स्थानीय मान 70,000 और जातीय मान 7 है। दोनों का अंतर 70,000 − 7 = 69,993 होगा।",
+    "en": "In 8,74,593, the digit 7 is in the ten-thousands place, so its place value is 70,000 and its face value is 7. Their difference is 70,000 − 7 = 69,993."
+   }
+  },
+  {
+   "s": "math",
+   "ty": "numeric",
+   "d": "e",
+   "a": 3,
+   "q": {
+    "hi": "संख्या 3,54,258 में आए दोनों '5' के स्थानीय मानों का योगफल कितना होगा?",
+    "en": "What will be the sum of the place values of both '5's appearing in the number 3,54,258?"
+   },
+   "o": {
+    "hi": [
+     "50,500",
+     "55,000",
+     "5,050",
+     "50,050"
+    ],
+    "en": [
+     "50,500",
+     "55,000",
+     "5,050",
+     "50,050"
+    ]
+   },
+   "sol": {
+    "hi": "पहले 5 का स्थानीय मान 50,000 (दस-हज़ार के स्थान पर) और दूसरे 5 का स्थानीय मान 50 (दहाई के स्थान पर) है। इनका योग 50,000 + 50 = 50,050 है।",
+    "en": "The first 5 has a place value of 50,000 and the second 5 has a place value of 50. Their sum is 50,000 + 50 = 50,050."
+   }
+  },
+  {
+   "s": "math",
+   "ty": "numeric",
+   "d": "m",
+   "a": 1,
+   "q": {
+    "hi": "अंकों 4, 0, 9, 2 और 7 में से प्रत्येक का केवल एक बार प्रयोग करते हुए बनने वाली सबसे बड़ी और सबसे छोटी 5-अंकीय संख्याओं का अंतर क्या है?",
+    "en": "What is the difference between the greatest and the smallest 5-digit numbers formed using each of the digits 4, 0, 9, 2, and 7 exactly once?"
+   },
+   "o": {
+    "hi": [
+     "76,491",
+     "76,941",
+     "77,941",
+     "72,941"
+    ],
+    "en": [
+     "76,491",
+     "76,941",
+     "77,941",
+     "72,941"
+    ]
+   },
+   "sol": {
+    "hi": "इन अंकों से बनने वाली सबसे बड़ी 5-अंकीय संख्या 97,420 है तथा सबसे छोटी 5-अंकीय संख्या 20,479 है (0 को प्रारंभ में नहीं रख सकते)। इनका अंतर 97,420 − 20,479 = 76,941 है।",
+    "en": "The greatest 5-digit number is 97,420 and the smallest 5-digit number is 20,479 (zero cannot be the leading digit). Their difference is 97,420 − 20,479 = 76,941."
+   }
+  },
+  {
+   "s": "math",
+   "ty": "numeric",
+   "d": "m",
+   "a": 0,
+   "q": {
+    "hi": "10 और 30 के बीच आने वाली सभी अभाज्य संख्याओं का योगफल कितना होगा?",
+    "en": "What is the sum of all prime numbers lying between 10 and 30?"
+   },
+   "o": {
+    "hi": [
+     "112",
+     "101",
+     "119",
+     "129"
+    ],
+    "en": [
+     "112",
+     "101",
+     "119",
+     "129"
+    ]
+   },
+   "sol": {
+    "hi": "10 और 30 के बीच की अभाज्य संख्याएँ 11, 13, 17, 19, 23 और 29 हैं। इनका योग 11 + 13 + 17 + 19 + 23 + 29 = 112 होता है।",
+    "en": "The prime numbers between 10 and 30 are 11, 13, 17, 19, 23, and 29. Their sum is 11 + 13 + 17 + 19 + 23 + 29 = 112."
+   }
+  },
+  {
+   "s": "math",
+   "ty": "numeric",
+   "d": "m",
+   "a": 3,
+   "q": {
+    "hi": "रोमन अंकों में CDXLIV + CCLVI का मान किसके बराबर होगा?",
+    "en": "In Roman numerals, what is the value of CDXLIV + CCLVI equal to?"
+   },
+   "o": {
+    "hi": [
+     "DCXC",
+     "DCCX",
+     "DCL",
+     "DCC"
+    ],
+    "en": [
+     "DCXC",
+     "DCCX",
+     "DCL",
+     "DCC"
+    ]
+   },
+   "sol": {
+    "hi": "CDXLIV = 400 + 40 + 4 = 444 तथा CCLVI = 200 + 50 + 6 = 256 है। दोनों का योग 444 + 256 = 700 होता है, जिसे रोमन में DCC लिखते हैं।",
+    "en": "CDXLIV equals 444 and CCLVI equals 256. Their sum is 444 + 256 = 700, which is written as DCC in Roman numerals."
+   }
+  },
+  {
+   "s": "math",
+   "ty": "numeric",
+   "d": "h",
+   "a": 2,
+   "q": {
+    "hi": "वह सबसे छोटी 4-अंकीय संख्या कौन-सी है जो 12, 15 और 18 से पूर्णतः विभाजित होती है?",
+    "en": "Which is the smallest 4-digit number that is completely divisible by 12, 15, and 18?"
+   },
+   "o": {
+    "hi": [
+     "1020",
+     "1060",
+     "1080",
+     "1260"
+    ],
+    "en": [
+     "1020",
+     "1060",
+     "1080",
+     "1260"
+    ]
+   },
+   "sol": {
+    "hi": "12, 15 और 18 का लघुत्तम समापवर्त्य 180 है। 180 का सबसे छोटा 4-अंकीय गुणज 180 × 6 = 1080 है।",
+    "en": "The LCM of 12, 15, and 18 is 180. The smallest 4-digit multiple of 180 is 180 × 6 = 1080."
+   }
+  },
+  {
+   "s": "math",
+   "ty": "numeric",
+   "d": "e",
+   "a": 1,
+   "q": {
+    "hi": "6 अंकों की सबसे छोटी संख्या के पूर्ववर्ती तथा 4 अंकों की सबसे बड़ी संख्या के परवर्ती का योगफल कितना होगा?",
+    "en": "What is the sum of the predecessor of the smallest 6-digit number and the successor of the greatest 4-digit number?"
+   },
+   "o": {
+    "hi": [
+     "1,00,999",
+     "1,09,999",
+     "1,10,000",
+     "1,09,998"
+    ],
+    "en": [
+     "1,00,999",
+     "1,09,999",
+     "1,10,000",
+     "1,09,998"
+    ]
+   },
+   "sol": {
+    "hi": "6 अंकों की सबसे छोटी संख्या 1,00,000 का पूर्ववर्ती 99,999 है और 4 अंकों की सबसे बड़ी संख्या 9,999 का परवर्ती 10,000 है। इनका योग 99,999 + 10,000 = 1,09,999 है।",
+    "en": "The predecessor of 1,00,000 is 99,999 and the successor of 9,999 is 10,000. Their sum is 99,999 + 10,000 = 1,09,999."
+   }
+  },
+  {
+   "s": "math",
+   "ty": "numeric",
+   "d": "e",
+   "a": 0,
+   "q": {
+    "hi": "दशमलव संख्या प्रणाली में कुल कितनी 3-अंकीय संख्याएँ होती हैं?",
+    "en": "How many 3-digit numbers exist in total in the decimal number system?"
+   },
+   "o": {
+    "hi": [
+     "900",
+     "899",
+     "999",
+     "100"
+    ],
+    "en": [
+     "900",
+     "899",
+     "999",
+     "100"
+    ]
+   },
+   "sol": {
+    "hi": "3-अंकीय संख्याएँ 100 से प्रारंभ होकर 999 पर समाप्त होती हैं। अतः कुल संख्याएँ 999 − 100 + 1 = 900 हैं।",
+    "en": "3-digit numbers start at 100 and end at 999. Therefore, the total count is 999 − 100 + 1 = 900."
+   }
+  },
+  {
+   "s": "math",
+   "ty": "numeric",
+   "d": "h",
+   "a": 3,
+   "q": {
+    "hi": "व्यंजक (7^23 + 3^14) के मान में इकाई का अंक क्या होगा?",
+    "en": "What will be the unit digit in the value of the expression (7^23 + 3^14)?"
+   },
+   "o": {
+    "hi": [
+     "4",
+     "6",
+     "8",
+     "2"
+    ],
+    "en": [
+     "4",
+     "6",
+     "8",
+     "2"
+    ]
+   },
+   "sol": {
+    "hi": "7 की घातों की चक्रीयता 4 है; 23 को 4 से भाग देने पर शेष 3 आता है, अतः 7^23 का इकाई अंक 7^3 = 343 से 3 होगा। इसी प्रकार 14 को 4 से भाग देने पर शेष 2 आता है, अतः 3^14 का इकाई अंक 3^2 = 9 होगा। योग 3 + 9 = 12 का इकाई अंक 2 है।",
+    "en": "Powers of 7 repeat every 4; 23 mod 4 = 3, giving unit digit 3 from 7^3. Similarly, 14 mod 4 = 2, giving unit digit 9 from 3^2. Thus 3 + 9 = 12 has unit digit 2."
+   }
+  },
+  {
+   "s": "math",
+   "ty": "numeric",
+   "d": "m",
+   "a": 2,
+   "q": {
+    "hi": "यदि 5-अंकीय संख्या 48A72 संख्या 9 से पूर्णतः विभाज्य है, तो अंक A का मान क्या होगा?",
+    "en": "If the 5-digit number 48A72 is completely divisible by 9, what is the value of the digit A?"
+   },
+   "o": {
+    "hi": [
+     "3",
+     "5",
+     "6",
+     "9"
+    ],
+    "en": [
+     "3",
+     "5",
+     "6",
+     "9"
+    ]
+   },
+   "sol": {
+    "hi": "9 से विभाज्यता के लिए अंकों का योग 9 का गुणज होना चाहिए। यहाँ 4 + 8 + A + 7 + 2 = 21 + A है। 21 से अगला 9 का गुणज 27 है, अतः A = 27 − 21 = 6 होगा।",
+    "en": "For divisibility by 9, the sum of digits must be a multiple of 9. Here 4 + 8 + A + 7 + 2 = 21 + A; the next multiple of 9 is 27, so A = 6."
+   }
+  },
+  {
+   "s": "math",
+   "ty": "numeric",
+   "d": "m",
+   "a": 1,
+   "q": {
+    "hi": "संख्या 64,782 को निकटतम हज़ार तक तथा निकटतम सैकड़ा तक सन्निकटित (राउंड ऑफ) करने पर प्राप्त संख्याओं के बीच कितना अंतर होगा?",
+    "en": "What is the difference between the values obtained by rounding 64,782 to the nearest thousand and to the nearest hundred?"
+   },
+   "o": {
+    "hi": [
+     "100",
+     "200",
+     "300",
+     "500"
+    ],
+    "en": [
+     "100",
+     "200",
+     "300",
+     "500"
+    ]
+   },
+   "sol": {
+    "hi": "64,782 का निकटतम हज़ार मान 65,000 है और निकटतम सैकड़ा मान 64,800 है। दोनों का अंतर 65,000 − 64,800 = 200 होगा।",
+    "en": "Rounding 64,782 to the nearest thousand gives 65,000, and to the nearest hundred gives 64,800. Their difference is 65,000 − 64,800 = 200."
+   }
+  },
+  {
+   "s": "math",
+   "ty": "numeric",
+   "d": "h",
+   "a": 3,
+   "q": {
+    "hi": "पाँच क्रमागत विषम संख्याओं का योग 135 है। इनमें से सबसे छोटी और सबसे बड़ी संख्या का गुणनफल क्या होगा?",
+    "en": "The sum of five consecutive odd numbers is 135. What is the product of the smallest and the largest of these numbers?"
+   },
+   "o": {
+    "hi": [
+     "675",
+     "729",
+     "693",
+     "713"
+    ],
+    "en": [
+     "675",
+     "729",
+     "693",
+     "713"
+    ]
+   },
+   "sol": {
+    "hi": "पाँच क्रमागत संख्याओं का औसत (मध्य संख्या) = 135 ÷ 5 = 27 है। अतः संख्याएँ 23, 25, 27, 29 और 31 हैं। सबसे छोटी और सबसे बड़ी का गुणनफल 23 × 31 = 713 है।",
+    "en": "The middle number is 135 ÷ 5 = 27, so the numbers are 23, 25, 27, 29, and 31. The product of the smallest and largest is 23 × 31 = 713."
+   }
+  },
+  {
+   "s": "math",
+   "ty": "numeric",
+   "d": "m",
+   "a": 2,
+   "q": {
+    "hi": "गुणनफल (4567 × 2345) को 4 से विभाजित करने पर शेषफल क्या प्राप्त होगा?",
+    "en": "What remainder will be obtained when the product (4567 × 2345) is divided by 4?"
+   },
+   "o": {
+    "hi": [
+     "1",
+     "2",
+     "3",
+     "0"
+    ],
+    "en": [
+     "1",
+     "2",
+     "3",
+     "0"
+    ]
+   },
+   "sol": {
+    "hi": "4567 के अंतिम दो अंक 67 को 4 से भाग देने पर शेष 3 आता है, तथा 2345 के अंतिम दो अंक 45 को 4 से भाग देने पर शेष 1 आता है। अतः गुणनफल का शेषफल (3 × 1) ÷ 4 से 3 होगा।",
+    "en": "Dividing the last two digits of 4567 (67) by 4 leaves remainder 3, and 45 by 4 leaves remainder 1. Hence, the remainder of the product is (3 × 1) mod 4 = 3."
+   }
+  },
+  {
+   "s": "math",
+   "ty": "direct",
+   "d": "e",
+   "a": 0,
+   "q": {
+    "hi": "अंतर्राष्ट्रीय संख्यांकन पद्धति में '1 मिलियन' भारतीय संख्यांकन पद्धति में किसके बराबर होता है?",
+    "en": "In the International system of numeration, '1 million' is equal to how much in the Indian system of numeration?"
+   },
+   "o": {
+    "hi": [
+     "10 लाख",
+     "1 लाख",
+     "1 करोड़",
+     "10 हज़ार"
+    ],
+    "en": [
+     "10 lakh",
+     "1 lakh",
+     "1 crore",
+     "10 thousand"
+    ]
+   },
+   "sol": {
+    "hi": "1 मिलियन = 1,000,000 होता है, जिसे भारतीय पद्धति में 10,00,000 अर्थात् 10 लाख लिखा जाता है।",
+    "en": "1 million equals 1,000,000, which is written as 10,00,000 or 10 lakh in the Indian place value system."
+   }
+  },
+  {
+   "s": "math",
+   "ty": "numeric",
+   "d": "e",
+   "a": 1,
+   "q": {
+    "hi": "विस्तारित रूप (6 × 1,00,000) + (4 × 1,000) + (9 × 100) + (8 × 1) का मानक संख्या रूप क्या होगा?",
+    "en": "What is the standard numeral form of the expanded expression (6 × 1,00,000) + (4 × 1,000) + (9 × 100) + (8 × 1)?"
+   },
+   "o": {
+    "hi": [
+     "6,49,080",
+     "6,04,908",
+     "6,40,908",
+     "6,04,980"
+    ],
+    "en": [
+     "6,49,080",
+     "6,04,908",
+     "6,40,908",
+     "6,04,980"
+    ]
+   },
+   "sol": {
+    "hi": "यहाँ दस-हज़ार और दहाई के स्थान पर शून्य है: 6,00,000 + 4,000 + 900 + 8 = 6,04,908 होगा।",
+    "en": "The ten-thousands and tens places have zero: 6,00,000 + 4,000 + 900 + 8 = 6,04,908."
+   }
+  },
+  {
+   "s": "math",
+   "ty": "statement",
+   "d": "m",
+   "a": 2,
+   "q": {
+    "hi": "संख्याओं के गुणधर्मों के संदर्भ में निम्नलिखित कथनों पर विचार कीजिए:\nकथन I: संख्या 1 न तो अभाज्य संख्या है और न ही भाज्य संख्या।\nकथन II: 2 एकमात्र सम अभाज्य संख्या है।\nसही विकल्प चुनिए:",
+    "en": "Consider the following statements regarding properties of numbers:\nStatement I: The number 1 is neither a prime number nor a composite number.\nStatement II: 2 is the only even prime number.\nChoose the correct option:"
+   },
+   "o": {
+    "hi": [
+     "केवल कथन I सही है",
+     "केवल कथन II सही है",
+     "कथन I और II दोनों सही हैं",
+     "न तो कथन I और न ही कथन II सही है"
+    ],
+    "en": [
+     "Only Statement I is correct",
+     "Only Statement II is correct",
+     "Both Statement I and Statement II are correct",
+     "Neither Statement I nor Statement II is correct"
+    ]
+   },
+   "sol": {
+    "hi": "1 का केवल एक ही गुणनखंड (स्वयं 1) होता है, इसलिए यह न अभाज्य है और न भाज्य। 2 के केवल दो गुणनखंड (1 और 2) हैं और 2 से बड़ी सभी सम संख्याएँ 2 से विभाज्य होती हैं, अतः दोनों कथन सत्य हैं।",
+    "en": "1 has only one factor so it is neither prime nor composite, and 2 is the only even prime because every greater even number is divisible by 2. Both statements are correct."
+   }
+  },
+  {
+   "s": "math",
+   "ty": "numeric",
+   "d": "m",
+   "a": 0,
+   "q": {
+    "hi": "दो संख्याओं का गुणनफल 2,160 है और उनका महत्तम समापवर्तक 12 है। उन दोनों संख्याओं का लघुत्तम समापवर्त्य क्या होगा?",
+    "en": "The product of two numbers is 2,160 and their HCF is 12. What will be the LCM of those two numbers?"
+   },
+   "o": {
+    "hi": [
+     "180",
+     "160",
+     "240",
+     "144"
+    ],
+    "en": [
+     "180",
+     "160",
+     "240",
+     "144"
+    ]
+   },
+   "sol": {
+    "hi": "सूत्र (प्रथम संख्या × द्वितीय संख्या = म.स. × ल.स.) से, ल.स. = 2,160 ÷ 12 = 180 होगा।",
+    "en": "Using the relation (Product of two numbers = HCF × LCM), we get LCM = 2,160 ÷ 12 = 180."
+   }
+  },
+  {
+   "s": "math",
+   "ty": "numeric",
+   "d": "e",
+   "a": 3,
+   "q": {
+    "hi": "एक वर्गाकार खेल के मैदान का परिमाप 48 मीटर है। इस मैदान का क्षेत्रफल कितने वर्ग मीटर होगा?",
+    "en": "The perimeter of a square playground is 48 meters. What is the area of this playground in square meters?"
+   },
+   "o": {
+    "hi": [
+     "192",
+     "96",
+     "124",
+     "144"
+    ],
+    "en": [
+     "192",
+     "96",
+     "124",
+     "144"
+    ]
+   },
+   "sol": {
+    "hi": "वर्ग की भुजा = परिमाप ÷ 4 = 48 ÷ 4 = 12 मीटर। अतः क्षेत्रफल = भुजा × भुजा = 12 × 12 = 144 वर्ग मीटर।",
+    "en": "Side of the square = 48 ÷ 4 = 12 m. Therefore, Area = 12 × 12 = 144 sq m."
+   }
+  },
+  {
+   "s": "math",
+   "ty": "numeric",
+   "d": "m",
+   "a": 1,
+   "q": {
+    "hi": "एक दर्जन के 3/4 भाग और एक कोड़ी (20 वस्तुओं) के 2/5 भाग का योगफल कितना होगा?",
+    "en": "What is the sum of 3/4 of a dozen and 2/5 of a score (20 items)?"
+   },
+   "o": {
+    "hi": [
+     "15",
+     "17",
+     "19",
+     "21"
+    ],
+    "en": [
+     "15",
+     "17",
+     "19",
+     "21"
+    ]
+   },
+   "sol": {
+    "hi": "एक दर्जन (12) का 3/4 = 9 तथा एक कोड़ी (20) का 2/5 = 8 होता है। दोनों का योग 9 + 8 = 17 होगा।",
+    "en": "3/4 of 12 is 9, and 2/5 of 20 is 8. Their sum is 9 + 8 = 17."
+   }
+  },
+  {
+   "s": "math",
+   "ty": "numeric",
+   "d": "m",
+   "a": 2,
+   "q": {
+    "hi": "एक रेलगाड़ी लखनऊ जंक्शन से प्रातः 7:45 बजे चलती है और उसी दिन दोपहर 1:15 बजे वाराणसी पहुँचती है। इस यात्रा में कुल कितने मिनट लगे?",
+    "en": "A train departs from Lucknow Junction at 7:45 AM and reaches Varanasi at 1:15 PM on the same day. How many total minutes did the journey take?"
+   },
+   "o": {
+    "hi": [
+     "315 मिनट",
+     "345 मिनट",
+     "330 मिनट",
+     "300 मिनट"
+    ],
+    "en": [
+     "315 minutes",
+     "345 minutes",
+     "330 minutes",
+     "300 minutes"
+    ]
+   },
+   "sol": {
+    "hi": "प्रातः 7:45 से दोपहर 1:15 (13:15) तक कुल समय 5 घंटे 30 मिनट है। मिनटों में यह (5 × 60) + 30 = 330 मिनट होगा।",
+    "en": "From 7:45 AM to 1:15 PM (13:15) is 5 hours 30 minutes, which equals (5 × 60) + 30 = 330 minutes."
+   }
+  },
+  {
+   "s": "math",
+   "ty": "direct",
+   "d": "e",
+   "a": 0,
+   "q": {
+    "hi": "कक्षा 2 के बच्चों को 'स्थानीय मान' की अवधारणा सिखाने के लिए निम्नलिखित में से कौन-सा शिक्षण-अधिगम सामग्री (TLM) सर्वाधिक उपयुक्त है?",
+    "en": "Which of the following teaching-learning materials is most suitable for teaching the concept of 'place value' to Class 2 students?"
+   },
+   "o": {
+    "hi": [
+     "डीन्स ब्लॉक या 10-10 तीलियों के बंडल और खुली तीलियाँ",
+     "केवल संख्याओं की छपी हुई तालिका और ब्लैकबोर्ड",
+     "ज्यामितीय परकार और चाँदा",
+     "संख्या रेखा पर केवल ऋणात्मक पूर्णांकों के कार्ड"
+    ],
+    "en": [
+     "Dienes blocks or bundles of 10 sticks and loose sticks",
+     "Only a printed number chart and blackboard",
+     "Geometric compass and protractor",
+     "Flashcards showing only negative integers"
+    ]
+   },
+   "sol": {
+    "hi": "डीन्स ब्लॉक या दहाई के बंडल व खुली तीलियों से बच्चे मूर्त रूप से देख और छूकर समझ पाते हैं कि 10 इकाइयाँ मिलकर 1 दहाई बनाती हैं।",
+    "en": "Dienes blocks or bundles of tens and loose sticks allow children to see and manipulate concretely how 10 ones regroup into 1 ten."
+   }
+  },
+  {
+   "s": "math",
+   "ty": "situation",
+   "d": "m",
+   "a": 3,
+   "q": {
+    "hi": "कक्षा 3 का एक छात्र 'चार सौ पाँच' को अंकों में '4005' लिखता है। शिक्षक के रूप में आप इस त्रुटि का क्या कारण मानेंगे?",
+    "en": "A Class 3 student writes 'four hundred five' in numerals as '4005'. As a teacher, what do you identify as the reason for this error?"
+   },
+   "o": {
+    "hi": [
+     "छात्र को एक से दस तक की गिनती बिल्कुल नहीं आती है।",
+     "छात्र गणित के प्रति पूरी तरह उदासीन है और लापरवाही कर रहा है।",
+     "छात्र को केवल घटाव के प्रश्नों का अभ्यास नहीं कराया गया है।",
+     "छात्र ने स्थानीय मान की समझ के बिना ध्वनि के अनुसार 400 और 5 को जोड़कर लिख दिया है।"
+    ],
+    "en": [
+     "The student does not know counting from one to ten at all.",
+     "The student is completely indifferent to mathematics and careless.",
+     "The student has not practiced subtraction problems enough.",
+     "The student wrote 400 and 5 sequentially as heard without understanding place value."
+    ]
+   },
+   "sol": {
+    "hi": "बच्चे अक्सर 'चार सौ' के लिए 400 और 'पाँच' के लिए 5 लिखकर 4005 बना देते हैं, जो दर्शाता है कि उनमें स्थानीय मान और शून्य के स्थान-धारक की अवधारणा स्पष्ट नहीं हुई है।",
+    "en": "Children often write 400 for 'four hundred' followed by 5, producing 4005, because they have not yet grasped place value and zero as a placeholder."
+   }
+  },
+  {
+   "s": "math",
+   "ty": "direct",
+   "d": "m",
+   "a": 1,
+   "q": {
+    "hi": "वैन हीले के ज्यामितीय चिंतन सिद्धांत के अनुसार, जब कक्षा 1 का बच्चा समोसे को देखकर उसे 'त्रिभुज' और रोटी को देखकर उसे 'वृत्त' कहता है, तो वह किस स्तर पर है?",
+    "en": "According to the Van Hiele theory of geometric thinking, when a Class 1 child calls a samosa a 'triangle' and a roti a 'circle' based on overall appearance, which level is the child at?"
+   },
+   "o": {
+    "hi": [
+     "स्तर 1 : विश्लेषण",
+     "स्तर 0 : चाक्षुषीकरण",
+     "स्तर 2 : अनौपचारिक निगमन",
+     "स्तर 3 : औपचारिक निगमन"
+    ],
+    "en": [
+     "Level 1: Analysis",
+     "Level 0: Visualization",
+     "Level 2: Informal Deduction",
+     "Level 3: Formal Deduction"
+    ]
+   },
+   "sol": {
+    "hi": "वैन हीले के स्तर 0 (चाक्षुषीकरण) में बच्चा आकृतियों को उनके गुणों के बजाय उनकी समग्र बाहरी बनावट और परिचित वस्तुओं से समानता के आधार पर पहचानता है।",
+    "en": "At Van Hiele Level 0 (Visualization), children recognize geometric shapes by their holistic appearance and resemblance to everyday objects rather than by their properties."
+   }
+  },
+  {
+   "s": "math",
+   "ty": "ar",
+   "d": "h",
+   "a": 0,
+   "q": {
+    "hi": "अभिकथन (A): NCF 2005 के अनुसार स्कूली गणित शिक्षा का मुख्य लक्ष्य बच्चे की विचार प्रक्रिया का गणितीकरण करना है।\nकारण (R): केवल संख्यात्मक संक्रियाओं और मापन का कौशल विकसित करना गणित का संकीर्ण उद्देश्य है, जबकि तार्किक रूप से सोचना व अमूर्तन को संभालना इसका उच्च उद्देश्य है।\nसही विकल्प चुनिए:",
+    "en": "Assertion (A): According to NCF 2005, the main goal of school mathematics education is the mathematization of the child's thought processes.\nReason (R): Developing numeracy and measurement skills alone is the narrow aim of mathematics, whereas thinking logically and handling abstractions is its higher aim.\nChoose the correct option:"
+   },
+   "o": {
+    "hi": [
+     "A और R दोनों सत्य हैं तथा R, A की सही व्याख्या करता है।",
+     "A और R दोनों सत्य हैं, परंतु R, A की सही व्याख्या नहीं करता है।",
+     "A सत्य है, परंतु R असत्य है।",
+     "A असत्य है, परंतु R सत्य है।"
+    ],
+    "en": [
+     "Assertion (A) and Reason (R) are both true and R is the correct explanation of A.",
+     "Assertion (A) and Reason (R) are both true, but R is not the correct explanation of A.",
+     "A is true, but R is false.",
+     "A is false, but R is true."
+    ]
+   },
+   "sol": {
+    "hi": "NCF 2005 स्पष्ट करता है कि केवल गणना सिखाना संकीर्ण उद्देश्य है; गणित का मुख्य और उच्च उद्देश्य बालक के चिंतन का गणितीकरण करना है ताकि वह तार्किक ढंग से समस्या समाधान कर सके।",
+    "en": "NCF 2005 states that teaching mere computation is the narrow aim; the primary higher aim is mathematizing the child's thinking so they can reason and solve problems logically."
+   }
+  },
+  {
+   "s": "math",
+   "ty": "direct",
+   "d": "m",
+   "a": 2,
+   "q": {
+    "hi": "प्राथमिक स्तर पर गणितीय अवधारणाओं के विकास का सही क्रम 'ELPS' क्या दर्शाता है?",
+    "en": "What does the 'ELPS' sequence represent in developing mathematical concepts at the primary level?"
+   },
+   "o": {
+    "hi": [
+     "परीक्षा, व्याख्यान, अभ्यास, सूत्र",
+     "समीकरण, तर्क, प्रमाण, हल",
+     "मूर्त अनुभव, भाषा, चित्र, प्रतीक",
+     "गणना, लेखन, मुद्रण, परीक्षण"
+    ],
+    "en": [
+     "Examination, Lecture, Practice, Solution",
+     "Equation, Logic, Proof, Sum",
+     "Experience, Language, Picture, Symbol",
+     "Enumeration, Listing, Printing, Sum"
+    ]
+   },
+   "sol": {
+    "hi": "ELPS का अर्थ है: ठोस वस्तुओं से अनुभव, उस अनुभव की मौखिक भाषा में चर्चा, चित्रों द्वारा निरूपण, और अंत में गणितीय प्रतीकों का प्रयोग।",
+    "en": "ELPS stands for concrete Experience with objects, Language to describe it, Pictorial representation, and finally Symbolic notation."
+   }
+  },
+  {
+   "s": "math",
+   "ty": "situation",
+   "d": "e",
+   "a": 1,
+   "q": {
+    "hi": "कक्षा 1 का एक बच्चा मेज पर रखे 6 कंचों को गिनते हुए 'एक, दो, तीन, चार, पाँच, छह' कहता है। जब शिक्षक पूछते हैं 'यहाँ कुल कितने कंचे हैं?', तो वह फिर से गिनती शुरू कर देता है। बच्चे में किस गिनती सिद्धांत की कमी है?",
+    "en": "A Class 1 child counts 6 marbles on a table saying 'one, two, three, four, five, six'. When the teacher asks 'How many marbles are there in total?', the child starts counting from one again. Which counting principle is the child lacking?"
+   },
+   "o": {
+    "hi": [
+     "स्थायी क्रम सिद्धांत",
+     "गणन-संख्या सिद्धांत",
+     "एकैकी संगति सिद्धांत",
+     "क्रम-असंगति सिद्धांत"
+    ],
+    "en": [
+     "Stable order principle",
+     "Cardinality principle",
+     "One-to-one correspondence principle",
+     "Order-irrelevance principle"
+    ]
+   },
+   "sol": {
+    "hi": "गणन-संख्या सिद्धांत का अर्थ यह समझना है कि गिनती में बोला गया अंतिम संख्या-नाम पूरे समूह की कुल मात्रा को दर्शाता है।",
+    "en": "The cardinality principle is the understanding that the last number word spoken when counting a set represents the total quantity of the set."
+   }
+  },
+  {
+   "s": "math",
+   "ty": "direct",
+   "d": "m",
+   "a": 3,
+   "q": {
+    "hi": "निम्नलिखित में से कौन-सा प्रश्न प्राथमिक स्तर पर बच्चों में 'अपसारी चिंतन' और समस्या-समाधान को बढ़ावा देने वाला मुक्त-अंत वाला प्रश्न है?",
+    "en": "Which of the following is an open-ended question that promotes divergent thinking and problem-solving at the primary level?"
+   },
+   "o": {
+    "hi": [
+     "24 और 16 को जोड़ने पर क्या प्राप्त होगा?",
+     "1 किलोमीटर में कितने मीटर होते हैं?",
+     "एक आयत में कुल कितनी भुजाएँ होती हैं?",
+     "ऐसी दो संख्याएँ लिखिए जिनका योगफल 24 हो।"
+    ],
+    "en": [
+     "What do you get when you add 24 and 16?",
+     "How many meters are there in 1 kilometer?",
+     "How many sides does a rectangle have in total?",
+     "Write any two numbers whose sum is 24."
+    ]
+   },
+   "sol": {
+    "hi": "'ऐसी दो संख्याएँ लिखिए जिनका योगफल 24 हो' एक मुक्त-अंत वाला प्रश्न है क्योंकि इसके अनेक सही उत्तर (जैसे 12+12, 20+4, 15+9) हो सकते हैं, जबकि शेष प्रश्नों का केवल एक निश्चित उत्तर है।",
+    "en": "'Write any two numbers whose sum is 24' is open-ended because it allows multiple valid answers (e.g., 12+12, 20+4, 15+9), whereas the others have a single fixed answer."
+   }
+  },
+  {
+   "s": "math",
+   "ty": "situation",
+   "d": "h",
+   "a": 0,
+   "q": {
+    "hi": "कक्षा 3 का एक छात्र घटाव के प्रश्न 52 − 27 का उत्तर 35 लिखता है। उसकी त्रुटि की प्रकृति क्या है?",
+    "en": "A Class 3 student writes the answer to 52 − 27 as 35. What is the nature of his error?"
+   },
+   "o": {
+    "hi": [
+     "उसने उधार लिए बिना बड़ी संख्या में से छोटी संख्या (7 − 2 = 5) घटा दी है।",
+     "उसे एक अंक के जोड़ के बुनियादी तथ्य याद नहीं हैं।",
+     "उसने घटाव के स्थान पर दोनों संख्याओं को गुणा कर दिया है।",
+     "उसने दहाई के अंकों को जोड़कर उत्तर लिखा है।"
+    ],
+    "en": [
+     "He subtracted the smaller digit from the larger digit in the ones column (7 − 2 = 5) without regrouping.",
+     "He does not remember basic single-digit addition facts.",
+     "He multiplied the two numbers instead of subtracting.",
+     "He added the tens digits to arrive at the answer."
+    ]
+   },
+   "sol": {
+    "hi": "छात्र ने इकाई में 2 − 7 करने के बजाय 7 − 2 = 5 तथा दहाई में 5 − 2 = 3 लिखकर 35 उत्तर निकाला, जो उधार लेकर पुनर्समूहीकरण न करने की सामान्य त्रुटि है।",
+    "en": "The student computed 7 − 2 = 5 in the ones place and 5 − 2 = 3 in the tens place to get 35, showing a classic bug of avoiding borrowing/regrouping."
+   }
+  },
+  {
+   "s": "math",
+   "ty": "match",
+   "d": "m",
+   "a": 2,
+   "q": {
+    "hi": "सूची-I (गणित शिक्षण उपकरण) को सूची-II (मुख्य उपयोग) से सुमेलित कीजिए:\nसूची-I\n(a) गिनतारा (अबैकस)\n(b) जियोबोर्ड\n(c) टैनग्राम\n(d) संख्या चार्ट (100 ग्रिड)\n\nसूची-II\n1. द्विविमीय आकृतियाँ, परिमाप और क्षेत्रफल\n2. स्थानिक समझ और आकृतियों का संयोजन\n3. संख्याओं के पैटर्न और गुणज पहचानना\n4. स्थानीय मान और प्रारंभिक जोड़-घटाव\nकूट:",
+    "en": "Match List-I (Math teaching aids) with List-II (Primary use):\nList-I\n(a) Abacus\n(b) Geoboard\n(c) Tangram\n(d) 100-grid chart\n\nList-II\n1. 2D shapes, perimeter, and area\n2. Spatial reasoning and composing shapes\n3. Recognizing number patterns and multiples\n4. Place value and basic addition-subtraction\nCodes:"
+   },
+   "o": {
+    "hi": [
+     "(a)-4, (b)-2, (c)-1, (d)-3",
+     "(a)-3, (b)-1, (c)-2, (d)-4",
+     "(a)-4, (b)-1, (c)-2, (d)-3",
+     "(a)-1, (b)-4, (c)-2, (d)-3"
+    ],
+    "en": [
+     "(a)-4, (b)-2, (c)-1, (d)-3",
+     "(a)-3, (b)-1, (c)-2, (d)-4",
+     "(a)-4, (b)-1, (c)-2, (d)-3",
+     "(a)-1, (b)-4, (c)-2, (d)-3"
+    ]
+   },
+   "sol": {
+    "hi": "गिनतारा स्थानीय मान व जोड़-घटाव के लिए, जियोबोर्ड द्विविमीय आकृतियों व क्षेत्रफल-परिमाप के लिए, टैनग्राम 7 टुकड़ों से स्थानिक समझ के लिए और 100-ग्रिड संख्या पैटर्न के लिए प्रयुक्त होता है।",
+    "en": "An abacus teaches place value and operations, a geoboard illustrates 2D shapes and area/perimeter, a tangram builds spatial reasoning, and a 100-grid highlights number patterns."
+   }
+  },
+  {
+   "s": "math",
+   "ty": "direct",
+   "d": "e",
+   "a": 1,
+   "q": {
+    "hi": "प्राथमिक कक्षाओं में गणित के प्रति भय और अरुचि को दूर करने के लिए शिक्षक को क्या करना चाहिए?",
+    "en": "What should a teacher do to reduce mathematics anxiety and disinterest in primary classes?"
+   },
+   "o": {
+    "hi": [
+     "प्रतिदिन कठिन और लंबे सूत्र याद करने का गृहकार्य देना चाहिए।",
+     "गणित को बच्चों के दैनिक जीवन, खेलों और गतिविधियों से जोड़कर पढ़ाना चाहिए।",
+     "गलती करने वाले बच्चों को कक्षा में सबके सामने दंडित करना चाहिए।",
+     "केवल मौखिक परीक्षा को हटाकर कठोर समयबद्ध लिखित परीक्षा लेनी चाहिए।"
+    ],
+    "en": [
+     "Assign long lists of difficult formulas to memorize every day.",
+     "Connect mathematics with children's daily life, games, and hands-on activities.",
+     "Punish students in front of the class whenever they make calculation errors.",
+     "Replace oral work with strict timed written speed tests."
+    ]
+   },
+   "sol": {
+    "hi": "गणित को खेल, पहेलियों और बच्चों के रोज़मर्रा के अनुभवों (जैसे दुकानदारी, माप-तौल) से जोड़ने पर विषय रोचक बनता है और गणित का डर समाप्त होता है।",
+    "en": "Linking mathematics with games, puzzles, and everyday experiences makes learning enjoyable and reduces math anxiety."
+   }
+  },
+  {
+   "s": "evs",
+   "ty": "direct",
+   "d": "e",
+   "a": 3,
+   "q": {
+    "hi": "संयुक्त परिवार की निम्नलिखित में से कौन-सी प्रमुख विशेषता प्राथमिक स्तर पर बच्चों के सामाजिक विकास में सहायक होती है?",
+    "en": "Which of the following primary characteristics of a joint family supports children's social development at the primary level?"
+   },
+   "o": {
+    "hi": [
+     "प्रत्येक सदस्य का अलग-अलग शहरों में एकाकी जीवन व्यतीत करना",
+     "बच्चों का केवल डिजिटल उपकरणों के साथ समय बिताना",
+     "श्रम विभाजन का पूर्णतः अभाव और व्यक्तिगत स्वायत्तता",
+     "बुजुर्गों के अनुभव, सामूहिक सहयोग और साझा देखभाल की भावना"
+    ],
+    "en": [
+     "Each member living an isolated life in different cities",
+     "Children spending time exclusively with digital devices",
+     "Complete absence of division of labour and personal space",
+     "Guidance from elders, mutual cooperation, and shared caregiving"
+    ]
+   },
+   "sol": {
+    "hi": "संयुक्त परिवार में दादा-दादी, चाचा-चाची और अन्य सदस्य साथ रहते हैं, जिससे बच्चों में सहयोग, सहिष्णुता, साझा देखभाल और बुजुर्गों के प्रति सम्मान जैसे सामाजिक गुण विकसित होते हैं।",
+    "en": "In a joint family, grandparents and extended relatives live together, fostering cooperation, tolerance, shared care, and respect for elders among children."
+   }
+  },
+  {
+   "s": "evs",
+   "ty": "direct",
+   "d": "e",
+   "a": 1,
+   "q": {
+    "hi": "सामाजिक संरचना में 'रक्त संबंध' और 'विवाह संबंध' द्वारा निर्मित सबसे छोटी बुनियादी इकाई किसे माना जाता है?",
+    "en": "In social structure, what is considered the smallest basic unit formed by 'blood ties' and 'marital ties'?"
+   },
+   "o": {
+    "hi": [
+     "पड़ोस",
+     "परिवार",
+     "विद्यालय",
+     "ग्राम पंचायत"
+    ],
+    "en": [
+     "Neighbourhood",
+     "Family",
+     "School",
+     "Gram Panchayat"
+    ]
+   },
+   "sol": {
+    "hi": "परिवार समाज की सबसे छोटी और आधारभूत इकाई है, जिसका निर्माण विवाह और रक्त संबंधों से होता है और जहाँ बालक का प्रारंभिक समाजीकरण होता है।",
+    "en": "The family is the smallest foundational unit of society, formed through marriage and blood relationships, where a child's earliest socialization begins."
+   }
+  },
+  {
+   "s": "evs",
+   "ty": "ar",
+   "d": "m",
+   "a": 0,
+   "q": {
+    "hi": "अभिकथन (A): वर्तमान समय में शहरीकरण और रोज़गार के लिए पलायन के कारण एकल परिवारों की संख्या तेजी से बढ़ी है।\nकारण (R): छोटे शहरों और गाँवों से लोग आजीविका की तलाश में बड़े नगरों में बसते हैं, जहाँ आवास की सीमित जगह और जीवनशैली एकल परिवार को बढ़ावा देती है।\nसही विकल्प चुनिए:",
+    "en": "Assertion (A): In present times, the number of nuclear families has increased rapidly due to urbanization and migration for employment.\nReason (R): People move from villages and small towns to large cities in search of livelihoods, where limited housing space and urban lifestyles encourage nuclear households.\nChoose the correct option:"
+   },
+   "o": {
+    "hi": [
+     "A और R दोनों सत्य हैं तथा R, A की सही व्याख्या करता है।",
+     "A और R दोनों सत्य हैं, परंतु R, A की सही व्याख्या नहीं करता है।",
+     "A सत्य है, परंतु R असत्य है।",
+     "A असत्य है, परंतु R सत्य है।"
+    ],
+    "en": [
+     "Assertion (A) and Reason (R) are both true and R is the correct explanation of A.",
+     "Assertion (A) and Reason (R) are both true, but R is not the correct explanation of A.",
+     "A is true, but R is false.",
+     "A is false, but R is true."
+    ]
+   },
+   "sol": {
+    "hi": "औद्योगीकरण, शिक्षा और रोज़गार के लिए महानगरों की ओर पलायन के चलते बड़े संयुक्त परिवार टूटकर पति-पत्नी और बच्चों वाले एकल परिवारों में बदल रहे हैं। अतः दोनों कथन सत्य हैं और R सही व्याख्या है।",
+    "en": "Migration to cities for jobs and education, combined with compact urban housing, has driven the shift from joint to nuclear families. Both statements are true and R explains A."
+   }
+  },
+  {
+   "s": "evs",
+   "ty": "statement",
+   "d": "h",
+   "a": 2,
+   "q": {
+    "hi": "परिवार के प्रकारों के संदर्भ में निम्नलिखित कथनों पर विचार कीजिए:\nकथन I: मातृसत्तात्मक परिवार में वंश का नाम और संपत्ति का उत्तराधिकार माता के पक्ष से चलता है।\nकथन II: भारत के उत्तर-पूर्वी राज्यों की खासी और गारो जनजातियों में पारंपरिक रूप से मातृसत्तात्मक परिवार व्यवस्था पाई जाती है।\nसही उत्तर चुनिए:",
+    "en": "Consider the following statements regarding types of families:\nStatement I: In a matrilineal family, lineage and inheritance of property pass through the mother's line.\nStatement II: Among the Khasi and Garo communities of North-East India, a matrilineal family system is traditionally practiced.\nChoose the correct answer:"
+   },
+   "o": {
+    "hi": [
+     "केवल कथन I सही है",
+     "केवल कथन II सही है",
+     "कथन I और II दोनों सही हैं",
+     "न तो कथन I और न ही कथन II सही है"
+    ],
+    "en": [
+     "Only Statement I is correct",
+     "Only Statement II is correct",
+     "Both Statement I and Statement II are correct",
+     "Neither Statement I nor Statement II is correct"
+    ]
+   },
+   "sol": {
+    "hi": "मातृसत्तात्मक/मातृवंशीय व्यवस्था में वंशावली माता की ओर से चलती है। मेघालय की खासी और गारो जनजातियों में यह पारंपरिक व्यवस्था प्रसिद्ध है, अतः दोनों कथन सही हैं।",
+    "en": "In a matrilineal system, lineage and inheritance follow the mother's side. The Khasi and Garo communities in Meghalaya are well-known examples of this tradition, so both statements are correct."
+   }
+  },
+  {
+   "s": "evs",
+   "ty": "match",
+   "d": "e",
+   "a": 3,
+   "q": {
+    "hi": "सूची-I (पोषक तत्व) को सूची-II (मुख्य कार्य/स्रोत) से सुमेलित कीजिए:\nसूची-I\n(a) कार्बोहाइड्रेट\n(b) प्रोटीन\n(c) विटामिन C\n(d) आयरन (लौह तत्व)\n\nसूची-II\n1. शरीर की वृद्धि एवं ऊतकों की मरम्मत\n2. हीमोग्लोबिन निर्माण (पालक, गुड़)\n3. शरीर को तुरंत ऊर्जा प्रदान करना\n4. मसूड़ों को स्वस्थ रखना (आँवला, नींबू)\nकूट:",
+    "en": "Match List-I (Nutrients) with List-II (Primary function/source):\nList-I\n(a) Carbohydrates\n(b) Proteins\n(c) Vitamin C\n(d) Iron\n\nList-II\n1. Body growth and tissue repair\n2. Haemoglobin formation (spinach, jaggery)\n3. Providing quick energy to the body\n4. Keeping gums healthy (amla, lemon)\nCodes:"
+   },
+   "o": {
+    "hi": [
+     "(a)-1, (b)-3, (c)-4, (d)-2",
+     "(a)-3, (b)-4, (c)-1, (d)-2",
+     "(a)-2, (b)-1, (c)-4, (d)-3",
+     "(a)-3, (b)-1, (c)-4, (d)-2"
+    ],
+    "en": [
+     "(a)-1, (b)-3, (c)-4, (d)-2",
+     "(a)-3, (b)-4, (c)-1, (d)-2",
+     "(a)-2, (b)-1, (c)-4, (d)-3",
+     "(a)-3, (b)-1, (c)-4, (d)-2"
+    ]
+   },
+   "sol": {
+    "hi": "कार्बोहाइड्रेट ऊर्जा देता है, प्रोटीन शरीर-निर्माण और मरम्मत करता है, विटामिन C आँवला-नींबू में पाया जाता है तथा आयरन (पालक, गुड़) रक्त में हीमोग्लोबिन बनाता है।",
+    "en": "Carbohydrates provide energy, proteins build and repair tissues, Vitamin C (amla, lemon) keeps gums healthy, and iron (spinach, jaggery) builds haemoglobin."
+   }
+  },
+  {
+   "s": "evs",
+   "ty": "match",
+   "d": "m",
+   "a": 1,
+   "q": {
+    "hi": "उत्तर प्रदेश के प्रसिद्ध खाद्य उत्पादों (सूची-I) को उनके प्रमुख केंद्र/जिले (सूची-II) से सुमेलित कीजिए:\nसूची-I\n(a) काला नमक चावल\n(b) दशहरी आम\n(c) पेठा\n(d) अमरूद (सुर्खा/सफेदा)\n\nसूची-II\n1. आगरा\n2. प्रयागराज\n3. सिद्धार्थनगर\n4. मलिहाबाद (लखनऊ)\nकूट:",
+    "en": "Match the famous food products of Uttar Pradesh (List-I) with their prominent centres/districts (List-II):\nList-I\n(a) Kalanamak rice\n(b) Dasheri mango\n(c) Petha\n(d) Guava\n\nList-II\n1. Agra\n2. Prayagraj\n3. Siddharthnagar\n4. Malihabad (Lucknow)\nCodes:"
+   },
+   "o": {
+    "hi": [
+     "(a)-4, (b)-3, (c)-1, (d)-2",
+     "(a)-3, (b)-4, (c)-1, (d)-2",
+     "(a)-3, (b)-1, (c)-4, (d)-2",
+     "(a)-2, (b)-4, (c)-1, (d)-3"
+    ],
+    "en": [
+     "(a)-4, (b)-3, (c)-1, (d)-2",
+     "(a)-3, (b)-4, (c)-1, (d)-2",
+     "(a)-3, (b)-1, (c)-4, (d)-2",
+     "(a)-2, (b)-4, (c)-1, (d)-3"
+    ]
+   },
+   "sol": {
+    "hi": "उत्तर प्रदेश में सिद्धार्थनगर काला नमक चावल के लिए, लखनऊ का मलिहाबाद दशहरी आम के लिए, आगरा पेठे के लिए तथा प्रयागराज अपने लाल-सफेद अमरूदों के लिए प्रसिद्ध है।",
+    "en": "In Uttar Pradesh, Siddharthnagar is famous for Kalanamak rice, Malihabad (Lucknow) for Dasheri mangoes, Agra for Petha, and Prayagraj for its guavas."
+   }
+  },
+  {
+   "s": "evs",
+   "ty": "direct",
+   "d": "m",
+   "a": 2,
+   "q": {
+    "hi": "यदि किसी बच्चे को रात के समय या कम रोशनी में स्पष्ट दिखाई नहीं देता और उसकी आँखों में सूखापन रहता है, तो उसके भोजन में मुख्यतः किस विटामिन की कमी है?",
+    "en": "If a child cannot see clearly at night or in dim light and has dryness in the eyes, which vitamin is primarily deficient in their diet?"
+   },
+   "o": {
+    "hi": [
+     "विटामिन B1 (थायमिन)",
+     "विटामिन D (कैल्सिफेरॉल)",
+     "विटामिन A (रेटिनॉल)",
+     "विटामिन K (फिलोक्विनोन)"
+    ],
+    "en": [
+     "Vitamin B1 (Thiamine)",
+     "Vitamin D (Calciferol)",
+     "Vitamin A (Retinol)",
+     "Vitamin K (Phylloquinone)"
+    ]
+   },
+   "sol": {
+    "hi": "विटामिन A की कमी से रतौंधी (कम रोशनी में न दिखना) रोग होता है। गाजर, पपीता, आम और हरी पत्तेदार सब्ज़ियाँ इसके अच्छे स्रोत हैं।",
+    "en": "Deficiency of Vitamin A causes night blindness. Carrots, papaya, mangoes, and green leafy vegetables are rich sources of Vitamin A."
+   }
+  },
+  {
+   "s": "evs",
+   "ty": "direct",
+   "d": "m",
+   "a": 0,
+   "q": {
+    "hi": "उत्तर प्रदेश के ग्रामीण घरों में गर्मियों में कच्चे आम का अचार लंबे समय तक सुरक्षित रखने के लिए नमक, तेल और मसालों का प्रयोग किया जाता है। इस प्रक्रिया का वैज्ञानिक आधार क्या है?",
+    "en": "In rural households of Uttar Pradesh, salt, oil, and spices are used to preserve raw mango pickle for a long time. What is the scientific basis of this process?"
+   },
+   "o": {
+    "hi": [
+     "नमक नमी को सोखकर तथा तेल वायु का संपर्क काटकर सूक्ष्मजीवों की वृद्धि रोकता है।",
+     "नमक और तेल आम के अंदर नए विटामिन C का निर्माण करते हैं।",
+     "तेल आम को अत्यधिक तापमान पर उबालकर रोगाणुओं को भस्म कर देता है।",
+     "नमक अचार में वायुमंडलीय नाइट्रोजन को घोलकर खट्टापन बढ़ाता है।"
+    ],
+    "en": [
+     "Salt absorbs moisture and oil blocks air contact, preventing microbial growth.",
+     "Salt and oil synthesize new Vitamin C inside the mango pieces.",
+     "Oil boils the mango at extreme temperatures to incinerate germs.",
+     "Salt dissolves atmospheric nitrogen into the pickle to increase sourness."
+    ]
+   },
+   "sol": {
+    "hi": "अधिक नमक परासरण द्वारा सूक्ष्मजीवों के जल को बाहर निकाल देता है और सरसों का तेल ऑक्सीजन का संपर्क रोककर जीवाणु व फफूंद को पनपने नहीं देता।",
+    "en": "Excess salt draws out moisture needed by microbes, while oil forms a barrier cutting off oxygen, preventing bacteria and mould from growing."
+   }
+  },
+  {
+   "s": "evs",
+   "ty": "statement",
+   "d": "m",
+   "a": 3,
+   "q": {
+    "hi": "प्राथमिक विद्यालयों में संचालित मध्याह्न भोजन योजना (पीएम पोषण) के उद्देश्यों के संदर्भ में निम्नलिखित कथनों पर विचार कीजिए:\n1. बच्चों के पोषण स्तर में सुधार करना।\n2. विद्यालयों में नामांकन और नियमित उपस्थिति बढ़ाना।\n3. सभी बच्चों के साथ बैठकर भोजन करने से सामाजिक समता को बढ़ावा देना।\nउपर्युक्त में से कौन-से कथन सही हैं?",
+    "en": "Consider the following statements regarding the objectives of the Mid-Day Meal Scheme (PM POSHAN) in primary schools:\n1. Improving the nutritional status of children.\n2. Increasing school enrolment and regular attendance.\n3. Promoting social equality as children eat together.\nWhich of the above statements are correct?"
+   },
+   "o": {
+    "hi": [
+     "केवल 1 और 2",
+     "केवल 2 और 3",
+     "केवल 1 और 3",
+     "1, 2 और 3 सभी"
+    ],
+    "en": [
+     "Only 1 and 2",
+     "Only 2 and 3",
+     "Only 1 and 3",
+     "All 1, 2, and 3"
+    ]
+   },
+   "sol": {
+    "hi": "पीएम पोषण योजना का उद्देश्य कक्षा-कक्ष की भूख मिटाकर पोषण सुधारना, विद्यालय में ठहराव व उपस्थिति बढ़ाना तथा जाति-वर्ग से ऊपर उठकर सामाजिक समानता का भाव जगाना है।",
+    "en": "PM POSHAN aims to address classroom hunger, improve child nutrition, boost enrolment and attendance, and foster social equality when children share meals together."
+   }
+  },
+  {
+   "s": "evs",
+   "ty": "direct",
+   "d": "h",
+   "a": 1,
+   "q": {
+    "hi": "उत्तर प्रदेश में बोई जाने वाली निम्नलिखित फसलों में से कौन-सा समूह पूरी तरह 'रबी की फसलों' का प्रतिनिधित्व करता है?",
+    "en": "Among the crops grown in Uttar Pradesh, which group exclusively represents 'Rabi crops'?"
+   },
+   "o": {
+    "hi": [
+     "धान, मक्का, अरहर, बाजरा",
+     "गेहूँ, जौ, चना, सरसों",
+     "गन्ना, कपास, जूट, मूँगफली",
+     "तरबूज, खरबूजा, खीरा, उड़द"
+    ],
+    "en": [
+     "Paddy, maize, pigeon pea, pearl millet",
+     "Wheat, barley, gram, mustard",
+     "Sugarcane, cotton, jute, groundnut",
+     "Watermelon, muskmelon, cucumber, black gram"
+    ]
+   },
+   "sol": {
+    "hi": "रबी की फसलें शीत ऋतु (अक्टूबर–नवंबर) में बोई जाती हैं और मार्च–अप्रैल में काटी जाती हैं। गेहूँ, जौ, चना, मटर और सरसों प्रमुख रबी फसलें हैं।",
+    "en": "Rabi crops are sown in winter (October–November) and harvested in spring (March–April). Wheat, barley, gram, and mustard are classic Rabi crops."
+   }
+  },
+  {
+   "s": "evs",
+   "ty": "direct",
+   "d": "e",
+   "a": 2,
+   "q": {
+    "hi": "हमारे भोजन में 'रूक्षांश' (आहारीय रेशे) का मुख्य कार्य क्या होता है?",
+    "en": "What is the primary function of 'roughage' (dietary fibre) in our food?"
+   },
+   "o": {
+    "hi": [
+     "शरीर को वसा के समान अत्यधिक कैलोरी प्रदान करना",
+     "रक्त में लाल रक्त कणिकाओं की संख्या दोगुनी करना",
+     "बिना पचे भोजन को बाहर निकालने में पाचन तंत्र की सहायता करना",
+     "हड्डियों में कैल्शियम को सीधे जमा करना"
+    ],
+    "en": [
+     "Providing high calories to the body just like fats",
+     "Doubling the count of red blood cells in the blood",
+     "Helping the digestive system eliminate undigested food",
+     "Directly depositing calcium into the bones"
+    ]
+   },
+   "sol": {
+    "hi": "रूक्षांश (रेशेदार भोजन जैसे साबुत अनाज, सलाद, छिलके सहित फल) शरीर को कोई पोषक ऊर्जा नहीं देता, परंतु यह मल त्याग को सुगम बनाकर कब्ज से बचाता है।",
+    "en": "Roughage (whole grains, raw vegetables, fruits) provides no direct calories, but adds bulk and helps the digestive tract eliminate undigested waste smoothly."
+   }
+  },
+  {
+   "s": "evs",
+   "ty": "direct",
+   "d": "m",
+   "a": 0,
+   "q": {
+    "hi": "पैकेट वाले दूध को खराब होने से बचाने के लिए 'पाश्चुरीकरण' प्रक्रिया में क्या किया जाता है?",
+    "en": "What is done in the 'pasteurization' process to prevent packaged milk from spoiling?"
+   },
+   "o": {
+    "hi": [
+     "दूध को लगभग 70 डिग्री सेल्सियस पर 15–30 सेकंड तक गर्म कर अचानक ठंडा किया जाता है।",
+     "दूध को शून्य डिग्री से नीचे जमाकर बर्फ के रूप में पैक किया जाता है।",
+     "दूध में सोडियम बेंजोएट और सिरका मिलाकर उबाला जाता है।",
+     "दूध को 24 घंटे तक तेज धूप में रखकर जीवाणु नष्ट किए जाते हैं।"
+    ],
+    "en": [
+     "Milk is heated to about 70°C for 15–30 seconds and then suddenly chilled.",
+     "Milk is frozen below 0°C and packed as solid ice blocks.",
+     "Sodium benzoate and vinegar are boiled into the milk.",
+     "Milk is kept in direct sunlight for 24 hours to kill bacteria."
+    ]
+   },
+   "sol": {
+    "hi": "लुई पाश्चर द्वारा खोजी गई पाश्चुरीकरण विधि में दूध को लगभग 70°C पर 15–30 सेकंड तक गर्म करके तुरंत ठंडा कर दिया जाता है, जिससे हानिकारक सूक्ष्मजीव नष्ट हो जाते हैं।",
+    "en": "In pasteurization, discovered by Louis Pasteur, milk is heated to around 70°C for 15–30 seconds and rapidly cooled, destroying harmful microbes."
+   }
+  },
+  {
+   "s": "evs",
+   "ty": "statement",
+   "d": "h",
+   "a": 1,
+   "q": {
+    "hi": "भोजन और पोषण से जुड़े निम्नलिखित कथनों पर विचार कीजिए:\nकथन I: समान मात्रा के लिए वसा, कार्बोहाइड्रेट की तुलना में लगभग दोगुनी ऊर्जा प्रदान करती है।\nकथन II: चावल से माँड़ (पानी) निकालकर फेंक देने से उसमें उपस्थित घुलनशील विटामिन B नष्ट या कम हो जाते हैं।\nसही विकल्प चुनिए:",
+    "en": "Consider the following statements related to food and nutrition:\nStatement I: For the same quantity, fats provide roughly twice as much energy as carbohydrates.\nStatement II: Draining away excess water after boiling rice reduces or removes water-soluble B vitamins.\nChoose the correct option:"
+   },
+   "o": {
+    "hi": [
+     "केवल कथन I सही है",
+     "कथन I और II दोनों सही हैं",
+     "केवल कथन II सही है",
+     "न तो कथन I और न ही कथन II सही है"
+    ],
+    "en": [
+     "Only Statement I is correct",
+     "Both Statement I and Statement II are correct",
+     "Only Statement II is correct",
+     "Neither Statement I nor Statement II is correct"
+    ]
+   },
+   "sol": {
+    "hi": "1 ग्राम कार्बोहाइड्रेट से लगभग 4 किलोकैलोरी जबकि 1 ग्राम वसा से लगभग 9 किलोकैलोरी ऊर्जा मिलती है। चावल का माँड़ फेंकने या सब्ज़ियाँ काटकर धोने से जल-घुलनशील विटामिन नष्ट हो जाते हैं।",
+    "en": "Fats yield roughly 9 kcal/g compared to 4 kcal/g for carbohydrates, and discarding rice starch water washes out water-soluble B vitamins. Both statements are correct."
+   }
+  },
+  {
+   "s": "evs",
+   "ty": "match",
+   "d": "m",
+   "a": 3,
+   "q": {
+    "hi": "सूची-I (खाद्य पदार्थ) को सूची-II (पौधे का खाया जाने वाला भाग) से सुमेलित कीजिए:\nसूची-I\n(a) आलू और अदरक\n(b) गाजर और मूली\n(c) लौंग\n(d) फूलगोभी\n\nसूची-II\n1. जड़\n2. पुष्प कलिका (कली)\n3. तना\n4. पुष्पक्रम\nकूट:",
+    "en": "Match List-I (Food item) with List-II (Edible part of the plant):\nList-I\n(a) Potato and ginger\n(b) Carrot and radish\n(c) Clove\n(d) Cauliflower\n\nList-II\n1. Root\n2. Flower bud\n3. Stem\n4. Inflorescence\nCodes:"
+   },
+   "o": {
+    "hi": [
+     "(a)-1, (b)-3, (c)-2, (d)-4",
+     "(a)-3, (b)-1, (c)-4, (d)-2",
+     "(a)-2, (b)-1, (c)-3, (d)-4",
+     "(a)-3, (b)-1, (c)-2, (d)-4"
+    ],
+    "en": [
+     "(a)-1, (b)-3, (c)-2, (d)-4",
+     "(a)-3, (b)-1, (c)-4, (d)-2",
+     "(a)-2, (b)-1, (c)-3, (d)-4",
+     "(a)-3, (b)-1, (c)-2, (d)-4"
+    ]
+   },
+   "sol": {
+    "hi": "आलू (कंद) और अदरक (प्रकंद) भूमिगत तने हैं; गाजर और मूली जड़ हैं; लौंग सूखी पुष्प कलिका है और फूलगोभी पुष्पक्रम है।",
+    "en": "Potato and ginger are modified underground stems, carrot and radish are roots, clove is a dried flower bud, and cauliflower is an inflorescence."
+   }
+  },
+  {
+   "s": "evs",
+   "ty": "direct",
+   "d": "e",
+   "a": 0,
+   "q": {
+    "hi": "एनसीईआरटी कक्षा 4 की पर्यावरण अध्ययन पाठ्यपुस्तक में परिवार को 'हमारी पहली पाठशाला' क्यों कहा गया है?",
+    "en": "Why is the family referred to as 'our first school' in the NCERT Class 4 Environmental Studies textbook?"
+   },
+   "o": {
+    "hi": [
+     "बच्चा भाषा, आदतें, मूल्य और बुनियादी कौशल सबसे पहले परिवार से ही सीखता है।",
+     "परिवार में प्रत्येक दिन सुबह 9 बजे से 3 बजे तक औपचारिक कक्षाएँ चलती हैं।",
+     "परिवार में केवल गणित और विज्ञान की पुस्तकें पढ़ाई जाती हैं।",
+     "सरकार द्वारा परिवार के बड़े सदस्यों को शिक्षक का प्रमाणपत्र दिया जाता है।"
+    ],
+    "en": [
+     "A child first learns language, habits, values, and basic life skills from the family.",
+     "Formal classes run from 9 AM to 3 PM every day inside every home.",
+     "Only mathematics and science textbooks are taught at home.",
+     "The government issues formal teaching certificates to elders in the family."
+    ]
+   },
+   "sol": {
+    "hi": "विद्यालय जाने से पहले ही बच्चा अपने परिवार के सदस्यों का अनुकरण करके बोलना, शिष्टाचार, साझेदारी और अनेक जीवन-कौशल सीख लेता है, इसलिए परिवार प्रथम पाठशाला है।",
+    "en": "Long before entering school, a child learns language, manners, sharing, and foundational habits by observing family members, making the family the first school."
+   }
+  },
+  {
+   "s": "evs",
+   "ty": "direct",
+   "d": "m",
+   "a": 2,
+   "q": {
+    "hi": "एक खेत की खाद्य श्रृंखला में 'गेहूँ → चूहा → साँप → बाज' क्रम में यदि चूहों की संख्या अचानक समाप्त हो जाए, तो इसका सबसे पहला प्रत्यक्ष प्रभाव क्या होगा?",
+    "en": "In a farmland food chain 'Wheat → Rat → Snake → Hawk', if rats are suddenly eliminated, what will be the most immediate direct effect?"
+   },
+   "o": {
+    "hi": [
+     "गेहूँ की फसल पूरी तरह सूख जाएगी।",
+     "साँपों की संख्या तुरंत दोगुनी हो जाएगी।",
+     "साँपों को भोजन की कमी होगी और उनकी संख्या घटने लगेगी।",
+     "बाज सीधे गेहूँ के दाने खाकर जीवित रहने लगेंगे।"
+    ],
+    "en": [
+     "The wheat crop will immediately dry up completely.",
+     "The population of snakes will instantly double.",
+     "Snakes will face food scarcity and their population will decline.",
+     "Hawks will immediately switch to eating wheat grains."
+    ]
+   },
+   "sol": {
+    "hi": "खाद्य श्रृंखला में साँप भोजन के लिए सीधे चूहों पर निर्भर हैं। चूहों के समाप्त होने से साँपों के लिए भोजन का संकट उत्पन्न होगा और उनकी संख्या घट जाएगी।",
+    "en": "In this food chain, snakes depend directly on rats for food. Eliminating rats causes immediate food scarcity for snakes, reducing their population."
+   }
+  },
+  {
+   "s": "evs",
+   "ty": "situation",
+   "d": "m",
+   "a": 3,
+   "q": {
+    "hi": "डॉक्टर ने एक बीमार व्यक्ति को कम तेल वाला और आसानी से पचने वाला भोजन खाने की सलाह दी है। निम्नलिखित में से पकाने की कौन-सी विधि उसके लिए सबसे उपयुक्त रहेगी?",
+    "en": "A doctor has advised an unwell patient to eat low-oil, easily digestible food. Which of the following cooking methods would be most suitable for them?"
+   },
+   "o": {
+    "hi": [
+     "गहरे तेल में तलना (जैसे पूड़ी और समोसा)",
+     "घी में अत्यधिक भूनकर मसाले डालना",
+     "खुले कोयले पर तेज आँच में सेककर तलना",
+     "भाप में पकाना या पानी में उबालना (जैसे इडली और दलिया)"
+    ],
+    "en": [
+     "Deep-frying in oil (such as poori and samosa)",
+     "Heavy roasting in clarified butter with rich spices",
+     "Charring over open coal after coating in oil",
+     "Steaming or boiling in water (such as idli and porridge)"
+    ]
+   },
+   "sol": {
+    "hi": "भाप में पकाने और उबालने में अतिरिक्त तेल या वसा का उपयोग नहीं होता तथा भोजन नरम और सुपाच्य रहता है, जो रोगियों के लिए सर्वोत्तम है।",
+    "en": "Steaming and boiling require little to no added oil and produce soft, easily digestible food, making them ideal for patients."
+   }
+  },
+  {
+   "s": "evs",
+   "ty": "direct",
+   "d": "m",
+   "a": 1,
+   "q": {
+    "hi": "उत्तर प्रदेश भारत में किन दो प्रमुख खाद्य/कृषि उत्पादों के उत्पादन में अग्रणी स्थान रखता है?",
+    "en": "Uttar Pradesh holds a leading position in India in the production of which two major food/agricultural commodities?"
+   },
+   "o": {
+    "hi": [
+     "कॉफी और रबर",
+     "गेहूँ और गन्ना",
+     "चाय और नारियल",
+     "केसर और सेब"
+    ],
+    "en": [
+     "Coffee and rubber",
+     "Wheat and sugarcane",
+     "Tea and coconut",
+     "Saffron and apple"
+    ]
+   },
+   "sol": {
+    "hi": "गंगा-यमुना के उपजाऊ दोआब के कारण उत्तर प्रदेश देश में गेहूँ और गन्ना उत्पादन में प्रथम स्थान पर रहता है।",
+    "en": "Owing to the fertile Ganga-Yamuna alluvial plains, Uttar Pradesh ranks as India's leading producer of both wheat and sugarcane."
+   }
+  },
+  {
+   "s": "evs",
+   "ty": "match",
+   "d": "m",
+   "a": 0,
+   "q": {
+    "hi": "उत्तर प्रदेश के प्रमुख नगरों (सूची-I) को उनके किनारे स्थित नदियों (सूची-II) से सुमेलित कीजिए:\nसूची-I\n(a) लखनऊ\n(b) अयोध्या\n(c) आगरा\n(d) वाराणसी\n\nसूची-II\n1. गंगा\n2. यमुना\n3. गोमती\n4. सरयू\nकूट:",
+    "en": "Match the major cities of Uttar Pradesh (List-I) with the rivers on whose banks they are situated (List-II):\nList-I\n(a) Lucknow\n(b) Ayodhya\n(c) Agra\n(d) Varanasi\n\nList-II\n1. Ganga\n2. Yamuna\n3. Gomti\n4. Saryu\nCodes:"
+   },
+   "o": {
+    "hi": [
+     "(a)-3, (b)-4, (c)-2, (d)-1",
+     "(a)-4, (b)-3, (c)-2, (d)-1",
+     "(a)-3, (b)-4, (c)-1, (d)-2",
+     "(a)-1, (b)-4, (c)-2, (d)-3"
+    ],
+    "en": [
+     "(a)-3, (b)-4, (c)-2, (d)-1",
+     "(a)-4, (b)-3, (c)-2, (d)-1",
+     "(a)-3, (b)-4, (c)-1, (d)-2",
+     "(a)-1, (b)-4, (c)-2, (d)-3"
+    ]
+   },
+   "sol": {
+    "hi": "उत्तर प्रदेश में लखनऊ गोमती नदी के, अयोध्या सरयू (घाघरा) नदी के, आगरा यमुना नदी के तथा वाराणसी गंगा नदी के तट पर बसा है।",
+    "en": "In Uttar Pradesh, Lucknow lies on the Gomti, Ayodhya on the Saryu, Agra on the Yamuna, and Varanasi on the Ganga."
+   }
+  },
+  {
+   "s": "evs",
+   "ty": "direct",
+   "d": "h",
+   "a": 3,
+   "q": {
+    "hi": "दूषित भोजन और संदूषित पेयजल के सेवन से फैलने वाले रोगों का सही युग्म कौन-सा है?",
+    "en": "Which pair of diseases spreads primarily through the consumption of contaminated food and polluted drinking water?"
+   },
+   "o": {
+    "hi": [
+     "मलेरिया और डेंगू",
+     "तपेदिक और इन्फ्लुएंजा",
+     "रेबीज और टेटनस",
+     "हैजा और टाइफाइड"
+    ],
+    "en": [
+     "Malaria and dengue",
+     "Tuberculosis and influenza",
+     "Rabies and tetanus",
+     "Cholera and typhoid"
+    ]
+   },
+   "sol": {
+    "hi": "हैजा (विब्रियो कॉलेरी) और टाइफाइड (साल्मोनेला टाइफी) जीवाणुजनित रोग हैं जो मुख्यतः दूषित जल और बासी/संक्रमित भोजन से फैलते हैं। मलेरिया-डेंगू मच्छर जनित हैं।",
+    "en": "Cholera and typhoid are bacterial infections transmitted primarily via contaminated water and food, whereas malaria and dengue are mosquito-borne."
+   }
+  },
+  {
+   "s": "evs",
+   "ty": "direct",
+   "d": "e",
+   "a": 2,
+   "q": {
+    "hi": "NCF 2005 के अनुसार कक्षा 3 से 5 तक पर्यावरण अध्ययन को एक एकीकृत विषय के रूप में क्यों पढ़ाया जाता है?",
+    "en": "According to NCF 2005, why is Environmental Studies taught as an integrated subject in Classes 3 to 5?"
+   },
+   "o": {
+    "hi": [
+     "क्योंकि प्राथमिक विद्यालयों में विज्ञान और सामाजिक विज्ञान के शिक्षक अलग नहीं होते",
+     "ताकि कक्षा 5 के बाद विज्ञान विषय को पूरी तरह समाप्त किया जा सके",
+     "क्योंकि इस आयु का बच्चा अपने परिवेश को खंडों में नहीं, बल्कि समग्र रूप से देखता है",
+     "ताकि केवल मानचित्र और ऐतिहासिक तिथियाँ रटने का बोझ कम हो सके"
+    ],
+    "en": [
+     "Because primary schools do not hire separate science and social studies teachers",
+     "So that science can be completely removed after Class 5",
+     "Because a child of this age perceives their surroundings holistically rather than in isolated compartments",
+     "So that memorizing maps and historical dates can be eliminated"
+    ]
+   },
+   "sol": {
+    "hi": "प्राथमिक स्तर का बच्चा अपने आसपास की दुनिया को विज्ञान, भूगोल या नागरिक शास्त्र के रूप में अलग-अलग न देखकर एक समग्र इकाई के रूप में समझता है, इसलिए ईवीएस एकीकृत है।",
+    "en": "Young children perceive their environment holistically rather than divided into separate disciplines like science or geography, so EVS integrates these perspectives."
+   }
+  },
+  {
+   "s": "evs",
+   "ty": "statement",
+   "d": "m",
+   "a": 1,
+   "q": {
+    "hi": "एनसीईआरटी के पर्यावरण अध्ययन पाठ्यक्रम की छह प्रमुख थीम (विषयों) में निम्नलिखित में से कौन-कौन शामिल हैं?\n1. परिवार और मित्र\n2. भोजन\n3. आवास\n4. सौरमंडल और ब्रह्मांड\nसही कूट चुनिए:",
+    "en": "Which of the following are included among the six broad themes of the NCERT Environmental Studies curriculum?\n1. Family and Friends\n2. Food\n3. Shelter\n4. Solar System and Universe\nChoose the correct code:"
+   },
+   "o": {
+    "hi": [
+     "केवल 1 और 2",
+     "केवल 1, 2 और 3",
+     "केवल 2, 3 और 4",
+     "1, 2, 3 और 4 सभी"
+    ],
+    "en": [
+     "Only 1 and 2",
+     "Only 1, 2, and 3",
+     "Only 2, 3, and 4",
+     "All 1, 2, 3, and 4"
+    ]
+   },
+   "sol": {
+    "hi": "ईवीएस की 6 मुख्य थीम हैं: परिवार और मित्र, भोजन, पानी, आवास, यात्रा तथा हम चीज़ें कैसे बनाते हैं। 'सौरमंडल और ब्रह्मांड' इन 6 थीम में शामिल नहीं है।",
+    "en": "The six EVS themes are Family and Friends, Food, Water, Shelter, Travel, and Things We Make and Do. 'Solar System and Universe' is not one of the six themes."
+   }
+  },
+  {
+   "s": "evs",
+   "ty": "situation",
+   "d": "m",
+   "a": 0,
+   "q": {
+    "hi": "कक्षा 4 में 'भोजन और परिवार' पढ़ाते समय एक शिक्षिका बच्चों से पूछती हैं कि उनके घर में रात को क्या बना था। कुछ बच्चे अलग-अलग क्षेत्रीय और पारंपरिक व्यंजनों के नाम बताते हैं। शिक्षिका का सबसे उपयुक्त दृष्टिकोण क्या होना चाहिए?",
+    "en": "While teaching 'Food and Family' in Class 4, a teacher asks students what was cooked at home last night. Students name varied regional and traditional dishes. What should the teacher's most appropriate response be?"
+   },
+   "o": {
+    "hi": [
+     "सभी बच्चों के भोजन की विविधता को सम्मानपूर्वक स्वीकार कर उस पर सकारात्मक चर्चा करना।",
+     "केवल एक विशेष प्रकार के भोजन को सबसे श्रेष्ठ बताकर अन्य व्यंजनों की आलोचना करना।",
+     "बच्चों से कहना कि वे कक्षा में अपने घर के भोजन की चर्चा न करें।",
+     "केवल पाठ्यपुस्तक में छपे तीन व्यंजनों के नाम याद करने का निर्देश देना।"
+    ],
+    "en": [
+     "Respectfully acknowledge the diversity of everyone's food habits and facilitate a positive discussion.",
+     "Declare one particular dish superior and criticize other regional foods.",
+     "Tell students not to discuss their home meals in the classroom.",
+     "Instruct students to memorize only the three dishes printed in the textbook."
+    ]
+   },
+   "sol": {
+    "hi": "खान-पान की विविधता पर संवेदनशील और सम्मानजनक चर्चा करने से बच्चों में सांस्कृतिक समावेशन, सहिष्णुता और अपने परिवेश के प्रति गर्व की भावना विकसित होती है।",
+    "en": "Discussing diverse food traditions respectfully fosters cultural inclusion, empathy, and appreciation of local backgrounds."
+   }
+  },
+  {
+   "s": "evs",
+   "ty": "situation",
+   "d": "m",
+   "a": 3,
+   "q": {
+    "hi": "कक्षा 5 के ईवीएस शिक्षक बच्चों को पास के किसान के खेत और अनाज मंडी के भ्रमण पर ले जाते हैं। इस शैक्षिक भ्रमण का सर्वाधिक सार्थक उद्देश्य क्या है?",
+    "en": "A Class 5 EVS teacher takes students on a visit to a nearby farmer's field and grain mandi. What is the most meaningful objective of this field trip?"
+   },
+   "o": {
+    "hi": [
+     "बच्चों को एक दिन के लिए विद्यालय की पढ़ाई से छुट्टी दिलाना",
+     "केवल वार्षिक परीक्षा में आने वाले 5 प्रश्नों के उत्तर लिखवाना",
+     "किसानों की आर्थिक आय के गोपनीय आंकड़े एकत्र करना",
+     "प्रत्यक्ष अवलोकन द्वारा फसल उत्पादन, श्रम और भोजन की यात्रा को समझना"
+    ],
+    "en": [
+     "Giving children a one-day break from school studies",
+     "Getting answers to 5 annual exam questions written down",
+     "Collecting confidential income figures of local farmers",
+     "Understanding crop production, labour, and the journey of food through direct observation"
+    ]
+   },
+   "sol": {
+    "hi": "शैक्षिक भ्रमण बच्चों को वास्तविक जीवन से प्रत्यक्ष अनुभव, अवलोकन और किसानों से संवाद के माध्यम से यह समझने का अवसर देता है कि थाली तक भोजन कैसे पहुँचता है।",
+    "en": "Field trips give students firsthand observation and interaction with farmers, helping them understand how food travels from fields to plates."
+   }
+  },
+  {
+   "s": "evs",
+   "ty": "direct",
+   "d": "e",
+   "a": 1,
+   "q": {
+    "hi": "NCF 2005 के अनुसार कक्षा 1 और 2 में पर्यावरण अध्ययन के लिए अलग पाठ्यपुस्तक क्यों नहीं रखी गई है?",
+    "en": "Why is there no separate Environmental Studies textbook for Classes 1 and 2 according to NCF 2005?"
+   },
+   "o": {
+    "hi": [
+     "क्योंकि कक्षा 1 और 2 के बच्चों को पर्यावरण की कोई समझ नहीं होती।",
+     "क्योंकि पर्यावरण से जुड़े संदर्भ भाषा और गणित के माध्यम से ही पढ़ाए जाते हैं।",
+     "क्योंकि विद्यालयों में बस्ते का वजन बढ़ाने के लिए अन्य विषय जोड़े गए हैं।",
+     "क्योंकि पर्यावरण अध्ययन केवल कक्षा 6 से प्रारंभ करने का नियम है।"
+    ],
+    "en": [
+     "Because children in Classes 1 and 2 have no awareness of their environment.",
+     "Because environmental concepts are integrated into and taught through Language and Mathematics.",
+     "Because other subjects were added to increase schoolbag weight.",
+     "Because Environmental Studies is mandated to begin only from Class 6."
+    ]
+   },
+   "sol": {
+    "hi": "कक्षा 1 और 2 में पर्यावरण अध्ययन को भाषा और गणित की पाठ्यपुस्तकों व गतिविधियों में समाहित किया गया है ताकि बस्ते का बोझ न बढ़े और सीखना संदर्भयुक्त रहे।",
+    "en": "In Classes 1 and 2, EVS is woven into Language and Mathematics curricula so that learning stays contextual without adding extra textbook load."
+   }
+  },
+  {
+   "s": "evs",
+   "ty": "situation",
+   "d": "m",
+   "a": 2,
+   "q": {
+    "hi": "शिक्षक कक्षा 5 के विद्यार्थियों को अपने मोहल्ले या गाँव के पाँच परिवारों से यह पता लगाने का कार्य देते हैं कि उनके घर में पानी का मुख्य स्रोत क्या है और बुजुर्गों के समय में भोजन पकाने के ईंधन में क्या बदलाव आया है। इस गतिविधि से कौन-से प्रक्रिया कौशल विकसित होते हैं?",
+    "en": "A teacher assigns Class 5 students to survey five families in their village or neighbourhood about their main water source and how cooking fuels have changed since their elders' time. Which process skills does this activity develop?"
+   },
+   "o": {
+    "hi": [
+     "केवल सुंदर लिखावट और चित्रकला",
+     "केवल परिभाषाओं को कंठस्थ करना",
+     "प्रश्न पूछना, आंकड़े एकत्र करना और तुलनात्मक विश्लेषण करना",
+     "केवल गणितीय सूत्रों का यांत्रिक अभ्यास"
+    ],
+    "en": [
+     "Only neat handwriting and drawing",
+     "Only rote memorization of definitions",
+     "Questioning, data collection, and comparative analysis",
+     "Only mechanical drill of mathematical formulas"
+    ]
+   },
+   "sol": {
+    "hi": "समुदाय सर्वेक्षण जैसी गतिविधियाँ बच्चों में संवाद करने, प्रश्न पूछने, तथ्य संकलित करने तथा अतीत और वर्तमान की तुलना करने जैसे वैज्ञानिक और सामाजिक प्रक्रिया कौशल विकसित करती हैं।",
+    "en": "Community survey tasks build EVS process skills such as interviewing, questioning, recording data, and comparing past and present practices."
+   }
+  },
+  {
+   "s": "evs",
+   "ty": "ar",
+   "d": "h",
+   "a": 0,
+   "q": {
+    "hi": "अभिकथन (A): ईवीएस कक्षा में 'आलू या चावल पर आयोडीन की बूँदें डालकर रंग बदलना देखना' केवल व्याख्यान देने से कहीं अधिक प्रभावी है।\nकारण (R): प्रत्यक्ष प्रयोग और अवलोकन बच्चों को स्वयं निष्कर्ष निकालने, जिज्ञासा शांत करने और अवधारणा को स्थायी बनाने में मदद करते हैं।\nसही विकल्प चुनिए:",
+    "en": "Assertion (A): In an EVS class, demonstrating or letting students test potato and rice with iodine drops to observe colour change is far more effective than lecturing alone.\nReason (R): Hands-on experimentation and observation help children draw their own conclusions, satisfy curiosity, and retain concepts deeply.\nChoose the correct option:"
+   },
+   "o": {
+    "hi": [
+     "A और R दोनों सत्य हैं तथा R, A की सही व्याख्या करता है।",
+     "A और R दोनों सत्य हैं, परंतु R, A की सही व्याख्या नहीं करता है।",
+     "A सत्य है, परंतु R असत्य है।",
+     "A असत्य है, परंतु R सत्य है।"
+    ],
+    "en": [
+     "Assertion (A) and Reason (R) are both true and R is the correct explanation of A.",
+     "Assertion (A) and Reason (R) are both true, but R is not the correct explanation of A.",
+     "A is true, but R is false.",
+     "A is false, but R is true."
+    ]
+   },
+   "sol": {
+    "hi": "मूर्त संक्रियात्मक अवस्था (6–11 वर्ष) के बच्चे स्वयं प्रयोग करके और देखकर सबसे बेहतर सीखते हैं। आयोडीन परीक्षण से स्टार्च की पहचान प्रत्यक्ष अनुभव प्रदान करती है।",
+    "en": "Children aged 6–11 learn best through concrete, hands-on inquiry. Testing for starch with iodine gives direct observational evidence that builds lasting understanding."
+   }
+  },
+  {
+   "s": "evs",
+   "ty": "direct",
+   "d": "h",
+   "a": 3,
+   "q": {
+    "hi": "प्राथमिक स्तर पर पर्यावरण अध्ययन के आकलन में निम्नलिखित में से कौन-सा संकेतक उपयुक्त नहीं माना जाता?",
+    "en": "Which of the following is NOT considered an appropriate indicator for assessing Environmental Studies at the primary level?"
+   },
+   "o": {
+    "hi": [
+     "अवलोकन और अभिलेखन (रिकॉर्डिंग)",
+     "न्याय और समानता के प्रति सरोकार",
+     "सहयोग और प्रयोग करना",
+     "तथ्यों को ज्यों का त्यों याद कर परीक्षा में दोहराना"
+    ],
+    "en": [
+     "Observation and recording",
+     "Concern for justice and equality",
+     "Cooperation and experimentation",
+     "Memorizing facts verbatim and reproducing them in tests"
+    ]
+   },
+   "sol": {
+    "hi": "ईवीएस आकलन के प्रमुख संकेतकों में अवलोकन, चर्चा, अभिव्यक्ति, प्रयोग, वर्गीकरण, सहयोग तथा न्याय-समानता के प्रति संवेदनशीलता शामिल हैं; रटंत स्मरण इसका संकेतक नहीं है।",
+    "en": "EVS assessment indicators focus on observation, discussion, experimentation, cooperation, and concern for justice and equality, not verbatim rote recall."
+   }
+  },
+  {
+   "s": "evs",
+   "ty": "situation",
+   "d": "m",
+   "a": 2,
+   "q": {
+    "hi": "कक्षा 3 में 'परिवार के कार्य' पाठ पढ़ाते समय एक छात्र कहता है कि 'खाना बनाना केवल मम्मी और दीदी का काम है, पापा का नहीं।' शिक्षक को इस लैंगिक रूढ़िवादिता को दूर करने के लिए क्या करना चाहिए?",
+    "en": "While teaching 'Work in the Family' in Class 3, a student says, 'Cooking is only for mothers and sisters, not for fathers.' What should the teacher do to address this gender stereotype?"
+   },
+   "o": {
+    "hi": [
+     "छात्र की बात से सहमत होकर पाठ को आगे बढ़ा देना चाहिए।",
+     "छात्र को डाँटकर कक्षा से बाहर खड़ा कर देना चाहिए।",
+     "बच्चों से विभिन्न उदाहरणों (जैसे पुरुष रसोइये, घर के कार्यों में साझा भागीदारी) पर संवेदनशील चर्चा करनी चाहिए।",
+     "केवल लड़कियों को गृह विज्ञान और लड़कों को गणित पढ़ने की सलाह देनी चाहिए।"
+    ],
+    "en": [
+     "Agree with the student's remark and move on with the lesson.",
+     "Scold the student and make them stand outside the classroom.",
+     "Facilitate a sensitive discussion using examples like male chefs and shared household responsibilities.",
+     "Advise only girls to study home science and boys to study mathematics."
+    ]
+   },
+   "sol": {
+    "hi": "ईवीएस शिक्षण का महत्वपूर्ण उद्देश्य लैंगिक संवेदनशीलता विकसित करना है। उदाहरणों और संवाद से बच्चे समझते हैं कि घर व बाहर के सभी कार्य पुरुष और महिलाएँ दोनों समान रूप से कर सकते हैं।",
+    "en": "Developing gender sensitivity is a key goal of EVS. Discussing real-life examples helps children see that both men and women can share domestic and professional roles equally."
+   }
+  },
+  {
+   "s": "evs",
+   "ty": "direct",
+   "d": "h",
+   "a": 1,
+   "q": {
+    "hi": "पर्यावरण अध्ययन की पाठ्यपुस्तकों में किस्सों, कहानियों और पहेलियों को शामिल करने का सर्वाधिक महत्वपूर्ण कारण क्या है?",
+    "en": "What is the most important reason for including anecdotes, stories, and riddles in Environmental Studies textbooks?"
+   },
+   "o": {
+    "hi": [
+     "पुस्तक के पृष्ठों की संख्या बढ़ाकर उसे मोटा बनाना",
+     "बच्चों की कल्पनाशक्ति को जाग्रत कर उन्हें संवेदनशील और जिज्ञासु बनाना",
+     "केवल हिंदी भाषा के कठिन मुहावरों की परीक्षा लेना",
+     "शिक्षकों को कक्षा में व्याख्यान देने से पूरी तरह मुक्त करना"
+    ],
+    "en": [
+     "Increasing the page count to make the textbook thicker",
+     "Sparking children's imagination while fostering sensitivity and curiosity",
+     "Testing difficult idioms from the Hindi language curriculum",
+     "Completely relieving teachers from explaining concepts in class"
+    ]
+   },
+   "sol": {
+    "hi": "कहानियाँ और पहेलियाँ बच्चों के भावनात्मक व कल्पनाशील संसार से जुड़ती हैं, जिससे वे प्रकृति, जीव-जंतुओं और सामाजिक मुद्दों के प्रति संवेदनशील व जिज्ञासु बनते हैं।",
+    "en": "Stories and riddles connect with children's imagination and emotions, nurturing curiosity and sensitivity toward nature and social issues."
+   }
+  }
+ ]
+}
