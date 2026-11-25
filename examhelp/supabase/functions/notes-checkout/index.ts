@@ -112,6 +112,13 @@ const PRODUCTS: Record<string, { amount: number; file: string; downloadName: str
     downloadName: "",
     title: "SSC GD — 25 मॉक टेस्ट / SSC GD — 25 Mock Tests",
   },
+  "uptet-tests": {
+    amount: 9900,
+    kind: "tests",
+    file: "uptet", // private bucket "tests": uptet/02.json … 25.json; test 1 is public
+    downloadName: "",
+    title: "UPTET 2026 — 25 मॉक टेस्ट / UPTET 2026 — 25 Mock Tests",
+  },
   "ugcnet-tests": {
     // combo (owner, 2026-11-25): one ₹99 order opens UGC NET Paper 1 (netp1) and English Paper 2 (neteng)
     amount: 9900,

@@ -127,6 +127,15 @@ const COURSES = (lang: Lang): Course[] => {
     },
     {
       f: ["new", "tests"], tone: "teal", art: "test", isNew: true,
+      kick: hi ? "UPTET 2026 • पेपर 1 + पेपर 2" : "UPTET 2026 • Paper 1 + Paper 2", big: "UPTET",
+      sub: hi ? ["25 मॉक टेस्ट", "150 प्रश्न · 150 मिनट"] : ["25 mock tests", "150 Qs · 150 min"],
+      tags: hi ? ["शिक्षक पात्रता", "टेस्ट सीरीज़"] : ["Teacher eligibility", "Test series"], meta: [hi ? "हर टेस्ट" : "Each test", hi ? "150 प्रश्न" : "150 Qs"],
+      title: hi ? "UPTET 2026 — 25 मॉक टेस्ट (पेपर 1 + पेपर 2)" : "UPTET 2026 — 25 mock tests (Paper 1 + Paper 2)",
+      desc: hi ? "✅ पेपर 1 (कक्षा 1–5) के 13 टेस्ट ✅ पेपर 2 (कक्षा 6–8) के 12 टेस्ट ✅ हर प्रश्न की व्याख्या" : "✅ 13 Paper 1 tests (Classes 1–5) ✅ 12 Paper 2 tests (Classes 6–8) ✅ Explanation for every question",
+      price: 99, href: "/uptet-mock-tests",
+    },
+    {
+      f: ["new", "tests"], tone: "teal", art: "test", isNew: true,
       kick: hi ? "UGC NET • पेपर 1 + अंग्रेज़ी" : "UGC NET • Paper 1 + English", big: "UGC NET",
       sub: hi ? ["2 × 25 मॉक टेस्ट", "पेपर 1 + पेपर 2"] : ["2 × 25 mock tests", "Paper 1 + Paper 2"],
       tags: hi ? ["NET / JRF", "टेस्ट सीरीज़"] : ["NET / JRF", "Test series"], meta: [hi ? "हर टेस्ट" : "Each test", hi ? "50/100 प्रश्न" : "50/100 Qs"],

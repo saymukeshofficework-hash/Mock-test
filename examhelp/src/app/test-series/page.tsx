@@ -106,6 +106,14 @@ export default async function Page() {
         </div>
         <span className="btn-primary shrink-0">{lang === "hi" ? "टेस्ट चुनें →" : "Choose tests →"}</span>
       </Link>
+      <Link href="/uptet-mock-tests" className="card mt-4 flex flex-col gap-3 border-2 border-brand-700 p-5 transition hover:shadow-md sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <p className="text-xs font-bold uppercase tracking-wide text-accent-700">{lang === "hi" ? "नया" : "New"}</p>
+          <p className="mt-1 text-lg font-extrabold text-brand-900">{lang === "hi" ? "UPTET 2026 — पेपर 1 + पेपर 2 (25 मॉक टेस्ट)" : "UPTET 2026 — Paper 1 + Paper 2 (25 mock tests)"}</p>
+          <p className="mt-1 text-sm text-ink-600">{lang === "hi" ? "150 प्रश्न · 150 मिनट · व्याख्या सहित" : "150 questions · 150 minutes · with explanations"}</p>
+        </div>
+        <span className="btn-primary shrink-0">{lang === "hi" ? "टेस्ट चुनें →" : "Choose tests →"}</span>
+      </Link>
       <Link href="/mppsc-prelims-mock-tests" className="card mt-4 flex flex-col gap-3 border-2 border-brand-700 p-5 transition hover:shadow-md sm:flex-row sm:items-center sm:justify-between">
         <div>
           <p className="text-xs font-bold uppercase tracking-wide text-accent-700">{lang === "hi" ? "नया" : "New"}</p>
