@@ -98,6 +98,14 @@ export default async function Page() {
         </div>
         <span className="btn-primary shrink-0">{lang === "hi" ? "टेस्ट चुनें →" : "Choose tests →"}</span>
       </Link>
+      <Link href="/ugc-net-paper-1-mock-tests" className="card mt-4 flex flex-col gap-3 border-2 border-brand-700 p-5 transition hover:shadow-md sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <p className="text-xs font-bold uppercase tracking-wide text-accent-700">{lang === "hi" ? "नया" : "New"}</p>
+          <p className="mt-1 text-lg font-extrabold text-brand-900">{lang === "hi" ? "UGC NET — पेपर 1 + अंग्रेज़ी पेपर 2 (25-25 मॉक टेस्ट)" : "UGC NET — Paper 1 + English Paper 2 (25 mock tests each)"}</p>
+          <p className="mt-1 text-sm text-ink-600">{lang === "hi" ? "पेपर 1 हिंदी/English · पेपर 2 अंग्रेज़ी · व्याख्या सहित" : "Paper 1 Hindi/English · Paper 2 English · with explanations"}</p>
+        </div>
+        <span className="btn-primary shrink-0">{lang === "hi" ? "टेस्ट चुनें →" : "Choose tests →"}</span>
+      </Link>
       <Link href="/mppsc-prelims-mock-tests" className="card mt-4 flex flex-col gap-3 border-2 border-brand-700 p-5 transition hover:shadow-md sm:flex-row sm:items-center sm:justify-between">
         <div>
           <p className="text-xs font-bold uppercase tracking-wide text-accent-700">{lang === "hi" ? "नया" : "New"}</p>

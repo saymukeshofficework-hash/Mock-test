@@ -1,0 +1,1487 @@
+{
+  "test": 1,
+  "paper": "P1",
+  "title": {
+    "hi": "UGC NET पेपर 1 (शिक्षण एवं शोध अभिवृत्ति) — मॉक टेस्ट 1",
+    "en": "UGC NET Paper 1 (Teaching and Research Aptitude) — Mock Test 1"
+  },
+  "marks": {
+    "c": 2,
+    "w": 0
+  },
+  "minutes": 60,
+  "sections": [
+    {
+      "key": "tea",
+      "label": {
+        "hi": "शिक्षण अभिवृत्ति",
+        "en": "Teaching Aptitude"
+      }
+    },
+    {
+      "key": "res",
+      "label": {
+        "hi": "शोध अभिवृत्ति",
+        "en": "Research Aptitude"
+      }
+    },
+    {
+      "key": "rc",
+      "label": {
+        "hi": "बोधगम्यता",
+        "en": "Comprehension"
+      }
+    },
+    {
+      "key": "com",
+      "label": {
+        "hi": "संप्रेषण",
+        "en": "Communication"
+      }
+    },
+    {
+      "key": "mat",
+      "label": {
+        "hi": "गणितीय तर्क एवं अभिवृत्ति",
+        "en": "Mathematical Reasoning and Aptitude"
+      }
+    },
+    {
+      "key": "log",
+      "label": {
+        "hi": "तार्किक विवेचन",
+        "en": "Logical Reasoning"
+      }
+    },
+    {
+      "key": "di",
+      "label": {
+        "hi": "आँकड़ों की व्याख्या",
+        "en": "Data Interpretation"
+      }
+    },
+    {
+      "key": "ict",
+      "label": {
+        "hi": "सूचना एवं संचार प्रौद्योगिकी",
+        "en": "Information and Communication Technology"
+      }
+    },
+    {
+      "key": "env",
+      "label": {
+        "hi": "जन, विकास एवं पर्यावरण",
+        "en": "People, Development and Environment"
+      }
+    },
+    {
+      "key": "hed",
+      "label": {
+        "hi": "उच्च शिक्षा प्रणाली",
+        "en": "Higher Education System"
+      }
+    }
+  ],
+  "questions": [
+    {
+      "s": "tea",
+      "ty": "match",
+      "d": "m",
+      "q": {
+        "en": "Match List I (Levels of Teaching) with List II (Chief Proponents / Core Focus):\nList I:\nA. Memory Level\nB. Understanding Level\nC. Reflective Level\nD. Autonomous Development Level\nList II:\nI. Hunt — Problem-centric critical inquiry\nII. Morrison — Mastery of relationships and generalisations\nIII. Herbart — Systematic recall and retention of facts\nIV. Morris Bigge — Student-directed self-regulation with minimal teacher intervention\nChoose the correct answer from the options given below:",
+        "hi": "सूची I (शिक्षण के स्तर) को सूची II (प्रमुख प्रवर्तक / मुख्य केंद्र-बिंदु) से सुमेलित कीजिए:\nसूची I:\nA. स्मृति स्तर\nB. अवबोध स्तर\nC. विमर्श स्तर\nD. स्वायत्त विकास स्तर\nसूची II:\nI. हंट — समस्या-केंद्रित आलोचनात्मक अन्वेषण\nII. मॉरिसन — संबंधों एवं सामान्यीकरणों पर अधिकार\nIII. हर्बर्ट — तथ्यों का व्यवस्थित प्रत्यास्मरण एवं धारण\nIV. मॉरिस बिग्गे — न्यूनतम शिक्षक हस्तक्षेप के साथ छात्र-निर्देशित स्व-नियमन\nनीचे दिए गए विकल्पों में से सही उत्तर चुनिए:"
+      },
+      "o": {
+        "en": [
+          "A-III, B-II, C-IV, D-I",
+          "A-II, B-III, C-I, D-IV",
+          "A-III, B-II, C-I, D-IV",
+          "A-III, B-I, C-II, D-IV"
+        ],
+        "hi": [
+          "A-III, B-II, C-IV, D-I",
+          "A-II, B-III, C-I, D-IV",
+          "A-III, B-II, C-I, D-IV",
+          "A-III, B-I, C-II, D-IV"
+        ]
+      },
+      "a": 2,
+      "sol": {
+        "en": "Herbart is the main proponent of Memory Level teaching (A-III), Morrison proposed Understanding Level (B-II), Hunt developed Reflective Level (C-I), and Morris Bigge added the Autonomous Development Level (D-IV). The closest distractor swaps Reflective and Autonomous levels, overlooking that Hunt's model centres on problem-solving inquiry.",
+        "hi": "हर्बर्ट स्मृति स्तर के शिक्षण के प्रमुख प्रवर्तक हैं (A-III), मॉरिसन ने अवबोध स्तर दिया (B-II), हंट ने विमर्श स्तर विकसित किया (C-I), और मॉरिस बिग्गे ने स्वायत्त विकास स्तर जोड़ा (D-IV)। सबसे भ्रामक विकल्प विमर्श और स्वायत्त स्तर को आपस में बदल देता है, जबकि हंट का मॉडल समस्या-समाधान अन्वेषण पर केंद्रित है।"
+      }
+    },
+    {
+      "s": "tea",
+      "ty": "statement",
+      "d": "h",
+      "q": {
+        "en": "Consider the following statements regarding the concept and basic requirements of teaching:\nI. Teaching is a tripolar process involving the teacher, the learner, and the curriculum or learning environment.\nII. Unlike indoctrination, genuine teaching welcomes critical questioning and rational evidence from learners.\nIII. Training and teaching are strictly identical because both aim primarily at shaping narrow motor habits.\nIV. Effective teaching presupposes an intentional, interactive communication process directed toward behavioural or cognitive modification.\nWhich of the statements given above are correct?",
+        "hi": "शिक्षण की अवधारणा और मूलभूत आवश्यकताओं के संदर्भ में निम्नलिखित कथनों पर विचार कीजिए:\nI. शिक्षण एक त्रिध्रुवीय प्रक्रिया है जिसमें शिक्षक, शिक्षार्थी और पाठ्यक्रम या अधिगम परिवेश शामिल होते हैं।\nII. मतारोपण के विपरीत, वास्तविक शिक्षण शिक्षार्थियों के आलोचनात्मक प्रश्नों और तार्किक प्रमाणों का स्वागत करता है।\nIII. प्रशिक्षण और शिक्षण पूर्णतः समान हैं क्योंकि दोनों का मुख्य उद्देश्य संकीर्ण गामक आदतों का निर्माण करना है।\nIV. प्रभावी शिक्षण व्यवहारगत या संज्ञानात्मक परिमार्जन की दिशा में एक सचेत, अंतःक्रियात्मक संप्रेषण प्रक्रिया की अपेक्षा करता है।\nउपर्युक्त में से कौन-से कथन सही हैं?"
+      },
+      "o": {
+        "en": [
+          "I, II and IV only",
+          "I and III only",
+          "II, III and IV only",
+          "I, II, III and IV"
+        ],
+        "hi": [
+          "केवल I, II और IV",
+          "केवल I और III",
+          "केवल II, III और IV",
+          "I, II, III और IV"
+        ]
+      },
+      "a": 0,
+      "sol": {
+        "en": "Statements I, II, and IV accurately describe teaching as a tripolar, rational, and interactive process distinct from indoctrination. Statement III is incorrect because training focuses on specific skill acquisition and habit formation, whereas teaching has broader intellectual and developmental aims; thus the option including all four statements is wrong.",
+        "hi": "कथन I, II और IV शिक्षण को एक त्रिध्रुवीय, तार्किक और अंतःक्रियात्मक प्रक्रिया के रूप में सही ढंग से वर्णित करते हैं जो मतारोपण से भिन्न है। कथन III गलत है क्योंकि प्रशिक्षण विशिष्ट कौशल और आदत निर्माण पर केंद्रित होता है, जबकि शिक्षण के व्यापक बौद्धिक उद्देश्य होते हैं; इसलिए चारों कथनों वाला विकल्प असत्य है।"
+      }
+    },
+    {
+      "s": "tea",
+      "ty": "ar",
+      "d": "m",
+      "q": {
+        "en": "Given below are two statements, one labelled as Assertion (A) and the other as Reason (R):\nAssertion (A): Reflective level teaching is considered the most thoughtful and learner-centred tier of classroom instruction.\nReason (R): At the reflective level, the teacher enforces strict authoritarian control so that students reproduce textbook definitions without deviation.\nIn the light of the above statements, choose the correct answer from the options given below:",
+        "hi": "नीचे दो कथन दिए गए हैं, एक को अभिकथन (A) और दूसरे को तर्क (R) कहा गया है:\nअभिकथन (A): विमर्श स्तर के शिक्षण को कक्षा अनुदेशन का सर्वाधिक विचारशील और शिक्षार्थी-केंद्रित स्तर माना जाता है।\nतर्क (R): विमर्श स्तर पर शिक्षक कठोर सत्तावादी नियंत्रण लागू करता है ताकि विद्यार्थी पाठ्यपुस्तक की परिभाषाओं को बिना विचलन के दोहरा सकें।\nउपर्युक्त कथनों के आलोक में नीचे दिए गए विकल्पों में से सही उत्तर चुनिए:"
+      },
+      "o": {
+        "en": [
+          "Both (A) and (R) are true and (R) is the correct explanation of (A)",
+          "(A) is true, but (R) is false",
+          "Both (A) and (R) are true, but (R) is not the correct explanation of (A)",
+          "(A) is false, but (R) is true"
+        ],
+        "hi": [
+          "(A) और (R) दोनों सत्य हैं और (R), (A) की सही व्याख्या है",
+          "(A) सत्य है, परंतु (R) असत्य है",
+          "(A) और (R) दोनों सत्य हैं, परंतु (R), (A) की सही व्याख्या नहीं है",
+          "(A) असत्य है, परंतु (R) सत्य है"
+        ]
+      },
+      "a": 1,
+      "sol": {
+        "en": "Assertion (A) is true because reflective level teaching engages learners in hypothesis testing, critical thinking, and independent inquiry. Reason (R) is false because authoritarian control and rote reproduction characterize memory level teaching, not the democratic, open climate required at the reflective level.",
+        "hi": "अभिकथन (A) सत्य है क्योंकि विमर्श स्तर का शिक्षण शिक्षार्थियों को परिकल्पना परीक्षण, आलोचनात्मक चिंतन और स्वतंत्र अन्वेषण में संलग्न करता है। तर्क (R) असत्य है क्योंकि सत्तावादी नियंत्रण और रटकर दोहराना स्मृति स्तर की विशेषता है, न कि विमर्श स्तर के लोकतांत्रिक और खुले वातावरण की।"
+      }
+    },
+    {
+      "s": "tea",
+      "ty": "scenario",
+      "d": "h",
+      "q": {
+        "en": "A university lecturer introduces the concept of fiscal deficit by first probing students' prior knowledge, presenting structured economic data, guiding them to compare multiple national budgets during assimilation, and finally asking them to explain the relationship between inflation and borrowing in their own words without referencing notes. According to Morrison's model, which level of teaching and key outcome does this classroom sequence best exemplify?",
+        "hi": "एक विश्वविद्यालय प्राध्यापक राजकोषीय घाटे की अवधारणा को पहले छात्रों के पूर्व ज्ञान की जांच करके प्रस्तुत करते हैं, संरचित आर्थिक आंकड़े दिखाते हैं, स्वांगीकरण के दौरान विभिन्न राष्ट्रीय बजटों की तुलना कराते हैं, और अंत में बिना नोट्स देखे मुद्रास्फीति तथा उधारी के संबंध को अपने शब्दों में समझाने को कहते हैं। मॉरिसन के मॉडल के अनुसार, यह कक्षा क्रम शिक्षण के किस स्तर और प्रमुख परिणाम को दर्शाता है?"
+      },
+      "o": {
+        "en": [
+          "Memory level teaching aimed at rapid verbatim recall of economic definitions",
+          "Reflective level teaching aimed at formulating original macroeconomic policy theories",
+          "Conditioning level instruction aimed at automating routine arithmetic calculations",
+          "Understanding level teaching aimed at conceptual mastery and meaningful generalisation"
+        ],
+        "hi": [
+          "आर्थिक परिभाषाओं के तीव्र अक्षरशः प्रत्यास्मरण हेतु स्मृति स्तर का शिक्षण",
+          "मौलिक समष्टि आर्थिक नीति सिद्धांत गढ़ने हेतु विमर्श स्तर का शिक्षण",
+          "सामान्य अंकगणितीय गणनाओं को स्वचालित करने हेतु अनुबंधन स्तर का अनुदेशन",
+          "संकल्पनात्मक अधिकार और सार्थक सामान्यीकरण हेतु अवबोध स्तर का शिक्षण"
+        ]
+      },
+      "a": 3,
+      "sol": {
+        "en": "Morrison's Understanding Level follows five phases: exploration, presentation, assimilation, organisation, and recitation in the learner's own words to ensure conceptual mastery. Reflective level is a tempting distractor, but this scenario focuses on grasping established relationships rather than solving an unstructured novel problem.",
+        "hi": "मॉरिसन के अवबोध स्तर में पांच सोपान होते हैं: अन्वेषण, प्रस्तुतीकरण, स्वांगीकरण, संगठन और अपने शब्दों में अभिव्यक्ति, जिससे संकल्पनात्मक अधिकार सुनिश्चित होता है। विमर्श स्तर एक भ्रामक विकल्प है, किंतु यह परिदृश्य किसी असंरचित नवीन समस्या के समाधान के बजाय स्थापित संबंधों को समझने पर केंद्रित है।"
+      }
+    },
+    {
+      "s": "tea",
+      "ty": "direct",
+      "d": "e",
+      "q": {
+        "en": "In the revised Bloom's Taxonomy of educational objectives developed by Anderson and Krathwohl, which cognitive process represents the highest level of thinking?",
+        "hi": "एंडरसन और क्रैथवोहल द्वारा विकसित शैक्षिक उद्देश्यों के संशोधित ब्लूम वर्गीकरण में कौन-सी संज्ञानात्मक प्रक्रिया चिंतन के सर्वोच्च स्तर का प्रतिनिधित्व करती है?"
+      },
+      "o": {
+        "en": [
+          "Evaluating — judging value using explicit criteria",
+          "Creating — generating original structures or products",
+          "Analysing — breaking material into constituent parts",
+          "Applying — executing procedures in familiar contexts"
+        ],
+        "hi": [
+          "मूल्यांकन — स्पष्ट मानदंडों के आधार पर मूल्य का निर्णय करना",
+          "सृजन — मौलिक संरचनाओं या उत्पादों का निर्माण करना",
+          "विश्लेषण — सामग्री को घटक भागों में विभाजित करना",
+          "अनुप्रयोग — परिचित संदर्भों में प्रक्रियाओं को निष्पादित करना"
+        ]
+      },
+      "a": 1,
+      "sol": {
+        "en": "In the 2001 revision by Anderson and Krathwohl, the cognitive hierarchy runs from Remembering up to Creating, placing Creating above Evaluating. Many candidates mistakenly choose Evaluating because it occupied the top spot in Bloom's original 1956 taxonomy.",
+        "hi": "एंडरसन और क्रैथवोहल के 2001 के संशोधन में संज्ञानात्मक पदानुक्रम स्मरण से प्रारंभ होकर सृजन तक जाता है, जिसमें सृजन को मूल्यांकन से ऊपर रखा गया है। कई अभ्यर्थी भूलवश मूल्यांकन चुन लेते हैं क्योंकि यह ब्लूम के मूल 1956 वर्गीकरण में शीर्ष पर था।"
+      }
+    },
+    {
+      "s": "res",
+      "ty": "statement",
+      "d": "h",
+      "q": {
+        "en": "Given below are two statements regarding research paradigms:\nStatement I: Classical positivism holds that social reality can be studied objectively using empirical observation and universal law-like generalisations independent of the researcher's values.\nStatement II: Post-positivism rejects the existence of an external reality altogether and insists that quantitative statistical methods are invalid in social science.\nIn the light of the above statements, choose the most appropriate answer from the options given below:",
+        "hi": "शोध प्रतिमानों के संबंध में नीचे दो कथन दिए गए हैं:\nकथन I: शास्त्रीय प्रत्यक्षवाद यह मानता है कि सामाजिक यथार्थ का अध्ययन शोधकर्ता के मूल्यों से स्वतंत्र रहकर आनुभविक अवलोकन और सार्वभौमिक नियम-सदृश सामान्यीकरणों द्वारा वस्तुनिष्ठ रूप से किया जा सकता है।\nकथन II: उत्तर-प्रत्यक्षवाद बाह्य यथार्थ के अस्तित्व को पूरी तरह नकारता है और जोर देता है कि सामाजिक विज्ञान में मात्रात्मक सांख्यिकीय विधियाँ अमान्य हैं।\nउपर्युक्त कथनों के आलोक में नीचे दिए गए विकल्पों में से सर्वाधिक उपयुक्त उत्तर चुनिए:"
+      },
+      "o": {
+        "en": [
+          "Both Statement I and Statement II are correct",
+          "Both Statement I and Statement II are incorrect",
+          "Statement I is incorrect, but Statement II is correct",
+          "Statement I is correct, but Statement II is incorrect"
+        ],
+        "hi": [
+          "कथन I और कथन II दोनों सही हैं",
+          "कथन I और कथन II दोनों गलत हैं",
+          "कथन I गलत है, किंतु कथन II सही है",
+          "कथन I सही है, किंतु कथन II गलत है"
+        ]
+      },
+      "a": 3,
+      "sol": {
+        "en": "Statement I accurately reflects classical positivism's emphasis on objectivity, empiricism, and universal laws. Statement II is incorrect because post-positivism adopts critical realism—accepting an external reality while acknowledging human fallibility and permitting both quantitative and qualitative methods; confusing post-positivism with radical relativism makes the first option tempting.",
+        "hi": "कथन I शास्त्रीय प्रत्यक्षवाद के वस्तुनिष्ठता, अनुभववाद और सार्वभौमिक नियमों पर बल को सही रूप में दर्शाता है। कथन II गलत है क्योंकि उत्तर-प्रत्यक्षवाद आलोचनात्मक यथार्थवाद को अपनाता है, बाह्य यथार्थ को स्वीकारता है और मात्रात्मक व गुणात्मक दोनों विधियों की अनुमति देता है; इसे चरम सापेक्षवाद समझना पहला विकल्प भ्रामक बनाता है।"
+      }
+    },
+    {
+      "s": "res",
+      "ty": "match",
+      "d": "m",
+      "q": {
+        "en": "Match List I (Type of Research) with List II (Defining Characteristic):\nList I:\nA. Fundamental Research\nB. Applied Research\nC. Action Research\nD. Ex-post Facto Research\nList II:\nI. Solving an immediate local classroom or organisational problem through cyclical reflection\nII. Investigating possible cause-and-effect after the independent variable has already occurred\nIII. Expanding the corpus of theoretical knowledge and formulating general principles\nIV. Applying existing theories to address practical societal or industrial problems\nChoose the correct answer from the options given below:",
+        "hi": "सूची I (शोध के प्रकार) को सूची II (प्रमुख विशेषता) से सुमेलित कीजिए:\nसूची I:\nA. मौलिक शोध\nB. अनुप्रयुक्त शोध\nC. क्रियात्मक शोध\nD. कार्योत्तर शोध\nसूची II:\nI. चक्रीय विमर्श के माध्यम से तात्कालिक स्थानीय कक्षा या संगठनात्मक समस्या का समाधान\nII. स्वतंत्र चर के पहले ही घटित हो चुकने के बाद संभावित कार्य-कारण संबंध की जांच\nIII. सैद्धांतिक ज्ञान के भंडार का विस्तार करना और सामान्य सिद्धांत निर्मित करना\nIV. व्यावहारिक सामाजिक या औद्योगिक समस्याओं के समाधान हेतु विद्यमान सिद्धांतों का उपयोग\nनीचे दिए गए विकल्पों में से सही उत्तर चुनिए:"
+      },
+      "o": {
+        "en": [
+          "A-III, B-IV, C-I, D-II",
+          "A-III, B-I, C-IV, D-II",
+          "A-IV, B-III, C-I, D-II",
+          "A-III, B-IV, C-II, D-I"
+        ],
+        "hi": [
+          "A-III, B-IV, C-I, D-II",
+          "A-III, B-I, C-IV, D-II",
+          "A-IV, B-III, C-I, D-II",
+          "A-III, B-IV, C-II, D-I"
+        ]
+      },
+      "a": 0,
+      "sol": {
+        "en": "Fundamental research builds theory (A-III), Applied research solves broader practical problems using theory (B-IV), Action research tackles immediate local issues cyclically (C-I), and Ex-post facto research studies variables that have already occurred without manipulation (D-II). The second option frequently trips candidates who conflate Applied and Action research.",
+        "hi": "मौलिक शोध सिद्धांत निर्मित करता है (A-III), अनुप्रयुक्त शोध सिद्धांतों से व्यापक व्यावहारिक समस्याएं सुलझाता है (B-IV), क्रियात्मक शोध स्थानीय तात्कालिक समस्याएं चक्रीय रूप से हल करता है (C-I), और कार्योत्तर शोध पूर्व-घटित चरों का अध्ययन करता है (D-II)। दूसरा विकल्प अनुप्रयुक्त और क्रियात्मक शोध को आपस में उलझा देता है।"
+      }
+    },
+    {
+      "s": "res",
+      "ty": "ar",
+      "d": "m",
+      "q": {
+        "en": "Given below are two statements, one labelled as Assertion (A) and the other as Reason (R):\nAssertion (A): Findings of action research conducted in a single school generally have low external validity across diverse national settings.\nReason (R): Action research is specifically designed to ameliorate a context-bound local problem rather than to test universal hypotheses on a representative random sample.\nIn the light of the above statements, choose the correct answer from the options given below:",
+        "hi": "नीचे दो कथन दिए गए हैं, एक को अभिकथन (A) और दूसरे को तर्क (R) कहा गया है:\nअभिकथन (A): किसी एक विद्यालय में किए गए क्रियात्मक शोध के निष्कर्षों की विभिन्न राष्ट्रीय संदर्भों में बाह्य वैधता सामान्यतः कम होती है।\nतर्क (R): क्रियात्मक शोध को प्रतिनिधि यादृच्छिक प्रतिदर्श पर सार्वभौमिक परिकल्पनाओं के परीक्षण के बजाय संदर्भ-बद्ध स्थानीय समस्या में सुधार हेतु बनाया जाता है।\nउपर्युक्त कथनों के आलोक में नीचे दिए गए विकल्पों में से सही उत्तर चुनिए:"
+      },
+      "o": {
+        "en": [
+          "Both (A) and (R) are true, but (R) is not the correct explanation of (A)",
+          "(A) is true, but (R) is false",
+          "Both (A) and (R) are true and (R) is the correct explanation of (A)",
+          "(A) is false, but (R) is true"
+        ],
+        "hi": [
+          "(A) और (R) दोनों सत्य हैं, परंतु (R), (A) की सही व्याख्या नहीं है",
+          "(A) सत्य है, परंतु (R) असत्य है",
+          "(A) और (R) दोनों सत्य हैं और (R), (A) की सही व्याख्या है",
+          "(A) असत्य है, परंतु (R) सत्य है"
+        ]
+      },
+      "a": 2,
+      "sol": {
+        "en": "Both statements are true, and (R) directly explains why (A) holds: because action research relies on a local, non-random setting to improve immediate practice, its findings cannot be broadly generalised. The first option is a distractor that misses this direct causal link between sampling design and external validity.",
+        "hi": "दोनों कथन सत्य हैं और (R) सीधे स्पष्ट करता है कि (A) क्यों सत्य है: चूंकि क्रियात्मक शोध तात्कालिक सुधार हेतु स्थानीय, गैर-यादृच्छिक परिवेश पर आधारित होता है, इसलिए इसके निष्कर्षों का व्यापक सामान्यीकरण नहीं किया जा सकता। पहला विकल्प प्रतिदर्श अभिकल्प और बाह्य वैधता के इस प्रत्यक्ष संबंध को अनदेखा करता है।"
+      }
+    },
+    {
+      "s": "res",
+      "ty": "sequence",
+      "d": "m",
+      "q": {
+        "en": "Arrange the following stages of a standard quantitative research study in their logical chronological sequence:\nA. Formulating testable hypotheses\nB. Reviewing related literature\nC. Identifying and defining the research problem\nD. Analysing data and testing hypotheses\nE. Designing the study and collecting data\nChoose the correct sequence from the options given below:",
+        "hi": "एक मानक मात्रात्मक शोध अध्ययन के निम्नलिखित चरणों को उनके तार्किक कालानुक्रम में व्यवस्थित कीजिए:\nA. परीक्षण योग्य परिकल्पनाओं का निर्माण\nB. संबंधित साहित्य की समीक्षा\nC. शोध समस्या की पहचान एवं परिभाषा\nD. आंकड़ों का विश्लेषण एवं परिकल्पना परीक्षण\nE. शोध अभिकल्प तैयार करना एवं आंकड़ों का संग्रहण\nनीचे दिए गए विकल्पों में से सही क्रम चुनिए:"
+      },
+      "o": {
+        "en": [
+          "C, A, B, E, D",
+          "C, B, A, E, D",
+          "B, C, A, E, D",
+          "C, B, E, A, D"
+        ],
+        "hi": [
+          "C, A, B, E, D",
+          "C, B, A, E, D",
+          "B, C, A, E, D",
+          "C, B, E, A, D"
+        ]
+      },
+      "a": 1,
+      "sol": {
+        "en": "Quantitative research begins by defining the problem (C), followed by reviewing existing literature (B) to establish theoretical grounding before formulating testable hypotheses (A), then designing and collecting data (E), and finally analysing data (D). Putting A before B is a common error because hypotheses should emerge from prior literature.",
+        "hi": "मात्रात्मक शोध समस्या की परिभाषा (C) से प्रारंभ होता है, इसके बाद संबंधित साहित्य की समीक्षा (B) की जाती है ताकि परिकल्पना निर्माण (A) को सैद्धांतिक आधार मिले, फिर अभिकल्प व आंकड़ा संग्रहण (E) और अंत में विश्लेषण (D) होता है। B से पहले A रखना सामान्य त्रुटि है क्योंकि परिकल्पना पूर्व साहित्य से उभरती है।"
+      }
+    },
+    {
+      "s": "res",
+      "ty": "direct",
+      "d": "e",
+      "q": {
+        "en": "Which characteristic of scientific research specifically ensures that another independent investigator following the same procedure under similar conditions can verify the findings?",
+        "hi": "वैज्ञानिक शोध की कौन-सी विशेषता विशेष रूप से यह सुनिश्चित करती है कि समान परिस्थितियों में उसी प्रक्रिया का पालन करने वाला कोई अन्य स्वतंत्र अन्वेषक निष्कर्षों का सत्यापन कर सके?"
+      },
+      "o": {
+        "en": [
+          "Replicability through transparent methodology",
+          "Subjectivity through personal interpretation",
+          "Speculation through intuitive reasoning",
+          "Exclusivity through restricted data access"
+        ],
+        "hi": [
+          "पारदर्शी कार्यप्रणाली के माध्यम से पुनरावृत्तिशीलता",
+          "व्यक्तिगत व्याख्या के माध्यम से आत्मनिष्ठता",
+          "अंतर्ज्ञानी तर्क के माध्यम से अटकलबाजी",
+          "सीमित आंकड़ा पहुंच के माध्यम से अनन्यता"
+        ]
+      },
+      "a": 0,
+      "sol": {
+        "en": "Replicability means that research procedures are documented clearly enough for independent scholars to repeat the study and check whether similar results emerge. Subjectivity, speculation, and exclusivity undermine scientific verification rather than enabling independent confirmation of empirical claims.",
+        "hi": "पुनरावृत्तिशीलता का अर्थ है कि शोध प्रक्रियाएं इतनी स्पष्ट रूप से प्रलेखित हों कि स्वतंत्र विद्वान अध्ययन को दोहराकर समान परिणामों की पुष्टि कर सकें। आत्मनिष्ठता, अटकलबाजी और अनन्यता आनुभविक दावों के स्वतंत्र सत्यापन को बाधित करते हैं।"
+      }
+    },
+    {
+      "s": "rc",
+      "ty": "passage",
+      "d": "e",
+      "q": {
+        "en": "Read the following passage carefully and answer the question that follows:\n\nIn contemporary higher education, the rapid expansion of technical curricula and market-oriented credentials has frequently overshadowed a quieter yet foundational mandate: value education. When universities treat intellectual competence solely as an instrument for economic mobility, they risk producing graduates who are analytically proficient yet ethically unmoored. Value education, rightly understood, is neither sectarian religious instruction nor a rigid list of moral prohibitions memorised for examinations. Rather, it is the deliberate cultivation of discernment—the capacity to weigh competing claims of self-interest, civic responsibility, ecological stewardship, and human dignity in moments of ambiguity.\n\nCritics often contend that adult learners arrive at university with their moral dispositions already fixed by family and early schooling, rendering institutional value education redundant or paternalistic. Yet empirical studies of professional ethics suggest otherwise. Moral reasoning continues to mature well into adulthood, particularly when students encounter pluralistic communities and structured ethical dilemmas that challenge unexamined assumptions. A medical student debating resource allocation, or an engineering scholar confronting algorithmic bias, discovers that technical mastery cannot be divorced from moral consequence. In such contexts, neutrality is often an illusion; omitting ethical inquiry from the syllabus silently endorses prevailing norms, however inequitable they may be.\n\nEqually problematic is the tendency of some institutions to relegate value education to an isolated, non-credit seminar conducted once a semester. This compartmentalised approach signals to students that ethics is an ornamental appendage rather than an integral dimension of scholarly life. Authentic value education flourishes when institutional culture reinforces curricular intent. Faculty who model intellectual honesty, transparent assessment, and respectful dissent teach far more persuasively than any ceremonial pledge. Similarly, campus practices—ranging from fair governance and inclusive dialogue to community engagement—translate abstract ideals of justice and empathy into lived habits.\n\nIn an era marked by digital polarisation and accelerated technological disruption, the purpose of value education is not to enforce ideological uniformity. On the contrary, it equips citizens to disagree constructively, verify truth claims responsibly, and resist the reduction of human relationships to mere transactions. By weaving ethical reflection into every discipline, higher education reclaims its historic vocation: forming not merely skilled specialists, but conscientious participants in a democratic society.\n\nPassage ends.\n\nWhich of the following best captures the central thesis of the passage?",
+        "hi": "निम्नलिखित गद्यांश को ध्यानपूर्वक पढ़िए और उसके बाद दिए गए प्रश्न का उत्तर दीजिए:\n\nसमकालीन उच्च शिक्षा में तकनीकी पाठ्यक्रमों और बाजारोन्मुखी उपाधियों के तीव्र विस्तार ने प्रायः एक शांत किंतु आधारभूत दायित्व को पृष्ठभूमि में धकेल दिया है, और वह है मूल्य शिक्षा। जब विश्वविद्यालय बौद्धिक दक्षता को केवल आर्थिक उन्नति का साधन मानने लगते हैं, तब वे ऐसे स्नातक तैयार करने का जोखिम उठाते हैं जो विश्लेषणात्मक रूप से तो निपुण होते हैं, परंतु नैतिक दृष्टि से दिशाहीन रह जाते हैं। सही अर्थों में मूल्य शिक्षा न तो संकीर्ण धार्मिक उपदेश है और न ही परीक्षा के लिए रटे जाने वाले नैतिक निषेधों की कोई कठोर सूची। इसके बजाय, यह विवेक का सचेत संवर्धन है—अर्थात् अस्पष्टता की स्थितियों में स्वार्थ, नागरिक उत्तरदायित्व, पारिस्थितिक संरक्षण और मानवीय गरिमा के परस्पर प्रतिस्पर्धी दावों को तौलने की क्षमता।\n\nआलोचक प्रायः यह तर्क देते हैं कि वयस्क शिक्षार्थी विश्वविद्यालय में प्रवेश करते समय परिवार और प्रारंभिक विद्यालयी शिक्षा द्वारा निर्मित अपनी नैतिक प्रवृत्तियों के साथ आते हैं, जिससे संस्थागत मूल्य शिक्षा अनावश्यक या उपदेशात्मक प्रतीत होती है। फिर भी, व्यावसायिक नैतिकता के आनुभविक अध्ययन इससे भिन्न तस्वीर प्रस्तुत करते हैं। नैतिक तर्कशक्ति वयस्कता में भी निरंतर परिपक्व होती है, विशेषकर तब जब विद्यार्थी बहुलतावादी समुदायों और ऐसे संरचित नैतिक द्वंद्वों का सामना करते हैं जो उनकी अनपरखी धारणाओं को चुनौती देते हैं। संसाधन आवंटन पर बहस करता चिकित्सा छात्र या एल्गोरिद्मिक पक्षपात से जूझता अभियांत्रिकी शोधार्थी यह समझता है कि तकनीकी निपुणता को नैतिक परिणामों से अलग नहीं किया जा सकता। ऐसे संदर्भों में तटस्थता प्रायः एक भ्रम होती है; पाठ्यक्रम से नैतिक विमर्श को हटाना चुपचाप प्रचलित मानदंडों का समर्थन कर देता है, चाहे वे कितने ही असमान क्यों न हों।\n\nकुछ संस्थानों की यह प्रवृत्ति भी उतनी ही समस्याग्रस्त है कि वे मूल्य शिक्षा को प्रति सेमेस्टर एक बार आयोजित होने वाली अलग-थलग, गैर-क्रेडिट संगोष्ठी तक सीमित कर देते हैं। यह खंडित दृष्टिकोण विद्यार्थियों को यह संदेश देता है कि नैतिकता अकादमिक जीवन का अभिन्न अंग नहीं, बल्कि एक सजावटी उपांग है। प्रामाणिक मूल्य शिक्षा तब पनपती है जब संस्थागत संस्कृति पाठ्यचर्या के उद्देश्य को सुदृढ़ करे। बौद्धिक ईमानदारी, पारदर्शी मूल्यांकन और सम्मानजनक असहमति का आदर्श प्रस्तुत करने वाले शिक्षक किसी भी औपचारिक शपथ की तुलना में कहीं अधिक प्रभावी ढंग से सिखाते हैं। इसी प्रकार, निष्पक्ष शासन, समावेशी संवाद और सामुदायिक सहभागिता जैसे परिसर अभ्यास न्याय और समानुभूति के अमूर्त आदर्शों को जीवंत आदतों में बदल देते हैं।\n\nडिजिटल ध्रुवीकरण और तीव्र तकनीकी परिवर्तन के इस युग में मूल्य शिक्षा का उद्देश्य वैचारिक एकरूपता थोपना नहीं है। इसके विपरीत, यह नागरिकों को रचनात्मक असहमति व्यक्त करने, सत्य के दावों को जिम्मेदारी से परखने और मानवीय संबंधों को केवल लेन-देन तक सिमटने से रोकने में सक्षम बनाती है। प्रत्येक अनुशासन में नैतिक चिंतन को पिरोकर उच्च शिक्षा अपने ऐतिहासिक दायित्व को पुनः प्राप्त करती है: केवल कुशल विशेषज्ञ ही नहीं, बल्कि लोकतांत्रिक समाज के विवेकशील सहभागी गढ़ना।\n\nगद्यांश समाप्त।\n\nनिम्नलिखित में से कौन-सा विकल्प गद्यांश के केंद्रीय विचार को सर्वाधिक उपयुक्त रूप से व्यक्त करता है?"
+      },
+      "o": {
+        "en": [
+          "Higher education should replace technical curricula with traditional moral instruction",
+          "Adult learners cannot alter moral habits formed during family and school years",
+          "Periodic non-credit seminars are sufficient to cultivate civic responsibility on campus",
+          "Value education must be integrated across disciplines and institutional culture to foster discernment"
+        ],
+        "hi": [
+          "उच्च शिक्षा को तकनीकी पाठ्यक्रमों के स्थान पर पारंपरिक नैतिक उपदेश लागू करना चाहिए",
+          "वयस्क शिक्षार्थी परिवार और विद्यालय काल में बनी नैतिक आदतों को बदल नहीं सकते",
+          "परिसर में नागरिक उत्तरदायित्व विकसित करने के लिए आवधिक गैर-क्रेडिट संगोष्ठियाँ पर्याप्त हैं",
+          "विवेक के संवर्धन हेतु मूल्य शिक्षा को सभी अनुशासनों और संस्थागत संस्कृति में समाहित किया जाना चाहिए"
+        ]
+      },
+      "a": 3,
+      "sol": {
+        "en": "The passage argues throughout that value education should not be isolated in token seminars or equated with religious dogma, but woven into every discipline and modelled through campus culture to develop ethical discernment. The first option misrepresents the author as opposing technical curricula altogether.",
+        "hi": "पूरा गद्यांश यह तर्क देता है कि मूल्य शिक्षा को अलग-थलग संगोष्ठियों या धार्मिक उपदेश तक सीमित करने के बजाय प्रत्येक अनुशासन और परिसर संस्कृति में पिरोया जाना चाहिए ताकि नैतिक विवेक विकसित हो। पहला विकल्प लेखक को तकनीकी पाठ्यक्रमों के विरोधी के रूप में गलत प्रस्तुत करता है।"
+      }
+    },
+    {
+      "s": "rc",
+      "ty": "passage",
+      "d": "m",
+      "q": {
+        "en": "Based on the above passage, why does the author describe curricular 'neutrality' regarding ethics as an illusion?",
+        "hi": "उपर्युक्त गद्यांश के आधार पर, लेखक नैतिकता के संबंध में पाठ्यचर्या की 'तटस्थता' को एक भ्रम क्यों बताता है?"
+      },
+      "o": {
+        "en": [
+          "Because excluding ethical reflection implicitly validates existing norms regardless of their fairness",
+          "Because every university department openly promotes partisan political doctrines in classrooms",
+          "Because technical disciplines lack any real-world consequences that require moral evaluation",
+          "Because students refuse to engage with objective scientific facts unless moral rules are enforced"
+        ],
+        "hi": [
+          "क्योंकि नैतिक विमर्श को बाहर रखने से प्रचलित मानदंडों को उनकी निष्पक्षता की परवाह किए बिना मौन समर्थन मिल जाता है",
+          "क्योंकि प्रत्येक विश्वविद्यालय विभाग कक्षाओं में खुलेआम दलीय राजनीतिक सिद्धांतों का प्रचार करता है",
+          "क्योंकि तकनीकी विषयों के ऐसे कोई वास्तविक परिणाम नहीं होते जिनमें नैतिक मूल्यांकन की आवश्यकता हो",
+          "क्योंकि नैतिक नियम लागू किए बिना विद्यार्थी वस्तुनिष्ठ वैज्ञानिक तथ्यों से जुड़ने से इनकार कर देते हैं"
+        ]
+      },
+      "a": 0,
+      "sol": {
+        "en": "The second paragraph explicitly states that omitting ethical inquiry from the syllabus silently endorses prevailing norms, however inequitable they may be. The second option exaggerates this into explicit partisan promotion, which the passage never claims.",
+        "hi": "दूसरे अनुच्छेद में स्पष्ट कहा गया है कि पाठ्यक्रम से नैतिक विमर्श को हटाना प्रचलित मानदंडों का मौन समर्थन कर देता है, चाहे वे कितने ही असमान हों। दूसरा विकल्प इसे खुले दलीय प्रचार तक बढ़ा-चढ़ाकर प्रस्तुत करता है, जिसका गद्यांश में कोई उल्लेख नहीं है।"
+      }
+    },
+    {
+      "s": "rc",
+      "ty": "passage",
+      "d": "h",
+      "q": {
+        "en": "Based on the above passage, what can be most reasonably inferred about the relationship between faculty conduct and formal ethical pledges?",
+        "hi": "उपर्युक्त गद्यांश के आधार पर, शिक्षकों के आचरण और औपचारिक नैतिक शपथों के संबंध के बारे में सबसे उचित निष्कर्ष क्या निकाला जा सकता है?"
+      },
+      "o": {
+        "en": [
+          "Ceremonial pledges should be abolished because they contradict principles of academic freedom",
+          "Formal ethical codes are effective only when backed by strict disciplinary penalties for students",
+          "Lived everyday modelling of integrity by faculty shapes students more deeply than symbolic rituals",
+          "Faculty members should avoid expressing dissent so that students experience ideological harmony"
+        ],
+        "hi": [
+          "औपचारिक शपथों को समाप्त कर दिया जाना चाहिए क्योंकि वे अकादमिक स्वतंत्रता के सिद्धांतों के विरुद्ध हैं",
+          "औपचारिक नैतिक संहिताएँ केवल तभी प्रभावी होती हैं जब विद्यार्थियों के लिए कठोर दंड का प्रावधान हो",
+          "शिक्षकों द्वारा प्रतिदिन प्रदर्शित सत्यनिष्ठा का जीवंत आदर्श प्रतीकात्मक अनुष्ठानों की तुलना में छात्रों को अधिक प्रभावित करता है",
+          "शिक्षकों को असहमति व्यक्त करने से बचना चाहिए ताकि विद्यार्थियों को वैचारिक एकरूपता का अनुभव हो"
+        ]
+      },
+      "a": 2,
+      "sol": {
+        "en": "The third paragraph states that faculty who model intellectual honesty, transparent assessment, and respectful dissent teach far more persuasively than any ceremonial pledge. Option A goes too far by claiming pledges should be abolished for violating academic freedom, which is unsupported.",
+        "hi": "तीसरे अनुच्छेद में कहा गया है कि बौद्धिक ईमानदारी, पारदर्शी मूल्यांकन और सम्मानजनक असहमति का आदर्श रखने वाले शिक्षक किसी भी औपचारिक शपथ से अधिक प्रभावी होते हैं। पहला विकल्प यह कहकर अतिरंजना करता है कि शपथों को अकादमिक स्वतंत्रता के विरोध के कारण समाप्त करना चाहिए।"
+      }
+    },
+    {
+      "s": "rc",
+      "ty": "passage",
+      "d": "m",
+      "q": {
+        "en": "Based on the above passage, which word or phrase best characterizes the author's tone throughout the text?",
+        "hi": "उपर्युक्त गद्यांश के आधार पर, कौन-सा शब्द या वाक्यांश पूरे पाठ में लेखक के स्वर को सर्वोत्तम रूप से दर्शाता है?"
+      },
+      "o": {
+        "en": [
+          "Cynical and dismissive toward modern scientific progress",
+          "Reflective, analytical, and constructively persuasive",
+          "Dogmatic, nostalgic, and aggressively polemical",
+          "Detached, indifferent, and purely descriptive"
+        ],
+        "hi": [
+          "आधुनिक वैज्ञानिक प्रगति के प्रति निंदक और उपेक्षापूर्ण",
+          "चिंतनशील, विश्लेषणात्मक और रचनात्मक रूप से प्रेरक",
+          "हठधर्मी, अतीत-मोही और आक्रामक रूप से विवादास्पद",
+          "तटस्थ, उदासीन और केवल वर्णनात्मक"
+        ]
+      },
+      "a": 1,
+      "sol": {
+        "en": "The author weighs counterarguments calmly, diagnoses institutional shortcomings with measured reasoning, and advocates constructive integration of ethics into education. Calling the tone detached and purely descriptive misses the clear normative advocacy running through the passage.",
+        "hi": "लेखक विपरीत तर्कों को संतुलित ढंग से परखता है, संस्थागत कमियों का तार्किक विश्लेषण करता है और शिक्षा में नैतिकता के रचनात्मक समावेशन की पैरवी करता है। इसे उदासीन और केवल वर्णनात्मक कहना गद्यांश के स्पष्ट नीतिपरक दृष्टिकोण की अनदेखी करता है।"
+      }
+    },
+    {
+      "s": "rc",
+      "ty": "passage",
+      "d": "m",
+      "q": {
+        "en": "Based on the above passage, the phrase 'ethically unmoored' in the first paragraph most nearly refers to graduates who are:",
+        "hi": "उपर्युक्त गद्यांश के आधार पर, पहले अनुच्छेद में प्रयुक्त वाक्यांश 'नैतिक दृष्टि से दिशाहीन' का सर्वाधिक निकटतम अर्थ ऐसे स्नातकों से है जो:"
+      },
+      "o": {
+        "en": [
+          "Unable to secure stable employment in competitive technical industries",
+          "Unwilling to follow religious traditions prescribed by university authorities",
+          "Overly concerned with abstract philosophical theories instead of practical skills",
+          "Lacking a grounded moral compass to guide professional and civic decisions"
+        ],
+        "hi": [
+          "प्रतिस्पर्धी तकनीकी उद्योगों में स्थिर रोजगार प्राप्त करने में असमर्थ हैं",
+          "विश्वविद्यालय प्राधिकारियों द्वारा निर्धारित धार्मिक परंपराओं का पालन करने के अनिच्छुक हैं",
+          "व्यावहारिक कौशल के बजाय अमूर्त दार्शनिक सिद्धांतों को लेकर अत्यधिक चिंतित हैं",
+          "व्यावसायिक और नागरिक निर्णयों के मार्गदर्शन हेतु सुदृढ़ नैतिक आधार से वंचित हैं"
+        ]
+      },
+      "a": 3,
+      "sol": {
+        "en": "In context, 'analytically proficient yet ethically unmoored' contrasts strong technical ability with the absence of an anchor or moral compass for ethical discernment. The second option wrongly links 'unmoored' to religious conformity, which the author explicitly distinguishes from value education.",
+        "hi": "संदर्भ में 'विश्लेषणात्मक रूप से निपुण परंतु नैतिक दृष्टि से दिशाहीन' उच्च तकनीकी क्षमता और नैतिक विवेक के अभाव के बीच अंतर दर्शाता है। दूसरा विकल्प इसे गलत रूप से धार्मिक परंपराओं से जोड़ता है, जिसे लेखक मूल्य शिक्षा से स्पष्टतः अलग बताता है।"
+      }
+    },
+    {
+      "s": "com",
+      "ty": "match",
+      "d": "m",
+      "q": {
+        "en": "Match List I (Types of Communication) with List II (Core Feature / Example):\nList I:\nA. Intrapersonal Communication\nB. Dyadic Interpersonal Communication\nC. Group Communication\nD. Mass Communication\nList II:\nI. One-to-many transmission to a large, heterogeneous, and anonymous audience via media channels\nII. Internal dialogue, self-reflection, and cognitive rehearsal within an individual\nIII. Direct two-person exchange characterised by immediate mutual feedback\nIV. Collaborative interaction among three or more individuals pursuing a shared agenda\nChoose the correct answer from the options given below:",
+        "hi": "सूची I (संप्रेषण के प्रकार) को सूची II (मुख्य विशेषता / उदाहरण) से सुमेलित कीजिए:\nसूची I:\nA. अंतःवैयक्तिक संप्रेषण\nB. द्वि-पक्षीय अंतरवैयक्तिक संप्रेषण\nC. समूह संप्रेषण\nD. जनसंप्रेषण\nसूची II:\nI. मीडिया चैनलों के माध्यम से विशाल, विषम और अनाम श्रोता-समूह तक एक-से-अनेक प्रसारण\nII. व्यक्ति के भीतर आंतरिक संवाद, आत्म-चिंतन और संज्ञानात्मक पूर्वाभ्यास\nIII. तत्काल पारस्परिक प्रतिपुष्टि से युक्त दो व्यक्तियों के बीच प्रत्यक्ष विनिमय\nIV. साझा उद्देश्य हेतु तीन या अधिक व्यक्तियों के बीच सहयोगात्मक अंतःक्रिया\nनीचे दिए गए विकल्पों में से सही उत्तर चुनिए:"
+      },
+      "o": {
+        "en": [
+          "A-III, B-II, C-IV, D-I",
+          "A-II, B-III, C-IV, D-I",
+          "A-II, B-IV, C-III, D-I",
+          "A-II, B-III, C-I, D-IV"
+        ],
+        "hi": [
+          "A-III, B-II, C-IV, D-I",
+          "A-II, B-III, C-IV, D-I",
+          "A-II, B-IV, C-III, D-I",
+          "A-II, B-III, C-I, D-IV"
+        ]
+      },
+      "a": 1,
+      "sol": {
+        "en": "Intrapersonal communication is internal self-talk (A-II), dyadic interpersonal communication is a two-person exchange with immediate feedback (B-III), group communication involves three or more people working together (C-IV), and mass communication reaches a large anonymous audience (D-I). The first distractor swaps intrapersonal and interpersonal—a frequent conceptual slip.",
+        "hi": "अंतःवैयक्तिक संप्रेषण आंतरिक आत्म-संवाद है (A-II), द्वि-पक्षीय अंतरवैयक्तिक संप्रेषण तत्काल प्रतिपुष्टि वाला दो व्यक्तियों का विनिमय है (B-III), समूह संप्रेषण तीन या अधिक लोगों की सहयोगात्मक अंतःक्रिया है (C-IV), और जनसंप्रेषण विशाल अनाम दर्शकों तक पहुंचता है (D-I)। पहला विकल्प अंतःवैयक्तिक और अंतरवैयक्तिक को आपस में बदल देता है।"
+      }
+    },
+    {
+      "s": "com",
+      "ty": "statement",
+      "d": "h",
+      "q": {
+        "en": "Consider the following statements about the nature and characteristics of human communication:\nI. Communication is dynamic, continuous, and irreversible—once a message is perceived, its impression cannot be completely erased.\nII. Communication is always strictly intentional; accidental gestures or involuntary facial expressions cannot transmit meaning.\nIII. Meaning resides primarily in people and shared cultural contexts rather than inherently inside dictionary words alone.\nIV. Effective communication is transactional, meaning participants simultaneously act as encoders and decoders.\nWhich of the statements given above are correct?",
+        "hi": "मानव संप्रेषण की प्रकृति और विशेषताओं के संदर्भ में निम्नलिखित कथनों पर विचार कीजिए:\nI. संप्रेषण गतिशील, निरंतर और अनुत्क्रमणीय है—एक बार संदेश ग्रहण हो जाने पर उसका प्रभाव पूरी तरह मिटाया नहीं जा सकता।\nII. संप्रेषण सदैव पूर्णतः साभिप्राय होता है; आकस्मिक हावभाव या अनैच्छिक मुखमुद्राएँ कोई अर्थ संप्रेषित नहीं कर सकतीं।\nIII. अर्थ मुख्यतः केवल शब्दकोश के शब्दों में नहीं, बल्कि लोगों और साझा सांस्कृतिक संदर्भों में निहित होता है।\nIV. प्रभावी संप्रेषण संव्यवहारपरक होता है, अर्थात् सहभागी एक साथ कूटलेखक और कूटवाचक की भूमिका निभाते हैं।\nउपर्युक्त में से कौन-से कथन सही हैं?"
+      },
+      "o": {
+        "en": [
+          "I and IV only",
+          "I, II and III only",
+          "I, III and IV only",
+          "II, III and IV only"
+        ],
+        "hi": [
+          "केवल I और IV",
+          "केवल I, II और III",
+          "केवल I, III और IV",
+          "केवल II, III और IV"
+        ]
+      },
+      "a": 2,
+      "sol": {
+        "en": "Communication is continuous and irreversible (I), contextually constructed by participants (III), and transactional (IV). Statement II is false because non-verbal cues such as posture, silence, or involuntary expressions continuously convey meaning even without conscious intent, ruling out options containing II.",
+        "hi": "संप्रेषण निरंतर व अनुत्क्रमणीय (I), संदर्भ-आधारित (III) और संव्यवहारपरक (IV) है। कथन II असत्य है क्योंकि अशाब्दिक संकेत जैसे मुद्रा, मौन या अनैच्छिक भाव बिना सचेत इरादे के भी अर्थ संप्रेषित करते हैं, जिससे II वाले विकल्प निरस्त हो जाते हैं।"
+      }
+    },
+    {
+      "s": "com",
+      "ty": "ar",
+      "d": "m",
+      "q": {
+        "en": "Given below are two statements, one labelled as Assertion (A) and the other as Reason (R):\nAssertion (A): In Wilbur Schramm's model, communication becomes more effective when the sender and receiver share a wide overlapping field of experience.\nReason (R): Shared background knowledge, language conventions, and cultural frames reduce decoding distortions and semantic ambiguity.\nIn the light of the above statements, choose the correct answer from the options given below:",
+        "hi": "नीचे दो कथन दिए गए हैं, एक को अभिकथन (A) और दूसरे को तर्क (R) कहा गया है:\nअभिकथन (A): विल्बर श्रैम के मॉडल में जब प्रेषक और प्राप्तकर्ता के बीच अनुभव-क्षेत्र का व्यापक अतिव्यापन होता है, तब संप्रेषण अधिक प्रभावी होता है।\nतर्क (R): साझा पृष्ठभूमि ज्ञान, भाषायी परंपराएँ और सांस्कृतिक ढाँचे कूटवाचन की विकृतियों तथा शब्दार्थगत अस्पष्टता को कम करते हैं।\nउपर्युक्त कथनों के आलोक में नीचे दिए गए विकल्पों में से सही उत्तर चुनिए:"
+      },
+      "o": {
+        "en": [
+          "Both (A) and (R) are true and (R) is the correct explanation of (A)",
+          "Both (A) and (R) are true, but (R) is not the correct explanation of (A)",
+          "(A) is true, but (R) is false",
+          "(A) is false, but (R) is true"
+        ],
+        "hi": [
+          "(A) और (R) दोनों सत्य हैं और (R), (A) की सही व्याख्या है",
+          "(A) और (R) दोनों सत्य हैं, परंतु (R), (A) की सही व्याख्या नहीं है",
+          "(A) सत्य है, परंतु (R) असत्य है",
+          "(A) असत्य है, परंतु (R) सत्य है"
+        ]
+      },
+      "a": 0,
+      "sol": {
+        "en": "Wilbur Schramm emphasised that encoding and decoding succeed to the extent that communicators share a common field of experience, because shared symbols and cultural references minimise semantic distortion. The second option incorrectly treats these directly connected principles as unrelated.",
+        "hi": "विल्बर श्रैम ने बल दिया कि कूटलेखन और कूटवाचन तभी सफल होते हैं जब संप्रेषकों का अनुभव-क्षेत्र साझा हो, क्योंकि साझा प्रतीक और सांस्कृतिक संदर्भ शब्दार्थगत विकृति को कम करते हैं। दूसरा विकल्प इन सीधे जुड़े सिद्धांतों को असंबद्ध मान बैठता है।"
+      }
+    },
+    {
+      "s": "com",
+      "ty": "scenario",
+      "d": "h",
+      "q": {
+        "en": "During an interdisciplinary postgraduate seminar, a finance professor uses the term 'liquidity' to mean ease of converting assets into cash, whereas a visiting fluid-mechanics student interprets it in terms of physical flow properties, leading to confusion during the Q&A session. Which specific type of communication barrier is primarily responsible for this breakdown?",
+        "hi": "एक अंतर-विषयक स्नातकोत्तर संगोष्ठी के दौरान, वित्त के एक प्राध्यापक 'तरलता' शब्द का प्रयोग परिसंपत्तियों को नकदी में बदलने की सुगमता के अर्थ में करते हैं, जबकि द्रव यांत्रिकी का एक अतिथि विद्यार्थी इसे भौतिक प्रवाह गुणों के रूप में समझता है, जिससे प्रश्नोत्तर सत्र में भ्रम उत्पन्न हो जाता है। इस व्यवधान के लिए मुख्यतः किस प्रकार की संप्रेषण बाधा उत्तरदायी है?"
+      },
+      "o": {
+        "en": [
+          "Physical channel barrier caused by acoustic interference in the seminar hall",
+          "Physiological barrier arising from sensory fatigue or auditory impairment",
+          "Organisational hierarchy barrier caused by rigid administrative filtering",
+          "Semantic barrier arising from specialised jargon and divergent word meanings"
+        ],
+        "hi": [
+          "संगोष्ठी कक्ष में ध्वनिक व्यवधान से उत्पन्न भौतिक चैनल बाधा",
+          "संवेदी थकान या श्रवण दोष से उत्पन्न शारीरिक बाधा",
+          "कठोर प्रशासनिक छँटाई से उत्पन्न संगठनात्मक पदानुक्रम बाधा",
+          "विशिष्ट तकनीकी शब्दावली और भिन्न शब्दार्थों से उत्पन्न शब्दार्थगत बाधा"
+        ]
+      },
+      "a": 3,
+      "sol": {
+        "en": "A semantic barrier occurs when the same word or technical jargon carries different denotative or disciplinary meanings for the sender and receiver, distorting decoding. Physical and physiological barriers relate to external noise or bodily limitations, not linguistic ambiguity.",
+        "hi": "शब्दार्थगत बाधा तब उत्पन्न होती है जब एक ही शब्द या तकनीकी शब्दावली का प्रेषक और प्राप्तकर्ता के लिए भिन्न विषयात्मक अर्थ होता है, जिससे कूटवाचन विकृत हो जाता है। भौतिक और शारीरिक बाधाएँ बाह्य शोर या दैहिक सीमाओं से जुड़ी होती हैं, न कि भाषायी अस्पष्टता से।"
+      }
+    },
+    {
+      "s": "com",
+      "ty": "direct",
+      "d": "e",
+      "q": {
+        "en": "Among the classic '7 Cs of Effective Communication', which principle specifically requires the sender to adopt a 'you-attitude' by stepping into the receiver's shoes and respecting their background and needs?",
+        "hi": "प्रभावी संप्रेषण के प्रसिद्ध '7 C सिद्धांतों' में से कौन-सा सिद्धांत विशेष रूप से प्रेषक से यह अपेक्षा करता है कि वह प्राप्तकर्ता की स्थिति में स्वयं को रखकर उसकी पृष्ठभूमि और आवश्यकताओं का सम्मान करे?"
+      },
+      "o": {
+        "en": [
+          "Conciseness — eliminating wordy expressions and repetition",
+          "Concreteness — supporting claims with specific facts and figures",
+          "Consideration — tailoring the message to the audience's perspective",
+          "Correctness — ensuring grammatical accuracy and factual precision"
+        ],
+        "hi": [
+          "संक्षिप्तता — अनावश्यक शब्दबहुलता और पुनरावृत्ति को हटाना",
+          "मूर्तता — विशिष्ट तथ्यों और आंकड़ों से दावों का समर्थन करना",
+          "विचारशीलता — संदेश को श्रोता के दृष्टिकोण के अनुरूप ढालना",
+          "शुद्धता — व्याकरणिक सटीकता और तथ्यात्मक परिशुद्धता सुनिश्चित करना"
+        ]
+      },
+      "a": 2,
+      "sol": {
+        "en": "Consideration in the 7 Cs emphasizes empathy and a 'you-attitude', focusing on the receiver's interests, level of understanding, and emotional context. Concreteness is a common distractor, but it refers to using specific facts rather than vague generalities.",
+        "hi": "7 C सिद्धांतों में विचारशीलता समानुभूति और प्राप्तकर्ता-केंद्रित दृष्टिकोण पर बल देती है, जिसमें श्रोता की रुचियों और समझ के स्तर का ध्यान रखा जाता है। मूर्तता एक भ्रामक विकल्प है, किंतु उसका संबंध अस्पष्ट कथनों के बजाय विशिष्ट तथ्यों के प्रयोग से है।"
+      }
+    },
+    {
+      "s": "mat",
+      "ty": "numeric",
+      "d": "m",
+      "q": {
+        "en": "Find the next term in the following number series:\n4, 18, 48, 100, 180, ?",
+        "hi": "निम्नलिखित संख्या श्रेणी में अगला पद ज्ञात कीजिए:\n4, 18, 48, 100, 180, ?"
+      },
+      "o": {
+        "en": [
+          "280",
+          "294",
+          "300",
+          "312"
+        ],
+        "hi": [
+          "280",
+          "294",
+          "300",
+          "312"
+        ]
+      },
+      "a": 1,
+      "sol": {
+        "en": "Each term follows the rule n³ − n² for n = 2, 3, 4, 5, 6, 7: 2³−2²=4, 3³−3²=18, 4³−4²=48, 5³−5²=100, 6³−6²=180, and 7³−7² = 343 − 49 = 294. Choosing 280 comes from adding an incorrect constant increment of 100 instead of checking the second-order differences (14, 30, 52, 80, 114).",
+        "hi": "प्रत्येक पद n = 2, 3, 4, 5, 6, 7 के लिए n³ − n² नियम का पालन करता है: 2³−2²=4, 3³−3²=18, 4³−4²=48, 5³−5²=100, 6³−6²=180 और 7³−7² = 343 − 49 = 294। 280 चुनना द्वितीय-क्रम अंतरों (14, 30, 52, 80, 114) की जांच किए बिना 100 जोड़ने की भूल से होता है।"
+      }
+    },
+    {
+      "s": "mat",
+      "ty": "direct",
+      "d": "e",
+      "q": {
+        "en": "Identify the next alphanumeric term in the series:\nB2E, E5I, H10M, K17Q, ?",
+        "hi": "निम्नलिखित अक्षरांकीय श्रेणी में अगला पद पहचानिए:\nB2E, E5I, H10M, K17Q, ?"
+      },
+      "o": {
+        "en": [
+          "N26U",
+          "N24U",
+          "M26U",
+          "N26V"
+        ],
+        "hi": [
+          "N26U",
+          "N24U",
+          "M26U",
+          "N26V"
+        ]
+      },
+      "a": 0,
+      "sol": {
+        "en": "The first letter advances by +3 (B, E, H, K, N), the middle number increases by consecutive odd integers +3, +5, +7, +9 (2, 5, 10, 17, 26), and the last letter advances by +4 (E, I, M, Q, U), yielding N26U. N24U results from mistakenly adding +7 again instead of +9.",
+        "hi": "पहला अक्षर +3 से बढ़ता है (B, E, H, K, N), बीच की संख्या क्रमिक विषम संख्याओं +3, +5, +7, +9 से बढ़ती है (2, 5, 10, 17, 26), और अंतिम अक्षर +4 से बढ़ता है (E, I, M, Q, U), जिससे N26U प्राप्त होता है। N24U विकल्प +9 के बजाय पुनः +7 जोड़ने की गलती से बनता है।"
+      }
+    },
+    {
+      "s": "mat",
+      "ty": "numeric",
+      "d": "h",
+      "q": {
+        "en": "In a certain coding scheme, NET is coded as 42 and EXAM is coded as 65. Following the same rule, how will LOGIC be coded?",
+        "hi": "एक निश्चित कूट प्रणाली में, NET को 42 और EXAM को 65 के रूप में कूटबद्ध किया जाता है। उसी नियम का पालन करते हुए, LOGIC को कैसे कूटबद्ध किया जाएगा?"
+      },
+      "o": {
+        "en": [
+          "46",
+          "84",
+          "91",
+          "89"
+        ],
+        "hi": [
+          "46",
+          "84",
+          "91",
+          "89"
+        ]
+      },
+      "a": 3,
+      "sol": {
+        "en": "Each letter is assigned its reverse English alphabetical position (A=26, B=25, ..., Z=1): NET = 13+22+7 = 42; EXAM = 22+3+26+14 = 65; therefore LOGIC = L(15)+O(12)+G(20)+I(18)+C(24) = 89. Option 46 is the tempting forward-position sum (12+15+7+9+3), which fails for NET and EXAM.",
+        "hi": "प्रत्येक अक्षर को उसका विपरीत अंग्रेजी वर्णमाला स्थान दिया गया है (A=26, B=25, ..., Z=1): NET = 13+22+7 = 42; EXAM = 22+3+26+14 = 65; अतः LOGIC = L(15)+O(12)+G(20)+I(18)+C(24) = 89। विकल्प 46 सीधे क्रम के योग (12+15+7+9+3) से बनता है, जो NET और EXAM पर लागू नहीं होता।"
+      }
+    },
+    {
+      "s": "mat",
+      "ty": "scenario",
+      "d": "m",
+      "q": {
+        "en": "In a family of six members, P is the brother of Q, R is the mother of P, S is the father of R, and T is the only son of S. If U is the daughter of T, how is U related to P?",
+        "hi": "छह सदस्यों के एक परिवार में, P, Q का भाई है, R, P की माता है, S, R के पिता हैं, और T, S का इकलौता पुत्र है। यदि U, T की पुत्री है, तो U का P से क्या संबंध है?"
+      },
+      "o": {
+        "en": [
+          "Maternal aunt of P",
+          "Real sister of P",
+          "Maternal cousin of P",
+          "Brother's niece of P"
+        ],
+        "hi": [
+          "P की मौसी",
+          "P की सगी बहन",
+          "P की ममेरी बहन",
+          "P की भतीजी"
+        ]
+      },
+      "a": 2,
+      "sol": {
+        "en": "Since R is P's mother and S is R's father, T (the only son of S) is R's brother—that is, P's maternal uncle. Therefore, T's daughter U is P's maternal cousin. Confusing generations leads candidates to pick maternal aunt or niece.",
+        "hi": "चूंकि R, P की माता है और S, R के पिता हैं, इसलिए T (S का इकलौता पुत्र) R का भाई अर्थात् P का मामा हुआ। अतः T की पुत्री U, P की ममेरी बहन है। पीढ़ियों के क्रम में भ्रम होने पर अभ्यर्थी मौसी या भतीजी चुन लेते हैं।"
+      }
+    },
+    {
+      "s": "mat",
+      "ty": "numeric",
+      "d": "h",
+      "q": {
+        "en": "A candidate's average score across five mock tests is 64. If the average score of the first three tests is 60, and the score in the fifth test is 8 marks higher than the score in the fourth test, what is the candidate's score in the fifth test?",
+        "hi": "पाँच मॉक टेस्ट में एक अभ्यर्थी का औसत प्राप्तांक 64 है। यदि पहले तीन टेस्ट का औसत प्राप्तांक 60 है और पाँचवें टेस्ट का प्राप्तांक चौथे टेस्ट के प्राप्तांक से 8 अंक अधिक है, तो पाँचवें टेस्ट में अभ्यर्थी का प्राप्तांक क्या है?"
+      },
+      "o": {
+        "en": [
+          "74",
+          "66",
+          "70",
+          "78"
+        ],
+        "hi": [
+          "74",
+          "66",
+          "70",
+          "78"
+        ]
+      },
+      "a": 0,
+      "sol": {
+        "en": "Total marks across 5 tests = 5 × 64 = 320, and total of the first 3 tests = 3 × 60 = 180, leaving 140 for the fourth and fifth tests combined. Setting x + (x + 8) = 140 gives x = 66 (fourth test) and x + 8 = 74 (fifth test); 66 is a classic trap for reading the wrong test.",
+        "hi": "5 टेस्ट के कुल अंक = 5 × 64 = 320, और पहले 3 टेस्ट के कुल अंक = 3 × 60 = 180, अतः चौथे और पाँचवें टेस्ट का योग = 140। x + (x + 8) = 140 से x = 66 (चौथा टेस्ट) और x + 8 = 74 (पाँचवाँ टेस्ट) मिलता है; 66 चौथे टेस्ट का मान होने से भ्रामक विकल्प है।"
+      }
+    },
+    {
+      "s": "log",
+      "ty": "statement",
+      "d": "h",
+      "q": {
+        "en": "In the Classical Square of Opposition, suppose the proposition 'Some philosophers are not logicians' (O) is given to be FALSE. Consider the following inferences:\nI. 'All philosophers are logicians' (A) must be TRUE.\nII. 'No philosophers are logicians' (E) must be FALSE.\nIII. 'Some philosophers are logicians' (I) must be TRUE.\nIV. 'Some philosophers are logicians' (I) is undetermined.\nWhich of the above inferences are logically valid?",
+        "hi": "शास्त्रीय विरोध वर्ग में, मान लीजिए कि प्रतिज्ञप्ति 'कुछ दार्शनिक तर्कशास्त्री नहीं हैं' (O) असत्य दी गई है। निम्नलिखित निष्कर्षों पर विचार कीजिए:\nI. 'सभी दार्शनिक तर्कशास्त्री हैं' (A) अनिवार्यतः सत्य होगा।\nII. 'कोई भी दार्शनिक तर्कशास्त्री नहीं है' (E) अनिवार्यतः असत्य होगा।\nIII. 'कुछ दार्शनिक तर्कशास्त्री हैं' (I) अनिवार्यतः सत्य होगा।\nIV. 'कुछ दार्शनिक तर्कशास्त्री हैं' (I) अनिर्धारित होगा।\nउपर्युक्त में से कौन-से निष्कर्ष तार्किक रूप से वैध हैं?"
+      },
+      "o": {
+        "en": [
+          "I and IV only",
+          "I, II and III only",
+          "II and III only",
+          "I and II only"
+        ],
+        "hi": [
+          "केवल I और IV",
+          "केवल I, II और III",
+          "केवल II और III",
+          "केवल I और II"
+        ]
+      },
+      "a": 1,
+      "sol": {
+        "en": "Because A and O are contradictories, O being false forces A to be true (I). In the classical square, A being true entails I is true by subalternation (III) and E is false because A and E are contraries (II). Choosing I and IV wrongly treats subcontraries/subalternation as undetermined.",
+        "hi": "चूंकि A और O व्याघाती हैं, इसलिए O के असत्य होने पर A अनिवार्यतः सत्य होगा (I)। शास्त्रीय वर्ग में A के सत्य होने पर उपाश्रयण से I सत्य (III) और विपरीत संबंध के कारण E असत्य होगा (II)। I और IV चुनना उपाश्रयण नियम की अनदेखी करता है।"
+      }
+    },
+    {
+      "s": "log",
+      "ty": "match",
+      "d": "m",
+      "q": {
+        "en": "Match List I (Informal Fallacy) with List II (Logical Mechanism):\nList I:\nA. Ad Hominem\nB. Straw Man\nC. Slippery Slope\nD. Petitio Principii\nList II:\nI. Assuming the very conclusion to be proved within the premises\nII. Attacking the speaker's character or motives instead of addressing their argument\nIII. Misrepresenting an opponent's position in an exaggerated form to refute it easily\nIV. Asserting without warrant that one small step will inevitably trigger a chain of extreme disasters\nChoose the correct answer from the options given below:",
+        "hi": "सूची I (अनौपचारिक तर्कदोष) को सूची II (तार्किक प्रक्रिया) से सुमेलित कीजिए:\nसूची I:\nA. व्यक्ति-केंद्रित तर्कदोष\nB. काल्पनिक पुतला तर्कदोष\nC. फिसलन भरी ढलान तर्कदोष\nD. चक्रक तर्कदोष\nसूची II:\nI. सिद्ध किए जाने वाले निष्कर्ष को ही आधारवाक्यों में पहले से मान लेना\nII. तर्क का उत्तर देने के बजाय वक्ता के चरित्र या मंशा पर प्रहार करना\nIII. सरलता से खंडन करने हेतु विरोधी के पक्ष को विकृत और अतिरंजित रूप में प्रस्तुत करना\nIV. बिना पर्याप्त आधार के यह दावा करना कि एक छोटा कदम अनिवार्यतः भीषण विपत्तियों की श्रृंखला उत्पन्न करेगा\nनीचे दिए गए विकल्पों में से सही उत्तर चुनिए:"
+      },
+      "o": {
+        "en": [
+          "A-II, B-III, C-I, D-IV",
+          "A-III, B-II, C-IV, D-I",
+          "A-II, B-IV, C-III, D-I",
+          "A-II, B-III, C-IV, D-I"
+        ],
+        "hi": [
+          "A-II, B-III, C-I, D-IV",
+          "A-III, B-II, C-IV, D-I",
+          "A-II, B-IV, C-III, D-I",
+          "A-II, B-III, C-IV, D-I"
+        ]
+      },
+      "a": 3,
+      "sol": {
+        "en": "Ad Hominem attacks the arguer (A-II), Straw Man distorts an opponent's claim (B-III), Slippery Slope alleges an unwarranted chain of dire events (C-IV), and Petitio Principii begs the question by assuming the conclusion (D-I). The first option swaps Slippery Slope and Petitio Principii.",
+        "hi": "व्यक्ति-केंद्रित तर्कदोष वक्ता पर प्रहार करता है (A-II), काल्पनिक पुतला विरोधी के तर्क को विकृत करता है (B-III), फिसलन भरी ढलान बिना प्रमाण के विपत्तियों की श्रृंखला बताता है (C-IV), और चक्रक तर्कदोष निष्कर्ष को ही आधारवाक्य में मान लेता है (D-I)। पहला विकल्प C और D को आपस में बदल देता है।"
+      }
+    },
+    {
+      "s": "log",
+      "ty": "statement",
+      "d": "m",
+      "q": {
+        "en": "Examine the following standard-form categorical syllogism:\nMajor Premise: All poets are imaginative persons.\nMinor Premise: All novelists are imaginative persons.\nConclusion: Therefore, all novelists are poets.\nGiven below are two statements about this syllogism:\nStatement I: The mood and figure of this syllogism is AAA-2.\nStatement II: This syllogism is formally invalid because it commits the fallacy of the undistributed middle.\nChoose the correct answer from the options given below:",
+        "hi": "निम्नलिखित मानक-रूप निरपेक्ष न्यायवाक्य का परीक्षण कीजिए:\nबृहत् आधारवाक्य: सभी कवि कल्पनाशील व्यक्ति हैं।\nलघु आधारवाक्य: सभी उपन्यासकार कल्पनाशील व्यक्ति हैं।\nनिष्कर्ष: अतः सभी उपन्यासकार कवि हैं।\nइस न्यायवाक्य के बारे में नीचे दो कथन दिए गए हैं:\nकथन I: इस न्यायवाक्य का विन्यास और आकृति AAA-2 है।\nकथन II: यह न्यायवाक्य आकारिक रूप से अवैध है क्योंकि इसमें अव्याप्त मध्य पद का तर्कदोष है।\nनीचे दिए गए विकल्पों में से सही उत्तर चुनिए:"
+      },
+      "o": {
+        "en": [
+          "Both Statement I and Statement II are correct",
+          "Both Statement I and Statement II are incorrect",
+          "Statement I is correct, but Statement II is incorrect",
+          "Statement I is incorrect, but Statement II is correct"
+        ],
+        "hi": [
+          "कथन I और कथन II दोनों सही हैं",
+          "कथन I और कथन II दोनों गलत हैं",
+          "कथन I सही है, किंतु कथन II गलत है",
+          "कथन I गलत है, किंतु कथन II सही है"
+        ]
+      },
+      "a": 0,
+      "sol": {
+        "en": "All three propositions are universal affirmative (A), and the middle term 'imaginative persons' is the predicate of both premises, which defines Figure 2 (AAA-2). Since the predicate of an A-proposition is undistributed, the middle term is never distributed, committing the fallacy of undistributed middle; thus both statements are true.",
+        "hi": "तीनों प्रतिज्ञप्तियाँ सर्वव्यापी भावात्मक (A) हैं और मध्य पद 'कल्पनाशील व्यक्ति' दोनों आधारवाक्यों का विधेय है, जो आकृति 2 (AAA-2) को दर्शाता है। चूंकि A-प्रतिज्ञप्ति का विधेय अव्याप्त होता है, मध्य पद कहीं भी व्याप्त नहीं होता और अव्याप्त मध्य पद का दोष उत्पन्न होता है; अतः दोनों कथन सही हैं।"
+      }
+    },
+    {
+      "s": "log",
+      "ty": "ar",
+      "d": "m",
+      "q": {
+        "en": "Given below are two statements, one labelled as Assertion (A) and the other as Reason (R):\nAssertion (A): As we move along the series 'Living Being → Mammal → Canine → Labrador', the connotation (intension) of the term increases while its denotation (extension) decreases.\nReason (R): Adding more defining attributes to a term narrows the class of concrete objects to which that term can correctly apply.\nIn the light of the above statements, choose the correct answer from the options given below:",
+        "hi": "नीचे दो कथन दिए गए हैं, एक को अभिकथन (A) और दूसरे को तर्क (R) कहा गया है:\nअभिकथन (A): जैसे-जैसे हम 'सजीव प्राणी → स्तनधारी → श्वान वंश → लैब्राडोर' श्रृंखला में आगे बढ़ते हैं, पद का गुणार्थ बढ़ता है जबकि उसका वस्त्वर्थ घटता है।\nतर्क (R): किसी पद में अधिक परिभाषक गुण जोड़ने से उन मूर्त वस्तुओं का वर्ग संकीर्ण हो जाता है जिन पर वह पद सही रूप से लागू हो सकता है।\nउपर्युक्त कथनों के आलोक में नीचे दिए गए विकल्पों में से सही उत्तर चुनिए:"
+      },
+      "o": {
+        "en": [
+          "Both (A) and (R) are true, but (R) is not the correct explanation of (A)",
+          "(A) is true, but (R) is false",
+          "Both (A) and (R) are true and (R) is the correct explanation of (A)",
+          "(A) is false, but (R) is true"
+        ],
+        "hi": [
+          "(A) और (R) दोनों सत्य हैं, परंतु (R), (A) की सही व्याख्या नहीं है",
+          "(A) सत्य है, परंतु (R) असत्य है",
+          "(A) और (R) दोनों सत्य हैं और (R), (A) की सही व्याख्या है",
+          "(A) असत्य है, परंतु (R) सत्य है"
+        ]
+      },
+      "a": 2,
+      "sol": {
+        "en": "Connotation (intension) is the set of defining attributes of a term, whereas denotation (extension) is the class of objects it refers to; adding stricter attributes narrows the class, so both statements are true and (R) explains (A). Option A misses this direct logical relationship.",
+        "hi": "गुणार्थ किसी पद के परिभाषक गुणों का समूह है जबकि वस्त्वर्थ उन वस्तुओं का वर्ग है जिन्हें वह पद इंगित करता है; अधिक गुण जोड़ने से वस्तु-वर्ग संकीर्ण होता है, अतः दोनों सत्य हैं और (R), (A) की सही व्याख्या है। पहला विकल्प इस प्रत्यक्ष संबंध को अनदेखा करता है।"
+      }
+    },
+    {
+      "s": "log",
+      "ty": "match",
+      "d": "e",
+      "q": {
+        "en": "Match List I (Pramana in Indian Logic) with List II (Means of Valid Knowledge):\nList I:\nA. Pratyaksha\nB. Anumana\nC. Upamana\nD. Arthapatti\nList II:\nI. Knowledge derived from comparison or similarity with a previously known object\nII. Direct knowledge obtained through sense-object contact\nIII. Postulation or presumption of an unperceived fact to explain an apparent inconsistency\nIV. Inferential knowledge based on an invariable concomitance between sign and signified\nChoose the correct answer from the options given below:",
+        "hi": "सूची I (भारतीय तर्कशास्त्र में प्रमाण) को सूची II (यथार्थ ज्ञान का साधन) से सुमेलित कीजिए:\nसूची I:\nA. प्रत्यक्ष\nB. अनुमान\nC. उपमान\nD. अर्थापत्ति\nसूची II:\nI. पूर्वज्ञात वस्तु के साथ सादृश्य या तुलना से प्राप्त ज्ञान\nII. इंद्रिय-अर्थ सन्निकर्ष से प्राप्त सीधा ज्ञान\nIII. किसी प्रत्यक्ष असंगति की व्याख्या हेतु अदृष्ट तथ्य की कल्पना या परिकल्पना\nIV. हेतु और साध्य के बीच व्याप्ति संबंध पर आधारित आनुमानिक ज्ञान\nनीचे दिए गए विकल्पों में से सही उत्तर चुनिए:"
+      },
+      "o": {
+        "en": [
+          "A-II, B-IV, C-III, D-I",
+          "A-II, B-IV, C-I, D-III",
+          "A-IV, B-II, C-I, D-III",
+          "A-II, B-I, C-IV, D-III"
+        ],
+        "hi": [
+          "A-II, B-IV, C-III, D-I",
+          "A-II, B-IV, C-I, D-III",
+          "A-IV, B-II, C-I, D-III",
+          "A-II, B-I, C-IV, D-III"
+        ]
+      },
+      "a": 1,
+      "sol": {
+        "en": "Pratyaksha is direct sensory perception (A-II), Anumana is inference grounded in vyapti (B-IV), Upamana is knowledge by analogy or comparison (C-I), and Arthapatti is circumstantial postulation (D-III). The first distractor swaps Upamana and Arthapatti.",
+        "hi": "प्रत्यक्ष इंद्रिय-सन्निकर्ष से सीधा ज्ञान है (A-II), अनुमान व्याप्ति पर आधारित है (B-IV), उपमान सादृश्य या तुलना से प्राप्त ज्ञान है (C-I), और अर्थापत्ति असंगति के निराकरण हेतु परिकल्पना है (D-III)। पहला विकल्प उपमान और अर्थापत्ति को आपस में बदल देता है।"
+      }
+    },
+    {
+      "s": "di",
+      "ty": "passage",
+      "d": "e",
+      "q": {
+        "en": "Study the following table carefully and answer the question that follows. The table shows the number of students enrolled across four academic streams (Arts, Science, Commerce, and Engineering) in five different colleges (A, B, C, D, and E) during the academic session 2025-26:\n\nCollege | Arts | Science | Commerce | Engineering\nCollege A | 420 | 360 | 280 | 240\nCollege B | 380 | 440 | 320 | 360\nCollege C | 500 | 300 | 400 | 200\nCollege D | 340 | 420 | 300 | 340\nCollege E | 360 | 480 | 300 | 460\n\nPassage ends.\n\nWhat is the average number of students enrolled in the Science stream across all five colleges?",
+        "hi": "निम्नलिखित तालिका का ध्यानपूर्वक अध्ययन कीजिए और उसके बाद दिए गए प्रश्न का उत्तर दीजिए। यह तालिका शैक्षणिक सत्र 2025-26 के दौरान पाँच विभिन्न महाविद्यालयों (A, B, C, D और E) में चार शैक्षणिक संकायों (कला, विज्ञान, वाणिज्य और अभियांत्रिकी) में नामांकित विद्यार्थियों की संख्या दर्शाती है:\n\nमहाविद्यालय | कला | विज्ञान | वाणिज्य | अभियांत्रिकी\nमहाविद्यालय A | 420 | 360 | 280 | 240\nमहाविद्यालय B | 380 | 440 | 320 | 360\nमहाविद्यालय C | 500 | 300 | 400 | 200\nमहाविद्यालय D | 340 | 420 | 300 | 340\nमहाविद्यालय E | 360 | 480 | 300 | 460\n\nगद्यांश समाप्त।\n\nसभी पाँच महाविद्यालयों में विज्ञान संकाय में नामांकित विद्यार्थियों की औसत संख्या कितनी है?"
+      },
+      "o": {
+        "en": [
+          "380",
+          "390",
+          "400",
+          "410"
+        ],
+        "hi": [
+          "380",
+          "390",
+          "400",
+          "410"
+        ]
+      },
+      "a": 2,
+      "sol": {
+        "en": "Total Science enrolment across the five colleges is 360 + 440 + 300 + 420 + 480 = 2000. Dividing 2000 by 5 gives an average of 400 students; 390 results from mis-summing one college by 50.",
+        "hi": "पाँचों महाविद्यालयों में विज्ञान संकाय का कुल नामांकन 360 + 440 + 300 + 420 + 480 = 2000 है। 2000 को 5 से भाग देने पर औसत 400 विद्यार्थी प्राप्त होता है; 390 योग में 50 की त्रुटि से आता है।"
+      }
+    },
+    {
+      "s": "di",
+      "ty": "passage",
+      "d": "m",
+      "q": {
+        "en": "Based on the above data, the total number of students enrolled in Commerce across all five colleges is what percentage of the total number of students enrolled in Arts across all five colleges?",
+        "hi": "उपर्युक्त आँकड़ों के आधार पर, सभी पाँच महाविद्यालयों में वाणिज्य संकाय में नामांकित कुल विद्यार्थियों की संख्या, सभी पाँच महाविद्यालयों में कला संकाय में नामांकित कुल विद्यार्थियों की संख्या का कितना प्रतिशत है?"
+      },
+      "o": {
+        "en": [
+          "80%",
+          "75%",
+          "85%",
+          "125%"
+        ],
+        "hi": [
+          "80%",
+          "75%",
+          "85%",
+          "125%"
+        ]
+      },
+      "a": 0,
+      "sol": {
+        "en": "Total Commerce students = 280 + 320 + 400 + 300 + 300 = 1600, and total Arts students = 420 + 380 + 500 + 340 + 360 = 2000. Therefore, (1600 / 2000) × 100 = 80%; 125% is the trap obtained by inverting the ratio (2000 / 1600).",
+        "hi": "वाणिज्य के कुल विद्यार्थी = 280 + 320 + 400 + 300 + 300 = 1600, और कला के कुल विद्यार्थी = 420 + 380 + 500 + 340 + 360 = 2000। अतः (1600 / 2000) × 100 = 80%; 125% अनुपात को उलटकर (2000 / 1600) निकालने की भूल से बनता है।"
+      }
+    },
+    {
+      "s": "di",
+      "ty": "passage",
+      "d": "m",
+      "q": {
+        "en": "Based on the above data, what is the ratio of the total number of students enrolled in College B to the total number of students enrolled in College E?",
+        "hi": "उपर्युक्त आँकड़ों के आधार पर, महाविद्यालय B में नामांकित कुल विद्यार्थियों की संख्या का महाविद्यालय E में नामांकित कुल विद्यार्थियों की संख्या से अनुपात क्या है?"
+      },
+      "o": {
+        "en": [
+          "14 : 15",
+          "16 : 15",
+          "13 : 16",
+          "15 : 16"
+        ],
+        "hi": [
+          "14 : 15",
+          "16 : 15",
+          "13 : 16",
+          "15 : 16"
+        ]
+      },
+      "a": 3,
+      "sol": {
+        "en": "Total enrolment in College B = 380 + 440 + 320 + 360 = 1500, and total enrolment in College E = 360 + 480 + 300 + 460 = 1600. The simplified ratio 1500 : 1600 equals 15 : 16; 16 : 15 reverses the order requested.",
+        "hi": "महाविद्यालय B का कुल नामांकन = 380 + 440 + 320 + 360 = 1500, और महाविद्यालय E का कुल नामांकन = 360 + 480 + 300 + 460 = 1600। सरल अनुपात 1500 : 1600 = 15 : 16 है; 16 : 15 पूछे गए क्रम को उलट देता है।"
+      }
+    },
+    {
+      "s": "di",
+      "ty": "passage",
+      "d": "h",
+      "q": {
+        "en": "Based on the above data, by what approximate percentage is the number of Engineering students in College E higher than the number of Engineering students in College A?",
+        "hi": "उपर्युक्त आँकड़ों के आधार पर, महाविद्यालय E में अभियांत्रिकी विद्यार्थियों की संख्या महाविद्यालय A में अभियांत्रिकी विद्यार्थियों की संख्या से लगभग कितने प्रतिशत अधिक है?"
+      },
+      "o": {
+        "en": [
+          "47.83%",
+          "91.67%",
+          "84.50%",
+          "52.17%"
+        ],
+        "hi": [
+          "47.83%",
+          "91.67%",
+          "84.50%",
+          "52.17%"
+        ]
+      },
+      "a": 1,
+      "sol": {
+        "en": "Engineering enrolment is 460 in College E and 240 in College A, a difference of 220. Percentage higher = (220 / 240) × 100 = 91.67%; 47.83% is the common error of dividing 220 by 460 instead of the base value 240.",
+        "hi": "महाविद्यालय E में अभियांत्रिकी नामांकन 460 और महाविद्यालय A में 240 है, अर्थात् अंतर 220 है। प्रतिशत वृद्धि = (220 / 240) × 100 = 91.67%; 47.83% आधार मान 240 के बजाय 460 से भाग देने की सामान्य त्रुटि से प्राप्त होता है।"
+      }
+    },
+    {
+      "s": "di",
+      "ty": "passage",
+      "d": "h",
+      "q": {
+        "en": "Based on the above data, what is the difference between the combined enrolment of Arts and Commerce in College C and the combined enrolment of Science and Engineering in College D?",
+        "hi": "उपर्युक्त आँकड़ों के आधार पर, महाविद्यालय C में कला और वाणिज्य के संयुक्त नामांकन तथा महाविद्यालय D में विज्ञान और अभियांत्रिकी के संयुक्त नामांकन के बीच कितना अंतर है?"
+      },
+      "o": {
+        "en": [
+          "140",
+          "160",
+          "120",
+          "180"
+        ],
+        "hi": [
+          "140",
+          "160",
+          "120",
+          "180"
+        ]
+      },
+      "a": 0,
+      "sol": {
+        "en": "In College C, Arts + Commerce = 500 + 400 = 900. In College D, Science + Engineering = 420 + 340 = 760. Their difference is 900 − 760 = 140; 160 results from accidentally reading College D's Commerce value instead of Science or Engineering.",
+        "hi": "महाविद्यालय C में कला + वाणिज्य = 500 + 400 = 900 है। महाविद्यालय D में विज्ञान + अभियांत्रिकी = 420 + 340 = 760 है। दोनों का अंतर 900 − 760 = 140 है; 160 गलत स्तंभ का मान पढ़ने से उत्पन्न होता है।"
+      }
+    },
+    {
+      "s": "ict",
+      "ty": "match",
+      "d": "m",
+      "q": {
+        "en": "Match List I (Internet / ICT Abbreviation) with List II (Primary Function):\nList I:\nA. DNS\nB. HTTP\nC. SMTP\nD. URL\nList II:\nI. Transfers hypertext documents between web servers and browsers\nII. Translates human-readable domain names into numerical IP addresses\nIII. Specifies the unique address of a resource on the World Wide Web\nIV. Handles the outgoing transmission of electronic mail between servers\nChoose the correct answer from the options given below:",
+        "hi": "सूची I (इंटरनेट / ICT संक्षिप्त नाम) को सूची II (प्रमुख कार्य) से सुमेलित कीजिए:\nसूची I:\nA. DNS\nB. HTTP\nC. SMTP\nD. URL\nसूची II:\nI. वेब सर्वर और ब्राउज़र के बीच हाइपरटेक्स्ट दस्तावेज़ों का स्थानांतरण करता है\nII. मानव-पठनीय डोमेन नामों को संख्यात्मक IP पतों में अनुवादित करता है\nIII. वर्ल्ड वाइड वेब पर किसी संसाधन का विशिष्ट पता निर्दिष्ट करता है\nIV. सर्वरों के बीच इलेक्ट्रॉनिक मेल के जावक प्रेषण का संचालन करता है\nनीचे दिए गए विकल्पों में से सही उत्तर चुनिए:"
+      },
+      "o": {
+        "en": [
+          "A-II, B-I, C-III, D-IV",
+          "A-I, B-II, C-IV, D-III",
+          "A-II, B-I, C-IV, D-III",
+          "A-III, B-I, C-IV, D-II"
+        ],
+        "hi": [
+          "A-II, B-I, C-III, D-IV",
+          "A-I, B-II, C-IV, D-III",
+          "A-II, B-I, C-IV, D-III",
+          "A-III, B-I, C-IV, D-II"
+        ]
+      },
+      "a": 2,
+      "sol": {
+        "en": "DNS (Domain Name System) resolves domain names to IP addresses (A-II), HTTP transfers web pages (B-I), SMTP sends outgoing e-mail (C-IV), and URL locates web resources (D-III). The first distractor swaps SMTP and URL.",
+        "hi": "DNS डोमेन नामों को IP पतों में बदलता है (A-II), HTTP वेब पृष्ठों का स्थानांतरण करता है (B-I), SMTP जावक ई-मेल भेजता है (C-IV), और URL वेब संसाधन का विशिष्ट पता बताता है (D-III)। पहला विकल्प SMTP और URL को आपस में बदल देता है।"
+      }
+    },
+    {
+      "s": "ict",
+      "ty": "statement",
+      "d": "h",
+      "q": {
+        "en": "Given below are two statements comparing Internet and Intranet:\nStatement I: Both the Internet and an Intranet rely on the TCP/IP suite of communication protocols and standard web technologies.\nStatement II: An Intranet is publicly accessible to any global user without authentication, whereas an Extranet is strictly restricted to internal employees only.\nIn the light of the above statements, choose the most appropriate answer from the options given below:",
+        "hi": "इंटरनेट और इंट्रानेट की तुलना करते हुए नीचे दो कथन दिए गए हैं:\nकथन I: इंटरनेट और इंट्रानेट दोनों TCP/IP संचार प्रोटोकॉल समूह और मानक वेब प्रौद्योगिकियों पर आधारित होते हैं।\nकथन II: इंट्रानेट बिना प्रमाणीकरण के किसी भी वैश्विक उपयोगकर्ता के लिए सार्वजनिक रूप से सुलभ होता है, जबकि एक्स्ट्रानेट केवल आंतरिक कर्मचारियों तक सीमित होता है।\nउपर्युक्त कथनों के आलोक में नीचे दिए गए विकल्पों में से सर्वाधिक उपयुक्त उत्तर चुनिए:"
+      },
+      "o": {
+        "en": [
+          "Both Statement I and Statement II are correct",
+          "Statement I is correct, but Statement II is incorrect",
+          "Statement I is incorrect, but Statement II is correct",
+          "Both Statement I and Statement II are incorrect"
+        ],
+        "hi": [
+          "कथन I और कथन II दोनों सही हैं",
+          "कथन I सही है, किंतु कथन II गलत है",
+          "कथन I गलत है, किंतु कथन II सही है",
+          "कथन I और कथन II दोनों गलत हैं"
+        ]
+      },
+      "a": 1,
+      "sol": {
+        "en": "Statement I is correct because intranets use the same TCP/IP and web protocols as the public Internet. Statement II is reversed and incorrect: an intranet is private to internal members behind a firewall, whereas an extranet grants controlled access to authorised external partners.",
+        "hi": "कथन I सही है क्योंकि इंट्रानेट सार्वजनिक इंटरनेट की तरह ही TCP/IP और वेब प्रोटोकॉल का उपयोग करता है। कथन II उलटा और गलत है: इंट्रानेट फ़ायरवॉल के भीतर केवल आंतरिक सदस्यों के लिए निजी होता है, जबकि एक्स्ट्रानेट अधिकृत बाहरी भागीदारों को नियंत्रित पहुंच देता है।"
+      }
+    },
+    {
+      "s": "ict",
+      "ty": "ar",
+      "d": "m",
+      "q": {
+        "en": "Given below are two statements, one labelled as Assertion (A) and the other as Reason (R):\nAssertion (A): When sending an institutional circular via e-mail to hundreds of external applicants, placing their addresses in the BCC field protects recipient privacy.\nReason (R): Recipients listed in the BCC field cannot see the e-mail addresses of other BCC recipients, nor can recipients in the To and CC fields view BCC addresses.\nIn the light of the above statements, choose the correct answer from the options given below:",
+        "hi": "नीचे दो कथन दिए गए हैं, एक को अभिकथन (A) और दूसरे को तर्क (R) कहा गया है:\nअभिकथन (A): सैकड़ों बाहरी आवेदकों को ई-मेल द्वारा संस्थागत परिपत्र भेजते समय उनके पते BCC क्षेत्र में रखने से प्राप्तकर्ताओं की गोपनीयता सुरक्षित रहती है।\nतर्क (R): BCC क्षेत्र में सूचीबद्ध प्राप्तकर्ता अन्य BCC प्राप्तकर्ताओं के ई-मेल पते नहीं देख सकते, और न ही To तथा CC क्षेत्र के प्राप्तकर्ता BCC पते देख सकते हैं।\nउपर्युक्त कथनों के आलोक में नीचे दिए गए विकल्पों में से सही उत्तर चुनिए:"
+      },
+      "o": {
+        "en": [
+          "Both (A) and (R) are true, but (R) is not the correct explanation of (A)",
+          "(A) is true, but (R) is false",
+          "(A) is false, but (R) is true",
+          "Both (A) and (R) are true and (R) is the correct explanation of (A)"
+        ],
+        "hi": [
+          "(A) और (R) दोनों सत्य हैं, परंतु (R), (A) की सही व्याख्या नहीं है",
+          "(A) सत्य है, परंतु (R) असत्य है",
+          "(A) असत्य है, परंतु (R) सत्य है",
+          "(A) और (R) दोनों सत्य हैं और (R), (A) की सही व्याख्या है"
+        ]
+      },
+      "a": 3,
+      "sol": {
+        "en": "Blind Carbon Copy (BCC) hides recipients' addresses from everyone else receiving the message, including To, CC, and other BCC recipients, which directly explains why BCC protects privacy in bulk mailings. Choosing the first option overlooks this direct causal explanation.",
+        "hi": "ब्लाइंड कार्बन कॉपी अर्थात् BCC प्राप्तकर्ताओं के पते To, CC और अन्य BCC प्राप्तकर्ताओं सहित सभी से छिपाकर रखती है, जो सीधे स्पष्ट करता है कि सामूहिक ई-मेल में गोपनीयता क्यों सुरक्षित रहती है। पहला विकल्प इस प्रत्यक्ष व्याख्या को अनदेखा करता है।"
+      }
+    },
+    {
+      "s": "ict",
+      "ty": "sequence",
+      "d": "m",
+      "q": {
+        "en": "Arrange the following digital data storage units in ascending order from smallest to largest:\nA. Kilobyte\nB. Terabyte\nC. Megabyte\nD. Gigabyte\nE. Petabyte\nChoose the correct sequence from the options given below:",
+        "hi": "निम्नलिखित डिजिटल डेटा भंडारण इकाइयों को सबसे छोटी से सबसे बड़ी के आरोही क्रम में व्यवस्थित कीजिए:\nA. किलोबाइट\nB. टेराबाइट\nC. मेगाबाइट\nD. गीगाबाइट\nE. पेटाबाइट\nनीचे दिए गए विकल्पों में से सही क्रम चुनिए:"
+      },
+      "o": {
+        "en": [
+          "A, C, D, B, E",
+          "A, C, B, D, E",
+          "A, D, C, B, E",
+          "A, C, D, E, B"
+        ],
+        "hi": [
+          "A, C, D, B, E",
+          "A, C, B, D, E",
+          "A, D, C, B, E",
+          "A, C, D, E, B"
+        ]
+      },
+      "a": 0,
+      "sol": {
+        "en": "In ascending order of storage capacity, Kilobyte (A) < Megabyte (C) < Gigabyte (D) < Terabyte (B) < Petabyte (E), where each step increases by a factor of 1024 in binary (or 1000 in decimal). The fourth option wrongly places Petabyte before Terabyte.",
+        "hi": "भंडारण क्षमता के आरोही क्रम में किलोबाइट (A) < मेगाबाइट (C) < गीगाबाइट (D) < टेराबाइट (B) < पेटाबाइट (E) होता है, जहाँ प्रत्येक चरण द्विआधारी में 1024 के गुणक से बढ़ता है। चौथा विकल्प पेटाबाइट को टेराबाइट से पहले रखकर गलती करता है।"
+      }
+    },
+    {
+      "s": "ict",
+      "ty": "direct",
+      "d": "e",
+      "q": {
+        "en": "Which e-mail retrieval protocol allows a user to synchronise folders and read messages across multiple devices while keeping the primary copies stored on the mail server?",
+        "hi": "कौन-सा ई-मेल प्राप्ति प्रोटोकॉल उपयोगकर्ता को मेल सर्वर पर मूल प्रतियाँ सुरक्षित रखते हुए एकाधिक उपकरणों पर फ़ोल्डर समन्वयित करने और संदेश पढ़ने की सुविधा देता है?"
+      },
+      "o": {
+        "en": [
+          "FTP — File Transfer Protocol for bulk directory uploads",
+          "SMTP — Simple Mail Transfer Protocol for outgoing mail",
+          "SNMP — Simple Network Management Protocol for routers",
+          "IMAP — Internet Message Access Protocol for server sync"
+        ],
+        "hi": [
+          "FTP — थोक फ़ाइल स्थानांतरण हेतु प्रोटोकॉल",
+          "SMTP — जावक ई-मेल प्रेषण हेतु प्रोटोकॉल",
+          "SNMP — नेटवर्क उपकरण प्रबंधन हेतु प्रोटोकॉल",
+          "IMAP — सर्वर समन्वयन और ई-मेल प्राप्ति हेतु प्रोटोकॉल"
+        ]
+      },
+      "a": 3,
+      "sol": {
+        "en": "IMAP (Internet Message Access Protocol) retains e-mails on the server and synchronises read status and folders across devices. SMTP is a common distractor, but SMTP is used for sending outgoing mail rather than retrieving and synchronising incoming mail.",
+        "hi": "IMAP ई-मेल को सर्वर पर सुरक्षित रखता है और विभिन्न उपकरणों में संदेशों की स्थिति व फ़ोल्डरों का समन्वयन करता है। SMTP एक भ्रामक विकल्प है, किंतु इसका उपयोग जावक ई-मेल भेजने के लिए होता है, न कि आवक मेल प्राप्त करने और समन्वयित करने के लिए।"
+      }
+    },
+    {
+      "s": "env",
+      "ty": "match",
+      "d": "m",
+      "q": {
+        "en": "Match List I (Sustainable Development Goal) with List II (Core Focus Area):\nList I:\nA. SDG 4\nB. SDG 6\nC. SDG 7\nD. SDG 13\nList II:\nI. Clean Water and Sanitation\nII. Urgent Action to Combat Climate Change and Its Impacts\nIII. Inclusive and Equitable Quality Education\nIV. Affordable, Reliable, Sustainable and Modern Energy\nChoose the correct answer from the options given below:",
+        "hi": "सूची I (सतत विकास लक्ष्य) को सूची II (मुख्य केंद्र-बिंदु) से सुमेलित कीजिए:\nसूची I:\nA. SDG 4\nB. SDG 6\nC. SDG 7\nD. SDG 13\nसूची II:\nI. स्वच्छ जल और स्वच्छता\nII. जलवायु परिवर्तन और उसके प्रभावों से निपटने हेतु तत्काल कार्रवाई\nIII. समावेशी और समतामूलक गुणवत्तापूर्ण शिक्षा\nIV. किफायती, विश्वसनीय, टिकाऊ और आधुनिक ऊर्जा\nनीचे दिए गए विकल्पों में से सही उत्तर चुनिए:"
+      },
+      "o": {
+        "en": [
+          "A-III, B-IV, C-I, D-II",
+          "A-I, B-III, C-IV, D-II",
+          "A-III, B-I, C-IV, D-II",
+          "A-III, B-I, C-II, D-IV"
+        ],
+        "hi": [
+          "A-III, B-IV, C-I, D-II",
+          "A-I, B-III, C-IV, D-II",
+          "A-III, B-I, C-IV, D-II",
+          "A-III, B-I, C-II, D-IV"
+        ]
+      },
+      "a": 2,
+      "sol": {
+        "en": "Under the UN 2030 Agenda, SDG 4 focuses on Quality Education (A-III), SDG 6 on Clean Water and Sanitation (B-I), SDG 7 on Affordable and Clean Energy (C-IV), and SDG 13 on Climate Action (D-II). The first distractor swaps SDG 6 and SDG 7, which are frequently confused.",
+        "hi": "संयुक्त राष्ट्र 2030 एजेंडा के अंतर्गत SDG 4 गुणवत्तापूर्ण शिक्षा (A-III), SDG 6 स्वच्छ जल व स्वच्छता (B-I), SDG 7 किफायती व स्वच्छ ऊर्जा (C-IV), और SDG 13 जलवायु कार्रवाई (D-II) से संबंधित है। पहला विकल्प SDG 6 और SDG 7 को आपस में बदल देता है।"
+      }
+    },
+    {
+      "s": "env",
+      "ty": "statement",
+      "d": "h",
+      "q": {
+        "en": "Given below are two statements comparing the Millennium Development Goals (MDGs) and Sustainable Development Goals (SDGs):\nStatement I: The MDGs consisted of 8 goals targeting the period 2000–2015 with primary emphasis on developing nations, whereas the SDGs comprise 17 goals and 169 targets for 2015–2030 applicable universally to all countries.\nStatement II: Unlike the SDGs, the MDGs included dedicated standalone goals for affordable clean energy, sustainable cities, and life below water.\nIn the light of the above statements, choose the most appropriate answer from the options given below:",
+        "hi": "सहस्राब्दी विकास लक्ष्यों और सतत विकास लक्ष्यों की तुलना करते हुए नीचे दो कथन दिए गए हैं:\nकथन I: सहस्राब्दी विकास लक्ष्यों में 2000–2015 की अवधि हेतु 8 लक्ष्य थे जो मुख्यतः विकासशील देशों पर केंद्रित थे, जबकि सतत विकास लक्ष्यों में 2015–2030 हेतु 17 लक्ष्य और 169 उप-लक्ष्य हैं जो सभी देशों पर सार्वभौमिक रूप से लागू होते हैं।\nकथन II: सतत विकास लक्ष्यों के विपरीत, सहस्राब्दी विकास लक्ष्यों में किफायती स्वच्छ ऊर्जा, टिकाऊ शहरों और जल के नीचे जीवन के लिए अलग-अलग समर्पित लक्ष्य शामिल थे।\nउपर्युक्त कथनों के आलोक में नीचे दिए गए विकल्पों में से सर्वाधिक उपयुक्त उत्तर चुनिए:"
+      },
+      "o": {
+        "en": [
+          "Both Statement I and Statement II are correct",
+          "Statement I is correct, but Statement II is incorrect",
+          "Statement I is incorrect, but Statement II is correct",
+          "Both Statement I and Statement II are incorrect"
+        ],
+        "hi": [
+          "कथन I और कथन II दोनों सही हैं",
+          "कथन I सही है, किंतु कथन II गलत है",
+          "कथन I गलत है, किंतु कथन II सही है",
+          "कथन I और कथन II दोनों गलत हैं"
+        ]
+      },
+      "a": 1,
+      "sol": {
+        "en": "Statement I accurately distinguishes the 8 MDGs (2000–2015) from the universal 17 SDGs and 169 targets (2015–2030). Statement II is incorrect because standalone goals for clean energy (SDG 7), sustainable cities (SDG 11), and marine ecosystems (SDG 14) were introduced by the SDGs, not the MDGs.",
+        "hi": "कथन I 8 सहस्राब्दी विकास लक्ष्यों (2000–2015) और सार्वभौमिक 17 सतत विकास लक्ष्यों व 169 उप-लक्ष्यों (2015–2030) का सही अंतर बताता है। कथन II गलत है क्योंकि स्वच्छ ऊर्जा (SDG 7), टिकाऊ शहर (SDG 11) और जलीय जीवन (SDG 14) के समर्पित लक्ष्य SDG में जोड़े गए, न कि MDG में।"
+      }
+    },
+    {
+      "s": "env",
+      "ty": "ar",
+      "d": "m",
+      "q": {
+        "en": "Given below are two statements, one labelled as Assertion (A) and the other as Reason (R):\nAssertion (A): The Brundtland Commission report 'Our Common Future' (1987) framed sustainable development around both intragenerational and intergenerational equity.\nReason (R): It defined sustainable development as development that meets the needs of the present without compromising the ability of future generations to meet their own needs.\nIn the light of the above statements, choose the correct answer from the options given below:",
+        "hi": "नीचे दो कथन दिए गए हैं, एक को अभिकथन (A) और दूसरे को तर्क (R) कहा गया है:\nअभिकथन (A): ब्रंटलैंड आयोग की 1987 की रिपोर्ट 'आवर कॉमन फ्यूचर' ने सतत विकास को अंतःपीढ़ीगत और अंतरपीढ़ीगत समता दोनों के इर्द-गिर्द संरचित किया।\nतर्क (R): इसने सतत विकास को ऐसे विकास के रूप में परिभाषित किया जो भविष्य की पीढ़ियों की अपनी आवश्यकताओं को पूरा करने की क्षमता से समझौता किए बिना वर्तमान की आवश्यकताओं को पूरा करता है।\nउपर्युक्त कथनों के आलोक में नीचे दिए गए विकल्पों में से सही उत्तर चुनिए:"
+      },
+      "o": {
+        "en": [
+          "Both (A) and (R) are true, but (R) is not the correct explanation of (A)",
+          "(A) is true, but (R) is false",
+          "Both (A) and (R) are true and (R) is the correct explanation of (A)",
+          "(A) is false, but (R) is true"
+        ],
+        "hi": [
+          "(A) और (R) दोनों सत्य हैं, परंतु (R), (A) की सही व्याख्या नहीं है",
+          "(A) सत्य है, परंतु (R) असत्य है",
+          "(A) और (R) दोनों सत्य हैं और (R), (A) की सही व्याख्या है",
+          "(A) असत्य है, परंतु (R) सत्य है"
+        ]
+      },
+      "a": 2,
+      "sol": {
+        "en": "The 1987 Brundtland Commission (WCED) report explicitly linked present essential needs (intragenerational equity) with safeguarding resources for future generations (intergenerational equity), so (R) directly explains (A). Option A misses the direct definitional link between the two statements.",
+        "hi": "1987 की ब्रंटलैंड आयोग की रिपोर्ट ने वर्तमान की मूलभूत आवश्यकताओं (अंतःपीढ़ीगत समता) को भविष्य की पीढ़ियों के संसाधनों की रक्षा (अंतरपीढ़ीगत समता) से स्पष्ट रूप से जोड़ा, अतः (R), (A) की सही व्याख्या है। पहला विकल्प इस प्रत्यक्ष परिभाषात्मक संबंध को अनदेखा करता है।"
+      }
+    },
+    {
+      "s": "env",
+      "ty": "statement",
+      "d": "h",
+      "q": {
+        "en": "Consider the following statements regarding human–environment interaction:\nI. Carrying capacity denotes the maximum population size an ecosystem can sustain indefinitely without degrading its regenerative resource base.\nII. An ecological deficit occurs when a population's ecological footprint exceeds the biocapacity of the area available to it.\nIII. The Environmental Kuznets Curve hypothesises an inverted U-shaped relationship between per capita income and certain forms of environmental degradation.\nIV. Anthropogenic activities have no measurable influence on global biogeochemical cycles such as carbon and nitrogen cycles.\nWhich of the statements given above are correct?",
+        "hi": "मानव-पर्यावरण अंतःक्रिया के संदर्भ में निम्नलिखित कथनों पर विचार कीजिए:\nI. वहन क्षमता उस अधिकतम जनसंख्या आकार को दर्शाती है जिसे कोई पारिस्थितिकी तंत्र अपने पुनरुत्पादक संसाधन आधार को क्षीण किए बिना अनिश्चित काल तक धारण कर सकता है।\nII. पारिस्थितिक घाटा तब उत्पन्न होता है जब किसी जनसंख्या का पारिस्थितिक पदचिह्न उसके लिए उपलब्ध क्षेत्र की जैव-क्षमता से अधिक हो जाता है।\nIII. पर्यावरणीय कुज़नेट्स वक्र प्रति व्यक्ति आय और पर्यावरणीय क्षरण के कुछ रूपों के बीच उल्टे U-आकार के संबंध की परिकल्पना करता है।\nIV. मानवजनित गतिविधियों का कार्बन और नाइट्रोजन चक्र जैसे वैश्विक जैव-भू-रासायनिक चक्रों पर कोई मापने योग्य प्रभाव नहीं पड़ता।\nउपर्युक्त में से कौन-से कथन सही हैं?"
+      },
+      "o": {
+        "en": [
+          "I and II only",
+          "I, II and IV only",
+          "II and III only",
+          "I, II and III only"
+        ],
+        "hi": [
+          "केवल I और II",
+          "केवल I, II और IV",
+          "केवल II और III",
+          "केवल I, II और III"
+        ]
+      },
+      "a": 3,
+      "sol": {
+        "en": "Statements I, II, and III accurately define carrying capacity, ecological deficit, and the Environmental Kuznets Curve hypothesis. Statement IV is clearly false because fossil fuel combustion, land-use change, and synthetic fertilisers profoundly alter global carbon and nitrogen cycles, eliminating option B.",
+        "hi": "कथन I, II और III वहन क्षमता, पारिस्थितिक घाटा और पर्यावरणीय कुज़नेट्स वक्र परिकल्पना को सही रूप से परिभाषित करते हैं। कथन IV स्पष्टतः असत्य है क्योंकि जीवाश्म ईंधन दहन, भूमि-उपयोग परिवर्तन और रासायनिक उर्वरक वैश्विक कार्बन व नाइट्रोजन चक्र को गहराई से प्रभावित करते हैं।"
+      }
+    },
+    {
+      "s": "env",
+      "ty": "sequence",
+      "d": "m",
+      "q": {
+        "en": "Arrange the following international environment and development milestones in chronological order from earliest to latest:\nA. UN Conference on Environment and Development (Rio Earth Summit)\nB. UN Conference on the Human Environment (Stockholm Conference)\nC. Publication of the Brundtland Report ('Our Common Future')\nD. Adoption of the 2030 Agenda for Sustainable Development (SDGs)\nE. Adoption of the UN Millennium Declaration (MDGs)\nChoose the correct sequence from the options given below:",
+        "hi": "निम्नलिखित अंतर्राष्ट्रीय पर्यावरण एवं विकास मील के पत्थरों को प्राचीनतम से नवीनतम के कालानुक्रम में व्यवस्थित कीजिए:\nA. पर्यावरण एवं विकास पर संयुक्त राष्ट्र सम्मेलन, रियो पृथ्वी शिखर सम्मेलन\nB. मानव पर्यावरण पर संयुक्त राष्ट्र सम्मेलन, स्टॉकहोम सम्मेलन\nC. ब्रंटलैंड रिपोर्ट 'आवर कॉमन फ्यूचर' का प्रकाशन\nD. सतत विकास हेतु 2030 एजेंडा का अंगीकरण\nE. संयुक्त राष्ट्र सहस्राब्दी घोषणा का अंगीकरण\nनीचे दिए गए विकल्पों में से सही क्रम चुनिए:"
+      },
+      "o": {
+        "en": [
+          "B, A, C, E, D",
+          "B, C, A, E, D",
+          "C, B, A, E, D",
+          "B, C, E, A, D"
+        ],
+        "hi": [
+          "B, A, C, E, D",
+          "B, C, A, E, D",
+          "C, B, A, E, D",
+          "B, C, E, A, D"
+        ]
+      },
+      "a": 1,
+      "sol": {
+        "en": "The exact chronological order is Stockholm Conference 1972 (B), Brundtland Report 1987 (C), Rio Earth Summit 1992 (A), UN Millennium Declaration 2000 (E), and 2030 Agenda / SDGs 2015 (D). Option A mistakenly places the Rio Summit before the Brundtland Report.",
+        "hi": "सही कालानुक्रम स्टॉकहोम सम्मेलन 1972 (B), ब्रंटलैंड रिपोर्ट 1987 (C), रियो पृथ्वी शिखर सम्मेलन 1992 (A), संयुक्त राष्ट्र सहस्राब्दी घोषणा 2000 (E), और 2030 एजेंडा 2015 (D) है। पहला विकल्प रियो शिखर सम्मेलन को ब्रंटलैंड रिपोर्ट से पहले रखकर गलती करता है।"
+      }
+    },
+    {
+      "s": "hed",
+      "ty": "match",
+      "d": "m",
+      "q": {
+        "en": "Match List I (Ancient Indian Centre of Learning) with List II (Historical Patronage / Distinctive Feature):\nList I:\nA. Takshashila\nB. Nalanda\nC. Vikramashila\nD. Vallabhi\nList II:\nI. Founded by Pala ruler Dharmapala; renowned centre for Vajrayana Buddhism and logic\nII. Flourished under Maitraka rulers in Gujarat; noted for Hinayana Buddhism and secular administration studies\nIII. Decentralised centre in Gandhara associated with Panini, Kautilya, and Charaka\nIV. Mahavihara founded under Gupta ruler Kumaragupta I; famous for its Dharmaganja library\nChoose the correct answer from the options given below:",
+        "hi": "सूची I (प्राचीन भारतीय शिक्षण केंद्र) को सूची II (ऐतिहासिक संरक्षण / विशिष्ट पहचान) से सुमेलित कीजिए:\nसूची I:\nA. तक्षशिला\nB. नालंदा\nC. विक्रमशिला\nD. वल्लभी\nसूची II:\nI. पाल शासक धर्मपाल द्वारा स्थापित; वज्रयान बौद्ध धर्म और तर्कशास्त्र का प्रसिद्ध केंद्र\nII. गुजरात में मैत्रक शासकों के अधीन विकसित; हीनयान बौद्ध धर्म तथा लौकिक प्रशासन अध्ययन हेतु विख्यात\nIII. गांधार क्षेत्र में स्थित विकेंद्रीकृत केंद्र, जो पाणिनि, कौटिल्य और चरक से संबद्ध था\nIV. गुप्त शासक कुमारगुप्त प्रथम के संरक्षण में स्थापित महाविहार; अपने धर्मगंज पुस्तकालय हेतु प्रसिद्ध\nनीचे दिए गए विकल्पों में से सही उत्तर चुनिए:"
+      },
+      "o": {
+        "en": [
+          "A-III, B-I, C-IV, D-II",
+          "A-III, B-IV, C-II, D-I",
+          "A-III, B-IV, C-I, D-II",
+          "A-IV, B-III, C-I, D-II"
+        ],
+        "hi": [
+          "A-III, B-I, C-IV, D-II",
+          "A-III, B-IV, C-II, D-I",
+          "A-III, B-IV, C-I, D-II",
+          "A-IV, B-III, C-I, D-II"
+        ]
+      },
+      "a": 2,
+      "sol": {
+        "en": "Takshashila in Gandhara is associated with Panini and Kautilya (A-III), Nalanda was founded under Kumaragupta I with the Dharmaganja library (B-IV), Vikramashila was founded by Pala king Dharmapala for Vajrayana studies (C-I), and Vallabhi flourished under the Maitrakas in Gujarat (D-II). Option A confuses Nalanda's Gupta patronage with Vikramashila's Pala patronage.",
+        "hi": "गांधार स्थित तक्षशिला पाणिनि व कौटिल्य से जुड़ा था (A-III), नालंदा कुमारगुप्त प्रथम के काल में स्थापित हुआ जहाँ धर्मगंज पुस्तकालय था (B-IV), विक्रमशिला की स्थापना पाल शासक धर्मपाल ने की (C-I), और वल्लभी गुजरात में मैत्रक शासकों के अधीन फला-फूला (D-II)। पहला विकल्प नालंदा और विक्रमशिला के संरक्षकों को उलट देता है।"
+      }
+    },
+    {
+      "s": "hed",
+      "ty": "sequence",
+      "d": "h",
+      "q": {
+        "en": "Arrange the following milestones in the post-independence evolution of higher education in India in chronological order:\nA. University Education Commission (Radhakrishnan Commission)\nB. National Policy on Education (NPE) introducing the 10+2+3 framework nationally\nC. Statutory establishment of the University Grants Commission under the UGC Act\nD. Education Commission (Kothari Commission)\nE. National Education Policy proposing HECI and multidisciplinary universities\nChoose the correct sequence from the options given below:",
+        "hi": "स्वतंत्रता के बाद भारत में उच्च शिक्षा के विकास से संबंधित निम्नलिखित मील के पत्थरों को कालानुक्रम में व्यवस्थित कीजिए:\nA. विश्वविद्यालय शिक्षा आयोग, राधाकृष्णन आयोग\nB. राष्ट्रीय शिक्षा नीति जिसने 10+2+3 संरचना को राष्ट्रीय स्तर पर आगे बढ़ाया\nC. UGC अधिनियम के अंतर्गत विश्वविद्यालय अनुदान आयोग की सांविधिक स्थापना\nD. शिक्षा आयोग, कोठारी आयोग\nE. राष्ट्रीय शिक्षा नीति जिसने HECI और बहु-विषयक विश्वविद्यालयों का प्रस्ताव रखा\nनीचे दिए गए विकल्पों में से सही क्रम चुनिए:"
+      },
+      "o": {
+        "en": [
+          "A, C, D, B, E",
+          "A, D, C, B, E",
+          "C, A, D, B, E",
+          "A, C, B, D, E"
+        ],
+        "hi": [
+          "A, C, D, B, E",
+          "A, D, C, B, E",
+          "C, A, D, B, E",
+          "A, C, B, D, E"
+        ]
+      },
+      "a": 0,
+      "sol": {
+        "en": "The Radhakrishnan Commission was appointed in 1948–49 (A), UGC became a statutory body by the UGC Act of 1956 (C), the Kothari Commission functioned in 1964–66 (D), NPE 1986 consolidated the 10+2+3 system (B), and NEP 2020 proposed HECI (E). Option B mistakenly places Kothari Commission before the 1956 UGC Act.",
+        "hi": "राधाकृष्णन आयोग 1948–49 में गठित हुआ (A), UGC 1956 के अधिनियम से सांविधिक निकाय बना (C), कोठारी आयोग 1964–66 में कार्यरत रहा (D), NPE 1986 ने 10+2+3 प्रणाली को सुदृढ़ किया (B), और NEP 2020 ने HECI का प्रस्ताव दिया (E)। दूसरा विकल्प कोठारी आयोग को 1956 के UGC अधिनियम से पहले रखता है।"
+      }
+    },
+    {
+      "s": "hed",
+      "ty": "statement",
+      "d": "m",
+      "q": {
+        "en": "Given below are two statements regarding ancient Indian institutions of higher learning:\nStatement I: Takshashila operated largely as a decentralised seat of learning where individual Acharyas admitted and taught students independently without a centralised residential monastery or formal convocation degree.\nStatement II: Nalanda Mahavihara admitted every applicant automatically without screening, regardless of prior scholarly preparation.\nIn the light of the above statements, choose the most appropriate answer from the options given below:",
+        "hi": "प्राचीन भारतीय उच्च शिक्षण संस्थानों के संबंध में नीचे दो कथन दिए गए हैं:\nकथन I: तक्षशिला मुख्यतः एक विकेंद्रीकृत शिक्षण केंद्र के रूप में कार्य करता था जहाँ विभिन्न आचार्य बिना किसी केंद्रीकृत आवासीय मठ या औपचारिक दीक्षांत उपाधि के स्वतंत्र रूप से विद्यार्थियों को प्रवेश देकर पढ़ाते थे।\nकथन II: नालंदा महाविहार पूर्व शैक्षणिक तैयारी की परवाह किए बिना प्रत्येक आवेदक को बिना किसी परीक्षण के स्वतः प्रवेश दे देता था।\nउपर्युक्त कथनों के आलोक में नीचे दिए गए विकल्पों में से सर्वाधिक उपयुक्त उत्तर चुनिए:"
+      },
+      "o": {
+        "en": [
+          "Both Statement I and Statement II are correct",
+          "Both Statement I and Statement II are incorrect",
+          "Statement I is incorrect, but Statement II is correct",
+          "Statement I is correct, but Statement II is incorrect"
+        ],
+        "hi": [
+          "कथन I और कथन II दोनों सही हैं",
+          "कथन I और कथन II दोनों गलत हैं",
+          "कथन I गलत है, किंतु कथन II सही है",
+          "कथन I सही है, किंतु कथन II गलत है"
+        ]
+      },
+      "a": 3,
+      "sol": {
+        "en": "Statement I accurately describes Takshashila's autonomous guru-shishya structure without a central campus or formal degrees. Statement II is false because Nalanda was famous for its rigorous oral entrance examination conducted by scholarly gatekeepers known as Dvarapanditas, rejecting the majority of applicants.",
+        "hi": "कथन I तक्षशिला की स्वायत्त गुरु-शिष्य व्यवस्था का सही वर्णन करता है जहाँ केंद्रीकृत परिसर या औपचारिक उपाधि नहीं थी। कथन II गलत है क्योंकि नालंदा द्वारपंडितों द्वारा ली जाने वाली कठोर मौखिक प्रवेश परीक्षा के लिए प्रसिद्ध था, जिसमें अधिकांश आवेदक उत्तीर्ण नहीं हो पाते थे।"
+      }
+    },
+    {
+      "s": "hed",
+      "ty": "statement",
+      "d": "e",
+      "q": {
+        "en": "Consider the following statements about the University Education Commission (1948–49), chaired by Dr. S. Radhakrishnan:\nI. It was the first education commission appointed in independent India to examine university education.\nII. It recommended the establishment of a University Grants Commission to allocate funds and maintain standards.\nIII. It advocated establishing rural universities to address agrarian and rural reconstruction needs.\nIV. It recommended abolishing all postgraduate research departments in Indian universities.\nWhich of the statements given above are correct?",
+        "hi": "डॉ. एस. राधाकृष्णन की अध्यक्षता में गठित विश्वविद्यालय शिक्षा आयोग 1948–49 के संदर्भ में निम्नलिखित कथनों पर विचार कीजिए:\nI. यह स्वतंत्र भारत में विश्वविद्यालय शिक्षा की समीक्षा हेतु नियुक्त पहला शिक्षा आयोग था।\nII. इसने अनुदान आवंटन और मानकों के संरक्षण हेतु विश्वविद्यालय अनुदान आयोग की स्थापना की अनुशंसा की।\nIII. इसने कृषि एवं ग्रामीण पुनर्निर्माण की आवश्यकताओं हेतु ग्रामीण विश्वविद्यालयों की स्थापना की वकालत की।\nIV. इसने भारतीय विश्वविद्यालयों में सभी स्नातकोत्तर शोध विभागों को समाप्त करने की अनुशंसा की।\nउपर्युक्त में से कौन-से कथन सही हैं?"
+      },
+      "o": {
+        "en": [
+          "I and II only",
+          "I, II and III only",
+          "II, III and IV only",
+          "I, III and IV only"
+        ],
+        "hi": [
+          "केवल I और II",
+          "केवल I, II और III",
+          "केवल II, III और IV",
+          "केवल I, III और IV"
+        ]
+      },
+      "a": 1,
+      "sol": {
+        "en": "The Radhakrishnan Commission (1948–49) was independent India's first education commission (I), recommended creating the UGC (II), and proposed rural universities (III). Statement IV is false because the commission strongly sought to strengthen, not abolish, postgraduate teaching and research.",
+        "hi": "राधाकृष्णन आयोग 1948–49 स्वतंत्र भारत का पहला शिक्षा आयोग था (I), जिसने UGC के गठन (II) और ग्रामीण विश्वविद्यालयों (III) की अनुशंसा की। कथन IV गलत है क्योंकि आयोग ने स्नातकोत्तर शिक्षण व शोध को समाप्त करने के बजाय सुदृढ़ करने पर बल दिया।"
+      }
+    },
+    {
+      "s": "hed",
+      "ty": "scenario",
+      "d": "e",
+      "q": {
+        "en": "A historian studying seventh-century Chinese travelogues reads Xuanzang's vivid account of a vast residential Mahavihara in ancient Magadha where thousands of resident scholars studied Mahayana philosophy, logic, grammar, and medicine, supported by revenue from surrounding villages and housed near a celebrated three-building library complex comprising Ratnasagara, Ratnodadhi, and Ratnaranjaka. Which ancient institution is described in this account?",
+        "hi": "सातवीं शताब्दी के चीनी यात्रा-वृत्तांतों का अध्ययन करता एक इतिहासकार ह्वेनसांग का एक विशाल आवासीय महाविहार का जीवंत विवरण पढ़ता है, जो प्राचीन मगध में स्थित था, जहाँ हजारों आवासीय विद्वान महायान दर्शन, तर्कशास्त्र, व्याकरण और चिकित्सा का अध्ययन करते थे, आसपास के गाँवों के राजस्व से उसका संचालन होता था, और वहाँ रत्नसागर, रत्नोदधि तथा रत्नरंजक नामक तीन भवनों वाला प्रसिद्ध पुस्तकालय परिसर था। इस विवरण में किस प्राचीन संस्थान का उल्लेख है?"
+      },
+      "o": {
+        "en": [
+          "Takshashila centre of learning in ancient Gandhara",
+          "Vallabhi university under Maitraka patronage in Gujarat",
+          "Nalanda Mahavihara flourishing in ancient Magadha",
+          "Odantapuri monastic centre built by Gopala in Bihar"
+        ],
+        "hi": [
+          "प्राचीन गांधार में स्थित तक्षशिला शिक्षण केंद्र",
+          "गुजरात में मैत्रक संरक्षण में संचालित वल्लभी विश्वविद्यालय",
+          "प्राचीन मगध में विकसित नालंदा महाविहार",
+          "बिहार में गोपाल द्वारा निर्मित ओदंतपुरी मठ केंद्र"
+        ]
+      },
+      "a": 2,
+      "sol": {
+        "en": "Xuanzang (Hiuen Tsang) studied and taught at Nalanda Mahavihara in Magadha (modern Bihar), whose famed library Dharmaganja consisted of Ratnasagara, Ratnodadhi, and Ratnaranjaka. Odantapuri is a tempting regional distractor, also in Bihar, but was founded later by Pala ruler Gopala and did not host Xuanzang.",
+        "hi": "ह्वेनसांग ने मगध (आधुनिक बिहार) स्थित नालंदा महाविहार में अध्ययन एवं अध्यापन किया था, जिसके प्रसिद्ध पुस्तकालय धर्मगंज में रत्नसागर, रत्नोदधि और रत्नरंजक भवन थे। ओदंतपुरी भी बिहार में होने से भ्रामक विकल्प है, किंतु उसकी स्थापना बाद में पाल शासक गोपाल ने की थी और ह्वेनसांग वहाँ नहीं गए थे।"
+      }
+    }
+  ]
+}

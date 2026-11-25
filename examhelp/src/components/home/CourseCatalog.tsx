@@ -127,6 +127,15 @@ const COURSES = (lang: Lang): Course[] => {
     },
     {
       f: ["new", "tests"], tone: "teal", art: "test", isNew: true,
+      kick: hi ? "UGC NET • पेपर 1 + अंग्रेज़ी" : "UGC NET • Paper 1 + English", big: "UGC NET",
+      sub: hi ? ["2 × 25 मॉक टेस्ट", "पेपर 1 + पेपर 2"] : ["2 × 25 mock tests", "Paper 1 + Paper 2"],
+      tags: hi ? ["NET / JRF", "टेस्ट सीरीज़"] : ["NET / JRF", "Test series"], meta: [hi ? "हर टेस्ट" : "Each test", hi ? "50/100 प्रश्न" : "50/100 Qs"],
+      title: hi ? "UGC NET पेपर 1 + अंग्रेज़ी पेपर 2 — 25-25 मॉक टेस्ट" : "UGC NET Paper 1 + English Paper 2 — 25 mock tests each",
+      desc: hi ? "✅ पेपर 1 के 25 टेस्ट (हिंदी/English) ✅ अंग्रेज़ी पेपर 2 के 25 टेस्ट ✅ हर प्रश्न की व्याख्या" : "✅ 25 Paper 1 tests (Hindi/English) ✅ 25 English Paper 2 tests ✅ Explanation for every question",
+      price: 99, href: "/ugc-net-paper-1-mock-tests",
+    },
+    {
+      f: ["new", "tests"], tone: "teal", art: "test", isNew: true,
       kick: hi ? "RRB रेलवे • स्टेशन मास्टर" : "RRB Railway • Station Master",
       big: hi ? "RRB स्टेशन मास्टर" : "RRB Station Master",
       sub: hi ? ["25 फुल टेस्ट", "टेस्ट 1 फ्री"] : ["25 full tests", "Test 1 free"],

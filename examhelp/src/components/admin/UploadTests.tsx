@@ -19,6 +19,8 @@ const SERIES = [
   { id: "nt", label: "MP Naib Tehsildar (nt)" },
   { id: "rrbsm", label: "RRB Station Master (rrbsm)" },
   { id: "sscgd", label: "SSC GD (sscgd)" },
+  { id: "netp1", label: "UGC NET Paper 1 (netp1)" },
+  { id: "neteng", label: "UGC NET English Paper 2 (neteng)" },
 ];
 const JSZIP = "https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js";
 
