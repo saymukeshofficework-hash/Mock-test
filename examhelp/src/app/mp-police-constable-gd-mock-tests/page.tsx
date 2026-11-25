@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { MetaLeadOnRegister } from "@/components/layout/MetaLeadOnRegister";
+import { GdBuyCard, GdCountdown, GdDaysChip, GdSticky } from "@/components/landing/GdLanding";
 import { MockTestList } from "@/components/mock/MockTestList";
 import { JsonLd } from "@/components/ui/Primitives";
 import { pageMeta } from "@/lib/seo";
@@ -45,41 +46,62 @@ const LINKS = [
 
 const LOGIN = "/login.html?next=/examhelp/mp-police-constable-gd-mock-tests/";
 
-// Shown at the top for visitors who are not logged in (most ad visitors).
+// Shown at the top for visitors who are not logged in (most ad visitors). Register is the only button.
 const TopCta = (
   <section aria-labelledby="gd-top-h" className="card border-2 border-brand-600 p-5 sm:p-6">
-    <h2 id="gd-top-h" className="text-lg font-bold text-brand-900 sm:text-xl">
-      9 दिसंबर की परीक्षा से पहले टेस्ट 1 अभी दें
+    <GdDaysChip />
+    <h2 id="gd-top-h" className="mt-3 text-lg font-bold text-brand-900 sm:text-xl">
+      9 दिसंबर की परीक्षा से पहले टेस्ट 1 अभी दें (Take Test 1 now)
     </h2>
-    <p className="mt-1 text-sm text-ink-600">Take Test 1 now, before the 9 December exam.</p>
-    <ul className="mt-3 space-y-1 text-sm text-ink-700">
-      <li>✓ असली परीक्षा जैसा: 100 प्रश्न, 120 मिनट, 3 खंड (Real exam pattern)</li>
-      <li>✓ हर प्रश्न हिंदी + English में, व्याख्या सहित (Hindi + English with explanations)</li>
-      <li>✓ टेस्ट खत्म होते ही स्कोर और सही उत्तर (Score and answers right away)</li>
-    </ul>
+    <ol className="mt-3 grid grid-cols-3 gap-2 text-center text-xs text-brand-800">
+      {["रजिस्टर (Register)", "Test 1 दें (Take Test 1)", "रिज़ल्ट देखें (See result)"].map((x, i) => (
+        <li key={x} className="rounded-lg bg-brand-50 px-1 py-2">
+          <b className="block text-base">{i + 1}</b>
+          {x}
+        </li>
+      ))}
+    </ol>
     <a href={LOGIN} className="btn-primary mt-4 w-full sm:w-auto">
-      रजिस्टर करें और टेस्ट शुरू करें (Register & start)
+      रजिस्टर करें, Test 1 शुरू करें (Register & start)
     </a>
     <p className="mt-2 text-xs text-ink-500">सिर्फ़ ईमेल से 1 मिनट में रजिस्ट्रेशन। Register with your email in 1 minute.</p>
   </section>
 );
 
+const INSIDE = [
+  ["📝", "25 फुल पेपर (25 full papers)", "हर पेपर 100 प्रश्न, 120 मिनट टाइमर"],
+  ["💡", "हर उत्तर की व्याख्या (Explanations)", "हिंदी + English में"],
+  ["📊", "तुरंत रिज़ल्ट (Instant result)", "स्कोर, सही और गलत उत्तर"],
+  ["📱", "मोबाइल पर (On mobile)", "कभी भी, कितनी बार भी"],
+];
+
 export default function Page() {
   return (
     <>
       <MetaLeadOnRegister />
-      <MockTestList series="pcgd" topCta={TopCta} noFreeBadge />
-      <div className="container-page space-y-8 pb-12">
-        <section aria-labelledby="gd-start-h" className="card flex flex-col gap-3 p-5 sm:flex-row sm:items-center sm:justify-between sm:p-6">
-          <div>
-            <h2 id="gd-start-h" className="text-lg font-bold text-brand-900">
-              टेस्ट शुरू करने के लिए लॉगिन या रजिस्टर करें (1 मिनट)
-            </h2>
-            <p className="mt-1 text-sm text-ink-600">Log in or register to start your MP Police Constable GD mock test.</p>
-          </div>
-          <a href={LOGIN} className="btn-primary shrink-0">
-            रजिस्टर / लॉगिन करें
-          </a>
+      <MockTestList series="pcgd" topCta={TopCta} topCtaIn={<GdBuyCard />} noFreeBadge />
+      <div className="container-page space-y-8 pb-28 sm:pb-12">
+        <GdCountdown />
+
+        <section aria-labelledby="gd-in-h" className="card p-5 sm:p-6">
+          <h2 id="gd-in-h" className="text-lg font-bold text-brand-900">📦 पैक में क्या मिलेगा? (What&apos;s inside)</h2>
+          <ul className="mt-3 grid grid-cols-2 gap-3 lg:grid-cols-4">
+            {INSIDE.map(([ic, h, d]) => (
+              <li key={h} className="rounded-xl bg-brand-50 p-3">
+                <span className="text-xl" aria-hidden="true">{ic}</span>
+                <b className="mt-1 block text-sm text-brand-900">{h}</b>
+                <span className="text-xs text-ink-700">{d}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        <section aria-labelledby="gd-plan-h" className="card p-5 sm:p-6">
+          <h2 id="gd-plan-h" className="text-lg font-bold text-brand-900">🗓️ परीक्षा तक का प्लान (Study plan)</h2>
+          <ul className="mt-3 divide-y divide-dashed divide-ink-200 text-sm text-ink-700">
+            <li className="py-2"><b className="text-brand-700">रोज़ (Daily):</b> 2 फुल टेस्ट, फिर गलत प्रश्नों की व्याख्या पढ़ें। 2 tests a day, then read every wrong answer.</li>
+            <li className="py-2"><b className="text-brand-700">आख़िरी 2 दिन (Last 2 days):</b> कमज़ोर खंड दोहराएँ, सिर्फ़ रिवीज़न। Revise weak sections only.</li>
+          </ul>
         </section>
 
         <section aria-labelledby="gd-about-h" className="card p-5 sm:p-6">
@@ -142,6 +164,7 @@ export default function Page() {
           </ul>
         </nav>
       </div>
+      <GdSticky />
       <JsonLd
         data={{
           "@context": "https://schema.org",
