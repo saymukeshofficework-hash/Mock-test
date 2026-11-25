@@ -22,6 +22,9 @@ const SERIES = [
   { id: "netp1", label: "UGC NET Paper 1 (netp1)" },
   { id: "neteng", label: "UGC NET English Paper 2 (neteng)" },
   { id: "uptet", label: "UPTET 2026 (uptet)" },
+  { id: "ctet1", label: "CTET Paper 1 (ctet1)" },
+  { id: "ctet2ms", label: "CTET Paper 2 Maths-Science (ctet2ms)" },
+  { id: "ctet2sst", label: "CTET Paper 2 Social Studies (ctet2sst)" },
 ];
 const JSZIP = "https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js";
 
