@@ -32,7 +32,7 @@ const T = {
   freeLogin: { hi: "बस लॉगिन करें और कोई भी टेस्ट दें", en: "Just log in and take any test" },
   freeLoginBtn: { hi: "लॉगिन करें", en: "Log in" },
 };
-export function MockTestList({ series = "ag3", topCta, noFreeBadge }: { series?: string; topCta?: ReactNode; noFreeBadge?: boolean }) {
+export function MockTestList({ series = "ag3", topCta, topCtaIn, noFreeBadge }: { series?: string; topCta?: ReactNode; topCtaIn?: ReactNode; noFreeBadge?: boolean }) {
   const S = MOCK_SERIES[series];
   const TOKEN_KEY = `testhub_dl_${S.product}`;
   const [lang, setLang] = useState<Lang>("hi");
@@ -170,6 +170,7 @@ export function MockTestList({ series = "ag3", topCta, noFreeBadge }: { series?:
       </div>
 
       {topCta && !loggedIn ? <div className="mt-5">{topCta}</div> : null}
+      {topCtaIn && loggedIn && !token && !S.unlockHref && !freeNow ? <div className="mt-5">{topCtaIn}</div> : null}
 
       <section className="exam-pattern-panel mt-6" aria-labelledby="pat-h">
         <div className="exam-pattern-intro">
@@ -222,7 +223,7 @@ export function MockTestList({ series = "ag3", topCta, noFreeBadge }: { series?:
             <p className="rounded-lg bg-success-50 px-4 py-3 text-center font-semibold text-success-700">{t("unlocked")}</p>
           ) : (
             <div>
-              <button type="button" onClick={unlock} disabled={(!canBuy && !mainSite) || payState !== "idle"} className="btn-primary w-full disabled:opacity-60">
+              <button id="series-unlock-btn" type="button" onClick={unlock} disabled={(!canBuy && !mainSite) || payState !== "idle"} className="btn-primary w-full disabled:opacity-60">
                 <Lock className="h-4 w-4" aria-hidden="true" />
                 {payState !== "idle" ? t("wait") : (lang === "hi" ? `बाकी ${S.total - S.free.length} टेस्ट अनलॉक करें – ₹${S.price}` : `Unlock remaining ${S.total - S.free.length} tests – ₹${S.price}`)}
               </button>
