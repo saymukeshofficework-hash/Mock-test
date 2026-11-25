@@ -32,7 +32,7 @@ const T = {
   freeLogin: { hi: "बस लॉगिन करें और कोई भी टेस्ट दें", en: "Just log in and take any test" },
   freeLoginBtn: { hi: "लॉगिन करें", en: "Log in" },
 };
-export function MockTestList({ series = "ag3", topCta }: { series?: string; topCta?: ReactNode }) {
+export function MockTestList({ series = "ag3", topCta, noFreeBadge }: { series?: string; topCta?: ReactNode; noFreeBadge?: boolean }) {
   const S = MOCK_SERIES[series];
   const TOKEN_KEY = `testhub_dl_${S.product}`;
   const [lang, setLang] = useState<Lang>("hi");
@@ -247,7 +247,7 @@ export function MockTestList({ series = "ag3", topCta }: { series?: string; topC
                 <span className="mock-test-logo" aria-hidden="true">{String(n).padStart(2, "0")}</span>
                 <h3 className="font-bold text-ink-900">
                   {t("test")} {n}
-                  {isFree ? <span className="ml-2 rounded-full bg-success-50 px-2 py-0.5 text-xs font-semibold text-success-700">{t("free")}</span> : null}
+                  {isFree && !noFreeBadge ? <span className="ml-2 rounded-full bg-success-50 px-2 py-0.5 text-xs font-semibold text-success-700">{t("free")}</span> : null}
                 </h3>
                 {b ? <CheckCircle2 className="h-5 w-5 text-success-700" aria-hidden="true" /> : null}
               </div>

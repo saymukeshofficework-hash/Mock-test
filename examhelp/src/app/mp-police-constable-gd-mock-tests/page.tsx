@@ -68,7 +68,7 @@ export default function Page() {
   return (
     <>
       <MetaLeadOnRegister />
-      <MockTestList series="pcgd" topCta={TopCta} />
+      <MockTestList series="pcgd" topCta={TopCta} noFreeBadge />
       <div className="container-page space-y-8 pb-12">
         <section aria-labelledby="gd-start-h" className="card flex flex-col gap-3 p-5 sm:flex-row sm:items-center sm:justify-between sm:p-6">
           <div>
