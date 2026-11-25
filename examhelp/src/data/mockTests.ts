@@ -752,6 +752,47 @@ export const MOCK_SERIES: Record<string, MockSeries> = {
     unlockBtn: { hi: "सभी टेस्ट अनलॉक करें", en: "Unlock all tests" },
     links: [],
   },
+  ctet1: {
+    id: "ctet1",
+    total: 25,
+    free: [1],
+    product: "ctet-tests",
+    price: 99,
+    enginePath: "/mock-tests/ctet1/test.html",
+    scorePrefix: "testhub_ctet1_mock_",
+    listPath: "/ctet-paper-1-mock-tests",
+    meta: { hi: "150 प्रश्न · 150 मिनट", en: "150 Qs · 150 min" },
+    title: { hi: "CTET पेपर 1 (कक्षा 1–5) — 25 मॉक टेस्ट", en: "CTET Paper 1 (Classes 1–5) — 25 Mock Tests" },
+    sub: {
+      hi: "प्राथमिक स्तर (कक्षा 1–5) के शिक्षकों के लिए CTET पेपर 1। हर टेस्ट 150 प्रश्न, 150 मिनट, व्याख्या सहित। यह अभ्यास पेपर है, आधिकारिक प्रश्नपत्र नहीं।",
+      en: "CTET Paper 1 for primary (Classes 1–5) teachers. Every test has 150 questions, 150 minutes and explanations. Practice papers, not official papers.",
+    },
+    rows: {
+      hi: [
+        ["बाल विकास एवं शिक्षण विधि", "30", "हिंदी/English"],
+        ["भाषा I : हिंदी", "30", "हिंदी"],
+        ["भाषा II : अंग्रेज़ी", "30", "English"],
+        ["गणित", "30", "हिंदी/English"],
+        ["पर्यावरण अध्ययन", "30", "हिंदी/English"],
+      ],
+      en: [
+        ["Child Development and Pedagogy", "30", "Hindi/English"],
+        ["Language I: Hindi", "30", "Hindi"],
+        ["Language II: English", "30", "English"],
+        ["Mathematics", "30", "Hindi/English"],
+        ["Environmental Studies", "30", "Hindi/English"],
+      ],
+    },
+    totalLine: { hi: "कुल: 150 प्रश्न · 150 अंक · 150 मिनट", en: "Total: 150 questions · 150 marks · 150 minutes" },
+    neg: { hi: "प्रत्येक सही उत्तर 1 अंक, ऋणात्मक अंकन नहीं।", en: "1 mark per correct answer, no negative marking." },
+    unlockTitle: { hi: "CTET पेपर 1 — सभी 25 मॉक टेस्ट", en: "CTET Paper 1 — all 25 mock tests" },
+    unlockSub: {
+      hi: "टेस्ट 1 लॉगिन के बाद खुलता है। एक बार ₹99 देकर बाकी 24 टेस्ट अनलॉक करें।",
+      en: "Test 1 opens after login. Pay ₹99 once to unlock the other 24 tests.",
+    },
+    unlockBtn: { hi: "सभी टेस्ट अनलॉक करें", en: "Unlock all tests" },
+    links: [],
+  },
 };
 
 /** Back-compat for the AG-3 landing page. */
