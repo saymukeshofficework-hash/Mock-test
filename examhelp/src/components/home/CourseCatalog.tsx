@@ -136,11 +136,11 @@ const COURSES = (lang: Lang): Course[] => {
     },
     {
       f: ["new", "tests"], tone: "teal", art: "test", isNew: true,
-      kick: hi ? "CTET • पेपर 1 (कक्षा 1–5)" : "CTET • Paper 1 (Classes 1–5)", big: "CTET",
-      sub: hi ? ["25 मॉक टेस्ट", "150 प्रश्न · 150 मिनट"] : ["25 mock tests", "150 Qs · 150 min"],
+      kick: hi ? "CTET • पेपर 1 + पेपर 2" : "CTET • Paper 1 + Paper 2", big: "CTET",
+      sub: hi ? ["75 मॉक टेस्ट", "150 प्रश्न · 150 मिनट"] : ["75 mock tests", "150 Qs · 150 min"],
       tags: hi ? ["शिक्षक पात्रता", "टेस्ट सीरीज़"] : ["Teacher eligibility", "Test series"], meta: [hi ? "हर टेस्ट" : "Each test", hi ? "150 प्रश्न" : "150 Qs"],
-      title: hi ? "CTET पेपर 1 — 25 मॉक टेस्ट (कक्षा 1–5)" : "CTET Paper 1 — 25 mock tests (Classes 1–5)",
-      desc: hi ? "✅ बाल विकास, हिंदी, अंग्रेज़ी, गणित, पर्यावरण अध्ययन ✅ नए CTET पैटर्न पर ✅ हर प्रश्न की व्याख्या" : "✅ CDP, Hindi, English, Maths, EVS ✅ New CTET pattern ✅ Explanation for every question",
+      title: hi ? "CTET पेपर 1 + पेपर 2 — 75 मॉक टेस्ट" : "CTET Paper 1 + Paper 2 — 75 mock tests",
+      desc: hi ? "✅ पेपर 1 (कक्षा 1–5) के 25 टेस्ट ✅ पेपर 2 गणित-विज्ञान और सामाजिक अध्ययन के 25-25 टेस्ट ✅ हर प्रश्न की व्याख्या" : "✅ 25 Paper 1 tests (Classes 1–5) ✅ 25 Paper 2 Maths-Science + 25 Social Studies tests ✅ Explanation for every question",
       price: 99, href: "/ctet-paper-1-mock-tests",
     },
     {

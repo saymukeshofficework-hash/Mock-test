@@ -122,9 +122,11 @@ const PRODUCTS: Record<string, { amount: number; file: string; downloadName: str
   "ctet-tests": {
     amount: 9900,
     kind: "tests",
-    file: "ctet1", // private bucket "tests": ctet1/02.json … 25.json; test 1 is public
+    // combo: one ₹99 order opens CTET Paper 1 (ctet1) and Paper 2 Maths-Science (ctet2ms) + Social Studies (ctet2sst)
+    file: "ctet1", // private bucket "tests": ctet1|ctet2ms|ctet2sst/02.json … 25.json; test 1 of each is public
+    also: ["ctet2ms", "ctet2sst"],
     downloadName: "",
-    title: "CTET पेपर 1 — 25 मॉक टेस्ट / CTET Paper 1 — 25 Mock Tests",
+    title: "CTET पेपर 1 + पेपर 2 — 75 मॉक टेस्ट / CTET Paper 1 + Paper 2 — 75 Mock Tests",
   },
   "ugcnet-tests": {
     // combo (owner, 2026-11-25): one ₹99 order opens UGC NET Paper 1 (netp1) and English Paper 2 (neteng)
