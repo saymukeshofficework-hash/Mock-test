@@ -43,11 +43,32 @@ const LINKS = [
   { href: "/mp-police-driver-mock-tests/", label: "MP पुलिस आरक्षक (चालक) मॉक टेस्ट" },
 ];
 
+const LOGIN = "/login.html?next=/examhelp/mp-police-constable-gd-mock-tests/";
+
+// Shown at the top for visitors who are not logged in (most ad visitors).
+const TopCta = (
+  <section aria-labelledby="gd-top-h" className="card border-2 border-brand-600 p-5 sm:p-6">
+    <h2 id="gd-top-h" className="text-lg font-bold text-brand-900 sm:text-xl">
+      9 दिसंबर की परीक्षा से पहले टेस्ट 1 अभी दें
+    </h2>
+    <p className="mt-1 text-sm text-ink-600">Take Test 1 now, before the 9 December exam.</p>
+    <ul className="mt-3 space-y-1 text-sm text-ink-700">
+      <li>✓ असली परीक्षा जैसा: 100 प्रश्न, 120 मिनट, 3 खंड (Real exam pattern)</li>
+      <li>✓ हर प्रश्न हिंदी + English में, व्याख्या सहित (Hindi + English with explanations)</li>
+      <li>✓ टेस्ट खत्म होते ही स्कोर और सही उत्तर (Score and answers right away)</li>
+    </ul>
+    <a href={LOGIN} className="btn-primary mt-4 w-full sm:w-auto">
+      रजिस्टर करें और टेस्ट शुरू करें (Register & start)
+    </a>
+    <p className="mt-2 text-xs text-ink-500">सिर्फ़ ईमेल से 1 मिनट में रजिस्ट्रेशन। Register with your email in 1 minute.</p>
+  </section>
+);
+
 export default function Page() {
   return (
     <>
       <MetaLeadOnRegister />
-      <MockTestList series="pcgd" />
+      <MockTestList series="pcgd" topCta={TopCta} />
       <div className="container-page space-y-8 pb-12">
         <section aria-labelledby="gd-start-h" className="card flex flex-col gap-3 p-5 sm:flex-row sm:items-center sm:justify-between sm:p-6">
           <div>
@@ -56,7 +77,7 @@ export default function Page() {
             </h2>
             <p className="mt-1 text-sm text-ink-600">Log in or register to start your MP Police Constable GD mock test.</p>
           </div>
-          <a href="/login.html" className="btn-primary shrink-0">
+          <a href={LOGIN} className="btn-primary shrink-0">
             रजिस्टर / लॉगिन करें
           </a>
         </section>

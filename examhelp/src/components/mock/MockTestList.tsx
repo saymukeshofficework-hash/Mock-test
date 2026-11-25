@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { isDesktopExamHeaderPage, isDesktopOnlyHeaderPage } from "@/components/layout/DesktopExamHeader";
@@ -32,7 +32,7 @@ const T = {
   freeLogin: { hi: "बस लॉगिन करें और कोई भी टेस्ट दें", en: "Just log in and take any test" },
   freeLoginBtn: { hi: "लॉगिन करें", en: "Log in" },
 };
-export function MockTestList({ series = "ag3" }: { series?: string }) {
+export function MockTestList({ series = "ag3", topCta }: { series?: string; topCta?: ReactNode }) {
   const S = MOCK_SERIES[series];
   const TOKEN_KEY = `testhub_dl_${S.product}`;
   const [lang, setLang] = useState<Lang>("hi");
@@ -168,6 +168,8 @@ export function MockTestList({ series = "ag3" }: { series?: string }) {
           <button type="button" onClick={() => chooseLang("en")} aria-pressed={lang === "en"} className={`rounded-lg px-3 py-2 text-sm font-bold ${lang === "en" ? "bg-brand-700 text-white" : "text-ink-700"}`}>English</button>
         </div>
       </div>
+
+      {topCta && !loggedIn ? <div className="mt-5">{topCta}</div> : null}
 
       <section className="exam-pattern-panel mt-6" aria-labelledby="pat-h">
         <div className="exam-pattern-intro">
