@@ -9,7 +9,7 @@ import { createClient } from "npm:@supabase/supabase-js@2";
 // kind "pdf": one private file in bucket "notes"; kind "tests": unlocks private test files in bucket "tests";
 // kind "combo": the PDF in `file` + the test series (bucket "tests", folder TESTS_FOLDER)
 const TESTS_FOLDER = "ag3";
-const PRODUCTS: Record<string, { amount: number; file: string; downloadName: string; title: string; kind?: "pdf" | "tests" | "combo" | "ca" | "tet" }> = {
+const PRODUCTS: Record<string, { amount: number; file: string; downloadName: string; title: string; kind?: "pdf" | "tests" | "combo" | "ca" | "tet"; also?: string[] }> = {
   "static-gk-hi-en": {
     amount: 9900, // ₹99 in paise
     file: "TETTestHub_Static_GK_Hindi_English.pdf",
@@ -111,6 +111,15 @@ const PRODUCTS: Record<string, { amount: number; file: string; downloadName: str
     file: "sscgd", // private bucket "tests": sscgd/02.json … sscgd/25.json; test 1 is public
     downloadName: "",
     title: "SSC GD — 25 मॉक टेस्ट / SSC GD — 25 Mock Tests",
+  },
+  "ugcnet-tests": {
+    // combo (owner, 2026-11-25): one ₹99 order opens UGC NET Paper 1 (netp1) and English Paper 2 (neteng)
+    amount: 9900,
+    kind: "tests",
+    file: "neteng", // private bucket "tests": neteng/02.json … 25.json and netp1/02.json … 25.json; test 1 of each is public
+    also: ["netp1"],
+    downloadName: "",
+    title: "UGC NET पेपर 1 + अंग्रेज़ी पेपर 2 — 50 मॉक टेस्ट / UGC NET Paper 1 + English Paper 2 — 50 Mock Tests",
   },
   "group4-tests": {
     amount: 9900,
@@ -270,7 +279,8 @@ Deno.serve(async (req) => {
       if (p.kind === "ca") return json({ ready, amount: p.amount, days: PASS_DAYS });
       if (p.kind === "tet") return json({ ready, amount: p.amount });
       if (p.kind === "tests") {
-        const { data } = await db.storage.from("tests").list(p.file, { limit: 100 });
+        const dir = p.also?.includes(String(body.series ?? "")) ? String(body.series) : p.file;
+        const { data } = await db.storage.from("tests").list(dir, { limit: 100 });
         const files = (data ?? []).filter((f) => f.name.endsWith(".json")).map((f) => parseInt(f.name, 10)).filter((n) => n > 0).sort((a, b) => a - b);
         return json({ ready: ready && files.length > 0, amount: p.amount, tests: files });
       }
@@ -440,7 +450,7 @@ Deno.serve(async (req) => {
         // free offer: logged-in student, any "tests" series folder
         if (!(await loggedInUser(body.access_token))) return json({ error: "login_required" }, 401);
         const folder = String(body.series ?? "");
-        if (!Object.values(PRODUCTS).some((x) => x.kind === "tests" && x.file === folder)) return json({ error: "not_found" }, 404);
+        if (!Object.values(PRODUCTS).some((x) => x.kind === "tests" && (x.file === folder || !!x.also?.includes(folder)))) return json({ error: "not_found" }, 404);
         const { data, error } = await db.storage.from("tests").download(`${folder}/${String(n).padStart(2, "0")}.json`);
         if (error || !data) return json({ error: "no_test" }, 404);
         return new Response(await data.text(), { headers: { ...cors, "Content-Type": "application/json", "Cache-Control": "private, max-age=600" } });
@@ -450,7 +460,7 @@ Deno.serve(async (req) => {
       const p = ord ? PRODUCTS[ord.product] : null;
       if (!p || (p.kind !== "tests" && p.kind !== "combo")) return json({ error: "not_found" }, 404);
       // each token only opens its own series folder (combo tokens → the AG-3 series)
-      const folder = p.kind === "tests" ? p.file : TESTS_FOLDER;
+      const folder = p.kind !== "tests" ? TESTS_FOLDER : p.also?.includes(String(body.series ?? "")) ? String(body.series) : p.file;
       if (body.series && body.series !== folder) return json({ error: "wrong_series" }, 403);
       const { data, error } = await db.storage.from("tests").download(`${folder}/${String(n).padStart(2, "0")}.json`);
       if (error || !data) return json({ error: "no_test" }, 404);

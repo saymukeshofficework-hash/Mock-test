@@ -41,6 +41,7 @@ const PRODUCT: Record<string, string> = {
   "nt-tests": "MP Naib Tehsildar — 25 tests",
   "rrbsm-tests": "RRB Station Master — 25 tests",
   "sscgd-tests": "SSC GD — 25 tests",
+  "ugcnet-tests": "UGC NET Paper 1 + English P2 — 50 tests",
   "ca-30": "Current affairs — 30-day pass",
 };
 const hasPdf = (p: string) => !p.endsWith("-tests") && p !== "ca-30";

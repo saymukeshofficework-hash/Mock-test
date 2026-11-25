@@ -113,7 +113,7 @@ export function MockTestList({ series = "ag3" }: { series?: string }) {
           if (t) setToken(t);
           return t;
         });
-    checkout<{ ready: boolean; tests?: number[] }>({ action: "status", product: S.product })
+    checkout<{ ready: boolean; tests?: number[] }>({ action: "status", product: S.product, series })
       .then((r) => {
         setCanBuy(!!r.ready);
         setPaidReady(r.tests ?? []);
