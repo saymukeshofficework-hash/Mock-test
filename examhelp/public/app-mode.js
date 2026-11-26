@@ -31,6 +31,7 @@
     } catch (e) {}
   }
   function showRate() {
+    if (document.getElementById("tth-new")) { setTimeout(showRate, 800); return; }
     try { if (localStorage.getItem(rk)) return; localStorage.setItem(rk, "shown"); } catch (e) { return; }
     var css = "#tth-rate{position:fixed;inset:0;z-index:99999;display:flex;align-items:center;justify-content:center;padding:16px;background:rgba(10,20,50,.55);opacity:0;transition:opacity .3s}" +
       "#tth-rate.on{opacity:1}#tth-rate .bx{position:relative;background:#fff;color:#163377;border-radius:18px;padding:24px 20px 18px;max-width:340px;width:100%;text-align:center;font-family:inherit;box-shadow:0 12px 40px rgba(0,0,0,.3);transform:scale(.7);transition:transform .35s cubic-bezier(.2,1.4,.4,1)}" +
@@ -70,6 +71,38 @@
     document.body.appendChild(o);
     requestAnimationFrame(function () { requestAnimationFrame(function () { o.classList.add("on"); }); });
   }
+  // "New version" card, app only, shown once per NEW_ID. Change NEW_ID and the list for the next update.
+  var NEW_ID = "tth-new-v4";
+  try {
+    if (document.documentElement.getAttribute("data-app") && !localStorage.getItem(NEW_ID)) {
+      window.addEventListener("load", function () { setTimeout(showNew, 1200); });
+    }
+  } catch (e) {}
+  function showNew() {
+    try { if (localStorage.getItem(NEW_ID)) return; localStorage.setItem(NEW_ID, "1"); } catch (e) { return; }
+    var st = document.createElement("style");
+    st.textContent = "#tth-new{position:fixed;inset:0;z-index:99999;display:flex;align-items:center;justify-content:center;padding:16px;background:rgba(10,20,50,.55);opacity:0;transition:opacity .3s}" +
+      "#tth-new.on{opacity:1}#tth-new .bx{position:relative;background:#fff;color:#163377;border-radius:18px;padding:22px 18px 16px;max-width:360px;width:100%;font-family:inherit;box-shadow:0 12px 40px rgba(0,0,0,.3)}" +
+      "#tth-new h3{margin:0 0 2px;font-size:19px;text-align:center}#tth-new .s{margin:0 0 10px;font-size:12px;color:#666;text-align:center}" +
+      "#tth-new ol{margin:0 0 14px;padding-left:20px;font-size:14px;line-height:1.45;color:#222}#tth-new li{margin-bottom:5px}" +
+      "#tth-new .r{display:flex;gap:8px}#tth-new .r button{flex:1;border:0;border-radius:10px;padding:10px;font-size:14px;cursor:pointer}" +
+      "#tth-new .y{background:#163377;color:#fff;font-weight:600}#tth-new .n{background:#eef1f7;color:#163377}";
+    document.head.appendChild(st);
+    var o = document.createElement("div"); o.id = "tth-new";
+    o.innerHTML = '<div class="bx" role="dialog" aria-modal="true" aria-labelledby="tth-new-h"><h3 id="tth-new-h">🎉 नया वर्ज़न उपलब्ध है</h3>' +
+      '<p class="s">A new version of the app is available</p><ol>' +
+      "<li>CTET Paper 1 और Paper 2 (गणित-विज्ञान, सामाजिक अध्ययन) के 75 मॉक टेस्ट</li>" +
+      "<li>UPTET 2026 के 25 मॉक टेस्ट</li>" +
+      "<li>UGC NET Paper 1 और English Paper 2 टेस्ट सीरीज़</li>" +
+      "<li>सभी परीक्षाओं के पिछले वर्ष के प्रश्न-पत्र, आधिकारिक स्रोतों के साथ</li>" +
+      "<li>MP Police आरक्षक GD परीक्षा (9 दिसंबर) के मॉक टेस्ट</li></ol>" +
+      '<div class="r"><button class="n">बाद में / Later</button><button class="y">अपडेट करें / Update</button></div></div>';
+    function close() { o.classList.remove("on"); setTimeout(function () { o.remove(); }, 300); }
+    o.querySelector(".n").onclick = close;
+    o.querySelector(".y").onclick = function () { close(); location.href = "market://details?id=in.tettesthub.app"; };
+    document.body.appendChild(o);
+    requestAnimationFrame(function () { requestAnimationFrame(function () { o.classList.add("on"); }); });
+  }
   if ("serviceWorker" in navigator) {
     window.addEventListener("load", function () {
       navigator.serviceWorker.register("/examhelp/sw.js", { scope: "/examhelp/" }).catch(function () {});
@@ -98,7 +131,7 @@
   function showPushAsk() {
     if (document.getElementById("tth-push")) return;
     // If the first-launch rating card is open, wait and show the push opt-in afterwards.
-    if (document.getElementById("tth-rate")) { setTimeout(showPushAsk, 800); return; }
+    if (document.getElementById("tth-rate") || document.getElementById("tth-new")) { setTimeout(showPushAsk, 800); return; }
     var st = document.createElement("style");
     st.textContent = "#tth-push{position:fixed;left:12px;right:12px;bottom:12px;z-index:99998;max-width:380px;margin:0 auto;background:#fff;color:#163377;border-radius:16px;padding:16px;box-shadow:0 10px 36px rgba(0,0,0,.28);font-family:inherit;transform:translateY(140%);transition:transform .35s ease}" +
       "#tth-push.on{transform:none}#tth-push b{display:block;font-size:16px;margin-bottom:2px}#tth-push p{margin:0 0 12px;font-size:13px;color:#555}" +
