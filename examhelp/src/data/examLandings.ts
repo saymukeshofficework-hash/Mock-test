@@ -18,6 +18,7 @@ export type ExamLandingCfg = GdCfg & {
   dateLongHi: string; // full date line, e.g. "12 और 13 दिसंबर 2026"
   dateLongEn: string;
   proposed?: boolean; // official date is "प्रस्तावित" (proposed) only
+  tentative?: boolean; // official notice not yet read by us; date from reports quoting it
   sourceHi: string; // official source, as printed on the page
   sourceUrl: string;
   label: string; // short name for the sticky bar
@@ -43,10 +44,11 @@ const NET = {
   examHi: "UGC NET दिसंबर 2026",
   examEn: "UGC NET December 2026",
   examAt: "2026-12-14T00:00:00+05:30",
-  dateHi: "14 दिसंबर से",
+  dateHi: "14 दिसंबर से (संभावित)",
   dateLongHi: "14 से 18 दिसंबर और 21 दिसंबर 2026",
   dateLongEn: "14–18 December and 21 December 2026",
-  sourceHi: "NTA सार्वजनिक सूचना: UGC-NET दिसंबर 2026 विषयवार कार्यक्रम, 19.11.2026 (ugcnet.nta.nic.in)",
+  tentative: true,
+  sourceHi: "NTA की विषयवार कार्यक्रम सूचना (19.11.2026) पर आधारित समाचार रिपोर्ट; पुष्टि ugcnet.nta.nic.in पर करें",
   sourceUrl: "https://ugcnet.nta.nic.in/",
   packHi: "पेपर 1 + अंग्रेज़ी पेपर 2 के सभी 50 टेस्ट",
   packEn: "all 50 Paper 1 + English Paper 2 tests",
@@ -110,10 +112,11 @@ export const EXAM_LANDINGS: Record<string, ExamLandingCfg> = {
     examHi: "UPTET 2026 (शिक्षक पात्रता परीक्षा)",
     examEn: "UPTET 2026 (Teacher Eligibility Test)",
     examAt: "2027-02-26T00:00:00+05:30",
-    dateHi: "26–27 फ़रवरी",
+    dateHi: "26–27 फ़रवरी (संभावित)",
     dateLongHi: "26 और 27 फ़रवरी 2027",
     dateLongEn: "26 and 27 February 2027",
-    sourceHi: "UPESSC विज्ञापन संख्या 10/2026, UPTET (upessc.up.gov.in)",
+    tentative: true,
+    sourceHi: "UPESSC विज्ञापन 10/2026 पर आधारित समाचार रिपोर्ट; पुष्टि upessc.up.gov.in पर करें",
     sourceUrl: "https://upessc.up.gov.in/",
     label: "UPTET",
   },

@@ -13,12 +13,12 @@ export function ExamLanding({ id, tabs }: { id: string; tabs?: ReactNode }) {
   const S = MOCK_SERIES[id];
   const n = S.total;
   const login = `/login.html?next=/examhelp${c.path}`;
-  const when = c.proposed ? "प्रस्तावित तिथि" : "तिथि";
+  const when = c.proposed ? "प्रस्तावित तिथि" : c.tentative ? "संभावित तिथि" : "तिथि";
 
   const faqs = [
     {
       q: `${c.examHi} कब है? (When is the exam?)`,
-      a: `${c.sourceHi} के अनुसार परीक्षा ${when}: ${c.dateLongHi}। Per the official source, the exam is on ${c.dateLongEn}.${c.proposed ? " यह प्रस्तावित तिथि है, अंतिम सूचना आयोग की वेबसाइट पर देखें। This is a proposed date; check the commission's website for the final notice." : ""}`,
+      a: `${c.sourceHi} के अनुसार परीक्षा ${when}: ${c.dateLongHi}। ${c.tentative ? "Per news reports quoting the official notice" : "Per the official source"}, the exam is on ${c.dateLongEn}.${c.tentative ? " अंतिम तिथि आधिकारिक वेबसाइट पर देखें। Check the official website for the final date." : ""}${c.proposed ? " यह प्रस्तावित तिथि है, अंतिम सूचना आयोग की वेबसाइट पर देखें। This is a proposed date; check the commission's website for the final notice." : ""}`,
     },
     {
       q: "इन मॉक टेस्ट का पैटर्न क्या है? (What is the test pattern?)",
