@@ -1,4 +1,4 @@
-import { MockTestList } from "@/components/mock/MockTestList";
+import { ExamLanding } from "@/components/landing/ExamLanding";
 import { pageMeta } from "@/lib/seo";
 
 export const metadata = pageMeta({
@@ -10,5 +10,5 @@ export const metadata = pageMeta({
 
 // UPTET 2026 (UPESSC adv 10/2026), series uptet, added 2026-11-25.
 export default function Page() {
-  return <MockTestList series="uptet" />;
+  return <ExamLanding id="uptet" />;
 }

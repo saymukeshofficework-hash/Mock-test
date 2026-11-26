@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { MockTestList } from "@/components/mock/MockTestList";
+import { ExamLanding } from "@/components/landing/ExamLanding";
 import { pageMeta } from "@/lib/seo";
 
 export const metadata = pageMeta({
@@ -12,22 +12,22 @@ export const metadata = pageMeta({
 // UGC NET: Paper 1 (series netp1) and English Paper 2 (series neteng), added 2026-11-25.
 export default function Page() {
   return (
-    <>
-      <div className="mx-auto mt-4 w-full max-w-5xl px-4">
-        <div className="grid grid-cols-2 gap-2" role="tablist" aria-label="UGC NET papers">
-          <a href="#tests" role="tab" aria-selected="true" className="card border-2 border-brand-700 p-3 text-center">
-            <span className="block text-sm font-extrabold text-brand-900">पेपर 1 / Paper 1</span>
-            <span className="block text-xs text-ink-600">शिक्षण एवं शोध अभिवृत्ति · 25 टेस्ट / Teaching & Research Aptitude · 25 tests</span>
-          </a>
-          <Link href="/ugc-net-english-mock-tests/" role="tab" aria-selected="false" className="card p-3 text-center hover:shadow-md">
-            <span className="block text-sm font-extrabold text-ink-700">पेपर 2 / Paper 2</span>
-            <span className="block text-xs text-ink-600">अंग्रेज़ी · 25 टेस्ट / English · 25 tests</span>
-          </Link>
+    <ExamLanding
+      id="netp1"
+      tabs={
+        <div className="mx-auto mt-4 w-full max-w-5xl px-4">
+          <div className="grid grid-cols-2 gap-2" role="tablist" aria-label="UGC NET papers">
+            <a href="#tests" role="tab" aria-selected="true" className="card border-2 border-brand-700 p-3 text-center">
+              <span className="block text-sm font-extrabold text-brand-900">पेपर 1 / Paper 1</span>
+              <span className="block text-xs text-ink-600">शिक्षण एवं शोध अभिवृत्ति · 25 टेस्ट / Teaching & Research Aptitude · 25 tests</span>
+            </a>
+            <Link href="/ugc-net-english-mock-tests/" role="tab" aria-selected="false" className="card p-3 text-center hover:shadow-md">
+              <span className="block text-sm font-extrabold text-ink-700">पेपर 2 / Paper 2</span>
+              <span className="block text-xs text-ink-600">अंग्रेज़ी · 25 टेस्ट / English · 25 tests</span>
+            </Link>
+          </div>
         </div>
-      </div>
-      <div id="tests">
-        <MockTestList series="netp1" />
-      </div>
-    </>
+      }
+    />
   );
 }
