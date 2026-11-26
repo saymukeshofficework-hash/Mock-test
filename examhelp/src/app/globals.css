@@ -154,6 +154,9 @@ body {
 @utility btn-primary {
   @apply btn bg-brand-700 text-white hover:bg-brand-800;
 }
+@utility btn-unlock {
+  @apply btn bg-[#f4e500] text-[#231b31] hover:bg-[#e8d900];
+}
 @utility btn-navy {
   @apply btn bg-brand-700 text-white hover:bg-brand-800;
 }
