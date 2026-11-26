@@ -27,6 +27,11 @@ jobs:
   apk:
     runs-on: ubuntu-latest
     timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      matrix:
+        # arm64-v8a: almost all phones from the last 6+ years. armeabi-v7a: older/32-bit phones.
+        arch: [arm64-v8a, armeabi-v7a]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -39,16 +44,26 @@ jobs:
       - name: Generate Android project (preview variant)
         env: { APP_VARIANT: preview, CI: "1" }
         run: npx expo prebuild --platform android --no-install
-      - name: Build release APK (debug-signed preview)
+      - name: Show size settings the generated project reads
+        run: grep -nE "enableMinifyInReleaseBuilds|enableShrinkResources|useLegacyPackaging|minifyEnabled|shrinkResources" android/app/build.gradle || true
+      - name: Build release APK (debug-signed preview, one CPU type, R8 + resource shrinking, compressed native libs)
         env: { APP_VARIANT: preview }
         working-directory: native-app/android
-        run: ./gradlew assembleRelease --no-daemon -PreactNativeArchitectures=arm64-v8a,armeabi-v7a
+        run: >
+          ./gradlew assembleRelease --no-daemon
+          -PreactNativeArchitectures=${{ matrix.arch }}
+          -Pandroid.enableMinifyInReleaseBuilds=true
+          -Pandroid.enableShrinkResourcesInReleaseBuilds=true
+          -Pexpo.useLegacyPackaging=true
       - name: Rename APK
-        run: cp android/app/build/outputs/apk/release/app-release.apk "tettesthub-preview-${GITHUB_SHA::7}.apk"
+        run: |
+          cp android/app/build/outputs/apk/release/app-release.apk "tettesthub-preview-${{ matrix.arch }}.apk"
+          ls -l tettesthub-preview-*.apk
       - uses: actions/upload-artifact@v4
         with:
-          name: tettesthub-preview-apk
+          name: tettesthub-preview-${{ matrix.arch }}
           path: native-app/tettesthub-preview-*.apk
+          compression-level: 0
           retention-days: 30
   aab:
     if: github.event_name == 'workflow_dispatch' && inputs.build_aab
@@ -79,6 +94,7 @@ jobs:
           [ -n "$KEYSTORE_B64" ] || { echo "Missing ANDROID_KEYSTORE_BASE64 secret"; exit 1; }
           echo "$KEYSTORE_B64" | base64 -d > "$RUNNER_TEMP/upload.jks"
           ./gradlew bundleRelease --no-daemon \
+            -Pandroid.enableMinifyInReleaseBuilds=true -Pandroid.enableShrinkResourcesInReleaseBuilds=true \
             -Pandroid.injected.signing.store.file="$RUNNER_TEMP/upload.jks" \
             -Pandroid.injected.signing.store.password="$STORE_PW" \
             -Pandroid.injected.signing.key.alias=upload \
