@@ -238,8 +238,8 @@ export const MOCK_SERIES: Record<string, MockSeries> = {
         ["Paper II: Service Rules 30, Revenue Terminology 20, MP Land Revenue Code 1959: 25, Revenue Book Circular 15, Land Records Manual 10", "100", "Hindi/English"],
       ],
     },
-    totalLine: { hi: "हर टेस्ट 200 प्रश्न · 200 अंक · 240 मिनट (प्रत्येक प्रश्नपत्र 100)", en: "Each test 200 questions · 200 marks · 240 minutes (100 per paper)" },
-    neg: { hi: "प्रत्येक प्रश्न 1 अंक, इन मॉक टेस्ट में ऋणात्मक अंकन नहीं। सही पैटर्न के लिए MPESB नियम पुस्तिका देखें।", en: "1 mark per question, no negative marking in these mocks. Check the MPESB rule book for the official scheme." },
+    totalLine: { hi: "MPESB पैटर्न: 2 प्रश्नपत्र, हर एक 100 प्रश्न · 100 अंक · 2 घंटे (अलग पाली)। हर टेस्ट पूरा (200 प्रश्न · 240 मिनट) या एक-एक प्रश्नपत्र (100 प्रश्न · 120 मिनट) दें।", en: "MPESB pattern: 2 papers, each 100 questions · 100 marks · 2 hours (separate shifts). Take each test in full (200 Q · 240 min) or one paper at a time (100 Q · 120 min)." },
+    neg: { hi: "प्रत्येक सही उत्तर 1 अंक, हर गलत उत्तर पर 0.25 अंक कटेगा (MPESB नियम पुस्तिका 2026)। उत्तीर्णांक 55% (SC/ST 40%)।", en: "1 mark per correct answer, 0.25 mark cut per wrong answer (MPESB rule book 2026). Pass mark 55% (SC/ST 40%)." },
     unlockTitle: { hi: "पूरी टेस्ट सीरीज़ — 25 फुल मॉक टेस्ट", en: "Full test series — 25 full mock tests" },
     unlockSub: {
       hi: "टेस्ट 1 फ्री है। बाकी 24 टेस्ट एक बार ₹99 देकर अनलॉक करें — इसी डिवाइस पर तुरंत खुल जाएंगे।",
