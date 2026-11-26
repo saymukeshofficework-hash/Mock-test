@@ -2,8 +2,9 @@
 (function () {
   try {
     var k = "tth-app";
-    if (/[?&]source=android/.test(location.search) || /^android-app:/.test(document.referrer)) localStorage.setItem(k, "1");
-    if (localStorage.getItem(k) === "1") document.documentElement.setAttribute("data-app", "1");
+    localStorage.removeItem(k); // old flag leaked from the app into Chrome and hid all Unlock buttons
+    if (/[?&]source=android/.test(location.search) || /^android-app:/.test(document.referrer)) sessionStorage.setItem(k, "1");
+    if (sessionStorage.getItem(k) === "1") document.documentElement.setAttribute("data-app", "1");
     if (document.documentElement.getAttribute("data-app") === "1") { var w = document.createElement("script"); w.src = "/examhelp/app-words.js?v=2"; w.defer = true; document.head.appendChild(w); }
   } catch (e) {}
   // Pure sales pages: send app users to the catalogue home instead.
