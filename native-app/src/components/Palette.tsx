@@ -1,6 +1,6 @@
 import React from "react";
 import { Modal, Pressable, ScrollView, View } from "react-native";
-import { X } from "lucide-react-native";
+import { X } from "@/components/icons";
 import type { NTest } from "@/engine/types";
 import { brand, radius, space, useColors } from "@/lib/theme";
 import { useT } from "@/lib/i18n";

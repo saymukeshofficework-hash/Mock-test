@@ -1,6 +1,6 @@
 import React from "react";
 import { Tabs } from "expo-router";
-import { BookOpen, Home, ListChecks, Newspaper, User } from "lucide-react-native";
+import { BookOpen, Home, ListChecks, Newspaper, User } from "@/components/icons";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { brand, font, useColors, useIsDark } from "@/lib/theme";
 import { useT } from "@/lib/i18n";

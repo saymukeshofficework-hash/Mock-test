@@ -1,7 +1,7 @@
 import React, { useMemo, useState } from "react";
 import { FlatList, ScrollView, TextInput, View } from "react-native";
 import { router } from "expo-router";
-import { BadgeCheck, BookOpen, GraduationCap, Landmark, Search, Shield, TrainFront, Users } from "lucide-react-native";
+import { BadgeCheck, BookOpen, GraduationCap, Landmark, Search, Shield, TrainFront, Users } from "@/components/icons";
 import { Card, Chip, EmptyState, Header, Screen, Txt } from "@/components/ui";
 import { useT, type StrKey } from "@/lib/i18n";
 import { brand, font, radius, space, useColors } from "@/lib/theme";

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { FlatList, View } from "react-native";
 import { router, useFocusEffect } from "expo-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { Bookmark, Clock, Download, RotateCcw } from "lucide-react-native";
+import { Bookmark, Clock, Download, RotateCcw } from "@/components/icons";
 import { Button, Card, Chip, EmptyState, Header, Loading, Pill, ProgressBar, Screen, Txt } from "@/components/ui";
 import { useT, type StrKey } from "@/lib/i18n";
 import { brand, space, useColors } from "@/lib/theme";

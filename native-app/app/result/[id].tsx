@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { BackHandler, View } from "react-native";
 import { router, useLocalSearchParams } from "expo-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { Lightbulb, RotateCcw, BookOpenCheck } from "lucide-react-native";
+import { Lightbulb, RotateCcw, BookOpenCheck } from "@/components/icons";
 import { Button, Card, ErrorState, Header, Loading, ProgressBar, Ring, Screen, SectionTitle, Txt } from "@/components/ui";
 import { useT, pick } from "@/lib/i18n";
 import { brand, space } from "@/lib/theme";

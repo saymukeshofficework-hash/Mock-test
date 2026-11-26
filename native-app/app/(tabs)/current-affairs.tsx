@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import { FlatList, Pressable, ScrollView, TextInput, View } from "react-native";
 import { router } from "expo-router";
 import { useQuery } from "@tanstack/react-query";
-import { Search, Trophy } from "lucide-react-native";
+import { Search, Trophy } from "@/components/icons";
 import { Button, Card, Chip, EmptyState, ErrorState, Header, Loading, Screen, Txt } from "@/components/ui";
 import { CaItemCard } from "@/components/CaItemCard";
 import { useT, type StrKey } from "@/lib/i18n";

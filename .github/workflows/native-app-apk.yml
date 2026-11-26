@@ -59,6 +59,7 @@ jobs:
         run: |
           cp android/app/build/outputs/apk/release/app-release.apk "tettesthub-preview-${{ matrix.arch }}.apk"
           ls -l tettesthub-preview-*.apk
+          grep -n "resConfigs" android/app/build.gradle || true
           echo "Largest files (compressed size):"; unzip -lv tettesthub-preview-*.apk | awk 'NR>3 && $3 ~ /^[0-9]+$/ {print $3, $8}' | sort -nr | head -15
       - uses: actions/upload-artifact@v4
         with:

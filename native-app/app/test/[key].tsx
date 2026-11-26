@@ -4,7 +4,7 @@ import { router, useLocalSearchParams, useNavigation } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useQueryClient } from "@tanstack/react-query";
 import { useKeepAwake } from "expo-keep-awake";
-import { Bookmark, BookmarkCheck, Flag, Grid3x3, Clock, X } from "lucide-react-native";
+import { Bookmark, BookmarkCheck, Flag, Grid3x3, Clock, X } from "@/components/icons";
 import { Button, Card, ErrorState, Loading, Txt } from "@/components/ui";
 import { RichText } from "@/components/RichText";
 import { PaletteModal, qState } from "@/components/Palette";

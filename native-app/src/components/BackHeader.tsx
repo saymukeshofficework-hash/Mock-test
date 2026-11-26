@@ -1,7 +1,7 @@
 import React, { type ReactNode } from "react";
 import { Pressable, View } from "react-native";
 import { router } from "expo-router";
-import { ArrowLeft } from "lucide-react-native";
+import { ArrowLeft } from "@/components/icons";
 import { space, useColors } from "@/lib/theme";
 import { useT } from "@/lib/i18n";
 import { Txt } from "./ui";

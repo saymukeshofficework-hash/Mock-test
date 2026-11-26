@@ -32,6 +32,7 @@ const config: ExpoConfig = {
     "expo-sqlite",
     "expo-font",
     ["expo-notifications", { color: "#19336F" }],
+    "./plugins/withLocaleFilter",
     ["expo-splash-screen", { image: "./assets/splash-icon.png", imageWidth: 180, backgroundColor: "#19336F" }],
   ],
   experiments: { typedRoutes: false },

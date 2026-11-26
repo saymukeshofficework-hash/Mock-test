@@ -2,7 +2,7 @@ import React, { type ReactNode } from "react";
 import { ActivityIndicator, Pressable, ScrollView, StyleSheet, Text, View, type TextProps, type ViewStyle, type StyleProp, RefreshControl } from "react-native";
 import { SafeAreaView, type Edge } from "react-native-safe-area-context";
 import Svg, { Circle } from "react-native-svg";
-import { AlertCircle, Inbox } from "lucide-react-native";
+import { AlertCircle, Inbox } from "@/components/icons";
 import { brand, font, radius, shadow, space, useColors } from "@/lib/theme";
 import { useT } from "@/lib/i18n";
 

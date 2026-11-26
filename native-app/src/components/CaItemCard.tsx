@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Pressable, View } from "react-native";
-import { Bookmark, BookmarkCheck } from "lucide-react-native";
+import { Bookmark, BookmarkCheck } from "@/components/icons";
 import type { CaItem } from "@/services/currentAffairs";
 import { useT } from "@/lib/i18n";
 import { brand, space, useColors } from "@/lib/theme";

@@ -1,7 +1,7 @@
 import React, { useMemo } from "react";
 import { Pressable, View } from "react-native";
 import { router } from "expo-router";
-import { Bell, CalendarDays, Check, ChevronRight, Newspaper, PlayCircle, Target, Trophy } from "lucide-react-native";
+import { Bell, CalendarDays, Check, ChevronRight, Newspaper, PlayCircle, Target, Trophy } from "@/components/icons";
 import { Button, Card, Header, Pill, ProgressBar, Screen, SectionTitle, Skeleton, Txt } from "@/components/ui";
 import { useT } from "@/lib/i18n";
 import { brand, radius, space, useColors } from "@/lib/theme";

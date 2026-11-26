@@ -1,7 +1,7 @@
 import React from "react";
 import { Linking, ScrollView, View } from "react-native";
 import { router, useLocalSearchParams } from "expo-router";
-import { ExternalLink } from "lucide-react-native";
+import { ExternalLink } from "@/components/icons";
 import { BackHeader } from "@/components/BackHeader";
 import { Button, Card, EmptyState, Pill, Screen, SectionTitle, Txt } from "@/components/ui";
 import { useT } from "@/lib/i18n";

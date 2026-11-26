@@ -2,7 +2,7 @@ import React, { useMemo } from "react";
 import { Alert, Pressable, View } from "react-native";
 import { router, useLocalSearchParams } from "expo-router";
 import { useQuery } from "@tanstack/react-query";
-import { CheckCircle2, Download, Lock, PlayCircle, RotateCcw } from "lucide-react-native";
+import { CheckCircle2, Download, Lock, PlayCircle, RotateCcw } from "@/components/icons";
 import { BackHeader } from "@/components/BackHeader";
 import { Card, ErrorState, Pill, Screen, Txt } from "@/components/ui";
 import { useT } from "@/lib/i18n";

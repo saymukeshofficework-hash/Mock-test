@@ -2,7 +2,7 @@ import React, { useMemo } from "react";
 import { Alert, Linking, Pressable, Switch, View } from "react-native";
 import { router } from "expo-router";
 import Constants from "expo-constants";
-import { ChevronRight, FileText, HelpCircle, KeyRound, LogOut, MessageCircle, Shield, Trash2, Bookmark } from "lucide-react-native";
+import { ChevronRight, FileText, HelpCircle, KeyRound, LogOut, MessageCircle, Shield, Trash2, Bookmark } from "@/components/icons";
 import { Button, Card, Chip, Header, Screen, SectionTitle, Txt } from "@/components/ui";
 import { useT, type StrKey } from "@/lib/i18n";
 import { brand, space, useColors } from "@/lib/theme";
