@@ -7,7 +7,7 @@ Run on 2026-11-26 in the build container (Node 22):
 | TypeScript strict | `npm run typecheck` | Pass (0 errors) |
 | ESLint (expo config) | `npm run lint` | Pass (0 problems) |
 | Unit tests | `npm test` | 15 of 15 pass (scoring rules for every series type, LaTeX text, catalog integrity) |
-| Android build | GitHub Actions `Native app build` | See the workflow run on `feature/native-app-v1` (the container cannot reach Google's Maven, so no local Gradle build) |
+| Android build | GitHub Actions `Native app build` (prebuild + `gradlew assembleRelease`) | Pass, run 45769341200. The same run repeated typecheck, lint and tests. |
 
 Scoring rules were checked against the website engines: main RPC score, RRB NTPC c − w/3, SSC GD +2/−0.25,
 RRB SM +1/−1/3, count-only series, JSON `marks` series.

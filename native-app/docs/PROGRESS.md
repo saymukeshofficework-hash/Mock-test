@@ -11,5 +11,5 @@
 - [x] Profile: stats, language, theme, daily goal, notification settings, help/privacy/terms, delete account, logout, version
 - [x] Typecheck, lint, unit tests (15/15)
 - [x] GitHub Actions APK workflow
-- [ ] Preview APK from Actions (see the workflow run)
+- [x] Preview APK built on GitHub Actions (run 45769341200, artifact `tettesthub-preview-apk`, 22.9 MB zip)
 - [ ] Device QA, FCM, server attempt history (see BLOCKERS.md)
