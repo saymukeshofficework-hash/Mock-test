@@ -16,7 +16,6 @@ import { examPhase, formatDate, formatExamDate } from "@/lib/dates";
 import { priceSafe } from "@/lib/format";
 import { getCategory, getExamBySlug, getExams, getNotesForExam, getNotificationsForExam, getRelatedExams } from "@/lib/repo";
 import { pageMeta } from "@/lib/seo";
-import { site } from "@/lib/site";
 import type { Bilingual, ExamDate } from "@/types";
 
 type Params = Promise<{ slug: string }>;
@@ -82,22 +81,9 @@ export default async function ExamDetailPage({ params }: { params: Params }) {
     !!examDate?.date && phase !== "AWAITING_UPDATE" && ["CONFIRMED", "TENTATIVE", "COMPLETED"].includes(examDate.status);
   const name = tr(exam.name, lang);
 
-  const eventSchema =
-    examDate?.date && (examDate.status === "CONFIRMED" || examDate.status === "TENTATIVE")
-      ? {
-          "@context": "https://schema.org",
-          "@type": "EducationEvent",
-          name: exam.name.en,
-          startDate: examDate.date,
-          ...(examDate.endDate ? { endDate: examDate.endDate } : {}),
-          eventStatus: "https://schema.org/EventScheduled",
-          eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
-          location: { "@type": "Place", name: "Examination centres, Madhya Pradesh", address: { "@type": "PostalAddress", addressRegion: "MP", addressCountry: "IN" } },
-          organizer: { "@type": "Organization", name: exam.organization, url: exam.officialUrl },
-          url: `${site.url}/exams/${exam.slug}/`,
-          description: `${exam.name.en}. Date status: ${examDate.status}. Verify on the official website.`,
-        }
-      : null;
+  // No Event/EducationEvent markup here: a recruitment exam has no performer or ticket offer, TETTESTHUB
+  // is not its organiser, and tentative or already-held dates must not be claimed as "EventScheduled".
+  // Google flagged the old markup in Search Console (missing performer, offers, endDate, image).
 
   return (
     <>
@@ -368,7 +354,6 @@ export default async function ExamDetailPage({ params }: { params: Params }) {
           )}
         </aside>
       </div>
-      {eventSchema && <JsonLd data={eventSchema} />}
       {exam.faqs && exam.faqs.length > 0 && (
         <JsonLd
           data={{
