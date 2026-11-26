@@ -100,14 +100,14 @@ html[data-app] [data-sale]{display:none!important}html:not([data-app]) [data-app
     ['प्रश्नपत्र II — शासकीय सेवा नियम / Govt Service Rules', 30], ['राजस्व शब्दावली / Revenue Terminology', 20], ['म.प्र. भू-राजस्व संहिता 1959 / MP Land Revenue Code', 25],
     ['राजस्व पुस्तक परिपत्र / Revenue Book Circular', 15], ['भू-अभिलेख नियमावली / Land Records Manual', 10]];
   $('pat').innerHTML = '<div class="exam-pattern-head"><span class="exam-pattern-name">MP नायब तहसीलदार मॉक टेस्ट</span><span class="exam-pattern-summary">परीक्षा पैटर्न / Exam Pattern · 200 प्रश्न · 240 मिनट</span><span class="exam-pattern-note">प्रश्नपत्र I और II का विषयवार विवरण</span></div><h2 class="exam-pattern-title">परीक्षा पैटर्न / Exam Pattern</h2><table class="exam-pattern-table">' +
-    '<tr><th colspan="2">200 प्रश्न, 240 मिनट (प्रश्नपत्र I: 100 + प्रश्नपत्र II: 100) / 200 Q, 240 min (Paper I 100 + Paper II 100)</th></tr>' +
+    '<tr><th colspan="2">MPESB पैटर्न: 2 प्रश्नपत्र, हर एक 100 प्रश्न · 100 अंक · 2 घंटे (अलग पाली) / MPESB pattern: 2 papers, each 100 Q · 100 marks · 2 hours (separate shifts)</th></tr>' +
     rows.map(r => `<tr><td>${r[0]}</td><td>${r[1]}</td></tr>`).join('') + '</table>' +
-    '<p class="exam-pattern-total">कुल <strong>200 प्रश्न</strong> · <strong>200 अंक</strong> · <strong>240 मिनट</strong> · ऋणात्मक अंकन नहीं</p>';
+    '<p class="exam-pattern-total">कुल <strong>200 प्रश्न</strong> · <strong>200 अंक</strong> · <strong>240 मिनट</strong> · हर गलत उत्तर पर −0.25 अंक / −0.25 per wrong answer · उत्तीर्णांक 55% (SC/ST 40%) / Pass 55% (SC/ST 40%)</p>';
   let html = '';
   for (let n = 1; n <= 25; n++) {
     html += `<div class="card t"><h3>टेस्ट / Test ${n}${n === 1 ? '<span class="free">फ्री / Free</span>' : ''}</h3>` +
       '<p class="m">200 प्रश्न · 240 मिनट<br>200 questions · 240 min</p>' +
-      (n === 1 ? `<a class="btn btn-p w" href="/examhelp/mock-tests/nt/test.html?t=01">▶ टेस्ट शुरू करें / Start test</a></div>`
+      (n === 1 ? `<a class="btn btn-p w" href="/examhelp/mock-tests/nt/test.html?t=01">▶ टेस्ट शुरू करें / Start test</a><a class="btn btn-l w" style="margin-top:6px" href="/examhelp/mock-tests/nt/test.html?t=01&p=1">प्रश्नपत्र I / Paper I · 100 Q · 120 min</a><a class="btn btn-l w" style="margin-top:6px" href="/examhelp/mock-tests/nt/test.html?t=01&p=2">प्रश्नपत्र II / Paper II · 100 Q · 120 min</a></div>`
         : `<a class="btn btn-p w" href="/examhelp/mp-naib-tehsildar-mock-tests/"><span data-sale>🔒 ₹99 में अनलॉक करें / Unlock for ₹99</span><span data-app-only>🔒 टेस्ट सीरीज़ / Test Series</span></a></div>`);
   }
   $('grid').innerHTML = html;
