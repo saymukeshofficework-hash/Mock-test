@@ -1,6 +1,6 @@
 // Meta Pixel (TETTESTHUB Website Pixel). Not loaded inside the Android app (Play data-safety).
 (function(){
-  try { if (/[?&]source=android/.test(location.search) || localStorage.getItem('tth-app') === '1') return; } catch (e) {}
+  try { if (/[?&]source=android/.test(location.search) || sessionStorage.getItem('tth-app') === '1') return; } catch (e) {}
   !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
   fbq('init','2274221146864757'); fbq('track','PageView');
 })();

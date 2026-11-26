@@ -2,7 +2,7 @@
 // Replaces "Paid Test" with "Test Series", drops the words free/फ्री/मुफ्त/पेड from labels, hides lines that only make sense with them.
 (function () {
   try {
-    if (document.documentElement.getAttribute("data-app") !== "1" && localStorage.getItem("tth-app") !== "1") return;
+    if (document.documentElement.getAttribute("data-app") !== "1" && sessionStorage.getItem("tth-app") !== "1") return;
   } catch (e) { return; }
   if (window.__tthWords) return;
   window.__tthWords = 1;
