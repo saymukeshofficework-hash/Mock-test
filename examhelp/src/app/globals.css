@@ -301,3 +301,9 @@ body.current-affairs-page header .current-affairs-search-icon {
 .exam-pattern-total{margin:12px 10px 0;padding:12px 14px;border-radius:14px;background:linear-gradient(100deg,#075b48,#007b60);color:#fff;text-align:center;font-size:clamp(13px,2.7vw,17px);font-weight:900;line-height:1.5}
 .exam-pattern-negative{margin:0;padding:9px 14px 12px;color:#7b2d16;text-align:center;font-size:12px;font-weight:700;line-height:1.5}
 @media(max-width:420px){.exam-pattern-panel{border-radius:16px}.exam-pattern-intro{margin:8px;padding:10px}.exam-pattern-table{margin:0 7px;width:calc(100% - 14px)}.exam-pattern-table th,.exam-pattern-table td{padding:8px 6px;font-size:12px}.exam-pattern-table .exam-pattern-count{width:54px}.exam-pattern-table .exam-pattern-language{width:28%}.exam-pattern-ribbon{padding:7px 24px}}
+
+/* Exam landing colour themes (src/data/examLandings.ts). Green = default brand. */
+.theme-blue{--brand-950:#0b1b3a;--brand-900:#102a5c;--brand-800:#1a3f86;--brand-700:#1d4ed8;--brand-600:#2563eb;--brand-500:#3b82f6;--brand-100:#dbe7fb;--brand-50:#eef4fd}
+.theme-red{--brand-950:#3a0b0b;--brand-900:#5c1212;--brand-800:#8f1d1d;--brand-700:#b91c1c;--brand-600:#dc2626;--brand-500:#ef4444;--brand-100:#fbdede;--brand-50:#fdf1f1}
+html[data-theme="dark"] .theme-blue{--brand-950:#e8f0ff;--brand-900:#cfe0ff;--brand-800:#9fc1ff;--brand-700:#3b6fd6;--brand-600:#4f86ee;--brand-500:#6fa0f8;--brand-100:#16284a;--brand-50:#101d36}
+html[data-theme="dark"] .theme-red{--brand-950:#ffecec;--brand-900:#ffd3d3;--brand-800:#ffa3a3;--brand-700:#c93a3a;--brand-600:#e05555;--brand-500:#f07a7a;--brand-100:#4a1616;--brand-50:#361010}

@@ -1,4 +1,4 @@
-import { MockTestList } from "@/components/mock/MockTestList";
+import { ExamLanding } from "@/components/landing/ExamLanding";
 import { pageMeta } from "@/lib/seo";
 
 export const metadata = pageMeta({
@@ -10,5 +10,5 @@ export const metadata = pageMeta({
 
 // CTET Paper 2 (Classes 6–8), series ctet2sst, added 2026-11-25. Same ₹99 order as Paper 1 (product ctet-tests).
 export default function Page() {
-  return <MockTestList series="ctet2sst" />;
+  return <ExamLanding id="ctet2sst" />;
 }
