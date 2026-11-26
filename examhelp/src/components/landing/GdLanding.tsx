@@ -91,7 +91,7 @@ export function GdBuyCard() {
         <span className="text-ink-700">में सभी 25 फुल टेस्ट (All 25 full tests)</span>
       </p>
       <p className="mt-1 text-sm text-ink-600">1 बार का भुगतान, तुरंत अनलॉक। One-time payment, opens instantly.</p>
-      <button type="button" onClick={buyNow} className="btn-primary mt-4 w-full">
+      <button type="button" onClick={buyNow} className="btn-unlock mt-4 w-full">
         ₹{S.price} में 25 टेस्ट अनलॉक करें (Unlock)
       </button>
       <a href={`${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}${S.enginePath}?t=01&lang=hi`} className="btn-outline mt-2 w-full">
@@ -113,7 +113,7 @@ export function GdSticky() {
         <b className="block text-base text-brand-900">{a.loggedIn ? `₹${S.price}` : left ? `${days(left)} दिन बाकी` : "MP GD"}</b>
       </div>
       {a.loggedIn ? (
-        <button type="button" onClick={buyNow} className="btn-primary flex-1">
+        <button type="button" onClick={buyNow} className="btn-unlock flex-1">
           अभी अनलॉक करें (Unlock)
         </button>
       ) : (

@@ -215,7 +215,7 @@ export function MockTestList({ series = "ag3", topCta, topCtaIn, noFreeBadge }: 
               )}
             </div>
           ) : S.unlockHref ? (
-            <a href={S.unlockHref} className="btn-primary w-full">
+            <a href={S.unlockHref} className="btn-unlock w-full">
               <Lock className="h-4 w-4" aria-hidden="true" />
               {lang === "hi" ? `बाकी ${S.total - S.free.length} टेस्ट अनलॉक करें – ₹${S.price}` : `Unlock remaining ${S.total - S.free.length} tests – ₹${S.price}`}
             </a>
@@ -223,7 +223,7 @@ export function MockTestList({ series = "ag3", topCta, topCtaIn, noFreeBadge }: 
             <p className="rounded-lg bg-success-50 px-4 py-3 text-center font-semibold text-success-700">{t("unlocked")}</p>
           ) : (
             <div>
-              <button id="series-unlock-btn" type="button" onClick={unlock} disabled={(!canBuy && !mainSite) || payState !== "idle"} className="btn-primary w-full disabled:opacity-60">
+              <button id="series-unlock-btn" type="button" onClick={unlock} disabled={(!canBuy && !mainSite) || payState !== "idle"} className="btn-unlock w-full disabled:opacity-60">
                 <Lock className="h-4 w-4" aria-hidden="true" />
                 {payState !== "idle" ? t("wait") : (lang === "hi" ? `बाकी ${S.total - S.free.length} टेस्ट अनलॉक करें – ₹${S.price}` : `Unlock remaining ${S.total - S.free.length} tests – ₹${S.price}`)}
               </button>

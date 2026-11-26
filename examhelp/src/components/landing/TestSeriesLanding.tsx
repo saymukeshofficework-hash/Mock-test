@@ -151,7 +151,7 @@ export function TestSeriesLanding() {
         {lang === "hi" ? "अनलॉक है — टेस्ट दें" : "Unlocked — take tests"}
       </a>
     ) : (
-      <button type="button" onClick={buy} disabled={!canBuy || payState !== "idle"} className={`btn-primary disabled:opacity-60 ${big ? "px-7 text-base" : "w-full"}`}>
+      <button type="button" onClick={buy} disabled={!canBuy || payState !== "idle"} className={`btn-unlock disabled:opacity-60 ${big ? "px-7 text-base" : "w-full"}`}>
         <CreditCard className="h-4 w-4" aria-hidden="true" />
         {payState !== "idle"
           ? lang === "hi" ? "कृपया प्रतीक्षा करें…" : "Please wait…"
