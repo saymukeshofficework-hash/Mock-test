@@ -58,7 +58,7 @@ export const space = { xs: 4, sm: 8, md: 12, lg: 16, xl: 24 };
 export const radius = { sm: 8, md: 12, lg: 16, pill: 999 };
 export const font = {
   regular: "NotoSansDevanagari_400Regular",
-  medium: "NotoSansDevanagari_500Medium",
+  medium: "NotoSansDevanagari_600SemiBold",
   semibold: "NotoSansDevanagari_600SemiBold",
   bold: "NotoSansDevanagari_700Bold",
 };

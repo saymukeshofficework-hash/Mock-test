@@ -4,7 +4,7 @@ import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import { useFonts, NotoSansDevanagari_400Regular, NotoSansDevanagari_500Medium, NotoSansDevanagari_600SemiBold, NotoSansDevanagari_700Bold } from "@expo-google-fonts/noto-sans-devanagari";
+import { useFonts, NotoSansDevanagari_400Regular, NotoSansDevanagari_600SemiBold, NotoSansDevanagari_700Bold } from "@expo-google-fonts/noto-sans-devanagari";
 import { useAuth } from "@/store/auth";
 import { useColors, useIsDark } from "@/lib/theme";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
@@ -13,7 +13,7 @@ SplashScreen.preventAutoHideAsync().catch(() => undefined);
 const queryClient = new QueryClient({ defaultOptions: { queries: { retry: 1, staleTime: 5 * 60 * 1000 } } });
 
 export default function RootLayout() {
-  const [fontsLoaded] = useFonts({ NotoSansDevanagari_400Regular, NotoSansDevanagari_500Medium, NotoSansDevanagari_600SemiBold, NotoSansDevanagari_700Bold });
+  const [fontsLoaded] = useFonts({ NotoSansDevanagari_400Regular, NotoSansDevanagari_600SemiBold, NotoSansDevanagari_700Bold });
   const ready = useAuth((s) => s.ready);
   const session = useAuth((s) => s.session);
   const init = useAuth((s) => s.init);

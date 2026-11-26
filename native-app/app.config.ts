@@ -31,7 +31,6 @@ const config: ExpoConfig = {
     "expo-secure-store",
     "expo-sqlite",
     "expo-font",
-    "expo-web-browser",
     ["expo-notifications", { color: "#19336F" }],
     ["expo-splash-screen", { image: "./assets/splash-icon.png", imageWidth: 180, backgroundColor: "#19336F" }],
   ],
