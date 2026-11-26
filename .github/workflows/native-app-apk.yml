@@ -32,7 +32,7 @@ jobs:
       - uses: actions/setup-node@v4
         with: { node-version: 22, cache: npm, cache-dependency-path: native-app/package-lock.json }
       - uses: actions/setup-java@v4
-        with: { distribution: temurin, java-version: 17, cache: gradle }
+        with: { distribution: temurin, java-version: 17 }
       - run: npm ci
       - name: Typecheck, lint, unit tests
         run: npm run typecheck && npm run lint && npx jest --ci
@@ -59,7 +59,7 @@ jobs:
       - uses: actions/setup-node@v4
         with: { node-version: 22, cache: npm, cache-dependency-path: native-app/package-lock.json }
       - uses: actions/setup-java@v4
-        with: { distribution: temurin, java-version: 17, cache: gradle }
+        with: { distribution: temurin, java-version: 17 }
       - run: npm ci
       - name: Generate Android project (production variant)
         env: { APP_VARIANT: production, ANDROID_VERSION_CODE: "${{ inputs.version_code }}", CI: "1" }
