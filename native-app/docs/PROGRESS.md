@@ -11,5 +11,5 @@
 - [x] Profile: stats, language, theme, daily goal, notification settings, help/privacy/terms, delete account, logout, version
 - [x] Typecheck, lint, unit tests (15/15)
 - [x] GitHub Actions APK workflow
-- [x] Preview APK built on GitHub Actions (run 45769341200, artifact `tettesthub-preview-apk`, 22.9 MB zip)
+- [x] Preview APK built on GitHub Actions. Size cut from 45 MB to 14.2 MB (arm64) / 13.4 MB (32-bit): one CPU type per APK, R8 + resource shrinking, compressed native libs, per-icon imports, English/Hindi-only resources (run 45774857181)
 - [ ] Device QA, FCM, server attempt history (see BLOCKERS.md)
