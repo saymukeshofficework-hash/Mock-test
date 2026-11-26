@@ -1,0 +1,708 @@
+{
+ "synced": "2026-11-26",
+ "exams": [
+  {
+   "id": "mp-police-constable-gd-2026",
+   "slug": "mp-police-constable-2026",
+   "name": {
+    "hi": "आरक्षक (जी.डी.) भर्ती परीक्षा 2026",
+    "en": "MP Police Constable (G.D.) Recruitment Test 2026"
+   },
+   "shortName": "Police Constable 2026",
+   "organization": "MPESB",
+   "category": "police",
+   "posts": 7500,
+   "mode": {
+    "hi": "ऑनलाइन (CBT)",
+    "en": "Online (CBT)"
+   },
+   "dates": {
+    "applicationStart": {
+     "date": "2026-09-22",
+     "status": "CONFIRMED"
+    },
+    "applicationEnd": {
+     "date": "2026-10-06",
+     "status": "CONFIRMED"
+    },
+    "correctionEnd": {
+     "date": "2026-10-11",
+     "status": "CONFIRMED"
+    },
+    "exam": {
+     "date": "2026-12-09",
+     "status": "CONFIRMED",
+     "note": {
+      "hi": "MPESB की सूचना दिनांक 23.11.2026 के अनुसार परीक्षा 09 दिसंबर 2026 से प्रारंभ होगी। प्रवेश-पत्र शीघ्र जारी होंगे।",
+      "en": "Per MPESB notice dated 23 Nov 2026, the exam starts from 9 Dec 2026. Admit cards will be issued soon."
+     }
+    }
+   },
+   "officialUrl": "https://esb.mp.gov.in/",
+   "description": {
+    "hi": "MP पुलिस आरक्षक (जी.डी.) भर्ती 2026 (MP Police Constable GD Vacancy 2026) — मध्यप्रदेश कर्मचारी चयन मंडल (MPESB) द्वारा कुल 7,500 पदों के लिए ऑनलाइन परीक्षा (नियम पुस्तिका दिनांक 09.09.2026, संशोधित पृष्ठ 1 दिनांक 15.09.2026)। आवेदन 22.09.2026 से 06.10.2026 तक हुए थे। MPESB की सूचना दिनांक 23.11.2026 के अनुसार परीक्षा 09 दिसंबर 2026 से शुरू होगी। पात्रता, आयु सीमा, शुल्क और शारीरिक मापदंड के लिए आधिकारिक नियम पुस्तिका देखें।",
+    "en": "MP Police Constable (GD) Recruitment 2026 — an online test by the MP Employees Selection Board (MPESB) for 7,500 posts (rule book dated 09.09.2026, revised page 1 dated 15.09.2026). Applications ran from 22.09.2026 to 06.10.2026. Per the MPESB notice dated 23.11.2026, the exam starts on 9 December 2026. See the official rule book for eligibility, age limit, fee and physical standards."
+   },
+   "pattern": {
+    "hi": "MPESB नियम पुस्तिका 2026 के अनुसार: कुल 100 प्रश्न, 100 अंक, 120 मिनट। सामान्य ज्ञान एवं तार्किक ज्ञान 40, बौद्धिक क्षमता एवं मानसिक अभिरुचि 30, विज्ञान एवं सरल अंकगणित 30 प्रश्न। हर प्रश्न 1 अंक, ऋणात्मक अंकन नहीं। प्रश्न हिंदी और English में।",
+    "en": "As per the MPESB rule book 2026: 100 questions, 100 marks, 120 minutes. General Knowledge & Logical Knowledge 40, Intellectual Ability & Mental Aptitude 30, Science & Simple Arithmetic 30. 1 mark each, no negative marking. Questions in Hindi and English."
+   },
+   "syllabus": null
+  },
+  {
+   "id": "mp-subedar-steno-asi-2026",
+   "slug": "mp-subedar-steno-asi-2026",
+   "name": {
+    "hi": "सूबेदार (अनुसचिवीय) शीघ्रलेखक एवं सहायक उप निरीक्षक (अनुसचिवीय) भर्ती परीक्षा 2026",
+    "en": "MP Subedar (Stenographer) & ASI (Ministerial) Recruitment Test 2026"
+   },
+   "shortName": "Subedar Steno & ASI 2026",
+   "organization": "MPESB",
+   "category": "police",
+   "posts": 566,
+   "mode": {
+    "hi": "ऑनलाइन (CBT)",
+    "en": "Online (CBT)"
+   },
+   "dates": {
+    "applicationStart": {
+     "date": "2026-09-24",
+     "status": "CONFIRMED"
+    },
+    "applicationEnd": {
+     "date": "2026-10-08",
+     "status": "CONFIRMED"
+    },
+    "correctionEnd": {
+     "date": "2026-10-13",
+     "status": "CONFIRMED"
+    },
+    "exam": {
+     "date": "2026-11-03",
+     "status": "CONFIRMED",
+     "note": {
+      "hi": "प्रथम चरण — लिखित परीक्षा प्रारंभ",
+      "en": "Phase 1 written exam begins"
+     }
+    }
+   },
+   "officialUrl": "https://esb.mp.gov.in/",
+   "description": null,
+   "pattern": null,
+   "syllabus": null
+  },
+  {
+   "id": "mp-nayab-tahsildar-2026",
+   "slug": "mp-nayab-tahsildar-2026",
+   "name": {
+    "hi": "नायब तहसीलदार विभागीय (सीमित प्रतियोगिता) भर्ती परीक्षा 2026",
+    "en": "MP Nayab Tahsildar Departmental Recruitment Test 2026"
+   },
+   "shortName": "Nayab Tahsildar 2026",
+   "organization": "MPESB",
+   "category": "revenue",
+   "posts": 73,
+   "mode": {
+    "hi": "ऑनलाइन (CBT)",
+    "en": "Online (CBT)"
+   },
+   "dates": {
+    "applicationStart": {
+     "date": "2026-09-17",
+     "status": "CONFIRMED"
+    },
+    "applicationEnd": {
+     "date": "2026-10-01",
+     "status": "CONFIRMED"
+    },
+    "correctionEnd": {
+     "date": "2026-10-06",
+     "status": "CONFIRMED"
+    },
+    "exam": {
+     "date": "2027-01-10",
+     "status": "CONFIRMED",
+     "note": {
+      "hi": "MPESB की सूचना दिनांक 11.11.2026 के अनुसार परीक्षा 10 जनवरी 2027 को (पहले 14.11.2026)।",
+      "en": "Per MPESB notice dated 11.11.2026 the exam is on 10 Jan 2027 (earlier 14 Nov 2026)."
+     }
+    }
+   },
+   "officialUrl": "https://esb.mp.gov.in/",
+   "description": {
+    "hi": "लिपिकवर्गीय सेवाओं तथा पटवारी/राजस्व निरीक्षक संवर्ग के कर्मचारियों के लिए सीमित प्रतियोगिता परीक्षा।",
+    "en": "Limited competitive exam for clerical staff and Patwari/Revenue Inspector cadre employees."
+   },
+   "pattern": null,
+   "syllabus": null
+  },
+  {
+   "id": "mp-teacher-eligibility-test-2026",
+   "slug": "mp-tet-2026",
+   "name": {
+    "hi": "प्राथमिक एवं माध्यमिक कक्षाओं में अध्यापन कर रहे शिक्षकों के लिए पात्रता परीक्षा 2026",
+    "en": "MP Teacher Eligibility Test 2026 (for in-service Primary & Middle school teachers)"
+   },
+   "shortName": "MP TET 2026",
+   "organization": "MPESB",
+   "category": "teacher",
+   "posts": null,
+   "mode": {
+    "hi": "ऑनलाइन (CBT)",
+    "en": "Online (CBT)"
+   },
+   "dates": {
+    "applicationStart": {
+     "date": "2026-08-21",
+     "status": "CONFIRMED"
+    },
+    "applicationEnd": {
+     "date": "2026-10-05",
+     "status": "CONFIRMED",
+     "note": {
+      "hi": "अंतिम तिथि बढ़ाई गई (पूर्व में 18.09.2026)।",
+      "en": "Last date extended (earlier 18.09.2026)."
+     }
+    },
+    "correctionEnd": {
+     "date": "2026-10-06",
+     "status": "CONFIRMED"
+    },
+    "exam": {
+     "date": "2026-10-12",
+     "status": "TENTATIVE",
+     "note": {
+      "hi": "04.09.2026 की नियमपुस्तिका के अनुसार। आवेदन तिथि बढ़ने के बाद परीक्षा तिथि की पुनः पुष्टि नहीं हुई — आधिकारिक सूचना देखें।",
+      "en": "Per the rulebook of 04.09.2026. Not re-confirmed after the application extension — check the official notice."
+     }
+    }
+   },
+   "officialUrl": "https://esb.mp.gov.in/",
+   "description": {
+    "hi": "माननीय सर्वोच्च न्यायालय के आदेश दिनांक 01.09.2025 (सिविल अपील 1385/2025, 1386/2025) के अनुपालन में सेवारत शिक्षकों हेतु।",
+    "en": "For serving teachers, in compliance with the Supreme Court order dated 01.09.2025 (Civil Appeals 1385/2025 & 1386/2025)."
+   },
+   "pattern": null,
+   "syllabus": null
+  },
+  {
+   "id": "mp-group-3-2026",
+   "slug": "mp-group-3-2026",
+   "name": {
+    "hi": "समूह-03 उपयंत्री, मानचित्रकार, प्रयोगशाला तकनीशियन एवं अन्य समकक्ष पद संयुक्त भर्ती परीक्षा 2026 (द्वितीय)",
+    "en": "MP Group-3 Sub Engineer, Draughtsman, Lab Technician & Other Posts Combined Recruitment Test 2026 (II)"
+   },
+   "shortName": "Group-3 2026",
+   "organization": "MPESB",
+   "category": "technical",
+   "posts": 700,
+   "mode": {
+    "hi": "ऑनलाइन (CBT)",
+    "en": "Online (CBT)"
+   },
+   "dates": {
+    "applicationStart": {
+     "date": "2026-10-13",
+     "status": "CONFIRMED",
+     "note": {
+      "hi": "पुनः आवेदन विंडो; आधिकारिक MPOnline सूची के अनुसार।",
+      "en": "Reopened application window per the official MPOnline listing."
+     }
+    },
+    "applicationEnd": {
+     "date": "2026-10-27",
+     "status": "CONFIRMED"
+    },
+    "correctionEnd": {
+     "date": "2026-10-28",
+     "status": "CONFIRMED"
+    },
+    "exam": {
+     "month": "2026-12",
+     "status": "EXPECTED",
+     "note": {
+      "hi": "परीक्षा दिसंबर 2026/जनवरी 2027 तक स्थगित; सटीक तारीख घोषित नहीं।",
+      "en": "Postponed to December 2026/January 2027; exact date not announced."
+     }
+    }
+   },
+   "officialUrl": "https://esb.mp.gov.in/",
+   "description": null,
+   "pattern": null,
+   "syllabus": null
+  },
+  {
+   "id": "mp-group-2-sg-4-2026",
+   "slug": "mp-group-2-sub-group-4-2026",
+   "name": {
+    "hi": "समूह-02 उपसमूह-04 (खण्ड पंचायत अधिकारी, संचालन समन्वय अधिकारी एवं अन्य) संयुक्त भर्ती परीक्षा 2026",
+    "en": "MP Group-2 Sub Group-4 Combined Recruitment Test 2026"
+   },
+   "shortName": "Group-2 SG-4 2026",
+   "organization": "MPESB",
+   "category": "mpesb",
+   "posts": 2299,
+   "mode": null,
+   "dates": {
+    "exam": {
+     "status": "TBA",
+     "note": {
+      "hi": "MPESB ने प्रवेश पत्र एवं परीक्षा तिथि सूचना जारी की है — आधिकारिक वेबसाइट पर देखें।",
+      "en": "MPESB has released the admit card and exam-date notice — check the official website."
+     }
+    }
+   },
+   "officialUrl": "https://esb.mp.gov.in/",
+   "description": null,
+   "pattern": null,
+   "syllabus": null
+  },
+  {
+   "id": "mp-group-2-sg-1-2026",
+   "slug": "mp-group-2-sub-group-1-2026",
+   "name": {
+    "hi": "समूह-2 उपसमूह-1 कृषि विस्तार अधिकारी भर्ती परीक्षा 2026",
+    "en": "MP Group-2 Sub Group-1 Agriculture Extension Officer Recruitment Test 2026"
+   },
+   "shortName": "Group-2 SG-1 2026",
+   "organization": "MPESB",
+   "category": "mpesb",
+   "posts": 2784,
+   "mode": null,
+   "dates": {
+    "exam": {
+     "month": "2026-09",
+     "status": "EXPECTED",
+     "note": {
+      "hi": "MPESB के संभावित परीक्षा कैलेंडर (संशोधित 05.08.2026) के अनुसार केवल माह घोषित।",
+      "en": "Only the month is announced, per MPESB's expected exam calendar (revised 05.08.2026)."
+     }
+    }
+   },
+   "officialUrl": "https://esb.mp.gov.in/",
+   "description": null,
+   "pattern": null,
+   "syllabus": null
+  },
+  {
+   "id": "mp-subedar-si-2026",
+   "slug": "mp-subedar-si-2026",
+   "name": {
+    "hi": "सूबेदार/उपनिरीक्षक संवर्ग भर्ती परीक्षा 2026",
+    "en": "MP Subedar & Sub-Inspector Recruitment Test 2026"
+   },
+   "shortName": "Subedar/SI 2026",
+   "organization": "MPESB",
+   "category": "police",
+   "posts": 507,
+   "mode": null,
+   "dates": {
+    "exam": {
+     "month": "2026-10",
+     "status": "EXPECTED",
+     "note": {
+      "hi": "कैलेंडर में सितंबर/अक्टूबर 2026 संभावित। 15–20 अक्टूबर की पुनः आवेदन विंडो केवल न्यायालयीन प्रकरणों से संबंधित अभ्यर्थियों के लिए है; यह सामान्य भर्ती के लिए नहीं है।",
+      "en": "Calendar lists Sep/Oct 2026 as expected. The 15–20 Oct reopened application window is only for court-case candidates, not general applicants."
+     }
+    }
+   },
+   "officialUrl": "https://esb.mp.gov.in/",
+   "description": null,
+   "pattern": null,
+   "syllabus": null
+  },
+  {
+   "id": "mp-police-constable-driver-2026",
+   "slug": "mp-police-constable-driver-2026",
+   "name": {
+    "hi": "पुलिस आरक्षक (चालक) भर्ती परीक्षा 2026",
+    "en": "MP Police Constable (Driver) Recruitment Test 2026"
+   },
+   "shortName": "Constable Driver 2026",
+   "organization": "MPESB",
+   "category": "police",
+   "posts": 1000,
+   "mode": {
+    "hi": "ऑनलाइन (CBT)",
+    "en": "Online (CBT)"
+   },
+   "dates": {
+    "applicationStart": {
+     "date": "2026-10-15",
+     "status": "CONFIRMED"
+    },
+    "applicationEnd": {
+     "date": "2026-10-29",
+     "status": "CONFIRMED"
+    },
+    "correctionEnd": {
+     "date": "2026-11-03",
+     "status": "CONFIRMED"
+    },
+    "exam": {
+     "date": "2027-01-04",
+     "status": "TENTATIVE",
+     "note": {
+      "hi": "नियम पुस्तिका के अनुसार परीक्षा 04-01-2027 से प्रारंभ, प्रतिदिन दो पाली (2-2 घंटे)।",
+      "en": "Rulebook: exams start from 04-01-2027, two 2-hour shifts a day."
+     }
+    }
+   },
+   "officialUrl": "https://esb.mp.gov.in/",
+   "description": {
+    "hi": "कुल 1,000 पद (विशेष सशस्त्र बल SAF 200, जिला पुलिस बल 800), केवल पुरुष। योग्यता: 10वीं पास (अनुसूचित जनजाति के लिए 8वीं) और 29.10.2026 से पहले जारी वैध भारी वाहन (HMV) परिवहन ड्राइविंग लाइसेंस। परीक्षा दो पालियों में, हर पाली 2 घंटे।",
+    "en": "1,000 posts (Special Armed Force SAF 200, District Police Force 800), male candidates only. Eligibility: Class 10 pass (Class 8 for ST) and a valid Heavy Motor Vehicle (HMV) transport driving licence issued before 29.10.2026. CBT in two 2-hour shifts a day."
+   },
+   "pattern": null,
+   "syllabus": null
+  },
+  {
+   "id": "mp-panchayat-sachiv-2026",
+   "slug": "mp-panchayat-sachiv-2026",
+   "name": {
+    "hi": "पंचायत सचिव एवं रोजगार सहायक भर्ती परीक्षा 2026",
+    "en": "MP Panchayat Sachiv & Rojgar Sahayak Recruitment Test 2026"
+   },
+   "shortName": "Panchayat Sachiv 2026",
+   "organization": "MPESB",
+   "category": "mpesb",
+   "posts": 2900,
+   "mode": null,
+   "dates": {
+    "exam": {
+     "month": "2026-11",
+     "status": "EXPECTED",
+     "note": {
+      "hi": "कैलेंडर में नवंबर/दिसंबर 2026 संभावित।",
+      "en": "Calendar lists Nov/Dec 2026 as expected."
+     }
+    }
+   },
+   "officialUrl": "https://esb.mp.gov.in/",
+   "description": null,
+   "pattern": null,
+   "syllabus": null
+  },
+  {
+   "id": "mp-group-6-sg-1-2026",
+   "slug": "mp-group-6-sub-group-1-2026",
+   "name": {
+    "hi": "समूह-6 उपसमूह-1 भर्ती परीक्षा 2026",
+    "en": "MP Group-6 Sub Group-1 Recruitment Test 2026"
+   },
+   "shortName": "Group-6 SG-1 2026",
+   "organization": "MPESB",
+   "category": "mpesb",
+   "posts": 700,
+   "mode": null,
+   "dates": {
+    "exam": {
+     "month": "2026-12",
+     "status": "EXPECTED",
+     "note": {
+      "hi": "MPESB के संभावित परीक्षा कैलेंडर (संशोधित 05.08.2026) के अनुसार केवल माह घोषित।",
+      "en": "Only the month is announced, per MPESB's expected exam calendar (revised 05.08.2026)."
+     }
+    }
+   },
+   "officialUrl": "https://esb.mp.gov.in/",
+   "description": null,
+   "pattern": null,
+   "syllabus": null
+  },
+  {
+   "id": "mphc-assistant-grade-3-2026",
+   "slug": "mp-high-court-assistant-grade-3-2026",
+   "name": {
+    "hi": "म.प्र. हाई कोर्ट — जिला न्यायालयों में सहायक ग्रेड-3 सीधी भर्ती 2026",
+    "en": "MP High Court — Assistant Grade-3 Direct Recruitment 2026 (District Courts)"
+   },
+   "shortName": "High Court AG-3 2026",
+   "organization": "MPHC",
+   "category": "court",
+   "posts": 1174,
+   "mode": {
+    "hi": "ऑनलाइन प्रारंभिक परीक्षा",
+    "en": "Online preliminary exam"
+   },
+   "dates": {
+    "applicationStart": {
+     "date": "2026-08-17",
+     "status": "CONFIRMED"
+    },
+    "applicationEnd": {
+     "date": "2026-09-30",
+     "status": "CONFIRMED",
+     "note": {
+      "hi": "शाम 5 बजे तक। अंतिम तिथि बढ़ाई गई (पूर्व में 15.09.2026)।",
+      "en": "Till 5 PM. Last date extended (earlier 15.09.2026)."
+     }
+    },
+    "correctionEnd": {
+     "date": "2026-10-08",
+     "status": "CONFIRMED",
+     "note": {
+      "hi": "त्रुटि सुधार: 06.10.2026 दोपहर 12 बजे से 08.10.2026 शाम 5 बजे तक।",
+      "en": "Corrections: 06.10.2026 12 PM to 08.10.2026 5 PM."
+     }
+    },
+    "exam": {
+     "status": "TBA",
+     "note": {
+      "hi": "ऑनलाइन प्रारंभिक परीक्षा की तिथि बाद में अधिसूचित की जाएगी (विज्ञापन के अनुसार)।",
+      "en": "Online preliminary exam date will be notified later (per the advertisement)."
+     }
+    }
+   },
+   "officialUrl": "https://mphc.gov.in/",
+   "description": {
+    "hi": "मध्यप्रदेश राज्य के जिला एवं सत्र न्यायालयों की स्थापनाओं पर सहायक ग्रेड-III के रिक्त पदों की सीधी भर्ती (विज्ञापन क्रमांक 614/परीक्षा/2026, दिनांक 14.08.2026)।",
+    "en": "Direct recruitment to Assistant Grade-III posts in District & Sessions Court establishments of Madhya Pradesh (Advt. No. 614/Exam/2026 dated 14.08.2026)."
+   },
+   "pattern": {
+    "hi": "प्रारंभिक परीक्षा: 100 बहुविकल्पीय प्रश्न, 100 अंक, 120 मिनट — सामान्य ज्ञान + सामान्य अध्ययन (म.प्र. सहित) 20, गणित + तार्किक क्षमता 20, सामान्य हिंदी 20, अंग्रेज़ी ज्ञान 20, कंप्यूटर ज्ञान 20। टाइपिंग परीक्षा: लगभग 350 शब्द, 10 मिनट, रेमिंगटन गेल कीबोर्ड।",
+    "en": "Prelims: 100 MCQs, 100 marks, 120 minutes — G.K. + G.S. (incl. M.P.) 20, Maths + Logical Reasoning 20, General Hindi 20, English 20, Computer 20. Typing test: about 350 words, 10 minutes, Remington Gail keyboard."
+   },
+   "syllabus": null
+  },
+  {
+   "id": "mp-cpct-nov-2026",
+   "slug": "mp-cpct-2026",
+   "name": {
+    "hi": "कम्प्यूटर दक्षता प्रमाणीकरण परीक्षा (CPCT) — नवंबर 2026",
+    "en": "MP Computer Proficiency Certification Test (CPCT) — November 2026"
+   },
+   "shortName": "CPCT Nov 2026",
+   "organization": "MP_GOVT",
+   "category": "other",
+   "posts": null,
+   "mode": {
+    "hi": "ऑनलाइन (कम्प्यूटर एवं टाइपिंग — दोनों अनुभाग अनिवार्य)",
+    "en": "Online (Computer + Typing — both sections compulsory)"
+   },
+   "dates": {
+    "applicationStart": {
+     "date": "2026-10-12",
+     "status": "CONFIRMED"
+    },
+    "applicationEnd": {
+     "date": "2026-10-25",
+     "status": "CONFIRMED"
+    },
+    "exam": {
+     "date": "2026-11-13",
+     "endDate": "2026-11-15",
+     "status": "CONFIRMED"
+    }
+   },
+   "officialUrl": "https://www.cpct.mp.gov.in/",
+   "description": {
+    "hi": "MPSeDC द्वारा आयोजित। म.प्र. शासन की सरकारी नौकरियों हेतु CPCT स्कोर कार्ड आवश्यक। परीक्षा भोपाल, इंदौर, उज्जैन, ग्वालियर, जबलपुर, सागर, सतना में।",
+    "en": "Conducted by MPSeDC. CPCT score card is required for MP government jobs. Exam centres: Bhopal, Indore, Ujjain, Gwalior, Jabalpur, Sagar, Satna."
+   },
+   "pattern": null,
+   "syllabus": null
+  },
+  {
+   "id": "mppsc-state-service-2026",
+   "slug": "mppsc-state-service-2026",
+   "name": {
+    "hi": "राज्य सेवा परीक्षा 2026 (MPPSC)",
+    "en": "MPPSC State Service Examination 2026"
+   },
+   "shortName": "MPPSC SSE 2026",
+   "organization": "MPPSC",
+   "category": "mppsc",
+   "posts": null,
+   "mode": null,
+   "dates": {
+    "exam": {
+     "date": "2026-09-07",
+     "endDate": "2026-09-12",
+     "status": "TENTATIVE",
+     "note": {
+      "hi": "मुख्य परीक्षा — प्रस्तावित (संशोधित) परीक्षा कार्यक्रम दिनांक 15.05.2026 के अनुसार।",
+      "en": "Main exam — per the proposed (revised) exam calendar dated 15.05.2026."
+     }
+    }
+   },
+   "officialUrl": "https://mppsc.mp.gov.in/",
+   "description": {
+    "hi": "प्रारंभिक परीक्षा 26 अप्रैल 2026 को निर्धारित तिथि पर सम्पन्न। मुख्य परीक्षा की तिथि प्रस्तावित कैलेंडर के अनुसार।",
+    "en": "Preliminary exam held as scheduled on 26 April 2026. Main exam date is per the proposed calendar."
+   },
+   "pattern": null,
+   "syllabus": null
+  },
+  {
+   "id": "mppsc-state-forest-service-2026",
+   "slug": "mppsc-state-forest-service-2026",
+   "name": {
+    "hi": "राज्य वन सेवा परीक्षा 2026 (MPPSC)",
+    "en": "MPPSC State Forest Service Examination 2026"
+   },
+   "shortName": "MPPSC SFS 2026",
+   "organization": "MPPSC",
+   "category": "mppsc",
+   "posts": null,
+   "mode": null,
+   "dates": {
+    "exam": {
+     "date": "2026-09-27",
+     "status": "COMPLETED",
+     "note": {
+      "hi": "मुख्य परीक्षा",
+      "en": "Main exam"
+     }
+    },
+    "answerKey": {
+     "date": "2026-09-29",
+     "status": "CONFIRMED",
+     "note": {
+      "hi": "प्रावधिक उत्तर कुंजी",
+      "en": "Provisional answer key"
+     }
+    }
+   },
+   "officialUrl": "https://mppsc.mp.gov.in/",
+   "description": {
+    "hi": "प्रारंभिक परीक्षा 26 अप्रैल 2026 को सम्पन्न। मुख्य परीक्षा की प्रावधिक उत्तर कुंजी 29.09.2026 को जारी।",
+    "en": "Preliminary held on 26 April 2026. Provisional answer key for the Main exam released on 29.09.2026."
+   },
+   "pattern": null,
+   "syllabus": null
+  },
+  {
+   "id": "mppsc-scientific-officer-physics-2026",
+   "slug": "mppsc-scientific-officer-physics-2026",
+   "name": {
+    "hi": "वैज्ञानिक अधिकारी (भौतिकी) परीक्षा 2026",
+    "en": "MPPSC Scientific Officer (Physics) Examination 2026"
+   },
+   "shortName": "Scientific Officer Physics 2026",
+   "organization": "MPPSC",
+   "category": "mppsc",
+   "posts": null,
+   "mode": null,
+   "dates": {
+    "exam": {
+     "date": "2026-11-22",
+     "status": "CONFIRMED",
+     "note": {
+      "hi": "MPPSC की आधिकारिक सूचना दिनांक 15.10.2026 के अनुसार। प्रवेश-पत्र 12.11.2026 से; समय 12:00–15:00 बजे, संभागीय मुख्यालय इंदौर।",
+      "en": "Per MPPSC official notice dated 15 Oct 2026. Admit card from 12 Nov 2026; 12:00–15:00, divisional headquarters Indore."
+     }
+    }
+   },
+   "officialUrl": "https://mppsc.mp.gov.in/",
+   "description": null,
+   "pattern": null,
+   "syllabus": null
+  },
+  {
+   "id": "mppsc-scientific-officer-chemistry-2026",
+   "slug": "mppsc-scientific-officer-chemistry-2026",
+   "name": {
+    "hi": "वैज्ञानिक अधिकारी (रसायन) परीक्षा 2026",
+    "en": "MPPSC Scientific Officer (Chemistry) Examination 2026"
+   },
+   "shortName": "Scientific Officer Chemistry 2026",
+   "organization": "MPPSC",
+   "category": "mppsc",
+   "posts": null,
+   "mode": null,
+   "dates": {
+    "exam": {
+     "date": "2026-11-22",
+     "status": "CONFIRMED",
+     "note": {
+      "hi": "MPPSC की आधिकारिक सूचना दिनांक 15.10.2026 के अनुसार। प्रवेश-पत्र 12.11.2026 से; समय 12:00–15:00 बजे, संभागीय मुख्यालय इंदौर।",
+      "en": "Per MPPSC official notice dated 15 Oct 2026. Admit card from 12 Nov 2026; 12:00–15:00, divisional headquarters Indore."
+     }
+    }
+   },
+   "officialUrl": "https://mppsc.mp.gov.in/",
+   "description": null,
+   "pattern": null,
+   "syllabus": null
+  },
+  {
+   "id": "mppsc-scientific-officer-biology-2026",
+   "slug": "mppsc-scientific-officer-biology-2026",
+   "name": {
+    "hi": "वैज्ञानिक अधिकारी (जीव विज्ञान) परीक्षा 2026",
+    "en": "MPPSC Scientific Officer (Biology) Examination 2026"
+   },
+   "shortName": "Scientific Officer Biology 2026",
+   "organization": "MPPSC",
+   "category": "mppsc",
+   "posts": null,
+   "mode": null,
+   "dates": {
+    "exam": {
+     "date": "2026-11-22",
+     "status": "CONFIRMED",
+     "note": {
+      "hi": "विज्ञापन 07/2026 के अनुसार; प्रवेश-पत्र 12.11.2026 से उपलब्ध।",
+      "en": "Per Advertisement 07/2026; admit card available from 12 Nov 2026."
+     }
+    }
+   },
+   "officialUrl": "https://mppsc.mp.gov.in/",
+   "description": null,
+   "pattern": null,
+   "syllabus": null
+  },
+  {
+   "id": "mppsc-assistant-director-agriculture-field-extension-2025",
+   "slug": "mppsc-assistant-director-agriculture-field-extension-2025",
+   "name": {
+    "hi": "सहायक संचालक, किसान कल्याण तथा कृषि विकास (क्षेत्र एवं विस्तार) परीक्षा 2025",
+    "en": "MPPSC Assistant Director, Farmer Welfare & Agriculture Development (Field & Extension) Examination 2025"
+   },
+   "shortName": "Assistant Director Agriculture 2025",
+   "organization": "MPPSC",
+   "category": "mppsc",
+   "posts": null,
+   "mode": null,
+   "dates": {
+    "exam": {
+     "date": "2026-11-22",
+     "status": "CONFIRMED",
+     "note": {
+      "hi": "MPPSC की आधिकारिक सूचना दिनांक 15.10.2026 के अनुसार। प्रवेश-पत्र 12.11.2026 से; समय 12:00–15:00 बजे, संभागीय मुख्यालय इंदौर।",
+      "en": "Per MPPSC official notice dated 15 Oct 2026. Admit card from 12 Nov 2026; 12:00–15:00, divisional headquarters Indore."
+     }
+    }
+   },
+   "officialUrl": "https://mppsc.mp.gov.in/",
+   "description": null,
+   "pattern": null,
+   "syllabus": null
+  },
+  {
+   "id": "mp-gramin-bank-practice-2026",
+   "slug": "mp-grameen-bank-mock-tests",
+   "name": {
+    "hi": "मध्य प्रदेश ग्रामीण बैंक मॉक टेस्ट",
+    "en": "Madhya Pradesh Gramin Bank Mock Tests"
+   },
+   "shortName": "MP Gramin Bank Practice",
+   "organization": "OTHER",
+   "category": "other",
+   "posts": null,
+   "mode": {
+    "hi": "ऑनलाइन अभ्यास टेस्ट",
+    "en": "Online practice tests"
+   },
+   "dates": {},
+   "officialUrl": "https://www.ibps.in/",
+   "description": {
+    "hi": "IBPS RRB प्रारंभिक परीक्षा के अभ्यास पैटर्न पर 25 मुफ्त द्विभाषी मॉक टेस्ट।",
+    "en": "25 free bilingual practice mock tests based on the IBPS RRB preliminary exam pattern."
+   },
+   "pattern": null,
+   "syllabus": null
+  }
+ ]
+}

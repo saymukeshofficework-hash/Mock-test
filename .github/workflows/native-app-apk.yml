@@ -1,0 +1,91 @@
+# Native app (native-app/) builds. Separate from the website deploy (deploy.yml) and the TWA build (android-build.yml).
+# - Push to feature/native-app-v1 (native-app/** changes): checks + preview APK (in.tettesthub.app.preview, debug-signed).
+# - Manual run with build_aab=true: production AAB signed with the existing upload key. It is only uploaded as a
+#   workflow artifact, never to Google Play. Needs ANDROID_KEYSTORE_BASE64, ANDROID_KEYSTORE_PASSWORD, ANDROID_KEY_PASSWORD.
+name: Native app build
+on:
+  push:
+    branches: [feature/native-app-v1]
+    paths: ["native-app/**", ".github/workflows/native-app-apk.yml"]
+  workflow_dispatch:
+    inputs:
+      build_aab:
+        description: "Also build the signed production AAB (not uploaded to Play)"
+        type: boolean
+        default: false
+      version_code:
+        description: "versionCode for the AAB (must be higher than the latest on Play)"
+        required: false
+        default: ""
+concurrency:
+  group: native-app-${{ github.ref }}
+  cancel-in-progress: true
+defaults:
+  run:
+    working-directory: native-app
+jobs:
+  apk:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: npm, cache-dependency-path: native-app/package-lock.json }
+      - uses: actions/setup-java@v4
+        with: { distribution: temurin, java-version: 17, cache: gradle }
+      - run: npm ci
+      - name: Typecheck, lint, unit tests
+        run: npm run typecheck && npm run lint && npx jest --ci
+      - name: Generate Android project (preview variant)
+        env: { APP_VARIANT: preview, CI: "1" }
+        run: npx expo prebuild --platform android --no-install
+      - name: Build release APK (debug-signed preview)
+        env: { APP_VARIANT: preview }
+        working-directory: native-app/android
+        run: ./gradlew assembleRelease --no-daemon -PreactNativeArchitectures=arm64-v8a,armeabi-v7a
+      - name: Rename APK
+        run: cp android/app/build/outputs/apk/release/app-release.apk "tettesthub-preview-${GITHUB_SHA::7}.apk"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: tettesthub-preview-apk
+          path: native-app/tettesthub-preview-*.apk
+          retention-days: 30
+  aab:
+    if: github.event_name == 'workflow_dispatch' && inputs.build_aab
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: npm, cache-dependency-path: native-app/package-lock.json }
+      - uses: actions/setup-java@v4
+        with: { distribution: temurin, java-version: 17, cache: gradle }
+      - run: npm ci
+      - name: Generate Android project (production variant)
+        env: { APP_VARIANT: production, ANDROID_VERSION_CODE: "${{ inputs.version_code }}", CI: "1" }
+        run: |
+          [ -n "$ANDROID_VERSION_CODE" ] || { echo "version_code input is required for the AAB"; exit 1; }
+          npx expo prebuild --platform android --no-install
+      - name: Build signed AAB
+        env:
+          APP_VARIANT: production
+          ANDROID_VERSION_CODE: "${{ inputs.version_code }}"
+          KEYSTORE_B64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+          STORE_PW: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          KEY_PW: ${{ secrets.ANDROID_KEY_PASSWORD }}
+        working-directory: native-app/android
+        run: |
+          set -e
+          [ -n "$KEYSTORE_B64" ] || { echo "Missing ANDROID_KEYSTORE_BASE64 secret"; exit 1; }
+          echo "$KEYSTORE_B64" | base64 -d > "$RUNNER_TEMP/upload.jks"
+          ./gradlew bundleRelease --no-daemon \
+            -Pandroid.injected.signing.store.file="$RUNNER_TEMP/upload.jks" \
+            -Pandroid.injected.signing.store.password="$STORE_PW" \
+            -Pandroid.injected.signing.key.alias=upload \
+            -Pandroid.injected.signing.key.password="$KEY_PW"
+          rm -f "$RUNNER_TEMP/upload.jks"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: tettesthub-production-aab
+          path: native-app/android/app/build/outputs/bundle/release/app-release.aab
+          retention-days: 14
