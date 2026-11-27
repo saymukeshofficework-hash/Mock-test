@@ -198,7 +198,7 @@ const PRODUCTS: Record<string, { amount: number; file: string; downloadName: str
     title: "6 माह करेंट अफेयर्स नोट्स (अप्रैल–सितंबर 2026) — PDF",
   },
   "mpgk-pdf": {
-    amount: 2500, // ₹25 in paise; reading online is free (book "mp-gk"), this is the PDF download
+    amount: 9900, // ₹99 in paise; guest PDF sale from /mp-gk-ebook/ (no login)
     file: "MP-GK-One-Liner-TETTESTHUB.pdf",
     downloadName: "TETTESTHUB-MP-GK-One-Liner.pdf",
     title: "मध्यप्रदेश सामान्य ज्ञान वन-लाइनर (ट्रिक सहित) — PDF",
@@ -223,7 +223,6 @@ const BOOKS: Record<string, { pages: number; hi: string; en: string; pdf?: strin
   "hc-ag3": { pages: 75, hi: "न्यायालय भर्ती विशेषांक — MP हाई कोर्ट सहायक ग्रेड-3 (2026)", en: "Court Recruitment Special — MP High Court Assistant Grade-3 (2026)" },
   "mp-ca-hi": { pages: 75, hi: "सामान्य ज्ञान नवीन संस्करण — मध्यप्रदेश समसामयिकी (मई–नवंबर 2026)", en: "MP Current Affairs May–Nov 2026 (Hindi)" },
   "mp-ca-en": { pages: 75, hi: "मध्यप्रदेश समसामयिकी (English) — मई–नवंबर 2026", en: "General Knowledge New Edition — MP Current Affairs May–Nov 2026 (English)" },
-  "mp-gk": { pages: 206, hi: "मध्यप्रदेश सामान्य ज्ञान — 5000 वन-लाइनर (हर तथ्य के साथ ट्रिक)", en: "Madhya Pradesh GK — 5000 One-Liners with Tricks", pdf: "mpgk-pdf" },
 };
 const LINK_SECONDS = 600;
 
