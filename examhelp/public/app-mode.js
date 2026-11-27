@@ -104,6 +104,8 @@
     document.body.appendChild(o);
     requestAnimationFrame(function () { requestAnimationFrame(function () { o.classList.add("on"); }); });
   }
+  // Stop Chrome's automatic "Install app" bar (it builds a WebAPK on Android). Install only from Chrome menu / Play Store.
+  window.addEventListener("beforeinstallprompt", function (e) { e.preventDefault(); });
   if ("serviceWorker" in navigator) {
     window.addEventListener("load", function () {
       navigator.serviceWorker.register("/examhelp/sw.js", { scope: "/examhelp/" }).catch(function () {});
