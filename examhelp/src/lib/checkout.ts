@@ -325,6 +325,14 @@ export async function buyNotes(
     });
     rzp.on("payment.failed", () => onError("failed"));
     onState("open");
+    // Meta Pixel: the payment popup opened (signal for the direct-buy ad, owner 2026-11-27)
+    try {
+      const fbq = (window as unknown as { fbq?: (...a: unknown[]) => void }).fbq;
+      fbq?.("track", "Lead", { content_name: product });
+      fbq?.("track", "InitiateCheckout", { content_name: product, value: order.amount / 100, currency: "INR" });
+    } catch {
+      /* pixel blocked */
+    }
     rzp.open();
   } catch {
     onState("idle");
