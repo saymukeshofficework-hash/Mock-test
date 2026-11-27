@@ -86,6 +86,37 @@ html[data-app] [data-sale]{display:none!important}
  .feat{grid-template-columns:1fr 1fr}.facts{grid-template-columns:1fr}.demo{grid-template-columns:1fr 1fr}
  .chap{columns:1}.cta2{grid-template-columns:1fr}.cta2 .btn.buy{width:100%;min-width:0}
 }
+
+/* cream theme (matches the Meta ad) */
+:root{--navy:#0d2240;--navy2:#0a1a33;--gold:#f8c41a;--red:#0d2240;--bg:#fbf6ec;--line:#eadfc8}
+body{background:var(--bg)}
+header.top{background:#fbf6ec;color:var(--navy);border-bottom:1px solid var(--line)}
+header.top .logo{font-size:20px;border-bottom:3px solid var(--gold);padding-bottom:2px}
+header.top .logo span{color:var(--navy)}
+.hero{background:radial-gradient(ellipse at 100% 100%,#f7d77a 0%,rgba(247,215,122,0) 45%),linear-gradient(180deg,#fdf9f1,#f8efdc);color:var(--navy)}
+.tag{background:var(--navy);color:#fff;border:0}
+h1{font-weight:800;color:var(--navy);font-size:clamp(32px,5.4vw,52px);line-height:1.15}
+h1 em{display:inline-block;background:var(--gold);color:var(--navy);padding:2px 16px;margin:8px 0 4px;transform:skewX(-8deg);border-radius:4px}
+h1 small{display:block;font-size:.42em;font-weight:700;margin-top:6px;color:#22324d}
+.lead{opacity:1;color:#2b3a52}
+.chips li{background:var(--navy);color:#fff;border:0;border-radius:99px;padding:6px 14px}
+.buybox{border:1px solid var(--line);box-shadow:0 14px 36px rgba(13,34,64,.14)}
+.price{align-items:center;gap:14px}
+.pbox{display:inline-flex;flex-direction:column;align-items:center;line-height:1}
+.pbox i{font-style:normal;background:var(--navy);color:#fff;font-weight:800;font-size:15px;padding:5px 14px;border-radius:10px 10px 0 0}
+.pbox b{background:var(--gold);color:var(--navy);font-size:34px;font-weight:900;padding:6px 14px;border-radius:12px;line-height:1}
+.btn.buy{background:var(--navy);color:#fff;box-shadow:0 4px 0 #f8c41a}
+.btn.buy:active{box-shadow:0 2px 0 #f8c41a}
+.cover img{height:auto;transform:none;border-radius:14px;max-width:380px;box-shadow:0 20px 44px rgba(13,34,64,.25)}
+h2{color:var(--navy)}
+.fact{border-left-color:var(--gold)}
+.chap li span:first-child b{color:var(--navy)}
+.for span{background:var(--navy);color:#fff}
+.cta2 .btn.buy{background:var(--gold);color:var(--navy);box-shadow:0 4px 0 #b58a07}
+.sticky b i{color:var(--navy);background:var(--gold);padding:0 8px;border-radius:6px}
+footer{background:var(--navy)}
+.price .pbox b span{font-size:inherit;color:inherit}
+@media (max-width:820px){.cover img{max-width:210px}.hero{padding-top:18px}.hero .wrap{gap:16px}.buybox{margin-bottom:18px}}
 </style>
 </head>
 <body>
@@ -94,18 +125,18 @@ html[data-app] [data-sale]{display:none!important}
 <div class="hero"><div class="wrap">
  <div>
   <span class="tag">📘 नया संस्करण · नवंबर 2026</span>
-  <h1>मध्यप्रदेश सामान्य ज्ञान<br><em>5000 वन-लाइनर</em> — हर तथ्य के साथ ट्रिक</h1>
-  <p class="lead">पूरा MP GK एक PDF में: छोटे वन-लाइनर, और हर तथ्य के नीचे याद रखने की आसान ट्रिक।<span class="en">Complete Madhya Pradesh GK in 5000 one-liners, each with a memory trick.</span></p>
-  <ul class="chips"><li>✅ 5000 तथ्य</li><li>🧠 हर तथ्य के साथ ट्रिक</li><li>📚 25 अध्याय</li><li>📄 209 पेज PDF</li><li>🗂️ पेज नंबर सहित विषय सूची</li></ul>
+  <h1>मध्यप्रदेश सामान्य ज्ञान<br><em>5000 वन-लाइनर</em><small>हर तथ्य के साथ याद रखने की ट्रिक</small></h1>
   <div class="buybox" id="buy">
-   <div class="price" data-sale><b id="amt">₹99</b><span>पूरी PDF · एक बार भुगतान<br>Full PDF · one-time payment</span></div>
+   <div class="price" data-sale><div class="pbox"><i>PDF सिर्फ</i><b><span id="amt">₹99</span> में</b></div><span>पूरी PDF · एक बार भुगतान<br>Full PDF · one-time payment</span></div>
    <button class="btn buy" id="buybtn" data-sale>📥 अभी खरीदें ₹99 / Buy Now</button>
    <p class="msg" id="msg"></p>
    <p class="note" data-sale>भुगतान के तुरंत बाद इसी पेज पर डाउनलोड बटन आ जाएगा। लॉगिन या रजिस्ट्रेशन की ज़रूरत नहीं।<br>Download appears right here after payment. No login needed.</p>
    <div class="trust"><span>🔒 Razorpay सुरक्षित भुगतान</span><span>📱 UPI / कार्ड / नेट बैंकिंग</span><span>⚡ तुरंत डाउनलोड</span></div>
   </div>
+  <p class="lead">पूरा MP GK एक PDF में: छोटे वन-लाइनर, और हर तथ्य के नीचे याद रखने की आसान ट्रिक।<span class="en">Complete Madhya Pradesh GK in 5000 one-liners, each with a memory trick.</span></p>
+  <ul class="chips"><li>✅ 5000 तथ्य</li><li>🧠 हर तथ्य के साथ ट्रिक</li><li>📚 25 अध्याय</li><li>📄 209 पेज PDF</li><li>🗂️ पेज नंबर सहित विषय सूची</li></ul>
  </div>
- <div class="cover"><img src="demo/demo-1.jpg" alt="MP GK 5000 वन-लाइनर ई-बुक कवर" width="330" height="467"><div class="stk" data-sale><b>₹99</b>पूरी PDF</div></div>
+ <div class="cover"><img src="ad.jpg" alt="मध्यप्रदेश सामान्य ज्ञान 5000 वन-लाइनर PDF" width="560" height="700"></div>
 </div></div>
 
 <section><div class="wrap">
