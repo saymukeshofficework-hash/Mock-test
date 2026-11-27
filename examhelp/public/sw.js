@@ -19,6 +19,7 @@ self.addEventListener("push", (e) => {
     icon: "/examhelp/icons/icon-192.png",
     badge: "/examhelp/icons/icon-192.png",
     tag: d.tag || "ca-daily",
+    ...(d.image ? { image: d.image } : {}),
     data: { url: d.url || "/examhelp/current-affairs/" },
   }));
 });
