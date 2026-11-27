@@ -216,6 +216,28 @@ export const downloadPath = (token: string) =>
  * ?buy=<product> (Chrome then asks for register/login and opens Razorpay); on iPhone we show how
  * to open it in Safari. Returns true when the page is being handed over to Chrome.
  */
+// Checkout funnel log (owner 2026-11-27): did the Razorpay window open, was it closed, why did a payment fail.
+// Insert-only table exam-hub.checkout_events (RLS: anon may insert, nobody may read with the anon key).
+function logCheckout(ev: string, product: string, order_id?: string, detail?: string) {
+  try {
+    const base = CHECKOUT_URL.split("/functions/")[0];
+    void fetch(`${base}/rest/v1/checkout_events`, {
+      method: "POST",
+      keepalive: true,
+      headers: { "Content-Type": "application/json", apikey: ANON, Authorization: `Bearer ${ANON}`, Prefer: "return=minimal" },
+      body: JSON.stringify({
+        ev: ev.slice(0, 30),
+        product: product.slice(0, 40),
+        order_id: order_id?.slice(0, 40) ?? null,
+        detail: detail?.slice(0, 300) ?? null,
+        ua: navigator.userAgent.slice(0, 300),
+      }),
+    }).catch(() => {});
+  } catch {
+    /* logging must never break checkout */
+  }
+}
+
 const IN_APP_RE = /Instagram|FBAN|FBAV|FB_IAB|FBIOS/i;
 function openInRealBrowser(product: string): boolean {
   const ua = navigator.userAgent;
@@ -244,7 +266,10 @@ export async function buyNotes(
 ) {
   const { onState = () => {}, onError = () => {}, onPaid } = opts;
   try {
-    if (openInRealBrowser(product)) return;
+    if (openInRealBrowser(product)) {
+      logCheckout("inapp_to_chrome", product);
+      return;
+    }
     onState("creating");
     // purchases belong to the student's login, so they open on any device: log in first
     const access_token = await mainSiteAccessToken();
@@ -263,6 +288,7 @@ export async function buyNotes(
       access_token,
     });
     if (order.error || !order.order_id) {
+      logCheckout("create_error", product, undefined, String(order.error ?? "order"));
       onState("idle");
       onError(order.error ?? "order");
       return;
@@ -292,9 +318,15 @@ export async function buyNotes(
       name: order.name,
       description: order.description,
       theme: { color: "#1e3a8a" },
-      modal: { ondismiss: () => onState("idle") },
+      modal: {
+        ondismiss: () => {
+          logCheckout("closed", product, order.order_id, `after_${Math.round((Date.now() - openedAt) / 1000)}s`);
+          onState("idle");
+        },
+      },
       handler: async (res: RazorpayHandlerArgs) => {
         onState("verifying");
+        logCheckout("paid", product, order.order_id);
         try {
           const v = await checkout<{ token: string }>({
             action: "verify",
@@ -323,7 +355,13 @@ export async function buyNotes(
         }
       },
     });
-    rzp.on("payment.failed", () => onError("failed"));
+    rzp.on("payment.failed", (r: unknown) => {
+      const e =
+        (r as { error?: { code?: string; description?: string; source?: string; step?: string; reason?: string; metadata?: { payment_id?: string } } })
+          ?.error ?? {};
+      logCheckout("failed", product, order.order_id, [e.reason, e.step, e.source, e.code, e.description, e.metadata?.payment_id].filter(Boolean).join(" | "));
+      onError("failed");
+    });
     onState("open");
     // Meta Pixel: the payment popup opened (signal for the direct-buy ad, owner 2026-11-27)
     try {
@@ -333,6 +371,8 @@ export async function buyNotes(
     } catch {
       /* pixel blocked */
     }
+    const openedAt = Date.now();
+    logCheckout("opened", product, order.order_id);
     rzp.open();
   } catch {
     onState("idle");
