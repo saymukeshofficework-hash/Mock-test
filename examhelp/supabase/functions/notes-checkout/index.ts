@@ -219,7 +219,7 @@ const SERIES_FREE_UNTIL: Record<string, number> = {}; // every series locked at 
 const MAX_DOWNLOADS = 10;
 // Read-only e-books (owner, 2026-11-16): page images in the private "books" bucket
 // (books/<id>/p-01.jpg …). Any logged-in main-site student can read; no PDF is ever served.
-const BOOKS: Record<string, { pages: number; hi: string; en: string; pdf?: string }> = {
+const BOOKS: Record<string, { pages: number; hi: string; en: string }> = {
   "hc-ag3": { pages: 75, hi: "न्यायालय भर्ती विशेषांक — MP हाई कोर्ट सहायक ग्रेड-3 (2026)", en: "Court Recruitment Special — MP High Court Assistant Grade-3 (2026)" },
   "mp-ca-hi": { pages: 75, hi: "सामान्य ज्ञान नवीन संस्करण — मध्यप्रदेश समसामयिकी (मई–नवंबर 2026)", en: "MP Current Affairs May–Nov 2026 (Hindi)" },
   "mp-ca-en": { pages: 75, hi: "मध्यप्रदेश समसामयिकी (English) — मई–नवंबर 2026", en: "General Knowledge New Edition — MP Current Affairs May–Nov 2026 (English)" },
