@@ -118,6 +118,7 @@ footer{background:var(--navy)}
 .price .pbox b span{font-size:inherit;color:inherit}
 @media (max-width:820px){.cover img{max-width:210px}.hero{padding-top:18px}.hero .wrap{gap:16px}.buybox{margin-bottom:18px}}
 </style>
+<script src="/js/meta-pixel.js" defer></script>
 </head>
 <body>
 <header class="top"><div class="wrap"><a class="logo" href="/">TETTEST<span>HUB</span></a><span style="font-size:13px;opacity:.85">tettesthub.in</span></div></header>
@@ -277,8 +278,9 @@ function buy(){
    new Razorpay({key:o.key_id,order_id:o.order_id,amount:o.amount,currency:o.currency,name:"TETTESTHUB",description:"MP GK 5000 One-Liner PDF",theme:{color:"#0f3d6e"},
     handler:function(r){say("पेमेंट जाँच रहे हैं… / Checking payment…");
      call({action:"verify",order_id:r.razorpay_order_id,payment_id:r.razorpay_payment_id,signature:r.razorpay_signature}).then(function(v){done();
-      if(v.token){owned(v.token);dl()}else say("पेमेंट मिला, पेज रीलोड करें / Payment received, please reload this page","err")})},
+      if(v.token){try{window.fbq&&fbq("track","Purchase",{content_name:PROD,value:Math.round(o.amount/100),currency:"INR"})}catch(e){}owned(v.token);dl()}else say("पेमेंट मिला, पेज रीलोड करें / Payment received, please reload this page","err")})},
     modal:{ondismiss:function(){done();say("")}}}).open();
+   try{window.fbq&&fbq("track","Lead",{content_name:PROD,value:Math.round(o.amount/100),currency:"INR"})}catch(e){}
   });
  }).catch(function(){done();say("पेमेंट शुरू नहीं हुआ, फिर कोशिश करें / Could not start payment, try again","err")});
 }
