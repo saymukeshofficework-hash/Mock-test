@@ -134,6 +134,12 @@ export function resumeBuyAfterLogin(products: string[], start: (product: string)
     const u = new URL(location.href);
     const product = u.searchParams.get("buy");
     if (!product || !products.includes(product)) return;
+    if (!localStorage.getItem(SESSION_KEY)) {
+      // direct-buy link (e.g. from an ad) opened logged out: register first, then come back here
+      // with ?buy=<product> kept, so Razorpay opens right after sign-up (owner, 2026-11-27)
+      location.href = `/login.html?mode=signup&next=${encodeURIComponent(u.pathname + u.search)}`;
+      return;
+    }
     u.searchParams.delete("buy");
     history.replaceState(null, "", u.pathname + u.search + u.hash);
     if (localStorage.getItem(SESSION_KEY)) start(product);
