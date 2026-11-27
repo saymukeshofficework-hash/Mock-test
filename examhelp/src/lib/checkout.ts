@@ -134,6 +134,17 @@ export function resumeBuyAfterLogin(products: string[], start: (product: string)
     const u = new URL(location.href);
     const product = u.searchParams.get("buy");
     if (!product || !products.includes(product)) return;
+    // inside Instagram / Facebook: move to Chrome first (Android), so register + payment happen there once
+    if (IN_APP_RE.test(navigator.userAgent)) {
+      if (/Android/i.test(navigator.userAgent)) openInRealBrowser(product);
+      return;
+    }
+    if (!localStorage.getItem(SESSION_KEY)) {
+      // direct-buy link (e.g. from an ad) opened logged out: register first, then come back here
+      // with ?buy=<product> kept, so Razorpay opens right after sign-up (owner, 2026-11-27)
+      location.href = `/login.html?mode=signup&next=${encodeURIComponent(u.pathname + u.search)}`;
+      return;
+    }
     u.searchParams.delete("buy");
     history.replaceState(null, "", u.pathname + u.search + u.hash);
     if (localStorage.getItem(SESSION_KEY)) start(product);
@@ -200,6 +211,30 @@ export const downloadPath = (token: string) =>
   `${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/download/?t=${encodeURIComponent(token)}`;
 
 /**
+ * Instagram / Facebook in-app browsers often cannot open PhonePe / GPay from Razorpay, so students
+ * get stuck at the UPI step (owner, 2026-11-27). On Android we reopen the same page in Chrome with
+ * ?buy=<product> (Chrome then asks for register/login and opens Razorpay); on iPhone we show how
+ * to open it in Safari. Returns true when the page is being handed over to Chrome.
+ */
+const IN_APP_RE = /Instagram|FBAN|FBAV|FB_IAB|FBIOS/i;
+function openInRealBrowser(product: string): boolean {
+  const ua = navigator.userAgent;
+  if (!IN_APP_RE.test(ua)) return false;
+  const u = new URL(location.href);
+  u.searchParams.set("buy", product);
+  if (/Android/i.test(ua)) {
+    const fallback = encodeURIComponent(u.toString());
+    location.href = `intent://${u.host}${u.pathname}${u.search}#Intent;scheme=https;package=com.android.chrome;S.browser_fallback_url=${fallback};end`;
+    return true;
+  }
+  alert(
+    "पेमेंट के लिए ऊपर ••• दबाकर \"Open in browser / ब्राउज़र में खोलें\" चुनें, फिर दोबारा Unlock दबाएँ।\n" +
+      "To pay, tap ••• at the top, choose \"Open in browser\", then tap Unlock again.",
+  );
+  return false;
+}
+
+/**
  * Opens Razorpay checkout for `product`. On success the payment is verified on the
  * server and the buyer is sent to their private download page.
  */
@@ -209,6 +244,7 @@ export async function buyNotes(
 ) {
   const { onState = () => {}, onError = () => {}, onPaid } = opts;
   try {
+    if (openInRealBrowser(product)) return;
     onState("creating");
     // purchases belong to the student's login, so they open on any device: log in first
     const access_token = await mainSiteAccessToken();
@@ -289,6 +325,14 @@ export async function buyNotes(
     });
     rzp.on("payment.failed", () => onError("failed"));
     onState("open");
+    // Meta Pixel: the payment popup opened (signal for the direct-buy ad, owner 2026-11-27)
+    try {
+      const fbq = (window as unknown as { fbq?: (...a: unknown[]) => void }).fbq;
+      fbq?.("track", "Lead", { content_name: product });
+      fbq?.("track", "InitiateCheckout", { content_name: product, value: order.amount / 100, currency: "INR" });
+    } catch {
+      /* pixel blocked */
+    }
     rzp.open();
   } catch {
     onState("idle");
