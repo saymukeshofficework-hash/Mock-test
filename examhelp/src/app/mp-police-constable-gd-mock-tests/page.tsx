@@ -6,9 +6,9 @@ import { JsonLd } from "@/components/ui/Primitives";
 import { pageMeta } from "@/lib/seo";
 
 export const metadata = pageMeta({
-  title: "MP Police Constable GD Mock Test 2026 — 25 Full Tests (Hindi & English)",
+  title: "MP Police Constable GD Mock Test 2026 — 50 Full Tests (Hindi & English)",
   description:
-    "MP पुलिस आरक्षक (जी.डी.) 2026 के 25 फुल मॉक टेस्ट — MPESB पैटर्न: 100 प्रश्न, 120 मिनट, 3 खंड, ऋणात्मक अंकन नहीं। 25 full mock tests on the MPESB pattern in Hindi and English.",
+    "MP पुलिस आरक्षक (जी.डी.) 2026 के 50 फुल मॉक टेस्ट — MPESB पैटर्न: 100 प्रश्न, 120 मिनट, 3 खंड, ऋणात्मक अंकन नहीं। 50 full mock tests on the MPESB pattern in Hindi and English.",
   path: "/mp-police-constable-gd-mock-tests",
 });
 
@@ -24,7 +24,7 @@ const FAQS = [
   },
   {
     q: "ये मॉक टेस्ट किस पैटर्न पर हैं? (Which pattern do these mock tests follow?)",
-    a: "सभी 25 टेस्ट MPESB नियम पुस्तिका 2026 के पैटर्न पर हैं। हर प्रश्न हिंदी और English में, व्याख्या सहित है, और किसी टेस्ट में प्रश्न दोहराए नहीं गए। All 25 tests follow the MPESB 2026 pattern, in Hindi and English with explanations.",
+    a: "सभी 50 टेस्ट MPESB नियम पुस्तिका 2026 के पैटर्न पर हैं। हर प्रश्न हिंदी और English में, व्याख्या सहित है, और किसी टेस्ट में प्रश्न दोहराए नहीं गए। All 50 tests follow the MPESB 2026 pattern, in Hindi and English with explanations.",
   },
   {
     q: "क्या ये प्रश्न पिछले वर्षों के पेपर से लिए गए हैं? (Are these previous-year questions?)",
@@ -69,7 +69,7 @@ const TopCta = (
 );
 
 const INSIDE = [
-  ["📝", "25 फुल पेपर (25 full papers)", "हर पेपर 100 प्रश्न, 120 मिनट टाइमर"],
+  ["📝", "50 फुल पेपर (50 full papers)", "हर पेपर 100 प्रश्न, 120 मिनट टाइमर"],
   ["💡", "हर उत्तर की व्याख्या (Explanations)", "हिंदी + English में"],
   ["📊", "तुरंत रिज़ल्ट (Instant result)", "स्कोर, सही और गलत उत्तर"],
   ["📱", "मोबाइल पर (On mobile)", "कभी भी, कितनी बार भी"],
@@ -111,10 +111,10 @@ export default function Page() {
           <div className="mt-3 space-y-3 text-ink-700">
             <p>
               MP पुलिस आरक्षक (जी.डी.) भर्ती 2026 में कुल 7,500 पद हैं और MPESB की सूचना (23.11.2026) के अनुसार परीक्षा 09 दिसंबर 2026 से
-              शुरू होगी। ये 25 फुल मॉक टेस्ट उसी पैटर्न पर हैं: 100 प्रश्न, 120 मिनट, 3 खंड, ऋणात्मक अंकन नहीं।
+              शुरू होगी। ये 50 फुल मॉक टेस्ट उसी पैटर्न पर हैं: 100 प्रश्न, 120 मिनट, 3 खंड, ऋणात्मक अंकन नहीं।
             </p>
             <p>
-              The MP Police Constable GD 2026 exam has 7,500 posts and starts on 9 December 2026 (MPESB notice, 23.11.2026). These 25 full
+              The MP Police Constable GD 2026 exam has 7,500 posts and starts on 9 December 2026 (MPESB notice, 23.11.2026). These 50 full
               mock tests follow the same pattern, in Hindi and English, with an explanation for every question.
             </p>
             <p className="text-sm text-ink-500">

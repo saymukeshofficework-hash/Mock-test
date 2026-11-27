@@ -53,7 +53,7 @@ export default async function Page() {
       <Link href="/mp-police-constable-gd-mock-tests" className="card mt-4 flex flex-col gap-3 border-2 border-brand-700 p-5 transition hover:shadow-md sm:flex-row sm:items-center sm:justify-between">
         <div>
           <p className="text-xs font-bold uppercase tracking-wide text-accent-700">{lang === "hi" ? "नया" : "New"}</p>
-          <p className="mt-1 text-lg font-extrabold text-brand-900">{lang === "hi" ? "MP पुलिस आरक्षक (जी.डी.) 2026 — 25 फुल मॉक टेस्ट" : "MP Police Constable (GD) 2026 — 25 full mock tests"}</p>
+          <p className="mt-1 text-lg font-extrabold text-brand-900">{lang === "hi" ? "MP पुलिस आरक्षक (जी.डी.) 2026 — 50 फुल मॉक टेस्ट" : "MP Police Constable (GD) 2026 — 50 full mock tests"}</p>
           <p className="mt-1 text-sm text-ink-600">{lang === "hi" ? "MPESB पैटर्न · हिंदी/English · टेस्ट 1 फ्री" : "MPESB pattern · Hindi/English · Test 1 free"}</p>
         </div>
         <span className="btn-primary shrink-0">{lang === "hi" ? "टेस्ट चुनें →" : "Choose tests →"}</span>

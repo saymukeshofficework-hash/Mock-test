@@ -29,7 +29,7 @@ const PRODUCT: Record<string, string> = {
   "ag3-tests": "High Court AG-3 — 25 tests",
   "ag3-combo-hi": "Combo — Hindi notes + tests",
   "ag3-combo-en": "Combo — English notes + tests",
-  "pcgd-tests": "Police Constable GD — 25 tests",
+  "pcgd-tests": "Police Constable GD — 50 tests",
   "asi-tests": "Police Subedar/ASI — 25 tests",
   "pcdr-tests": "Police Constable Driver — 25 tests",
   "group4-tests": "MPESB Group-4 Asst Grade-3 — 25 tests",
