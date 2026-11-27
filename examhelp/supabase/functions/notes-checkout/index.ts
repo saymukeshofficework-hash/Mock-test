@@ -223,7 +223,7 @@ const BOOKS: Record<string, { pages: number; hi: string; en: string; pdf?: strin
   "hc-ag3": { pages: 75, hi: "न्यायालय भर्ती विशेषांक — MP हाई कोर्ट सहायक ग्रेड-3 (2026)", en: "Court Recruitment Special — MP High Court Assistant Grade-3 (2026)" },
   "mp-ca-hi": { pages: 75, hi: "सामान्य ज्ञान नवीन संस्करण — मध्यप्रदेश समसामयिकी (मई–नवंबर 2026)", en: "MP Current Affairs May–Nov 2026 (Hindi)" },
   "mp-ca-en": { pages: 75, hi: "मध्यप्रदेश समसामयिकी (English) — मई–नवंबर 2026", en: "General Knowledge New Edition — MP Current Affairs May–Nov 2026 (English)" },
-  "mp-gk": { pages: 201, hi: "मध्यप्रदेश सामान्य ज्ञान — 4700+ वन-लाइनर (हर तथ्य के साथ ट्रिक)", en: "Madhya Pradesh GK — 4800+ One-Liners with Tricks", pdf: "mpgk-pdf" },
+  "mp-gk": { pages: 189, hi: "मध्यप्रदेश सामान्य ज्ञान — 4500+ वन-लाइनर (हर तथ्य के साथ ट्रिक)", en: "Madhya Pradesh GK — 4500+ One-Liners with Tricks", pdf: "mpgk-pdf" },
 };
 const LINK_SECONDS = 600;
 
