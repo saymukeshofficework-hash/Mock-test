@@ -197,6 +197,12 @@ const PRODUCTS: Record<string, { amount: number; file: string; downloadName: str
     downloadName: "TETTESTHUB-6-Month-Current-Affairs-Apr-Sep-2026.pdf",
     title: "6 माह करेंट अफेयर्स नोट्स (अप्रैल–सितंबर 2026) — PDF",
   },
+  "mpgk-pdf": {
+    amount: 9900, // ₹99 in paise; guest PDF sale from /mp-gk-ebook/ (no login)
+    file: "MP-GK-One-Liner-TETTESTHUB.pdf",
+    downloadName: "TETTESTHUB-MP-GK-One-Liner.pdf",
+    title: "मध्यप्रदेश सामान्य ज्ञान वन-लाइनर (ट्रिक सहित) — PDF",
+  },
 };
 // TET subject series sold on tettesthub.in/tet/ (₹99 each, login required). The main site's
 // tet-unlock function reads paid orders via "tet_paid" and adds the tests to the student's profile.
