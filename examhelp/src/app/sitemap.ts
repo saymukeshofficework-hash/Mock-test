@@ -28,6 +28,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { path: "/mp-police-driver-mock-tests", priority: 0.8, freq: "weekly" },
     { path: "/navodaya-class-6-mock-tests", priority: 0.8, freq: "weekly" },
     { path: "/mp-police-si-mock-tests", priority: 0.8, freq: "weekly" },
+    { path: "/mp-mahila-supervisor-mock-tests", priority: 0.8, freq: "weekly" },
     { path: "/mp-naib-tehsildar-mock-tests", priority: 0.8, freq: "weekly" },
     { path: "/mppsc-prelims-mock-tests", priority: 0.8, freq: "weekly" },
     { path: "/mppsc-csat-mock-tests", priority: 0.8, freq: "weekly" },

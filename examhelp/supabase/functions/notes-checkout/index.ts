@@ -91,6 +91,13 @@ const PRODUCTS: Record<string, { amount: number; file: string; downloadName: str
     downloadName: "",
     title: "MP पुलिस SI / सूबेदार 2026 — 25 फुल मॉक टेस्ट",
   },
+  "msup-tests": {
+    amount: 9900,
+    kind: "tests",
+    file: "msup", // private bucket "tests": msup/02.json … msup/25.json; test 1 is public
+    downloadName: "",
+    title: "MP महिला पर्यवेक्षक — 25 फुल मॉक टेस्ट / MP Mahila Supervisor — 25 Mock Tests",
+  },
   "nt-tests": {
     amount: 9900,
     kind: "tests",

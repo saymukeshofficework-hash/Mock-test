@@ -38,6 +38,7 @@ const PRODUCT: Record<string, string> = {
   "jnv6-tests": "Navodaya Class 6 — 15 tests",
   "mpgrb-tests": "MP Gramin Bank — 25 tests",
   "mpsi-tests": "MP Police SI / Subedar — 25 tests",
+  "msup-tests": "MP Mahila Supervisor — 25 tests",
   "nt-tests": "MP Naib Tehsildar — 25 tests",
   "rrbsm-tests": "RRB Station Master — 25 tests",
   "sscgd-tests": "SSC GD — 25 tests",
