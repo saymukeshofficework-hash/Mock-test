@@ -190,6 +190,7 @@ jobs:
           # MP CPCT mock + typing tests
           cp -r cpct _site/cpct
           cp -r mp-gk-ebook _site/mp-gk-ebook
+          cp -r mahila-supervisor-ebook _site/mahila-supervisor-ebook
           cp -r mpgk _site/mpgk
           cp -r naib-tehsildar _site/naib-tehsildar
           cp -r mp-cpct-mock-test _site/mp-cpct-mock-test
