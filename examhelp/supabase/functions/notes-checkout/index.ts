@@ -203,6 +203,12 @@ const PRODUCTS: Record<string, { amount: number; file: string; downloadName: str
     downloadName: "TETTESTHUB-MP-GK-One-Liner.pdf",
     title: "मध्यप्रदेश सामान्य ज्ञान वन-लाइनर (ट्रिक सहित) — PDF",
   },
+  "msup-pdf": {
+    amount: 9900, // ₹99 in paise; guest PDF sale from /mahila-supervisor-ebook/ (no login)
+    file: "MP-Mahila-Supervisor-5000-One-Liner-TETTESTHUB.pdf",
+    downloadName: "TETTESTHUB-MP-Mahila-Supervisor-One-Liner.pdf",
+    title: "मध्यप्रदेश महिला पर्यवेक्षक वन-लाइनर (ट्रिक सहित) — PDF",
+  },
 };
 // TET subject series sold on tettesthub.in/tet/ (₹99 each, login required). The main site's
 // tet-unlock function reads paid orders via "tet_paid" and adds the tests to the student's profile.
