@@ -16,6 +16,7 @@ const SERIES = [
   { id: "mppsc", label: "MPPSC State Service Prelims (mppsc)" },
   { id: "mppsc2", label: "MPPSC Prelims Paper 2 CSAT (mppsc2)" },
   { id: "mpsi", label: "MP Police SI / Subedar (mpsi)" },
+  { id: "msup", label: "MP Mahila Supervisor (msup)" },
   { id: "nt", label: "MP Naib Tehsildar (nt)" },
   { id: "rrbsm", label: "RRB Station Master (rrbsm)" },
   { id: "sscgd", label: "SSC GD (sscgd)" },

@@ -109,6 +109,15 @@ const COURSES = (lang: Lang): Course[] => {
     },
     {
       f: ["new", "tests"], tone: "amber", art: "test", isNew: true,
+      kick: hi ? "MPESB • महिला बाल विकास" : "MPESB • WCD", big: hi ? "महिला पर्यवेक्षक" : "Mahila Supervisor",
+      sub: hi ? ["25 फुल टेस्ट", "टेस्ट 1 फ्री"] : ["25 full tests", "Test 1 free"],
+      tags: hi ? ["महिला बाल विकास", "टेस्ट सीरीज़"] : ["WCD", "Test series"], meta: [hi ? "हर टेस्ट" : "Each test", hi ? "200 प्रश्न · 180 मिनट" : "200 Qs · 180 min"],
+      title: hi ? "MP महिला पर्यवेक्षक — 25 फुल मॉक टेस्ट" : "MP Mahila Supervisor — 25 full mock tests",
+      desc: hi ? "✅ MPESB पैटर्न: पोषण, GK-तर्कशक्ति, प्रबंधन, ECCE ✅ टेस्ट 1 फ्री ✅ हिंदी/English, हर प्रश्न की व्याख्या" : "✅ MPESB pattern: Nutrition, GK-Reasoning, Management, ECCE ✅ Test 1 free ✅ Hindi/English, explanation for every question",
+      price: 99, href: "/mp-mahila-supervisor-mock-tests",
+    },
+    {
+      f: ["new", "tests"], tone: "amber", art: "test", isNew: true,
       kick: hi ? "MPESB • 73 पद" : "MPESB • 73 posts", big: hi ? "नायब तहसीलदार" : "Naib Tehsildar",
       sub: hi ? ["25 फुल टेस्ट", "टेस्ट 1 फ्री"] : ["25 full tests", "Test 1 free"],
       tags: hi ? ["राजस्व", "टेस्ट सीरीज़"] : ["Revenue", "Test series"], meta: [hi ? "हर टेस्ट" : "Each test", hi ? "200 प्रश्न · 240 मिनट" : "200 Qs · 240 min"],
