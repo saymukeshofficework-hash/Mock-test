@@ -163,6 +163,20 @@ export default function Page() {
             ))}
           </ul>
         </nav>
+        {/* WhatsApp help, logo only: number is not shown on the page (owner 2026-11-28) */}
+        <section aria-labelledby="gd-help-h" className="rounded-2xl border-t-2 border-green-600 bg-green-50 p-5 text-center sm:p-6">
+          <h2 id="gd-help-h" className="text-xl font-bold text-ink-900">कोई समस्या? संपर्क करें</h2>
+          <p className="mt-1 text-sm text-ink-700">Any problem? Contact us · पेमेंट या टेस्ट में दिक्कत हो तो WhatsApp करें</p>
+          <a
+            href="https://wa.me/918770375866?text=%E0%A4%A8%E0%A4%AE%E0%A4%B8%E0%A5%8D%E0%A4%A4%E0%A5%87%2C%20MP%20Police%20GD%20%E0%A4%9F%E0%A5%87%E0%A4%B8%E0%A5%8D%E0%A4%9F%20%E0%A4%AE%E0%A5%87%E0%A4%82%20%E0%A4%AE%E0%A4%A6%E0%A4%A6%20%E0%A4%9A%E0%A4%BE%E0%A4%B9%E0%A4%BF%E0%A4%8F"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="WhatsApp पर संपर्क करें / Chat on WhatsApp"
+            className="mx-auto mt-4 flex h-16 w-16 items-center justify-center rounded-full bg-[#25d366] shadow-lg"
+          >
+            <svg viewBox="0 0 32 32" width="36" height="36" fill="#fff" aria-hidden="true"><path d="M16 3C8.8 3 3 8.7 3 15.8c0 2.5.7 4.9 2 7L3 29l6.4-2c2 1.1 4.3 1.7 6.6 1.7 7.2 0 13-5.7 13-12.8S23.2 3 16 3zm0 23.4c-2.1 0-4.1-.6-5.9-1.7l-.4-.3-3.8 1.2 1.2-3.7-.3-.4c-1.2-1.8-1.8-3.8-1.8-5.9 0-5.9 4.9-10.6 11-10.6s11 4.8 11 10.6-4.9 10.8-11 10.8zm6-7.9c-.3-.2-2-1-2.3-1.1-.3-.1-.5-.2-.8.2-.2.3-.9 1.1-1.1 1.3-.2.2-.4.3-.7.1-.3-.2-1.4-.5-2.7-1.7-1-.9-1.7-2-1.9-2.3-.2-.3 0-.5.1-.7l.5-.6c.2-.2.2-.3.3-.6.1-.2 0-.4 0-.6l-1-2.5c-.3-.7-.6-.6-.8-.6h-.7c-.2 0-.6.1-.9.4-.3.3-1.2 1.2-1.2 2.9s1.2 3.4 1.4 3.6c.2.2 2.4 3.7 5.9 5.2 2.9 1.1 3.5.9 4.1.8.6-.1 2-.8 2.3-1.6.3-.8.3-1.5.2-1.6-.1-.2-.3-.3-.7-.4z" /></svg>
+          </a>
+        </section>
       </div>
       <GdSticky />
       <JsonLd

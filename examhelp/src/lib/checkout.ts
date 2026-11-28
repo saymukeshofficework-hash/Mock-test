@@ -238,6 +238,42 @@ function logCheckout(ev: string, product: string, order_id?: string, detail?: st
   }
 }
 
+// "Why did you close the payment?" sheet (owner 2026-11-28), GD only for now. One tap logs the reason to
+// checkout_events (ev close_reason); WhatsApp help (number not shown on the page) for anyone stuck at UPI.
+const HELP_WA = "https://wa.me/918770375866";
+const ASK_WHY = new Set(["pcgd-tests"]);
+function askCloseReason(product: string, order_id: string) {
+  if (!ASK_WHY.has(product)) return;
+  try {
+    document.getElementById("tth-why")?.remove();
+    const box = document.createElement("div");
+    box.id = "tth-why";
+    box.setAttribute("style", "position:fixed;left:0;right:0;bottom:0;z-index:99999;background:#fff;color:#111;border-top:3px solid #1e3a8a;box-shadow:0 -6px 24px rgba(0,0,0,.25);padding:14px 16px 18px;font:15px/1.4 system-ui,sans-serif;max-width:520px;margin:0 auto;border-radius:14px 14px 0 0");
+    const reasons: [string, string][] = [
+      ["upi", "UPI / पेमेंट ऐप नहीं खुला · UPI app did not open"],
+      ["later", "अभी सोच रहा हूँ · Thinking, will buy later"],
+      ["price", "कीमत ज़्यादा लगी · Price feels high"],
+      ["other", "कुछ और · Something else"],
+    ];
+    const wa = `${HELP_WA}?text=${encodeURIComponent("नमस्ते, MP Police GD टेस्ट खरीदने में मदद चाहिए / I need help to pay")}`;
+    box.innerHTML =
+      '<button aria-label="बंद करें / Close" style="position:absolute;right:10px;top:6px;border:0;background:none;font-size:22px;cursor:pointer">×</button>' +
+      '<b>पेमेंट पूरा नहीं हुआ, क्या दिक्कत आई?</b><div style="font-size:13px;color:#555;margin-bottom:8px">Payment not done. What went wrong?</div>' +
+      reasons.map(([k, t]) => `<button data-r="${k}" style="display:block;width:100%;text-align:left;margin:6px 0;padding:10px 12px;border:1px solid #cbd5e1;border-radius:10px;background:#f8fafc;font-size:14px;cursor:pointer">${t}</button>`).join("") +
+      `<a href="${wa}" target="_blank" rel="noopener" style="display:block;text-align:center;margin-top:10px;padding:11px;border-radius:10px;background:#16a34a;color:#fff;font-weight:700;text-decoration:none">WhatsApp पर मदद लें · Get help on WhatsApp</a>`;
+    box.addEventListener("click", (e) => {
+      const t = e.target as HTMLElement;
+      const r = t.closest("[data-r]")?.getAttribute("data-r");
+      if (r) logCheckout("close_reason", product, order_id, r);
+      if (t.closest("a")) logCheckout("close_reason", product, order_id, "whatsapp");
+      if (r || t.tagName === "BUTTON") box.remove();
+    });
+    document.body.appendChild(box);
+  } catch {
+    /* never break the page */
+  }
+}
+
 const IN_APP_RE = /Instagram|FBAN|FBAV|FB_IAB|FBIOS/i;
 function openInRealBrowser(product: string): boolean {
   const ua = navigator.userAgent;
@@ -322,6 +358,7 @@ export async function buyNotes(
         ondismiss: () => {
           logCheckout("closed", product, order.order_id, `after_${Math.round((Date.now() - openedAt) / 1000)}s`);
           onState("idle");
+          askCloseReason(product, order.order_id);
         },
       },
       handler: async (res: RazorpayHandlerArgs) => {
