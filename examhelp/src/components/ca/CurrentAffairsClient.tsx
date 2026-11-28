@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { BookOpen, Download, Globe2, Landmark, MapPin, Newspaper, ShieldCheck, Sparkles } from "lucide-react";
+import { Download, Globe2, Landmark, MapPin, Newspaper, ShieldCheck, Sparkles } from "lucide-react";
 
 /**
  * Daily current affairs (MP, India, World), free for everyone.
