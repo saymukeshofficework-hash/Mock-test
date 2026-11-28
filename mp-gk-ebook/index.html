@@ -246,6 +246,15 @@ var ANON="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6I
 var PROD="mpgk-pdf",KEY="tth_orders_"+PROD,TKEY="tth_token_"+PROD;
 function $(id){return document.getElementById(id)}
 function call(b){return fetch(FN,{method:"POST",headers:{"Content-Type":"application/json",apikey:ANON,Authorization:"Bearer "+ANON},body:JSON.stringify(b)}).then(function(r){return r.json()}).catch(function(){return{error:"net"}})}
+function log(ev,oid,d){try{fetch(FN.split("/functions/")[0]+"/rest/v1/checkout_events",{method:"POST",keepalive:true,headers:{"Content-Type":"application/json",apikey:ANON,Authorization:"Bearer "+ANON,Prefer:"return=minimal"},body:JSON.stringify({ev:ev,product:PROD,order_id:oid||null,detail:d||null,ua:navigator.userAgent.slice(0,300)})}).catch(function(){})}catch(e){}}
+// "why did you close" sheet + WhatsApp help (owner 28 Nov 2026)
+function why(oid){try{var o=$("tth-why");if(o)o.remove();var b=document.createElement("div");b.id="tth-why";
+ b.setAttribute("style","position:fixed;left:0;right:0;bottom:0;z-index:99999;background:#fff;color:#111;border-top:3px solid #0f3d6e;box-shadow:0 -6px 24px rgba(0,0,0,.25);padding:14px 16px 18px;font:15px/1.4 system-ui,sans-serif;max-width:520px;margin:0 auto;border-radius:14px 14px 0 0");
+ var R=[["upi","UPI / पेमेंट ऐप नहीं खुला · UPI app did not open"],["later","अभी सोच रहा हूँ · Thinking, will buy later"],["price","कीमत ज़्यादा लगी · Price feels high"],["other","कुछ और · Something else"]];
+ var wa="https://wa.me/918770375866?text="+encodeURIComponent("नमस्ते, मुझे MP GK PDF खरीदने में मदद चाहिए / I need help to pay");
+ b.innerHTML='<button aria-label="बंद करें / Close" style="position:absolute;right:10px;top:6px;border:0;background:none;font-size:22px;cursor:pointer">×</button><b>पेमेंट पूरा नहीं हुआ, क्या दिक्कत आई?</b><div style="font-size:13px;color:#555;margin-bottom:8px">Payment not done. What went wrong?</div>'+R.map(function(x){return '<button data-r="'+x[0]+'" style="display:block;width:100%;text-align:left;margin:6px 0;padding:10px 12px;border:1px solid #cbd5e1;border-radius:10px;background:#f8fafc;font-size:14px;cursor:pointer">'+x[1]+'</button>'}).join("")+'<a href="'+wa+'" target="_blank" rel="noopener" style="display:block;text-align:center;margin-top:10px;padding:11px;border-radius:10px;background:#16a34a;color:#fff;font-weight:700;text-decoration:none">WhatsApp पर मदद लें · Get help on WhatsApp</a>';
+ b.addEventListener("click",function(e){var t=e.target,r=t.closest("[data-r]");if(r)log("close_reason",oid,r.getAttribute("data-r"));if(t.closest("a"))log("close_reason",oid,"whatsapp");if(r||t.tagName==="BUTTON")b.remove()});
+ document.body.appendChild(b)}catch(e){}}
 function ids(){try{return JSON.parse(localStorage.getItem(KEY)||"[]")}catch(e){return[]}}
 function say(t,c){var m=$("msg");m.textContent=t;m.className="msg"+(c?" "+c:"")}
 var token=null,ready=false;
@@ -276,10 +285,10 @@ function buy(){
   try{localStorage.setItem(KEY,JSON.stringify([o.order_id].concat(ids()).slice(0,10)))}catch(e){}
   return loadRzp().then(function(){
    new Razorpay({key:o.key_id,order_id:o.order_id,amount:o.amount,currency:o.currency,name:"TETTESTHUB",description:"MP GK 5000 One-Liner PDF",theme:{color:"#0f3d6e"},
-    handler:function(r){say("पेमेंट जाँच रहे हैं… / Checking payment…");
+    handler:function(r){log("paid",o.order_id);say("पेमेंट जाँच रहे हैं… / Checking payment…");
      call({action:"verify",order_id:r.razorpay_order_id,payment_id:r.razorpay_payment_id,signature:r.razorpay_signature}).then(function(v){done();
       if(v.token){try{window.fbq&&fbq("track","Purchase",{content_name:PROD,value:Math.round(o.amount/100),currency:"INR"})}catch(e){}owned(v.token);dl()}else say("पेमेंट मिला, पेज रीलोड करें / Payment received, please reload this page","err")})},
-    modal:{ondismiss:function(){done();say("")}}}).open();
+    modal:{ondismiss:function(){done();say("");log("closed",o.order_id,"after_"+Math.round((Date.now()-t0)/1000)+"s");why(o.order_id)}}}).open();var t0=Date.now();log("opened",o.order_id);
    try{window.fbq&&fbq("track","Lead",{content_name:PROD,value:Math.round(o.amount/100),currency:"INR"})}catch(e){}
   });
  }).catch(function(){done();say("पेमेंट शुरू नहीं हुआ, फिर कोशिश करें / Could not start payment, try again","err")});
